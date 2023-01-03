@@ -67,7 +67,7 @@
 <body>
 	<header>
 		<!-- Login, Join링크 표시 영역  -->
-		<jsp:include page="inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<!-- 게시판 상세내용 보기 -->
 	<section id="articleForm">

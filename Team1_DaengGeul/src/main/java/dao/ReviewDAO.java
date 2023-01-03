@@ -48,7 +48,7 @@ public class ReviewDAO {
 			}
 			System.out.println("새 글 번호 : " + review_idx);
 			
-			sql = "INSERT INTO review VALUES(?,?,?,?,?,?,?,?,now(),?)";
+			sql = "INSERT INTO review VALUES(?,?,?,?,?,?,?,?,now(),?,0)";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, review_idx);
 			pstmt2.setString(2, review.getProduct_idx()); // review.getProduct_id()
@@ -78,7 +78,11 @@ public class ReviewDAO {
 		
 		List<ReviewBean> reviewList = null;
 		
-		PreparedStatement pstmt = null;
+		ReviewBean review = null;
+	
+		int review_like_count = 0;
+	
+		PreparedStatement pstmt = null, pstmt2 = null;
 		ResultSet rs = null;
 		
 		try {
@@ -101,7 +105,7 @@ public class ReviewDAO {
 			reviewList = new ArrayList<ReviewBean>();
 			
 			while(rs.next()) {
-				ReviewBean review = new ReviewBean();
+				review = new ReviewBean();
 				
 				review.setReview_idx(rs.getInt("review_idx"));
 				review.setProduct_idx(rs.getString("product_idx"));
@@ -112,9 +116,35 @@ public class ReviewDAO {
 				review.setReview_readcount(rs.getInt("review_readcount"));
 				review.setReview_date(rs.getDate("review_date"));
 				
-//				System.out.println(review);
-				
 				reviewList.add(review);
+			}
+			
+			for(ReviewBean rv : reviewList) {
+	
+				sql = "update review "
+						+ "set review_like_count = ("
+						+ "select count(*) "
+						+ "from review_like "
+						+ "where review_idx = ?) "
+						+ "where review_idx = ?";
+	
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setInt(1, rv.getReview_idx());
+				pstmt2.setInt(2, rv.getReview_idx());
+//				System.out.println(pstmt2);
+	
+				review_like_count = pstmt2.executeUpdate();
+	
+				if(review_like_count > 0) {
+					sql = "SELECT review_like_count FROM review WHERE review_idx=?";
+					pstmt2 = con.prepareStatement(sql);
+					pstmt2.setInt(1, rv.getReview_idx());
+					rs = pstmt2.executeQuery();
+					if(rs.next()) {
+						rv.setReview_like_count(rs.getInt(1));
+//						System.out.println("review_like_count: " + rv.getReview_like_count());
+					}
+				}
 			}
 			
 		} catch (SQLException e) {
@@ -123,6 +153,7 @@ public class ReviewDAO {
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
+			JdbcUtil.close(pstmt2);
 		}
 		return reviewList;
 		

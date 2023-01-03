@@ -27,31 +27,6 @@ public class ReviewFrontController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-//		// 서블릿 주소 추출
-//		// 0.
-//		String requestURL = request.getRequestURL().toString();
-//		System.out.println("requestURL : " + requestURL);
-//		
-//		// 1.
-//		String requestURI = request.getRequestURI().toString();
-//		System.out.println("requestURI : " + requestURI);
-//		
-//		// 2.
-//		String contextPath = request.getContextPath();
-//		System.out.println("contextPath : " + contextPath);
-//		
-//		// 3.
-//		// 1)
-//		String command = requestURI.replace(contextPath, "");
-//		// URI - Path 하면 될 거 같음
-//		System.out.println("command : " + command);
-//		
-//		// 2)
-//		String command = requestURI.substring(contextPath.length());
-//		System.out.println("command : " + command);
-		
-		//==================================================================
-		
 		String command = request.getServletPath();
 		System.out.println("command : " + command);
 		
