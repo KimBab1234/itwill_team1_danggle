@@ -148,16 +148,19 @@ public class OrderedDAO { //싱글톤디자인패턴
 			for(OrderBean order : orderList) {
 				ArrayList<String> review = new ArrayList<>();
 				for(String prod : prod_idx) {
-					sql = "SELECT * FROM review WHERE product_idx=? AND member_id=?";
+					sql = "SELECT * FROM review WHERE product_idx=? AND order_idx=?";
 					pstmt2 = con.prepareStatement(sql);
 					pstmt2.setString(1, prod);
-					pstmt2.setString(2, id);
+					pstmt2.setString(2, order.getOrder_merchant_uid());
+					System.out.println(pstmt2);
 					i++;
 					rs2=pstmt2.executeQuery();
 					if(rs2.next()) {
 						review.add("Y");
+						System.out.println("Y");
 					} else {
 						review.add("N");
+						System.out.println("N");
 					}
 				}
 				order.setReview_write(review);

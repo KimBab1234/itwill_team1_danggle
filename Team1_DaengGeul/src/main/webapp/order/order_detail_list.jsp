@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>주문 상세 내역</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style>

@@ -51,17 +51,17 @@
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                     <div class="navbar-nav w-100 overflow-hidden" style="height: 460px">
-                        <a href="ProductList.go?type=B_best_genre&keyword=humanities" class="nav-item nav-link">인문</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=novel" class="nav-item nav-link">소설</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=poem" class="nav-item nav-link">시</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=history" class="nav-item nav-link">역사</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=religion" class="nav-item nav-link">종교</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=society" class="nav-item nav-link">사회</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=science" class="nav-item nav-link">과학</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=self_improvement" class="nav-item nav-link">자기계발</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=kids" class="nav-item nav-link">어린이</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=health" class="nav-item nav-link">건강</a>
-						<a href="ProductList.go?type=B_best_genre&keyword=reference" class="nav-item nav-link">참고서</a>
+                        <a href="ProductList.go?type=B_new_genre&keyword=humanities" class="nav-item nav-link">인문</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=novel" class="nav-item nav-link">소설</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=poem" class="nav-item nav-link">시</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=history" class="nav-item nav-link">역사</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=religion" class="nav-item nav-link">종교</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=society" class="nav-item nav-link">사회</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=science" class="nav-item nav-link">과학</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=self_improvement" class="nav-item nav-link">자기계발</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=kids" class="nav-item nav-link">어린이</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=health" class="nav-item nav-link">건강</a>
+						<a href="ProductList.go?type=B_new_genre&keyword=reference" class="nav-item nav-link">참고서</a>
                     </div>
                 </nav>
             </div>
@@ -77,7 +77,7 @@
                         <div class="navbar-nav mr-auto py-0">
                            <a href="./" class="nav-item nav-link active">Home</a>
                             <a href="ProductList.go?type=B_recomm" class="nav-item nav-link">추천도서</a>
-                            <a href="ProductList.go?type=B" class="nav-item nav-link">베스트셀러</a>
+                            <a href="ProductList.go?type=B_best" class="nav-item nav-link">베스트셀러</a>
                             <a href="ProductList.go?type=B_disc" class="nav-item nav-link">할인 중인 도서</a>
                             <a href="ProductList.go?type=G" class="nav-item nav-link">굿즈샵</a>
                             <a href="" class="nav-item nav-link">커뮤니티</a>

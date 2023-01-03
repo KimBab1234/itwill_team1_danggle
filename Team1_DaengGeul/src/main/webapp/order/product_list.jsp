@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 목록</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
 </head>
 <body>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>결제 완료</title>
 <link href="../css/default_order.css" rel="stylesheet" type="text/css">
 <script>
 var id = '${sessionScope.sId}';
