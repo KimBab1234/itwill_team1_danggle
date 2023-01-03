@@ -1,0 +1,131 @@
+package controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import action.Action;
+import action.MemberCheckIdAction;
+import action.MemberDeleteProAction;
+import action.MemberInfoAction;
+import action.MemberJoinProAction;
+import action.MemberListAction;
+import action.MemberLoginProAction;
+import action.MemberLogoutProAction;
+import action.MemberSearchIdAction;
+import action.MemberUpdateProAction;
+import vo.ActionForward;
+
+@WebServlet("*.me") 
+public class MemberFrontController extends HttpServlet {
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String command = request.getServletPath();
+		
+		Action action = null;
+		ActionForward forward = null;
+		
+		// 회원가입 Controller
+		if(command.equals("/MemberJoinForm.me")) {
+			forward = new ActionForward();
+			forward.setPath("member/member_join_form.jsp");
+			forward.setRedirect(false);
+		// 사용중인 아이디 확인
+		} else if(command.equals("/MemberCheckId.me")) {
+			action = new MemberCheckIdAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/MemberJoinPro.me")) {
+			System.out.println("회원가입!");
+			action = new MemberJoinProAction();
+			forward = action.execute(request, response);
+		
+			
+		// 로그인 Controller
+		} else if(command.equals("/MemberLoginForm.me")) {
+			forward = new ActionForward();
+			forward.setPath("member/member_login_form.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/MemberLoginPro.me")) {
+			System.out.println("로그인!");
+			action = new MemberLoginProAction();
+			forward = action.execute(request, response);
+		
+			
+		// 로그아웃 Controller
+		} else if(command.equals("/MemberLogoutPro.me")) {
+			System.out.println("로그아웃!");
+			action = new MemberLogoutProAction();
+			forward = action.execute(request, response);
+		
+			
+		// 일반사용자(회원정보)/관리자(회원목록) Controller
+		} else if(command.equals("/MemberInfo.me")) {
+			System.out.println("마이페이지!");
+			action = new MemberInfoAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/MemberList.me")) {
+			System.out.println("관리자페이지!");
+			action = new MemberListAction();
+			forward = action.execute(request, response);
+		
+			
+		// 회원 수정 Controller
+		} else if(command.equals("/MemberUpdatePro.me")) {
+			System.out.println("마이페이지!");
+			action = new MemberUpdateProAction();
+			forward = action.execute(request, response);
+			
+		
+		// 회원탈퇴 Controller
+		} else if(command.equals("/MemberDeleteForm.me")) {
+			forward = new ActionForward();
+			forward.setPath("member/member_delete.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/MemberDeletePro.me")) {
+			System.out.println("회원탈퇴!");
+			action = new MemberDeleteProAction();
+			forward = action.execute(request, response);
+		
+			
+		// 회원 아이디/비밀번호 찾기 Controller
+		} else if(command.equals("/MemberInfoSearchForm.me")) {
+			forward = new ActionForward();
+			forward.setPath("member/member_info_search_form.jsp");
+			forward.setRedirect(false);
+		// 회원 아이디 찾기
+		} else if(command.equals("/MemberSearchId.me")) {
+			System.out.println("회원 아이디 찾기!");
+			action = new MemberSearchIdAction();
+			forward = action.execute(request, response);
+		// 회원 아이디/비밀번호 찾기
+		} else if(command.equals("/MemberDeletePro.me")) {
+			System.out.println("회원 비밀번호 찾기!");
+			action = new MemberDeleteProAction();
+			forward = action.execute(request, response);
+		}
+
+		if(forward != null) {
+			if(forward.isRedirect()) {
+				response.sendRedirect(forward.getPath());
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+				dispatcher.forward(request, response);
+			}
+		}
+		
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doProcess(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doProcess(request, response);
+	}
+
+}

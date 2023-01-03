@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+	table, th, td {
+	border: 1px solid;
+	border: 1px solid;
+	margin: auto;
+	}
+	
+	th {
+		background-color: #513e30;
+		color: #c9b584;
+	}
+	
+	.clear {
+		margin-top: 10%;
+	}
+
+	#pageList {
+		margin: auto;
+		width: 1024px;
+		text-align: center;
+	}
+	
+	#buttonArea {
+		margin: auto;
+		width: 1024px;
+		text-align: right;
+		margin-top: 10px;
+	}
+	
+	#listName {
+		margin-left: 10%
+	}
