@@ -103,7 +103,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 			List<String> idxArr = new ArrayList<>();
 			while(rs.next()) {
 				OrderBean order = new OrderBean();
-				order.setOrder_merchant_uid(rs.getString("order_idx").replace(id, ""));
+				order.setOrder_merchant_uid(rs.getString("order_idx"));
 				order.setOrder_total_pay(rs.getInt("order_total_pay"));
 				order.setOrder_date(rs.getDate("order_date"));
 				idxArr.add(rs.getString("order_idx"));
@@ -146,21 +146,19 @@ public class OrderedDAO { //싱글톤디자인패턴
 			////리뷰 썼는지 유무 확인
 			i=0;
 			for(OrderBean order : orderList) {
+				prod_idx = order.getOrder_prod_idx();
 				ArrayList<String> review = new ArrayList<>();
 				for(String prod : prod_idx) {
 					sql = "SELECT * FROM review WHERE product_idx=? AND order_idx=?";
 					pstmt2 = con.prepareStatement(sql);
 					pstmt2.setString(1, prod);
 					pstmt2.setString(2, order.getOrder_merchant_uid());
-					System.out.println(pstmt2);
 					i++;
 					rs2=pstmt2.executeQuery();
 					if(rs2.next()) {
 						review.add("Y");
-						System.out.println("Y");
 					} else {
 						review.add("N");
-						System.out.println("N");
 					}
 				}
 				order.setReview_write(review);

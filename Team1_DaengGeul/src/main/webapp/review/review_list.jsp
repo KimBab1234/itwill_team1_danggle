@@ -19,7 +19,7 @@
 	<div align="center">
 	<div style="width: 1000px; margin-top: 50px; min-height: 500px;">
 	<section id="listForm">
-	<h2>Review 게시판 글 목록</h2>
+	<h2>내가 쓴 Review 목록</h2>
 	<table border="1">
 		<tr id="tr_top">
 			<td width="100">번호</td>

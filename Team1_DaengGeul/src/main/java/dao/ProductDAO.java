@@ -649,7 +649,7 @@ int updateCount = 0;
 	}
 	
 	//=====================상품 발송 후 상품 재고, 판매량 업데이트=====================
-		public boolean updateProductSell(String order_list) {
+		public boolean updateProductSell(ArrayList<String> orderArr, ArrayList<Integer> countList) {
 
 			System.out.println("DAO - updateProductSell 진입");
 			int successCount =0;
@@ -657,13 +657,11 @@ int updateCount = 0;
 			
 			try {
 				
-				String[] orderArr = order_list.split(", ");
 				String sql = "";
-				
-				for(int i=0; i<orderArr.length; i++) {
+				int i=0;
+				for(String productIdx : orderArr) {
 					
-					String productIdx = orderArr[i].split("=")[0];
-					int productCount = Integer.parseInt(orderArr[i].split("=")[1]);
+					int productCount = countList.get(i++);
 					
 					if(productIdx.charAt(0)=='B') {
 						sql = "UPDATE book SET book_sel_count=book_sel_count+?, book_quantity=book_quantity-? WHERE book_idx=?";
@@ -679,7 +677,7 @@ int updateCount = 0;
 				}
 				
 				//모두 정상 반영됐으면
-				if(successCount==orderArr.length) {
+				if(successCount==orderArr.size()) {
 					isSuccessUpdate=true;
 				}
 				

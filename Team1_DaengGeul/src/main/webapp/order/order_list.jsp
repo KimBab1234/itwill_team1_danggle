@@ -53,7 +53,7 @@
 				</tr>
 				<c:forEach items="${orderList}" var="order" varStatus="status">
 							<tr>
-								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList.or?order_idx=${sessionScope.sId.concat(order.order_merchant_uid)}">${order.order_merchant_uid}</a></td>
+								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList.or?order_idx=${order.order_merchant_uid}">${order.order_merchant_uid}</a></td>
 								<td>${order.order_prod_name.get(0)}</td>
 								<td>${order.order_prod_price.get(0)}</td>
 								<td>${order.order_status.get(0)}</td>
@@ -62,7 +62,7 @@
 										<td>리뷰 작성 완료</td>
 									</c:when>
 									<c:otherwise>
-										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_idx.get(0)}&order_idx=${sessionScope.sId.concat(order.order_merchant_uid)}'">리뷰쓰러가기</button></td>
+										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_idx.get(0)}&order_idx=${order.order_merchant_uid}'">리뷰쓰러가기</button></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -76,7 +76,7 @@
 										<td>리뷰 작성 완료</td>
 									</c:when>
 									<c:otherwise>
-										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_idx.get(i)}&order_idx=${sessionScope.sId.concat(order.order_merchant_uid)}'">리뷰쓰러가기</button></td>
+										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_idx.get(i)}&order_idx=${order.order_merchant_uid}'">리뷰쓰러가기</button></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
