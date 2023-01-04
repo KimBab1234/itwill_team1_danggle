@@ -30,18 +30,14 @@ public class ReviewLikeUpdateAction implements Action {
 			
 			ReviewLikeUpdateService service = new ReviewLikeUpdateService();
 			
-			boolean isReviewLike = service.isReviewLike(review_idx, member_id, review_like_done);
+			int review_like_count = service.isReviewLike(review_idx, member_id, review_like_done);
 //			System.out.println(isReviewLike);
 				
-			forward = new ActionForward();
-			if(review_like_done.equals("Y")) {
-				review_like_done = "N";
-				forward.setPath("ReviewDetail.re?review_idx="+review_idx+"&pageNum="+request.getParameter("pageNum")+"&review_like_done=" + review_like_done);
-			}else if(review_like_done.equals("N")) {
-				review_like_done = "Y";
-				forward.setPath("ReviewDetail.re?review_idx="+review_idx+"&pageNum="+request.getParameter("pageNum")+"&review_like_done=" + review_like_done);
-			}
-			forward.setRedirect(true);
+							
+			////ajax로 데이터 보내기
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print(review_like_count);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

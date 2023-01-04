@@ -119,33 +119,8 @@ public class ReviewDAO {
 				reviewList.add(review);
 			}
 			
-			for(ReviewBean rv : reviewList) {
 	
-				sql = "update review "
-						+ "set review_like_count = ("
-						+ "select count(*) "
-						+ "from review_like "
-						+ "where review_idx = ?) "
-						+ "where review_idx = ?";
-	
-				pstmt2 = con.prepareStatement(sql);
-				pstmt2.setInt(1, rv.getReview_idx());
-				pstmt2.setInt(2, rv.getReview_idx());
-//				System.out.println(pstmt2);
-	
-				review_like_count = pstmt2.executeUpdate();
-	
-				if(review_like_count > 0) {
-					sql = "SELECT review_like_count FROM review WHERE review_idx=?";
-					pstmt2 = con.prepareStatement(sql);
-					pstmt2.setInt(1, rv.getReview_idx());
-					rs = pstmt2.executeQuery();
-					if(rs.next()) {
-						rv.setReview_like_count(rs.getInt(1));
-//						System.out.println("review_like_count: " + rv.getReview_like_count());
-					}
-				}
-			}
+				
 			
 		} catch (SQLException e) {
 			System.out.println("ReviewDAO - selectReviewList()");
@@ -153,7 +128,6 @@ public class ReviewDAO {
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
-			JdbcUtil.close(pstmt2);
 		}
 		return reviewList;
 		
@@ -176,6 +150,7 @@ public class ReviewDAO {
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
+			rs = pstmt.executeQuery();
 
 			if(product_idx!=null) { //상품별 리뷰목록
 				pstmt.setString(2, product_idx);
@@ -375,16 +350,17 @@ public class ReviewDAO {
 	// 리뷰 좋아요 누른 아이디 , 글번호 추가 
 	public int insertReviewLike(int review_idx, String member_id, String review_like_done) {
 		System.out.println("ReviewDAO - insertReviewlike()");
-		int insertCount = 0;
-		
-		PreparedStatement pstmt = null;
+		int review_like_count = -1;
+		int insertCount=0;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null, pstmt2=null, pstmt3=null;
 		
 		try {
 			System.out.println("review_like_done:" + review_like_done);
-			
+			String sql=null;
 			if(review_like_done.equals("N")) {
 				
-			String sql = "INSERT INTO review_like VALUES(?,?)";
+			sql = "INSERT INTO review_like VALUES(?,?)";
 			
 				pstmt = con.prepareStatement(sql);
 				
@@ -395,7 +371,7 @@ public class ReviewDAO {
 				
 			}else if(review_like_done.equals("Y")) {
 			
-			 String sql = "DELETE FROM review_like WHERE review_idx=? AND member_id=?";
+			 sql = "DELETE FROM review_like WHERE review_idx=? AND member_id=?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, review_idx);
@@ -405,17 +381,49 @@ public class ReviewDAO {
 				
 			}
 			
+			if(insertCount>0) {
+				sql = "update review "
+						+ "set review_like_count = ("
+						+ "select count(*) "
+						+ "from review_like "
+						+ "where review_idx = ?) "
+						+ "where review_idx = ?";
+	
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setInt(1,review_idx);
+				pstmt2.setInt(2, review_idx);
+	
+				int updateCount = pstmt2.executeUpdate();
+	
+				if(updateCount > 0) {
+					sql = "SELECT review_like_count FROM review WHERE review_idx=?";
+					pstmt3 = con.prepareStatement(sql);
+					pstmt3.setInt(1,  review_idx);
+					rs = pstmt3.executeQuery();
+					if(rs.next()) {
+						review_like_count = rs.getInt(1);
+//						System.out.println("review_like_count: " + rv.getReview_like_count());
+					}
+				}
+			}
+
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 - insertReview_like()");
 			e.printStackTrace();
 		} finally {
+		  JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt3);
+			JdbcUtil.close(pstmt2);
 			JdbcUtil.close(pstmt);
 		}
-		return insertCount; 
+		return review_like_count; 
 	}
 	
 	
 }
+
+
+
 
 
 

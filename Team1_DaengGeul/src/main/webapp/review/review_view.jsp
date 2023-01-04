@@ -8,6 +8,48 @@
 <meta charset="UTF-8">
 <title>Review 게시판</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+$(function() {
+	
+	if('${review.review_like_done}' =='Y') {
+		$("#review_like1").prop("color", "blue");
+		$("#review_like1").val("Y");
+	} else {
+		$("#review_like1").prop("color", "gray");
+		$("#review_like1").val("N");
+	}
+	
+	$("#review_like1").on("click", function() {
+		var review_like_done = $(this).val();
+		$.ajax({
+			type: "post",
+			url: "ReviewLikeUpdate.re",
+			data: {
+				review_idx: '${param.review_idx}',
+				review_like_done: review_like_done
+				},
+				success: function(response) {
+					$("#like_count").text(response);
+					
+					if(review_like_done =='Y') {
+						$("#review_like1").css("color", "gray");
+						$("#review_like1").val("N");
+						$("#review_like_done").text("N");
+					} else {
+						$("#review_like1").css("color", "blue");
+						$("#review_like1").val("Y");
+						$("#review_like_done").text("Y");
+					}
+					
+				},
+				error: function(xhr, textStatus, errorThrown) { 
+					// 요청에 대한 처리 실패 시(= 에러 발생 시) 실행되는 이벤트
+					$("#resultArea").html("xhr = " + xhr + "<br>textStatus = " + textStatus + "<br>errorThrown = " + errorThrown);
+				}
+		});
+	});
+});
+</script>
 
 <!-- 외부 css 가져오기 -->
 <style type="text/css">
@@ -85,20 +127,10 @@
 			</tr>
 			<tr>
 				<th width="70" height="20">별점</th><td>${review.review_score}</td>
-				<th width="70" height="20">좋아요</th><td>${review.review_like_done}</td>
+				<th width="70" height="20">좋아요</th><td id = "review_like_done">${review.review_like_done}</td>
 				<td>
-					<c:choose>
-						<c:when test="${review.review_like_done eq 'Y'}">
-							<button type="button" class="review_like_done" style="color:blue"
-							onclick="location.href='ReviewLikeUpdate.re?review_idx=${param.review_idx}&member_id=${sessionScope.sId}&pageNum=${param.pageNum}&review_like_done=${review.review_like_done}'">
-							<i class='far fa-thumbs-up' style='font-size:28px'></i></button><div class="like_count"></div>
-						</c:when>
-						<c:otherwise>
-							<button type="button" class="review_like" style="color:gray"
-							onclick="location.href='ReviewLikeUpdate.re?review_idx=${param.review_idx}&member_id=${sessionScope.sId}&pageNum=${param.pageNum}&review_like_done=${review.review_like_done}'">
-							<i class='far fa-thumbs-up' style='font-size:28px' ></i></button><div class="like_count"></div>
-						</c:otherwise>
-					</c:choose>
+					<button type="button" type="button" class="review_like" id="review_like1">
+					<i class='far fa-thumbs-up' style='font-size:28px'></i></button><div id="like_count">${review.review_like_count}</div>
 				</td>
 			</tr>
 			<tr>

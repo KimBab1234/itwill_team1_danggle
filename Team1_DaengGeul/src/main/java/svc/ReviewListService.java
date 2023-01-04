@@ -25,6 +25,8 @@ public class ReviewListService {
 		//
 		reviewList = dao.selectReviewList(keyword, id, product_idx, startRow, listLimit);
 		
+		JdbcUtil.commit(con);
+		
 		//공통작업 4. Connection 객체 반환하기
 		JdbcUtil.close(con);
 		
