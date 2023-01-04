@@ -38,7 +38,7 @@
 		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_best${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>많이 팔린 순</a>
 		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_pricedown${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 낮은 순</a>
 		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_priceup${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 높은 순</a>
-		                                    <a class="dropdown-item" href="#">리뷰 좋은 순</a>
+		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_star${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>리뷰 좋은 순</a>
 		                                </div>
 	                            	</c:if>
 	                            </div>
@@ -68,7 +68,7 @@
 	                                    <h6 class="text-muted ml-2"><del>${item.price}</del></h6>&nbsp;<h5 style="color: orange">${item.dis_price}</h5>
 	                                </div>
 	                                <div class="d-flex justify-content-center">
-	                                    <h6 style="color: orange">${item.discount}% 할인</h6>
+	                                    <h6 style="color: red">${item.discount}% 할인</h6>&nbsp;|&nbsp;<i class="fa fa-star" style="color: orange"></i>&nbsp;<h6 style="color: brown">${item.review_score}</h6>
 	                                </div>
 	                                <c:if test="${item.product_idx.substring(0,1) eq 'B'}">
 		                                 <div class="d-flex justify-content-center">

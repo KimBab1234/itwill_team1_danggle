@@ -534,14 +534,15 @@ int updateCount = 0;
 			String sql = "";
 			boolean book_chk = false;
 			if(type.equals("B")) {
-				sql = "SELECT book_idx, book_name, book_price, book_discount, book_img, book_price*(100-book_discount)/100 'dis_price', ifnull(sel_count,0) 'sel_count', regi_date, book_genre, book_writer, book_publisher From book_sort_view";
+				sql = "SELECT book_idx, book_name, book_price, book_discount, book_img, book_price*(100-book_discount)/100 'dis_price', ifnull(sel_count,0) 'sel_count', regi_date,  ifnull(review_score,0) 'review_score', book_genre, book_writer, book_publisher From book_sort_view b"
+						+ " LEFT OUTER JOIN (select product_idx, avg(review_score) 'review_score' from review group by product_idx) r on r.product_idx=b.book_idx";
 				book_chk = true;
 			} else if(type.equals("G")) {
 				sql = "SELECT goods_idx, goods_name, goods_price, goods_discount, goods_img, goods_price*(100-goods_discount)/100 'dis_price', goods_date 'regi_date' FROM goods";
 			}
 
 			String[] sortArr = sort.split("_");
-
+			
 			//언더바가 2개 들어가는건 검색, 장르 뿐임
 			if(sortArr.length > 1) {
 				if(sortArr[1].equals("search")) { //검색이면 name으로 찾기
@@ -559,20 +560,21 @@ int updateCount = 0;
 				sql += " ORDER BY sel_count DESC";
 			} else if(sortArr[0].equals("new")) {  //신상품 순으로
 				sql += " ORDER BY regi_date DESC";
-			} else if(sortArr[0].equals("star")) {  //별점 좋은 순으로
-				
 			} else if(sortArr[0].equals("disc")) { //할인율 높은 순으로
 				sql += " WHERE book_discount > 0 ORDER BY book_discount DESC";
 			} else if(sortArr[0].equals("recomm")) {  //운영자 추천도서
 				sql = "SELECT book_idx, book_name, book_price, book_discount, book_img, book_price*(100-book_discount)/100 'dis_price', ifnull(sel_count,0) 'sel_count', regi_date, book_genre, book_writer, book_publisher"
-					+ " From book_sort_view join recommend_book r on r.product_idx=book_sort_view.book_idx";
-			} 
+					+ " From book_sort_view join recommend_book r on r.product_idx=book_sort_view.book_idx"
+					+ " LEFT OUTER JOIN (select product_idx, avg(review_score) 'review_score' from review group by product_idx) r on r.product_idx=book_sort_view.book_idx";
+			} else if(sortArr[0].equals("star")) {
+				sql += " ORDER BY review_score DESC";
+			}
 			
 			sql += " LIMIT ?,?"; //1페이지당 상품 12개씩 가져오는건 책, 굿즈 동일함
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, pageStartRow);
 			pstmt.setInt(2, pageProductCount);
-//			System.out.println(pstmt);
+			System.out.println(pstmt);
 			rs=pstmt.executeQuery();
 
 			productList = new LinkedList<>();
@@ -588,11 +590,13 @@ int updateCount = 0;
 				product.setDis_price(rs.getInt(6));
 				product.setSel_count(rs.getInt(7));
 				product.setBook_date(rs.getDate(8));
+				product.setReview_score(rs.getDouble("review_score"));
+				
 				
 				if(book_chk) {
-					product.setBook_genre(rs.getString(9));
-					product.setBook_writer(rs.getString(10));
-					product.setBook_publisher(rs.getString(11));
+					product.setBook_genre(rs.getString(10));
+					product.setBook_writer(rs.getString(11));
+					product.setBook_publisher(rs.getString(12));
 				}
 				productList.add(product);
 			}
