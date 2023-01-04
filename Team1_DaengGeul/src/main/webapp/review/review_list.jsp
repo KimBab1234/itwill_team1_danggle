@@ -55,7 +55,7 @@
 					<fmt:formatDate value="${review.review_date }" pattern="yy-MM-dd"/>
 				</td>
 				<td>
-					<i class='far fa-thumbs-up'></i>${param.review_like}
+					<i class='far fa-thumbs-up'></i>${review.review_like_count}
 				</td>
 				<td>${review.review_readcount }</td>
 			</tr>
@@ -69,6 +69,44 @@
 		<input type="text" name="keyword">
 		<input type="submit" value="검색">
 		</form>
+	</section>
+	<section id="pageList">
+		<!-- 
+		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
+		=> 클릭 시 BoardList.bo 서블릿 주소 요청하면서 
+		   현재 페이지 번호(pageNum) - 1 값을 page 파라미터로 전달
+		-->
+		<c:choose>
+			<c:when test="${pageNum > 1}">
+				<input type="button" value="이전" onclick="location.href='ReviewList.re?pageNum=${pageNum - 1}'">
+			</c:when>
+			<c:otherwise>
+				<input type="button" value="이전">
+			</c:otherwise>
+		</c:choose>
+			
+		<!-- 페이지 번호 목록은 시작 페이지(startPage)부터 끝 페이지(endPage) 까지 표시 -->
+		<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
+			<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
+			<c:choose>
+				<c:when test="${pageNum eq i}">
+					${i }
+				</c:when>
+				<c:otherwise>
+					<a href="ReviewList.re?pageNum=${i }">${i }</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+
+		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
+		<c:choose>
+			<c:when test="${pageNum < pageInfo.maxPage}">
+				<input type="button" value="다음" onclick="location.href='ReviewList.re?pageNum=${pageNum + 1}'">
+			</c:when>
+			<c:otherwise>
+				<input type="button" value="다음">
+			</c:otherwise>
+		</c:choose>
 	</section>
 	</div>
 	</div>

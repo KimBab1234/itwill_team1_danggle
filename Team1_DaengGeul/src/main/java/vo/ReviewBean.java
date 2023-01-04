@@ -2,11 +2,7 @@ package vo;
 
 import java.util.Date;
 
-/*
- * mvc_board5 데이터베이스 생성 및 board 테이블 정의
-    CREATE DATABASE nnntest;
-    use nnntest
-    
+/*   
    create table review (
    review_idx INT PRIMARY KEY AUTO_INCREMENT,
    product_idx VARCHAR(10) NOT NULL,
@@ -18,6 +14,7 @@ import java.util.Date;
    review_readcount INT DEFAULT 0,
    review_date DATE NOT NULL,
    review_like_done VARCHAR(10) NOT NULL
+   review_like_count INT NOT NULL default '0'
    );
 	
 	리뷰 좋아요 게시판
@@ -31,24 +28,7 @@ import java.util.Date;
 	
 	alter table review_like add constraint member_id_fk
 	foreign key(member_id) references member(member_id) on delete cascade;
-	
-	
-	
-	review_idx INT PRIMARY KEY AUTO_INCREMENT //리뷰 글번호
-	product_idx VARCHAR(10) NOT NULL //상품 번호
-	member_id VARCHAR(50) NOT NULL //멤버 아이디
-    review_subject VARCHAR(50) NOT NULL //리뷰 제목
-    review_score INT NOT NULL //리뷰 별점
-	review_content TEXT NOT NULL //리뷰 내용
-	review_like INT NOT NULL //좋아요
-	review_date date NOT NULL //리뷰 작성 날짜
-	
-	
 	 
- * 
- * mvc_board3 데이터베이스의 board 테이블(게시판) 1개 레코드(= 1개 게시물) 정보를 저장하는
- * Bean 클래스(DTO or VO) 정의
- * 
  */
 public class ReviewBean {
 	private int review_idx;
@@ -62,6 +42,7 @@ public class ReviewBean {
 	private Date review_date;
 	private String review_like_done;
 	private String order_idx;
+	private int review_like_count;
 	
 	public String getOrder_idx() {
 		return order_idx;
@@ -129,13 +110,19 @@ public class ReviewBean {
 	public void setReview_like_done(String review_like_done) {
 		this.review_like_done = review_like_done;
 	}
+	public int getReview_like_count() {
+		return review_like_count;
+	}
+	public void setReview_like_count(int review_like_count) {
+		this.review_like_count = review_like_count;
+	}
 	@Override
 	public String toString() {
 		return "ReviewBean [review_idx=" + review_idx + ", product_idx=" + product_idx + ", member_id=" + member_id
 				+ ", review_subject=" + review_subject + ", review_passwd=" + review_passwd + ", review_score="
 				+ review_score + ", review_content=" + review_content + ", review_readcount=" + review_readcount
-				+ ", review_date=" + review_date + ", review_like_done="
-				+ review_like_done + "]";
+				+ ", review_date=" + review_date + ", review_like_done=" + review_like_done + ", review_like_count="
+				+ review_like_count + "]";
 	}
 	
 	
