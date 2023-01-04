@@ -80,8 +80,6 @@ public class ReviewDAO {
 		
 		ReviewBean review = null;
 	
-		int review_like_count = 0;
-	
 		PreparedStatement pstmt = null, pstmt2 = null;
 		ResultSet rs = null;
 		
@@ -115,6 +113,7 @@ public class ReviewDAO {
 				review.setReview_content(rs.getString("review_content"));
 				review.setReview_readcount(rs.getInt("review_readcount"));
 				review.setReview_date(rs.getDate("review_date"));
+				review.setReview_like_count(rs.getInt("review_like_count"));
 				
 				reviewList.add(review);
 			}
@@ -150,7 +149,6 @@ public class ReviewDAO {
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
-			rs = pstmt.executeQuery();
 
 			if(product_idx!=null) { //상품별 리뷰목록
 				pstmt.setString(2, product_idx);
@@ -201,6 +199,7 @@ public class ReviewDAO {
 				review.setReview_content(rs.getString("review_content"));
 				review.setReview_readcount(rs.getInt("review_readcount"));
 				review.setReview_date(rs.getDate("review_date"));
+				review.setReview_like_count(rs.getInt("review_like_count"));
 				
 //				System.out.println(review);
 				
@@ -421,6 +420,15 @@ public class ReviewDAO {
 	
 	
 }
+
+
+
+
+
+
+
+
+
 
 
 
