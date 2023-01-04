@@ -7,10 +7,8 @@ import db.JdbcUtil;
 
 public class ReviewLikeUpdateService {
 
-	public boolean isReviewLike(int review_idx, String member_id, String review_like_done) {
+	public int isReviewLike(int review_idx, String member_id, String review_like_done) {
 		System.out.println("ReviewLikeUpdateService - isReviewLike()");
-		
-		boolean isReviewLike = false;
 		
 		Connection con = JdbcUtil.getConnection();
 		
@@ -18,11 +16,10 @@ public class ReviewLikeUpdateService {
 		
 		dao.setConnection(con);
 		
-		int insertCount = dao.insertReviewLike(review_idx, member_id, review_like_done);
+	  int review_like_count = dao.insertReviewLike(review_idx, member_id, review_like_done);
 		
-		if(insertCount > 0) { // 성공시
+		if(review_like_count > -1) { // 성공시
 			JdbcUtil.commit(con);
-			isReviewLike = true;
 			
 		}else { // 실패시
 			JdbcUtil.rollback(con);
@@ -30,8 +27,9 @@ public class ReviewLikeUpdateService {
 		
 		JdbcUtil.close(con);
 		
-		return isReviewLike;
+		return review_like_count;
 	}
 
 
 }
+
