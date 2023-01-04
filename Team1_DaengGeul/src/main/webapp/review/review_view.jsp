@@ -12,10 +12,10 @@
 $(function() {
 	
 	if('${review.review_like_done}' =='Y') {
-		$("#review_like1").prop("color", "blue");
+		$("#review_like1").css("color", "blue");
 		$("#review_like1").val("Y");
 	} else {
-		$("#review_like1").prop("color", "gray");
+		$("#review_like1").css("color", "gray");
 		$("#review_like1").val("N");
 	}
 	
