@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.NoticeDeleteProAction;
+import action.NoticeDetailAction;
+import action.NoticeListAction;
+import action.NoticeModifyFormAction;
+import action.NoticeModifyProAction;
+import action.NoticeWriteProAction;
 import action.ProductDeleteAction;
 import action.ProductEditAction;
 import action.ProductEditListAction;
@@ -83,7 +89,30 @@ public class BookFrontController extends HttpServlet {
 			System.out.println("추천 도서 등록");
 			action = new RecommendBookAction();
 			forward = action.execute(request, response);
-		}
+		}else if (command.equals("/NoticeWriteForm.ad")) {
+				forward = new ActionForward();
+				forward.setPath("notice/qna_notice_write.jsp");
+				forward.setRedirect(false);
+			} else if(command.equals("/NoticeWritePro.ad")) {
+				action = new NoticeWriteProAction();
+				forward = action.execute(request, response);
+			} else if(command.equals("/NoticeList.ad")) {
+				action = new NoticeListAction();
+				forward = action.execute(request, response);
+			} else if(command.equals("/NoticeDetail.ad")) {
+				action = new NoticeDetailAction();
+				forward = action.execute(request, response);
+			} else if(command.equals("/NoticeDelete.ad")) {
+				action = new NoticeDeleteProAction();
+				forward = action.execute(request, response);
+			} else if(command.equals("/NoticeModifyForm.ad")) {
+				action=new NoticeModifyFormAction();
+				forward=action.execute(request, response);
+			} else if(command.equals("/NoticeModifyPro.ad")) {
+				action=new NoticeModifyProAction();
+				forward=action.execute(request, response);
+				
+			}
 		
 		
 		
