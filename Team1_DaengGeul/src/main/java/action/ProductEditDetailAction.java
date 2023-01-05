@@ -7,16 +7,16 @@ import svc.ProductEditService;
 import vo.ActionForward;
 import vo.ProductBean;
 
-public class ProductEditAction implements Action {
+public class ProductEditDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("ProductEditAction -  상품 수정 폼 액션 페이지");
+		System.out.println("ProductEditDetailAction");
 		ActionForward forward = null;
-		
+		String pageNum = request.getParameter("pageNum");
 		String product_idx = request.getParameter("product_idx");
 		
-		if(product_idx.substring(0, 1).equals("B")) { // 책 수정
+		if(product_idx.substring(0, 1).equals("B")) {
 			ProductEditService service = new ProductEditService();
 			ProductBean book = service.getBook(product_idx);
 			
@@ -29,11 +29,10 @@ public class ProductEditAction implements Action {
 			
 			request.setAttribute("productType", "goods");
 			request.setAttribute("product", goods);
-//			request.setAttribute("option_name", goods.getOption_name());
 		}
 		
 		forward = new ActionForward();
-		forward.setPath("product/product_edit_form.jsp");
+		forward.setPath("product/product_edit_detail.jsp?pageNum="+pageNum);
 		forward.setRedirect(false);
 		
 		return forward;

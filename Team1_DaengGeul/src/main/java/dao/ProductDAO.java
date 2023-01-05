@@ -25,7 +25,7 @@ public class ProductDAO {
 		this.con = con;
 	}
 	
-	PreparedStatement pstmt, pstmt2, pstmt3 = null;
+	PreparedStatement pstmt, pstmt1, pstmt2, pstmt3, pstmt4, pstmt5 = null;
 	ResultSet rs = null;
 	
 	//=================================================
@@ -97,14 +97,15 @@ public class ProductDAO {
 			while(rs.next()) {
 				idx = rs.getInt(idx) + 1;
 			}
-			
+
 			String product_idx = "G" + idx;
 			sql = "INSERT INTO product VALUES(?,?)";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, idx);
 			pstmt2.setString(2, product_idx);
+
 			pstmt2.executeUpdate();
-			
+
 			sql = "INSERT INTO goods VALUES(?,?,?,?,?,?,?,?,0,now())";
 			pstmt3 = con.prepareStatement(sql);
 			pstmt3.setString(1, product_idx);
@@ -115,17 +116,42 @@ public class ProductDAO {
 			pstmt3.setString(6, goods.getImg());
 			pstmt3.setString(7, goods.getDetail_img());
 			pstmt3.setInt(8, goods.getDiscount());
-			System.out.println(pstmt3);
 
-			insertCount = pstmt3.executeUpdate();
+			if(goods.getOption_name() == null && goods.getOption_qauntity() == null) {
+				insertCount = pstmt3.executeUpdate();
+				
+			}else if(goods.getOption_name() != null && goods.getOption_qauntity() != null) {
+				pstmt3.executeUpdate();
+				
+				int count = 1;
+				List<String> OptNameArr = goods.getOption_name();
+				List<Integer> OptQauArr = goods.getOption_qauntity();
+				
+				for(int i = 0; i < OptNameArr.size(); i++) {
+					
+					sql = "INSERT INTO goods_options VALUES(?,?,?,?)";
+					pstmt4 =con.prepareStatement(sql);
+					
+					pstmt4.setString(1, product_idx);
+					pstmt4.setString(2, OptNameArr.get(i));
+					pstmt4.setInt(3, OptQauArr.get(i));
+					pstmt4.setInt(4, count);
+					
+					insertCount = pstmt4.executeUpdate();
+					
+				}
+				JdbcUtil.close(pstmt4);
+			}		
+				
 			
 		} catch (SQLException e) {
 			System.out.println("sql 구문 오류 - regiGoods(굿즈 등록)");
 			e.printStackTrace();
 		} finally {
+			JdbcUtil.close(rs);
+			
 			JdbcUtil.close(pstmt3);
 			JdbcUtil.close(pstmt2);
-			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
 		return insertCount;
@@ -182,7 +208,7 @@ public class ProductDAO {
 		return productList;
 	}
 	
-	public int getProductListCount() {
+	public int getProductListCount() { // 페이지 계산
 		int listCount = 0;
 		
 		try {
@@ -195,7 +221,7 @@ public class ProductDAO {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("sql 구문 오류 - getProductListCount (전체 페이지 개수 조회)");
+			System.out.println("sql 구문 오류 - getProductListCount (책 전체 개수 조회)");
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(rs);
@@ -240,7 +266,7 @@ public class ProductDAO {
 	}
 	
 	public ProductBean selectGoods(String product_idx) { // 굿즈 상세페이지
-		ProductBean goods = null;
+		ProductBean goods = new ProductBean();
 		
 		try {
 			String sql = "SELECT * FROM goods WHERE goods_idx=?";
@@ -249,7 +275,6 @@ public class ProductDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				goods = new ProductBean();
 				
 				goods.setProduct_idx(rs.getString("goods_idx"));
 				goods.setName(rs.getString("goods_name"));
@@ -262,18 +287,38 @@ public class ProductDAO {
 				
 			}
 			
+			JdbcUtil.close(rs);
+			// 굿즈 옵션 조회
+			sql = "SELECT * FROM goods_options WHERE goodsOpt_idx=?";
+			pstmt2 = con.prepareStatement(sql);
+			pstmt2.setString(1, product_idx);
+			
+			rs = pstmt2.executeQuery();
+			
+			List<String> option_name = new ArrayList<String>();
+			List<Integer> option_qauntity = new ArrayList<Integer>();
+			
+			while(rs.next()) {
+				option_name.add(rs.getString(2));
+				option_qauntity.add(rs.getInt(3));
+			}
+			
+			goods.setOption_name(option_name);
+			goods.setOption_qauntity(option_qauntity);
+			
 		} catch (SQLException e) {
 			System.out.println("sql 구문 오류 - selectGoods(굿즈 수정 상세페이지)");
 			e.printStackTrace();
 		}finally {
 			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt2);
 			JdbcUtil.close(pstmt);
 		}
 		return goods;
 	}
 	
 	public int updateBook(ProductBean book) { // 책 수정
-int updateCount = 0;
+		int updateCount = 0;
 		
 		try {
 			String sql = "UPDATE book SET book_name=?, book_genre=?, book_writer=?, book_publisher=?"
@@ -323,24 +368,73 @@ int updateCount = 0;
 			pstmt.setString(7, goods.getDetail_img());
 			pstmt.setString(8, goods.getProduct_idx());
 			
-			updateCount = pstmt.executeUpdate();
-			
+			// 굿즈 옵션 수정
+			if(goods.getOption_name() == null && goods.getOption_qauntity() == null) {
+				updateCount = pstmt.executeUpdate();
+				
+			}else if(goods.getOption_name() != null && goods.getOption_qauntity() != null) {
+				pstmt.executeUpdate();
+				
+				// 수정 시 카운트 증가
+				int count = 1;
+				sql = "SELECT MAX(count) FROM goods_options WHERE goodsOpt_idx=?";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setString(1, goods.getProduct_idx());
+				rs = pstmt2.executeQuery();
+				
+				while(rs.next()) {
+					count= rs.getInt(count) + 1;
+				}
+				
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt2);
+				
+				// 새로 받아온 값 insert
+				List<String> OptNameArr = goods.getOption_name();
+				List<Integer> OptQauArr = goods.getOption_qauntity();
+
+				for(int i = 0; i < OptNameArr.size(); i++) {
+					
+					sql = "INSERT INTO goods_options VALUES(?,?,?,?)";
+					pstmt3 =con.prepareStatement(sql);
+					
+					pstmt3.setString(1, goods.getProduct_idx());
+					pstmt3.setString(2, OptNameArr.get(i));
+					pstmt3.setInt(3, OptQauArr.get(i));
+					pstmt3.setInt(4, count);
+					
+					pstmt3.executeUpdate();
+					
+				}
+				JdbcUtil.close(pstmt2);
+				
+				// count 비교를 통해 이전에 입력된 값 삭제
+				sql = "DELETE FROM goods_options WHERE goodsOpt_idx=? AND count < ?";
+				pstmt4 = con.prepareStatement(sql);
+				pstmt4.setString(1, goods.getProduct_idx());
+				pstmt4.setInt(2, count);
+				updateCount = pstmt4.executeUpdate();
+				
+				JdbcUtil.close(pstmt4);
+				
+			}
 		} catch (SQLException e) {
 			System.out.println("sql 구문 오류 - updateGoods(굿즈 수정)");
 			e.printStackTrace();
 		} finally {
+			
 			JdbcUtil.close(pstmt);
 		}
 		
 		return updateCount;
 	}
 
-	public ProductBean selectFileName(String product_idx) { // 상품 삭제
+	public ProductBean selectFileName(String product_idx) { // 이미지 파일명 조회
 		ProductBean product = null;
 		String sql ="";
 		try {
 			
-			if(product_idx.substring(0, 1).equals("B")) {
+			if(product_idx.substring(0, 1).equals("B")) { 
 				sql = "SELECT book_img, book_detail_img FROM book WHERE book_idx=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, product_idx);
@@ -354,7 +448,7 @@ int updateCount = 0;
 					
 				}
 				
-			}else {
+			}else { 
 				sql = "SELECT goods_img, goods_detail_img FROM goods WHERE goods_idx=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, product_idx);
@@ -390,21 +484,27 @@ int updateCount = 0;
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, product_idx);
 				
-				deleteCount = pstmt.executeUpdate();
+				pstmt.executeUpdate();
 				
 			}else { // 굿즈 삭제
-				
-				sql = "DELETE FROM goods WHERE goods_idx=?";
+				// 굿즈 옵션 먼저 삭제
+				sql="DELETE FROM goods_options WHERE goodsOpt_idx=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, product_idx);
 				
-				deleteCount = pstmt.executeUpdate();
+				pstmt.executeUpdate();
+				
+				sql = "DELETE FROM goods WHERE goods_idx=?";
+				pstmt1 = con.prepareStatement(sql);
+				pstmt1.setString(1, product_idx);
+				
+				pstmt1.executeUpdate();
 			}
 			
 			sql = "DELETE FROM product where product_idx=?"; // 상품번호(공통 테이블) 삭제
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setString(1, product_idx);
-			pstmt2.executeUpdate();
+			deleteCount = pstmt2.executeUpdate();
 			
 		} catch (SQLException e) {
 			System.out.println("sql 구문 오류 - deleteProduct(상품 삭제)");
@@ -416,6 +516,92 @@ int updateCount = 0;
 		
 		return deleteCount;
 	}
+	
+	public int recommendBook(ProductBean book) { // 추천 도서 등록
+		int insertCount = 0;
+		
+		try {
+			String[] arr = book.getReco_idx();
+			
+			String sql = "INSERT INTO recommend_book VALUES(?)";
+			
+				for(int i = 0; i < arr.length-1; i++) {
+					sql += ",(?)";
+				}
+				
+			pstmt = con.prepareStatement(sql);
+			
+			for(int i = 0; i<arr.length; i++) {
+				pstmt.setString(i+1, arr[i]);
+			}
+
+			insertCount = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("sql 구문 오류 - recommendBook(추천 도서 등록)");
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt2);
+			JdbcUtil.close(pstmt);
+		}
+		return insertCount;
+	}
+	
+	public ArrayList<ProductBean> selectRecoBook() { // 추천 도서 목록 조회
+		ArrayList<ProductBean> recoList = null;
+		
+		try {
+			String sql = "SELECT * FROM book, recommend_book WHERE book_idx = product_idx";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			recoList = new ArrayList<ProductBean>();
+			
+			while(rs.next()) {
+				ProductBean book = new ProductBean();
+				
+				book.setProduct_idx(rs.getString("book_idx"));
+				book.setName(rs.getString("book_name"));
+				book.setQuantity(rs.getInt("book_quantity"));
+				
+				recoList.add(book);
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("sql 구문 오류 - selectRecoBook(추천 도서 목록 조회)");
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return recoList;
+	}
+	
+	public int deleteRecoBook(String product_idx) { // 추천 도서 삭제
+		int deleteCount = 0;
+		
+		try {
+			String sql = "DELETE FROM recommend_book WHERE product_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, product_idx);
+			
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("sql 구문 오류 - deleteRecoBook(추천 도서 삭제)");
+			e.printStackTrace();
+		}
+		
+		return deleteCount;
+	}
+	
+	
+	
+	
+	
+	
 
 	//=================================================
 	//=====================지선========================

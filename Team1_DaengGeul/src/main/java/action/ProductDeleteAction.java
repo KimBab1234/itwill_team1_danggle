@@ -20,16 +20,16 @@ public class ProductDeleteAction implements Action {
 		
 		ProductDeleteService service = new ProductDeleteService();
 		String product_idx = request.getParameter("product_idx");
-		
-		// 대표 이미지와 상세 이미지 두 개를 모두 삭제해야 하기 때문에 배열로 이름 두 개 받아옴
+		// 이미지 파일명 조회
 		ProductBean product = service.selectFileName(product_idx);
-
+		String product_type = request.getParameter("product_idx");
+		System.out.println("상품 타입 : " + product_type.substring(0, 1));
 		int deleteCount = service.removeProduct(product_idx);
 		
 		if(deleteCount > 0) {
 			String uploadPath = "upload";
 			String realPath = request.getServletContext().getRealPath(uploadPath);
-			
+			System.out.println("이미지 이름 확인 : " + product.getImg());
 			File f = new File(realPath, product.getImg());
 			File f2 = new File(realPath, product.getDetail_img());
 			
@@ -40,10 +40,16 @@ public class ProductDeleteAction implements Action {
 			if(f2.exists()) {
 				f2.delete();
 			}
-			
-			forward = new ActionForward();
-			forward.setPath("ProductList.ad");
-			forward.setRedirect(true);
+			if(product_type.substring(0, 1).equals("B")) {
+				forward = new ActionForward();
+				forward.setPath("ProductList.ad");
+				forward.setRedirect(true);
+			}else if(product_type.substring(0, 1).equals("G")) {
+			// 굿즈 삭제 후 굿즈 목록 페이지로 이동하기 위해 forward 나눴음
+				forward = new ActionForward();
+				forward.setPath("ProductList.ad?product=" + "G");
+				forward.setRedirect(true);
+			}
 		} else {
 			response.setContentType("text/html; charset=UTF-8");
 			

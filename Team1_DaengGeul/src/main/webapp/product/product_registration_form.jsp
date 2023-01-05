@@ -9,9 +9,11 @@
 <link rel="shortcut icon" href="#">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	
+	var optionIndex = 0;
+	var sum = 0;
+
 	function discountSet() {
-	// 할인 설정 버튼 선택 시 할인 금액 입력 창 활성화 / 비활성화
+
 		if(document.proRegi.disc[1].checked){
 			document.getElementById("discount").value = 0;
 		}
@@ -23,18 +25,22 @@
 	}
 
 	$(function() {
-		
-		// 책 선택 시 책 정보 입력 창 보여주기	
+
+		$("#goods_option").hide();
+		// 책 선택 시 책 정보 입력 창 보여주기
+		// 굿즈 선택 시 옵션 창 보여주기
 		$("input[type=radio][class=regi_check]").on("click", function() {
 
 			if($("input[type=radio][class=regi_check]:checked").val() == "book"){
 				$("#book_info").show();
+				$("#goods_option").hide();
 			}else if($("input[type=radio][class=regi_check]:checked").val() == "goods"){
 				$("#book_info").hide();
+				$("#goods_option").show();
 			}
  			
 		});
-		
+		// 이미지 파일 선택 시 input 박스에 파일 이름 출력
 		$("#detail_img").on('change',function(){
 			  var fileName = $("#detail_img").val();
 			  $("#detail_img_name").val(fileName);
@@ -43,6 +49,38 @@
 		$("#img").on('change',function(){
 			  var fileName = $("#img").val();
 			  $("#img_name").val(fileName);
+		});
+		
+		// 굿즈 총 재고 계산하는 함수
+		$.total = function() {
+			var NumLength = $("input[type=number]").length;
+			sum = 0;
+			for(var i= 0; i < NumLength-3; i++){
+				sum += Number($("input[type=number][name=option_qauntity]").eq(i).val());
+			}
+			$("input[type=number][name=quantity]").val(sum);
+		};
+		
+		// 옵션 추가 버튼 클릭 시 div 영역에 인풋 박스 추가
+		$("#optionBtn").on("click", function() {
+			$("#optionArea").append(
+				'<div id="optionDiv' + optionIndex +'"><input type="text" name="option_name" placeholder="옵션명"><input type="number" width="100" name="option_qauntity" id="optionNum'+ optionIndex +'" class="optionNum" placeholder="수량"><input type="button" value="✖️" class="removeOpt" onclick="removeOption('+ optionIndex + ')"></div>'
+			);
+			optionIndex++;
+			var NumLength = $("input[type=number]").length;
+			
+			// 옵션별 재고량 입력 시 총 재고에 더해짐
+			$("input[type=number][name=option_qauntity]").on("change", function() {
+				$.total();
+			});
+			
+			// 옵션 삭제 시 재고량 빼기
+			$(".removeOpt").on("click", function() {
+				$(this).parent().remove();
+				var NumLength = $("input[type=number]").length;
+				$.total();
+			});
+
 		});
 		
 	});
@@ -96,6 +134,15 @@
 					</td>
 				</tr>
 			</tbody>
+			<tbody id="goods_option">
+				<tr>
+					<th>옵션</th>
+					<td>
+					<div id="optionArea"></div>
+						<input type="button" value="옵션 추가" id="optionBtn" class="optionBtn">
+					</td>
+				</tr>
+			</tbody>
 			<tr>
 				<th>판매가</th>
 				<td>
@@ -133,7 +180,6 @@
     					<label for="detail_img">파일찾기</label> 
    						<input type="file" id="detail_img" name="detail_img">
 					</div>
-
 					<hr>
 					<div id="textDiv">
 						<textarea rows="30" cols="50" name="detail"></textarea>
@@ -143,8 +189,8 @@
 		</table>
 		<br>
 		<div align="center">
-			<input type="submit" value="등록">
-			<input type="button" value="취소" onclick="history.back()">
+			<input type="submit" id="okBtn" value="등록">
+			<input type="button" id="okBtn" value="취소" onclick="history.back()">
 		</div>
 	</form>
 	<footer>

@@ -3,7 +3,17 @@ package action;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +73,7 @@ public class ProductRegiProAction implements Action {
 				if(insertCount > 0) { // 상품 등록 성공
 					forward = new ActionForward();
 					forward.setPath("ProductList.ad");
-					forward.setRedirect(false);
+					forward.setRedirect(true);
 				} else { // 상품 등록 실패 시 파일 삭제 후 알림창
 					File f = new File(realPath, book.getImg());
 					File f2 = new File(realPath, book.getDetail_img());
@@ -95,6 +105,18 @@ public class ProductRegiProAction implements Action {
 				goods.setDetail(multi.getParameter("detail"));
 				goods.setImg(multi.getOriginalFileName("img"));
 				goods.setDetail_img(multi.getOriginalFileName("detail_img"));
+				// 굿즈 옵션
+				String[] strOptName = multi.getParameterValues("option_name");
+				String[] strOptNum = multi.getParameterValues("option_qauntity");
+				// string[] -> int[] 변환
+				
+				if(strOptName != null && strOptNum != null) {
+					List<String> option_name = new ArrayList<>(List.of(strOptName));
+					int[] optQauArr = Stream.of(strOptNum).mapToInt(Integer::parseInt).toArray();
+					List<Integer> option_qauntity = Arrays.stream(optQauArr).boxed().collect(Collectors.toList());
+					goods.setOption_name(option_name);
+					goods.setOption_qauntity(option_qauntity);
+				}
 				
 				if(goods.getDetail_img() == null) {
 					goods.setDetail_img("");
@@ -102,24 +124,24 @@ public class ProductRegiProAction implements Action {
 				
 				ProductResiService service = new ProductResiService();
 				int insertCount = service.goodsregistration(goods);
-				
+			
 				if(insertCount > 0) { // 상품 등록 성공
 					forward = new ActionForward();
 					forward.setPath("ProductList.ad?product=" + "G");
 					forward.setRedirect(true);
-					
+				
 				}else { // 상품 등록 실패 시 파일 삭제 후 알림창
 					File f = new File(realPath, goods.getImg());
 					File f2 = new File(realPath, goods.getDetail_img());
-					
+				
 					if(f.exists()) {
 						f.delete();
 					}
-					
+				
 					if(f2.exists()) {
 						f2.delete();
 					}
-					
+				
 					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
@@ -128,7 +150,7 @@ public class ProductRegiProAction implements Action {
 					out.println("</script>");
 				}
 			}
-		
+	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

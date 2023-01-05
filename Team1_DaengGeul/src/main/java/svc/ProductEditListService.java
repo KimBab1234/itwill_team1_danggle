@@ -20,6 +20,8 @@ public class ProductEditListService {
 		
 		productList = dao.selectProductList(startRow, listLimit);
 		
+		JdbcUtil.commit(con);
+		
 		JdbcUtil.close(con);
 		
 		return productList;
@@ -35,6 +37,11 @@ public class ProductEditListService {
 		dao.setCon(con);
 		
 		listCount = dao.getProductListCount();
+		
+		JdbcUtil.commit(con);
+		
+		JdbcUtil.close(con);
+		
 		return listCount;
 	}
 

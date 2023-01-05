@@ -18,6 +18,8 @@ public class ProductDeleteService {
 		
 		product = dao.selectFileName(product_idx);
 		
+		JdbcUtil.commit(con);
+		
 		JdbcUtil.close(con);
 		
 		return product;

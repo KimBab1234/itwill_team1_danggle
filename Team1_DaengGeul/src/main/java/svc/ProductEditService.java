@@ -18,6 +18,8 @@ public class ProductEditService {
 		
 		book = dao.selectBook(product_idx);
 		
+		JdbcUtil.commit(con);
+		
 		JdbcUtil.close(con);
 		
 		return book;
@@ -32,6 +34,8 @@ public class ProductEditService {
 		dao.setCon(con);
 		
 		goods = dao.selectGoods(product_idx);
+		
+		JdbcUtil.commit(con);
 		
 		JdbcUtil.close(con);
 		
