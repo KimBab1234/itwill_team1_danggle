@@ -3,19 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<!-- 로그아웃 펑션 -->
-<script>
-	function logout() {
-		let isLogout = confirm("로그아웃 하시겠습니까?");
-		
-		if(isLogout) {
-			var id = '${sessionScope.sId}';
-			localStorage.removeItem(id);
-			location.href = "MemberLogoutPro.me";
-		}
-	}
-</script>
-
 <head>
     <meta charset="utf-8">
     <title>메인</title>
@@ -38,6 +25,19 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <%--------------------------- 로그아웃 확인 알림창 ---------------------------%>
+	<script src="js/jquery-3.6.3.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#logout").on("click", function() {
+				if(confirm("로그아웃 하시겠습니까?")){
+					location.href = "MemberLogoutPro.me";
+				}
+			});
+		});
+	</script>
+	<%----------------------------------------------------------------------------%>
 </head>
 
 <body>
@@ -117,7 +117,7 @@
 										</c:otherwise>
 									</c:choose>
 									<div class="container">
-										<a href="javascript:logout()" class="nav-item nav-link">로그아웃</a>
+										<a href="" class="nav-item nav-link">로그아웃</a>
 									</div>
 								</c:when>
 								
