@@ -32,6 +32,8 @@
 		$(function() {
 			$("#logout").on("click", function() {
 				if(confirm("로그아웃 하시겠습니까?")){
+					var id = '${sessionScope.sId}';
+					localStorage.removeItem(id);
 					location.href = "MemberLogoutPro.me";
 				}
 			});
