@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="img/daram.png" rel="shortcut icon" type="image/x-icon">
-<title>댕글댕글 : 아이디/비밀번호 찾기</title>
+<title>댕글댕글 : 회원정보 찾기</title>
 <%------------------- 임시 홈페이지 CSS -------------------%>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
@@ -14,6 +14,8 @@
 <script src="js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	$(function() {
+		var emailStatus = false;
+		
 		// ------------------ 도메인 목록 -------------------
 		$("#selectDomain").on("change", function() {
 			let domain = $("#selectDomain").val();
@@ -32,31 +34,110 @@
 		
 		// ------------------ 아이디 찾기 -------------------
 		$("#btnSearchId").on("click", function() {
-	  	
-	  		$.ajax({
-				url : "MemberSearchId.me",
-				type : "post",
-				data: {
-					email1: $("#email1").val(),
-					email2: $("#email2").val()
-				},
-				dataType: "text", 
-				success: function(findId){
-// 					alert(findId);
-						$("#searchIdResult").text(findId);
-					if(findId != null){
-						
-					} else {
-						alert("아이디 찾기가 실패했습니다");
+			let email1 = $("#email1").val();
+			let email2 = $("#email2").val();
+			
+			if(email1 == "" || email2 ==""){
+				$("#searchIdResult").html("이메일을 입력해주세요!").css("color", "red");
+			} else {
+				
+		  		$.ajax({
+					url : "MemberSearchId.me",
+					type : 'POST',
+					data: {
+						email1: email1,
+						email2: email2
+					},
+					success: function(findId){
+						$("#searchIdResult").html("회원님의 아이디는 : " + findId + "입니다").css("color", "black");;
+					},
+					error : function(request, status, error){
+						$("#searchIdResult").html("이메일을 확인해주세요").css("color", "red");
 					}
-				},
-				error : function(request, status, error){
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-			});
+				});
+			  		
+			}
 		  	
 		});
 		// --------------------------------------------------
+		
+		
+		// ------------- 인증번호 이메일 전송 ---------------
+		$("#sendCert").on("click", function() {
+			let id = $("#id").val();
+			let type = "cert";
+			
+			if(id == ""){
+				$("#searchPasswdResult").html("아이디부터 입력해주세요!").css("color", "red");
+			} else {
+				$("#searchPasswdResult").html("인증번호가 전송되었습니다").css("color", "black");
+				$.ajax({
+					url : "MemberSendCertPro.me",
+					type : 'POST',
+					data: {
+						id: id,
+						type: type
+					},
+					error : function(request, status, error){
+						$("#searchPasswdResult").html("존재하지 않는 회원입니다").css("color", "black");
+					}
+				});
+				
+			}
+			
+		});
+		// --------------------------------------------------
+		
+		
+		// ----------------------- 인증코드 인증 -------------------------
+		$("#checkCert").on("click", function() {
+			let id = $("#id").val();
+			let certNum = $("#certNum").val();
+			
+			if(id == ""){
+				$("#searchPasswdResult").html("아이디부터 입력해주세요!").css("color", "red");
+			} else {
+					
+				if(certNum == ""){
+					$("#searchPasswdResult").html("인증번호를 입력해주세요!").css("color", "red");
+				} else {
+					
+					$.ajax({
+						url: "MemberCheckCertPro.me",
+						data: {
+							id: id,
+							certNum: certNum
+						},
+						success: function(result) {
+							if(result == "true"){
+								emailStatus = true;
+								$("#searchPasswdResult").html("이메일이 인증되었습니다").css("color", "black");
+							} else {
+								$("#searchPasswdResult").html("인증코드가 틀렸습니다!").css("color", "red");
+							}
+						},
+						error : function(request, status, error){
+							$("#searchPasswdResult").html("존재하지 않는 회원입니다").css("color", "black");
+						}
+						
+					});
+								
+				}
+				
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// --------------------- 이메일 미인증 시 ------------------------
+		$("#MemberSearchPasswd").submit(function() {
+			if(!emailStatus){
+				alert("이메일 인증을 해주세요!")
+				return false;
+			}
+		});
+		// ---------------------------------------------------------------
 		
 	});
 </script>
@@ -107,13 +188,17 @@
 	<div class="clear"></div>
 	
 	<div>
-		<h5>비밀번호 찾기(Email로 인증코드 발송)</h5>
-		<input type="text" placeholder="아이디 입력" >
-		<input type="text" placeholder="인증번호" >
-		<input type="button" value="인증번호 전송" onclick="location.href='.me'">
-		<input type="button" value="비밀번호 찾기" onclick="location.href='.me'">
+		<form id="MemberSearchPasswd" action="MemberSearchPasswd.me">
+			<h5>비밀번호 찾기(Email로 인증코드 발송)</h5>
+			<input type="text" name="id" id="id" placeholder="아이디 입력" ><br>
+			<input type="text" id="certNum" placeholder="인증번호" >
+			<input type="button" id="sendCert" value="인증번호 전송" ><br>
+			<div id="searchPasswdResult"></div>
+			<input type="button" id="checkCert" value="인증확인" >
+			<input type="submit" id="searchPasswd" value="비밀번호 찾기" >
+		</form>
 	</div>
-		
+	
 	<div class="clear"></div>
 	<div class="clear"></div>
 	
