@@ -30,7 +30,7 @@
 
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid">
+    <div class="container-fluid" style="width: 1920px;">
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
