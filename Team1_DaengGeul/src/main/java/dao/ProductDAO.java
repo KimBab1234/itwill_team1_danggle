@@ -432,9 +432,9 @@ int updateCount = 0;
 			String sql = null;
 
 			if(idx.charAt(0)=='B') {
-				sql = "SELECT book_idx, book_name, book_price, book_quantity, book_detail, book_discount, book_img, book_detail_img FROM book WHERE book_idx=?";
+				sql = "SELECT b.book_idx, b.book_name, b.book_price, b.book_quantity, b.book_detail, b.book_discount, b.book_img, b.book_detail_img, v.ranking FROM book_sort_view v join book b on b.book_idx=v.book_idx WHERE b.book_idx=?";
 			} else if(idx.charAt(0)=='G') {
-				sql = "SELECT goods_idx, goods_name, goods_price, goods_quantity, goods_detail, goods_discount, goods_img, goods_detail_img FROM goods WHERE goods_idx=?";
+				sql = "SELECT g.goods_idx, g.goods_name, g.goods_price, g.goods_quantity, g.goods_detail, g.goods_discount, g.goods_img, g.goods_detail_img, v.ranking FROM goods_sort_view v join goods g on g.goods_idx=v.goods_idx WHERE g.goods_idx=?";
 			}
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, idx);
@@ -452,6 +452,7 @@ int updateCount = 0;
 				product.setImg(rs.getString(7));
 				product.setDetail_img(rs.getString(8));
 				product.setDis_price(rs.getInt(3)*(100-rs.getInt(6))/100);
+				product.setRank(rs.getInt(9));
 			}
 
 			if(idx.charAt(0)=='B') {
@@ -466,6 +467,17 @@ int updateCount = 0;
 					product.setBook_publisher(rs.getString(3));
 					product.setBook_date(rs.getDate(4));
 				}
+			} else {
+				sql = "SELECT * FROM goods_options WHERE goodsOpt_idx=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, idx);
+				rs=pstmt.executeQuery();
+
+				ArrayList<String> optArr = new ArrayList<>();
+				while(rs.next()) {
+					optArr.add(rs.getString("option_name"));
+				}
+				product.setGoods_opt(optArr);
 			}
 
 		} catch (SQLException e) {
@@ -538,7 +550,8 @@ int updateCount = 0;
 						+ " LEFT OUTER JOIN (select product_idx, avg(review_score) 'review_score' from review group by product_idx) r on r.product_idx=b.book_idx";
 				book_chk = true;
 			} else if(type.equals("G")) {
-				sql = "SELECT goods_idx, goods_name, goods_price, goods_discount, goods_img, goods_price*(100-goods_discount)/100 'dis_price', goods_date 'regi_date' FROM goods";
+				sql = "SELECT goods_idx, goods_name, goods_price, goods_discount, book_img, goods_price*(100-goods_discount)/100 'dis_price', ifnull(sel_count,0) 'sel_count', regi_date, ifnull(review_score,0) 'review_score' FROM goods_sort_view g"
+					+ " LEFT OUTER JOIN (select product_idx, avg(review_score) 'review_score' from review group by product_idx) r on r.product_idx=g.goods_idx";
 			}
 
 			String[] sortArr = sort.split("_");

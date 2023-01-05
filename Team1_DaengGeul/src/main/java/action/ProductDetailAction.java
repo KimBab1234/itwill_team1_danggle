@@ -28,6 +28,7 @@ public class ProductDetailAction implements Action {
 
 		ProductBean product = service.getProduct(product_idx); //상품 정보 가져오기
 		String recentImg = request.getContextPath()+ "\\img\\product\\" + product.getImg();
+		product.setDetail_img(request.getContextPath()+ "\\img\\product_detail\\" + product.getDetail_img());
 		request.setAttribute("product", product); //request에 저장하기 
 		request.setAttribute("img", recentImg);
 
