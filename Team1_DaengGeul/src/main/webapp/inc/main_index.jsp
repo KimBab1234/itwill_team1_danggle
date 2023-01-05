@@ -42,15 +42,15 @@
 
 <body>
     <!-- Navbar Start -->
-    <div class="container-fluid mb-5">
+    <div class="container-fluid mb-5" style="width: 1920px;">
         <div class="row border-top px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
+            <div class="col-lg-3 d-lg-block" style="width:300px;">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0">카테고리</h6>
+                    <span class="m-0">카테고리</span>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
-                    <div class="navbar-nav w-100 overflow-hidden" style="height: 460px">
+                    <div class="navbar-nav w-100" style="width:300px; height: 460px">
                         <a href="ProductList.go?type=B_new_genre&keyword=humanities" class="nav-item nav-link">인문</a>
 						<a href="ProductList.go?type=B_new_genre&keyword=novel" class="nav-item nav-link">소설</a>
 						<a href="ProductList.go?type=B_new_genre&keyword=poem" class="nav-item nav-link">시</a>
@@ -65,15 +65,9 @@
                     </div>
                 </nav>
             </div>
-            <div class="col-lg-9">
-                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-                    <a href="./" class="text-decoration-none d-block d-lg-none">
-                        <img alt="" src="img/logo2.jpg" width="200" height="50">
-                    </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="col-lg-9"  style="width: 1500px;">
+                <nav class="navbar show navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <div class="collapse show navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="./" class="nav-item nav-link active">Home</a>
                             <a href="ProductList.go?type=B_recomm" class="nav-item nav-link">추천도서</a>

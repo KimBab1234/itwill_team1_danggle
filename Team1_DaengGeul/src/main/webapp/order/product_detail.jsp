@@ -13,7 +13,7 @@
 
     <link href="img/favicon.ico" rel="icon">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -165,7 +165,7 @@ function countModify(sign) {
 					<input type="hidden" id="img" value="${img}">
 					<input type="hidden" id="name" value="${product.name}">
 					<input type="hidden" id="opt" value="-">
-					<h1>${product.name}</h1>
+					<span style="font-family: 'Jua', sans-serif; font-size: 36px;">${product.name}</span>
 					<hr>
 					<div id="book_detail">
 						장르 : ${product.book_genre}
@@ -177,7 +177,7 @@ function countModify(sign) {
 					</div>
 					현재 재고 : ${product.quantity}개<br>
 					<hr>
-					주간 베스트 순위~~
+					주간 베스트 순위 : ${param.rank}위
 					<hr>
 					정가: ${product.price }원 <br>
 					할인가: <span style="font-size: 2em; font: bold; color: #f4511e;">${product.dis_price }</span>원

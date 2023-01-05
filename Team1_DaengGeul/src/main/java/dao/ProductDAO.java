@@ -578,7 +578,7 @@ int updateCount = 0;
 			rs=pstmt.executeQuery();
 
 			productList = new LinkedList<>();
-
+			pageStartRow++; // pageStartRow는 0부터 시작하니까 1로 올려줌
 			while(rs.next()) {
 				ProductBean product = new ProductBean();
 
@@ -591,7 +591,7 @@ int updateCount = 0;
 				product.setSel_count(rs.getInt(7));
 				product.setBook_date(rs.getDate(8));
 				product.setReview_score(rs.getDouble("review_score"));
-				
+				product.setRank(pageStartRow++);
 				
 				if(book_chk) {
 					product.setBook_genre(rs.getString(10));

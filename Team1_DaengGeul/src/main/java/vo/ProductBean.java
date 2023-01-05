@@ -16,7 +16,11 @@ public class ProductBean {
 	private String detail_img;
 	private int discount;
 	private int dis_price;
+	
+	//지선 상품목록 위한 변수 추가
 	private double review_score;
+	private int rank;
+	
 	// + 책
 	private String book_genre;
 	private String book_writer;
@@ -26,6 +30,12 @@ public class ProductBean {
 	//굿즈 옵션
 	private String goods_opt;
 	
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 	public double getReview_score() {
 		return review_score;
 	}
@@ -135,8 +145,11 @@ public class ProductBean {
 		return "ProductBean [idx=" + idx + ", product_idx=" + product_idx + ", name=" + name + ", price=" + price
 				+ ", quantity=" + quantity + ", sel_count=" + sel_count + ", detail=" + detail + ", img=" + img
 				+ ", detail_img=" + detail_img + ", discount=" + discount + ", dis_price=" + dis_price
-				+ ", review_score=" + review_score + ", book_genre=" + book_genre + ", book_writer=" + book_writer
-				+ ", book_publisher=" + book_publisher + ", book_date=" + book_date + ", goods_opt=" + goods_opt + "]";
+				+ ", review_score=" + review_score + ", rank=" + rank + ", book_genre=" + book_genre + ", book_writer="
+				+ book_writer + ", book_publisher=" + book_publisher + ", book_date=" + book_date + ", goods_opt="
+				+ goods_opt + "]";
 	}
+	
+	
 	
 }
