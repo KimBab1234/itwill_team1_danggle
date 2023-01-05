@@ -31,7 +31,7 @@ public class ProductResiService {
 	}
 
 	public int goodsregistration(ProductBean goods) {
-		System.out.println("bookregistration - 책 등록 서비스 페이지");
+		System.out.println("goodsregistration - 굿즈 등록 서비스 페이지");
 		int insertCount = 0;
 		
 		Connection con = JdbcUtil.getConnection();

@@ -8,12 +8,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="css/product.css" rel="stylesheet" type="text/css" />
+<script src="https://kit.fontawesome.com/8f75f06127.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	
 	$(function() {
-		var tdArr = new Array();
-		
 		// 굿즈 등록 후에만 굿즈 목록이 보이도록 함
 		// 기본 목록 페이지는 책 목록임
 		const URLSearch = new URLSearchParams(location.search);
@@ -51,52 +50,6 @@
 			}
 		});
 		
-// 		$("input[type=checkbox][class=recoCheck]").on("click", function() {
-// 			var checkbox = $("input[type=checkbox][class=recoCheck]:checked");
-			
-// 			checkbox.each(function(i) {
-// 				var tr = checkbox.parent().parent().eq(i);
-// 				var td = tr.children();
-				
-// 				var idx = td.eq(1).text();
-				
-// 				tdArr.push(idx);
-
-// 				console.log(tdArr);
-// 			});
-			
-				
-			$("#recoBtn").on("click", function() {
-				var checkbox = $("input[type=checkbox][class=recoCheck]:checked");
-				
-				checkbox.each(function(i) {
-					var tr = checkbox.parent().parent().eq(i);
-					var td = tr.children();
-					
-					var idx = td.eq(1).text();
-					
-					tdArr.push(idx);
-				
-				});
-				//=======================================
-				function unique(tdArr) {
-				    
-				    var result = [];
-				    $.each(tdArr, function(index, element) {   // 배열의 원소수만큼 반복
-				 
-				        if ($.inArray(element, result) == -1) {  // result 에서 값을 찾는다.  //값이 없을경우(-1)
-				            result.push(element);              // result 배열에 값을 넣는다.
-				        }
-				        
-				    });
-				    return result;
-				}
-
-				sessionStorage.setItem("recoProduct", JSON.stringify(unique(tdArr)));
-				var book_idx = JSON.parse(sessionStorage.getItem("recoProduct"));
-		
-		});
-		
 	});
 	
 </script>
@@ -107,85 +60,91 @@
 		<jsp:include page="../inc/top.jsp" />
 		<jsp:include page="../inc/main.jsp"/>
 	</header>
-	<h4 align="center">상품 관리</h4><br>
-	<div id="product_choice">
-		<input type="checkbox" value="book" id="productType" class="book" checked="checked"> 책
-		<input type="checkbox" value="goods" id="productType" class="goods"> 굿즈
-	</div>
-	<div id="bookList">
-		<table class="bookTable">
-			<tr>
-				<th width="90">추천 도서</th>
-				<th width="90">상품 번호</th>
-				<th width="310">상품명</th>
-				<th width="60">재고</th>
-				<th width="110">가격</th>
-				<th width="190">판매가</th>
-				<th width="55">수정</th>
-				<th width="55">삭제</th>
-			<tr>
-			<c:forEach var="product" items="${productList }">
-				<c:choose>
-					<c:when test="${empty param.pageNum }">
-						<c:set var="pageNum" value="1" />
-					</c:when>
-					<c:otherwise>
-						<c:set var="pageNum" value="${param.pageNum }" />
-					</c:otherwise>
-				</c:choose>
-				<c:if test='${product.product_idx.substring(0,1) == "B"}'>
-					<tr>
-						<td><input type="checkbox" name="recoCheck" class="recoCheck"></td>
-						<td>${product.product_idx}</td>
-						<td>${product.name}</td>
-						<td>${product.quantity}</td>
-						<td><fmt:formatNumber type="number" value="${product.price}"/>원</td>
-						<c:choose>
-							<c:when test="${product.discount } eq 0">
-								<td>${product.price }원(할인 없음)</td>
-							</c:when>
-							<c:otherwise>
-							<td><fmt:formatNumber type="number" maxFractionDigits="0"  value="${product.price - (product.price * product.discount / 100)}" />원
-							(${product.discount }% 할인)</td>
-							</c:otherwise>
-						</c:choose>
-						<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}&pageNum=${pageNum }'"></td>
-						<td><input type="button" id="Listbtn" value="삭제" onclick="location.href='ProductDelete.ad?product_idx=${product.product_idx}&pageNum=${pageNum }'"></td>
-					</tr>
-				</c:if>
-			</c:forEach>
-		</table>
-		<div id="recoBtnArea"><button id="recoBtn" onclick="location.href='RecommendBook.ad'">추천 도서 등록</button></div>
+	<div class="recoArea">
+		<h4 align="center">상품 관리</h4><br>
+		<div id="product_choice">
+			<input type="checkbox" value="book" id="productType" class="book" checked="checked"> 책
+			<input type="checkbox" value="goods" id="productType" class="goods"> 굿즈
+		</div>
+		<div id="bookList">
+		<form action="RecommendBook.ad" method="post" >
+			<table class="bookTable">
+				<tr>
+					<th width="90">추천 도서</th>
+					<th width="90">상품 번호</th>
+					<th width="310">상품명</th>
+					<th width="60">재고</th>
+					<th width="110">가격</th>
+					<th width="190">판매가</th>
+					<th width="55">수정</th>
+					<th width="55">삭제</th>
+				<tr>
+				<c:forEach var="product" items="${productList }">
+					<c:choose>
+						<c:when test="${empty param.pageNum }">
+							<c:set var="pageNum" value="1" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="pageNum" value="${param.pageNum }" />
+						</c:otherwise>
+					</c:choose>
+					<c:if test='${product.product_idx.substring(0,1) == "B"}'>
+						<tr>
+							<td><input type="checkbox" name="recoCheck" class="recoCheck" value="${product.product_idx }"></td>
+							<td>${product.product_idx}</td>
+							<td>${product.name}</td>
+							<td>${product.quantity}</td>
+							<td><fmt:formatNumber type="number" value="${product.price}"/>원</td>
+							<c:choose>
+								<c:when test="${product.discount } eq 0">
+									<td>${product.price }원(할인 없음)</td>
+								</c:when>
+								<c:otherwise>
+									<td><fmt:formatNumber type="number" maxFractionDigits="0"  value="${product.price - (product.price * product.discount / 100)}" />원
+									(${product.discount }% 할인)</td>
+								</c:otherwise>
+							</c:choose>
+							<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}&pageNum=${pageNum }'"></td>
+							<td><input type="button" id="Listbtn" value="삭제" onclick="location.href='ProductDelete.ad?product_idx=${product.product_idx}&pageNum=${pageNum }'"></td>
+						</tr>
+					</c:if>
+				</c:forEach>
+			</table>
+			<div>
+				<input type="submit" value="추천 도서 등록" id="recoBtn" >
+			</div>
+		</form>
 		<section id="pageList">
-		<c:choose>
-			<c:when test="${pageNum > 1}">
-				<input type="button" id="pageBtn" value="<<" onclick="location.href='ProductList.ad?pageNum=${pageNum - 1}'">
-			</c:when>
-			<c:otherwise>
-				<input type="button" id="pageBtn" value="<<">
-			</c:otherwise>
-		</c:choose>
-		<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
 			<c:choose>
-				<c:when test="${pageNum eq i}">
-						<div class="here">${i }</div>
+				<c:when test="${pageNum > 1}">
+					<a href="ProductList.ad?pageNum=${pageNum - 1}"><i class="fas fa-solid fa-angles-left"></i></a>
 				</c:when>
 				<c:otherwise>
-					<a href="ProductList.ad?pageNum=${i }"><div class="notHere">${i }</div></a>
+					<a><i class="fas fa-solid fa-angles-left"></i></a>
 				</c:otherwise>
 			</c:choose>
-		</c:forEach>
-		<c:choose>
-			<c:when test="${pageNum < pageInfo.maxPage}">
-				<input type="button" id="pageBtn" value=">>" onclick="location.href='ProductList.ad?pageNum=${pageNum + 1}'">
-			</c:when>
-			<c:otherwise>
-				<input type="button" value=">>" id="pageBtn">
-			</c:otherwise>
-		</c:choose>
-	</section> 
+			<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
+				<c:choose>
+					<c:when test="${pageNum eq i}">
+						<div class="here">${i }</div>
+					</c:when>
+					<c:otherwise>
+						<a href="ProductList.ad?pageNum=${i }"><div class="notHere">${i }</div></a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:choose>
+				<c:when test="${pageNum < pageInfo.maxPage}">
+				<a href="location.href='ProductList.ad?pageNum=${pageNum + 1}'"><i class="fas fa-solid fa-angles-right"></i></a>
+				</c:when>
+				<c:otherwise>
+					<a><i class="fas fa-solid fa-angles-right"></i></a>
+				</c:otherwise>
+			</c:choose>
+		</section> 
+		</div>
 	</div>
-
+	<%-- ===================== 굿즈 목록 ====================== --%>
 	<div id="goodsList" style="display:none">
 		<table class="goodsTable">
 			<tr>
@@ -203,24 +162,23 @@
 						<td>${product.product_idx}</td>
 						<td>${product.name}</td>
 						<td>${product.quantity}</td>
-						<td>${product.price }</td>
+						<td>${product.price }원</td>
 						<c:choose>
 							<c:when test="${product.discount } eq 0">
 								<td>${product.price }원(할인 없음)</td>
 							</c:when>
 							<c:otherwise>
-								<td><fmt:formatNumber type="number" maxFractionDigits="0"  value="${product.price - (product.price * product.discount / 100)}" />
-							원(${product.discount }% 할인)</td>
+								<td><fmt:formatNumber type="number" maxFractionDigits="0"  value="${product.price - (product.price * product.discount / 100)}" />원
+								 (${product.discount }% 할인)</td>
 							</c:otherwise>
 						</c:choose>
-						<td><input type="button" value="수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}'"></td>
-						<td><input type="button" value="삭제" onclick="location.href='ProductDelete.ad?product_idx=${product.product_idx}'"></td>
+						<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}'"></td>
+						<td><input type="button" id="Listbtn" value="삭제" onclick="location.href='ProductDelete.ad?product_idx=${product.product_idx}'"></td>
 					</tr>
 				</c:if>
 			</c:forEach>
 		</table>
 	</div>
-	<div id="resultArea"></div>
 	<footer>
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	</footer>

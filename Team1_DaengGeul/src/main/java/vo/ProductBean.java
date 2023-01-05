@@ -1,6 +1,7 @@
 package vo;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductBean {
@@ -31,6 +32,33 @@ public class ProductBean {
 	//굿즈 옵션
 	private List<String> goods_opt;
 	
+	// 경민 : 추천 도서, 굿즈 옵션 위한 변수 추가
+	private String[] reco_idx;
+
+    private List<String> option_name;
+	private List<Integer> option_qauntity;
+	
+	
+	
+	
+	public String[] getReco_idx() {
+		return reco_idx;
+	}
+	public void setReco_idx(String[] reco_idx) {
+		this.reco_idx = reco_idx;
+	}
+	public List<String> getOption_name() {
+		return option_name;
+	}
+	public void setOption_name(List<String> option_name) {
+		this.option_name = option_name;
+	}
+	public List<Integer> getOption_qauntity() {
+		return option_qauntity;
+	}
+	public void setOption_qauntity(List<Integer> option_qauntity) {
+		this.option_qauntity = option_qauntity;
+	}
 	public int getRank() {
 		return rank;
 	}
@@ -140,7 +168,6 @@ public class ProductBean {
 	public void setDis_price(int dis_price) {
 		this.dis_price = dis_price;
 	}
-	
 	@Override
 	public String toString() {
 		return "ProductBean [idx=" + idx + ", product_idx=" + product_idx + ", name=" + name + ", price=" + price
@@ -148,8 +175,10 @@ public class ProductBean {
 				+ ", detail_img=" + detail_img + ", discount=" + discount + ", dis_price=" + dis_price
 				+ ", review_score=" + review_score + ", rank=" + rank + ", book_genre=" + book_genre + ", book_writer="
 				+ book_writer + ", book_publisher=" + book_publisher + ", book_date=" + book_date + ", goods_opt="
-				+ goods_opt + "]";
+				+ goods_opt + ", reco_idx=" + Arrays.toString(reco_idx) + ", option_name=" + option_name
+				+ ", option_qauntity=" + option_qauntity + ", toString()=" + super.toString() + "]";
 	}
+	
 	
 	
 	

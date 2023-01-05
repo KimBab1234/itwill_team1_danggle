@@ -18,10 +18,13 @@ import action.NoticeModifyProAction;
 import action.NoticeWriteProAction;
 import action.ProductDeleteAction;
 import action.ProductEditAction;
+import action.ProductEditDetailAction;
 import action.ProductEditListAction;
 import action.ProductEditProAction;
 import action.ProductRegiProAction;
 import action.RecommendBookAction;
+import action.RecommendBookDeleteAction;
+import action.RecommendBookListAction;
 import vo.ActionForward;
 
 
@@ -79,7 +82,13 @@ public class BookFrontController extends HttpServlet {
 			action = new ProductEditProAction();
 			forward = action.execute(request, response);
 			
-		} else if(command.equals("/ProductDelete.ad")){
+		}else if(command.equals("/ProductEditDetail.ad")) {
+			System.out.println("상품 디테일 페이지");
+			
+			action = new ProductEditDetailAction();
+			forward = action.execute(request, response);
+			
+		}else if(command.equals("/ProductDelete.ad")){
 			System.out.println("상품 삭제");
 			
 			action = new ProductDeleteAction();
@@ -89,6 +98,18 @@ public class BookFrontController extends HttpServlet {
 			System.out.println("추천 도서 등록");
 			action = new RecommendBookAction();
 			forward = action.execute(request, response);
+			
+		}else if(command.equals("/RecommendBookList.ad")) {
+			System.out.println("추천 도서 목록");
+			action = new RecommendBookListAction();
+			forward = action.execute(request, response);
+			
+		}else if(command.equals("/RecommendBookDelete.ad")) {
+			System.out.println("추천 도서 삭제");
+			action = new RecommendBookDeleteAction();
+			forward = action.execute(request, response);
+			
+			
 		}else if (command.equals("/NoticeWriteForm.ad")) {
 				forward = new ActionForward();
 				forward.setPath("notice/qna_notice_write.jsp");

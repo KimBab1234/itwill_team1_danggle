@@ -9,7 +9,7 @@ import vo.ProductBean;
 public class ProductEditProService {
 
 	public int updateBook(ProductBean product) {
-		System.out.println("ProductEditProService - 상품 수정 서비스 페이지");
+		System.out.println("updateBook - 책 수정 서비스 페이지");
 		int updateCount = 0;
 		
 		Connection con = JdbcUtil.getConnection();
@@ -30,12 +30,12 @@ public class ProductEditProService {
 	}
 
 	public int updateGoods(ProductBean product) {
+		System.out.println("updateGoods - 굿즈 수정 서비스 페이지");
 		int updateCount = 0;
 		
 		Connection con = JdbcUtil.getConnection();
 		ProductDAO dao = ProductDAO.getInstance();
 		dao.setCon(con);
-		
 		
 		updateCount = dao.updateGoods(product);
 		

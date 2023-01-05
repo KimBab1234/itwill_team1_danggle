@@ -4,6 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +28,7 @@ public class ProductEditProAction implements Action {
 		ActionForward forward = null;
 		boolean isNewFile = false;
 		int updateCount = 0;
+		int pageNum = 0;
 		String deleteImg = "";
 		String deleteDetailImg = "";
 		try {
@@ -38,8 +44,10 @@ public class ProductEditProAction implements Action {
 			);
 			
 			String product_idx = multi.getParameter("product_idx");
-
+			
 			if(product_idx.substring(0, 1).equals("B")) { // 책 수정 처리
+			pageNum = Integer.parseInt(multi.getParameter("pageNum"));
+			
 			ProductBean product = new ProductBean();
 			
 			product.setProduct_idx(product_idx);
@@ -87,6 +95,19 @@ public class ProductEditProAction implements Action {
 				product.setDetail(multi.getParameter("detail"));
 				product.setDetail_img(multi.getParameter("detail_img"));
 				
+				// 굿즈 옵션
+				String[] strOptName = multi.getParameterValues("option_name");
+				String[] strOptNum = multi.getParameterValues("option_qauntity");
+				// string[] -> int[] 변환
+				
+				if(strOptName != null && strOptNum != null) {
+					List<String> option_name = new ArrayList<>(List.of(strOptName));
+					int[] optQauArr = Stream.of(strOptNum).mapToInt(Integer::parseInt).toArray();
+					List<Integer> option_qauntity = Arrays.stream(optQauArr).boxed().collect(Collectors.toList());
+					product.setOption_name(option_name);
+					product.setOption_qauntity(option_qauntity);
+				}
+				
 				// 대표 이미지 수정하지 않을 경우
 				if(product.getImg() == null) {
 					product.setImg(multi.getParameter("old_img"));
@@ -122,9 +143,15 @@ public class ProductEditProAction implements Action {
 					}
 				}
 				
-				forward = new ActionForward();
-				forward.setPath("ProductEditForm.ad?product_idx=" +product_idx);
-				forward.setRedirect(true);
+				if(product_idx.substring(0, 1).equals("B")) { // 책은 pageNum 함께 넘겨줘야 함!
+					forward = new ActionForward();
+					forward.setPath("ProductEditDetail.ad?product_idx="+product_idx+"&pageNum="+pageNum);
+					forward.setRedirect(true);
+				}else if(product_idx.substring(0, 1).equals("G")) {
+					forward = new ActionForward();
+					forward.setPath("ProductEditDetail.ad?product_idx="+product_idx);
+					forward.setRedirect(true);
+				}
 				
 			}else { // 수정 실패 시
 				response.setContentType("text/html; charset=UTF-8");
