@@ -11,9 +11,7 @@ public class MemberLoginProService {
 		boolean isloginSuccess = false; 
 		
 		Connection con = JdbcUtil.getConnection();
-		
 		MemberDAO dao = MemberDAO.getInstance();
-		
 		dao.setConnection(con);
 		
 		isloginSuccess = dao.loginMember(id, passwd);

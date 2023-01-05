@@ -13,9 +13,9 @@ Create table wish(
 import java.sql.Date;
 
 public class WishBean {
-	String member_id;
-	String product_idx;
-	Date wish_date;
+	private String member_id;
+	private String product_idx;
+	private Date wish_date;
 	
 	public String getMember_id() {
 		return member_id;

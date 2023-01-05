@@ -18,6 +18,7 @@ public class WishlistService {
 		dao.setConnection(con);
 		
 		wishlist = dao.selectWishlist(sId, keyword, startRow, listLimit);
+		JdbcUtil.commit(con);
 		
 		JdbcUtil.close(con);
 		

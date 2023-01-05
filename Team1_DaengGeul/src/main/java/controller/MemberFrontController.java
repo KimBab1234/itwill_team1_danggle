@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.MemberCheckCertProAction;
+import action.MemberCheckEmailAction;
 import action.MemberCheckIdAction;
 import action.MemberDeleteProAction;
 import action.MemberInfoAction;
@@ -18,6 +20,8 @@ import action.MemberListAction;
 import action.MemberLoginProAction;
 import action.MemberLogoutProAction;
 import action.MemberSearchIdAction;
+import action.MemberSearchPasswdAction;
+import action.MemberSendCertProAction;
 import action.MemberUpdateProAction;
 import vo.ActionForward;
 
@@ -30,14 +34,19 @@ public class MemberFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
+		
 		// 회원가입 Controller
 		if(command.equals("/MemberJoinForm.me")) {
 			forward = new ActionForward();
 			forward.setPath("member/member_join_form.jsp");
 			forward.setRedirect(false);
-		// 사용중인 아이디 확인
+		// 중복 아이디 확인
 		} else if(command.equals("/MemberCheckId.me")) {
 			action = new MemberCheckIdAction();
+			forward = action.execute(request, response);
+		// 중복 이메일 확인
+		} else if(command.equals("/MemberCheckEmail.me")) {
+			action = new MemberCheckEmailAction();
 			forward = action.execute(request, response);
 		} else if(command.equals("/MemberJoinPro.me")) {
 			System.out.println("회원가입!");
@@ -92,6 +101,17 @@ public class MemberFrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		
 			
+		// 회원가입/비밀번호 찾기 인증메일 전송
+		} else if(command.equals("/MemberSendCertPro.me")) {
+			System.out.println("인증메일전송!");
+			action = new MemberSendCertProAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/MemberCheckCertPro.me")) {
+			System.out.println("인증코드확인!");
+			action = new MemberCheckCertProAction();
+			forward = action.execute(request, response);
+			
+			
 		// 회원 아이디/비밀번호 찾기 Controller
 		} else if(command.equals("/MemberInfoSearchForm.me")) {
 			forward = new ActionForward();
@@ -99,15 +119,16 @@ public class MemberFrontController extends HttpServlet {
 			forward.setRedirect(false);
 		// 회원 아이디 찾기
 		} else if(command.equals("/MemberSearchId.me")) {
-			System.out.println("회원 아이디 찾기!");
+			System.out.println("아이디 찾기!");
 			action = new MemberSearchIdAction();
 			forward = action.execute(request, response);
-		// 회원 아이디/비밀번호 찾기
-		} else if(command.equals("/MemberDeletePro.me")) {
-			System.out.println("회원 비밀번호 찾기!");
-			action = new MemberDeleteProAction();
+		// 회원 비밀번호 찾기
+		} else if(command.equals("/MemberSearchPasswd.me")) {
+			System.out.println("비밀번호 찾기!");
+			action = new MemberSearchPasswdAction();
 			forward = action.execute(request, response);
 		}
+		
 
 		if(forward != null) {
 			if(forward.isRedirect()) {

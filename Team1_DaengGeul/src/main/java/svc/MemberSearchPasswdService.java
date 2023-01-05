@@ -5,21 +5,17 @@ import java.sql.Connection;
 import dao.MemberDAO;
 import db.JdbcUtil;
 
-public class MemberCheckIdService {
+public class MemberSearchPasswdService {
 
-	public boolean isExistId(String id) {
-		boolean isExist = false;
-		
+	public void searchPasswd(String id, String tempPasswd) {
 		Connection con = JdbcUtil.getConnection();
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 		
-		isExist = dao.selectMemberId(id);
+		dao.UpdateTempPasswd(id, tempPasswd);
 		JdbcUtil.commit(con);
-
-		JdbcUtil.close(con);
 		
-		return isExist;
+		JdbcUtil.close(con);
 	}
 
 }
