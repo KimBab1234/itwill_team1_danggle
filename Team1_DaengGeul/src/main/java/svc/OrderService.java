@@ -61,7 +61,7 @@ public class OrderService {
 		dao.setConnection(con);
 
 		ArrayList<OrderBean> orderList= dao.selectOrderList(id, period);
-
+		JdbcUtil.commit(con);
 		JdbcUtil.close(con);
 
 		return orderList;
@@ -79,7 +79,7 @@ public class OrderService {
 		dao.setConnection(con);
 
 		OrderBean order= dao.selectOrderDetail(id, order_idx);
-
+		JdbcUtil.commit(con);
 		JdbcUtil.close(con);
 
 		return order;
@@ -97,7 +97,7 @@ public class OrderService {
 		dao.setCon(con);
 
 		ArrayList<ProductBean> orderProdList= dao.selectOrderProductList(order_product_list);
-
+		JdbcUtil.commit(con);
 		JdbcUtil.close(con);
 
 		return orderProdList;
