@@ -9,6 +9,8 @@
 <title>장바구니</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 .cartB:focus, .cartB:active { outline:none; }
 </style>
@@ -46,7 +48,11 @@ Map.prototype.toJSON = function toJSON() {
 				$("#cartAddRow"+i+" input[type=checkbox]").val(key);
 				$("#cartAddRow"+i+" input[type=text]").val(prod.get('count'));
 				$("#cartAddRow"+i+" img").prop("src", prod.get('img'))
-				$("#cartAddRow"+i+" td").eq(2).text(prod.get('name'));
+				if(prod.get('opt')!=null) {
+					$("#cartAddRow"+i+" td").eq(2).text(prod.get('name')+" (선택 옵션 :"+prod.get('opt')+")");
+				} else {
+					$("#cartAddRow"+i+" td").eq(2).text(prod.get('name'));
+				}
 				$("#cartAddRow"+i+" td").eq(3).text(prod.get('price')+"원");
 				$("#cartAddRow"+i+" .price").text(Number(prod.get('price')*Number(prod.get('count'))));
 				$("#cartAddRow"+i+" button").eq(0).val(i);
@@ -145,7 +151,7 @@ Map.prototype.toJSON = function toJSON() {
 	</header>
 	<div align="center">
 	<div style="width: 1000px; margin-top: 50px; min-height: 500px;">
-	<h3 id="cartUse1" style="visibility: hidden; text-align: left;">| 상품 확인</h3>
+	<h2 id="cartUse1" style="visibility: hidden; text-align: left; font-weight:bold; font-family: 'Poppins', sans-serif; color:#513e30">| 상품 확인</h2>
 	<form action="OrderPayForm.or" method="post">
 		<h2 id="cartNone" style="visibility: hidden;">장바구니가 비었습니다.</h2>
 		<div id="cartUse" style="visibility: hidden;">
@@ -156,8 +162,8 @@ Map.prototype.toJSON = function toJSON() {
 			<table border="1" style="width: 1000px; text-align: center; margin-top: 20px">
 				<tr id="tableFirst" >
 					<td width="30px">체크</td>
-					<td width="70px">이미지</td>
-					<td width="70px">상품</td>
+					<td width="50px">이미지</td>
+					<td width="200px">상품</td>
 					<td width="70px">개당 가격</td>
 					<td width="70px">수량</td>
 					<td width="70px">금액</td>
@@ -175,7 +181,7 @@ Map.prototype.toJSON = function toJSON() {
 					<td><span class="price"></span>원</td>
 				</tr>
 			</table>
-				<h3 style="margin-top: 50px">선택한 상품 : <span id="totalChk">0</span>개 | 
+				<h3 style="margin-top: 50px; font-weight:bold; font-family: 'Poppins', sans-serif; color:#513e30">선택한 상품 : <span id="totalChk">0</span>개 | 
 				최종 금액 : <span id="total">0</span>원</h3>
 				<div class="wrap" style="margin-top: 30px; margin-bottom: 50px;">
 				  <button class="orderB">주문하기!</button>

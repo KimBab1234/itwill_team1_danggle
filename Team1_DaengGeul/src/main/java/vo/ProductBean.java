@@ -1,6 +1,7 @@
 package vo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ProductBean {
 	// 상품 번호
@@ -28,7 +29,7 @@ public class ProductBean {
 	private Date book_date;
 	
 	//굿즈 옵션
-	private String goods_opt;
+	private List<String> goods_opt;
 	
 	public int getRank() {
 		return rank;
@@ -42,10 +43,10 @@ public class ProductBean {
 	public void setReview_score(double review_score) {
 		this.review_score = review_score;
 	}
-	public String getGoods_opt() {
+	public List<String> getGoods_opt() {
 		return goods_opt;
 	}
-	public void setGoods_opt(String goods_opt) {
+	public void setGoods_opt(List<String> goods_opt) {
 		this.goods_opt = goods_opt;
 	}
 	public int getIdx() {

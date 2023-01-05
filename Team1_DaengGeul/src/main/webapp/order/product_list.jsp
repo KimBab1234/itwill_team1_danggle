@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>상품 목록</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
+<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
 	<header>
@@ -30,10 +31,10 @@
 	                            <div class="dropdown ml-4" style="left: 65%">
 	                            	<c:if test="${param.type ne 'B_recomm' && param.type ne 'B_disc' }">
 				                       <span> ■ 베스트 순위는 최근 7일간 판매량 기준입니다.</span>
-		                                <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                                <button class="btn border dropdown-toggle" type="button" id="triggerId2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		                                            정렬
 		                                </button>
-		                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+		                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId2">
 		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_new${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>최신순</a>
 		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_best${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>많이 팔린 순</a>
 		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_pricedown${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 낮은 순</a>
@@ -58,22 +59,36 @@
 	                    </c:if>
 	                    
 	                    <c:forEach items="${productList}" var="item">
-	                    <div class="col-lg-3 col-md-6 col-sm-12 pb-1" style="width: 1005px; "> <!-- border: solid black 1px;  -->
+	                    <div class="col-lg-3 col-md-6 col-sm-12 pb-1" style="width: 1005px;" class="prodList"> <!-- border: solid black 1px;  -->
 	                            <div class="card-header product-img bg-transparent border p-0" style=" display:flex;align-items: center; justify-content: center;">
 	                              <a href="ProductDetail.go?product_idx=${item.product_idx}&rank=${item.rank}"><img class="img-fluid" src="img/product/${item.img}" style="width: 300px; height: 320px; object-fit: cover;"></a>
 	                            </div>
 	                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-	                            	<c:if test="${item.rank<5}">
+	                            	<c:if test="${item.rank<5 && param.type.indexOf('best') >0}">
 		                            	<div class="d-flex justify-content-center">
 		                                    <h6 class="text-truncate mb-3">주간베스트&nbsp;</h6><h5 style="color: red;">${item.rank}</h5><h6 class="text-truncate mb-3">위</h6>
 		                                </div>
 	                            	</c:if>
 	                                <h5 class="text-truncate mb-3">${item.name}</h5>
 	                                <div class="d-flex justify-content-center">
-	                                    <h6 class="text-muted ml-2"><del>${item.price}</del></h6>&nbsp;<h5 style="color: orange">${item.dis_price}</h5>
+	                                	<c:choose>
+	                                		<c:when test="${item.discount>0}">
+			                                    <h6 class="text-muted ml-2"><del>${item.price}</del></h6>&nbsp;<h5 style="color: orange">${item.dis_price}</h5><h5 class="text-muted">원</h5>
+	                                		</c:when>
+	                                		<c:otherwise>
+			                                    <h5 style="color: orange">${item.price}</h5><h5 class="text-muted">원</h5>
+	                                		</c:otherwise>
+	                                	</c:choose>
 	                                </div>
 	                                <div class="d-flex justify-content-center">
-	                                    <h6 style="color: red">${item.discount}% 할인</h6>&nbsp;|&nbsp;<i class="fa fa-star" style="color: orange"></i>&nbsp;<h6 style="color: brown">${item.review_score}</h6>
+	                                	<c:choose>
+	                                		<c:when test="${item.discount>0}">
+			                                    <h6 style="color: red">${item.discount}% 할인</h6>&nbsp;|&nbsp;<i class="fa fa-star" style="color: orange"></i>&nbsp;<h6 style="color: brown">${item.review_score}</h6>
+	                                		</c:when>
+	                                		<c:otherwise>
+			                                   <i class="fa fa-star" style="color: orange"></i>&nbsp;<h6 style="color: brown">${item.review_score}</h6>
+	                                		</c:otherwise>
+	                                	</c:choose>
 	                                </div>
 	                                <c:if test="${item.product_idx.substring(0,1) eq 'B'}">
 		                                 <div class="d-flex justify-content-center">
@@ -84,10 +99,10 @@
 	                                    ${item.sel_count} | ${item.book_date}
 	                                 </div>
 	                            </div>
-	                            <div class="card-footer d-flex justify-content-between bg-light border">
-	                                <a href="ProductDetail.go?product_idx=${item.product_idx}&rank=${item.rank}" class="btn btn-sm p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-	                                <a href="" class="btn btn-sm p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-	                            </div>
+<!-- 	                            <div class="card-footer d-flex justify-content-between bg-light border"> -->
+<%-- 	                                <a href="ProductDetail.go?product_idx=${item.product_idx}&rank=${item.rank}" class="btn btn-sm p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a> --%>
+<!-- 	                                <a href="javascript:function1();" class="btn btn-sm p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a> -->
+<!-- 	                            </div> -->
 	                    </div>
 	                   </c:forEach> 
 	                   

@@ -18,6 +18,7 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 	<link href="css/default_order.css" rel="stylesheet" type="text/css">
+	<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script>
 
@@ -39,6 +40,8 @@ $(function() {
 	
 	if('${product.product_idx.substring(0,1)}'=="G") {
 		 $("#book_detail").css("display", "none");
+	} else {
+		$("#goods_detail").css("display", "none");
 	}
 	
 
@@ -149,7 +152,7 @@ function countModify(sign) {
 	</header>
 	
 	<hr>
-	<div style="width: 1920px; display: flex; margin-left: 10px; min-height: 500px;">
+	<div style="width: auto; display: flex; margin-left: 10px; min-height: 500px;">
 		<div style="width: 200px;">
 			<jsp:include page="../inc/left.jsp"></jsp:include>
         </div>
@@ -164,8 +167,7 @@ function countModify(sign) {
 					<input type="hidden" id="price" value="${product.dis_price}">
 					<input type="hidden" id="img" value="${img}">
 					<input type="hidden" id="name" value="${product.name}">
-					<input type="hidden" id="opt" value="-">
-					<span style="font-family: 'Jua', sans-serif; font-size: 36px;">${product.name}</span>
+					<span style="font-family: 'Jua', sans-serif; font-size: 55px;">${product.name}</span>
 					<hr>
 					<div id="book_detail">
 						장르 : ${product.book_genre}
@@ -175,25 +177,33 @@ function countModify(sign) {
 						출간일 : ${product.book_date}<br>
 						<hr>
 					</div>
-					현재 재고 : ${product.quantity}개<br>
-					<hr>
-					주간 베스트 순위 : ${param.rank}위
+					주간 베스트 순위 : ${product.rank}위
 					<hr>
 					정가: ${product.price }원 <br>
 					할인가: <span style="font-size: 2em; font: bold; color: #f4511e;">${product.dis_price }</span>원
-					(${product.discount }% 할인 적용)<br>
-
+					(${product.discount }% 할인 적용)
+					<br>
 					<!--장바구니부분 -->
-					<div style="display: flex; position: absolute;">
-						<div class="input-group mr-3" style="width: 130px;">
+					<div class="input-group mr-3" style="width: 500px; display: flex;">
 							<button class="btn btn-primary btn-minus" type="button" onclick="countModify('-')" style="width: 40px;">
 								<i class="fa fa-minus"></i>
 							</button>
-							<input type="text" id="count" name="count" style="background-color: white" class="form-control bg-cart text-center" value="1">
+							<input type="text" id="count" name="count" style="background-color: #F6F6F6; border:none; width: 40px;" class="text-center" value="1">
 							<button class="btn btn-primary btn-plus" type="button" style="width: 40px;" onclick="countModify('+')">
 								<i class="fa fa-plus"></i>
 							</button>
-						</div>
+							&nbsp;&nbsp;&nbsp;
+							<c:if test="${product.goods_opt.size()>0 }">
+								<span id="goods_detail">
+								<select id="opt">
+									<c:forEach var="i" begin="0" end="${product.goods_opt.size()-1}">
+										<option value="${product.goods_opt.get(i)}">${product.goods_opt.get(i) }</option>
+									</c:forEach>
+								</select>
+								</span>
+							</c:if>
+					</div>
+					<div style="display: flex; width: 500px; margin-top: 20px;">
 						<button class="btn btn-primary px-3" type="button" id="cartAddBtn" style="width: 130px;">
 							<i class="fa fa-shopping-cart mr-1"></i> 장바구니
 						</button>
@@ -206,7 +216,7 @@ function countModify(sign) {
 			</form>
 			<!-- 상단 이미지, 큰 정보 감싸는 곳 끝-->
 			<hr>
-			<div class="row px-xl-5">
+			<div class="row px-xl-5" style="width: 1500px;">
 	            <div class="col">
 					<div class="nav nav-tabs justify-content-center border-secondary mb-4">
 						<a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">상세 정보</a>
@@ -214,11 +224,14 @@ function countModify(sign) {
 						<a class="nav-item nav-link review_page" data-toggle="tab" href="#tab-pane-3" id="tab3_review">리뷰</a>
 					</div>
                     <div class="tab-content">
-						<div class="tab-pane fade show active" id="tab-pane-1">
-		                   <h4 class="mb-3" style="text-align: left">상세설명</h4>
-		                       <p>
-		                        	${product.detail}
-		                       </p>
+						<div class="tab-pane fade show active" id="tab-pane-1" align="center">
+	                       <p style="width: 1000px;" align="left">
+	                        	${product.detail}
+	                       </p>
+	                       <h1>${product.detail_img}</h1>
+	                       <div align="center">
+		                       <img src="${product.detail_img}" style="width: 800px;">
+	                       </div>
 	                    </div>
                     	<div class="tab-pane fade active" id="tab-pane-2">
                     		<h4 class="mb-3">문의사항</h4>

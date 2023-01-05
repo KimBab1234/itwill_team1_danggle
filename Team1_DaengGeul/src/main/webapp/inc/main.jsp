@@ -91,10 +91,10 @@
 										<%-- 관리자 --%>
 										<c:when test="${sessionScope.sId eq 'admin'}">
 											<div class="container" style="position: relative;">
-											<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			                                	관리자
 			                                </button>
-			                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId" style="position: absolute;">
+			                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId1" style="position: absolute;">
 			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
 			                                    <a class="dropdown-item" href='ProductList.ad'>상품 정보 관리</a>
 			                                    <a class="dropdown-item" href='RecommendBook.ad'>추천 도서 관리</a>
