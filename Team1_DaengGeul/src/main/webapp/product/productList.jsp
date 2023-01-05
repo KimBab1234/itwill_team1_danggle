@@ -50,6 +50,13 @@
 			}
 		});
 		
+		$("#recoBtn").on("click", function() {
+			if($(".recoCheck").is(":checked") == false){
+				alert("추천 도서는 한 권 이상 선택되어야 합니다.");
+				return false;
+			}
+		});
+		
 	});
 	
 </script>
