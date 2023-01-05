@@ -99,7 +99,7 @@
 			                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId1" style="position: absolute;">
 			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
 			                                    <a class="dropdown-item" href='ProductList.ad'>상품 정보 관리</a>
-			                                    <a class="dropdown-item" href='RecommendBook.ad'>추천 도서 관리</a>
+			                                    <a class="dropdown-item" href='RecommendBookList.ad'>추천 도서 관리</a>
 			                                </div>
 			                                </div>
 										</c:when>
