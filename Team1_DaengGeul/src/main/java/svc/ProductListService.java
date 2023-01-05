@@ -20,7 +20,7 @@ public class ProductListService {
 		dao.setCon(con);
 
 		List<ProductBean> productList = dao.selectProductList(product_type, sort, keyword, pageStartRow,pageProductCount);
-
+		JdbcUtil.commit(con);
 		JdbcUtil.close(con);
 
 		return productList;
@@ -37,7 +37,7 @@ public class ProductListService {
 		dao.setCon(con);
 
 		int productCount = dao.selectProductCount(product_type, sort, keyword);
-
+		JdbcUtil.commit(con);
 		JdbcUtil.close(con);
 
 		return productCount;

@@ -7,13 +7,6 @@
 <meta charset="UTF-8">
 <title>상품 목록</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
-<script>
-
-$(function() {
-	$('.recent-three').fadeIn(300);
-});
-
-</script>
 </head>
 <body>
 	<header>
