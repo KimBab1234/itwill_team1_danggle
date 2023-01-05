@@ -15,6 +15,7 @@ public class MemberSearchIdService {
 		dao.setConnection(con);
 		
 		findId = dao.searchId(email);
+		JdbcUtil.commit(con);
 		
 		JdbcUtil.close(con);
 		

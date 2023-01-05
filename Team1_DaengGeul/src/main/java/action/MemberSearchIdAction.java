@@ -23,7 +23,15 @@ public class MemberSearchIdAction implements Action {
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			
+			// 찾은 아이디의 일부만 표시하기 위한 작업
+			char[] idArr = findId.toCharArray();
+			idArr[1] = '*';
+			idArr[2] = '*';
+			findId = String.valueOf(idArr);
+			
 			out.print(findId);
+			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

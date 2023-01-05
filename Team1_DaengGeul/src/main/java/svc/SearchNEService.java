@@ -5,21 +5,21 @@ import java.sql.Connection;
 import dao.MemberDAO;
 import db.JdbcUtil;
 
-public class MemberCheckIdService {
+public class SearchNEService {
 
-	public boolean isExistId(String id) {
-		boolean isExist = false;
+	public String[] SearchNE(String id) {
+		String[] findInfo = null;
 		
 		Connection con = JdbcUtil.getConnection();
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 		
-		isExist = dao.selectMemberId(id);
+		findInfo = dao.SearchNE(id);
 		JdbcUtil.commit(con);
-
+		
 		JdbcUtil.close(con);
 		
-		return isExist;
+		return findInfo;
 	}
 
 }
