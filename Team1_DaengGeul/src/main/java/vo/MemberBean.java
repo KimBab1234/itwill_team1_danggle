@@ -15,9 +15,11 @@ package vo;
 		member_join_date VARCHAR(20) NOT NULL,
 		member_gender VARCHAR(1) NOT NULL,
 		member_point INT,
-		member_coupon VARCHAR(20)
+		member_coupon VARCHAR(20),
+		member_authStatus varchar(2) NOT NULL
+			default 'N'
+			CONSTRAINT mAuth_yn CHECK(member_authStatus IN ('Y', 'N'))
  	);
-	(미정)member_agree VARCHAR(1) NOT NULL - 광고 수신동의
  */
 
 import java.sql.Date;
@@ -36,6 +38,8 @@ public class MemberBean {
 	private String member_gender;
 	private int member_point;
 	private String member_coupon;
+	private String member_authStatus;
+	
 	public String getMember_id() {
 		return member_id;
 	}
@@ -114,6 +118,13 @@ public class MemberBean {
 	public void setMember_coupon(String member_coupon) {
 		this.member_coupon = member_coupon;
 	}
+	public String getMember_authStatus() {
+		return member_authStatus;
+	}
+	public void setMember_authStatus(String member_authStatus) {
+		this.member_authStatus = member_authStatus;
+	}
+	
 	@Override
 	public String toString() {
 		return "MemberBean [member_id=" + member_id + ", member_passwd=" + member_passwd + ", member_name="
@@ -121,7 +132,7 @@ public class MemberBean {
 				+ ", member_postcode=" + member_postcode + ", member_roadAddress=" + member_roadAddress
 				+ ", member_jibunAddress=" + member_jibunAddress + ", member_addressDetail=" + member_addressDetail
 				+ ", member_join_date=" + member_join_date + ", member_gender=" + member_gender + ", member_point="
-				+ member_point + ", member_coupon=" + member_coupon + "]";
+				+ member_point + ", member_coupon=" + member_coupon + ", member_authStatus=" + member_authStatus + "]";
 	}
 	
 }

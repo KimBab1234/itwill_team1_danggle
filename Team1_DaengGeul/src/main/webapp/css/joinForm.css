@@ -111,6 +111,17 @@ html, body {
 	margin-left: 57px;
 }
 
+.join-cover>.join-wrapper>.row > #checkNameResult
+{
+	font: inherit;
+	background: inherit;
+	font-size: 12px;
+	outline: none;
+	text-align: center;
+	margin: auto;
+	
+}
+
 .join-cover>.join-wrapper>.row >#in-gen1
 {
 	font: inherit;
@@ -142,8 +153,9 @@ html, body {
 	font-size: 15px;
 	border:0.1em solid #c9b584;
 	outline: none;
-	margin-left: 35px;
+	margin-left: 34.5px;
 }
+
 .join-cover>.join-wrapper>.row >.in-e2
 {
 	font: inherit;
@@ -152,6 +164,17 @@ html, body {
 	font-size: 15px;
 	border:0.1em solid #c9b584;
 	outline: none;
+}
+
+.join-cover>.join-wrapper>.row > #certNum
+{
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	font-size: 15px;
+	border:0.1em solid #c9b584;
+	outline: none;
+	margin-left: 134px;
 }
 
 .join-cover>.join-wrapper>.row > select
@@ -185,7 +208,8 @@ html, body {
 	margin-left: 55px;
 }
 .join-cover>.join-wrapper>.row > #postbutton,
-.join-cover>.join-wrapper>.row > #btnIdCheck
+.join-cover>.join-wrapper>.row > #sendCert,
+.join-cover>.join-wrapper>.row > #checkCert
 {
 	font: inherit;
 	background: inherit;
@@ -194,7 +218,7 @@ html, body {
 	font-weight: 600;
 	border:0.1em solid #c9b584;
 	outline: none;
-	margin-left: 10px
+	margin-left: 9px
 }
 .join-cover>.join-wrapper>.row >#jibunAddress
 {

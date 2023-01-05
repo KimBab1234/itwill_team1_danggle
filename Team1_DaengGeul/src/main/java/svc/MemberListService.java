@@ -18,6 +18,7 @@ public class MemberListService {
 		dao.setConnection(con);
 		
 		memberList = dao.selectMemberList(keyword, startRow, listLimit);
+		JdbcUtil.commit(con);
 		
 		JdbcUtil.close(con);
 		

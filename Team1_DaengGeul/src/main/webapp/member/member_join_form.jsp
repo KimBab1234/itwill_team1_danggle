@@ -20,40 +20,52 @@
 <link href="css/joinForm.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
 
-
 <%----------------------------- 회원가입 CheckList----------------------------%>
 <script src="js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+	// 아이디, 패스워드 유효성 검사 적용을 위한 변수
+	var idStatus = false;
+	var passwdStatus = false;
+	var nameStatus = false;
+	var emailStatus = false;
+	
 	$(function() {
+		
 		// --------------- 아이디 유효성 검사 및 중복체크 ----------------
 		$("#id").on("change", function() {
 			let id = $("#id").val();
-
 			let lengthRegex = /^[A-Za-z0-9-_]{5,12}$/;
 
 			if(!lengthRegex.exec(id)){
 				$("#checkIdResult").html("사용 불가능한 아이디").css("color", "red");
+				
 			} else {
-				idStatus = true;
+				
 				$.ajax({
 					url: "MemberCheckId.me",
 					data: {
 						id: $("#id").val()
 					},
 					success: function(result) {
+						
 						if(result == "true"){
 							$("#checkIdResult").html("이미 존재하는 아이디").css({
 								color : "#c9b584",
 								marginLeft : "137px"
 							});
+							
 						} else {
 							$("#checkIdResult").html("사용 가능한 아이디").css({
 								color : "#fae37d",
 								marginLeft : "137px"
-							});						
+							});
+							idStatus = true;
 						}
+						
 					}
+					
 				});
+				
 			}
 		});
 		// ---------------------------------------------------------------
@@ -72,6 +84,7 @@
 			if(!regex.exec(passwd)){
 				$("#rightPasswdResult").html("사용 불가능한 패스워드").css("color", "red");
 			} else {
+				passwdStatus = true;
 				let count = 0;
 				if(engUpperRegex.exec(passwd)){ count++ };
 				if(engLowerRegex.exec(passwd)){ count++ };
@@ -83,7 +96,7 @@
 					case 3 : $("#rightPasswdResult").html("보통").css("color", "orange"); break;
 					case 2 : $("#rightPasswdResult").html("위험").css("color", "yellow"); break;
 					case 1 : $("#rightPasswdResult").html("사용불가").css("color", "red");
-							 passwdStatus = true;
+					passwdStatus = false;
 				}
 				
 			}
@@ -115,14 +128,27 @@
 		// ---------------------- 이름 유효성 검사 -----------------------
 		$("#name").on("keyup", function() {
 			let name = $("#name").val();
-
 			let regex = /^[가-힣]{2,10}$/;
 
 			if(!regex.exec(name)){
 				$("#checkNameResult").html("한글 2~10글자로 입력해주세요").css("color", "#c9b584");
-			} else {
-				$("#checkNameResult").html("").css("color", "blue");
+			}else {
+				nameStatus = true;
+				$("#checkNameResult").html("");
 			}
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// --------------- 이메일 유효성 검사 및 입력 제한 ---------------
+		$("#email1").on("keyup", function() {
+			var inputVal = $(this).val();
+			$(this).val($(this).val().replaceAll(/[^\w_.\d]/g,""));
+		});
+		
+		$("#email2").on("keyup", function() {
+			var inputVal = $(this).val();
+			$(this).val($(this).val().replaceAll(/[^\w@.]/g,""));
 		});
 		// ---------------------------------------------------------------
 		
@@ -141,13 +167,162 @@
 			
 		});
 		// ---------------------------------------------------------------
+
+		
+		// --------------------- 이메일 중복체크 -------------------------
+		$("#email2, #selectDomain").on("change", function() {
+			let email1 = $("#email1").val();
+			let email2 = $("#email2").val();
+			
+			if(email1 != ""){
+
+				$.ajax({
+					url: "MemberCheckEmail.me",
+					data: {
+						email1: email1,
+						email2: email2
+					},
+					success: function(result) {
+						
+						if(result == "true"){
+							$("#checkEmailResult").html("이미 등록된 이메일").css({
+								color : "#c9b584",
+								marginLeft : "137px"
+							});
+						} else {
+							$("#checkEmailResult").html("사용 가능한 이메일").css({
+								color : "#fae37d",
+								marginLeft : "137px"
+							});
+						}
+						
+					}
+					
+				});
+				
+			} else {
+				$("#checkEmailResult").html("이메일을 전부 입력하세요").css({
+					color : "red",
+					marginLeft : "137px"
+				});
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// ---------------------- 인증코드 보내기 ------------------------
+		$("#sendCert").on("click", function() {
+			let id = $("#id").val();
+			let email1 = $("#email1").val();
+			let email2 = $("#email2").val();
+			let type = "join";
+			
+			if(id == ""){
+				$("#certEmailMsg").html("아이디부터 입력해주세요!").css("color", "red");
+			} else {
+				if(email1 == "" || email2 ==""){
+					$("#certEmailMsg").html("이메일을 입력해주세요!").css("color", "red");
+				} else {
+					$("#certEmailMsg").html("인증번호가 전송되었습니다").css({
+						color : "#fae37d",
+						marginLeft : "137px"
+					});
+					
+					$.ajax({
+						url: "MemberSendCertPro.me",
+						type : 'POST',
+						data: {
+							id: id,
+							email1: email1,
+							email2: email2,
+							type: type
+						}
+						
+					});
+					
+				}
+				
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// ----------------------- 인증코드 인증 -------------------------
+		$("#checkCert").on("click", function() {
+			let id = $("#id").val();
+			let email1 = $("#email1").val();
+			let email2 = $("#email2").val();
+			let certNum = $("#certNum").val();
+			
+			if(id == ""){
+				$("#certEmailMsg").html("아이디부터 입력해주세요!").css("color", "red");
+			} else {
+				if(email1 == "" || email2 ==""){
+					$("#certEmailMsg").html("이메일을 입력해주세요!").css("color", "red");
+				} else {
+					if(certNum == ""){
+						$("#certEmailMsg").html("인증번호를 입력해주세요!").css("color", "red");
+					} else {
+						
+						$.ajax({
+							url: "MemberCheckCertPro.me",
+							data: {
+								id: id,
+								certNum: certNum
+							},
+							success: function(result) {
+								if(result == "true"){
+									emailStatus = true;
+									$("#certEmailMsg").html("이메일이 인증되었습니다").css({
+										color : "#fae37d",
+										marginLeft : "137px"
+									});
+								} else {
+									$("#certEmailMsg").html("인증코드가 틀렸습니다!").css({
+										color : "red",
+										marginLeft : "137px"
+									});
+								}
+								
+							}
+							
+						});
+									
+					}
+					
+				}
+				
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// ------------------ 조건 충족 시, 회원가입 ---------------------
+		$("#joinForm").submit(function() {
+			if(!idStatus){
+				alert("아이디를 재입력 해주세요!")
+				return false;
+			} else if(!passwdStatus) {
+				alert("패스워드를 재입력 해주세요!")
+				return false;
+			} else if(!emailStatus){
+				alert("이메일 인증을 해주세요!")
+				return false;
+			} else if(!nameStatus){
+				alert("이름을 확인 해주세요!")
+				return false;
+			}
+		});
+		// ---------------------------------------------------------------
 		
 	});
 </script>
 <%----------------------------------------------------------------------------%>
 
-
-<%-- 주소찾기 API --%>
+<%------------------------------- 주소찾기 API -------------------------------%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 function execDaumPostcode() {
@@ -181,7 +356,7 @@ function execDaumPostcode() {
 	<%-- 주소검색 팝업창 --%>
    }
    </script>
-<%------------------%>
+<%----------------------------------------------------------------------------%>
 
 </head>
 <body>
@@ -216,13 +391,13 @@ function execDaumPostcode() {
 				<div class="row">
 					<b>비밀번호</b>
 					<input type="password" class="in-pw" name="passwd" id="passwd" required="required" size="40" 
-						placeholder="8-16자리 영어 대/소문자,숫자,특수문자 조합" maxlength="16" onkeyup="checkedPasswd(this.value)">
+						placeholder="8-16자리 영어 대/소문자,숫자,특수문자 조합" maxlength="16" >
 				</div>
 				<div id="rightPasswdResult"></div>
 				<div class="row">
 					<b>비밀번호 확인</b>
 					<input type="password" name="checkpasswd" id="checkpasswd" required="required" size="35" 
-						placeholder="8-16자리 영어 대/소문자,숫자,특수문자 조합" maxlength="16" onkeyup="checkedPasswd(this.value)">
+						placeholder="8-16자리 영어 대/소문자,숫자,특수문자 조합" maxlength="16" >
 				</div>
 				<div id="checkPasswdResult"></div>
 				
@@ -250,6 +425,13 @@ function execDaumPostcode() {
 					 	<option value="gmail.com">gmail.com</option>
 					 </select>
 				</div>
+				<div id="checkEmailResult"></div>
+				<div class="row">
+					<input type="text" class="in-e2" name="certNum" id="certNum" required="required" size="10" placeholder="인증번호">
+					<input type="button" class="in-button" id="sendCert" value="인증번호 받기" >
+					<input type="button" class="in-button" id="checkCert" value="Email 인증하기" >
+				</div>
+				<div id="certEmailMsg"></div>
 				
 				<div class="row">
 					<b>휴대전화</b>
@@ -259,13 +441,14 @@ function execDaumPostcode() {
 						<option value="016">016</option>
 						<option value="017">017</option>
 					</select>
-					<strong>&nbsp;-&nbsp;</strong><input type="text" class="in-ph" name="phone2" required="required" size="9"><strong>&nbsp;-&nbsp;</strong>
-					<input type="text" class="in-ph" name="phone3" required="required" size="10">
+					<strong>&nbsp;-&nbsp;</strong><input type="text" class="in-ph" name="phone2" required="required" 
+													size="9" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');"><strong>&nbsp;-&nbsp;</strong>
+					<input type="text" class="in-ph" name="phone3" required="required" size="10" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
 				</div>
 				
 				<div class="row">
 					<b>주소</b>
-					<input type="text" id="postcode" name="postcode" placeholder="우편번호">
+					<input type="text" id="postcode" name="postcode" placeholder="우편번호" required="required" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
 					<input type="button" id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기">
 				</div>
 				<div class="row">
@@ -276,12 +459,12 @@ function execDaumPostcode() {
 				
 				<div class="row">
 					<b>상세주소</b>
-					<textarea rows="3" cols="37" name="addressDetail"></textarea>	
+					<textarea rows="3" cols="37" name="addressDetail" required="required"></textarea>	
 				</div>
 				
 				<!-- 버튼 -->
 				<div class="row-button">
-					<input type="submit" id="in-button" class="in-button" value="가입하기">
+					<input type="submit" id="btnJoin" class="in-button" value="가입하기">
 					<input type="reset" class="in-button" value="다시입력">					
 					<input type="button" class="in-button" value="뒤로가기" onclick="history.back()">
 				</div>

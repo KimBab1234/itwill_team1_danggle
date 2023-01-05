@@ -4,22 +4,22 @@ import java.sql.Connection;
 
 import dao.MemberDAO;
 import db.JdbcUtil;
+import vo.AuthBean;
 
-public class MemberCheckIdService {
+public class registAuthService {
 
-	public boolean isExistId(String id) {
-		boolean isExist = false;
-		
+	public void registAuth(AuthBean auth) {
+
 		Connection con = JdbcUtil.getConnection();
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 		
-		isExist = dao.selectMemberId(id);
-		JdbcUtil.commit(con);
-
-		JdbcUtil.close(con);
+		int registCount = dao.registAuth(auth);
+		if(registCount > 0) {
+			JdbcUtil.commit(con);
+		}
 		
-		return isExist;
+		JdbcUtil.close(con);
 	}
 
 }

@@ -57,6 +57,7 @@
 
 				<div class="row-button">
 					<input type="submit" id="login" value="로그인" >
+					<input type="button" value="아이디/비밀번호 찾기" onclick="location.href='MemberInfoSearchForm.me'">
 					<input type="button" value="회원가입" onclick="location.href='MemberJoinForm.me'">
 					<input type="button" value="뒤로가기" onclick="history.back()">
 				</div>

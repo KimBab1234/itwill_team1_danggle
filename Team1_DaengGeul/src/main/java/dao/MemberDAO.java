@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.JdbcUtil;
+import vo.AuthBean;
 import vo.MemberBean;
 
 public class MemberDAO { // MemberDAO
@@ -36,7 +37,7 @@ public class MemberDAO { // MemberDAO
 		
 		try {
 			String sql = "INSERT INTO member"
-					+ " VALUES(?,?,?,?,?,?,?,?,?,now(),?,?,?)";
+					+ " VALUES(?,?,?,?,?,?,?,?,?,now(),?,?,?,'Y')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getMember_id());
 			pstmt.setString(2, member.getMember_passwd());
@@ -52,9 +53,17 @@ public class MemberDAO { // MemberDAO
 			pstmt.setString(12, member.getMember_coupon());
 			
 			insertCount = pstmt.executeUpdate();
+			
+			sql = "DELETE FROM auth"
+					+ " 	WHERE auth_id=?";
+			pstmt2 = con.prepareStatement(sql);
+			pstmt2.setString(1, member.getMember_id());
+			pstmt2.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			JdbcUtil.close(pstmt2);
 			JdbcUtil.close(pstmt);
 		}
 		
@@ -298,6 +307,8 @@ public class MemberDAO { // MemberDAO
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {			
+			JdbcUtil.close(pstmt);
 		}
 		
 		return updateCount;
@@ -305,7 +316,7 @@ public class MemberDAO { // MemberDAO
 	// ----------------------------------------------------------------------
 
 	
-
+	
 	// ----------------- 회원가입 아이디 중복확인(SELECT) -------------------
 	public boolean selectMemberId(String id) {
 		boolean isExist = false;
@@ -327,6 +338,33 @@ public class MemberDAO { // MemberDAO
 		}
 		
 		return isExist;
+	} // 회원가입 아이디 중복확인 끝
+	// ----------------------------------------------------------------------
+	
+	
+	
+	// ----------------- 회원가입 이메일 중복확인(SELECT) -------------------
+	public boolean selectMemberEmail(String email) {
+		boolean isExistEmail = false;
+		
+		try {
+			String sql = "SELECT * FROM member"
+					+ " 	WHERE member_email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				isExistEmail = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return isExistEmail;
 	}
 	// ----------------------------------------------------------------------
 	
@@ -355,13 +393,146 @@ public class MemberDAO { // MemberDAO
 		return findId;
 	} // 회원 아이디 찾기 끝	
 	// ----------------------------------------------------------------------
+
+
+
+	// ---------------- 인증메일 전송 전 회원 검색(SELECT) ------------------
+	public String[] SearchNE(String id) {
+		String[] findInfo = null;
+		
+		try {
+			String sql = "SELECT member_name, member_email"
+					+ " 	FROM member"
+					+ " 	WHERE member_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				findInfo = new String[] {
+					rs.getString("member_name"), rs.getString("member_email")
+				};
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		
+		return findInfo;
+	} // 인증메일 전송 전 회원 검색 끝
+	// ----------------------------------------------------------------------
+
 	
-	
-	
-	// -------------------- 회원 비밀번호 찾기(SELECT) ----------------------
+
+	// ---------------- 인증코드 등록(SELECT/INSERT/UPDATE) -----------------
+	public int registAuth(AuthBean auth) {
+		int registCount = 0;
+		
+		// 인증코드 존재 유무 확인
+		try {
+			String sql = "SELECT *"
+					+ " 	FROM auth"
+					+ " 	WHERE auth_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, auth.getAuth_id());
+			rs = pstmt.executeQuery();
+			
+			// 인증코드 발급 갱신
+			if(rs.next()) {
+				sql = "UPDATE auth"
+						+ " 	SET authCode=?"
+						+ " 	WHERE auth_id=?";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setString(1, auth.getAuthCode());
+				pstmt2.setString(2, auth.getAuth_id());
+				registCount = pstmt2.executeUpdate();
+			
+			// 인증코드 발급 신규
+			} else {
+				sql = "INSERT INTO auth VALUES(?,?)";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setString(1, auth.getAuth_id());
+				pstmt2.setString(2, auth.getAuthCode());
+				registCount = pstmt2.executeUpdate();
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt2);
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return registCount;
+		
+	} // 인증코드 등록 끝
 	// ----------------------------------------------------------------------
 
 
+
+	// ---------------------- 인증코드 조회(SELECT) -------------------------
+	public String selectAuthCode(String id) {
+		String selectedCertNum = null;
+		
+		try {
+			String sql = "SELECT authCode"
+					+ " 	FROM auth"
+					+ " 	WHERE auth_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				selectedCertNum = rs.getString("authCode");				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return selectedCertNum;
+	} // 인증코드 조회 끝
+	// ----------------------------------------------------------------------
+
+
+
+	// -------------------- 임시 비밀번호 발급(UPDATE) ----------------------
+	public void UpdateTempPasswd(String id, String tempPasswd) {
+		
+		try {
+			String sql = "UPDATE member"
+					+ " 	SET member_passwd=?"
+					+ " 	WHERE member_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, tempPasswd);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+			
+			sql = "DELETE FROM auth"
+					+ " 	WHERE auth_id=?";
+			pstmt2 = con.prepareStatement(sql);
+			pstmt2.setString(1, id);
+			pstmt2.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt2);
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+	} // 임시 비밀번호 발급 끝
+	// ----------------------------------------------------------------------
 
 
 	

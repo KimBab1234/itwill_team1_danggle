@@ -26,13 +26,13 @@ CREATE VIEW wishlist AS(
 import java.sql.Date;
 
 public class WishlistBean {
-	String member_id;
-	String product_idx;
-	Date wish_date;
-	String product_name;
-	int product_price;
-	int product_discount;
-	String product_real_img;
+	private String member_id;
+	private String product_idx;
+	private Date wish_date;
+	private String product_name;
+	private int product_price;
+	private int product_discount;
+	private String product_real_img;
 	
 	public String getMember_id() {
 		return member_id;

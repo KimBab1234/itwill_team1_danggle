@@ -17,22 +17,99 @@
 <script src="js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	$(function() {
+		// ------------------------ 찜전체 선택 ----------------------------
+		$("table").css("text-align", "center");
 		
-		// -------------------- 찜전체 삭제 확인 알림창 --------------------
-		$("#deleteWishAll").on("click", function() {
-		  	if(confirm("모든 찜 상품을 취소하시겠습니까?")) {
-		  		location.href = "WishDeletePro.ws";
-		  	}
+		// 전체선택 체크박스 체크 시, 모든 체크박스 체크
+		$("#selectedWishAll").on("change", function() {
+			if($("#selectedWishAll").is(":checked")) {
+				$(":checkbox").each(function(index, item) {
+					$(item).prop("checked", true)
+				});
+			} else {
+				$(":checkbox").prop("checked", false);
+			}
 		});
+		// -----------------------------------------------------------------
+
+		
+		// ---------------------- 찜목록 전체삭제 --------------------------
+		$("#deleteWishAll").on("click", function() {
+		  	if(confirm("모든 찜을 취소하시겠습니까?")) {
+		  		$.ajax({
+					url : "WishDeletePro.ws",
+					type : 'POST',
+					success: function(wishlistCount){
+						if(wishlistCount){
+							$("#wishCount").html(wishlistCount);
+							alert("찜 취소되었습니다");
+							location.replace("Wishlist.ws");
+							
+						} else {
+							alert("찜 취소가 실패했습니다");
+						}
+					},
+					error : function(request, status, error){
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+				});
+		  		
+		  	}
+		}); // 찜목록 전체삭제 끝
 		// -----------------------------------------------------------------
 		
 		
-		// -------------------- 찜개별 삭제 확인 알림창 --------------------
-		$(".deleteWish").on("click", function() {
-		  	if(confirm("[product_name]을 찜 취소하시겠습니까?" + $('#id').val() + $('#product_idx').val())) {
-		  		location.href = "WishDeletePro.ws?product_idx=" + $('#product_idx').val();
+		// ----------------------- 찜목록 선택삭제 -------------------------
+		$("#deleteSelectedWish").on("click", function() {
+			
+		  	if(confirm("해당 상품(들)의 찜을 취소하시겠습니까?")) {
+	  			let listArr = new Array();
+		  		let list = $("input[name='selectedwishlist']:checked");
+		  		
+		  		// ----------- 선택항목들을 배열에 저장 ----------
+		  		for(var i = 0; i < list.length; i++){
+					if(list[i].checked){
+						listArr.push(list[i].value);
+// 						alert("배열값 = "+ listArr);
+					}
+				}
+		  		// -----------------------------------------------
+		  		
+		  		// -----------------------------------------------
+		  		// 체크박스 선택없이 삭제 버튼을 누를 시
+		  		if(list.length == 0){
+			  		alert("취소할 항목을 체크해주세요");
+			  		
+			  	// 체크박스 선택 시
+		  		} else {
+		  			
+		  			$.ajax({
+						url : "WishDeletePro.ws",
+						type : 'POST',
+						traditional : true,
+						data : {
+							listArr : listArr
+						},
+						success: function(wishlistCount){
+							if(wishlistCount){
+								$("#wishCount").html(wishlistCount);
+								alert("찜 취소되었습니다");
+								location.replace("Wishlist.ws");
+							}else{
+								alert("찜 취소가 실패했습니다");
+							}
+						},
+						error : function(request, status, error){
+							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						}
+					});
+		  			
+		  		}
+		  		// -----------------------------------------------
+		  		
 		  	}
-		});
+		  	
+		}); // 찜목록 선택삭제 끝
 		// -----------------------------------------------------------------
 		
 	});
@@ -51,30 +128,31 @@
 	<h1>위시리스트</h1>
 		<table border="1">
 			<tr>
+				<th width="80"><input type="checkbox" id="selectedWishAll">&nbsp;전체</th>
 				<th width="150">상품이미지</th>
 				<th width="120">상품코드</th>
 				<th width="150">상품명</th>				
 				<th width="100">상품가</th>
 				<th width="100">할인액</th>
 				<th width="100">찜등록일</th>
-				<th width="80"></th>
 			</tr>
 			<c:forEach var="wishlist" items="${wishlist }">
-				<tr>
+				<tr>				
+					<td><input type="checkbox" name="selectedwishlist" value="${wishlist.product_idx }"></td>
 					<td>${wishlist.product_real_img }</td>
 					<td>${wishlist.product_idx }</td>
 					<td>${wishlist.product_name }</td>
 					<td>${wishlist.product_price }</td>
 					<td>${wishlist.product_discount }</td>
 					<td>${wishlist.wish_date }</td>
-					<td><input type="button" class="deleteWish" value="찜 취소"></td>
 				</tr>
 			</c:forEach>
 		</table>
 		
 		<!-------------------------- 찜전체 취소버튼 --------------------------->
 		<section id="buttonArea">
-			<input type="button" id="deleteWishAll" value="찜 전체취소">			
+			<input type="button" id="deleteSelectedWish" value="선택취소">			
+			<input type="button" id="deleteWishAll" value="전체취소">			
 		</section>
 		
 		<!-------------------------- 상품명 검색버튼 --------------------------->
