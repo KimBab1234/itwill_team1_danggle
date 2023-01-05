@@ -30,13 +30,12 @@ Set.prototype.toJSON = function toJSON() {
 	  return [...Set.prototype.values.call(this)];
 	}
 	
-
 var id = '${sessionScope.sId}';
 // localStorage.clear();
 var cart = new Map(JSON.parse(localStorage.getItem(id)));
 
 $(function() {
-	
+	$('.recent-three').fadeIn(300);
 	
 	if('${product.product_idx.substring(0,1)}'=="G") {
 		 $("#book_detail").css("display", "none");
@@ -104,7 +103,7 @@ $(function() {
 	});
 	
 	
-	/////리뷰게시판 보이게하기
+	// --------------------- 리뷰 게시판 ---------------------
 	$(".review_page").on("click", function() {
 		var pageNum = 1;
 		if($(this).val()!='') {
@@ -119,7 +118,6 @@ $(function() {
 				pageNum: pageNum
 			},
 			success: function(response) {
-				alert("성공");
 				$("#product-review-area").html(response);
 			},
 			error: function(xhr, textStatus, errorThrown) { 

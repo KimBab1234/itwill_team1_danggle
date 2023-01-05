@@ -21,12 +21,13 @@
     
     // Back to top button + Recent List 3개 추가!
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
+        if ($(this).scrollTop() > document.body.scrollHeight-1000) {
+            $('.recent-three').fadeOut(200);
+        }else if($(this).scrollTop() > 30){
             $('.back-to-top').fadeIn(300);
             $('.recent-three').fadeIn(300);
-        }else {
-            $('.back-to-top').fadeOut(300);
-            $('.recent-three').fadeOut(300);
+        } else {
+            $('.back-to-top').fadeOut(100);
         }
     });
     $('.back-to-top').click(function () {
