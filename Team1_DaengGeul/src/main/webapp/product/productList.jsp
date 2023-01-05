@@ -142,7 +142,7 @@
 			</c:forEach>
 			<c:choose>
 				<c:when test="${pageNum < pageInfo.maxPage}">
-				<a href="location.href='ProductList.ad?pageNum=${pageNum + 1}'"><i class="fas fa-solid fa-angles-right"></i></a>
+					<a href="ProductList.ad?pageNum=${pageNum + 1}"><i class="fas fa-solid fa-angles-right"></i></a>
 				</c:when>
 				<c:otherwise>
 					<a><i class="fas fa-solid fa-angles-right"></i></a>
