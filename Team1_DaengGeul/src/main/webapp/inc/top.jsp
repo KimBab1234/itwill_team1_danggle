@@ -38,7 +38,7 @@
                     <span class="text-muted px-2">|</span>
                     <a class="text-dark" href="">도움말</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">고객센터</a>
+                    <a class="text-dark" href="NoticeList.ad">고객센터</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
