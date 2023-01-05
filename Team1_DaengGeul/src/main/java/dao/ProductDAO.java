@@ -576,9 +576,9 @@ int updateCount = 0;
 			} else if(sortArr[0].equals("disc")) { //할인율 높은 순으로
 				sql += " WHERE book_discount > 0 ORDER BY book_discount DESC";
 			} else if(sortArr[0].equals("recomm")) {  //운영자 추천도서
-				sql = "SELECT book_idx, book_name, book_price, book_discount, book_img, book_price*(100-book_discount)/100 'dis_price', ifnull(sel_count,0) 'sel_count', regi_date, book_genre, book_writer, book_publisher"
+				sql = "SELECT book_idx, book_name, book_price, book_discount, book_img, book_price*(100-book_discount)/100 'dis_price', ifnull(sel_count,0) 'sel_count', regi_date, review_score, book_genre, book_writer, book_publisher"
 					+ " From book_sort_view join recommend_book r on r.product_idx=book_sort_view.book_idx"
-					+ " LEFT OUTER JOIN (select product_idx, avg(review_score) 'review_score' from review group by product_idx) r on r.product_idx=book_sort_view.book_idx";
+					+ " LEFT OUTER JOIN (select product_idx, avg(review_score) 'review_score' from review group by product_idx) review on review.product_idx=book_sort_view.book_idx";
 			} else if(sortArr[0].equals("star")) {
 				sql += " ORDER BY review_score DESC";
 			}

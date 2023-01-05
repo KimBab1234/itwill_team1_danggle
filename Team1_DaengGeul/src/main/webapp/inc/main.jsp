@@ -44,14 +44,14 @@
 
 <body>
     <!-- Navbar Start -->
-    <div class="container-fluid" style="width: 1920px;">
+    <div class="container-fluid mb-5" style="width: 1920px;">
         <div class="row border-top px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
+            <div class="col-lg-3 d-lg-block" style="width:300px;">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0">카테고리</h6>
+                    <span class="m-0">카테고리</span>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1001;">
                     <div class="navbar-nav w-100 overflow-hidden" style="height: 460px">
                         <a href="ProductList.go?type=B_new_genre&keyword=humanities" class="nav-item nav-link">인문</a>
 						<a href="ProductList.go?type=B_new_genre&keyword=novel" class="nav-item nav-link">소설</a>

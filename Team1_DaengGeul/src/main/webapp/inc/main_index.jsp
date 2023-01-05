@@ -103,7 +103,7 @@
 			                                <button class="btn btn-primary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			                                	${sessionScope.sId } 님
 			                                </button>
-			                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId" style="position: absolute;">
+			                                <div class="dropdown-menu" aria-labelledby="triggerId" style="position: absolute;">
 			                                    <a class="dropdown-item" href='MemberInfo.me?id=${sessionScope.sId}'>회원정보</a>
 			                                    <a class="dropdown-item" href='OrderList.or'>주문내역</a>
 			                                    <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
