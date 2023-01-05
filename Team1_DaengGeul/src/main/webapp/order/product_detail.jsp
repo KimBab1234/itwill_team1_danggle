@@ -13,7 +13,7 @@
 
     <link href="img/favicon.ico" rel="icon">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -149,14 +149,14 @@ function countModify(sign) {
 	</header>
 	
 	<hr>
-	<div style="width: auto; display: flex; margin-left: 10px; min-height: 500px;">
+	<div style="width: 1920px; display: flex; margin-left: 10px; min-height: 500px;">
 		<div style="width: 200px;">
 			<jsp:include page="../inc/left.jsp"></jsp:include>
         </div>
 	<!-- 왼쪽 메뉴바 세트 끝 -->
 	
 	<!-- 상단 이미지, 큰 정보 감싸는 곳 -->
-		<div style="width: 1500px; margin-left: 20px; ">
+		<div style="width: 1500px; margin-left: 20px;">
 			<form action="CartAdd.or" method="post" style="display: flex; align-items: center;">
 				<img src="${img}" style="width: 400px; margin-left: 200px">
 				<div class="mb-4 pt-2" style="text-align: left; width: 500px; align-content: center;  margin-left: 50px">
@@ -165,7 +165,7 @@ function countModify(sign) {
 					<input type="hidden" id="img" value="${img}">
 					<input type="hidden" id="name" value="${product.name}">
 					<input type="hidden" id="opt" value="-">
-					<h1>${product.name}</h1>
+					<span style="font-family: 'Jua', sans-serif; font-size: 36px;">${product.name}</span>
 					<hr>
 					<div id="book_detail">
 						장르 : ${product.book_genre}
@@ -177,7 +177,7 @@ function countModify(sign) {
 					</div>
 					현재 재고 : ${product.quantity}개<br>
 					<hr>
-					주간 베스트 순위~~
+					주간 베스트 순위 : ${param.rank}위
 					<hr>
 					정가: ${product.price }원 <br>
 					할인가: <span style="font-size: 2em; font: bold; color: #f4511e;">${product.dis_price }</span>원
@@ -186,21 +186,19 @@ function countModify(sign) {
 					<!--장바구니부분 -->
 					<div style="display: flex; position: absolute;">
 						<div class="input-group mr-3" style="width: 130px;">
-							<button class="btn btn-primary btn-minus" type="button"
-								onclick="countModify('-')">
+							<button class="btn btn-primary btn-minus" type="button" onclick="countModify('-')" style="width: 40px;">
 								<i class="fa fa-minus"></i>
 							</button>
 							<input type="text" id="count" name="count" style="background-color: white" class="form-control bg-cart text-center" value="1">
-							<button class="btn btn-primary btn-plus" type="button"
-								onclick="countModify('+')">
+							<button class="btn btn-primary btn-plus" type="button" style="width: 40px;" onclick="countModify('+')">
 								<i class="fa fa-plus"></i>
 							</button>
 						</div>
-						<button class="btn btn-primary px-3" type="button" id="cartAddBtn">
-							<i class="fa fa-shopping-cart mr-1"></i> 장바구니 추가
+						<button class="btn btn-primary px-3" type="button" id="cartAddBtn" style="width: 130px;">
+							<i class="fa fa-shopping-cart mr-1"></i> 장바구니
 						</button>
 						&nbsp;&nbsp;&nbsp;
-						<button class="btn btn-primary px-3" type="button" id="wish">
+						<button class="btn btn-primary px-3" type="button" id="wish" style="width: 110px;">
 							<i class="fa fa-solid fa-heart" style="color: black;"></i> 찜하기
 						</button>
 					</div>

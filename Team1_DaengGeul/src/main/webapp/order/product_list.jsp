@@ -60,9 +60,14 @@
 	                    <c:forEach items="${productList}" var="item">
 	                    <div class="col-lg-3 col-md-6 col-sm-12 pb-1" style="width: 1005px; "> <!-- border: solid black 1px;  -->
 	                            <div class="card-header product-img bg-transparent border p-0" style=" display:flex;align-items: center; justify-content: center;">
-	                              <a href="ProductDetail.go?product_idx=${item.product_idx}"><img class="img-fluid" src="img/product/${item.img}" style="width: 300px; height: 320px; object-fit: cover;"></a>
+	                              <a href="ProductDetail.go?product_idx=${item.product_idx}&rank=${item.rank}"><img class="img-fluid" src="img/product/${item.img}" style="width: 300px; height: 320px; object-fit: cover;"></a>
 	                            </div>
 	                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+	                            	<c:if test="${item.rank<5}">
+		                            	<div class="d-flex justify-content-center">
+		                                    <h6 class="text-truncate mb-3">주간베스트&nbsp;</h6><h5 style="color: red;">${item.rank}</h5><h6 class="text-truncate mb-3">위</h6>
+		                                </div>
+	                            	</c:if>
 	                                <h5 class="text-truncate mb-3">${item.name}</h5>
 	                                <div class="d-flex justify-content-center">
 	                                    <h6 class="text-muted ml-2"><del>${item.price}</del></h6>&nbsp;<h5 style="color: orange">${item.dis_price}</h5>
@@ -80,7 +85,7 @@
 	                                 </div>
 	                            </div>
 	                            <div class="card-footer d-flex justify-content-between bg-light border">
-	                                <a href="" class="btn btn-sm p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+	                                <a href="ProductDetail.go?product_idx=${item.product_idx}&rank=${item.rank}" class="btn btn-sm p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
 	                                <a href="" class="btn btn-sm p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
 	                            </div>
 	                    </div>
