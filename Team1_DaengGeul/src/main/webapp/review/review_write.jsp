@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Review 게시판</title>
-<link href="review/css/review_write.css" rel="stylesheet" type="text/css">
+<!-- <link href="review/css/review_write.css" rel="stylesheet" type="text/css"> -->
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style type="text/css">
 	
@@ -46,6 +46,31 @@
  		width: 300px; 
  	} 
 	
+		#myform fieldset{
+    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    direction: rtl; /* 이모지 순서 반전 */
+    border: 0; /* 필드셋 테두리 제거 */
+}
+#myform input[type=radio]{
+    display: none; /* 라디오박스 감춤 */
+}
+#myform fieldset label{
+    font-size: 2em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+}
+#myform fieldset label:hover{
+	color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #ffcc00; /* 마우스 호버 */
+}
+#myform fieldset label:hover ~ label{
+	color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #ffcc00; /* 마우스 호버 뒤에오는 이모지들 */
+}
+#myform fieldset input[type=radio]:checked ~ label{
+	color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #ffcc00; /* 마우스 클릭 체크 */
+}
 </style>
 </head>
 <body>
@@ -89,11 +114,11 @@
 					<td class="td_left"><label for="review_score"><b>별점</b></label></td>
 					<td>
 				    <fieldset name="review_score" class="score">
-				        <input type="radio" name="review_score" value="5" id="rate1"><label for="rate1">⭐</label>
-				        <input type="radio" name="review_score" value="4" id="rate2"><label for="rate2">⭐</label>
-				        <input type="radio" name="review_score" value="3" id="rate3"><label for="rate3">⭐</label>
-				        <input type="radio" name="review_score" value="2" id="rate4"><label for="rate4">⭐</label>
-				        <input type="radio" name="review_score" value="1" id="rate5"><label for="rate5">⭐</label>
+				        <input type="radio" name="review_score" value="5" id="rate1"><label for="rate1">?</label>
+				        <input type="radio" name="review_score" value="4" id="rate2"><label for="rate2">?</label>
+				        <input type="radio" name="review_score" value="3" id="rate3"><label for="rate3">?</label>
+				        <input type="radio" name="review_score" value="2" id="rate4"><label for="rate4">?</label>
+				        <input type="radio" name="review_score" value="1" id="rate5"><label for="rate5">?</label>
 				    </fieldset>
 					</td> 
 				</tr>
@@ -140,6 +165,9 @@
 	
 </body>
 </html>
+
+
+
 
 
 
