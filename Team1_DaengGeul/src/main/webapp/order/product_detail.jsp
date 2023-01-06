@@ -16,7 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 	<link href="css/default_order.css" rel="stylesheet" type="text/css">
 	<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
@@ -82,6 +81,11 @@ $(function() {
 			location.href='MemberLoginForm.me';
 		} else {
 			var product_idx = '${product.product_idx}'+ "_opt_" +$('#opt').val();
+			var optionVal = $('#opt').val();
+			if(optionVal=="") {
+				alert("옵션을 선택하세요!");
+				return;
+			}
 			var prod = {
 					'opt' :  $('#opt').val(),
 					'price' :  $('#price').val(),
@@ -186,16 +190,17 @@ function countModify(sign) {
 					<!--장바구니부분 -->
 					<div class="input-group mr-3" style="width: 500px; display: flex;">
 							<button class="btn btn-primary btn-minus" type="button" onclick="countModify('-')" style="width: 40px;">
-								<i class="fa fa-minus"></i>
+								<i class="fa fa-minus cartIcon" style="margin-left: 0px;"></i>
 							</button>
 							<input type="text" id="count" name="count" style="background-color: #F6F6F6; border:none; width: 40px;" class="text-center" value="1">
 							<button class="btn btn-primary btn-plus" type="button" style="width: 40px;" onclick="countModify('+')">
-								<i class="fa fa-plus"></i>
+								<i class="fa fa-plus cartIcon" style="margin-left: 0px;"></i>
 							</button>
 							&nbsp;&nbsp;&nbsp;
 							<c:if test="${product.goods_opt.size()>0 }">
 								<span id="goods_detail">
 								<select id="opt">
+									<option value="">==옵션 선택==</option>
 									<c:forEach var="i" begin="0" end="${product.goods_opt.size()-1}">
 										<option value="${product.goods_opt.get(i)}">${product.goods_opt.get(i) }</option>
 									</c:forEach>
@@ -204,12 +209,12 @@ function countModify(sign) {
 							</c:if>
 					</div>
 					<div style="display: flex; width: 500px; margin-top: 20px;">
-						<button class="btn btn-primary px-3" type="button" id="cartAddBtn" style="width: 130px;">
-							<i class="fa fa-shopping-cart mr-1"></i> 장바구니
+						<button class="btn btn-primary px-3" type="button" id="cartAddBtn" style="width: 150px;">
+							<i class="fa fa-shopping-cart mr-1 cartIcon" style="margin-left: 0px;"></i> 장바구니
 						</button>
 						&nbsp;&nbsp;&nbsp;
-						<button class="btn btn-primary px-3" type="button" id="wish" style="width: 110px;">
-							<i class="fa fa-solid fa-heart" ></i> 찜하기
+						<button class="btn btn-primary px-3" type="button" id="wish" style="width: 130px;">
+							<i class="fa fa-solid fa-heart cartIcon" style="margin-left: 0px;"></i> 찜하기
 						</button>
 					</div>
 				</div>
@@ -228,9 +233,10 @@ function countModify(sign) {
 	                       <p style="width: 1000px;" align="left">
 	                        	${product.detail}
 	                       </p>
-	                       <h1>${product.detail_img}</h1>
 	                       <div align="center">
-		                       <img src="${product.detail_img}" style="width: 800px;">
+	                       		<c:if test="${not empty product.detail_img.substring(36)}">
+			                       <img src="${product.detail_img}" style="width: 800px;">
+	                       		</c:if>
 	                       </div>
 	                    </div>
                     	<div class="tab-pane fade active" id="tab-pane-2">

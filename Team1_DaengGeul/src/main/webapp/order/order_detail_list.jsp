@@ -27,6 +27,7 @@
 	<div align="center">
 	<div style="width: 1000px; margin-top: 50px;">
 	<h3 style="text-align: left;">| 상세 주문 내역</h3>
+	<h4 style="text-align: left;">■ 주문 날짜 - ${order.order_date}</h4>
 	<table border="1" style="width: 1000px; text-align: center; margin-top: 20px">
 		<tr>
 			<td width="300px">상품명</td>
@@ -91,7 +92,6 @@
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>

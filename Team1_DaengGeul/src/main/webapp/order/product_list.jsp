@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>상품 목록</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
+<link href="css/style.css" rel="stylesheet" type="text/css">
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
@@ -128,7 +129,7 @@
 				                            <li class="page-item">
 				                            	<c:choose>
 				                            		<c:when test="${i.index == param.pageNum}">
-				                            			<span class="thisPage" style="">${i.index}</span>
+						                            	<a class="thisPage" href="">${i.index}</a>
 				                            		</c:when>
 				                            		<c:otherwise>
 						                            	<a class="page-link" href="ProductList.go?type=${param.type}&pageNum=${i.index}">${i.index}</a>

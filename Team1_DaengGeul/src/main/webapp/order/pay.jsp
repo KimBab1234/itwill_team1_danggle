@@ -167,10 +167,10 @@ Map.prototype.toJSON = function toJSON() {
 	</header>
 	<div align="center">
 	<div style="width: 1000px; margin-top: 50px; min-height: 500px;">
-	<h3 style="text-align: left;">| 결제</h3>
+	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 결제</h3>
 		<form action="OrderPayPro.or" method="post" name="dangglePayForm">
-			<table border="1" style="width: 1000px; text-align: center; margin-top: 20px" id="payTb">
-				<tr>
+			<table border="1" class="regi_table"  style="width: 1000px; text-align: center; margin-top: 20px" id="payTb">
+				<tr style="background: #513e30; color:#F0D264">
 					<td width="300px">상품</td>
 					<td width="70px">판매가</td>
 					<td width="70px">수량</td>
@@ -184,15 +184,15 @@ Map.prototype.toJSON = function toJSON() {
 				</tr>
 			</table>
 			<hr>			
-			<section>
-				<h3 style="text-align: left;">| 적립금, 쿠폰</h3>
+			<section style="font-size: 20px;">
+				<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 적립금, 쿠폰</h3>
 				적립금 : ${member.member_point}원
 				사용할 적립금 : <input type="text" name="point" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
-				<button type="button" onclick="pointApply()">사용</button><br>
+				<button class="cartB" type="button" onclick="pointApply()">사용</button><br>
 			</section>
 			<hr>
 			<div align="left">
-			<h3 style="text-align: left;">| 배송 주소</h3>
+			<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 배송 주소</h3>
 			<table border="1" style="width: 800px; text-align: left; margin-top: 20px">
 				<tr>
 					<th width="100px" style="text-align:center">주문자</th>
@@ -239,7 +239,6 @@ Map.prototype.toJSON = function toJSON() {
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>

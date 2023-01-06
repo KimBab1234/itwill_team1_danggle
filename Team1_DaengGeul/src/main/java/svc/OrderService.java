@@ -12,7 +12,7 @@ import vo.ProductBean;
 public class OrderService {
 
 	//=====================주문 내역 저장=====================
-	public boolean getProductList(OrderBean order) {
+	public boolean setProductList(OrderBean order) {
 
 		System.out.println("=======================================");
 		System.out.println("OrderPayProService- getProductList 진입");

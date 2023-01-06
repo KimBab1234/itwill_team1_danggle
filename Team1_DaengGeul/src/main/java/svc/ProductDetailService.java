@@ -20,6 +20,7 @@ public class ProductDetailService {
 
 		ProductBean product = dao.selectProduct(product_idx);
 
+		JdbcUtil.commit(con);
 		JdbcUtil.close(con);
 
 		return product;

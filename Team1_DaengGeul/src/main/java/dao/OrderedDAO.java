@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 
 			orderList = new ArrayList<>();
 
-			String sql = "SELECT * FROM order_view WHERE member_id=? AND order_date BETWEEN date(now()-INTERVAL "+ period +") and date(now());";
+			String sql = "SELECT * FROM order_view WHERE member_id=? AND order_date BETWEEN date(now()-INTERVAL "+ period +") and date(now()) ORDER BY order_date desc;";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 //			System.out.println(pstmt);
@@ -194,9 +195,9 @@ public class OrderedDAO { //싱글톤디자인패턴
 
 			if(rs.next()) {
 				order = new OrderBean();
-
 				order.setOrder_total_pay(rs.getInt("order_total_pay"));
-				order.setOrder_date(rs.getDate("order_date"));
+				int start = id.length();
+				order.setOrder_date(java.sql.Date.valueOf(order_idx.substring(start,start+4)+"-"+order_idx.substring(start+5,start+6)+"-"+order_idx.substring(start+7,start+8)));
 				order.setOrder_address(rs.getString("order_address"));
 				order.setOrder_name(rs.getString("order_name"));
 				order.setOrder_phone(rs.getString("order_phone"));

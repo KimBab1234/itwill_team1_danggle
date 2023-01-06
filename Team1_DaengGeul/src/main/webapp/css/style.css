@@ -2373,13 +2373,18 @@ fieldset:disabled a.btn {
 .btn-primary {
   color: #fae37d;
   background-color: #513e30;
-  border-color: #c9b584;
 }
 
 .btn-primary:hover {
   color: #513e30;
   background-color: #c9b584;
-  border-color: #513e30;
+}
+
+.btn-primary .cartIcon{
+  color: #c9b584;
+}
+.btn-primary:hover .cartIcon{
+  color: #513e30;
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -4591,6 +4596,17 @@ input[type="button"].btn-block {
   line-height: 1.25;
   color: #c9b584;
   background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.thisPage {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #c9b584;
+  background-color: #513e30;
   border: 1px solid #dee2e6;
 }
 

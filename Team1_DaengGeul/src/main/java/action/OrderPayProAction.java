@@ -55,7 +55,7 @@ public class OrderPayProAction implements Action {
 				JSONArray prod = (JSONArray)prodIdx.get(1);
 
 				JSONArray prodInfo = (JSONArray)prod.get(0);
-				opt.add((String)prodInfo.get(1));
+				opt.add((String)prodInfo.get(1)==null?"-":(String)prodInfo.get(1));
 				prodInfo = (JSONArray)prod.get(4);
 				cnt.add(Integer.parseInt(String.valueOf(prodInfo.get(1))));
 				prodInfo = (JSONArray)prod.get(1);
@@ -70,7 +70,7 @@ public class OrderPayProAction implements Action {
 
 			///주문내역 저장하러가기
 			OrderService service = new OrderService();
-			Boolean isSuccessInsert = service.getProductList(order);
+			Boolean isSuccessInsert = service.setProductList(order);
 
 			//장바구니 비우기 및 페이지 이동
 			try {
