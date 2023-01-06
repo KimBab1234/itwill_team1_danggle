@@ -25,10 +25,10 @@
 	</header>
 
 	<div align="center">
-	<div style="width: 1000px; margin-top: 50px;">
-	<h3 style="text-align: left;">| 상세 주문 내역</h3>
-	<h4 style="text-align: left;">■ 주문 날짜 - ${order.order_date}</h4>
-	<table border="1" style="width: 1000px; text-align: center; margin-top: 20px">
+	<div style="width: 1300px; margin-top: 50px;">
+	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 상세 주문 내역</h3>
+	<h4 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">■ 주문 날짜 - ${order.order_date}</h4>
+	<table border="1" class="regi_table" style="width: 1300px; text-align: center; margin-top: 20px">
 		<tr>
 			<th width="300px">상품명</th>
 			<th width="70px">가격</th>
