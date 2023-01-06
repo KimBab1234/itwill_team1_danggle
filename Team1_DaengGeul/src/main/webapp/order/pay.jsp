@@ -187,7 +187,7 @@ Map.prototype.toJSON = function toJSON() {
 			<section style="font-size: 20px;">
 				<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 적립금, 쿠폰</h3>
 				적립금 : ${member.member_point}원
-				사용할 적립금 : <input type="text" name="point" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
+				사용할 적립금 : <input type="text" name="point" style="background: #513e30; color:#F0D264" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
 				<button class="cartB" type="button" onclick="pointApply()">사용</button><br>
 			</section>
 			<hr>
