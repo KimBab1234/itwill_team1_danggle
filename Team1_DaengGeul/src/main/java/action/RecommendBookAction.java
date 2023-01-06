@@ -35,9 +35,14 @@ public class RecommendBookAction implements Action {
 			
 			if(insertCount > 0) { // 등록 성공!
 				
+				String confirm = "추천 도서에 등록되었습니다.\\n추천 도서 목록 페이지로 이동하시겠습니까?";
+				
 				out.println("<script>");
-				out.println("alert('추천 도서에 등록되었습니다')");
+				out.println("if(confirm(\'" +confirm +"\')){");
+				out.println("location.href='RecommendBookList.ad'");
+				out.println("}else{");
 				out.println("location.href='ProductList.ad'");
+				out.println("}");
 				out.println("</script>");
 				
 				

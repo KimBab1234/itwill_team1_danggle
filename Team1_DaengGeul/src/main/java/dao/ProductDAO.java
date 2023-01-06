@@ -75,9 +75,9 @@ public class ProductDAO {
 			System.out.println("sql 구문 오류 - regiBook(책 등록)");
 			e.printStackTrace();
 		}finally {
+			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt3);
 			JdbcUtil.close(pstmt2);
-			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
 		
@@ -203,6 +203,9 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			System.out.println("sql 구문 오류 - selectProductList(상품 목록 조회)");
 			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
 		
 		return productList;
@@ -260,6 +263,10 @@ public class ProductDAO {
 		} catch (Exception e) {
 			System.out.println("sql 구문 오류 - selectBook(책 수정 상세페이지)");
 			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			
 		}
 		
 		return book;
@@ -344,6 +351,8 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			System.out.println("sql 구문 오류 - updateBook(책 수정)");
 			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt);
 		}
 		
 		return updateCount;
@@ -406,7 +415,7 @@ public class ProductDAO {
 					pstmt3.executeUpdate();
 					
 				}
-				JdbcUtil.close(pstmt2);
+				JdbcUtil.close(pstmt3);
 				
 				// count 비교를 통해 이전에 입력된 값 삭제
 				sql = "DELETE FROM goods_options WHERE goodsOpt_idx=? AND count < ?";
@@ -422,7 +431,6 @@ public class ProductDAO {
 			System.out.println("sql 구문 오류 - updateGoods(굿즈 수정)");
 			e.printStackTrace();
 		} finally {
-			
 			JdbcUtil.close(pstmt);
 		}
 		
@@ -511,6 +519,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}finally {
 			JdbcUtil.close(pstmt2);
+			JdbcUtil.close(pstmt1);
 			JdbcUtil.close(pstmt);
 		}
 		
@@ -541,7 +550,6 @@ public class ProductDAO {
 			System.out.println("sql 구문 오류 - recommendBook(추천 도서 등록)");
 			e.printStackTrace();
 		}finally {
-			JdbcUtil.close(pstmt2);
 			JdbcUtil.close(pstmt);
 		}
 		return insertCount;
@@ -592,6 +600,8 @@ public class ProductDAO {
 		} catch (Exception e) {
 			System.out.println("sql 구문 오류 - deleteRecoBook(추천 도서 삭제)");
 			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt);
 		}
 		
 		return deleteCount;
