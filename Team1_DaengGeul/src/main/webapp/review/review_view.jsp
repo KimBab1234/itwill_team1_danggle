@@ -146,7 +146,7 @@ $(function() {
 				<td width="800">
 					<fieldset name="review_score" class="score" id="score">
 						<c:forEach var="i" begin="1" end="${review.review_score}">
-					        <input type="radio" name="review_score" id="rate" checked="checked"><label for="rate">?</label>
+					        <input type="radio" name="review_score" id="rate" checked="checked"><label for="rate">⭐</label>
 						</c:forEach>
 					</fieldset>
 				</td>
