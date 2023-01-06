@@ -12,7 +12,7 @@
 		<jsp:include page="/inc/top.jsp"></jsp:include>
 	</header>
 	<h1>독후감 작성</h1>
-	<form action="CommunityWritePro.cu" method="post" enctype="multipart/form-data">
+	<form action="CommunityWritePro.co" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="board_type" value="1">
 	<input type="hidden" name="member_id" value=${sessionScope.sId }>
 	<table border="1">

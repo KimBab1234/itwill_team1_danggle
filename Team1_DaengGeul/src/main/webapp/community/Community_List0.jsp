@@ -31,9 +31,9 @@
 	</table>
 	<input type="button" value="메인" onclick="location.href='./'">
 	<input type="button" value="글쓰기"
-		onclick="location.href='CommunityWrite0.cu'">
+		onclick="location.href='CommunityWrite0.co'">
 	<input type="button" value="독후감목록"
-		onclick="location.href='Community1.cu?board_type=1'">
+		onclick="location.href='Community1.co?board_type=1'">
 
 	<header>
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>

@@ -81,9 +81,9 @@ $(function() {
 			alert("로그인 후 이용하세요.");
 			location.href='MemberLoginForm.me';
 		} else {
-			var product_idx = '${product.product_idx}';
+			var product_idx = '${product.product_idx}'+ "_opt_" +$('#opt').val();
 			var prod = {
-					'opt' : $('#opt').val(),
+					'opt' :  $('#opt').val(),
 					'price' :  $('#price').val(),
 					'img' :  $('#img').val(),
 					'name' : '${product.name}',
@@ -209,7 +209,7 @@ function countModify(sign) {
 						</button>
 						&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-primary px-3" type="button" id="wish" style="width: 110px;">
-							<i class="fa fa-solid fa-heart" style="color: black;"></i> 찜하기
+							<i class="fa fa-solid fa-heart" ></i> 찜하기
 						</button>
 					</div>
 				</div>

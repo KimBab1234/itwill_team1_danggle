@@ -32,7 +32,8 @@ public class OrderService {
 		if(isSuccessOrder && isSuccessUpdatePoint) {
 			
 			ProductDAO dao2 = ProductDAO.getInstance();
-			boolean isSuccessUpdate = dao2.updateProductSell(order.getOrder_prod_idx(), order.getOrder_prod_cnt());
+			dao2.setCon(con);
+			boolean isSuccessUpdate = dao2.updateProductSell(order.getOrder_prod_idx(), order.getOrder_prod_opt() ,order.getOrder_prod_cnt());
 			
 			if(isSuccessUpdate) {
 				JdbcUtil.commit(con);
