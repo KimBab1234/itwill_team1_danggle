@@ -82,7 +82,7 @@
                             <a href="ProductList.go?type=B_best" class="nav-item nav-link">베스트셀러</a>
                             <a href="ProductList.go?type=B_disc" class="nav-item nav-link">할인 중인 도서</a>
                             <a href="ProductList.go?type=G" class="nav-item nav-link">굿즈샵</a>
-                            <a href="" class="nav-item nav-link">커뮤니티</a>
+                            <a href="Community0.cu?board_type=0" class="nav-item nav-link">커뮤니티</a>
                         </div>
                         
                         <div class="navbar-nav ml-auto py-0">
