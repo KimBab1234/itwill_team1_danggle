@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 완료</title>
-<link href="../css/default_order.css" rel="stylesheet" type="text/css">
+<link href="css/default_order.css" rel="stylesheet" type="text/css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script>
 var id = '${sessionScope.sId}';
 localStorage.removeItem(id);

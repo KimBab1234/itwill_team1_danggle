@@ -53,7 +53,12 @@ public class OrderFrontController extends HttpServlet {
 			System.out.println("상세 주문 내역 화면");
 			action = new OrderDetailListAction();
 			forward = action.execute(request, response);
-		}
+		} else if(command.equals("/OrderPayEnd.or")) {
+			System.out.println("결제 완료 화면");
+			forward = new ActionForward();
+			forward.setPath("order/pay_end.jsp");
+			forward.setRedirect(false);
+		} 
 				
 		///=======================페이지 이동 구문=======================///
 		
