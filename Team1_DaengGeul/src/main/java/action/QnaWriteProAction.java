@@ -38,7 +38,7 @@ public class QnaWriteProAction implements Action {
 			QnaBean qna = new QnaBean();
 			
 			
-			qna.setQna_id(sId);
+			qna.setMember_id(sId);
 //			qna.setQna_idx(Integer.parseInt(multi.getParameter("qna_idx")));
 			qna.setQna_content(multi.getParameter("qna_content"));
 			qna.setQna_file(multi.getOriginalFileName("qna_file"));

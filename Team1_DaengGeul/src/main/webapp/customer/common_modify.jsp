@@ -63,7 +63,7 @@
 	<!-- 게시판 글 수정 -->
 	<section id="modifyForm">
 		<h4>문의 글 수정</h4>
-		<form action="CommonModifyPro.co" name="boardForm" method="post">
+		<form action="CommonModifyPro.cu" name="boardForm" method="post">
 		<input type="hidden" name="common_idx" value="${common.common_idx}">
 					<table>
 				<tr>

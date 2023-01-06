@@ -105,7 +105,7 @@ private QnaDAO() {
 			qna.setQna_subject(rs.getString("qna_subject"));
 			qna.setQna_file(rs.getString("qna_file"));
 			qna.setQna_original_file(rs.getString("qna_original_file"));
-			qna.setQna_id(rs.getString("member_id"));
+			qna.setMember_id(rs.getString("member_id"));
 			qna.setQna_re_ref(rs.getInt("qna_re_ref"));
 			qna.setQna_re_lev(rs.getInt("qna_re_lev"));
 			qna.setQna_re_seq(rs.getInt("qna_re_seq"));
@@ -174,7 +174,7 @@ private QnaDAO() {
 		while(rs.next()) {
 			qna = new QnaBean();
 			qna.setQna_idx(rs.getInt("qna_idx"));
-			qna.setQna_id(rs.getString("member_id"));
+			qna.setMember_id(rs.getString("member_id"));
 			qna.setQna_subject(rs.getString("qna_subject"));
 			qna.setQna_content(rs.getString("qna_content"));
 			qna.setQna_file(rs.getString("qna_file"));
@@ -315,7 +315,7 @@ private QnaDAO() {
 			sql = "INSERT INTO qna VALUES (?,?,?,?,?,?,now(),?,?,?)";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, qna_idx);
-			pstmt2.setString(2, qna.getQna_id());
+			pstmt2.setString(2, qna.getMember_id());
 			pstmt2.setString(3, qna.getQna_subject());
 			pstmt2.setString(4, qna.getQna_content());
 			pstmt2.setString(5, qna.getQna_file());

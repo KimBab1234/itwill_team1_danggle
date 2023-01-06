@@ -46,7 +46,7 @@
 	<!-- 게시판 글 삭제 -->
 	<h2>공지 글 삭제</h2>
 	<section id="passForm">
-		<form action="NoticeDeletePro.ad" name="deleteForm" method="post">
+		<form action="NoticeDelete.ad" name="deleteForm" method="post">
 		<input type="hidden" name="notice_idx" value="${param.notice_idx }">
 			<table>
 				<tr>

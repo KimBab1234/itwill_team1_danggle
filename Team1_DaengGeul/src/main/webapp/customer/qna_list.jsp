@@ -106,7 +106,7 @@
 				
 				
 				<td id="subject">
-				<c:if test="${qna.qna_re_lev=0 && qna.qna_re_seq=0 }">
+				<c:if test="${qna.qna_re_lev==0 && qna.qna_re_seq==0 }">
 					<c:forEach var="i" begin="1" end="${qna.qna_re_lev }">
 						&nbsp;&nbsp;
 					
@@ -129,7 +129,7 @@
 				${qna.qna_subject}
 				</a>
 				</td>
-				<td>${sessionScope.sId }</td>
+				<td>${qna.member_id }</td>
 				<td>
 				<fmt:formatDate value="${qna.qna_date}" pattern="yy-MM-dd"/>
 				</td>

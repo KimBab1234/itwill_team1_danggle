@@ -67,7 +67,7 @@
 			<table class="noticeform">
 				<tr>
 					<td class="td_left"><label for="${sessionScope.sId }">관리자</label></td>
-					<td class="td_right"><input type="text" name="${sessionScope.sId }" required="required" /></td>
+					<td class="td_right"><input type="text" name="${sessionScope.sId }" placeholder=" ${sessionScope.sId }" /></td>
 				</tr>
 				
 				<tr>
