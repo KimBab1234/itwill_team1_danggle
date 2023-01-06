@@ -13,9 +13,11 @@
 	var sum = 0;
 
 	function discountSet() {
-
+		// 할인 설정 안함 선택 시 discount(hidden)에 0 들어감
 		if(document.proRegi.disc[1].checked){
 			document.getElementById("discount").value = 0;
+			$("#disNum").attr("required", false);
+			// 할인 설정 안함 선택 시에만 required 속성 해제
 		}
 	}
 	
@@ -37,6 +39,10 @@
 			}else if($("input[type=radio][class=regi_check]:checked").val() == "goods"){
 				$("#book_info").hide();
 				$("#goods_option").show();
+				// 굿즈 선택 시 책 정보 required 속성 해제
+				$("#writer").attr("required", false);
+				$("#publisher").attr("required", false);
+				$("#date").attr("required", false);
 			}
  			
 		});
@@ -128,9 +134,9 @@
 				<tr>
 					<th>책 정보</th>
 					<td>
-						<div class="bookArea">작가명 : <input type="text" name="book_writer" id='book_div'></div>
-						<div class="bookArea">출판사 : <input type="text" name="book_publisher"id="book_div"></div>
-						<div class="bookArea">출판일 : <input type="date" name="book_date"></div>
+						<div class="bookArea">작가명 : <input type="text" id="writer" name="book_writer" class='book_div' required="required"></div>
+						<div class="bookArea">출판사 : <input type="text" id="publisher" name="book_publisher" class="book_div" required="required"></div>
+						<div class="bookArea">출판일 : <input type="date" id="date" name="book_date" required="required"></div>
 					</td>
 				</tr>
 			</tbody>
@@ -153,7 +159,7 @@
 				<th>할인</th>
 				<td>
 					<input type="radio" checked="checked" class="regi_check2" name="disc">
-					<input type="number" class="disNum" min="1" max="100" onkeyup="disKeyup(this.value)">% 할인 설정
+					<input type="number" class="disNum" min="1" id="disNum" max="100" onkeyup="disKeyup(this.value)" required="required">% 할인 설정
 					<input type="hidden" id="discount" name="discount"><br>
 					<input type="radio" name="disc" class="regi_check" onclick="discountSet()">할인 설정 안함<br>
 				</td>
