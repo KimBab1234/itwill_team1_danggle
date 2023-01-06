@@ -187,7 +187,7 @@ Map.prototype.toJSON = function toJSON() {
 			<section style="font-size: 20px;">
 				<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 적립금, 쿠폰</h3>
 				적립금 : ${member.member_point}원
-				사용할 적립금 : <input type="text" name="point" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
+				사용할 적립금 : <input type="text" name="point" style="background: #513e30; color:#F0D264" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
 				<button class="cartB" type="button" onclick="pointApply()">사용</button><br>
 			</section>
 			<hr>
@@ -195,11 +195,11 @@ Map.prototype.toJSON = function toJSON() {
 			<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 배송 주소</h3>
 			<table border="1" style="width: 800px; text-align: left; margin-top: 20px">
 				<tr>
-					<th width="100px" style="text-align:center">주문자</th>
+					<th width="100px" style="text-align:center; background: #513e30; color:#F0D264">주문자</th>
 					<td width="700px"><input type="text" name="name" value="${member.member_name}" style="width: 200px;"></td>
 				</tr>
 				<tr>
-					<th style="text-align:center">주소</th>
+					<th style="text-align:center; background: #513e30; color:#F0D264">주소</th>
 					<td>
 						<input type="text" name="postcode" id="postcode" style="width: 200px;" value="${member.member_postcode}">
 						<input type="button" id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기">
@@ -207,17 +207,17 @@ Map.prototype.toJSON = function toJSON() {
 					</td>
 				</tr>
 				<tr>
-					<th style="text-align:center">상세 주소</th>
+					<th style="text-align:center; background: #513e30; color:#F0D264">상세 주소</th>
 					<td><input type="text" name="addressDetail" id="addressDetail" style="width: 600px;" value="${member.member_addressDetail}"></td>
 				</tr>
 				<tr>
-					<th style="text-align:center">연락처</th>
+					<th style="text-align:center; background: #513e30; color:#F0D264">연락처</th>
 					<td><input type="text" name="phone" value="${member.member_phone}"  style="width: 200px;"></td>
 				</tr>
 			</table>
 			</div>
 			<hr>
-			<h2>최종 금액 : <span id="total" style="color: red">${totalPay}</span>원</h2>
+			<h2 style="font-family: 'Jua', sans-serif; color: #513e30;">최종 금액 : <span id="total" style="color: red">${totalPay}</span>원</h2>
 			<input type="hidden" id="totalPay" name="totalPay" value="${totalPay}">
 			<input type="hidden" id="usePoint" name="usePoint" value="0">
 			<input type="hidden" id="payment" name="payment" value="card">

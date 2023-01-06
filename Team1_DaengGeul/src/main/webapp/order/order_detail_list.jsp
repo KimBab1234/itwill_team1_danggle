@@ -25,16 +25,16 @@
 	</header>
 
 	<div align="center">
-	<div style="width: 1000px; margin-top: 50px;">
-	<h3 style="text-align: left;">| 상세 주문 내역</h3>
-	<h4 style="text-align: left;">■ 주문 날짜 - ${order.order_date}</h4>
-	<table border="1" style="width: 1000px; text-align: center; margin-top: 20px">
+	<div style="width: 1300px; margin-top: 50px;">
+	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 상세 주문 내역</h3>
+	<h4 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">■ 주문 날짜 - ${order.order_date}</h4>
+	<table border="1" class="regi_table" style="width: 1300px; text-align: center; margin-top: 20px">
 		<tr>
-			<td width="300px">상품명</td>
-			<td width="70px">가격</td>
-			<td width="50px">옵션</td>
-			<td width="30px">수량</td>
-			<td width="70px">금액</td>
+			<th width="300px">상품명</th>
+			<th width="70px">가격</th>
+			<th width="50px">옵션</th>
+			<th width="30px">수량</th>
+			<th width="70px">금액</th>
 		</tr>
 		<c:forEach begin="0" end="${order.order_prod_name.size()-1}" var="i" varStatus="status">
 			<tr>
@@ -46,36 +46,38 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<h3 style="text-align: left; margin-top: 50px;">| 배송 정보</h3>
-	<table border="1" style="width: 1000px; text-align: center; margin-top: 20px">
+	</div>
+	<div style="width: 1300px; margin-top: 50px;" align="left">
+	<h3 style="text-align: left; margin-top: 50px; font-family: 'Jua', sans-serif; color: #513e30;">| 배송 정보</h3>
+	<table border="1" class="regi_table" style="width: 1300px; text-align: left; margin-top: 20px">
 		<tr>
-			<td width="100px">받는 사람</td>
+			<th width="100px">받는 사람</th>
 			<td>${order.order_name}</td>
 		</tr>
 		<tr>
-			<td width="70px">주소</td>
+			<th width="70px">주소</th>
 			<td>${order.order_address}</td>
 		</tr>
 		<tr>
-			<td width="70px">연락처</td>
+			<th width="70px">연락처</th>
 			<td>${order.order_phone}</td>
 		</tr>
 	</table>
 	<br>
 	</div>
-	<div align="left" style="width: 1000px; margin-top: 50px;">
-	<h3 style="text-align: left;">| 상세 주문 내역</h3>
-	<table border="1" style="width: 500px; text-align: center; margin-top: 20px">
+	<div align="left" style="width: 1300px; margin-top: 50px;">
+	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 상세 주문 내역</h3> 
+	<table border="1"  class="regi_table" style="width: 500px; text-align: left; margin-top: 20px">
 		<tr>
-			<td width="200px">사용한 포인트</td>
+			<th width="200px">사용한 포인트</th>
 			<td>${order.order_point}원</td>
 		</tr>
 		<tr>
-			<td width="70px">결제 수단</td>
+			<th width="70px">결제 수단</th>
 			<td>${order.order_payment}</td>
 		</tr>
 		<tr>
-			<td width="70px">총 결제 금액</td>
+			<th width="70px">총 결제 금액</th>
 			<td>${order.order_total_pay}원</td>
 		</tr>
 	</table>

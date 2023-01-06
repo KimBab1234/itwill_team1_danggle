@@ -153,7 +153,7 @@ Map.prototype.toJSON = function toJSON() {
 	<div style="width: 1000px; margin-top: 50px; min-height: 500px;">
 	<h2 id="cartUse1" style="visibility: hidden; text-align: left; font-weight:bold; font-family: 'Poppins', sans-serif; color:#513e30">| 상품 확인</h2>
 	<form action="OrderPayForm.or" method="post">
-		<h2 id="cartNone" style="visibility: hidden;">장바구니가 비었습니다.</h2>
+		<h1 id="cartNone" style="visibility: hidden; font-family: 'Jua', sans-serif; color: #513e30;">장바구니가 비었습니다.</h1>
 		<div id="cartUse" style="visibility: hidden;">
 			<div align="right">
 				<button type="button" class="cartB" id="allChkB" onclick="allCheck(this.value)" value="true"><span id="allChk">전체 선택</span></button>

@@ -95,10 +95,10 @@ public class OrderedDAO { //싱글톤디자인패턴
 
 			orderList = new ArrayList<>();
 
-			String sql = "SELECT * FROM order_view WHERE member_id=? AND order_date BETWEEN date(now()-INTERVAL "+ period +") and date(now()) ORDER BY order_date desc;";
+			String sql = "SELECT * FROM order_view WHERE member_id=? AND order_date BETWEEN date(now()-INTERVAL "+ period +") and date(now()) ORDER BY order_idx desc;";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-//			System.out.println(pstmt);
+			System.out.println(pstmt);
 			rs=pstmt.executeQuery();
 
 			List<String> idxArr = new ArrayList<>();
