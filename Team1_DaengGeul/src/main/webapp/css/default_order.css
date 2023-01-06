@@ -15,11 +15,11 @@ article h1, h3 {
 .button {
   display: inline-block;
   border-radius: 4px;
-  background-color: #f4511e;
+  background-color: #513e30;
+  color: #c9b584;
   border: none;
-  color: #FFFFFF;
   text-align: center;
-  font-size: 28px;
+  font-size: 36px;
   padding: 20px;
   width: 200px;
   transition: all 0.5s;

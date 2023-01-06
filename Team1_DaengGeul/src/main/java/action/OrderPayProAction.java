@@ -38,7 +38,7 @@ public class OrderPayProAction implements Action {
 			order.setOrder_imp_uid(request.getParameter("imp_uid"));
 			order.setOrder_merchant_uid(request.getParameter("merchant_uid"));
 			order.setOrder_name(request.getParameter("name"));
-			order.setOrder_address(request.getParameter("address") + " " + request.getParameter("addressDetail"));
+			order.setOrder_address(request.getParameter("postcode") + " " + request.getParameter("roadAddress") + " " + request.getParameter("addressDetail"));
 			order.setOrder_phone(request.getParameter("phone"));
 
 			////orderProd에 들어갈 데이터 (상품별로 배열에 저장 필요)
@@ -50,7 +50,8 @@ public class OrderPayProAction implements Action {
 			for(int i=0; i<cart.size(); i++) {
 
 				JSONArray prodIdx = (JSONArray)cart.get(i);
-				idx.add((String)prodIdx.get(0));
+				String order_prod = (String)prodIdx.get(0);
+				idx.add(order_prod.substring(0, order_prod.indexOf("_opt_")));
 				JSONArray prod = (JSONArray)prodIdx.get(1);
 
 				JSONArray prodInfo = (JSONArray)prod.get(0);

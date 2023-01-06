@@ -31,8 +31,8 @@
 		</c:forEach>
 	</table>
 	<input type="button" value="메인" onclick="location.href='./'" >
-	<input type="button" value="글쓰기" onclick="location.href='CommunityWrite1.cu'">
-	<input type="button" value="회원들의추천목록" onclick="location.href='Community0.cu?board_type=0'">
+	<input type="button" value="글쓰기" onclick="location.href='CommunityWrite1.co'">
+	<input type="button" value="회원들의추천목록" onclick="location.href='Community0.co?board_type=0'">
 		<header>
 		<!-- Login, Join 링크 표시 영역(inc/top.jsp 페이지 삽입) -->
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>

@@ -852,7 +852,7 @@ public class ProductDAO {
 	}
 	
 	//=====================상품 발송 후 상품 재고, 판매량 업데이트=====================
-		public boolean updateProductSell(ArrayList<String> orderArr, ArrayList<Integer> countList) {
+		public boolean updateProductSell(ArrayList<String> orderArr, ArrayList<String> optArr, ArrayList<Integer> countList) {
 
 			System.out.println("DAO - updateProductSell 진입");
 			int successCount =0;
@@ -875,6 +875,7 @@ public class ProductDAO {
 					pstmt.setInt(1, productCount);
 					pstmt.setInt(2, productCount);
 					pstmt.setString(3, productIdx);
+					System.out.println(pstmt);
 					
 					successCount+= pstmt.executeUpdate();
 				}

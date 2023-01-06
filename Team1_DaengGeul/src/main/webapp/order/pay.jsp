@@ -9,6 +9,7 @@
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 Map.prototype.toJSON = function toJSON() {
 	  return [...Map.prototype.entries.call(this)];
@@ -44,7 +45,11 @@ Map.prototype.toJSON = function toJSON() {
 				$("#payTb").append("<tr>"+$("#cartAddRow").html()+"</tr>");
 			}
 			var prod = new Map(cartList.get(key));
-			$("tr td").eq(i*4+4).text(prod.get('name'));
+			if(prod.get('opt')!=null) {
+				$("tr td").eq(i*4+4).text(prod.get('name')+" (선택 옵션 :"+prod.get('opt')+")");
+			} else {
+				$("tr td").eq(i*4+4).text(prod.get('name'));
+			}
 			$("tr td").eq(i*4+5).text(prod.get('price'));
 			$("tr td").eq(i*4+6).text(prod.get('count'));
 			$("tr td").eq(i*4+7).text(Number(prod.get('price')*Number(prod.get('count')))+"원");
@@ -118,6 +123,41 @@ Map.prototype.toJSON = function toJSON() {
         });
     }
 	
+	
+    <%------------------------------- 주소찾기 API -------------------------------%>
+    function execDaumPostcode() {
+    	<%-- 주소검색 팝업창 --%>
+           new daum.Postcode({
+               oncomplete: function(data) {
+                   // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                   // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                   // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                   var roadAddr = data.roadAddress; // 도로명 주소 변수
+                   var extraRoadAddr = ''; // 참고 항목 변수
+
+                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                       extraRoadAddr += data.bname;
+                   }
+                   // 건물명이 있고, 공동주택일 경우 추가한다.
+                   if(data.buildingName !== '' && data.apartment === 'Y'){
+                      extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                   }
+
+                   // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                   document.getElementById('postcode').value = data.zonecode;
+                   document.getElementById("roadAddress").value = roadAddr;
+//                    document.getElementById("jibunAddress").value = data.jibunAddress;
+                   
+               }
+           }).open();
+    	<%-- 주소검색 팝업창 --%>
+       }
+    <%----------------------------------------------------------------------------%>
+	
+	
 </script>
 </head>
 <body>
@@ -131,7 +171,7 @@ Map.prototype.toJSON = function toJSON() {
 		<form action="OrderPayPro.or" method="post" name="dangglePayForm">
 			<table border="1" style="width: 1000px; text-align: center; margin-top: 20px" id="payTb">
 				<tr>
-					<td width="140px">상품</td>
+					<td width="300px">상품</td>
 					<td width="70px">판매가</td>
 					<td width="70px">수량</td>
 					<td width="70px">합계</td>
@@ -143,32 +183,40 @@ Map.prototype.toJSON = function toJSON() {
 					<td style="color: red"></td>
 				</tr>
 			</table>
-			<br>
+			<hr>			
 			<section>
 				<h3 style="text-align: left;">| 적립금, 쿠폰</h3>
 				적립금 : ${member.member_point}원
 				사용할 적립금 : <input type="text" name="point" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
 				<button type="button" onclick="pointApply()">사용</button><br>
 			</section>
+			<hr>
+			<div align="left">
 			<h3 style="text-align: left;">| 배송 주소</h3>
-			<table border="1" style="width: 1000px; text-align: center; margin-top: 20px">
-				<tr align="center">
-					<th width="200px">주문자</th>
-					<td width="800px"><input type="text" name="name" value="${member.member_name}" size="100"></td>
+			<table border="1" style="width: 800px; text-align: left; margin-top: 20px">
+				<tr>
+					<th width="100px" style="text-align:center">주문자</th>
+					<td width="700px"><input type="text" name="name" value="${member.member_name}" style="width: 200px;"></td>
 				</tr>
-				<tr align="center">
-					<th>주소</th>
-					<td><input type="text" name="address" value="${member.member_roadAddress.concat(member.member_jibunAddress)}"></td>
+				<tr>
+					<th style="text-align:center">주소</th>
+					<td>
+						<input type="text" name="postcode" id="postcode" style="width: 200px;" value="${member.member_postcode}">
+						<input type="button" id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기">
+						<input type="text" name="roadAddress" id="roadAddress" style="width: 600px;" value="${member.member_roadAddress}">
+					</td>
 				</tr>
-				<tr align="center">
-					<th>상세 주소</th>
-					<td><input type="text" name="addressDetail" value="${member.member_addressDetail}"></td>
+				<tr>
+					<th style="text-align:center">상세 주소</th>
+					<td><input type="text" name="addressDetail" id="addressDetail" style="width: 600px;" value="${member.member_addressDetail}"></td>
 				</tr>
-				<tr align="center">
-					<th>연락처</th>
-					<td><input type="text" name="phone" value="${member.member_phone}"></td>
+				<tr>
+					<th style="text-align:center">연락처</th>
+					<td><input type="text" name="phone" value="${member.member_phone}"  style="width: 200px;"></td>
 				</tr>
 			</table>
+			</div>
+			<hr>
 			<h2>최종 금액 : <span id="total" style="color: red">${totalPay}</span>원</h2>
 			<input type="hidden" id="totalPay" name="totalPay" value="${totalPay}">
 			<input type="hidden" id="usePoint" name="usePoint" value="0">
