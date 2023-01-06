@@ -9,7 +9,7 @@
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
                     <div class="navbar-nav w-100 overflow-hidden" style="width: 460px">
                         <a href="NoticeList.ad" class="nav-item nav-link">공지사항</a>
-						<a href="CommonList.co" class="nav-item nav-link">자주 묻는 질문</a>
+						<a href="CommonList.cu" class="nav-item nav-link">자주 묻는 질문</a>
 						<a href="QnaList.cu" class="nav-item nav-link">1:1 문의</a>
                     </div>
                 </nav>

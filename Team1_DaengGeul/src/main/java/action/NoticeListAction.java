@@ -20,6 +20,7 @@ public class NoticeListAction implements Action{
 		int pageNum = 1;
 		if(request.getParameter("pageNum") != null) {
 			pageNum=Integer.parseInt(request.getParameter("pageNum"));
+			System.out.println(pageNum);
 		} 
 		int startRow = (pageNum-1)*listLimit;
 

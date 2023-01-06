@@ -109,7 +109,7 @@
 		<form action="CommonList.cu">
 		
 		<c:if test="${sessionScope.sId eq 'admin'}">
-		<input type="button" value="글쓰기" onclick="location.href='CommonWriteForm.co'" />
+		<input type="button" value="글쓰기" onclick="location.href='CommonWriteForm.cu'" />
 		</c:if>
 		</form>
 	</section>
