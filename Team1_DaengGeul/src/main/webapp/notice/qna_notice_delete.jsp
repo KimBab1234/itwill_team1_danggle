@@ -48,6 +48,7 @@
 	<section id="passForm">
 		<form action="NoticeDelete.ad" name="deleteForm" method="post">
 		<input type="hidden" name="notice_idx" value="${param.notice_idx }">
+		<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<table>
 				<tr>
 					<td colspan="2">

@@ -102,7 +102,11 @@ public class BookFrontController extends HttpServlet {
 			} else if(command.equals("/NoticeDetail.ad")) {
 				action = new NoticeDetailAction();
 				forward = action.execute(request, response);
-			} else if(command.equals("/NoticeDelete.ad")) {
+			}else if (command.equals("/NoticeDeleteForm.ad")) {
+				forward = new ActionForward();
+				forward.setPath("notice/qna_notice_delete.jsp");
+				forward.setRedirect(false);
+			}else if(command.equals("/NoticeDelete.ad")) {
 				action = new NoticeDeleteProAction();
 				forward = action.execute(request, response);
 			} else if(command.equals("/NoticeModifyForm.ad")) {

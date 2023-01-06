@@ -101,7 +101,7 @@
 	<section id="commandList">
 	<c:if test="${sessionScope.sId eq 'admin' }">
 		<input type="button" value="수정" onclick="location.href='NoticeModifyForm.ad?notice_idx=${param.notice_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
-		<input type="button" value="삭제" onclick="location.href='NoticeDelete.ad?notice_idx=${param.notice_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
+		<input type="button" value="삭제" onclick="location.href='NoticeDeleteForm.ad?notice_idx=${param.notice_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
 	</c:if>
 		<input type="button" value="목록" onclick="location.href='NoticeList.ad?notice_idx=${ param.notice_idx}&pageNum=${param.pageNum}'">&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
