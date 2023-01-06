@@ -862,49 +862,64 @@ public class ProductDAO {
 	}
 	
 	//=====================상품 발송 후 상품 재고, 판매량 업데이트=====================
-		public boolean updateProductSell(ArrayList<String> orderArr, ArrayList<String> optArr, ArrayList<Integer> countList) {
+	public boolean updateProductSell(ArrayList<String> prodArr, ArrayList<String> optArr, ArrayList<Integer> countList) {
 
-			System.out.println("DAO - updateProductSell 진입");
-			int successCount =0;
-			boolean isSuccessUpdate=false;
+		System.out.println("DAO - updateProductSell 진입");
+		int successCount =0;
+		boolean isSuccessUpdate=false;
+		boolean bookChk = false;
+		int totalCommit=0;
+		try {
 			
-			try {
+			String sql = "";
+			int i=0;
+			for(String productIdx : prodArr) {
 				
-				String sql = "";
-				int i=0;
-				for(String productIdx : orderArr) {
-					
-					int productCount = countList.get(i++);
-					
-					if(productIdx.charAt(0)=='B') {
-						sql = "UPDATE book SET book_sel_count=book_sel_count+?, book_quantity=book_quantity-? WHERE book_idx=?";
-					} else if(productIdx.charAt(0)=='G') {
-						sql = "UPDATE goods SET goods_sel_count=goods_sel_count+?, goods_quantity=goods_quantity-? WHERE goods_idx=?";
-					}
+				int productCount = countList.get(i);
+				
+				if(productIdx.charAt(0)=='B') {
+					sql = "UPDATE book SET book_sel_count=book_sel_count+?, book_quantity=book_quantity-? WHERE book_idx=?";
+					bookChk=true;
+				} else if(productIdx.charAt(0)=='G') {
+					sql = "UPDATE goods SET goods_sel_count=goods_sel_count+?, goods_quantity=goods_quantity-? WHERE goods_idx=?";
+				}
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, productCount);
+				pstmt.setInt(2, productCount);
+				pstmt.setString(3, productIdx);
+				successCount+= pstmt.executeUpdate();
+				totalCommit++;
+				
+				if(!bookChk && !optArr.get(i).equals("-")) { //굿즈 중에 옵션이 있는 경우에만 추가
+					sql = "UPDATE goods_options SET option_qauntity=option_qauntity-? WHERE goodsOpt_idx=? AND option_name=?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, productCount);
-					pstmt.setInt(2, productCount);
-					pstmt.setString(3, productIdx);
-					System.out.println(pstmt);
-					
-					successCount+= pstmt.executeUpdate();
+					pstmt.setString(2, productIdx);
+					pstmt.setString(3, optArr.get(i));
+					successCount+=pstmt.executeUpdate();
+					totalCommit++;
 				}
 				
-				//모두 정상 반영됐으면
-				if(successCount==orderArr.size()) {
-					isSuccessUpdate=true;
-				}
-				
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				JdbcUtil.close(pstmt);
+				i++;
 			}
+			
+			//모두 정상 반영됐으면
+			if(bookChk && successCount==totalCommit) {
+				isSuccessUpdate=true;
+			} else if(!bookChk && successCount==totalCommit) {
+				isSuccessUpdate=true;
+			}
+			
 
-			return isSuccessUpdate;
-
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
 		}
+
+		return isSuccessUpdate;
+
+	}
 		
 		
 		//=====================주문한 상품 정보 가져오기=====================

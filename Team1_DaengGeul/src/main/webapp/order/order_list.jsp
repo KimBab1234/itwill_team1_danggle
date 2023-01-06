@@ -9,6 +9,7 @@
 <title>주문 내역</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/default_order.css" rel="stylesheet">
 <script src="js/main.js"></script>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style>
@@ -26,35 +27,55 @@
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
 
-	<div align="center">
-	<div style="width: 1200px; margin-top: 50px; min-height: 500px;">
-	<h3 style="text-align: left;">| 주문 내역</h3>
-	<form action="" method="post">
+	<div align="center" class="orderTable">
+	<div style="width: 1500px; margin-top: 50px; min-height: 500px;">
+	<h3 style="text-align: left; color:#736643; font-weight: bold;">| 주문 내역</h3>
 	<c:choose>
 		<c:when test="${orderList==null || orderList.size()==0}">
-			<h2>주문 내역이 없습니다.</h2>
+			<h1 style="font-family: 'Jua', sans-serif; color:gray;">주문 내역이 없습니다.</h1>
 		</c:when>
 		<c:otherwise>
 			<div align="right">
-				<button type="button" onclick="location.href='OrderList.or?period=3 MONTH'">최근 3개월 주문 내역</button>
-				<button type="button" onclick="location.href='OrderList.or?period=6 MONTH'">최근 6개월 주문 내역</button>
-				<button type="button" onclick="location.href='OrderList.or?period=1 YEAR'">최근 1년 주문 내역</button>
+				<button type="button" onclick="location.href='OrderList.or?period=3 MONTH'" style="width: 200px;">최근 3개월 주문 내역</button>
+				<button type="button" onclick="location.href='OrderList.or?period=6 MONTH'" style="width: 200px;">최근 6개월 주문 내역</button>
+				<button type="button" onclick="location.href='OrderList.or?period=1 YEAR'" style="width: 200px;">최근 1년 주문 내역</button>
 			</div>
 			<div align="left">
-			■ 최근 7일간 주문 내역입니다.
+			<c:choose>
+				<c:when test="${empty param.period}">
+					■ 최근 7일간 주문 내역입니다.
+				</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="${param.period.substring(2) eq 'MONTH'}">
+							■ 최근 ${param.period.substring(0,1)}개월 주문 내역입니다.
+						</c:when>
+						<c:otherwise>
+							■ 최근 ${param.period.substring(0,1)}년 주문 내역입니다.
+						</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
 			</div>
-			<table border="1" style="width: 1200px; text-align: center; margin-top: 20px">
+			<table border="1" style="width: 1500px; text-align: center; margin-top: 20px" class="regi_table">
 				<tr>
-					<td width="70px">주문 번호</td>
-					<td width="200px">상품</td>
-					<td width="70px">결제한 금액</td>
-					<td width="70px">주문 상태</td>
-					<td width="70px">리뷰 쓰기</td>
+					<th width="70px">주문 날짜</th>
+					<th width="500px">상품</th>
+					<th width="120px">결제한 금액</th>
+					<th width="100px">주문 상태</th>
+					<th width="70px">리뷰 쓰기</th>
 				</tr>
 				<c:forEach items="${orderList}" var="order" varStatus="status">
 							<tr>
-								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList.or?order_idx=${order.order_merchant_uid}">${order.order_merchant_uid}</a></td>
-								<td>${order.order_prod_name.get(0)}</td>
+								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList.or?order_idx=${order.order_merchant_uid}">${order.order_merchant_uid.substring(sessionScope.sId.length())}</a></td>
+								<c:choose>
+									<c:when test="${order.order_prod_opt.get(0) eq '-' }">
+										<td>${order.order_prod_name.get(0)}</td>
+									</c:when>
+									<c:otherwise>
+										<td>${order.order_prod_name.get(0)}(옵션:${order.order_prod_opt.get(0)})</td>
+									</c:otherwise>
+								</c:choose>
 								<td>${order.order_prod_price.get(0)}</td>
 								<td>${order.order_status.get(0)}</td>
 								<c:choose>
@@ -68,7 +89,14 @@
 							</tr>
 						<c:forEach begin="1" end="${order.order_prod_name.size()-1}" var="i">
 							<tr>
-								<td>${order.order_prod_name.get(i)}</td>
+								<c:choose>
+									<c:when test="${order.order_prod_opt.get(i) eq '-' }">
+										<td>${order.order_prod_name.get(i)}</td>
+									</c:when>
+									<c:otherwise>
+										<td>${order.order_prod_name.get(i)}(옵션:${order.order_prod_opt.get(i)})</td>
+									</c:otherwise>
+								</c:choose>
 								<td>${order.order_prod_price.get(i)}</td>
 								<td>${order.order_status.get(i)}</td>
 								<c:choose>
@@ -85,7 +113,6 @@
 			</table>
 		</c:otherwise>
 	</c:choose>
-	</form>
 	</div>
 </div>
 <!------------------------------------ 바닥글 --------------------------------------->

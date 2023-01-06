@@ -159,14 +159,14 @@ Map.prototype.toJSON = function toJSON() {
 				<button type="button" class="cartB" id="allChkB" onclick="allCheck(this.value)" value="true"><span id="allChk">전체 선택</span></button>
 				<button type="button" class="cartB" onclick="deleteCart()">선택 상품 장바구니 삭제하기</button>
 			</div>
-			<table border="1" style="width: 1000px; text-align: center; margin-top: 20px">
+			<table border="1" class="regi_table" style="width: 1000px; text-align: center; margin-top: 20px">
 				<tr id="tableFirst" >
-					<td width="30px">체크</td>
-					<td width="50px">이미지</td>
-					<td width="300px">상품</td>
-					<td width="70px">개당 가격</td>
-					<td width="70px">수량</td>
-					<td width="70px">금액</td>
+					<th width="30px">체크</th>
+					<th width="50px">이미지</th>
+					<th width="300px">상품</th>
+					<th width="70px">개당 가격</th>
+					<th width="70px">수량</th>
+					<th width="70px">금액</th>
 				</tr>
 				<tr id="cartAddRow0" >
 					<td><input type="checkbox" name="cartItem" onclick="sum()" class="cartCheck" ></td>
