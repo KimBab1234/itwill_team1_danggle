@@ -45,7 +45,7 @@ public class CommonWriteProAction implements Action {
 				out.println("</script>");
 			}else {
 				forward = new ActionForward();
-				forward.setPath("CommonList.co");
+				forward.setPath("CommonList.cu");
 				forward.setRedirect(true);
 			}
 		} catch (IOException e) {

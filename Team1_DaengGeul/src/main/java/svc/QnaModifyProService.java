@@ -18,7 +18,7 @@ public class QnaModifyProService {
 		
 		dao.setConnection(con);
 		
-		isBoardWriter = dao.isQnaWriter(qna.getQna_idx(),qna.getQna_id());
+		isBoardWriter = dao.isQnaWriter(qna.getQna_idx(),qna.getMember_id());
 		
 		JdbcUtil.close(con);
 		return isBoardWriter;

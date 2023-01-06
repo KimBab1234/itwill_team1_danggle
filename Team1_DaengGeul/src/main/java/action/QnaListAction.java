@@ -17,6 +17,8 @@ public class QnaListAction implements Action {
 
 		ActionForward forward = null;
 		
+		HttpSession session = request.getSession();
+		String sId = (String)session.getAttribute("sId");
 		
 		
 		//페이징 처리

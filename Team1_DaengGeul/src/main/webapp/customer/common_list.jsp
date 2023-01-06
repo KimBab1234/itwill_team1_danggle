@@ -95,7 +95,7 @@
 				
 				<td id="subject">
 				<img src ="img/re.gif">
-				<a href="CommonDetail.co?common_idx=${common.common_idx }&sId=${sId }">
+				<a href="CommonDetail.cu?common_idx=${common.common_idx }&sId=${sId }">
 				${common.common_subject}</a>
 				</td>
 				
@@ -106,7 +106,7 @@
 	</table>
 	</section>
 	<section id="buttonArea">
-		<form action="CommonList.co">
+		<form action="CommonList.cu">
 		
 		<c:if test="${sessionScope.sId eq 'admin'}">
 		<input type="button" value="글쓰기" onclick="location.href='CommonWriteForm.co'" />

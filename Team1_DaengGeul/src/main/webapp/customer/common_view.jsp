@@ -92,10 +92,10 @@
 	</section>
 	<section id="commandList">
 	<c:if test="${sessionScope.sId eq 'admin'}">
-		<input type="button" value="수정" onclick="location.href='CommonModifyForm.co?common_idx=${common.common_idx}&sId=${sId }'">&nbsp;&nbsp;
-		<input type="button" value="삭제" onclick="location.href='CommonDeleteForm.co?common_idx=${common.common_idx}&sId=${sId }'">&nbsp;&nbsp;
+		<input type="button" value="수정" onclick="location.href='CommonModifyForm.cu?common_idx=${common.common_idx}&sId=${sId }'">&nbsp;&nbsp;
+		<input type="button" value="삭제" onclick="location.href='CommonDeleteForm.cu?common_idx=${common.common_idx}&sId=${sId }'">&nbsp;&nbsp;
 	</c:if>
-		<input type="button" value="목록" onclick="location.href='CommonList.co'">&nbsp;&nbsp;
+		<input type="button" value="목록" onclick="location.href='CommonList.cu'">&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</section>
 	</div>

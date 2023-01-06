@@ -15,35 +15,16 @@ public class QnaBean {
 	private int qna_re_lev;
 	private int qna_re_seq;
 	
-	
-	public int getQna_re_ref() {
-		return qna_re_ref;
-	}
-	public void setQna_re_ref(int qna_re_ref) {
-		this.qna_re_ref = qna_re_ref;
-	}
-	public int getQna_re_lev() {
-		return qna_re_lev;
-	}
-	public void setQna_re_lev(int qna_re_lev) {
-		this.qna_re_lev = qna_re_lev;
-	}
-	public int getQna_re_seq() {
-		return qna_re_seq;
-	}
-	public void setQna_re_seq(int qna_re_seq) {
-		this.qna_re_seq = qna_re_seq;
-	}
 	public int getQna_idx() {
 		return qna_idx;
 	}
 	public void setQna_idx(int qna_idx) {
 		this.qna_idx = qna_idx;
 	}
-	public String getQna_id() {
+	public String getMember_id() {
 		return member_id;
 	}
-	public void setQna_id(String member_id) {
+	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
 	public String getQna_subject() {
@@ -76,6 +57,24 @@ public class QnaBean {
 	public void setQna_date(Timestamp qna_date) {
 		this.qna_date = qna_date;
 	}
+	public int getQna_re_ref() {
+		return qna_re_ref;
+	}
+	public void setQna_re_ref(int qna_re_ref) {
+		this.qna_re_ref = qna_re_ref;
+	}
+	public int getQna_re_lev() {
+		return qna_re_lev;
+	}
+	public void setQna_re_lev(int qna_re_lev) {
+		this.qna_re_lev = qna_re_lev;
+	}
+	public int getQna_re_seq() {
+		return qna_re_seq;
+	}
+	public void setQna_re_seq(int qna_re_seq) {
+		this.qna_re_seq = qna_re_seq;
+	}
 	@Override
 	public String toString() {
 		return "QnaBean [qna_idx=" + qna_idx + ", member_id=" + member_id + ", qna_subject=" + qna_subject
@@ -83,6 +82,7 @@ public class QnaBean {
 				+ ", qna_date=" + qna_date + ", qna_re_ref=" + qna_re_ref + ", qna_re_lev=" + qna_re_lev
 				+ ", qna_re_seq=" + qna_re_seq + "]";
 	}
+	
 	
 	
 	

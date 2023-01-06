@@ -52,7 +52,7 @@ public class CommonModifyProAction implements Action {
 					out.println("</script>");
 					}
 				forward = new ActionForward();
-				forward.setPath("CommonDetail.co?common_idx=" + common.getCommon_idx());
+				forward.setPath("CommonDetail.cu?common_idx=" + common.getCommon_idx());
 				forward.setRedirect(true);
 				
 				System.out.println(common.getCommon_subject());

@@ -46,7 +46,7 @@
 	<!-- 게시판 글 삭제 -->
 	<h2>자주 묻는 질문 삭제</h2>
 	<section id="passForm">
-		<form action="CommonDeletePro.co" name="deleteForm" method="post">
+		<form action="CommonDeletePro.cu" name="deleteForm" method="post">
 		<input type="hidden" name="common_idx" value="${param.common_idx}">
 <%-- 		<input type="text" name="sId" value="${sessionScope.sId}"> --%>
 		

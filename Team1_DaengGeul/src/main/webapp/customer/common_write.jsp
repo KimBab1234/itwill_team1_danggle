@@ -63,11 +63,11 @@
 	<!-- 게시판 등록 -->
 	<section id="writeForm">
 		<h2>자주 묻는 질문 등록</h2>
-		<form action="CommonWritePro.co" name="boardForm">
+		<form action="CommonWritePro.cu" name="boardForm">
 			<table>
 				<tr>
 					<td class="td_left"><label for="${sessionScope.sId }">관리자</label></td>
-					<td class="td_right"><input type="text" name="${sessionScope.sId }" required="required" /></td>
+					<td class="td_right"><input type="text" name="${sessionScope.sId }" placeholder=" ${sessionScope.sId }" /></td>
 				</tr>
 				
 				<tr>

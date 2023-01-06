@@ -66,7 +66,7 @@
 			<table>
 				<tr>
 					<td class="td_left"><label for="${sessionScope.sId }">글쓴이</label></td>
-					<td class="td_right"><input type="text" name="${sessionScope.sId }" required="required" /></td>
+					<td class="td_right"><input type="text" name="${sessionScope.sId }" placeholder=" ${sessionScope.sId }"required="required" /></td>
 				</tr>
 				
 				<tr>
