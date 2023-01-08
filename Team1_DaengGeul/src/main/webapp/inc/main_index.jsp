@@ -37,6 +37,14 @@
 					location.href = "MemberLogoutPro.me";
 				}
 			});
+			
+			$('.dropdown-toggle', this).trigger('click').blur();
+			 $('.dropdown').on('mouseover', function () {
+                $('.dropdown-toggle', this).trigger('click');
+            }).on('mouseout', function () {
+                $('.dropdown-toggle', this).trigger('click').blur();
+            });
+			
 		});
 	</script>
 	<%----------------------------------------------------------------------------%>
@@ -86,30 +94,31 @@
 									<c:choose>
 										<%-- 관리자 --%>
 										<c:when test="${sessionScope.sId eq 'admin'}">
-											<div class="container" style="position: relative;">
-											<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											 <div class="nav-item dropdown">
+											 	<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px;">
 			                                	관리자
-			                                </button>
-			                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId1" style="position: absolute;">
+			                               		</button>
+			                             	   <div class="dropdown-menu rounded-0 m-0">
 			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
 			                                    <a class="dropdown-item" href='ProductList.ad'>상품 정보 관리</a>
 			                                    <a class="dropdown-item" href='RecommendBookList.ad'>추천 도서 관리</a>
-			                                </div>
+			                                    </div>
 			                                </div>
 										</c:when>
 										<%-- 일반사용자 --%>
 										<c:otherwise>
-											<div class="container" style="position: relative;">
-			                                <button class="btn btn-primary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											 <div class="nav-item dropdown">
+											 	<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px;">
 			                                	${sessionScope.sId } 님
-			                                </button>
-			                                <div class="dropdown-menu" aria-labelledby="triggerId" style="position: absolute;">
-			                                    <a class="dropdown-item" href='MemberInfo.me?id=${sessionScope.sId}'>회원정보</a>
-			                                    <a class="dropdown-item" href='OrderList.or'>주문내역</a>
-			                                    <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
-			                                    <a class="dropdown-item" href="#">내 문의글</a>
+			                               		</button>
+<!-- 				                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"></a> -->
+				                                <div class="dropdown-menu rounded-0 m-0">
+				                                   <a class="dropdown-item" href='MemberInfo.me?id=${sessionScope.sId}'>회원정보</a>
+				                                   <a class="dropdown-item" href='OrderList.or'>주문내역</a>
+				                                   <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
+				                                   <a class="dropdown-item" href="#">내 문의글</a>
+				                                </div>
 			                                </div>
-										</div>
 										</c:otherwise>
 									</c:choose>
 									<div class="container">
