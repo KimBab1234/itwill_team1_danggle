@@ -1,3 +1,8 @@
+/action/
 /controller/
 /dao/
+/db/
+/encrypt/
+/java_mail/
+/svc/
 /vo/

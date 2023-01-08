@@ -54,6 +54,37 @@ public class MemberInfoAction implements Action {
 					MemberInfoService service = new MemberInfoService();
 					MemberBean member = service.getMemberInfo(sId);
 					
+					// 회원정보수정을 위해 이메일 주소/도메인 분리 작업
+					String email = member.getMember_email();
+					String email1 = null;
+					String email2 = null;
+
+					String tempEmail[] = email.split("@");
+					if (tempEmail != null && tempEmail.length == 2) {
+						email1 = tempEmail[0];
+						email2 = tempEmail[1];
+					}
+					
+					// 회원정보수정을 위해 전화번호 분리 작업
+					String phone = member.getMember_phone();
+					String phone1 = null;
+					String phone2 = null;
+					String phone3 = null;
+					
+					String tempPhone[] = phone.split("-");
+					if (tempPhone != null && tempPhone.length == 3) {
+						phone1 = tempPhone[0];
+						phone2 = tempPhone[1];
+						phone3 = tempPhone[2];
+					}
+
+					request.setAttribute("email1", email1);
+					request.setAttribute("email2", email2);
+					
+					request.setAttribute("phone1", phone1);
+					request.setAttribute("phone2", phone2);
+					request.setAttribute("phone3", phone3);
+					
 					request.setAttribute("member", member);
 					forward = new ActionForward();
 					forward.setPath("member/member_info.jsp");
