@@ -12,7 +12,7 @@
 	function delete2() {
 			var result = confirm("글을 지우시겠습니까?");
 			if(result){
-				location.href="Community_DeletePro.cu?board_idx=${board.board_idx }&board_real_file=${board.board_real_file}&board_type=${board.board_type }";
+				location.href="Community_DeletePro.co?board_idx=${board.board_idx }&board_real_file=${board.board_real_file}&board_type=${board.board_type }";
 			} else {
 				history.back();
 			}
@@ -44,7 +44,7 @@
 		</tr>
 		<tr>
 			<td colspan="3"><input type="button" value="뒤로가기"
-				onclick="location.href='Community${board.board_type}.cu?board_type=${board.board_type }'">
+				onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
 				&nbsp;&nbsp; <input type="button" value="홈페이지"
 				onclick="location.href='./'"> &nbsp;&nbsp;</td>
 			<c:if test="${sessionScope.sId eq board.member_id}">
@@ -52,7 +52,7 @@
 			</c:if>
 		</tr>
 	</table>
-	<form action="Community_ReplyPro.cu">
+	<form action="Community_ReplyPro.co">
 		<c:choose>
 			<c:when test="${not empty sessionScope.sId }">
 		${sessionScope.sId } 	| <input type="text" name="reply_content"
