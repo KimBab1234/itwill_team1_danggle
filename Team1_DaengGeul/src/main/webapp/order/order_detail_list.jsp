@@ -9,6 +9,9 @@
 <title>주문 상세 내역</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 .cartB:focus, .cartB:active { outline:none; }
 </style>
@@ -23,7 +26,11 @@
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
-
+	
+	<div style="display: flex;">
+	<div align="left" style="width: 300px; margin-top: 200px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
 	<div align="center">
 	<div style="width: 1300px; margin-top: 50px;">
 	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 상세 주문 내역</h3>
@@ -82,6 +89,7 @@
 		</tr>
 	</table>
 	</div>
+</div>
 </div>
 <!------------------------------------ 바닥글 --------------------------------------->
 	<footer>

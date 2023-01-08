@@ -12,12 +12,9 @@
     <meta content="Free HTML Templates" name="description">
 
     <link href="img/favicon.ico" rel="icon">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 	<link href="css/default_order.css" rel="stylesheet" type="text/css">
-	<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script>
 
@@ -158,7 +155,7 @@ function countModify(sign) {
 	<hr>
 	<div style="width: auto; display: flex; margin-left: 10px; min-height: 500px;">
 		<div style="width: 200px;">
-			<jsp:include page="../inc/left.jsp"></jsp:include>
+			<jsp:include page="../inc/product_left.jsp"></jsp:include>
         </div>
 	<!-- 왼쪽 메뉴바 세트 끝 -->
 	

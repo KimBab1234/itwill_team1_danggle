@@ -20,7 +20,7 @@
 	<hr>
 	<div style="width: auto; display: flex; margin-left: 10px;">
 		<div style="width: 300px; margin-left: 10px; "> <!-- border: 5px solid red; -->
-			<jsp:include page="../inc/left.jsp"></jsp:include>
+			<jsp:include page="../inc/product_left.jsp"></jsp:include>
         </div>
 	    <!-- Shop Start -->
 	    <div class="container-fluid pt-5" style="margin-left: 20px; width: 1500px;">
@@ -67,6 +67,9 @@
 	                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
 	                            	<c:if test="${item.rank<5 && param.type.indexOf('best') >0}">
 		                            	<div class="d-flex justify-content-center">
+			                            	<c:if test="${param.type.indexOf('genre') >0}">
+			                            		<h6 class="text-truncate mb-3">장르&nbsp;</h6>
+			                            	</c:if>
 		                                    <h6 class="text-truncate mb-3">주간베스트&nbsp;</h6><h5 style="color: red;">${item.rank}</h5><h6 class="text-truncate mb-3">위</h6>
 		                                </div>
 	                            	</c:if>
