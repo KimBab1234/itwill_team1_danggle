@@ -30,7 +30,9 @@ public class MemberUpdateProAction implements Action {
 		member.setMember_roadAddress(request.getParameter("roadAddress"));
 		member.setMember_jibunAddress(request.getParameter("jibunAddress"));
 		member.setMember_addressDetail(request.getParameter("addressDetail"));
-		member.setMember_phone(request.getParameter("phone"));
+		member.setMember_phone(request.getParameter("phone1")
+				+ "-" + request.getParameter("phone2")
+				+ "-" + request.getParameter("phone3"));
 		
 		// 변경 시, 새 비밀번호와 확인용 비밀번호
 		String newPasswd = request.getParameter("newPasswd");

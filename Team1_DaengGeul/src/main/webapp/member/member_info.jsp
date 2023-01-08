@@ -10,6 +10,7 @@
 <title>댕글댕글 : 회원정보</title>
 <%-------------------- 임시 홈페이지 CSS -------------------%>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="css/MemberInfoForm.css" rel="stylesheet" type="text/css">
 <%----------------------------------------------------------%>
 
 
@@ -43,6 +44,7 @@
 		// ---------------------------------------------------------------
 		
 	});
+	
 </script>
 <%----------------------------------------------------------------------------%>
 
@@ -93,124 +95,223 @@ function execDaumPostcode() {
 	<div class="clear"></div>
 	
 	<article>
-		<h1>
-			<img src="img/green_Acon.jpg" width="20" height="25">
-			<img src="img/normal_Acon.jpg" width="20" height="25">
-			<img src="img/gold_Acon.jpg" width="20" height="25">
-			<img src="img/daram.jpg" width="30" height="45">
-			 마이페이지  
-			<img src="img/daram2.jpg" width="30" height="45">
-			<img src="img/green_Acon.jpg" width="20" height="25">
-			<img src="img/normal_Acon.jpg" width="20" height="25">
-			<img src="img/gold_Acon.jpg" width="20" height="25">
-		</h1>
-		
-		<form action="MemberUpdatePro.me" method="post" id="join" name="fr">
-	  		<fieldset>
-	  			<legend>회원정보</legend>
-	  			<label>아이디</label>
-	  			<input type="text" name="id" class="id" id="id" value="${member.member_id }" readonly="readonly"><br>
-	  			
-	  			<label>기존 비밀번호</label>
-	  			<input type="password" name="oldPasswd" id="oldPasswd" required="required" placeholder="패스워드 입력"><br> 			
 	
-	  			<label>변경할 비밀번호</label>
-	  			<input type="password" name="newPasswd" id="newPasswd" placeholder="변경시에만 입력"><br> 			
-	  			
-	  			<label>변경할 비밀번호 재입력</label>
-	  			<input type="password" name="newPasswd2" placeholder="변경시에만 입력"><br>
-	  			
-	  			<label>이름</label>
-	  			<input type="text" name="name" id="name" required="required" value="${member.member_name }"><br>
-	  			
-	  			<label>E-Mail</label>
-				<input type="text" class="in-e" name="email1" id="email1" value="${requestScope.email1 }" required="required" size="10"> <strong>&nbsp;@&nbsp;</strong> 
-				<input type="text" class="in-e2" name="email2" id="email2" value="${requestScope.email2 }" required="required" size="10" placeholder="직접입력">
+		<!---------------------------------- 마이페이지 영역 ----------------------------------->
+	  	<form action="MemberUpdatePro.me" method="post" id="joinForm" name="joinForm">
+		<!-- 화면 커버 -->
+		<div class="join-cover">
+	
+			<div class="join-wrapper">
+	
+				<div class="row header">
+					마이페이지
+					<img src="img/daram.png" width="40" height="50">
+				</div>
+
+				<div class="row">
+					<b>아이디</b>
+					<input type="text" name="id" class="in-id" id="id" value="${member.member_id }" readonly="readonly">
+				</div>
+				
+				<div class="row">
+					<b>기존 비밀번호</b>
+					<input type="password" name="oldPasswd" id="oldPasswd" class="in-pw1" size="28" required="required" placeholder="패스워드 입력">
+				</div>
+				<div class="row">
+					<b>변경할 비밀번호</b>
+					<input type="password" name="newPasswd" id="newPasswd" class="in-pw2" size="28" placeholder="변경시에만 입력">
+				</div>
+				<div id="rightPasswdResult"></div>
+				<div class="row">
+					<b>변경할 비밀번호 확인</b>
+					<input type="password" name="newPasswd2" id="newPasswd2" class="in-pw3" size="23" placeholder="변경시에만 입력">
+				</div>
+				<div id="checkPasswdResult"></div>
+				
+				<div class="row">
+					<b>이름</b>
+					<input type="text" name="name" id="name" class="in-na" required="required" value="${member.member_name }">
+				</div>
+				<div id="checkNameResult"></div>
+				
+				<div class="row">
+					<b>E-Mail</b>
+					<input type="text" class="in-e" name="email1" id="email1" value="${requestScope.email1 }" required="required" size="10"> <strong>&nbsp;@&nbsp;</strong> 
+					<input type="text" class="in-e2" name="email2" id="email2" value="${requestScope.email2 }" required="required" size="10" placeholder="직접입력">
 					<select name="email" id="selectDomain" >
 					 	<option value="">직접입력</option>
 					 	<option value="naver.com">naver.com</option>
 					 	<option value="nate">nate.com </option>
 					 	<option value="daum.net">daum.net</option>
 					 	<option value="gmail.com">gmail.com</option>
-					 </select>
-	  		</fieldset>
-		  		
-	  		<fieldset>
-	  			<legend>배송정보</legend>
-	  			<label>주소</label>
-					<input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${member.member_postcode }">
-					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+				 	</select>
+				</div>
+				<div id="checkEmailResult"></div>
+				<div class="row">
+					<input type="text" class="in-e2" name="certNum" id="certNum" size="11" placeholder="인증번호">
+					<input type="button" class="in-button" id="sendCert" value="인증번호 받기" >
+					<input type="button" class="in-button" id="checkCert" value="Email 인증하기" >
+				</div>
+				<div id="certEmailMsg"></div>
+				
+				<div class="clear"></div>
+				
+				<!-- 배송정보 영역 -->
+				<div class="row header">
+					배송정보
+					<img src="img/daram.png" width="40" height="50">
+				</div>
+				
+				<div class="row">
+					<b>휴대전화</b>
+					<select id="selectPhone1" name="phone1" >
+						<% String phone1 = (String)request.getAttribute("phone1"); %>
+						<option value="010" <%if(phone1.equals("010")) {%>  selected="selected" <%} %>>010</option>
+						<option value="011" <%if(phone1.equals("011")) {%>  selected="selected" <%} %>>011</option>
+						<option value="016" <%if(phone1.equals("016")) {%>  selected="selected" <%} %>>016</option>
+						<option value="017" <%if(phone1.equals("017")) {%>  selected="selected" <%} %>>017</option>
+					</select>
+					<strong>&nbsp;-&nbsp;</strong>
+					<input type="text" class="in-ph" name="phone2" required="required" value="${requestScope.phone2 }"
+						size="9" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
+					<strong>&nbsp;-&nbsp;</strong>
+					<input type="text" class="in-ph" name="phone3" required="required" value="${requestScope.phone3 }"
+						size="10" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
+				</div>
+				
+				<div class="row">
+					<b>주소</b>
+					<input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${member.member_postcode }" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
+					<input type="button" id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기">
+				</div>
+				<div class="row">
+					<b>&nbsp;</b>
 					<input type="text" id="roadAddress" name="roadAddress" placeholder="도로주소" value="${member.member_roadAddress }">
-					<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" value="${member.member_jibunAddress }"><br>
-					<textarea rows="5" cols="52" name="addressDetail" placeholder="상세주소">${member.member_addressDetail }</textarea><br>
-	  			<label>전화번호</label>
-	  			<input type="text" name="phone" value="${member.member_phone }"><br>
-	  		</fieldset>
-	  		<div class="clear"></div>
-	  		<div id="buttons">
-	  			<input type="submit" value="회원정보변경" class="submit">
-	  			<input type="button" id="btnDelete" value="회원탈퇴" class="cancel">
-	  		</div>
-	  	</form>
-		<section>
-			<h4>최근 주문내역</h4>
-			<table>
-				<tr>
-					<th width="100">주문일자</th>
-					<th width="100">주문번호</th>
-					<th width="100">주문내역</th>
-					<th width="100">주문상태</th>
-					<th>배송</th>
-				</tr>
-				<tr>
-					<td>2022-12-15</td>
-					<td>00124584</td>
-					<td>화폐전쟁</td>
-					<td>결제완료</td>
-					<td>배송준비중</td>
-				</tr>
-			</table>
-		</section>
+					<input type="text" id="jibunAddress" name="jibunAddress" size="23px" placeholder="지번주소" value="${member.member_jibunAddress }">
+				</div>
+				
+				<div class="row">
+					<b>상세주소</b>
+					<textarea rows="5" cols="49" name="addressDetail" placeholder="상세주소">${member.member_addressDetail }</textarea>	
+				</div>
+				
+				<!-- 버튼 -->
+				<div class="row-button">
+					<input type="submit" class="in-button"  value="회원정보변경" class="submit">
+	  				<input type="button" class="in-button" id="btnDelete" value="회원탈퇴" class="cancel">			
+					<input type="button" class="in-button" value="뒤로가기" onclick="history.back()">
+				</div>
+				<!-- 버튼 -->
+			</div>
+		</div>
+	</form>
+	<!-------------------------------------------------------------------------------------->
+	  	
+	<div class="clear"></div>
+	
+	<!-- 내 최근 정보 테이블 모음 -->
+	<div class="container-fluid pt-5">
+		<div class="row px-xl-5 pb-3">
 		
-		<%-- --------------------------------------------------------------------- --%>
-		
-		<section>
-			<h4>리뷰 / 한줄평 리워드</h4>
-			<table>
-				<tr>
-					<th width="80">글번호</th>
-					<th width="150">게시판</th>
-					<th width="100">작성자</th>
-					<th width="100">작성일</th>
-				</tr>
-				<tr>
-					<td>12</td>
-					<td>도서추천 게시판</td>
-					<td>style</td>
-					<td>22-12/15</td>
-				</tr>
-			</table>
-		</section>
-		
-		<%-- --------------------------------------------------------------------- --%>
-		
-		<section>
-			<h4>1:1 문의내역</h4>
-			<table>
-				<tr>
-					<th width="80">글번호</th>
-					<th width="200">제목</th>
-					<th width="100">작성일</th>
-					<th width="100">상태</th>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>언제 배송되나요?</td>
-					<td>22-12/15</td>
-					<td>답변완료</td>
-				</tr>
-			</table>
-		</section>
+			<!---------------------------------- 최근 상품 리뷰------------------------------------->
+			<div class="col-lg-4 col-md-6 pb-1">
+				<div class="cat-item d-flex flex-column border mb-4"
+					style="padding: 30px;">
+					<h4>내 상품리뷰</h4>
+					<table>
+						<tr>
+							<th width="80">글번호</th>
+							<th width="150">게시판</th>
+							<th width="100">작성자</th>
+							<th width="100">작성일</th>
+						</tr>
+						<tr>
+							<td>12</td>
+							<td>도서추천 게시판</td>
+							<td>style</td>
+							<td>22-12/15</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------------------------->
+			
+			<!--------------------------------- 최근 게시판 댓글 ----------------------------------->
+			<div class="col-lg-4 col-md-6 pb-1">
+				<div class="cat-item d-flex flex-column border mb-4"
+					style="padding: 30px;">
+					<table>
+						<h4>내 댓글</h4>
+						<tr>
+							<th width="80">글번호</th>
+							<th width="150">게시판</th>
+							<th width="100">작성자</th>
+							<th width="100">작성일</th>
+						</tr>
+						<tr>
+							<td>12</td>
+							<td>도서추천 게시판</td>
+							<td>style</td>
+							<td>22-12/15</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------------------------->
+
+			<!-------------------------------- 최근 1:1 문의내역 ----------------------------------->
+			<div class="col-lg-4 col-md-6 pb-1">
+				<div class="cat-item d-flex flex-column border mb-4"
+					style="padding: 30px;">
+					<h4>1:1 문의내역</h4>
+					<table>
+						<tr>
+							<th width="80">글번호</th>
+							<th width="200">제목</th>
+							<th width="100">작성일</th>
+							<th width="100">상태</th>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>언제 배송되나요?</td>
+							<td>22-12/15</td>
+							<td>답변완료</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------------------------->
+			
+			<!----------------------------------- 최근 주문내역 ------------------------------------>
+			<div class="col-lg-4 col-md-6 pb-1">
+				<div class="cat-item d-flex flex-column border mb-4"
+					style="padding: 30px;">
+					<h4>주문내역</h4>
+					<table>
+						<tr>
+							<th width="80">주문번호</th>
+							<th width="200">상품명</th>
+							<th width="100">구매일</th>
+							<th width="100">결제정보</th>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------------------------->
+			
+			<!-- 최근 정보 추가 할거면 위에 div 양식 그대로 복붙해서 만들고 정보 뿌리시면 됩니다! -->
+			
+			<!-------------------------------------------------------------------------------------->
+
+		</div>
+	</div>
+
 	</article>
 	
 	<div class="clear"></div>
