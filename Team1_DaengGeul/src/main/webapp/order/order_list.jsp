@@ -26,7 +26,10 @@
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
-
+	<div style="display: flex;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
 	<div align="center" class="orderTable">
 	<div style="width: 1500px; margin-top: 50px; min-height: 500px;">
 	<h3 style="text-align: left; color:#736643; font-weight: bold;">| 주문 내역</h3>
@@ -114,6 +117,7 @@
 		</c:otherwise>
 	</c:choose>
 	</div>
+</div>
 </div>
 <!------------------------------------ 바닥글 --------------------------------------->
 	<footer>
