@@ -25,7 +25,7 @@
 		<c:forEach var="board" items="${Board }">
 			<tr>
 				<td>${board.member_id }</td>
-				<td><a href="CommunityDetail.co?board_idx=${board.board_idx }">${board.board_subject }</a></td>
+				<td><a href="CommunityDetail.cu?board_idx=${board.board_idx }">${board.board_subject }</a></td>
 				<td>${board.board_date }</td>
 			</tr>
 		</c:forEach>
