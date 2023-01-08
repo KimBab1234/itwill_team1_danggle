@@ -73,8 +73,8 @@
 	<br>
 	</div>
 	<div align="left" style="width: 1300px; margin-top: 50px;">
-	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 상세 주문 내역</h3> 
-	<table border="1"  class="regi_table" style="width: 500px; text-align: left; margin-top: 20px">
+	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 결제 정보</h3> 
+	<table border="1"  class="regi_table" style="width: 500px; text-align: left; margin-top: 20px; align-content: left;'">
 		<tr>
 			<th width="200px">사용한 포인트</th>
 			<td>${order.order_point}원</td>

@@ -29,21 +29,21 @@
 	                <div class="row pb-3">
 	                    <div class="col-12 pb-1">
 	                        <div class="d-flex justify-content-between mb-4">
-	                            <div class="dropdown ml-4" style="left: 65%">
 	                            	<c:if test="${param.type ne 'B_recomm' && param.type ne 'B_disc' }">
 				                       <span> ■ 베스트 순위는 최근 7일간 판매량 기준입니다.</span>
+			                            <div class="dropdown ml-4" style="">
 		                                <button class="btn border dropdown-toggle" type="button" id="triggerId2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		                                            정렬
+		                                     정렬
 		                                </button>
-		                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId2">
-		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_new${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>최신순</a>
-		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_best${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>많이 팔린 순</a>
-		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_pricedown${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 낮은 순</a>
-		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_priceup${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 높은 순</a>
-		                                    <a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_star${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>리뷰 좋은 순</a>
-		                                </div>
+		                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId2">
+		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_new${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>최신순</a></li>
+		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_best${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>많이 팔린 순</a></li>
+		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_pricedown${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 낮은 순</a></li>
+		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_priceup${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 높은 순</a></li>
+		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_star${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>리뷰 좋은 순</a></li>
+		                                </ul>
+		                            </div>
 	                            	</c:if>
-	                            </div>
 	                        </div>
 	                    </div>
 	                    
@@ -65,7 +65,7 @@
 	                              <a href="ProductDetail.go?product_idx=${item.product_idx}&rank=${item.rank}"><img class="img-fluid" src="img/product/${item.img}" style="width: 300px; height: 320px; object-fit: cover;"></a>
 	                            </div>
 	                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-	                            	<c:if test="${item.rank<5 && param.type.indexOf('best') >0}">
+	                            	<c:if test="${item.rank<5 && param.type.indexOf('best') >0 && param.type.indexOf('search')<1}">
 		                            	<div class="d-flex justify-content-center">
 			                            	<c:if test="${param.type.indexOf('genre') >0}">
 			                            		<h6 class="text-truncate mb-3">장르&nbsp;</h6>
@@ -184,7 +184,7 @@
 	<!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-    <!-- JavaScript Libraries -->
+ <!-- JavaScript Libraries -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
@@ -192,9 +192,7 @@
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
-
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
 	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
 </body>
 </html>
