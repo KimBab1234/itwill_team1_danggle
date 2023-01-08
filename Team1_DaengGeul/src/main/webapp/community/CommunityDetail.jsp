@@ -8,6 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<script type="text/javascript">
+	function delete2() {
+			var result = confirm("글을 지우시겠습니까?");
+			if(result){
+				location.href="Community_DeletePro.cu?board_idx=${board.board_idx }&board_real_file=${board.board_real_file}&board_type=${board.board_type }";
+			} else {
+				history.back();
+			}
+	}
+</script>
 	<header>
 		<jsp:include page="/inc/top.jsp"></jsp:include>
 	</header>
@@ -34,16 +44,15 @@
 		</tr>
 		<tr>
 			<td colspan="3"><input type="button" value="뒤로가기"
-				onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
+				onclick="location.href='Community${board.board_type}.cu?board_type=${board.board_type }'">
 				&nbsp;&nbsp; <input type="button" value="홈페이지"
 				onclick="location.href='./'"> &nbsp;&nbsp;</td>
-			<c:if test="${not empty sessionScope.sId }">
-				<td><input type="button" value="글삭제" 
-					onclick="location.href='Community_DeletePro.co?board_idx=${board.board_idx }'"></td>
+			<c:if test="${sessionScope.sId eq board.member_id}">
+				<td><a href="" onclick=""></a> </td>
 			</c:if>
 		</tr>
 	</table>
-	<form action="Community_ReplyPro.co">
+	<form action="Community_ReplyPro.cu">
 		<c:choose>
 			<c:when test="${not empty sessionScope.sId }">
 		${sessionScope.sId } 	| <input type="text" name="reply_content"
@@ -57,7 +66,7 @@
 		</c:choose>
 		| <input type="hidden" name="board_idx" value="${board.board_idx }">
 		<input type="hidden" name="member_id" value="${sessionScope.sId }">
-			<input type="button" onclick="">
+			<input type="button" value="글삭제" onclick="delete2()">
 	</form>
 
 	<table>
