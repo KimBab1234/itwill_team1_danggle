@@ -19,19 +19,25 @@
 	
 	<div class="clear"></div>
 	
+	<div align="center">
 		<h1>
 			<img src="img/green_Acon.png" width="20" height="25">
 			<img src="img/brown_Acon.png" width="20" height="25">
 			<img src="img/gold_Acon.png" width="20" height="25">
 			<img src="img/daram.png" width="30" height="45">
-			 정상적으로 탈퇴되었습니다!<br>
-			또 만나뵙길 바라며, 그동안 댕글댕글을 이용해 주셔서 감사합니다!  
+			정상적으로 탈퇴되었습니다!
 			<img src="img/daram.png" width="30" height="45">
-			<img src="img/green_Acon.png" width="20" height="25">
-			<img src="img/brown_Acon.png" width="20" height="25">
 			<img src="img/gold_Acon.png" width="20" height="25">
+			<img src="img/brown_Acon.png" width="20" height="25">
+			<img src="img/green_Acon.png" width="20" height="25">
 		</h1>
-	<div>
+			<br>
+		<h3>
+			또 만나뵙길 바라며, 그동안 댕글댕글을 이용해 주셔서 감사합니다!
+		</h3>  
+	</div>
+	
+	<div align="center">
 		<input type="button" value="홈으로" onclick="location.href='./'">
 		<input type="button" value="회원가입" onclick="location.href='MemberJoinForm.me'">
 	</div>

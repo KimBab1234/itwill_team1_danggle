@@ -19,20 +19,25 @@
 	
 	<div class="clear"></div>
 	
-	<h1>
-		<img src="img/green_Acon.png" width="20" height="25">
-		<img src="img/brown_Acon.png" width="20" height="25">
-		<img src="img/gold_Acon.png" width="20" height="25">
-		<img src="img/daram.png" width="30" height="45">
-		회원가입 완료!
-		<br>
-		댕글댕글의 댕토리가 되어주셔서 감사합니다!
-		<img src="img/daram.png" width="30" height="45">
-		<img src="img/green_Acon.png" width="20" height="25">
-		<img src="img/brown_Acon.png" width="20" height="25">
-		<img src="img/gold_Acon.png" width="20" height="25">
-	</h1>
-	<div>
+	<div align="center">
+		<h1>
+			<img src="img/green_Acon.png" width="20" height="25">
+			<img src="img/brown_Acon.png" width="20" height="25">
+			<img src="img/gold_Acon.png" width="20" height="25">
+			<img src="img/daram.png" width="30" height="45">
+			회원가입 완료!
+			<img src="img/daram.png" width="30" height="45">
+			<img src="img/gold_Acon.png" width="20" height="25">
+			<img src="img/brown_Acon.png" width="20" height="25">
+			<img src="img/green_Acon.png" width="20" height="25">
+		</h1>
+			<br>
+		<h3>
+			댕글댕글의 댕토리가 되어주셔서 감사합니다!
+		</h3>
+	</div>
+	
+	<div align="center">
 		<input type="button" value="홈으로" onclick="location.href='./'">
 		<input type="button" value="로그인" onclick="location.href='MemberLoginForm.me'">
 	</div>
