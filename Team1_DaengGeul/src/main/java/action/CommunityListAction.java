@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import svc.CommunityListService;
 import vo.ActionForward;
 import vo.CommunityBean;
+import vo.PageInfo;
 
 public class CommunityListAction implements Action {
 
@@ -17,9 +18,40 @@ public class CommunityListAction implements Action {
 
 		int type = Integer.parseInt(request.getParameter("board_type"));
 
-		CommunityListService service = new CommunityListService();
-		List<CommunityBean> community = service.getList(type);
+		int listLimit = 10;
+		int pageNum = 1;
+		if(request.getParameter("pageNum") != null) {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}
 
+		int startRow = (pageNum - 1) * listLimit;
+		
+		String keyword = request.getParameter("keyword");
+
+		if(keyword == null){
+			keyword = "";
+		}
+		
+		CommunityListService service = new CommunityListService();
+		List<CommunityBean> community = service.getList(type, keyword, startRow, listLimit);
+
+		int listCount = service.getBoardListCount(keyword, type);
+		int pageListLimit = 10;
+		
+		int maxPage = listCount / listLimit 
+				+ (listCount % listLimit == 0 ? 0 : 1); 
+		
+		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		
+		int endPage = startPage + pageListLimit - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
+		
+		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("Board", community);
 		
 		forward = new ActionForward();
@@ -32,5 +64,4 @@ public class CommunityListAction implements Action {
 
 		return forward;
 	}
-
 }

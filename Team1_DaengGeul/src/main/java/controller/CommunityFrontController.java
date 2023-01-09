@@ -13,9 +13,10 @@ import action.Action;
 import action.CommunityDeleteAction;
 import action.CommunityDetailAction;
 import action.CommunityListAction;
+import action.CommunityModifyAction;
 import action.CommunityReplyAction;
+import action.CommunityReplyDeleteAction;
 import action.CommunityWriteAction;
-import action.MemberLoginProAction;
 import vo.ActionForward;
 
 @WebServlet("*.co") 
@@ -62,6 +63,19 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("커뮤니티 글삭제");
 			action = new CommunityDeleteAction();
 			forward = action.execute(request, response);
+		} else if(command.equals("/CommunityReplyDeletePro.co")) {
+			System.out.println("커뮤니티 댓글삭제");
+			action = new CommunityReplyDeleteAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/CommunityModifyPro.co")) {
+			System.out.println("커뮤니티 글수정프로");
+			action = new CommunityModifyAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/CommunityModify.co")) {
+			System.out.println("커뮤니티 글수정");
+			forward = new ActionForward();
+			forward.setPath("community/CommunityModify.jsp");
+			forward.setRedirect(false);
 		}
 
 		if(forward != null) {
