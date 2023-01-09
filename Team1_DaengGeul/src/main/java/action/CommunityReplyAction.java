@@ -33,7 +33,7 @@ public class CommunityReplyAction implements Action {
 			if(successReply) {
 				forward = new ActionForward();
 				forward.setRedirect(true);
-				forward.setPath("CommunityDetail.cu?board_idx="+idx);
+				forward.setPath("CommunityDetail.co?board_idx="+idx);
 			} else {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
