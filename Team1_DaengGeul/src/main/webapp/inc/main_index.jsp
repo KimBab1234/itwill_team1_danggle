@@ -122,7 +122,7 @@
 										</c:otherwise>
 									</c:choose>
 									<div class="container">
-										<a href="" id="logout" class="nav-item nav-link">로그아웃</a>
+										<a href="#" id="logout" class="nav-item nav-link">로그아웃</a>
 									</div>
 								</c:when>
 								
