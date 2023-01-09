@@ -80,6 +80,7 @@
                     </div>
                 </form>
             </div>
+            <c:if test="${!empty sessionScope.sId }">
             <div class="col-lg-3 col-6 text-right">
                 <a href="Wishlist.ws" class="btn border" >
                     <i class="fas fa-heart text-primary"></i>
@@ -100,6 +101,7 @@
                     </span>
                 </a>
             </div>
+            </c:if>
         </div>
     </div>
     <!-- Topbar End -->
