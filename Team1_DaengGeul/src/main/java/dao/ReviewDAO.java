@@ -47,7 +47,7 @@ public class ReviewDAO {
 				review_idx = rs.getInt(1) + 1; // 기존 게시물 번호 중 가장 큰 번호(= 조회 결과) + 1
 			}
 			System.out.println("새 글 번호 : " + review_idx);
-			
+			JdbcUtil.close(rs);
 			sql = "INSERT INTO review VALUES(?,?,?,?,?,?,?,?,now(),?,0)";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, review_idx);
@@ -66,7 +66,7 @@ public class ReviewDAO {
 			System.out.println("SQL 구문 오류 - insertReview()");
 			e.printStackTrace();
 		} finally {
-			JdbcUtil.close(rs);
+			
 			JdbcUtil.close(pstmt);
 			JdbcUtil.close(pstmt2);
 		}
@@ -97,7 +97,6 @@ public class ReviewDAO {
 			}
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, listLimit);
-			System.out.println(pstmt);
 			rs = pstmt.executeQuery();
 			
 			reviewList = new ArrayList<ReviewBean>();
@@ -418,9 +417,58 @@ public class ReviewDAO {
 		return review_like_count; 
 	}
 	
+	// 상품 이미지 및 이름 조회
+	public ReviewBean selectProduct(String product_idx) {
+		ReviewBean review = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		try {
+			if(product_idx.charAt(0) == 'B') {
+				String sql = "SELECT book_img, book_name FROM book WHERE book_idx=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, product_idx);
+				
+				rs = pstmt.executeQuery(); 
+				if(rs.next()) { 
+					review = new ReviewBean(); 
+					
+					review.setProduct_img(rs.getString("book_img"));
+					review.setProduct_name(rs.getString("book_name"));
+//					System.out.println(review);
+					
+				}
+			}else {
+				String sql = "SELECT goods_img, goods_name FROM goods WHERE goods_idx=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, product_idx);
+				
+				rs = pstmt.executeQuery(); 
+				if(rs.next()) { 
+					review = new ReviewBean(); 
+					
+					review.setProduct_img(rs.getString("goods_img"));
+					review.setProduct_name(rs.getString("goods_name"));
+//					System.out.println(review);
+					
+				}
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("ReviewBean- selectProduct()");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return review;
+	}
+	
 	
 }
-
 
 
 

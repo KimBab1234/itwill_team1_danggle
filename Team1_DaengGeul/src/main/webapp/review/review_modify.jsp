@@ -8,85 +8,120 @@
 <!-- 외부 css 가져오기 -->
 <!-- <link href="review/css/review_modify.css" rel="stylesheet" type="text/css"> -->
 <style type="text/css">
-	h1 { 
+
+ 	h2 { 
  		text-align: left; 
  	} 
 	
- 	table { 
- 		align:left; 
- 		width: 700px; 
- 		height: 400px; 
+ 	.b1 { 
+ 		align: center; 
+ 		width: 600px; 
+ 		height: 300px;
+ 		border-color: #b09f76;
+ 		color:  #575754;
  	} 
-	
- 	.d1 { 
- 	text-align:left; 
- 	background-color: #e6e6e6; 
- 	width: 700px; 
- 	} 
-	
- 	.a1 { 
- 	background-color:  #eeec93; 
- 	} 
- 	.a2 { 
- 	background-color:  #eeec93; 
- 	} 
-
+	/* 테이블 왼쪽 */
  	.td_left { 
- 		width: 150px; 
- 		background: #c0c0c0; 
+ 		width: 200px; 
+ 		background: #c9b584; 
  		text-align: center; 
+ 		font-weight: bold;
  	} 
-	
+	/* 테이블 오른쪽 */
  	.td_right { 
- 		width: 500px; 
+ 		width: 400px; 
  	} 
-	
+	/* 테이블 입력란 */
  	.r1 { 
- 		width: 300px; 
+ 		width: 400px; 
  	} 
- 	
- 	 	#myform fieldset{
+	/* 등록버튼 */
+	#s1 {
+		background-color: #513e30;
+		width: 100px;
+		height: 50px;
+		color: #fae37d;
+		border-radius: 20px;
+		border-color: transparent;
+		font-weight: bold; 
+		font-size: 20px;
+	}
+	/* 초기화버튼 */
+	#s2 {
+		background-color: #b38600;
+		width: 100px;
+		height: 50px;
+		color: #fae37d;
+		border-radius: 20px;
+		border-color: transparent;
+		font-weight: bold; 
+		font-size: 20px;
+	}
+	/* 취소버튼 */
+	#s3 {
+		background-color: #fff5e6;
+		width: 100px;
+		height: 50px;
+		color: #575754;
+		border-radius: 20px;
+		border-color: transparent;
+		font-weight: bold; 
+		font-size: 20px;
+		
+	}
+	/* 별점 */
+ 	 #myform fieldset{
     display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
     direction: rtl; /* 이모지 순서 반전 */
     border: 0; /* 필드셋 테두리 제거 */
-}
-#myform input[type=radio]{
-    display: none; /* 라디오박스 감춤 */
-}
-#myform fieldset label{
-    font-size: 2em; /* 이모지 크기 */
-    color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
-}
-#myform fieldset label:hover{
-	color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #ffcc00; /* 마우스 호버 */
-}
-#myform fieldset label:hover ~ label{
-	color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #ffcc00; /* 마우스 호버 뒤에오는 이모지들 */
-}
-#myform fieldset input[type=radio]:checked ~ label{
-	color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #ffcc00; /* 마우스 클릭 체크 */
-}
- 	
+	}
+	#myform input[type=radio]{
+	    display: none; /* 라디오박스 감춤 */
+	}
+	#myform fieldset label{
+	    font-size: 2em; /* 이모지 크기 */
+	    color: transparent; /* 기존 이모지 컬러 제거 */
+	    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+	}
+	#myform fieldset label:hover{
+		color: transparent; /* 기존 이모지 컬러 제거 */
+	    text-shadow: 0 0 0 #ffcc00; /* 마우스 호버 */
+	}
+	#myform fieldset label:hover ~ label{
+		color: transparent; /* 기존 이모지 컬러 제거 */
+	    text-shadow: 0 0 0 #ffcc00; /* 마우스 호버 뒤에오는 이모지들 */
+	}
+	#myform fieldset input[type=radio]:checked ~ label{
+		color: transparent; /* 기존 이모지 컬러 제거 */
+	    text-shadow: 0 0 0 #ffcc00; /* 마우스 클릭 체크 */
+	}
+	 	
 </style>
 </head>
 <body>
 	<header>
 		<!-- Login, Join링크 표시 영역  -->
 		<jsp:include page="../inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
+	<br>
 	<!-- 게시판 글 수정 -->
 	<section id="modifyForm">
-		<h1>리뷰게시판 글 수정</h1>
+		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 수정</b></h2>
+		<table align = "center">
+			<tr>
+				<td><img src="img/product/${review1.product_img }" width="200"></td>
+				<td><h4>${review1.product_name }</h4></td>
+			</tr>
+		</table>
 		<form action="ReviewModifyPro.re" name="reviewForm"id="myform" method="post" action="./save">
 		<!-- 글번호, 페이지번호 / 글 수정 작업 동작 흐름-->
 			<!-- 입력받지 않은 글번호는 hidden으로 넘겨야함 -->
 			<input type="hidden" name="review_idx" value="${param.review_idx }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
-			<table border="1" class="b1">
+			<table border="2" class="b1" align = "center">
 				<tr>
 					<td class="td_left"><label for="review_subject"><b>제목</b></label></td>
 					<td class="td_right"><input type="text" name="review_subject" value="${review.review_subject }" required="required" class="r1"/></td>
@@ -110,17 +145,44 @@
 				<tr>
 					<td class="td_left"><label for="review_content"><b>내용</b></label></td>
 					<td class="td_right">
-						<textarea id="review_content" name="review_content" cols="40" rows="15" required="required">${review.review_content }</textarea>
+						<textarea id="review_content"  class="r1" name="review_content" cols="40" rows="10" required="required">${review.review_content }</textarea>
 					</td>
 				</tr>
 			</table>
-			<section id="commandCell">
-				<input type="submit" value="수정">&nbsp;&nbsp;
-				<input type="reset" value="다시쓰기">&nbsp;&nbsp;
-				<input type="button" value="취소" onclick="history.back()">
+			<br>
+			<section id="commandCell" align= "center">
+				<input type="submit" value="수정" id="s1">&nbsp;&nbsp;
+				<input type="reset" value="다시쓰기" id="s2">&nbsp;&nbsp;
+				<input type="button" value="취소" id="s3" onclick="history.back()">
 			</section>
 		</form>
 	</section>
+	
+	<!------------------------------------ 바닥글 --------------------------------------->
+	<footer>
+		<jsp:include page="../inc/bottom.jsp"></jsp:include>
+	</footer>
+	<!----------------------------------------------------------------------------------->
+	
+	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
+	<!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
+	
+	
 </body>
 </html>
 

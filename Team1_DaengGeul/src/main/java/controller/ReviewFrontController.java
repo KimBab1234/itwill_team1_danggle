@@ -16,6 +16,7 @@ import action.ReviewLikeUpdateAction;
 import action.ReviewListAction;
 import action.ReviewModifyFormAction;
 import action.ReviewModifyProAction;
+import action.ReviewWriteFormAction;
 import action.ReviewWriteProAction;
 import vo.ActionForward;
 
@@ -37,10 +38,9 @@ public class ReviewFrontController extends HttpServlet {
 		
 		if(command.equals("/ReviewWriteForm.re")) {
 			System.out.println("리뷰쓰기 폼");
-			forward = new ActionForward();
-			forward.setPath("review/review_write.jsp");
-			forward.setRedirect(false);
-			
+			action= new ReviewWriteFormAction();
+			forward = action.execute(request, response);	
+		
 		}else if(command.equals("/ReviewWritePro.re")) {
 			System.out.println("리뷰쓰기 작업");
 			action= new ReviewWriteProAction();

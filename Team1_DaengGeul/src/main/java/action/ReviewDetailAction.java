@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.mysql.cj.Session;
 
 import svc.ReviewDetailService;
+import svc.ReviewWriteFormService;
 import vo.ActionForward;
 import vo.ReviewBean;
 
@@ -25,17 +26,21 @@ public class ReviewDetailAction implements Action {
 		int review_idx= Integer.parseInt(request.getParameter("review_idx"));
 		String member_id = (String)session.getAttribute("sId");
 		String review_like_done = request.getParameter("review_like_done");
+		String product_idx = request.getParameter("product_idx");
 		
 //		System.out.println("sId: " + sId);
 //		System.out.println("review_idx = " + review_idx);
 		
 		ReviewDetailService service = new ReviewDetailService();
 		ReviewBean review =  service.getReview(review_idx, true, member_id, review_like_done);
+		ReviewWriteFormService service1 = new ReviewWriteFormService();
+		ReviewBean review1 = service1.getReview(product_idx);
 //		System.out.println(board);
 		
 		// 뷰페이지로 데이터 전달을 위해 requrest 객체에 전달
 		
 		request.setAttribute("review", review);
+		request.setAttribute("review1", review1);
 		
 		//4. 좋아요 버튼 눌렀을때 액션에서 review_like_done 파라미터 가져와서 Y, N 확인하고 
 		//서비스로 넘기고 서비스에서 dao로 넘기고 (동일)

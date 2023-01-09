@@ -32,6 +32,8 @@ public class ReviewWriteProAction implements Action {
 			review.setReview_passwd(request.getParameter("review_passwd"));
 			review.setReview_score(Integer.parseInt(request.getParameter("review_score")));
 			review.setReview_content(request.getParameter("review_content"));
+//			review.setProduct_img(request.getParameter("product_img"));
+//			review.setProduct_name(request.getParameter("product_name"));
 			
 //			System.out.println(review);
 			
