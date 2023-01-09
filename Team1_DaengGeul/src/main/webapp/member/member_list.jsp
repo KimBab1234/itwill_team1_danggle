@@ -20,18 +20,22 @@
 	
 	<div class="clear"></div>
 	
+	<div id="body">
 	<article>
 		<!-------------------------- 회원목록 --------------------------->
-		<h1 id="listName">회원목록</h1>
+		<div id="listName">
+			<img src="img/daram.png" width="50" height="75">
+			회원목록
+		</div>
 		<table border="1">
 			<tr>
 				<th width="150">아이디</th>
-				<th width="150">이름</th>
+				<th width="100">이름</th>
 				<th width="250">E-Mail</th>
 				<th width="50">성별</th>
 				<th width="100">우편번호</th>
-				<th width="150">가입일</th>
-				<th width="200"></th>
+				<th width="120">가입일</th>
+				<th width="190"></th>
 			</tr>
 			<%-- List<Memberbean> 객체(memberList) 만큼 반복하면서 데이터 출력 --%>
 			<c:forEach var="member" items="${memberList }">
@@ -43,9 +47,9 @@
 					<td>${member.member_postcode }</td>
 					<td>${member.member_join_date }</td>
 					<td>
-						<input type="button" value="상세정보" onclick="location.href='MemberInfo.me?id=${member.member_id}'">
+						<input type="button" value="상세정보" id="btnInfo"  onclick="location.href='MemberInfo.me?id=${member.member_id}'">
 						<!-- 주문내역 서블릿 수정 필요! -->
-						<input type="button" value="주문내역" onclick="location.href='MemberInfo.me?id=${member.member_id}'">
+						<input type="button" value="주문내역" id="btnOrder" onclick="location.href='MemberInfo.me?id=${member.member_id}'">
 					</td>
 				</tr>
 			</c:forEach>
@@ -57,7 +61,7 @@
 				<%-- 관리자만 검색 (관리자만 페이지 볼 수 있지만 JSTL 사용법 쫌 더 익숙해지길 바라며!!)--%>
 				<c:if test="${!empty sessionScope.sId && sessionScope.sId eq 'admin'}">
 					<input type="text" name="keyword" placeholder="회원명을 입력하세요">
-					<input type="submit" value="검색">
+					<input type="submit" id="btnSearch" value="검색">
 				</c:if>
 			</form>
 		</section>
@@ -67,10 +71,10 @@
 			<!-- 이전 페이지 -->
 			<c:choose>
 				<c:when test="${pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='MemberList.me?pageNum=${pageNum - 1}'">
+					<input type="button" value="이전" id="btnPre"  onclick="location.href='MemberList.me?pageNum=${pageNum - 1}'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전">
+					<input type="button" value="이전" id="btnPre" >
 				</c:otherwise>
 			</c:choose>
 				
@@ -89,14 +93,15 @@
 			<!-- 다음 페이지 -->
 			<c:choose>
 				<c:when test="${pageNum < memberPageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='MemberList.me?pageNum=${pageNum + 1}'">
+					<input type="button" id="btnNext" value="다음" onclick="location.href='MemberList.me?pageNum=${pageNum + 1}'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음">
+					<input type="button" id="btnNext" value="다음">
 				</c:otherwise>
 			</c:choose>
 		</section>
 	</article>
+	</div>
 	
 	<div class="clear"></div>
 	<div class="clear"></div>

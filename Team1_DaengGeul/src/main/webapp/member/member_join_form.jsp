@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&family=Nanum+Gothic&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+
 <%------------------- 임시 홈페이지 CSS -------------------%>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="css/joinForm.css" rel="stylesheet" type="text/css">
@@ -23,9 +24,10 @@
 <%----------------------------- 회원가입 CheckList----------------------------%>
 <script src="js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	// 아이디, 패스워드 유효성 검사 적용을 위한 변수
+	// 아이디, 비밀번호, 이름, 이메일 유효성 검사 적용을 위한 변수
 	var idStatus = false;
 	var passwdStatus = false;
+	var eqPasswd = false;
 	var nameStatus = false;
 	var emailStatus = false;
 	
@@ -37,8 +39,10 @@
 			let lengthRegex = /^[A-Za-z0-9-_]{5,12}$/;
 
 			if(!lengthRegex.exec(id)){
-				$("#checkIdResult").html("사용 불가능한 아이디").css("color", "red");
-				
+				$("#checkIdResult").html("사용 불가능한 아이디").css({
+					color : "red",
+					marginLeft : "137px"
+				});
 			} else {
 				
 				$.ajax({
@@ -82,7 +86,10 @@
 			let specRegex = /[!@#$%]/;
 			
 			if(!regex.exec(passwd)){
-				$("#rightPasswdResult").html("사용 불가능한 패스워드").css("color", "red");
+				$("#rightPasswdResult").html("사용 불가능한 비밀번호").css({
+					color : "red",
+					marginLeft : "137px"
+				});
 			} else {
 				passwdStatus = true;
 				let count = 0;
@@ -92,10 +99,26 @@
 				if(specRegex.exec(passwd)){ count++ };
 				
 				switch(count){
-					case 4 : $("#rightPasswdResult").html("안전").css("color", "green"); break;
-					case 3 : $("#rightPasswdResult").html("보통").css("color", "orange"); break;
-					case 2 : $("#rightPasswdResult").html("위험").css("color", "yellow"); break;
-					case 1 : $("#rightPasswdResult").html("사용불가").css("color", "red");
+					case 4 : $("#rightPasswdResult").html("안전").css({
+						color : "green",
+						marginLeft : "137px"
+					}); break;
+					
+					case 3 : $("#rightPasswdResult").html("보통").css({
+						color : "orange",
+						marginLeft : "137px"
+					}); break;
+					
+					case 2 : $("#rightPasswdResult").html("위험").css({
+						color : "yellow",
+						marginLeft : "137px"
+					}); break;
+					
+					case 1 : $("#rightPasswdResult").html("사용불가").css({
+						color : "red",
+						marginLeft : "137px"
+					});
+					
 					passwdStatus = false;
 				}
 				
@@ -110,6 +133,7 @@
 			let checkpasswd = $("#checkpasswd").val();
 			
 			if(checkpasswd == passwd){
+				eqPasswd = true;
 				$("#checkPasswdResult").html("비밀번호가 일치합니다").css({
 					color : "#fae37d",
 					marginLeft : "137px"
@@ -131,7 +155,10 @@
 			let regex = /^[가-힣]{2,10}$/;
 
 			if(!regex.exec(name)){
-				$("#checkNameResult").html("한글 2~10글자로 입력해주세요").css("color", "#c9b584");
+				$("#checkNameResult").html("한글 2~10글자로 입력해주세요").css({
+					color : "c9b584",
+					marginLeft : "137px"
+				});
 			}else {
 				nameStatus = true;
 				$("#checkNameResult").html("");
@@ -174,7 +201,7 @@
 			let email1 = $("#email1").val();
 			let email2 = $("#email2").val();
 			
-			if(email1 != ""){
+			if(email1 != "" && email2 != ""){
 
 				$.ajax({
 					url: "MemberCheckEmail.me",
@@ -219,10 +246,16 @@
 			let type = "join";
 			
 			if(id == ""){
-				$("#certEmailMsg").html("아이디부터 입력해주세요!").css("color", "red");
+				$("#certEmailMsg").html("아이디부터 입력해주세요!").css({
+					color : "red",
+					marginLeft : "137px"
+				});
 			} else {
 				if(email1 == "" || email2 ==""){
-					$("#certEmailMsg").html("이메일을 입력해주세요!").css("color", "red");
+					$("#certEmailMsg").html("이메일을 입력해주세요!").css({
+						color : "red",
+						marginLeft : "137px"
+					});
 				} else {
 					$("#certEmailMsg").html("인증번호가 전송되었습니다").css({
 						color : "#fae37d",
@@ -257,13 +290,22 @@
 			let certNum = $("#certNum").val();
 			
 			if(id == ""){
-				$("#certEmailMsg").html("아이디부터 입력해주세요!").css("color", "red");
+				$("#certEmailMsg").html("아이디부터 입력해주세요!").css({
+					color : "red",
+					marginLeft : "137px"
+				});
 			} else {
 				if(email1 == "" || email2 ==""){
-					$("#certEmailMsg").html("이메일을 입력해주세요!").css("color", "red");
+					$("#certEmailMsg").html("이메일을 입력해주세요!").css({
+						color : "red",
+						marginLeft : "137px"
+					});
 				} else {
 					if(certNum == ""){
-						$("#certEmailMsg").html("인증번호를 입력해주세요!").css("color", "red");
+						$("#certEmailMsg").html("인증번호를 입력해주세요!").css({
+							color : "red",
+							marginLeft : "137px"
+						});
 					} else {
 						
 						$.ajax({
@@ -306,8 +348,11 @@
 				alert("아이디를 재입력 해주세요!")
 				return false;
 			} else if(!passwdStatus) {
-				alert("패스워드를 재입력 해주세요!")
+				alert("비밀번호를 재입력 해주세요!")
 				return false;
+			} else if(!eqPasswd){
+				alert("비밀번호를 일치시켜주세요!")
+				return false;				
 			} else if(!emailStatus){
 				alert("이메일 인증을 해주세요!")
 				return false;

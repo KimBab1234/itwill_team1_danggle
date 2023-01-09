@@ -49,7 +49,16 @@ public class MemberUpdateProAction implements Action {
 		int updateCount = service.updateMember(member, newPasswd, newPasswd2);
 		
 		try {
-			if(updateCount > 0) {
+			if(!newPasswd.equals(newPasswd2)) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				
+				out.println("<script>");
+				out.println("alert('변경할 비밀번호를 일치시켜주세요!')");
+				out.println("history.back()");
+				out.println("</script>");
+				
+			} else if(updateCount > 0){
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				
