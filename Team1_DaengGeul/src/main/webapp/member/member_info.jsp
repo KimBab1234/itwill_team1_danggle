@@ -18,6 +18,7 @@
 <script src="js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	$(function() {
+		 $('.dropdown-toggle', this).trigger('click').blur();
 		<%
 		String email1 = (String)request.getAttribute("email1");
 		String email2 = (String)request.getAttribute("email2");

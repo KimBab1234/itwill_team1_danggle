@@ -28,7 +28,7 @@
 	</header>
 	
 	<div style="display: flex;">
-	<div align="left" style="width: 300px; margin-top: 200px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
 	<div align="center">
