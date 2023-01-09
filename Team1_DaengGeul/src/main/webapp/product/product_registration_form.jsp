@@ -13,11 +13,10 @@
 	var sum = 0;
 
 	function discountSet() {
-		// 할인 설정 안함 선택 시 discount(hidden)에 0 들어감
+
 		if(document.proRegi.disc[1].checked){
 			document.getElementById("discount").value = 0;
 			$("#disNum").attr("required", false);
-			// 할인 설정 안함 선택 시에만 required 속성 해제
 		}
 	}
 	
@@ -36,13 +35,17 @@
 			if($("input[type=radio][class=regi_check]:checked").val() == "book"){
 				$("#book_info").show();
 				$("#goods_option").hide();
+				
+				
+				
 			}else if($("input[type=radio][class=regi_check]:checked").val() == "goods"){
 				$("#book_info").hide();
 				$("#goods_option").show();
-				// 굿즈 선택 시 책 정보 required 속성 해제
+				
 				$("#writer").attr("required", false);
 				$("#publisher").attr("required", false);
 				$("#date").attr("required", false);
+				$(".book_genre").attr("required", false);
 			}
  			
 		});
@@ -107,8 +110,8 @@
 				<td>
 					<input type="radio" id="group_book" class="regi_check" value="book" name="group" checked="checked">책
 					&nbsp;
-					<select name="book_genre" class="book_genre" class="regiSelect">
-						<option value="" class="book_genre" >==카테고리 선택==</option>
+					<select name="book_genre" class="book_genre" required="required">
+						<option value="" class="book_genre">==카테고리 선택==</option>
 						<option value="humanities" class="book_genre">인문</option>
 						<option value="novel" class="book_genre">소설</option>
 						<option value="poem" class="book_genre">시</option>
