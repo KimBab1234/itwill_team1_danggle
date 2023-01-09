@@ -16,6 +16,24 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 	<link href="css/default_order.css" rel="stylesheet" type="text/css">
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<style>
+#alert-box {
+    z-index: 1;
+    position: absolute;
+    background-color: #513e30;
+    border-radius: 15px;
+    width:300px;
+    height: 50px;
+    box-shadow: 0 2px 55px -25px rgb(0 0 0 / 100%);
+    text-align: center;
+    margin-top: 10px;
+    color:#F0D264;
+    font-weight: bolder;
+    vertical-align: middle;
+    display: none;
+    line-height: 50px;
+} 
+</style>
 <script>
 
 
@@ -43,7 +61,7 @@ $(function() {
 
 	// --------------------- 찜등록 전 확인알림 ---------------------
 	$("#wish").on("click", function() {
-		let product_name = "[product_name]"; // 추후 $("#product.product_name" ).val() 로 변경
+		let product_name = '${product.name}'; // 추후 $("#product.product_name" ).val() 로 변경
 		if(id=='') {
 			alert("로그인 후 이용하세요.");
 			location.href='MemberLoginForm.me';
@@ -57,7 +75,6 @@ $(function() {
 						product_idx:$("#product_idx").val()
 					},
 					success: function(response) {
-						alert("성공");
 						$("#wishCount").text(response);
 					},
 					error: function(xhr, textStatus, errorThrown) { 
@@ -83,6 +100,10 @@ $(function() {
 				alert("옵션을 선택하세요!");
 				return;
 			}
+			$("#alert-box").css("display","block");
+			setTimeout(() => {
+				$('#alert-box').fadeOut(500);
+			 }, 1000)
 			var prod = {
 					'opt' :  $('#opt').val(),
 					'price' :  $('#price').val(),
@@ -214,6 +235,7 @@ function countModify(sign) {
 							<i class="fa fa-solid fa-heart cartIcon" style="margin-left: 0px;"></i> 찜하기
 						</button>
 					</div>
+					<div id="alert-box">추가되었습니다!</div>
 				</div>
 			</form>
 			<!-- 상단 이미지, 큰 정보 감싸는 곳 끝-->
