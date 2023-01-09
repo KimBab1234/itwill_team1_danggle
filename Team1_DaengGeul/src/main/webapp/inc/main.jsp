@@ -37,6 +37,14 @@
 					location.href = "MemberLogoutPro.me";
 				}
 			});
+			
+			 $('.dropdown-toggle', this).trigger('click').blur();
+// 			 $('.dropdown').on('mouseover', function () {
+//                  $('.dropdown-toggle', this).trigger('click');
+//              }).on('mouseout', function () {
+//                  $('.dropdown-toggle', this).trigger('click').blur();
+//              });
+			
 		});
 	</script>
 	<%----------------------------------------------------------------------------%>
@@ -82,7 +90,7 @@
                             <a href="ProductList.go?type=B_best" class="nav-item nav-link">베스트셀러</a>
                             <a href="ProductList.go?type=B_disc" class="nav-item nav-link">할인 중인 도서</a>
                             <a href="ProductList.go?type=G" class="nav-item nav-link">굿즈샵</a>
-                            <a href="" class="nav-item nav-link">커뮤니티</a>
+                            <a href="Community0.co?board_type=0" class="nav-item nav-link">커뮤니티</a>
                         </div>
                         
                         <div class="navbar-nav ml-auto py-0">
@@ -92,34 +100,36 @@
 									<c:choose>
 										<%-- 관리자 --%>
 										<c:when test="${sessionScope.sId eq 'admin'}">
-											<div class="container" style="position: relative;">
-											<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											 <div class="nav-item dropdown">
+											 	<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px;">
 			                                	관리자
-			                                </button>
-			                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId1" style="position: absolute;">
+			                               		</button>
+			                             	   <div class="dropdown-menu rounded-0 m-0">
 			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
 			                                    <a class="dropdown-item" href='ProductList.ad'>상품 정보 관리</a>
 			                                    <a class="dropdown-item" href='RecommendBookList.ad'>추천 도서 관리</a>
-			                                </div>
+			                                    </div>
 			                                </div>
 										</c:when>
 										<%-- 일반사용자 --%>
 										<c:otherwise>
-											<div class="container" style="position: relative;">
-			                                <button class="btn btn-primary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											 <div class="nav-item dropdown">
+											 	<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px;">
 			                                	${sessionScope.sId } 님
-			                                </button>
-			                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId" style="position: absolute;">
-			                                    <a class="dropdown-item" href='MemberInfo.me?id=${sessionScope.sId}'>회원정보</a>
-			                                    <a class="dropdown-item" href='OrderList.or'>주문내역</a>
-			                                    <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
-			                                    <a class="dropdown-item" href="#">내 문의글</a>
+			                               		</button>
+<!-- 				                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"></a> -->
+				                                <div class="dropdown-menu rounded-0 m-0">
+				                                   <a class="dropdown-item" href='MemberInfo.me?id=${sessionScope.sId}'>회원정보</a>
+				                                   <a class="dropdown-item" href='OrderList.or'>주문내역</a>
+				                                   <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
+				                                   <a class="dropdown-item" href="QnaList.cu">내 문의글</a>
+				                                   <a class="dropdown-item" href="Wishlist.ws">내 찜목록</a>
+				                                </div>
 			                                </div>
-										</div>
 										</c:otherwise>
 									</c:choose>
 									<div class="container">
-										<a href="" id="logout" class="nav-item nav-link">로그아웃</a>
+										<a href="#" id="logout" class="nav-item nav-link">로그아웃</a>
 									</div>
 								</c:when>
 								

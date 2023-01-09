@@ -9,8 +9,6 @@
 <title>장바구니</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 .cartB:focus, .cartB:active { outline:none; }
 </style>
@@ -23,6 +21,13 @@ Map.prototype.toJSON = function toJSON() {
 		}
 
 	var id = '${sessionScope.sId}';
+	
+	if(id=='') {
+		alert("로그인 후 이용하세요.");
+		location.href='MemberLoginForm.me';
+	}	
+	
+	
 	var cartList = new Map(JSON.parse(localStorage.getItem(id)));
 	var chkList = document.getElementsByClassName('cartCheck');
 	var deleteArr = [];

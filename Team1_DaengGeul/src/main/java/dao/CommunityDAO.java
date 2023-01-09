@@ -182,5 +182,43 @@ public class CommunityDAO {
 		return replyList;
 	}
 
+	// 글삭제
+		public int deleteBoard(int board_idx) {
+			int successDelete = 0;
+			
+			try {
+				String sql = "DELETE FROM community WHERE board_idx = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, board_idx);
 
+				successDelete = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("구문오류 deleteBoard");
+				e.printStackTrace();
+			} finally {
+				JdbcUtil.close(pstmt);
+			}
+			return successDelete;
+		}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

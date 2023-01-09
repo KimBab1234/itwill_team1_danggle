@@ -34,12 +34,12 @@ public class OrderPayProAction implements Action {
 			order.setMember_id((String)request.getSession().getAttribute("sId"));
 			order.setOrder_total_pay(Integer.parseInt(request.getParameter("totalPay")));
 			order.setOrder_payment(request.getParameter("payment"));
-			order.setOrder_point(Integer.parseInt(request.getParameter("usePoint")));
+			order.setOrder_point(Integer.parseInt(request.getParameter("usePoint"))*(-1));
 			order.setOrder_imp_uid(request.getParameter("imp_uid"));
 			order.setOrder_merchant_uid(request.getParameter("merchant_uid"));
 			order.setOrder_name(request.getParameter("name"));
 			order.setOrder_address(request.getParameter("postcode") + " " + request.getParameter("roadAddress") + " " + request.getParameter("addressDetail"));
-			order.setOrder_phone(request.getParameter("phone"));
+			order.setOrder_phone(request.getParameter("phone1")+"-"+request.getParameter("phone2")+"-"+request.getParameter("phone3"));
 
 			////orderProd에 들어갈 데이터 (상품별로 배열에 저장 필요)
 			ArrayList<String> idx = new ArrayList<>();

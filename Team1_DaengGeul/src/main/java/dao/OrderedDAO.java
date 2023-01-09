@@ -44,7 +44,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 			pstmt.setString(2, order.getOrder_imp_uid());  //아임포트 고유번호
 			pstmt.setInt(3, order.getOrder_total_pay());
 			pstmt.setString(4, order.getOrder_payment());
-			pstmt.setInt(5, order.getOrder_point());
+			pstmt.setInt(5, (-1)*order.getOrder_point());
 			pstmt.setString(6, order.getOrder_name());
 			pstmt.setString(7, order.getOrder_address());
 			pstmt.setString(8, order.getOrder_phone());
@@ -253,7 +253,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 		boolean isSuccessUpdate = false;
 		
 		try {
-			String sql = "UPDATE member SET member_point=member_point-? where member_id=?";
+			String sql = "UPDATE member SET member_point=member_point+? where member_id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, point);
 			pstmt.setString(2, id);
