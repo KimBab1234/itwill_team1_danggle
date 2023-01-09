@@ -9,7 +9,7 @@
 <link href="img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 찜목록</title>
 <%------------------- 임시 홈페이지 CSS -------------------%>
-<link href="css/memberList.css" rel="stylesheet" type="text/css">
+<link href="css/wish.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
 
 
