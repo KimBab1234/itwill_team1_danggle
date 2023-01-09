@@ -39,11 +39,11 @@
 			});
 			
 			 $('.dropdown-toggle', this).trigger('click').blur();
-			 $('.dropdown').on('mouseover', function () {
-                 $('.dropdown-toggle', this).trigger('click');
-             }).on('mouseout', function () {
-                 $('.dropdown-toggle', this).trigger('click').blur();
-             });
+// 			 $('.dropdown').on('mouseover', function () {
+//                  $('.dropdown-toggle', this).trigger('click');
+//              }).on('mouseout', function () {
+//                  $('.dropdown-toggle', this).trigger('click').blur();
+//              });
 			
 		});
 	</script>
