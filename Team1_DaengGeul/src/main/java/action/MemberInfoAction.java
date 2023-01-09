@@ -56,7 +56,6 @@ public class MemberInfoAction implements Action {
 
 					request.setAttribute("email1", email1);
 					request.setAttribute("email2", email2);
-					
 					request.setAttribute("phone1", phone1);
 					request.setAttribute("phone2", phone2);
 					request.setAttribute("phone3", phone3);

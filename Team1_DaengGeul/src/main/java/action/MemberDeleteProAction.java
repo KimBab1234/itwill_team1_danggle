@@ -21,7 +21,7 @@ public class MemberDeleteProAction implements Action {
 		// ----------------- 패스워드 암호화(해싱) 기능 추가 ----------------------
 		MyMessageDigest md = new MyMessageDigest("SHA-256");
 		String passwd = md.hashing(request.getParameter("passwd"));
-		System.out.println(passwd);
+//		System.out.println(passwd);
 		// ------------------------------------------------------------------------
 		
 		MemberDeleteProService service = new MemberDeleteProService();

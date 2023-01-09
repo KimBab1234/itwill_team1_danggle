@@ -18,6 +18,14 @@
 <script src="js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	$(function() {
+		<%
+		String email1 = (String)request.getAttribute("email1");
+		String email2 = (String)request.getAttribute("email2");
+ 		%>
+ 		let getEmail1 = email1.value;
+ 		let getEmail2 = email2.value;
+ 		
+		var emailStatus = false;
 		
 		// -------------------- 회원탈퇴 확인 알림창 --------------------
 		$("#btnDelete").on("click", function() {
@@ -40,6 +48,264 @@
 				$("#email2").prop("readonly", true);
 			}
 			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// --------------------- 비밀번호 유효성 검사 --------------------
+		$("#newPasswd").on("change", function() {
+			let newPasswd = $("#newPasswd").val();
+			
+			let regex = /^[A-Za-z0-9~!@#$%^&*-_]{8,16}$/;
+			let engUpperRegex = /[A-Z]/;
+			let engLowerRegex = /[a-z]/;
+			let numRegex = /[0-9]/;
+			let specRegex = /[!@#$%]/;
+			
+			if(!regex.exec(newPasswd)){
+				passwdStatus = false;
+				$("#rightPasswdResult").html("사용 불가능한 비밀번호").css({
+					color : "red",
+					marginLeft : "137px"
+				});
+			} else {
+				passwdStatus = true;
+				let count = 0;
+				if(engUpperRegex.exec(newPasswd)){ count++ };
+				if(engLowerRegex.exec(newPasswd)){ count++ };
+				if(numRegex.exec(newPasswd)){ count++ };
+				if(specRegex.exec(newPasswd)){ count++ };
+				
+				switch(count){
+					case 4 : $("#rightPasswdResult").html("안전").css({
+						color : "green",
+						marginLeft : "137px"
+					}); break;
+					
+					case 3 : $("#rightPasswdResult").html("보통").css({
+						color : "orange",
+						marginLeft : "137px"
+					}); break;
+					
+					case 2 : $("#rightPasswdResult").html("위험").css({
+						color : "yellow",
+						marginLeft : "137px"
+					}); break;
+					
+					case 1 : $("#rightPasswdResult").html("사용불가").css({
+						color : "red",
+						marginLeft : "137px"
+					});
+					passwdStatus = false;
+				}
+				
+			}
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// ----------------------- 비밀번호 확인 --------------------------
+		$("#newPasswd2").on("change", function() {
+			let newPasswd = $("#newPasswd").val();
+			let newPasswd2 = $("#newPasswd2").val();
+			
+			if(newPasswd == newPasswd2){
+				$("#checkPasswdResult").html("비밀번호가 일치합니다").css({
+					color : "#fae37d",
+					marginLeft : "137px"
+				});
+			} else {
+				$("#checkPasswdResult").html("비밀번호가 일치하지 않습니다").css({
+					color : "#c9b584",
+					marginLeft : "137px"
+				});
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// --------------- 이메일 유효성 검사 및 입력 제한 ---------------
+		$("#email1").on("keyup", function() {
+			var inputVal = $(this).val();
+			$(this).val($(this).val().replaceAll(/[^\w_.\d]/g,""));
+		});
+		
+		$("#email2").on("keyup", function() {
+			var inputVal = $(this).val();
+			$(this).val($(this).val().replaceAll(/[^\w@.]/g,""));
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// --------------------- 이메일 중복체크 -------------------------
+		$("#email2, #selectDomain").on("change", function() {
+			let email1 = $("#email1").val();
+			let email2 = $("#email2").val();
+			
+			if(email1 != "" && email2 != ""){
+
+				$.ajax({
+					url: "MemberCheckEmail.me",
+					data: {
+						email1: email1,
+						email2: email2
+					},
+					success: function(result) {
+						
+						if(result == "true"){
+							$("#checkEmailResult").html("사용 불가능한 이메일").css({
+								color : "red",
+								marginLeft : "137px"
+							});
+						} else {
+							$("#checkEmailResult").html("사용 가능한 이메일").css({
+								color : "#fae37d",
+								marginLeft : "137px"
+							});
+						}
+						
+					}
+					
+				});
+							
+				
+			} else {
+				$("#checkEmailResult").html("이메일을 전부 입력하세요").css({
+					color : "red",
+					marginLeft : "137px"
+				});
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// ---------------------- 인증코드 보내기 ------------------------
+		$("#sendCert").on("click", function() {
+			let id = $("#id").val();
+			let email1 = $("#email1").val();
+			let email2 = $("#email2").val();
+			let type = "join";
+			
+			if(id == ""){
+				$("#certEmailMsg").html("아이디부터 입력해주세요!").css({
+					color : "red",
+					marginLeft : "137px"
+				});
+			} else {
+				if(email1 == "" || email2 ==""){
+					$("#certEmailMsg").html("이메일을 입력해주세요!").css({
+						color : "red",
+						marginLeft : "137px"
+					});
+				} else {
+					$("#certEmailMsg").html("인증번호가 전송되었습니다").css({
+						color : "#fae37d",
+						marginLeft : "137px"
+					});
+					
+					$.ajax({
+						url: "MemberSendCertPro.me",
+						type : 'POST',
+						data: {
+							id: id,
+							email1: email1,
+							email2: email2,
+							type: type
+						}
+						
+					});
+					
+				}
+				
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// ----------------------- 인증코드 인증 -------------------------
+		$("#checkCert").on("click", function() {
+			let id = $("#id").val();
+			let email1 = $("#email1").val();
+			let email2 = $("#email2").val();
+			let certNum = $("#certNum").val();
+			
+			if(id == ""){
+				$("#certEmailMsg").html("아이디부터 입력해주세요!").css({
+					color : "red",
+					marginLeft : "137px"
+				});
+			} else {
+				if(email1 == "" || email2 ==""){
+					$("#certEmailMsg").html("이메일을 입력해주세요!").css({
+						color : "red",
+						marginLeft : "137px"
+					});
+				} else {
+					if(certNum == ""){
+						$("#certEmailMsg").html("인증번호를 입력해주세요!").css({
+							color : "red",
+							marginLeft : "137px"
+						});
+					} else {
+						
+						$.ajax({
+							url: "MemberCheckCertPro.me",
+							data: {
+								id: id,
+								certNum: certNum
+							},
+							success: function(result) {
+								if(result == "true"){
+									emailStatus = true;
+									$("#certEmailMsg").html("이메일이 인증되었습니다").css({
+										color : "#fae37d",
+										marginLeft : "137px"
+									});
+								} else {
+									$("#certEmailMsg").html("인증코드가 틀렸습니다!").css({
+										color : "red",
+										marginLeft : "137px"
+									});
+								}
+								
+							}
+							
+						});
+									
+					}
+					
+				}
+				
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// ------------------ 조건 충족 시, 회원가입 ---------------------
+		$("#updateForm").submit(function() {
+			
+			if($("#newPasswd").val() == ""){
+				passwdStatus = true;
+			}
+			if(!passwdStatus){
+				alert("[ 8-16자리 영어 대/소문자,숫자,특수문자 조합 ]\n비밀번호 양식을 확인하세요!")
+				return false;
+			}
+			
+			// 회원의 이메일이 등록된 이메일과 다르거나
+			// 인증번호를 받은 후, 이메일 인증을 하지않았을 경우
+			if(getEmail1 == $("#email1").val() && getEmail2 == $("#email2").val()) {
+				emailStatus = true;
+			}
+			
+			if(!emailStatus){
+				alert("이메일 인증을 해주세요!")
+				return false;
+			}
 		});
 		// ---------------------------------------------------------------
 		
@@ -97,7 +363,7 @@ function execDaumPostcode() {
 	<article>
 	
 		<!---------------------------------- 마이페이지 영역 ----------------------------------->
-	  	<form action="MemberUpdatePro.me" method="post" id="joinForm" name="joinForm">
+	  	<form action="MemberUpdatePro.me" method="post" id="updateForm" name="updateForm">
 		<!-- 화면 커버 -->
 		<div class="join-cover">
 	
@@ -115,22 +381,23 @@ function execDaumPostcode() {
 				
 				<div class="row">
 					<b>기존 비밀번호</b>
-					<input type="password" name="oldPasswd" id="oldPasswd" class="in-pw1" size="28" required="required" placeholder="패스워드 입력">
+					<input type="password" name="oldPasswd" id="oldPasswd" class="in-pw1" size="33" required="required" placeholder="비밀번호 입력">
 				</div>
 				<div class="row">
 					<b>변경할 비밀번호</b>
-					<input type="password" name="newPasswd" id="newPasswd" class="in-pw2" size="28" placeholder="변경시에만 입력">
+					<input type="password" name="newPasswd" id="newPasswd" class="in-pw2" size="33" placeholder="변경시 입력(8-16자리 영어 대/소문자,숫자,특수문자 조합)">
+					<div id="rightPasswdResult"></div>
 				</div>
 				<div id="rightPasswdResult"></div>
 				<div class="row">
 					<b>변경할 비밀번호 확인</b>
-					<input type="password" name="newPasswd2" id="newPasswd2" class="in-pw3" size="23" placeholder="변경시에만 입력">
+					<input type="password" name="newPasswd2" id="newPasswd2" class="in-pw3" size="28" placeholder="변경시 입력(8-16자리 영어 대/소문자,숫자,특수문자 조합)">
+					<div id="checkPasswdResult"></div>
 				</div>
-				<div id="checkPasswdResult"></div>
 				
 				<div class="row">
 					<b>이름</b>
-					<input type="text" name="name" id="name" class="in-na" required="required" value="${member.member_name }">
+					<input type="text" name="name" id="name" class="in-na" required="required" value="${member.member_name }" readonly="readonly">
 				</div>
 				<div id="checkNameResult"></div>
 				
@@ -328,6 +595,7 @@ function execDaumPostcode() {
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>

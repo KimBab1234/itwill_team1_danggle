@@ -305,9 +305,17 @@ public class MemberDAO { // MemberDAO
 			pstmt.setString(9, member.getMember_id());
 			
 			updateCount = pstmt.executeUpdate();
+			
+			sql = "DELETE FROM auth"
+					+ " 	WHERE auth_id=?";
+			pstmt2 = con.prepareStatement(sql);
+			pstmt2.setString(1, member.getMember_id());
+			pstmt2.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {			
+			JdbcUtil.close(pstmt2);
 			JdbcUtil.close(pstmt);
 		}
 		
