@@ -21,6 +21,13 @@ Map.prototype.toJSON = function toJSON() {
 		}
 
 	var id = '${sessionScope.sId}';
+	
+	if(id=='') {
+		alert("로그인 후 이용하세요.");
+		location.href='MemberLoginForm.me';
+	}	
+	
+	
 	var cartList = new Map(JSON.parse(localStorage.getItem(id)));
 	var chkList = document.getElementsByClassName('cartCheck');
 	var deleteArr = [];

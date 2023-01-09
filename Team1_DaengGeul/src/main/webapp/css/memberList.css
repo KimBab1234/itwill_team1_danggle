@@ -31,3 +31,22 @@
 	#listName {
 		margin-left: 10%
 	}
+input[type=button]{
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #513e30;
+  color: #c9b584;
+  border: none;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+input[type=button]:hover {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #c9b584;
+  color: #513e30;
+  border: none;
+  cursor: pointer;
+}

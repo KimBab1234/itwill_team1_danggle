@@ -16,6 +16,15 @@
 <%------------------------------ 찜목록 삭제 --------------------------------%>
 <script src="js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+
+var id = '${sessionScope.sId}';
+
+if(id=='') {
+	alert("로그인 후 이용하세요.");
+	location.href='MemberLoginForm.me';
+}	
+
+
 	$(function() {
 		// ------------------------ 찜전체 선택 ----------------------------
 		$("table").css("text-align", "center");
@@ -123,46 +132,44 @@
 		<jsp:include page="/inc/main.jsp"></jsp:include>
 	</header>
 	
-	<div class="clear"></div>
-	
+	<div style="display: flex;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
+	<div align="center" class="orderTable" style="width: 1500px; margin-top: 50px; min-height: 500px;">	
 	<h1>위시리스트</h1>
-		<table border="1">
+		<!-------------------------- 찜전체 취소버튼 --------------------------->
+		<div style="width: 1500px;" align="left">
+			<input type="button" id="deleteSelectedWish" value="선택취소">			
+			<input type="button" id="deleteWishAll" value="전체취소">			
+		</div>
+		<table border="1" style="width: 1500px; text-align: center; margin-top: 20px">
 			<tr>
 				<th width="80"><input type="checkbox" id="selectedWishAll">&nbsp;전체</th>
 				<th width="150">상품이미지</th>
-				<th width="120">상품코드</th>
-				<th width="150">상품명</th>				
+				<th width="300">상품명</th>				
 				<th width="100">상품가</th>
-				<th width="100">할인액</th>
+				<th width="100">할인가</th>
 				<th width="100">찜등록일</th>
 			</tr>
 			<c:forEach var="wishlist" items="${wishlist }">
 				<tr>				
 					<td><input type="checkbox" name="selectedwishlist" value="${wishlist.product_idx }"></td>
-					<td>${wishlist.product_real_img }</td>
-					<td>${wishlist.product_idx }</td>
+					<td><img src="img/product/${wishlist.product_real_img}" width="130px" height="130px" style="object-fit: cover;"></td>
 					<td>${wishlist.product_name }</td>
-					<td>${wishlist.product_price }</td>
-					<td>${wishlist.product_discount }</td>
+					<td>${wishlist.product_price }원</td>
+					<td>${wishlist.product_discount}원</td>
 					<td>${wishlist.wish_date }</td>
 				</tr>
 			</c:forEach>
 		</table>
 		
-		<!-------------------------- 찜전체 취소버튼 --------------------------->
-		<section id="buttonArea">
-			<input type="button" id="deleteSelectedWish" value="선택취소">			
-			<input type="button" id="deleteWishAll" value="전체취소">			
-		</section>
 		
 		<!-------------------------- 상품명 검색버튼 --------------------------->
 		<section id="buttonArea">
 			<form action="Wishlist.ws">
-				<%-- 로그인 시에만 검색 --%>
-				<c:if test="${!empty sessionScope.sId }">
-					<input type="text" name="keyword" placeholder="상품명을 입력하세요">
-					<input type="submit" value="검색">
-				</c:if>
+				<input type="text" name="keyword" placeholder="상품명을 입력하세요">
+				<input type="submit" value="검색">
 			</form>
 		</section>
 		
@@ -201,8 +208,8 @@
 			</c:choose>
 		</section>
 		
-		<div class="clear"></div>
-		
+		</div>
+		</div>		
 		<!------------------------------------ 바닥글 --------------------------------------->
 		<footer>
 			<jsp:include page="../inc/bottom.jsp"></jsp:include>

@@ -84,7 +84,7 @@ public class WishDAO { // WishDAO
 				wishlistBean.setWish_date(rs.getDate("wish_date"));
 				wishlistBean.setProduct_name(rs.getString("product_name"));
 				wishlistBean.setProduct_price(rs.getInt("product_price"));
-				wishlistBean.setProduct_discount(rs.getInt("product_discount"));
+				wishlistBean.setProduct_discount(rs.getInt("product_price")*(100-rs.getInt("product_discount"))/100);
 				wishlistBean.setProduct_real_img(rs.getString("product_real_img"));
 				
 				wishlist.add(wishlistBean);
