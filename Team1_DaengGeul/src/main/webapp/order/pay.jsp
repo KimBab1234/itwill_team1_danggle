@@ -212,7 +212,11 @@ Map.prototype.toJSON = function toJSON() {
 				</tr>
 				<tr>
 					<th style="text-align:center; background: #513e30; color:#F0D264">연락처</th>
-					<td><input type="text" name="phone" value="${member.member_phone}"  style="width: 200px;"></td>
+					<td>
+						<input type="text" name="phone1" value="${member.member_phone.substring(0,3)}" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g, '');"  style="width: 64px;">-
+						<input type="text" name="phone2" value="${member.member_phone.substring(4,member.member_phone.lastIndexOf('-'))}" maxlength="4"  oninput="this.value=this.value.replace(/[^0-9]/g, '');" style="width: 60px;">-
+						<input type="text" name="phone3" value="${member.member_phone.substring(member.member_phone.lastIndexOf('-')+1)}"  maxlength="4"  oninput="this.value=this.value.replace(/[^0-9]/g, '');"  style="width: 60px;">
+					</td>
 				</tr>
 			</table>
 			</div>
