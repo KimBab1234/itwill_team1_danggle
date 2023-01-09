@@ -123,6 +123,7 @@
 				                                   <a class="dropdown-item" href='OrderList.or'>주문내역</a>
 				                                   <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
 				                                   <a class="dropdown-item" href="#">내 문의글</a>
+				                                   <a class="dropdown-item" href="Wishlist.ws">내 찜목록</a>
 				                                </div>
 			                                </div>
 										</c:otherwise>

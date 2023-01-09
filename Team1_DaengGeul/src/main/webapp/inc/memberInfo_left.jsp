@@ -37,6 +37,7 @@ a:active {
             <div class="menuLink"><a  href='OrderList.or'>주문내역</a></div>
             <div class="menuLink"><a  href="ReviewList.re">내가 쓴 리뷰</a></div>
             <div class="menuLink"><a  href="#">내 문의글</a></div>
+            <div class="menuLink"><a  href="Wishlist.ws">내 찜목록</a></div>
 		</c:otherwise>
 	</c:choose>
 </div>
