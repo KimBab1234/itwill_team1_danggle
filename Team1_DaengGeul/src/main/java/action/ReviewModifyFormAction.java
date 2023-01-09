@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import svc.ReviewDetailService;
+import svc.ReviewWriteFormService;
 import vo.ActionForward;
 import vo.ReviewBean;
 
@@ -21,14 +22,18 @@ public class ReviewModifyFormAction implements Action {
 		int review_idx = Integer.parseInt(request.getParameter("review_idx"));
 		String member_id = (String)session.getAttribute("sId");
 		String review_like_done = request.getParameter("review_like_done");
+		String product_idx = request.getParameter("product_idx");
 //		System.out.println("review_idx = " + review_idx);
 		
 		ReviewDetailService service = new ReviewDetailService();
 		ReviewBean review =  service.getReview(review_idx,false, member_id, review_like_done);
+		ReviewWriteFormService service1 = new ReviewWriteFormService();
+		ReviewBean review1 = service1.getReview(product_idx);
 //		System.out.println(review);
 		
 		// 뷰페이지로 데이터 전달을 위해 requrest 객체에 전달
 		request.setAttribute("review", review);
+		request.setAttribute("review1", review1);
 		
 		// ActionForward 객체를 통해 reveiw_view.jsp 페이지 포워딩 설정
 		// URL 유지 및 request 객체 유지를 위해 Dispatch 방식 포워딩

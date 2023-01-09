@@ -44,7 +44,7 @@
 					</c:otherwise>
 				</c:choose>
 				<td>
-					<a href="ReviewDetail.re?review_idx=${review.review_idx }&pageNum=${pageNum}">
+					<a href="ReviewDetail.re?review_idx=${review.review_idx }&pageNum=${pageNum}&product_idx=${review.product_idx}">
 					${review.review_subject }
 					</a>
 				</td>
