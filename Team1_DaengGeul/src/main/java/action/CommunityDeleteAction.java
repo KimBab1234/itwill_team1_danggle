@@ -48,7 +48,7 @@ public class CommunityDeleteAction implements Action {
 				}
 				
 				forward = new ActionForward();
-				forward.setPath("Community"+board_type+".cu?board_type="+board_type);
+				forward.setPath("Community"+board_type+".co?board_type="+board_type);
 				forward.setRedirect(true);
 			}
 		} catch (IOException e) {
