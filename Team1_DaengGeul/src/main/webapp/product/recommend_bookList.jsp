@@ -9,6 +9,12 @@
 <title>Insert title here</title>
 <link href="css/product.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
+<%	String sId = (String)session.getAttribute("sId");
+	if(sId == null || !sId.equals("admin")) { %> 
+		alert("잘못된 접근입니다");
+		history.back();
+<%  }%>
+
 	function deleteBook(product){
 		
 		var deleteBook = confirm("추천 도서 목록에서 삭제하시겠습니까?");
