@@ -54,7 +54,7 @@ public class CommunityListAction implements Action {
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 		// communityList에 페이징 처리, 리스트목록, 추천 갯수 넘기기
 		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("board", community);
+		request.setAttribute("Board", community);
 		
 		forward = new ActionForward();
 		
