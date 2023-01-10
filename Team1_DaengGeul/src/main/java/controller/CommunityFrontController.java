@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.CommunityDeleteAction;
 import action.CommunityDetailAction;
+import action.CommunityLikeBoardAction;
+import action.CommunityLikeDeleteAction;
 import action.CommunityListAction;
 import action.CommunityModifyAction;
 import action.CommunityReplyAction;
@@ -76,6 +78,14 @@ public class CommunityFrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("community/CommunityModify.jsp");
 			forward.setRedirect(false);
+		} else if(command.equals("/CommuniteLikeBoard.co")) {
+			System.out.println("커뮤니티 추천");
+			action = new CommunityLikeBoardAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/CommunityLikeDelete.co")) {
+			System.out.println("커뮤니티 추천취소");
+			action = new CommunityLikeDeleteAction();
+			forward = action.execute(request, response);
 		}
 
 		if(forward != null) {
