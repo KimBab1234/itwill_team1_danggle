@@ -26,7 +26,6 @@ public class ReviewDeleteProAction implements Action {
 		int review_idx = Integer.parseInt(request.getParameter("review_idx"));
 		String review_passwd = request.getParameter("review_passwd");
 		String member_id = (String)session.getAttribute("sId");
-		String review_like_done = request.getParameter("review_like_done");
 //		System.out.println("review_idx = " + review_idx + "review_passwd = " + review_passwd );
 		
 		try {
@@ -52,7 +51,7 @@ public class ReviewDeleteProAction implements Action {
 				
 				// ReviewDetailService 객체의 getReview() 메서드 호출하여 삭제할 파일명 조회
 				ReviewDetailService service2 = new ReviewDetailService();
-				ReviewBean review = service2.getReview(review_idx, false, member_id, review_like_done);
+				ReviewBean review = service2.getReview(review_idx, false, member_id);
 				// 주의 레코드 삭제 전 정보 조회 먼저 수행해야함
 				
 				boolean isDeleteSuccess = service.removeReview(review_idx);
