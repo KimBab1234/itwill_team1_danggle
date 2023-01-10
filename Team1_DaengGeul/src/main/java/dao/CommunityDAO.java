@@ -60,11 +60,11 @@ public class CommunityDAO {
 	}
 
 	// 커뮤니티 글 목록 작업
-	public List<CommunityBean> selectCommunityList(int type) {
+	public List<CommunityBean> selectCommunityList(int type, String keyword, int startRow, int listLimit) {
 		List<CommunityBean> communityList = null;
 
 		try {
-			String sql = "SELECT * FROM community WHERE board_type=? ORDER BY board_idx ASC";
+			String sql = "SELECT * FROM community WHERE board_subject LIKE ? AND board_type=? ORDER BY board_idx DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, type);
 
@@ -93,7 +93,7 @@ public class CommunityDAO {
 		}
 		return communityList;
 	}
-	
+
 	// 커뮤니티 상세화면
 	public CommunityBean selectDetailList(int idx) {
 		CommunityBean community = null;
@@ -104,7 +104,7 @@ public class CommunityDAO {
 			pstmt.setInt(1, idx);
 
 			rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				community = new CommunityBean();
 				community.setBoard_idx(rs.getInt("board_idx"));
@@ -126,11 +126,11 @@ public class CommunityDAO {
 		}
 		return community;
 	}
-	
+
 	// 커뮤니티 댓글 작성
 	public int writeReply(Reply reply) {
 		int successReply = 0;
-		
+
 		try {
 			String sql = "INSERT INTO reply VALUES(?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
@@ -139,7 +139,7 @@ public class CommunityDAO {
 			pstmt.setInt(3, reply.getBoard_type());
 			pstmt.setString(4, reply.getMember_id());
 			pstmt.setString(5, reply.getReply_content());
-			
+
 			successReply = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("구문오류 WriteReply");
@@ -149,18 +149,18 @@ public class CommunityDAO {
 		}
 		return successReply;
 	}
-	
+
 	// 커뮤니티 댓글 목록
 	public ArrayList<Reply> selectReplyList(int idx) {
 		ArrayList<Reply> replyList = null;
-		
+
 		try {
 			String sql = "SELECT * FROM reply WHERE board_idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			replyList = new ArrayList<Reply>();
 			while(rs.next()) {
 				Reply reply = new Reply();
@@ -183,24 +183,98 @@ public class CommunityDAO {
 	}
 
 	// 글삭제
-		public int deleteBoard(int board_idx) {
-			int successDelete = 0;
-			
-			try {
-				String sql = "DELETE FROM community WHERE board_idx = ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, board_idx);
+	public int deleteBoard(int board_idx) {
+		int successDelete = 0;
 
-				successDelete = pstmt.executeUpdate();
-			} catch (SQLException e) {
-				System.out.println("구문오류 deleteBoard");
-				e.printStackTrace();
-			} finally {
-				JdbcUtil.close(pstmt);
-			}
-			return successDelete;
+		try {
+			String sql = "DELETE FROM community WHERE board_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_idx);
+
+			successDelete = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("구문오류 deleteBoard");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
 		}
-	
+		return successDelete;
+	}
+
+	// 글 목록 갯수 조회
+	public int listCount(String keyword, int board_type) {
+		int listCount = 0;
+
+		try {
+			String sql = " SELECT COUNT(*) FROM community WHERE board_subject LIKE ? AND board_type =?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, board_type);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류! - selectBoardList()");
+			e.printStackTrace();
+		}  finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		return listCount;
+	}
+
+	// 댓글 삭제
+	public int replyDelete(int board_idx, int reply_idx) {
+		int deleteCount = 0;
+
+		try {
+			String sql = "DELETE FROM reply WHERE board_idx=? AND reply_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_idx);
+			pstmt.setInt(2, reply_idx);
+
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 replyDelete");
+			e.printStackTrace();
+		}
+		return deleteCount;
+	}
+	// 글 수정
+	public int successModify(CommunityBean community) {
+		int successCount = 0;
+
+		try {
+			String sql = "UPDATE community SET board_subject = ? "
+					+ " , board_content = ?";
+			if(community.getBoard_file() != null) {
+				sql  += ", board_file=? , board_real_file = ?"; 
+			}
+			sql	 += " WHERE board_idx = ?"; 
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, community.getBoard_subject());
+			pstmt.setString(2, community.getBoard_content());
+			if(community.getBoard_file() != null) {
+				pstmt.setString(3, community.getBoard_file());	
+				pstmt.setString(4, community.getBoard_real_file());	
+				pstmt.setInt(5, community.getBoard_idx());
+			} else {
+				pstmt.setInt(3, community.getBoard_idx());
+			}
+			System.out.println(pstmt);
+			successCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 구문오류 - CommunityModify");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+		return successCount;
+	}
+
 }
 
 

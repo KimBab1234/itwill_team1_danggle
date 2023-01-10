@@ -9,15 +9,15 @@
 </head>
 <body>
 	<script type="text/javascript">
-	function delete2() {
+		function delete2() {
 			var result = confirm("글을 지우시겠습니까?");
-			if(result){
-				location.href="Community_DeletePro.co?board_idx=${board.board_idx }&board_real_file=${board.board_real_file}&board_type=${board.board_type }";
+			if (result) {
+				location.href = "Community_DeletePro.co?board_idx=${board.board_idx }&board_real_file=${board.board_real_file}&board_type=${board.board_type }";
 			} else {
 				history.back();
 			}
-	}
-</script>
+		}
+	</script>
 	<header>
 		<jsp:include page="/inc/top.jsp"></jsp:include>
 	</header>
@@ -48,7 +48,9 @@
 				&nbsp;&nbsp; <input type="button" value="홈페이지"
 				onclick="location.href='./'"> &nbsp;&nbsp;</td>
 			<c:if test="${sessionScope.sId eq board.member_id}">
-				<td><a href="" onclick=""></a> </td>
+				<td><input type="button" value="글삭제" onclick="delete2()"></td>
+				<td><input type="button" value="글수정"
+					onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
 			</c:if>
 		</tr>
 	</table>
@@ -66,7 +68,6 @@
 		</c:choose>
 		| <input type="hidden" name="board_idx" value="${board.board_idx }">
 		<input type="hidden" name="member_id" value="${sessionScope.sId }">
-			<input type="button" value="글삭제" onclick="delete2()">
 	</form>
 
 	<table>
@@ -77,7 +78,7 @@
 				<td>${reply.date }</td>
 				<c:if test="${reply.member_id eq sessionScope.sId }">
 					<td><input type="button" value="댓글삭제"
-						onclick="location.href=''"></td>
+						onclick="location.href='CommunityReplyDeletePro.co?board_idx=${board.board_idx}&reply_idx=${reply.reply_idx }'"></td>
 				</c:if>
 			</tr>
 		</c:forEach>
