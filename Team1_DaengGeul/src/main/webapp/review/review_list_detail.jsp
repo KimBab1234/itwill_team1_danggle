@@ -36,7 +36,7 @@ $(function() {
 						product_idx: '${product.product_idx}'
 					},
 					success: function(response) {
-						row.parent('tr').after("<tr style='display: table-row;'><td colspan='6'>"+response+"</td></tr>");
+						row.parent('tr').after("<tr style='display: table-row;'><td colspan='6' style='vertical-align: middle;'>"+response+"</td></tr>");
 					},
 					error: function(xhr, textStatus, errorThrown) { 
 						alert("리뷰 상세조회 실패!");

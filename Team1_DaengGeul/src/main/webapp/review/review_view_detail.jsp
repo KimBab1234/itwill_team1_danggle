@@ -20,12 +20,11 @@ $(function() {
 		$("#review_like1").val("N");
 	}
 	
+	var review_like_done = '${review.review_like_done}';
 	$("#review_like1").on("click", function() {
-		var review_like_done = $(this).val();
 		var id = '${sessionScope.sId}';
 		if(id=='') {
 			alert("로그인 후 이용하세요.");
-			return;
 		} else {
 			$.ajax({
 				type: "post",
@@ -36,15 +35,14 @@ $(function() {
 					},
 					success: function(response) {
 						$("#like_count").text(response);
-						
 						if(review_like_done =='Y') {
 							$("#review_like1").css("color", "gray");
 							$("#review_like1").val("N");
-							$("#review_like_done").text("N");
+							review_like_done="N";
 						} else {
 							$("#review_like1").css("color", "blue");
 							$("#review_like1").val("Y");
-							$("#review_like_done").text("Y");
+							review_like_done="Y";
 						}
 						
 					},
@@ -75,73 +73,33 @@ $(function() {
 	.rate {
 		align: center;
 	}
-	#myform fieldset{
+	fieldset{
     	display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
     	direction: rtl; /* 이모지 순서 반전 */
     	border: 0; /* 필드셋 테두리 제거 */
 	}
-	#myform input[type=radio]{
+	input[type=radio]{
 	    display: none; /* 라디오박스 감춤 */
 	}
-	#myform fieldset label{
+	fieldset label{
 	    font-size: 2em; /* 이모지 크기 */
 	    color: transparent; /* 기존 이모지 컬러 제거 */
 	    text-shadow: 0 0 0 #ffcc00;
+	    background: none;
 	}
-	/* 수정버튼 */
-	#s1 {
-		background-color: #513e30;
-		width: 100px;
-		height: 50px;
-		color: #fae37d;
-		border-radius: 20px;
-		border-color: transparent;
-		font-weight: bold; 
-		font-size: 20px;
-	}
-	/* 삭제버튼 */
-	#s2 {
-		background-color: #b38600;
-		width: 100px;
-		height: 50px;
-		color: #fae37d;
-		border-radius: 20px;
-		border-color: transparent;
-		font-weight: bold; 
-		font-size: 20px;
-	}
-	/* 목록버튼 */
-	#s3 {
-		background-color: #fff5e6;
-		width: 100px;
-		height: 50px;
-		color: #575754;
-		border-radius: 20px;
-		border-color: transparent;
-		font-weight: bold; 
-		font-size: 20px;
-		
-	}
+	
 </style>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
-	<table>
-	<tr>
-		<td colspan="3">
-			${review.review_content}
-		</td>
-		<td colspan="2">
+		${review.review_content}
+		<fieldset name="review_score" class="score" id="score">
 			<c:forEach var="i" begin="1" end="${review.review_score}">
-			    <label for="rate">⭐</label>
+		       <i class="fas fa-solid fa-star" style="color: #ffcc00;"></i>
 			</c:forEach>
-		</td>
-		<td colspan="2">
-			<button type="button" type="button" class="review_like" id="review_like1">
-			<i class='far fa-thumbs-up' style='font-size:28px'></i><div id="like_count">${review.review_like_count}</div></button>
-		</td>
-	</tr>
-	</table>
+		</fieldset>
+		<button type="button" type="button" class="review_like" id="review_like1">
+		<i class='far fa-thumbs-up' style='font-size:28px'></i><div id="like_count">${review.review_like_count}</div></button>
 </body>
 </html>
 
