@@ -6,16 +6,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">
+* {
+   font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+   }
+   
 table {
+	margin: auto;
+	width: 968px;
+}
+h2 {
 	margin: auto;
 }
 
-h2 {
-	text-align: center;
+tr {
+	align-content: center;
 }
 
+h2{
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -29,19 +42,20 @@ h2 {
 			}
 		}
 		$(function() {
-		       $('.dropdown-toggle', this).trigger('click').blur();
+			$('.dropdown-toggle', this).trigger('click').blur();
 		});
 	</script>
-	
+
 	<header>
 		<jsp:include page="/inc/top.jsp"></jsp:include>
-				<jsp:include page="../inc/main.jsp"></jsp:include>
+		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
 	<hr>
 	<div style="width: 500px;" id="c_div">
 		<jsp:include page="../inc/community_left.jsp"></jsp:include>
 	</div>
-	<h2>회원들의 추천&독후감</h2>
+	<h2>회원들의 글추천,독후감</h2>
+	<br>
 	<table border="1" id="com_table">
 		<tr align="center">
 			<td>글제목</td>
@@ -61,36 +75,37 @@ h2 {
 		</tr>
 		<tr align="center">
 			<td>조회수 : ${board.board_readcount}</td>
-			<td colspan="1">${board.board_date }</td>
+			<td colspan="2">${board.board_date }</td>
 		</tr>
-		<tr>
-			<c:if test="${not empty sessionScope.sId }">
-				<c:choose>
-					<c:when test="${duplicateLike == true}">
-						<th><input type="button" value="추천취소"
-							onclick="location.href='CommunityLikeDelete.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }'"></th>
-					</c:when>
-					<c:otherwise>
-						<th><input type="button" value="추천"
-							onclick="location.href='CommuniteLikeBoard.co?board_idx=${board.board_idx }&member_id=${sessionScope.sId}'">
-						</th>
-					</c:otherwise>
-				</c:choose>
-			</c:if>
-			<th>추천갯수 : ${likeCount }</th>
+		<tr align="center">
+			<th colspan="2">추천수 : ${likeCount } <c:if
+					test="${not empty sessionScope.sId }">
+					<c:choose>
+						<c:when test="${duplicateLike == true}">
+							<input type="button" value="추천취소"
+								onclick="location.href='CommunityLikeDelete.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }'">
+						</c:when>
+						<c:otherwise>
+							<input type="button" value="추천"
+								onclick="location.href='CommuniteLikeBoard.co?board_idx=${board.board_idx }&member_id=${sessionScope.sId}'">
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+			</th>
 		</tr>
-		<tr>
-			<td colspan="3"><input type="button" value="뒤로가기"
-				onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
-				&nbsp;&nbsp; <input type="button" value="홈페이지"
-				onclick="location.href='./'"> &nbsp;&nbsp; <c:if
-					test="${sessionScope.sId eq board.member_id}">
-					<input type="button" value="글삭제" onclick="delete2()">&nbsp;&nbsp;
-				<input type="button" value="글수정"
-						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
-				</c:if></td>
-		</tr>
-
+	</table>
+	<table id="but_table">
+	<tr align="right"><td><input type="button" value="뒤로가기"
+		onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
+	&nbsp;&nbsp;
+	<c:if test="${sessionScope.sId eq board.member_id}">
+		<input type="button" value="글수정"
+			onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
+	&nbsp;&nbsp;
+				<input type="button" value="글삭제" onclick="delete2()">
+	</c:if>
+	</td>
+	</tr>
 	</table>
 	<div id="rep_wrtie">
 		<form action="Community_ReplyPro.co">
@@ -98,8 +113,9 @@ h2 {
 				<tr>
 					<c:choose>
 						<c:when test="${not empty sessionScope.sId }">
-							<td>${sessionScope.sId }</td><td><input type="text"
-								name="reply_content" placeholder="댓글을 작성하세요"></td>
+							<td>${sessionScope.sId }</td>
+							<td><input type="text" name="reply_content"
+								placeholder="댓글을 작성하세요"></td>
 							<td><input type="submit" value="등록"></td>
 							<input type="hidden" name="board_type"
 								value="${board.board_type }">

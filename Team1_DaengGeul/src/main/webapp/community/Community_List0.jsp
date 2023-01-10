@@ -8,12 +8,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript">
 		$(function() {
 			$('.dropdown-toggle', this).trigger('click').blur();
 		});
 	</script>
 <style type="text/css">
+* {
+   font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+   }
 #listForm {
 	width: 1024px;
 	max-height: 610px;
