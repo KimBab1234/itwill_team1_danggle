@@ -54,9 +54,9 @@ public class ReviewDetailAction implements Action {
 
 		forward = new ActionForward();
 		if(product_idx!=null && product_idx.length()>0) {
-			forward.setPath("review/review_view_detail.jsp");
-		} else {
 			forward.setPath("review/review_view.jsp");
+		} else {
+			forward.setPath("review/review_view_detail.jsp");
 		}
 		forward.setRedirect(false);
 
