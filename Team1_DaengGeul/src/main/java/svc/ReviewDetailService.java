@@ -7,7 +7,7 @@ import db.JdbcUtil;
 import vo.ReviewBean;
 
 public class ReviewDetailService {
-public ReviewBean getReview(int review_idx, boolean isUpdateReadCount, String sId, String review_like_done) {
+public ReviewBean getReview(int review_idx, boolean isUpdateReadCount, String sId) {
 		
 		// 글 상세정보 조회
 		// 글번호와 함께 조회수 증가여부를 파라미터로 전달
@@ -22,8 +22,7 @@ public ReviewBean getReview(int review_idx, boolean isUpdateReadCount, String sI
 		
 		// 공통작업 3
 		dao.setConnection(con);
-		
-		review = dao.selectReview(review_idx, sId, review_like_done);
+		review = dao.selectReview(review_idx, sId);
 		
 //		System.out.println("review: " + review);
 		
