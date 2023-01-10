@@ -9,7 +9,7 @@
 <link href="img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 찜목록</title>
 <%------------------- 임시 홈페이지 CSS -------------------%>
-<link href="css/wish.css" rel="stylesheet" type="text/css">
+<link href="css/memberList.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
 
 
@@ -136,8 +136,12 @@ if(id=='') {
 	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
-	<div align="center" class="orderTable" style="width: 1500px; margin-top: 50px; min-height: 500px;">	
-	<h1>위시리스트</h1>
+	<div align="center" class="orderTable" style="width: 1500px; margin-top: 50px; min-height: 500px;">
+		
+	<div id="listName">
+		<img src="img/daram.png" width="50" height="75">
+		찜목록
+	</div>
 		<!-------------------------- 찜전체 취소버튼 --------------------------->
 		<div style="width: 1500px;" align="left">
 			<input type="button" id="deleteSelectedWish" value="선택취소">			
@@ -169,7 +173,7 @@ if(id=='') {
 		<section id="buttonArea">
 			<form action="Wishlist.ws">
 				<input type="text" name="keyword" placeholder="상품명을 입력하세요">
-				<input type="submit" value="검색">
+				<input type="submit" id="btnSearch" value="검색">
 			</form>
 		</section>
 		
@@ -178,10 +182,10 @@ if(id=='') {
 			<!-- 이전 페이지 -->
 			<c:choose>
 				<c:when test="${pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='Wishlist.ws?pageNum=${pageNum - 1}'">
+					<input type="button" value="이전" id="btnPre" onclick="location.href='Wishlist.ws?pageNum=${pageNum - 1}'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전">
+					<input type="button" value="이전" id="btnPre">
 				</c:otherwise>
 			</c:choose>
 				
@@ -200,10 +204,10 @@ if(id=='') {
 			<!-- 다음 페이지 -->
 			<c:choose>
 				<c:when test="${pageNum < memberPageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='Wishlist.ws?pageNum=${pageNum + 1}'">
+					<input type="button" value="다음" id="btnNext" onclick="location.href='Wishlist.ws?pageNum=${pageNum + 1}'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음">
+					<input type="button" value="다음" id="btnNext">
 				</c:otherwise>
 			</c:choose>
 		</section>

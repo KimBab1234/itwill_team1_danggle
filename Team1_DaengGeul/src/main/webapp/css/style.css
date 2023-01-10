@@ -6115,7 +6115,7 @@ button.bg-primary:focus {
 }
 
 .bg-secondary2 { 
-  background-color: #EDF1FF !important; /* 추천 및 할인 상품 배경색 수정함 EDF1FF -> 513e30 */
+  background-color: #ffffdd!important; /* 추천 및 할인 상품 배경색 수정함 EDF1FF -> 513e30 */
 }
 
 a.bg-secondary:hover, a.bg-secondary:focus,
@@ -9596,4 +9596,12 @@ a.text-dark:hover, a.text-dark:focus {
   100% {
     transform: translateY(-15px);
   }
+}
+
+#venderTitle {
+	font-weight: bold;
+	font-size: 30px;
+	color: #000;
+	margin-left: 3%;
+	margin-bottom: 5px;
 }
