@@ -67,7 +67,10 @@ public class CommunityDAO {
 			String sql = "SELECT * FROM community WHERE board_subject LIKE ? AND board_type=? ORDER BY board_idx DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, type);
-
+			pstmt.setInt(2, type);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, listLimit);
+			
 			rs = pstmt.executeQuery();
 
 			communityList = new ArrayList<CommunityBean>();
