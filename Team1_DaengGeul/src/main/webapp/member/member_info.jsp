@@ -154,11 +154,13 @@
 					success: function(result) {
 						
 						if(result == "true"){
+							emailStatus = false;
 							$("#checkEmailResult").html("사용 불가능한 이메일").css({
 								color : "red",
 								marginLeft : "137px"
 							});
 						} else {
+							emailStatus = false;
 							$("#checkEmailResult").html("사용 가능한 이메일").css({
 								color : "#fae37d",
 								marginLeft : "137px"
@@ -171,6 +173,7 @@
 							
 				
 			} else {
+				emailStatus = false;
 				$("#checkEmailResult").html("이메일을 전부 입력하세요").css({
 					color : "red",
 					marginLeft : "137px"
@@ -265,6 +268,7 @@
 										marginLeft : "137px"
 									});
 								} else {
+									emailStatus = false;
 									$("#certEmailMsg").html("인증코드가 틀렸습니다!").css({
 										color : "red",
 										marginLeft : "137px"
@@ -300,6 +304,8 @@
 			// 인증번호를 받은 후, 이메일 인증을 하지않았을 경우
 			if(getEmail1 == $("#email1").val() && getEmail2 == $("#email2").val()) {
 				emailStatus = true;
+			} else {
+				emailStatus = false;
 			}
 			
 			if(!emailStatus){
