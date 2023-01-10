@@ -30,6 +30,7 @@
 	var eqPasswd = false;
 	var nameStatus = false;
 	var emailStatus = false;
+	var existEmail = false;
 	
 	$(function() {
 		
@@ -39,6 +40,7 @@
 			let lengthRegex = /^[A-Za-z0-9-_]{5,12}$/;
 
 			if(!lengthRegex.exec(id)){
+				idStatus = false;
 				$("#checkIdResult").html("사용 불가능한 아이디").css({
 					color : "red",
 					marginLeft : "137px"
@@ -53,17 +55,18 @@
 					success: function(result) {
 						
 						if(result == "true"){
+							idStatus = false;
 							$("#checkIdResult").html("이미 존재하는 아이디").css({
 								color : "#c9b584",
 								marginLeft : "137px"
 							});
 							
 						} else {
+							idStatus = true;
 							$("#checkIdResult").html("사용 가능한 아이디").css({
 								color : "#fae37d",
 								marginLeft : "137px"
 							});
-							idStatus = true;
 						}
 						
 					}
@@ -86,6 +89,7 @@
 			let specRegex = /[!@#$%]/;
 			
 			if(!regex.exec(passwd)){
+				passwdStatus = false;
 				$("#rightPasswdResult").html("사용 불가능한 비밀번호").css({
 					color : "red",
 					marginLeft : "137px"
@@ -139,6 +143,7 @@
 					marginLeft : "137px"
 				});
 			} else {
+				eqPasswd = false;
 				$("#checkPasswdResult").html("비밀번호가 일치하지 않습니다").css({
 					color : "#c9b584",
 					marginLeft : "137px"
@@ -155,11 +160,12 @@
 			let regex = /^[가-힣]{2,10}$/;
 
 			if(!regex.exec(name)){
+				nameStatus = false;
 				$("#checkNameResult").html("한글 2~10글자로 입력해주세요").css({
 					color : "c9b584",
 					marginLeft : "137px"
 				});
-			}else {
+			} else {
 				nameStatus = true;
 				$("#checkNameResult").html("");
 			}
@@ -212,11 +218,13 @@
 					success: function(result) {
 						
 						if(result == "true"){
-							$("#checkEmailResult").html("이미 등록된 이메일").css({
+							existEmail = false;
+							$("#checkEmailResult").html("사용할 수 없는 이메일").css({
 								color : "#c9b584",
 								marginLeft : "137px"
 							});
 						} else {
+							existEmail = true;
 							$("#checkEmailResult").html("사용 가능한 이메일").css({
 								color : "#fae37d",
 								marginLeft : "137px"
@@ -257,22 +265,32 @@
 						marginLeft : "137px"
 					});
 				} else {
-					$("#certEmailMsg").html("인증번호가 전송되었습니다").css({
-						color : "#fae37d",
-						marginLeft : "137px"
-					});
 					
-					$.ajax({
-						url: "MemberSendCertPro.me",
-						type : 'POST',
-						data: {
-							id: id,
-							email1: email1,
-							email2: email2,
-							type: type
-						}
+					if(existEmail){
+							$("#certEmailMsg").html("인증번호가 전송되었습니다").css({
+								color : "#fae37d",
+								marginLeft : "137px"
+							});
+							
+							$.ajax({
+								url: "MemberSendCertPro.me",
+								type : 'POST',
+								data: {
+									id: id,
+									email1: email1,
+									email2: email2,
+									type: type
+								}
+								
+							});
 						
-					});
+					} else {
+						$("#certEmailMsg").html("사용할 수 없는 이메일").css({
+							color : "#c9b584",
+							marginLeft : "137px"
+						});
+						
+					}
 					
 				}
 				
@@ -322,6 +340,7 @@
 										marginLeft : "137px"
 									});
 								} else {
+									emailStatus = false;
 									$("#certEmailMsg").html("인증코드가 틀렸습니다!").css({
 										color : "red",
 										marginLeft : "137px"
@@ -345,20 +364,22 @@
 		// ------------------ 조건 충족 시, 회원가입 ---------------------
 		$("#joinForm").submit(function() {
 			if(!idStatus){
-				alert("아이디를 재입력 해주세요!")
+				alert("아이디를 재입력 해주세요!");
 				return false;
 			} else if(!passwdStatus) {
-				alert("비밀번호를 재입력 해주세요!")
+				alert("비밀번호를 재입력 해주세요!");
 				return false;
 			} else if(!eqPasswd){
-				alert("비밀번호를 일치시켜주세요!")
+				alert("비밀번호를 일치시켜주세요!");
 				return false;				
 			} else if(!emailStatus){
-				alert("이메일 인증을 해주세요!")
+				alert("이메일 인증을 해주세요!");
 				return false;
 			} else if(!nameStatus){
-				alert("이름을 확인 해주세요!")
+				alert("이름을 확인 해주세요!");
 				return false;
+			} else if(!existEmail) {
+				alert("사용할 수 없는 이메일입니다!");
 			}
 		});
 		// ---------------------------------------------------------------

@@ -25,14 +25,13 @@ public class ReviewDetailAction implements Action {
 		// 상세정보 조회에 필요한 글번호 가져오기
 		int review_idx= Integer.parseInt(request.getParameter("review_idx"));
 		String member_id = (String)session.getAttribute("sId");
-		String review_like_done = request.getParameter("review_like_done");
 		String product_idx = request.getParameter("product_idx");
 		
 //		System.out.println("sId: " + sId);
 //		System.out.println("review_idx = " + review_idx);
 		
 		ReviewDetailService service = new ReviewDetailService();
-		ReviewBean review =  service.getReview(review_idx, true, member_id, review_like_done);
+		ReviewBean review =  service.getReview(review_idx, true, member_id);
 		ReviewWriteFormService service1 = new ReviewWriteFormService();
 		ReviewBean review1 = service1.getReview(product_idx);
 //		System.out.println(board);
@@ -46,7 +45,7 @@ public class ReviewDetailAction implements Action {
 		//서비스로 넘기고 서비스에서 dao로 넘기고 (동일)
 		//dao에서 Y면 delete, N이면 insert 하기
 		
-		if(review_like_done == "N") {
+		if(review.getReview_like_done().equals("N")) {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
 				
