@@ -9,52 +9,7 @@
 <title>Review 게시판</title>
 <!-- <link href="review/css/review_view.css" rel="stylesheet" type="text/css"> -->
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<script type="text/javascript">
-$(function() {
-	
-	if('${review.review_like_done}' =='Y') {
-		$("#review_like1").css("color", "blue");
-		$("#review_like1").val("Y");
-	} else {
-		$("#review_like1").css("color", "gray");
-		$("#review_like1").val("N");
-	}
-	
-	var review_like_done = '${review.review_like_done}';
-	$("#review_like1").on("click", function() {
-		var id = '${sessionScope.sId}';
-		if(id=='') {
-			alert("로그인 후 이용하세요.");
-		} else {
-			$.ajax({
-				type: "post",
-				url: "ReviewLikeUpdate.re",
-				data: {
-					review_idx: '${param.review_idx}',
-					review_like_done: review_like_done
-					},
-					success: function(response) {
-						$("#like_count").text(response);
-						if(review_like_done =='Y') {
-							$("#review_like1").css("color", "gray");
-							$("#review_like1").val("N");
-							review_like_done="N";
-						} else {
-							$("#review_like1").css("color", "blue");
-							$("#review_like1").val("Y");
-							review_like_done="Y";
-						}
-						
-					},
-					error: function(xhr, textStatus, errorThrown) { 
-						// 요청에 대한 처리 실패 시(= 에러 발생 시) 실행되는 이벤트
-						$("#resultArea").html("xhr = " + xhr + "<br>textStatus = " + textStatus + "<br>errorThrown = " + errorThrown);
-					}
-			});
-		}
-	});
-});
-</script>
+<script src ="js/product_detail_review.js"></script>
 <style type="text/css">
 	/* 좋아요버튼 */
 	.review_like {
@@ -98,8 +53,9 @@ $(function() {
 		       <i class="fas fa-solid fa-star" style="color: #ffcc00;"></i>
 			</c:forEach>
 		</fieldset>
-		<button type="button" type="button" class="review_like" id="review_like1">
-		<i class='far fa-thumbs-up' style='font-size:28px'></i><div id="like_count">${review.review_like_count}</div></button>
+		<input type="hidden" value="${review.review_idx }">
+		<button type="button" type="button" id="${review.review_idx }" style="border: none; background: none;">
+		<i class='far fa-thumbs-up' id="review_like_th${review.review_idx }" style='font-size:28px'></i><div class="like_count">${review.review_like_count}</div></button>
 </body>
 </html>
 
