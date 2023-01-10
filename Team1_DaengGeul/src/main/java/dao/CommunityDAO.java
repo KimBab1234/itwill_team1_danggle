@@ -82,7 +82,7 @@ public class CommunityDAO {
 				community.setBoard_subject(rs.getString("board_subject"));
 				community.setBoard_idx(rs.getInt("board_idx"));
 				community.setBoard_file(rs.getString("board_file"));
-				community.setBoard_readCount(rs.getInt("board_readcount"));
+				community.setBoard_readcount(rs.getInt("board_readcount"));
 				community.setMember_id(rs.getString("member_id"));
 				community.setBoard_date(rs.getDate("board_date"));
 
@@ -113,7 +113,7 @@ public class CommunityDAO {
 				community = new CommunityBean();
 				community.setBoard_idx(rs.getInt("board_idx"));
 				community.setBoard_type(rs.getInt("board_type"));
-				community.setBoard_readCount(rs.getInt("board_readcount"));
+				community.setBoard_readcount(rs.getInt("board_readcount"));
 				community.setMember_id(rs.getString("member_id"));
 				community.setBoard_subject(rs.getString("board_subject"));
 				community.setBoard_content(rs.getString("board_content"));
@@ -203,6 +203,26 @@ public class CommunityDAO {
 		}
 		return successDelete;
 	}
+	
+	// 조회수 증가
+		public int updateReadcount(int idx) {
+			int updateCount = 0;
+
+			try {
+				// 글번호가 일치하는 레코드의 조회수(readcount) 1만큼 증가
+				String sql = "UPDATE community SET board_readcount = board_readcount+1 WHERE board_idx=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, idx);
+				updateCount = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("구문오류 board_readCount");
+				e.printStackTrace();
+			} finally {
+				// DB 자원 반환
+				JdbcUtil.close(pstmt);
+			}
+			return updateCount;
+		}
 
 	// 글 목록 갯수 조회
 	public int listCount(String keyword, int board_type) {

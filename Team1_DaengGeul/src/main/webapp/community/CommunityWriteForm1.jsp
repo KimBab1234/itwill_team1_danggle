@@ -12,6 +12,10 @@
 		<jsp:include page="/inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
+	<hr>
+	<div style="width: 500px;" id="c_div">
+		<jsp:include page="../inc/community_left.jsp"></jsp:include>
+	</div>
 	<h1>독후감 작성</h1>
 	<form action="CommunityWritePro.co" method="post"
 		enctype="multipart/form-data">

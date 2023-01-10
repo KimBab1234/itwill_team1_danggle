@@ -45,9 +45,9 @@ public class CommunityWriteAction implements Action {
 				forward = new ActionForward();
 
 				if(community.getBoard_type() == 0) {
-					forward.setPath("Community0.cu?board_type=0");
+					forward.setPath("Community0.co?board_type=0");
 				} else {
-					forward.setPath("Community1.cu?board_type=1");
+					forward.setPath("Community1.co?board_type=1");
 				}
 
 				forward.setRedirect(true);
