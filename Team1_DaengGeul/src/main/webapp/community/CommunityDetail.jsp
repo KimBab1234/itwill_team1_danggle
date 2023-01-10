@@ -40,19 +40,36 @@
 			<td colspan="2">${board.board_file }</td>
 		</tr>
 		<tr align="center">
-			<td colspan="3">${board.board_date }</td>
+			<td>조회수 : ${board.board_readcount}</td>
+			<td colspan="1">${board.board_date }</td>
+		</tr>
+		<tr>
+			<c:choose>
+				<c:when test="${duplicateLike == true}">
+					<th><input type="button" value="추천취소"
+						onclick="location.href='CommunityLikeDelete.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }'"></th>
+				</c:when>
+				<c:otherwise>
+					<th><input type="button" value="추천"
+						onclick="location.href='CommuniteLikeBoard.co?board_idx=${board.board_idx }&member_id=${sessionScope.sId}'">
+					</th>
+
+				</c:otherwise>
+			</c:choose>
+			<th>추천갯수 : ${likeCount }</th>
 		</tr>
 		<tr>
 			<td colspan="3"><input type="button" value="뒤로가기"
 				onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
 				&nbsp;&nbsp; <input type="button" value="홈페이지"
-				onclick="location.href='./'"> &nbsp;&nbsp;</td>
-			<c:if test="${sessionScope.sId eq board.member_id}">
-				<td><input type="button" value="글삭제" onclick="delete2()"></td>
-				<td><input type="button" value="글수정"
-					onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
-			</c:if>
+				onclick="location.href='./'"> &nbsp;&nbsp; <c:if
+					test="${sessionScope.sId eq board.member_id}">
+					<input type="button" value="글삭제" onclick="delete2()">&nbsp;&nbsp;
+				<input type="button" value="글수정"
+						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
+				</c:if></td>
 		</tr>
+		
 	</table>
 	<form action="Community_ReplyPro.co">
 		<c:choose>

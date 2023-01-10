@@ -15,7 +15,8 @@ public class CommunityListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = null;
-
+		
+		// 페이징 처리
 		int type = Integer.parseInt(request.getParameter("board_type"));
 
 		int listLimit = 10;
@@ -32,6 +33,7 @@ public class CommunityListAction implements Action {
 			keyword = "";
 		}
 		
+		// communityList service 
 		CommunityListService service = new CommunityListService();
 		List<CommunityBean> community = service.getList(type, keyword, startRow, listLimit);
 
@@ -50,9 +52,9 @@ public class CommunityListAction implements Action {
 		}
 		
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
-		
+		// communityList에 페이징 처리, 리스트목록, 추천 갯수 넘기기
 		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("Board", community);
+		request.setAttribute("board", community);
 		
 		forward = new ActionForward();
 		

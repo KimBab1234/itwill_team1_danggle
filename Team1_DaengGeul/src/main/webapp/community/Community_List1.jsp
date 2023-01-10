@@ -21,6 +21,7 @@
 			<td width="200">제목</td>
 			<td>날짜</td>
 			<td width="50" align="center">조회수</td>
+			<td width="50" align="center">추천수</td>
 		</tr>
 		<c:forEach var="board" items="${Board }">
 			<tr>
@@ -28,6 +29,7 @@
 				<td><a href="CommunityDetail.co?board_idx=${board.board_idx }">${board.board_subject }</a></td>
 				<td>${board.board_date }</td>
 				<td>${board.board_readcount }</td>
+				<td></td>
 			</tr>
 		</c:forEach>
 	</table>
