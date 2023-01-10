@@ -11,7 +11,11 @@
 <script src="https://kit.fontawesome.com/8f75f06127.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	
+<%	String sId = (String)session.getAttribute("sId");
+	if(sId == null || !sId.equals("admin")) { %> 
+		alert("잘못된 접근입니다");
+		history.back();
+<%  }%>	
 	$(function() {
 		// 굿즈 등록 후에만 굿즈 목록이 보이도록 함
 		// 기본 목록 페이지는 책 목록임
