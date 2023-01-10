@@ -20,6 +20,7 @@
 	</script>
 	<header>
 		<jsp:include page="/inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
 	<h1>글</h1>
 	<table border="1">
@@ -44,18 +45,19 @@
 			<td colspan="1">${board.board_date }</td>
 		</tr>
 		<tr>
-			<c:choose>
-				<c:when test="${duplicateLike == true}">
-					<th><input type="button" value="추천취소"
-						onclick="location.href='CommunityLikeDelete.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }'"></th>
-				</c:when>
-				<c:otherwise>
-					<th><input type="button" value="추천"
-						onclick="location.href='CommuniteLikeBoard.co?board_idx=${board.board_idx }&member_id=${sessionScope.sId}'">
-					</th>
-
-				</c:otherwise>
-			</c:choose>
+			<c:if test="${not empty sessionScope.sId }">
+				<c:choose>
+					<c:when test="${duplicateLike == true}">
+						<th><input type="button" value="추천취소"
+							onclick="location.href='CommunityLikeDelete.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }'"></th>
+					</c:when>
+					<c:otherwise>
+						<th><input type="button" value="추천"
+							onclick="location.href='CommuniteLikeBoard.co?board_idx=${board.board_idx }&member_id=${sessionScope.sId}'">
+						</th>
+					</c:otherwise>
+				</c:choose>
+			</c:if>
 			<th>추천갯수 : ${likeCount }</th>
 		</tr>
 		<tr>
@@ -69,7 +71,7 @@
 						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
 				</c:if></td>
 		</tr>
-		
+
 	</table>
 	<form action="Community_ReplyPro.co">
 		<c:choose>

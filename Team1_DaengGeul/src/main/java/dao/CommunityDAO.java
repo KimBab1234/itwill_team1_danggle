@@ -67,7 +67,7 @@ public class CommunityDAO {
 		try {
 			String sql = "SELECT * FROM community WHERE board_subject LIKE ? AND board_type=? ORDER BY board_idx DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, type);
+			pstmt.setString(1, "%"+keyword+"%");
 			pstmt.setInt(2, type);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, listLimit);
@@ -120,7 +120,6 @@ public class CommunityDAO {
 				community.setBoard_file(rs.getString("board_file"));
 				community.setBoard_date(rs.getDate("board_date"));
 			}
-			System.out.println(pstmt);
 		} catch (SQLException e) {
 			System.out.println("구문오류 CommunityDetail");
 			e.printStackTrace();

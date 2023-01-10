@@ -16,8 +16,7 @@ public class CommunityListService {
 		CommunityDAO dao = CommunityDAO.getInstance();
 		dao.setConnection(con);
 		
-		CommunityList = dao.selectCommunityList(type,keyword, startRow, listLimit);
-		
+		CommunityList = dao.selectCommunityList(type, keyword, startRow, listLimit);
 		JdbcUtil.close(con);
 		
 		return CommunityList;
