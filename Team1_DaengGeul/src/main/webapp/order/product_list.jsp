@@ -118,7 +118,7 @@
 		                            <li class="page-item">
 		                            	<c:choose>
 		                            		<c:when test="${param.pageNum > 3}">
-		                            			 <a class="page-link" href="ProductList.go?type=${param.type}&pageNum=${param.pageNum-3}" aria-label="Previous">
+						                         <a class="page-link" href='ProductList.go?type=${param.type}${param.keyword==null? "": "&keyword=".concat(param.keyword)}&pageNum=${param.pageNum-3}' aria-label="Previous">
 				                                 <span aria-hidden="true">&laquo;</span>
 				                                 <span class="sr-only">Previous</span>
 				                                </a>
@@ -132,10 +132,10 @@
 				                            <li class="page-item">
 				                            	<c:choose>
 				                            		<c:when test="${i.index == param.pageNum}">
-						                            	<a class="thisPage" href="">${i.index}</a>
+						                            	<a id="thisPage" href="">${i.index}</a>
 				                            		</c:when>
 				                            		<c:otherwise>
-						                            	<a class="page-link" href="ProductList.go?type=${param.type}&pageNum=${i.index}">${i.index}</a>
+						                              <a class="page-link" href='ProductList.go?type=${param.type}${param.keyword==null? "": "&keyword=".concat(param.keyword)}&pageNum=${i.index}'>${i.index}</a>
 				                            		</c:otherwise>
 				                            	</c:choose>
 				                            </li>
@@ -144,7 +144,7 @@
 		                            <li class="page-item">
 		                            	<c:choose>
 		                            		<c:when test="${pageInfo.endPage < pageInfo.maxPage}">
-				                              <a class="page-link" href="ProductList.go?type=${param.type}&pageNum=${param.pageNum+3>pageInfo.maxPage? pageInfo.maxPage : param.pageNum+3}" aria-label="Next">
+				                              <a class="page-link" href='ProductList.go?type=${param.type}${param.keyword==null? "": "&keyword=".concat(param.keyword)}&pageNum=${param.pageNum+3>pageInfo.maxPage? pageInfo.maxPage : param.pageNum+3}' aria-label="Previous">
 				                                <span aria-hidden="true">&raquo;</span>
 				                                <span class="sr-only">Next</span>
 				                              </a>
