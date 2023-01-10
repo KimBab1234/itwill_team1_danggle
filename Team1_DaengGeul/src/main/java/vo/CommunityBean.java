@@ -5,7 +5,7 @@ import java.sql.Date;
 public class CommunityBean {
 	private int board_idx;
 	private int board_type;
-	private int board_readCount;
+	private int board_readcount;
 	private String board_subject;
 	private String member_id;
 	private String board_content;
@@ -25,11 +25,11 @@ public class CommunityBean {
 	public void setBoard_type(int board_type) {
 		this.board_type = board_type;
 	}
-	public int getBoard_readCount() {
-		return board_readCount;
+	public int getBoard_readcount() {
+		return board_readcount;
 	}
-	public void setBoard_readCount(int board_readCount) {
-		this.board_readCount = board_readCount;
+	public void setBoard_readCount(int board_readcount) {
+		this.board_readcount = board_readcount;
 	}
 	public String getBoard_subject() {
 		return board_subject;
@@ -70,8 +70,8 @@ public class CommunityBean {
 	
 	@Override
 	public String toString() {
-		return "CommunityBean [board_idx=" + board_idx + ", board_type=" + board_type + ", board_readCount="
-				+ board_readCount + ", board_subject=" + board_subject + ", member_id=" + member_id + ", board_content="
+		return "CommunityBean [board_idx=" + board_idx + ", board_type=" + board_type + ", board_readcount="
+				+ board_readcount + ", board_subject=" + board_subject + ", member_id=" + member_id + ", board_content="
 				+ board_content + ", board_file=" + board_file + ", board_real_file=" + board_real_file
 				+ ", board_date=" + board_date + "]";
 	}

@@ -18,7 +18,6 @@ public class CommunityListAction implements Action {
 		
 		// 페이징 처리
 		int type = Integer.parseInt(request.getParameter("board_type"));
-
 		int listLimit = 10;
 		int pageNum = 1;
 		if(request.getParameter("pageNum") != null) {
@@ -36,7 +35,6 @@ public class CommunityListAction implements Action {
 		// communityList service 
 		CommunityListService service = new CommunityListService();
 		List<CommunityBean> community = service.getList(type, keyword, startRow, listLimit);
-
 		int listCount = service.getBoardListCount(keyword, type);
 		int pageListLimit = 10;
 		
