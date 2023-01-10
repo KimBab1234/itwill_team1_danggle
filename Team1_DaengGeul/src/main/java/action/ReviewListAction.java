@@ -108,7 +108,7 @@ public class ReviewListAction implements Action {
 		// ActionForward 객체 생성 후 board/qna_board_list.jsp 페이지 포워딩 설정
 		
 		forward = new ActionForward();
-		if(product_idx!=null) {
+		if(product_idx!=null && product_idx.length()>0) {
 			forward.setPath("review/review_list_detail.jsp");
 		} else {
 			forward.setPath("review/review_list.jsp");

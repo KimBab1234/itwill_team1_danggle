@@ -53,10 +53,10 @@ public class ReviewDetailAction implements Action {
 		// URL 유지 및 request 객체 유지를 위해 Dispatch 방식 포워딩
 
 		forward = new ActionForward();
-		if(product_idx.length()>0) {
-			forward.setPath("review/review_view.jsp");
-		} else {
+		if(product_idx!=null && product_idx.length()>0) {
 			forward.setPath("review/review_view_detail.jsp");
+		} else {
+			forward.setPath("review/review_view.jsp");
 		}
 		forward.setRedirect(false);
 
