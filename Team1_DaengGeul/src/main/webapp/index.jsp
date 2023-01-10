@@ -149,10 +149,22 @@
             <div class="col">
                 <div class="owl-carousel vendor-carousel">
                     <div class="vendor-item border p-4">
-                        <img src="img/vendor-1.jpg" alt="">
+                        <img src="img/kyobo.png" width="120px" height="120px" alt="">
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="img/vendor-2.jpg" alt="">
+                        <img src="img/yp.png" width="120px" height="120px" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/yes24.png" width="120px" height="120px" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/aladin.png" width="120px" height="120px" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/interpark.png" width="120px" height="120px" alt="">
+                    </div>
+                    <div class="vendor-item border p-4">
+                        <img src="img/amazon.png" width="120px" height="60px" alt="">
                     </div>
                 </div>
             </div>
