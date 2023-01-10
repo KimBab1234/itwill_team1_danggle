@@ -9,16 +9,20 @@
 <link rel="shortcut icon" href="#">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+
 <%	String sId = (String)session.getAttribute("sId");
-	if(sId == null || !sId.equals("admin")) { %> 
+	if(sId == null || !sId.equals("admin")) { %>  
 		alert("잘못된 접근입니다");
 		history.back();
 <%  }%>
+	
+	
+
 	$(function() {
+	    $('.dropdown-toggle', this).trigger('click').blur();
 		
-		var optionIndex = 0;
+	    var optionIndex = 0;
 		var sum = 0;
-		
 		
 		// 파일 이름 인풋 박스에 넣기
 		$("#detail_img").on('change',function(){
@@ -75,17 +79,6 @@
 	});
 	
 </script>
-<link href="css/default.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-table {
-	margin-left: auto;
-	margin-right: auto;
-}
-table, td, th {
-	border-collapse: collapse;
-	border: 1px solid black;
-}
-</style>
 <link href="css/product.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -93,7 +86,8 @@ table, td, th {
 		<jsp:include page="../inc/top.jsp" />
 		<jsp:include page="../inc/main.jsp"/>
 	</header>
-	<h4 align="center">상품 수정</h4>
+	<div class="recoArea">
+	<h4 id="h4">상품 수정</h4>
 	<form action="ProductEditPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
  		<input type="hidden" name="product_idx" value="${product.product_idx }">
@@ -205,6 +199,7 @@ table, td, th {
 			<input type="button" id="okBtn" value="취소" onclick="history.back()">
 		</div>
 	</form>
+	</div>
 	<%-- 자바스크립트 영역 --%>
 	<script type="text/javascript"> 
 		
@@ -227,6 +222,7 @@ table, td, th {
 		}
 		
 	</script>
+	
 	<footer>
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	</footer>

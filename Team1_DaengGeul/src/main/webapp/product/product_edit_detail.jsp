@@ -6,24 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <link rel="shortcut icon" href="#">
-<link href="css/default.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-table {
-	margin-left: auto;
-	margin-right: auto;
-}
-table, td, th {
-	border-collapse: collapse;
-	border: 1px solid black;
-}
-</style>
 <script type="text/javascript">
 <%	String sId = (String)session.getAttribute("sId");
-	if(sId == null || !sId.equals("admin")) { %> 
-		alert("잘못된 접근입니다");
-		history.back();
+ if(sId == null || !sId.equals("admin")) { %>  
+	alert("잘못된 접근입니다");
+	history.back();
 <%  }%>
+
+	$(function() {
+	    $('.dropdown-toggle', this).trigger('click').blur();
+	});
 </script>
 <link href="css/product.css" rel="stylesheet" type="text/css" />
 </head>
@@ -32,91 +26,93 @@ table, td, th {
 		<jsp:include page="../inc/top.jsp" />
 		<jsp:include page="../inc/main.jsp"/>
 	</header>
-	<h4>상품 수정 확인</h4>
-		<table class="detail_table">
-			<tr>
-				<th>상품명</th>
-				<td>
-					<input type="text" value="${product.name }" readonly="readonly">
-				</td>
-			</tr>
-			<c:if test="${productType eq 'book'}">
+	<div class="recoArea">
+		<h4 id="h4">상품 수정 확인</h4>
+			<table class="detail_table">
 				<tr>
-					<th>카테고리</th>
-					<td><input type="text" id="cateSelect" readonly="readonly"></td>	
-				</tr>
-				<tr>
-					<th>책 정보</th>
+					<th>상품명</th>
 					<td>
-						<div class="bookArea">작가명 : <input type="text" value="${product.book_writer}" readonly="readonly"></div>
-						<div class="bookArea">출판사 : <input type="text" value="${product.book_publisher }" readonly="readonly"></div>
-						<div class="bookArea">출판일 : <input type="text"  value="${product.book_date }" readonly="readonly"></div>
+						<input type="text" value="${product.name }" readonly="readonly">
 					</td>
 				</tr>
-			</c:if>
-			<c:if test="${productType eq 'goods'}">
+				<c:if test="${productType eq 'book'}">
+					<tr>
+						<th>카테고리</th>
+						<td><input type="text" id="cateSelect" readonly="readonly"></td>	
+					</tr>
+					<tr>
+						<th>책 정보</th>
+						<td>
+							<div class="bookArea">작가명 : <input type="text" value="${product.book_writer}" readonly="readonly"></div>
+							<div class="bookArea">출판사 : <input type="text" value="${product.book_publisher }" readonly="readonly"></div>
+							<div class="bookArea">출판일 : <input type="text"  value="${product.book_date }" readonly="readonly"></div>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${productType eq 'goods'}">
+					<tr>
+						<th>옵션</th>
+						<td>
+							<c:if test="${product.option_name.size() ne 0}">
+								<c:forEach var="i" begin="0" end="${product.option_name.size() -1 }">
+									옵션명 : <input type="text" value="${product.option_name.get(i)}" id="optionDetail" readonly="readonly">
+									수량 : <input type="text" value="${product.option_qauntity.get(i)}" id="optionDetail" readonly="readonly"><br>
+								</c:forEach>
+							</c:if>
+						</td>
+					</tr>
+				</c:if>
 				<tr>
-					<th>옵션</th>
+					<th>판매가</th>
 					<td>
-						<c:if test="${product.option_name.size() ne 0}">
-							<c:forEach var="i" begin="0" end="${product.option_name.size() -1 }">
-								옵션명 : <input type="text" value="${product.option_name.get(i)}" id="optionDetail" readonly="readonly">
-								수량 : <input type="text" value="${product.option_qauntity.get(i)}" id="optionDetail" readonly="readonly"><br>
-							</c:forEach>
-						</c:if>
+						<input type="text" value="${product.price }원" readonly="readonly">
 					</td>
 				</tr>
-			</c:if>
-			<tr>
-				<th>판매가</th>
-				<td>
-					<input type="text" value="${product.price }원" readonly="readonly">
-				</td>
-			</tr>
-			<tr>
-				<th>할인</th>
-				<td>
-					<c:choose>
-						<c:when test="${product.discount eq 0}">
-							<input type="text" value="할인 설정 안함" readonly="readonly">
-						</c:when>
-						<c:when test="${product.discount ne 0}">
-							<input type="text" value="${product.discount }% 할인 설정" readonly="readonly">
-						</c:when>
-					</c:choose>
-				</td>
-			</tr>
-			<tr>
-				<th>재고</th>
-				<td><input type="text" required="required" name="quantity" value="${product.quantity }" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<th>상품 대표 이미지</th>
-				<td>
-   					<input type="text"value="${product.img }" readonly="readonly">
-				</td>
-			</tr>
-			<tr>
-				<th>상세 설명</th>
-				<td>
-					상세 이미지 : <input type="text"value="${product.detail_img }" readonly="readonly">
-					<hr>
-					상세 설명 : <br><br> <textarea readonly="readonly">${product.detail}</textarea>
-				</td>
-			</tr>
-		</table> 
-		<br>
-		<div align="center">
-			<c:choose>
-				<c:when test="${productType eq 'goods'}">
-					<input type="submit" id="okBtn" value="다시 수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}'">
-					<input type="button" id="okBtn" value="목록" onclick="location.href='ProductList.ad?product=G'">
-				</c:when>
-				<c:when test="${productType eq 'book'}">
-					<input type="submit" id="okBtn" value="다시 수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}&pageNum=${param.pageNum }'">
-					<input type="button" id="okBtn" value="목록" onclick="location.href='ProductList.ad?pageNum=${param.pageNum }'">
-				</c:when>
-			</c:choose>
+				<tr>
+					<th>할인</th>
+					<td>
+						<c:choose>
+							<c:when test="${product.discount eq 0}">
+								<input type="text" value="할인 설정 안함" readonly="readonly">
+							</c:when>
+							<c:when test="${product.discount ne 0}">
+								<input type="text" value="${product.discount }% 할인 설정" readonly="readonly">
+							</c:when>
+						</c:choose>
+					</td>
+				</tr>
+				<tr>
+					<th>재고</th>
+					<td><input type="text" required="required" name="quantity" value="${product.quantity }" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>상품 대표 이미지</th>
+					<td>
+	   					<input type="text"value="${product.img }" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
+					<th>상세 설명</th>
+					<td>
+						상세 이미지 : <input type="text"value="${product.detail_img }" readonly="readonly">
+						<hr>
+						상세 설명 : <br><br> <textarea readonly="readonly">${product.detail}</textarea>
+					</td>
+				</tr>
+			</table> 
+			<br>
+			<div align="center">
+				<c:choose>
+					<c:when test="${productType eq 'goods'}">
+						<input type="submit" id="okBtn" value="다시 수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}'">
+						<input type="button" id="okBtn" value="목록" onclick="location.href='ProductList.ad?product=G'">
+					</c:when>
+					<c:when test="${productType eq 'book'}">
+						<input type="submit" id="okBtn" value="다시 수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}&pageNum=${param.pageNum }'">
+						<input type="button" id="okBtn" value="목록" onclick="location.href='ProductList.ad?pageNum=${param.pageNum }'">
+					</c:when>
+				</c:choose>
+			</div>
 		</div>
 	<%-- 자바스크립트 영역 --%>
 	<script type="text/javascript"> 

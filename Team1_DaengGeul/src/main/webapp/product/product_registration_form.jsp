@@ -10,11 +10,10 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 <%	String sId = (String)session.getAttribute("sId");
-	if(sId == null || !sId.equals("admin")) { %> 
+ 	if(sId == null || !sId.equals("admin")) { %>  
 		alert("잘못된 접근입니다");
 		history.back();
 <%  }%>
-
 
 	var optionIndex = 0;
 	var sum = 0;
@@ -33,7 +32,8 @@
 	}
 
 	$(function() {
-
+		$('.dropdown-toggle', this).trigger('click').blur();
+		
 		$("#goods_option").hide();
 		// 책 선택 시 책 정보 입력 창 보여주기
 		// 굿즈 선택 시 옵션 창 보여주기
@@ -109,7 +109,8 @@
 		<jsp:include page="../inc/main.jsp"/>
 <%-- 		<jsp:include page="../inc/main_index.jsp"/> --%>
 	</header>
-	<h4 class="font-weight-semi-bold mb-4">상품 등록</h4>
+	<div class="recoArea">
+	<h4 id="h4">상품 등록</h4>
 	<form action="ProductRegiPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
 		<table class="regi_table">
 			<tr>
@@ -209,6 +210,7 @@
 			<input type="button" id="okBtn" value="취소" onclick="history.back()">
 		</div>
 	</form>
+	</div>
 	<footer>
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	</footer>

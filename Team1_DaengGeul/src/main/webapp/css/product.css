@@ -53,7 +53,7 @@ textarea:focus {
 
 /* input 박스 사이즈 변경*/
 .regi_table #productName {width: 420px;}
-.regi_table #book_div {width: 375px;}
+.regi_table .book_div {width: 375px;}
 
 /* input text 박스*/
 .regi_table input[type="text"]  {
@@ -135,11 +135,35 @@ select {
 	accent-color:#736643; 
 }
 
-h4 {
-	margin-top: 30px;
-	text-align : center;
+#h4 {
+	border-left:4px solid #736643;
+	border-width: 7px;
+	padding: 2px 0px 0px 10px;
+	position: relative;
+	left: 612px;
+	margin: 50px 50px 40px 50px;
+	font-weight: bold;
 }
 
+#listH4 {
+	border-left:4px solid #736643;
+	border-width: 7px;
+	padding: 2px 0px 0px 10px;
+	position: relative;
+	left: 430px;
+	margin: 50px 50px 40px 50px;
+	font-weight: bold;
+}
+
+#recoH4 {
+	border-left:4px solid #736643;
+	border-width: 7px;
+	padding: 2px 0px 0px 10px;
+	position: relative;
+	left: 587px;
+	margin: 50px 50px 40px 50px;
+	font-weight: bold;
+}
 /* 파일 버튼 */
 label {
     display: inline-block;
@@ -217,6 +241,7 @@ textarea {
 	border-radius: 4px;
 }
 
+
 /* 확인 취소 버튼 */
 #okBtn {
 	background-color: #736643;
@@ -228,6 +253,7 @@ textarea {
 	border-radius: 4px;
 	margin-top: 50px;
 }
+
 
 /* ================================================================================= */
 
@@ -246,13 +272,8 @@ textarea {
 	width: 960px;
 }
 
-/* 굿즈 목록 */
-.goodsTable {
-	margin: 0 auto;
-	width: 800px;
-}
 
-.bookTable th, .goodsTable th, .recoTable th{
+.bookTable th, .recoTable th{
 	
  	background: #c9b584; 
  	text-align: center; 
@@ -263,7 +284,7 @@ textarea {
 	font-size: 14px;
 }
 
-.bookTable td, .goodsTable td, .recoTable td{
+.bookTable td, .recoTable td{
 	border-bottom: solid;
 	border-width: 0.5px;
  	border-color: #b09f76;
@@ -321,7 +342,6 @@ i {
 }
 
 /* <<< 추천 도서 목록 >>> */
-
 /* 추천 도서 등록 버튼 */
 #recoBtn {
 	position: relative;
