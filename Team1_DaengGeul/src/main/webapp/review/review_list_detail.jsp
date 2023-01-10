@@ -14,26 +14,37 @@
 
 $(function() {
 	//--------------------- 리뷰 상세 게시판 ---------------------
-	$("#reviewSubject").on("click", function() {
+	$(".reviewSubject").on("click", function() {
 		var row = $(this);
-		$.ajax({
-			type: "post",
-			url: "ReviewDetail.re",
-			dataType: "text", 
-			data: {
-				review_idx: $(this).prev().text(),
-				product_idx: '${product.product_idx}'
-			},
-			success: function(response) {
-				row.parent().after(response);
-// 				$("#reviewIdx${review.review_idx}").append(response);
-			},
-			error: function(xhr, textStatus, errorThrown) { 
-				alert("리뷰 상세조회 실패!");
+		var reviewIdxNum = $(this).children('input').attr("id");
+		var viewNum = Number($("#"+reviewIdxNum).val());
+		if(viewNum>0) {
+			var detail = $("#"+reviewIdxNum).parents('tr').next();
+			if(detail.is(":visible")) {
+				detail.css("display", "none")
+			}else {
+				detail.css("display", "table-row")
 			}
-		});
+		} else {
+				$("#"+reviewIdxNum).val(viewNum+1);
+				$.ajax({
+					type: "post",
+					url: "ReviewDetail.re",
+					dataType: "text", 
+					data: {
+						review_idx: reviewIdxNum,
+						product_idx: '${product.product_idx}'
+					},
+					success: function(response) {
+						row.parent('tr').after("<tr style='display: table-row;'><td colspan='6'>"+response+"</td></tr>");
+					},
+					error: function(xhr, textStatus, errorThrown) { 
+						alert("리뷰 상세조회 실패!");
+					}
+				});
+		}
+
 	});
-	
 	
 });
 
@@ -41,10 +52,9 @@ $(function() {
 </head>
 <body>
 	<!-- 게시판 리스트 -->
-	<section id="listForm">
+	<div id="listForm" align="center">
 	<table border="1">
-		<tr id="tr_top">
-			<th width="100">번호</th>
+		<tr id="tr_top" >
 			<th width="200">제목</th>
 			<th width="150">작성자</th>
 			<th width="150">별점</th>
@@ -53,9 +63,9 @@ $(function() {
 			<th width="150">조회수</th>
 		</tr>
 			<!-- JSTL 과 EL 활용하여 글목록 표시 작업 반복  -->
-		<c:forEach var="review" items="${reviewList }">
+		<c:forEach var="review" items="${reviewList }" varStatus="i">
 			<tr>
-				<td class="reviewIdx">${review.review_idx }</td>
+				
 				<!-- 제목 하이퍼링크(BoardDetail.bo) 연결 -->
 				<c:choose>
 					<c:when test="${empty param.pageNum }">
@@ -65,7 +75,8 @@ $(function() {
 						<c:set var="pageNum" value="${param.pageNum }"></c:set>
 					</c:otherwise>
 				</c:choose>
-				<td id="reviewSubject">
+				<td class="reviewSubject">
+					<input type="hidden" value="0" id="${review.review_idx }">
 					${review.review_subject }
 				</td>
 				<td>${review.member_id }</td>
@@ -83,6 +94,6 @@ $(function() {
 			
 			
 	</table>
-	</section>
+	</div>
 </body>
 </html>
