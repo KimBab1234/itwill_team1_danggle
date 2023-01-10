@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>문의사항</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
 <style type="text/css">
 	#articleForm {
 		idth: 900px;
@@ -16,6 +18,8 @@
 	}
 	
 	h4 {
+		 font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 		text-align: center;
 	}
 	
@@ -55,6 +59,16 @@
 		width: 500px;
 		text-align: center;
 	}
+	#okBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 30px;
+	width: 75px;
+	border-radius: 4px;
+	margin-top: 50px;
+}
 </style>
 <script type="text/javascript">//답글을 달려고 하는 원본 글, 답글 작성 후 돌아갈 페이지넘버
 	function changeView(value) {
@@ -89,7 +103,7 @@
 			
 			<tr><th width="70">제 목</th><td colspan="3" >${qna.qna_subject }</td></tr>
 			<tr>
-				<th width="70">작성자</th><td>${sessionScope.sId}</td>
+				<th width="70">작성자</th><td>${qna.member_id}</td>
 				<th width="70">작성일</th>
 				<td><fmt:formatDate value="${qna.qna_date }" pattern="yy-MM-dd"/></td>
 			</tr>
@@ -107,12 +121,12 @@
 	</section>
 	<section id="commandList">
 	<c:if test="${sessionScope.sId == 'admin'}">
-		<input type="button" value="답변" onclick="location.href='QnaReplyForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
-		<input type="button" value="수정" onclick="location.href='QnaModifyForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
-		<input type="button" value="삭제" onclick="location.href='QnaDeleteForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;	
+		<input type="button" id="okBtn" value="답변" onclick="location.href='QnaReplyForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
+		<input type="button" id="okBtn" value="수정" onclick="location.href='QnaModifyForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
+		<input type="button" id="okBtn" value="삭제" onclick="location.href='QnaDeleteForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;	
 	</c:if>
-		<input type="button" value="목록" onclick="location.href='QnaList.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum}'">&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" id="okBtn" value="목록" onclick="location.href='QnaList.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum}'">&nbsp;&nbsp;
+		&nbsp;&nbsp;
 	</section>
 	</div>
 	</div>

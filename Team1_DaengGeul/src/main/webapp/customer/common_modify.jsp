@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>문의 게시판</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
 <style type="text/css">
 	#modifyForm {
 		width: 900px;
@@ -14,6 +16,8 @@
 	}
 	
 	h4 {
+	 font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 		text-align: center;
 	}
 	
@@ -43,6 +47,17 @@
 	#commandCell {
 		text-align: center;
 	}
+	
+	#okBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 30px;
+	width: 75px;
+	border-radius: 4px;
+	margin-top: 50px;
+}
 </style>
 </head>
 <body>
@@ -83,9 +98,9 @@
 			</table>
 			&nbsp;&nbsp;
 			<section id="commandCell">
-				<input type="submit" value="수정">&nbsp;&nbsp;
-				<input type="reset" value="다시쓰기">&nbsp;&nbsp;
-				<input type="button" value="취소" onclick="history.back()">
+				<input type="submit" id="okBtn" value="수정">&nbsp;&nbsp;
+				<input type="reset" id="okBtn" value="다시쓰기">&nbsp;&nbsp;
+				<input type="button" id="okBtn" value="취소" onclick="history.back()">
 			</section>
 		</form>
 	</section>

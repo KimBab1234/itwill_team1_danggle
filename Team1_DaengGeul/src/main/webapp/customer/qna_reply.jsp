@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>문의 게시판</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
 <style type="text/css">
 	#replyForm {
 		width: 900px;
@@ -14,6 +16,8 @@
 	}
 	
 	h4 {
+	font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 		text-align: center;
 	}
 	
@@ -43,6 +47,16 @@
 	#commandCell {
 		text-align: center;
 	}
+	#okBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 30px;
+	width: 75px;
+	border-radius: 4px;
+	margin-top: 50px;
+}
 </style>
 </head>
 <body>
@@ -62,28 +76,31 @@
 		<div style="width: 1000px; margin-left: 20px; ">
 	<!-- 게시판 답글 작성 -->
 	<section id="replyForm">
-		<h1>게시판 답글 작성</h1>
-		<form action="QnaReplyPro.cu" name="boardForm" method="post" enctype="multipart/form-data">
+		<h4>게시판 답글 작성</h4>
+		<form action="QnaReplyPro.cu" name="boardForm" method="post">
 			<!-- 입력받지 않은 글번호, 페이지번호 hidden 속성으로 전달 -->
 			
-			<input type="hidden" name="qna_idx" value="${qna.qna_idx }" > <!-- 원본글 번호 -->
+			<input type="hidden" name="qna_idx" value="${param.qna_idx }" > <!-- 원본글 번호 -->
 			<input type="hidden" name="pageNum" value="${param.pageNum }" >
+			<input type="hidden" name="qna_subject" value="${qna.qna_subject }" >
+			<input type="hidden" name="member_id" value="관리자" >
+			
 			<!-- 답글 작성에 필요한 정보도 hidden 속성으로 전달 -->
 			<input type="hidden" name="qna_re_ref" value="${qna.qna_re_ref }" >
 			<input type="hidden" name="qna_re_lev" value="${qna.qna_re_lev }" >
 			<input type="hidden" name="qna_re_seq" value="${qna.qna_re_seq }" >
 			<table>
 				<tr>
-					<td class="td_left"><label for="${sessionScope.sId }">글쓴이</label></td>
+					<td class="td_left"><label for="${qna.member_id }">글쓴이</label></td>
 					<td class="td_right">
-						<input type="text" name="sId" required="required" />
+						<input type="text" name="member_id" placeholder="관리자" />
 					</td>
 				</tr>
 				
 				<tr>
 					<td class="td_left"><label for="qna_subject">제목</label></td>
 					<td class="td_right">
-						<input type="text" name="qna_subject" value="re:${qna.qna_subject}"required="required" />
+						<input type="text" name="qna_subject" value="re:${qna.qna_subject}" placeholder="re:${qna.qna_subject}"/>
 					</td>
 				</tr>
 				<tr>
@@ -95,9 +112,9 @@
 			</table>
 			&nbsp;&nbsp;
 			<section id="commandCell">
-				<input type="submit" value="답글등록">&nbsp;&nbsp;
-				<input type="reset" value="다시쓰기">&nbsp;&nbsp;
-				<input type="button" value="취소" onclick="history.back()">
+				<input type="submit" id="okBtn" value="답글등록">&nbsp;&nbsp;
+				<input type="reset" id="okBtn" value="다시쓰기">&nbsp;&nbsp;
+				<input type="button" id="okBtn" value="취소" onclick="history.back()">
 			</section>
 		</form>
 	</section>

@@ -77,7 +77,7 @@ private QnaDAO() {
 	}
 
 
-	public List<QnaBean> selectQnaList(String keyword, int startRow, int listLimit) {
+	public List<QnaBean> selectQnaList(String sId,String keyword, int startRow, int listLimit) {
 		
 	    List<QnaBean> qnaList = null;
 		
@@ -85,14 +85,31 @@ private QnaDAO() {
 		ResultSet rs = null;
 		
 		try {
-		String sql = "SELECT * FROM qna WHERE qna_subject LIKE ? ORDER BY "
-				+ "qna_re_ref DESC, qna_re_seq ASC LIMIT ?,?";
-	    
-			pstmt = con.prepareStatement(sql);
 		
-		pstmt.setString(1, "%" + keyword + "%");
-		pstmt.setInt(2, startRow);
-		pstmt.setInt(3, listLimit);
+		String sql = "SELECT * FROM qna WHERE qna_re_ref IN (SELECT qna_idx FROM qna WHERE member_id=?) AND qna_subject LIKE ? ORDER BY "
+				+ "qna_re_ref DESC, qna_re_seq ASC LIMIT ?,?";
+		
+
+		if(sId.equals("admin")) {
+			sql = "SELECT * FROM qna WHERE qna_subject LIKE ? ORDER BY qna_re_ref DESC, qna_re_seq ASC LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, listLimit);
+		} else {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, sId);
+			pstmt.setString(2, "%" + keyword + "%");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, listLimit);
+		}
+		
+	    //조건문으로 sql문을 두개 써서 관리자일 경우에는 member_id 파라미터가 필요 없다 그냥 다 보여줄거니까
+		
+		
+	
 		
 		rs = pstmt.executeQuery();
 		
@@ -183,7 +200,7 @@ private QnaDAO() {
 			qna.setQna_re_ref(rs.getInt("qna_re_ref"));
 			qna.setQna_re_lev(rs.getInt("qna_re_lev"));
 			qna.setQna_re_seq(rs.getInt("qna_re_seq"));
-			
+			           
 		
 		}
 	} catch (SQLException e) {
@@ -297,7 +314,7 @@ private QnaDAO() {
 		int ref = qna.getQna_re_ref();//원본글의 참조글 번호
 		int lev = qna.getQna_re_lev();//원본글의 들여쓰기 레벨
 		int seq = qna.getQna_re_seq();//원본글의 순서번호
-			
+			System.out.println("ref 확인 : " + ref + lev + seq);
 			//기존 답글들에 대한 순서번호 증가
 			//원본글의 참조글 번호와 같고 순서번호보다 큰 레코드들의 순서번호를 +1 씩 증가
 			sql = "UPDATE qna SET qna_re_seq=qna_re_seq + 1 WHERE qna_re_ref=? AND qna_re_seq>?";

@@ -1,5 +1,7 @@
 package action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +45,7 @@ public class QnaListAction implements Action {
 		
 		//QnaListService 객체 통해서 게시물 목록 조회
 		//getQnaList 메서드 호출하여 게시물 목록 조회
-		List<QnaBean> qnaList=service.getQnaList(keyword,startRow,listLimit);
+		List<QnaBean> qnaList=service.getQnaList(sId,keyword,startRow,listLimit);
 		
 		int listCount = service.getQnaListCount(keyword);
 		
@@ -64,6 +66,33 @@ public class QnaListAction implements Action {
 	
 //		System.out.println(qnaList);
 //		System.out.println(pageInfo);
+		
+//		try {
+//			if(sId != null&& sId != "" &&sId == "admin") {
+//				// 관리자는 모든 문의를 다 보여준다
+//				forward = new ActionForward();
+//				forward.setPath("customer/qna_list.jsp");
+//				forward.setRedirect(false);
+//				
+//			} else if(sId != null && sId != "") {
+//				// 일반회원은 본인 것이랑 관리자 것만 보여준다 
+//				
+//				
+//			} else {
+//				// sId 가 없을 시에 잘못된 접근입니다 뒤로보내기
+//				response.setContentType("text/html; charset=UTF-8");
+//				PrintWriter out = response.getWriter();
+//				out.println("<script>");
+//				out.println("alert('잘못된 접근입니다!')");
+//				out.println("history.back()");
+//				out.println("</script>");
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
 		forward = new ActionForward();
 		forward.setPath("customer/qna_list.jsp");
 		forward.setRedirect(false);

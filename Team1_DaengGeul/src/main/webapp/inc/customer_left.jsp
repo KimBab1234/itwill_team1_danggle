@@ -11,6 +11,8 @@
                         <a href="NoticeList.ad" class="nav-item nav-link">공지사항</a>
 						<a href="CommonList.cu" class="nav-item nav-link">자주 묻는 질문</a>
 						<a href="QnaList.cu" class="nav-item nav-link">1:1 문의</a>
+						<a href="MailForm.cu" class="nav-item nav-link">메일 보내기</a>
+						
                     </div>
                 </nav>
             </div>
