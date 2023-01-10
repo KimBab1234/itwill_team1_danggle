@@ -66,9 +66,13 @@
 		<jsp:include page="/inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
+	<hr>
+	<div style="width: 500px;" id="c_div">
+			<jsp:include page="../inc/community_left.jsp"></jsp:include>
+        </div>
 	<h1 align="center">회원들의 추천 목록</h1>
 	<table>
-		<tr>
+		<tr id = "tr_top">
 			<td width="100">이름</td>
 			<td width="200">제목</td>
 			<td width="120">날짜</td>

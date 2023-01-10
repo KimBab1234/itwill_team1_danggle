@@ -67,9 +67,14 @@
 		<jsp:include page="/inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
+	<hr>
+	<div>
+		<div style="width: 500px;" id="c_div">
+			<jsp:include page="../inc/community_left.jsp"></jsp:include>
+        </div>
 	<h1 align="center">독후감 목록</h1>
 	<table>
-		<tr>
+		<tr id = "tr_top">
 			<td width="100">이름</td>
 			<td width="200">제목</td>
 			<td>날짜</td>
@@ -86,11 +91,8 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<section id="buttonArea">
-		<input type="button" value="메인" onclick="location.href='./'">
-		<input type="button" value="회원들의추천목록"
-			onclick="location.href='Community0.co?board_type=0'">
 		<br><br>
+	<section id="buttonArea">
 		<form action="Community1.co?board_type=1">
 			<input type="text" name="keyword"> <input type="submit"
 				value="검색"> &nbsp;&nbsp; <input type="button" value="글쓰기"
@@ -128,6 +130,7 @@
 			</c:otherwise>
 		</c:choose>
 	</section>
+	</div>
 	<header>
 		<!-- Login, Join 링크 표시 영역(inc/top.jsp 페이지 삽입) -->
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>

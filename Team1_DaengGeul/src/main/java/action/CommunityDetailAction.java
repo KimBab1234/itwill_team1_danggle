@@ -26,7 +26,7 @@ public class CommunityDetailAction implements Action {
 		int idx = Integer.parseInt(request.getParameter("board_idx"));
 
 		CommunityDetailService service = new CommunityDetailService();
-		CommunityBean communityBoardDetail = service.communityDetail(idx);
+		CommunityBean communityBoardDetail = service.communityDetail(idx,true);
 
 		request.setAttribute("board", communityBoardDetail);
 

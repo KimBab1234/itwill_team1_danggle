@@ -28,7 +28,7 @@ public class CommunityBean {
 	public int getBoard_readcount() {
 		return board_readcount;
 	}
-	public void setBoard_readCount(int board_readcount) {
+	public void setBoard_readcount(int board_readcount) {
 		this.board_readcount = board_readcount;
 	}
 	public String getBoard_subject() {
