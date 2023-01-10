@@ -173,7 +173,7 @@ public class ReviewDAO {
 	}
 	
 	//리뷰 조회
-	public ReviewBean selectReview(int review_idx, String sId, String review_like_done) {
+	public ReviewBean selectReview(int review_idx, String sId) {
 		
 		ReviewBean review = null;
 		
