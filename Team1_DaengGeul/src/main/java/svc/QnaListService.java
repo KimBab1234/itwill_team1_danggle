@@ -9,7 +9,7 @@ import vo.QnaBean;
 
 public class QnaListService {
 
-	public List<QnaBean> getQnaList(String keyword, int startRow, int listLimit) {
+	public List<QnaBean> getQnaList(String sId,String keyword, int startRow, int listLimit) {
 		
 		List<QnaBean> qnaList = null;
 		
@@ -19,7 +19,7 @@ public class QnaListService {
 		
 		dao.setConnection(con);
 		
-		qnaList = dao.selectQnaList(keyword,startRow,listLimit);
+		qnaList = dao.selectQnaList(sId,keyword,startRow,listLimit);
 		
 		
 		JdbcUtil.close(con);

@@ -99,7 +99,15 @@ public class QnaFrontController extends HttpServlet {
 		} else if(command.equals("/CommonModifyPro.cu")) {
 			action = new CommonModifyProAction();
 			forward = action.execute(request, response);
-		} 
+		} else if (command.equals("/MailForm.cu")) {
+			forward = new ActionForward();
+			forward.setPath("mail/mail_form.jsp");
+			forward.setRedirect(false);
+		} else if (command.equals("/MailPro.cu")) {
+			forward = new ActionForward();
+			forward.setPath("mail/mail_Pro.jsp");
+			forward.setRedirect(false);
+		}
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());

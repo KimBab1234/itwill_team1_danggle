@@ -8,7 +8,12 @@
 <meta charset="UTF-8">
 <title>자주 묻는 질문</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">
+* {
+   font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+   }
 	#listForm {
 		width: 1024px;
 		max-height: 610px;
@@ -60,6 +65,17 @@
 	a {
 		text-decoration: none;
 	}
+	
+	#okBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 30px;
+	width: 75px;
+	border-radius: 4px;
+	margin-top: 50px;
+}
 </style>
 </head>
 <body>
@@ -81,7 +97,7 @@
 	<!-- 게시판 리스트 -->
 	<section id="listForm">
 	
-	<h2>자주 묻는 질문</h2>
+	<h2><img src ="img/re.gif">&nbsp;&nbsp;자주 묻는 질문&nbsp;&nbsp;<img src ="img/re.gif"></h2>
 	&nbsp;&nbsp;
 	<table>
 		<tr id="tr_top">
@@ -109,7 +125,7 @@
 		<form action="CommonList.cu">
 		
 		<c:if test="${sessionScope.sId eq 'admin'}">
-		<input type="button" value="글쓰기" onclick="location.href='CommonWriteForm.cu'" />
+		<input type="button" id="okBtn" value="글쓰기" onclick="location.href='CommonWriteForm.cu'" />
 		</c:if>
 		</form>
 	</section>

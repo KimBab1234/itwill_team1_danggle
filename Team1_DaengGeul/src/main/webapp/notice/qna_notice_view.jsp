@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">
 	#articleForm {
 		width: 900px;
@@ -15,7 +16,11 @@
 		border: 1px red;
 	}
 	
-	h4 {
+	h3 {
+	
+  		 font-family: 'Gowun Dodum', sans-serif;
+  		 url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+   
 		text-align: center;
 	}
 	
@@ -55,6 +60,16 @@
 		width: 500px;
 		text-align: center;
 	}
+	#okBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 30px;
+	width: 75px;
+	border-radius: 4px;
+	margin-top: 50px;
+}
 </style>
 </head>
 <body>
@@ -74,7 +89,7 @@
 		<div style="width: 1000px; margin-left: 20px; ">
 	<!-- 게시판 상세내용 보기 -->
 	<section id="articleForm">
-		<h4>공지사항</h4>
+		<h3>공지사항</h3>
 		&nbsp;&nbsp;
 		<section id="basicInfoArea">
 			<table border="1">
@@ -100,11 +115,11 @@
 	</section>
 	<section id="commandList">
 	<c:if test="${sessionScope.sId eq 'admin' }">
-		<input type="button" value="수정" onclick="location.href='NoticeModifyForm.ad?notice_idx=${param.notice_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
-		<input type="button" value="삭제" onclick="location.href='NoticeDeleteForm.ad?notice_idx=${param.notice_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
+		<input type="button" id="okBtn"value="수정" onclick="location.href='NoticeModifyForm.ad?notice_idx=${param.notice_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
+		<input type="button" id="okBtn"value="삭제" onclick="location.href='NoticeDeleteForm.ad?notice_idx=${param.notice_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
 	</c:if>
-		<input type="button" value="목록" onclick="location.href='NoticeList.ad?notice_idx=${ param.notice_idx}&pageNum=${param.pageNum}'">&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" id="okBtn" value="목록" onclick="location.href='NoticeList.ad?notice_idx=${ param.notice_idx}&pageNum=${param.pageNum}'">&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</section>
 	</div>
 	</div>

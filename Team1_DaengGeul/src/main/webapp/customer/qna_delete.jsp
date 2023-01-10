@@ -7,7 +7,12 @@
 <meta charset="UTF-8">
 <title>문의 게시판</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
+* {
+   font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+   }
 	#passForm {
 		width: 300px;
 		margin: auto;
@@ -24,6 +29,16 @@
 		margin: auto;
 		text-align: center;
 	}
+	#okBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 30px;
+	width: 75px;
+	border-radius: 4px;
+	margin-top: 50px;
+}
 	
 </style>
 </head>
@@ -51,13 +66,15 @@
 			<table>
 				<tr>
 					<td colspan="2">
-						<input type="submit" value="삭제" >&nbsp;&nbsp;
-						<input type="button" value="돌아가기" onclick="javascript:history.back()">
+						<input type="submit" id="okBtn" value="삭제" >&nbsp;&nbsp;
+						<input type="button" id="okBtn"value="돌아가기" onclick="javascript:history.back()">
 					</td>
 				</tr>
 			</table>
 		</form>
 	</section>
+	</div>
+	</div>
 	<footer>
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	</footer>

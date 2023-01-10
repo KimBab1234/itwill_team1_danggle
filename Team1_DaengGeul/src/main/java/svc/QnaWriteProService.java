@@ -21,7 +21,7 @@ public class QnaWriteProService {
 		
 		dao.setConnection(con);
 		
-		System.out.println("service" + sId);
+//		System.out.println("service" + sId);
 		
 		
 		int insertCount = dao.insertQna(qna, sId);

@@ -16,10 +16,13 @@ public class QnaReplyFormAction implements Action {
 		ActionForward forward = null;
 		int qna_idx = Integer.parseInt(request.getParameter("qna_idx"));
 		String pageNum = request.getParameter("pageNum");
+		HttpSession session = request.getSession();
+		String sId = (String)session.getAttribute("sId");
 		
 		
 		QnaDetailService service = new QnaDetailService();
 		QnaBean qna = service.getQna(qna_idx);
+		request.setAttribute("sId", sId);
 		request.setAttribute("qna", qna);
 		request.setAttribute("pageNum", pageNum);
 		

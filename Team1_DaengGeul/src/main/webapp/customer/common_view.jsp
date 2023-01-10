@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>자주 묻는 질문</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
 <style type="text/css">
 	#articleForm {
 		width: 900px;
@@ -16,6 +18,8 @@
 	}
 	
 	h4 {
+	font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 		text-align: center;
 	}
 	
@@ -55,6 +59,16 @@
 		width: 500px;
 		text-align: center;
 	}
+	#okBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 30px;
+	width: 75px;
+	border-radius: 4px;
+	margin-top: 50px;
+}
 </style>
 
 </head>
@@ -92,10 +106,10 @@
 	</section>
 	<section id="commandList">
 	<c:if test="${sessionScope.sId eq 'admin'}">
-		<input type="button" value="수정" onclick="location.href='CommonModifyForm.cu?common_idx=${common.common_idx}&sId=${sId }'">&nbsp;&nbsp;
-		<input type="button" value="삭제" onclick="location.href='CommonDeleteForm.cu?common_idx=${common.common_idx}&sId=${sId }'">&nbsp;&nbsp;
+		<input type="button" id="okBtn" value="수정" onclick="location.href='CommonModifyForm.cu?common_idx=${common.common_idx}&sId=${sId }'">&nbsp;&nbsp;
+		<input type="button" id="okBtn" value="삭제" onclick="location.href='CommonDeleteForm.cu?common_idx=${common.common_idx}&sId=${sId }'">&nbsp;&nbsp;
 	</c:if>
-		<input type="button" value="목록" onclick="location.href='CommonList.cu'">&nbsp;&nbsp;
+		<input type="button" id="okBtn" value="목록" onclick="location.href='CommonList.cu'">&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</section>
 	</div>

@@ -8,7 +8,12 @@
 <meta charset="UTF-8">
 <title>공지 목록</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">
+* {
+   font-family: 'Gowun Dodum', sans-serif;
+   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+   }
 	#listForm {
 		width: 1024px;
 		max-height: 610px;
@@ -17,6 +22,8 @@
 	
 	h2 {
 		text-align: center;
+		
+  		
 	}
 	
 	table {
@@ -60,6 +67,17 @@
 	a {
 		text-decoration: none;
 	}
+	
+	#okBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 30px;
+	width: 75px;
+	border-radius: 4px;
+	margin-top: 50px;
+}
 </style>
 </head>
 <body>
@@ -80,7 +98,7 @@
 	<!-- 게시판 리스트 -->
 	
 	<section id="listForm">
-	<h2>공지사항</h2>
+	<h2><img src ="img/re.gif">&nbsp;&nbsp;공지사항&nbsp;&nbsp;<img src ="img/re.gif"></h2>
 	&nbsp;&nbsp;
 	<table>
 		<tr id="tr_top">
@@ -127,10 +145,10 @@
 	<section id="buttonArea">
 		<form action="NoticeList.ad">
 		<input type="text" name="keyword">
-		<input type="submit" value="검색">
+		<input type="submit" id="okBtn" value="검색">
 		&nbsp;&nbsp;
 		<c:if test="${sessionScope.sId eq 'admin' }">
-		<input type="button" value="글쓰기" onclick="location.href='NoticeWriteForm.ad'" />
+		<input type="button" id="okBtn" value="글쓰기" onclick="location.href='NoticeWriteForm.ad'" />
 		</c:if>
 		</form>
 	</section>
@@ -142,10 +160,10 @@
 		-->
 		<c:choose>
 			<c:when test="${pageNum > 1}">
-				<input type="button" value="이전" onclick="location.href='NoticeList.ad?pageNum=${pageNum - 1}'">
+				<input type="button" id="okBtn" value="이전" onclick="location.href='NoticeList.ad?pageNum=${pageNum - 1}'">
 			</c:when>
 			<c:otherwise>
-				<input type="button" value="이전">
+				<input type="button" id="okBtn" value="이전">
 			</c:otherwise>
 		</c:choose>
 			&nbsp;&nbsp;
@@ -165,10 +183,10 @@
 		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 		<c:choose>
 			<c:when test="${pageNum <pageInfo.maxPage}">
-				<input type="button" value="다음" onclick="location.href='NoticeList.ad?pageNum=${pageNum + 1}'">
+				<input type="button" id="okBtn" value="다음" onclick="location.href='NoticeList.ad?pageNum=${pageNum + 1}'">
 			</c:when>
 			<c:otherwise>
-				<input type="button" value="다음">
+				<input type="button" id="okBtn" value="다음">
 			</c:otherwise>
 		</c:choose>
 	</section>
