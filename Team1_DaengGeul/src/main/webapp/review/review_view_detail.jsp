@@ -22,32 +22,38 @@ $(function() {
 	
 	$("#review_like1").on("click", function() {
 		var review_like_done = $(this).val();
-		$.ajax({
-			type: "post",
-			url: "ReviewLikeUpdate.re",
-			data: {
-				review_idx: '${param.review_idx}',
-				review_like_done: review_like_done
-				},
-				success: function(response) {
-					$("#like_count").text(response);
-					
-					if(review_like_done =='Y') {
-						$("#review_like1").css("color", "gray");
-						$("#review_like1").val("N");
-						$("#review_like_done").text("N");
-					} else {
-						$("#review_like1").css("color", "blue");
-						$("#review_like1").val("Y");
-						$("#review_like_done").text("Y");
+		var id = '${sessionScope.sId}';
+		if(id=='') {
+			alert("로그인 후 이용하세요.");
+			return;
+		} else {
+			$.ajax({
+				type: "post",
+				url: "ReviewLikeUpdate.re",
+				data: {
+					review_idx: '${param.review_idx}',
+					review_like_done: review_like_done
+					},
+					success: function(response) {
+						$("#like_count").text(response);
+						
+						if(review_like_done =='Y') {
+							$("#review_like1").css("color", "gray");
+							$("#review_like1").val("N");
+							$("#review_like_done").text("N");
+						} else {
+							$("#review_like1").css("color", "blue");
+							$("#review_like1").val("Y");
+							$("#review_like_done").text("Y");
+						}
+						
+					},
+					error: function(xhr, textStatus, errorThrown) { 
+						// 요청에 대한 처리 실패 시(= 에러 발생 시) 실행되는 이벤트
+						$("#resultArea").html("xhr = " + xhr + "<br>textStatus = " + textStatus + "<br>errorThrown = " + errorThrown);
 					}
-					
-				},
-				error: function(xhr, textStatus, errorThrown) { 
-					// 요청에 대한 처리 실패 시(= 에러 발생 시) 실행되는 이벤트
-					$("#resultArea").html("xhr = " + xhr + "<br>textStatus = " + textStatus + "<br>errorThrown = " + errorThrown);
-				}
-		});
+			});
+		}
 	});
 });
 </script>
@@ -120,53 +126,22 @@ $(function() {
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
-	<div>
-	<div style="display: flex;">
-		<c:forEach var="i" begin="1" end="${review.review_score}">
-		    <input type="radio" name="review_score" id="rate" checked="checked"><label for="rate">⭐</label>
-		</c:forEach>
-		<button type="button" type="button" class="review_like" id="review_like1">
-		<i class='far fa-thumbs-up' style='font-size:28px'></i><div id="like_count">${review.review_like_count}</div></button>
-	</div>
-		${review.review_content}
-	</div>
-<!-- 	<!-- 게시판 상세내용 보기 --> -->
-<!-- 	<section id="articleForm"> -->
-<!-- 		<section id="basicInfoArea"> -->
-<!-- 			<form action="ReviewWritePro.re" name="reviewForm" id="myform"> -->
-<!-- 			<table border="2" align="center"> -->
-<!-- 			<tr> -->
-<%-- 				<td width="150" height="50" align="center" style="font-weight: bold;">제목</td><td width="800" colspan="1" align="center">${review.review_subject}</td> --%>
-<%-- 				<td width="150" height="50" align="center" style="font-weight: bold;">조회수</td><td align="center">${review.review_readcount}</td> --%>
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<%-- 				<td width="150" height="50" align="center" style="font-weight: bold;">작성자</td><td align="center">${review.member_id }</td> --%>
-<%-- 				<td width="150" height="50" align="center" style="font-weight: bold;">날짜</td><td width="200" align="center"><fmt:formatDate value="${review.review_date }" pattern="yy-MM-dd"/></td> --%>
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<td width="150" height="50" align="center" style="font-weight: bold;">별점</td> -->
-<!-- 				<td width="800" align="center"> -->
-<!-- 					<fieldset name="review_score" class="score" id="score"> -->
-<%-- 						<c:forEach var="i" begin="1" end="${review.review_score}"> --%>
-<!-- 					        <input type="radio" name="review_score" id="rate" checked="checked"><label for="rate">⭐</label> -->
-<%-- 						</c:forEach> --%>
-<!-- 					</fieldset> -->
-<!-- 				</td> -->
-<!-- 				<td width="150" height="50" align="center" style="font-weight: bold;">좋아요</td> -->
-<!-- 				<td align="center"> -->
-<!-- 					<button type="button" type="button" class="review_like" id="review_like1"> -->
-<%-- 					<i class='far fa-thumbs-up' style='font-size:28px'></i><div id="like_count">${review.review_like_count}</div></button> --%>
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<%-- 				<td width="150"height="150" align="center" style="font-weight: bold;">내용</td><td colspan="3" align="center">${review.review_content}</td> --%>
-<!-- 			</tr> -->
-<!-- 			</table> -->
-<!-- 			</form> -->
-<!-- 		</section> -->
-<!-- 	</section> -->
-	
-	
+	<table>
+	<tr>
+		<td colspan="3">
+			${review.review_content}
+		</td>
+		<td colspan="2">
+			<c:forEach var="i" begin="1" end="${review.review_score}">
+			    <label for="rate">⭐</label>
+			</c:forEach>
+		</td>
+		<td colspan="2">
+			<button type="button" type="button" class="review_like" id="review_like1">
+			<i class='far fa-thumbs-up' style='font-size:28px'></i><div id="like_count">${review.review_like_count}</div></button>
+		</td>
+	</tr>
+	</table>
 </body>
 </html>
 
