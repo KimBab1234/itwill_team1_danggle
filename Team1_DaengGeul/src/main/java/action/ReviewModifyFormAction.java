@@ -21,12 +21,11 @@ public class ReviewModifyFormAction implements Action {
 		// 상세정보 조회에 필요한 글번호 가져오기
 		int review_idx = Integer.parseInt(request.getParameter("review_idx"));
 		String member_id = (String)session.getAttribute("sId");
-		String review_like_done = request.getParameter("review_like_done");
 		String product_idx = request.getParameter("product_idx");
 //		System.out.println("review_idx = " + review_idx);
 		
 		ReviewDetailService service = new ReviewDetailService();
-		ReviewBean review =  service.getReview(review_idx,false, member_id, review_like_done);
+		ReviewBean review =  service.getReview(review_idx,false, member_id);
 		ReviewWriteFormService service1 = new ReviewWriteFormService();
 		ReviewBean review1 = service1.getReview(product_idx);
 //		System.out.println(review);

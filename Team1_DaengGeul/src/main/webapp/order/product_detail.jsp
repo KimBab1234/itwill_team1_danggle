@@ -41,10 +41,6 @@ Map.prototype.toJSON = function toJSON() {
 	  return [...Map.prototype.entries.call(this)];
 	}
 
-Set.prototype.toJSON = function toJSON() {
-	  return [...Set.prototype.values.call(this)];
-	}
-	
 var id = '${sessionScope.sId}';
 // localStorage.clear();
 var cart = new Map(JSON.parse(localStorage.getItem(id)));
@@ -146,11 +142,12 @@ $(function() {
 				$("#product-review-area").html(response);
 			},
 			error: function(xhr, textStatus, errorThrown) { 
-				alert("장바구니 추가 실패!");
+				alert("리뷰 목록 불러오기 실패!");
 			}
 		});
 
 	});
+	
 
 	
 });
@@ -244,7 +241,6 @@ function countModify(sign) {
 	            <div class="col">
 					<div class="nav nav-tabs justify-content-center border-secondary mb-4">
 						<a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">상세 정보</a>
-						<a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2" >문의</a>
 						<a class="nav-item nav-link review_page" data-toggle="tab" href="#tab-pane-3" id="tab3_review">리뷰</a>
 					</div>
                     <div class="tab-content">
@@ -258,15 +254,8 @@ function countModify(sign) {
 	                       		</c:if>
 	                       </div>
 	                    </div>
-                    	<div class="tab-pane fade active" id="tab-pane-2">
-                    		<h4 class="mb-3">문의사항</h4>
-                    		<p>
-	                        	문의사항
-	                        	게시판
-							</p>
-                    	</div>
-                    	<div class="tab-pane fade active"  id="tab-pane-3">
-                    		<div id="product-review-area" align="center">
+                    	<div class="tab-pane fade"  id="tab-pane-3">
+                    		<div id="product-review-area" style="width: 1000px;" align="center">
 								
 							</div>
                     	</div>
