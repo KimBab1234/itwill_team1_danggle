@@ -9597,3 +9597,11 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translateY(-15px);
   }
 }
+
+#venderTitle {
+	font-weight: bold;
+	font-size: 30px;
+	color: #000;
+	margin-left: 3%;
+	margin-bottom: 5px;
+}

@@ -144,7 +144,9 @@
     
     <!-- Vendor Start -->
     <div class="container-fluid py-5">
-    	제휴업체
+    	<div id="venderTitle">
+	    	제휴업체
+    	</div>
         <div class="row px-xl-5">
             <div class="col">
                 <div class="owl-carousel vendor-carousel">
