@@ -10,41 +10,14 @@
 <title>Review 게시판</title>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
-<script type="text/javascript">
+<script src ="js/product_detail_review.js"></script>
 
-$(function() {
-	//--------------------- 리뷰 상세 게시판 ---------------------
-	$("#reviewSubject").on("click", function() {
-		var row = $(this);
-		$.ajax({
-			type: "post",
-			url: "ReviewDetail.re",
-			dataType: "text", 
-			data: {
-				review_idx: $(this).prev().text(),
-				product_idx: '${product.product_idx}'
-			},
-			success: function(response) {
-				row.parent().after(response);
-// 				$("#reviewIdx${review.review_idx}").append(response);
-			},
-			error: function(xhr, textStatus, errorThrown) { 
-				alert("리뷰 상세조회 실패!");
-			}
-		});
-	});
-	
-	
-});
-
-</script>
 </head>
 <body>
 	<!-- 게시판 리스트 -->
-	<section id="listForm">
+	<div id="listForm" align="center">
 	<table border="1">
-		<tr id="tr_top">
-			<th width="100">번호</th>
+		<tr id="tr_top" >
 			<th width="200">제목</th>
 			<th width="150">작성자</th>
 			<th width="150">별점</th>
@@ -53,9 +26,9 @@ $(function() {
 			<th width="150">조회수</th>
 		</tr>
 			<!-- JSTL 과 EL 활용하여 글목록 표시 작업 반복  -->
-		<c:forEach var="review" items="${reviewList }">
+		<c:forEach var="review" items="${reviewList }" varStatus="i">
 			<tr>
-				<td class="reviewIdx">${review.review_idx }</td>
+				
 				<!-- 제목 하이퍼링크(BoardDetail.bo) 연결 -->
 				<c:choose>
 					<c:when test="${empty param.pageNum }">
@@ -65,7 +38,8 @@ $(function() {
 						<c:set var="pageNum" value="${param.pageNum }"></c:set>
 					</c:otherwise>
 				</c:choose>
-				<td id="reviewSubject">
+				<td class="reviewSubject">
+					<input type="hidden" value="0" id="${review.review_idx }">
 					${review.review_subject }
 				</td>
 				<td>${review.member_id }</td>
@@ -83,6 +57,6 @@ $(function() {
 			
 			
 	</table>
-	</section>
+	</div>
 </body>
 </html>

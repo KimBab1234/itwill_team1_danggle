@@ -9,6 +9,13 @@
 <link rel="shortcut icon" href="#">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+<%	String sId = (String)session.getAttribute("sId");
+	if(sId == null || !sId.equals("admin")) { %> 
+		alert("잘못된 접근입니다");
+		history.back();
+<%  }%>
+
+
 	var optionIndex = 0;
 	var sum = 0;
 

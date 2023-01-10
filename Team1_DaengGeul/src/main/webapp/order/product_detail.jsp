@@ -147,7 +147,7 @@ $(function() {
 		});
 
 	});
-	
+
 
 	
 });
@@ -254,7 +254,7 @@ function countModify(sign) {
 	                       		</c:if>
 	                       </div>
 	                    </div>
-                    	<div class="tab-pane fade"  id="tab-pane-3">
+                    	<div class="tab-pane fade"  id="tab-pane-3" align="center">
                     		<div id="product-review-area" style="width: 1000px;" align="center">
 								
 							</div>

@@ -18,6 +18,13 @@ table, td, th {
 	border: 1px solid black;
 }
 </style>
+<script type="text/javascript">
+<%	String sId = (String)session.getAttribute("sId");
+	if(sId == null || !sId.equals("admin")) { %> 
+		alert("잘못된 접근입니다");
+		history.back();
+<%  }%>
+</script>
 <link href="css/product.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
