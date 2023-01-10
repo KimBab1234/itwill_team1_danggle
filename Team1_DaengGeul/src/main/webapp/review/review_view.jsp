@@ -9,7 +9,14 @@
 <title>Review 게시판</title>
 <!-- <link href="review/css/review_view.css" rel="stylesheet" type="text/css"> -->
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript">
+
+// 아이디 누르고 밑에 안 나오게
+$(function() {
+    $('.dropdown-toggle', this).trigger('click').blur();
+});
+
 $(function() {
 	
 	if('${review.review_like_done}' =='Y') {
@@ -52,31 +59,19 @@ $(function() {
 });
 </script>
 <style type="text/css">
- 	h2 { 
- 		text-align: left; 
- 	} 
+	* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
 	
  	table { 
- 		align:left; 
  		width: 600px; 
  		height: 300px;
  		border-color: #b09f76;
  		color:  #575754;
+ 		font-weight: bold;
  	} 
 	
- 	.d1 { 
- 	text-align:left; 
- 	background-color: #e6e6e6; 
- 	width: 700px; 
- 	} 
-	
- 	.a1 { 
- 	background-color:  #eeec93; 
- 	} 
- 	.a2 { 
- 	background-color:  #eeec93; 
- 	} 
-
  	.td_left { 
  		width: 150px; 
  		background: #c0c0c0; 
@@ -122,10 +117,10 @@ $(function() {
 	}
 	/* 수정버튼 */
 	#s1 {
-		background-color: #513e30;
+		background-color: #fff5e6;
 		width: 100px;
 		height: 50px;
-		color: #fae37d;
+		color: #575754;
 		border-radius: 20px;
 		border-color: transparent;
 		font-weight: bold; 
@@ -133,10 +128,10 @@ $(function() {
 	}
 	/* 삭제버튼 */
 	#s2 {
-		background-color: #b38600;
+		background-color: #fff5e6;
 		width: 100px;
 		height: 50px;
-		color: #fae37d;
+		color: #575754;
 		border-radius: 20px;
 		border-color: transparent;
 		font-weight: bold; 
@@ -163,24 +158,29 @@ $(function() {
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
+	<div style="display: flex;">
+	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 100px">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
 	<br>
 	<br>
 	<!-- 게시판 상세내용 보기 -->
 	<section id="articleForm">
-		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 상세 조회</b></h2>
+		<div align="center" style="width: 700px">
+		<h2>
+		<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 상세 조회</b></h2></div>
 		<br>
-		<table align = "center">
+		<div align="center" style="width: 1100px">
+		<table>
 			<tr>
-				<td><img src="img/product/${review1.product_img }" width="200"></td>
-				<td><h4>${review1.product_name }</h4></td>
+				<td><img src="img/product/${review1.product_img }" width="170"></td>
+				<td><b style="font-size: 25px">${review1.product_name }</b></td>
 			</tr>
 		</table>
+		</div>
 		<section id="basicInfoArea">
 			<form action="ReviewWritePro.re" name="reviewForm" id="myform">
-			<table border="2" align="center">
+			<table border="2" style="margin-left:auto;margin-right:auto;">
 			<tr>
 				<td width="150" height="50" align="center" style="font-weight: bold;">제목</td><td width="800" colspan="1" align="center">${review.review_subject}</td>
 				<td width="150" height="50" align="center" style="font-weight: bold;">조회수</td><td align="center">${review.review_readcount}</td>
@@ -211,6 +211,8 @@ $(function() {
 			</form>
 		</section>
 	</section>
+	</div>
+	
 	<br>
 	<section id="commandList" align="center">
 		<input type="button" value="수정" id="s1" onclick="location.href='ReviewModifyForm.re?review_idx=${param.review_idx}&pageNum=${param.pageNum}&product_idx=${review.product_idx }'">

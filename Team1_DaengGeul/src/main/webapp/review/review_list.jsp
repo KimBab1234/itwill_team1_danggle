@@ -9,8 +9,53 @@
 <meta charset="UTF-8">
 <title>Review 게시판</title>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">
 
+	* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+	/* 검색버튼  */
+	#s1 {
+		background-color: #fff5e6;
+		width: 70px;
+		height: 30px;
+		color: #575754;
+		border-radius: 20px;
+		border-color: transparent;
+		font-weight: bold; 
+		font-size: 20px;
+	}
+	/* 이전 다음 버튼 */
+	#s2 {
+		background-color: #fff5e6;
+		width: 70px;
+		height: 30px;
+		color: #575754;
+		border-radius: 20px;
+		border-color: transparent;
+		font-weight: bold; 
+		font-size: 20px;
+	}
+	table { 
+ 		border-color: #b09f76;
+ 		color:  #575754;
+ 	} 
+	/* 테이블 위쪽 */
+ 	.td_top { 
+ 		width: 200px; 
+ 		height: 50px;
+ 		background: #513e30; 
+ 		text-align: center; 
+ 		font-size: 20px;
+ 		color: #fae37d;
+ 	} 
+ 	/* 테이블 아래쪽 전체 */
+ 	#tr_down {
+ 		text-align: center;
+ 		height: 40px;
+ 	}
 </style>
 </head>
 <body>
@@ -18,25 +63,31 @@
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
+	<div style="display: flex;">
+	<div align="left" style="width: 300px; margin-top: 60px; margin-left: 100px">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
 	<!-- 게시판 리스트 -->
 	<div align="center">
 	<div style="width: 1000px; margin-top: 50px; min-height: 500px;">
 	<section id="listForm">
-	<h2>내가 쓴 Review 목록</h2>
+	<div align="left" style="margin-left:100px;">
+		<h2>
+		<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 목록</b></h2>
+	<br>
+	<br>
 	<table border="1">
 		<tr id="tr_top">
-			<td width="100">번호</td>
-			<td width="200">제목</td>
-			<td width="150">작성자</td>
-			<td width="150">별점</td>
-			<td width="150">날짜</td>
-			<td width="150"><i class='far fa-thumbs-up'></i>좋아요</td>
-			<td width="150">조회수</td>
+			<td width="400" class="td_top">제목</td>
+			<td width="150" class="td_top">작성자</td>
+			<td width="100" class="td_top">별점</td>
+			<td width="150" class="td_top">날짜</td>
+			<td width="100" class="td_top"><i class='far fa-thumbs-up'></i>&nbsp;&nbsp;좋아요</td>
+			<td width="150" class="td_top">조회수</td>
 		</tr>
 			<!-- JSTL 과 EL 활용하여 글목록 표시 작업 반복  -->
 		<c:forEach var="review" items="${reviewList }">
-			<tr>
-				<td>${review.review_idx }</td>
+			<tr id="tr_down">
 				<!-- 제목 하이퍼링크(BoardDetail.bo) 연결 -->
 				<c:choose>
 					<c:when test="${empty param.pageNum }">
@@ -46,33 +97,36 @@
 						<c:set var="pageNum" value="${param.pageNum }"></c:set>
 					</c:otherwise>
 				</c:choose>
-				<td>
+				<td width="400">
 					<a href="ReviewDetail.re?review_idx=${review.review_idx }&pageNum=${pageNum}&product_idx=${review.product_idx}">
 					${review.review_subject }
 					</a>
 				</td>
 				<td>${review.member_id }</td>
-				<td>${review.review_score }</td>
+				<td>${review.review_score }점</td>
 				<td>
 					<!-- JSTL의 fmt 라이브러리 활용해서 날짜 표현 형식 변경 -->
 					<fmt:formatDate value="${review.review_date }" pattern="yy-MM-dd"/>
 				</td>
 				<td>
-					<i class='far fa-thumbs-up'></i>${review.review_like_count}
+					<i class='far fa-thumbs-up'></i>&nbsp;&nbsp;${review.review_like_count}개
 				</td>
 				<td>${review.review_readcount }</td>
 			</tr>
 		</c:forEach>
-			
-			
 	</table>
+	</div>
 	</section>
+	<br>
+	<div align="right">
 	<section id="buttonArea">
 		<form action="ReviewList.re">
 		<input type="text" name="keyword">
-		<input type="submit" value="검색">
+		<input type="submit" value="검색" id="s1">
 		</form>
 	</section>
+	</div>
+	<br>
 	<section id="pageList">
 		<!-- 
 		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
@@ -81,10 +135,10 @@
 		-->
 		<c:choose>
 			<c:when test="${pageNum > 1}">
-				<input type="button" value="이전" onclick="location.href='ReviewList.re?pageNum=${pageNum - 1}'">
+				<input type="button" value="이전" onclick="location.href='ReviewList.re?pageNum=${pageNum - 1}'" id="s2">
 			</c:when>
 			<c:otherwise>
-				<input type="button" value="이전">
+				<input type="button" value="이전" id="s2">
 			</c:otherwise>
 		</c:choose>
 			
@@ -93,7 +147,7 @@
 			<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
 			<c:choose>
 				<c:when test="${pageNum eq i}">
-					${i }
+					<b style="font-size: 25px">${i }</b>
 				</c:when>
 				<c:otherwise>
 					<a href="ReviewList.re?pageNum=${i }">${i }</a>
@@ -104,13 +158,14 @@
 		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 		<c:choose>
 			<c:when test="${pageNum < pageInfo.maxPage}">
-				<input type="button" value="다음" onclick="location.href='ReviewList.re?pageNum=${pageNum + 1}'">
+				<input type="button" value="다음" onclick="location.href='ReviewList.re?pageNum=${pageNum + 1}'" id="s2">
 			</c:when>
 			<c:otherwise>
-				<input type="button" value="다음">
+				<input type="button" value="다음" id="s2">
 			</c:otherwise>
 		</c:choose>
 	</section>
+	</div>
 	</div>
 	</div>
 	<!------------------------------------ 바닥글 --------------------------------------->

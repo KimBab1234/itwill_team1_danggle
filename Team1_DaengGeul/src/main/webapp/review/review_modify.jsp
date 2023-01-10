@@ -5,10 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Review 게시판</title>
-<!-- 외부 css 가져오기 -->
-<!-- <link href="review/css/review_modify.css" rel="stylesheet" type="text/css"> -->
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<script type="text/javascript">
+$(function() {
+    $('.dropdown-toggle', this).trigger('click').blur();
+});
+</script>
 <style type="text/css">
-
+	* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
  	h2 { 
  		text-align: left; 
  	} 
@@ -37,10 +45,10 @@
  	} 
 	/* 등록버튼 */
 	#s1 {
-		background-color: #513e30;
+		background-color: #fff5e6;
 		width: 100px;
 		height: 50px;
-		color: #fae37d;
+		color: #575754;
 		border-radius: 20px;
 		border-color: transparent;
 		font-weight: bold; 
@@ -48,10 +56,10 @@
 	}
 	/* 초기화버튼 */
 	#s2 {
-		background-color: #b38600;
+		background-color: #fff5e6;
 		width: 100px;
 		height: 50px;
-		color: #fae37d;
+		color: #575754;
 		border-radius: 20px;
 		border-color: transparent;
 		font-weight: bold; 
@@ -105,17 +113,23 @@
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
 	<br>
+	<div style="display: flex;">
+	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 100px">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
 	<!-- 게시판 글 수정 -->
+	<div align="center">
+	<div style="width: 1000px; margin-top: 50px;">
 	<section id="modifyForm">
-		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 수정</b></h2>
+		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 수정</b></h2>
 		<table align = "center">
 			<tr>
-				<td><img src="img/product/${review1.product_img }" width="200"></td>
-				<td><h4>${review1.product_name }</h4></td>
+				<td><img src="img/product/${review1.product_img }" width="170"></td>
+				<td><b style="font-size: 25px">${review1.product_name }</b></td>
 			</tr>
 		</table>
+		<br>
 		<form action="ReviewModifyPro.re" name="reviewForm"id="myform" method="post" action="./save">
 		<!-- 글번호, 페이지번호 / 글 수정 작업 동작 흐름-->
 			<!-- 입력받지 않은 글번호는 hidden으로 넘겨야함 -->
@@ -157,7 +171,9 @@
 			</section>
 		</form>
 	</section>
-	
+	</div>
+	</div>
+	</div>
 	<!------------------------------------ 바닥글 --------------------------------------->
 	<footer>
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>
