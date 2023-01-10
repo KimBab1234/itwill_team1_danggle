@@ -119,13 +119,15 @@ $(function() {
 	</div>
 	<!-- 게시판 글 수정 -->
 	<div align="center">
-	<div style="width: 1000px; margin-top: 50px;">
+	<div style="width: 1000px;">
 	<section id="modifyForm">
 		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 수정</b></h2>
+		<br>
+		<br>
 		<table align = "center">
 			<tr>
-				<td><img src="img/product/${review1.product_img }" width="170"></td>
+				<td><img src="img/product/${review1.product_img }" width="170" style="margin-right: 60px"></td>
 				<td><b style="font-size: 25px">${review1.product_name }</b></td>
 			</tr>
 		</table>
