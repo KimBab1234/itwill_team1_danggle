@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<style type="text/css">
+table {
+	margin: auto;
+}
+
+h2 {
+	text-align: center;
+}
+
+</style>
 </head>
 <body>
 	<script type="text/javascript">
@@ -17,13 +28,21 @@
 				history.back();
 			}
 		}
+		$(function() {
+		       $('.dropdown-toggle', this).trigger('click').blur();
+		});
 	</script>
+	
 	<header>
 		<jsp:include page="/inc/top.jsp"></jsp:include>
-		<jsp:include page="../inc/main.jsp"></jsp:include>
+				<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
-	<h1>글</h1>
-	<table border="1">
+	<hr>
+	<div style="width: 500px;" id="c_div">
+		<jsp:include page="../inc/community_left.jsp"></jsp:include>
+	</div>
+	<h2>회원들의 추천&독후감</h2>
+	<table border="1" id="com_table">
 		<tr align="center">
 			<td>글제목</td>
 			<td colspan="2">${board.board_subject }</td>
@@ -73,23 +92,29 @@
 		</tr>
 
 	</table>
-	<form action="Community_ReplyPro.co">
-		<c:choose>
-			<c:when test="${not empty sessionScope.sId }">
-		${sessionScope.sId } 	| <input type="text" name="reply_content"
-					placeholder="댓글을 작성하세요">
-				<input type="submit" value="등록">
-				<input type="hidden" name="board_type" value="${board.board_type }">
-			</c:when>
-			<c:otherwise>
-			로그인하세요
-			</c:otherwise>
-		</c:choose>
-		| <input type="hidden" name="board_idx" value="${board.board_idx }">
-		<input type="hidden" name="member_id" value="${sessionScope.sId }">
-	</form>
-
-	<table>
+	<div id="rep_wrtie">
+		<form action="Community_ReplyPro.co">
+			<table>
+				<tr>
+					<c:choose>
+						<c:when test="${not empty sessionScope.sId }">
+							<td>${sessionScope.sId }</td><td><input type="text"
+								name="reply_content" placeholder="댓글을 작성하세요"></td>
+							<td><input type="submit" value="등록"></td>
+							<input type="hidden" name="board_type"
+								value="${board.board_type }">
+						</c:when>
+						<c:otherwise>
+							<td>로그인하세요</td>
+						</c:otherwise>
+					</c:choose>
+				</tr>
+			</table>
+			<input type="hidden" name="board_idx" value="${board.board_idx }">
+			<input type="hidden" name="member_id" value="${sessionScope.sId }">
+		</form>
+	</div>
+	<table id="rep_table">
 		<c:forEach var="reply" items="${replyList }">
 			<tr align="center">
 				<td width="80">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>

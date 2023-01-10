@@ -7,72 +7,79 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+		$(function() {
+			$('.dropdown-toggle', this).trigger('click').blur();
+		});
+	</script>
 <style type="text/css">
 #listForm {
-		width: 1024px;
-		max-height: 610px;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 1024px;
-	}
-	
-	#tr_top {
-		background: #b09f76;
-		text-align: center;
-	}
-	
-	table td {
-		text-align: center;
-	}
-	
-	#subject {
-		text-align: left;
-		padding-left: 20px;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#buttonArea {
-		margin: auto;
-		width: 1024px;
-		text-align: right;
-		margin-top: 10px;
-	}
-	
-	a {
-		text-decoration: none;
-	}
+	width: 1024px;
+	max-height: 610px;
+	margin: auto;
+}
+
+h2 {
+	text-align: center;
+}
+
+table {
+	margin: auto;
+	width: 1024px;
+}
+
+#tr_top {
+	background: #b09f76;
+	text-align: center;
+}
+
+table td {
+	text-align: center;
+}
+
+#subject {
+	text-align: left;
+	padding-left: 20px;
+}
+
+#pageList {
+	margin: auto;
+	width: 1024px;
+	text-align: center;
+}
+
+#emptyArea {
+	margin: auto;
+	width: 1024px;
+	text-align: center;
+}
+
+#buttonArea {
+	margin: auto;
+	width: 1024px;
+	text-align: right;
+	margin-top: 10px;
+}
+
+a {
+	text-decoration: none;
+}
 </style>
 </head>
 <body>
+	<div>
 	<header>
 		<jsp:include page="/inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
 	<hr>
 	<div style="width: 500px;" id="c_div">
-			<jsp:include page="../inc/community_left.jsp"></jsp:include>
-        </div>
-	<h1 align="center">회원들의 추천 목록</h1>
+		<jsp:include page="../inc/community_left.jsp"></jsp:include>
+	</div>
+	<h2>회원들의 추천 목록</h2>
 	<table>
-		<tr id = "tr_top">
+		<tr id="tr_top">
 			<td width="100">이름</td>
 			<td width="200">제목</td>
 			<td width="120">날짜</td>
@@ -97,15 +104,12 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<br>
 	<section id="buttonArea">
-		<input type="button" value="메인" onclick="location.href='./'">
-		<input type="button" value="독후감목록"
-			onclick="location.href='Community1.co?board_type=1'">
-		<br><br>
 		<form action="Community0.co?board_type=0">
-			<input type="text" name="keyword"> <input type="submit"
-				value="검색"> &nbsp;&nbsp; <input type="button" value="글쓰기"
-				onclick="location.href='CommunityWrite0.co'">
+			<input type="text" name="keyword"><input type="hidden"
+				name="board_type" value="0"> <input type="submit" value="검색"> <input type="button" value="글쓰기"
+			onclick="location.href='CommunityWrite0.co'">
 		</form>
 	</section>
 
@@ -149,5 +153,6 @@
 	<header>
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>
 	</header>
+</div>
 </body>
 </html>
