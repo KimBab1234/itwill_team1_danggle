@@ -7,7 +7,13 @@
 <title>Review 게시판</title>
 <!-- <link href="review/css/review_write.css" rel="stylesheet" type="text/css"> -->
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">
+	* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+	
  	h2 { 
  		text-align: left; 
  	} 
@@ -26,6 +32,7 @@
 	 	color:  #575754;
 	 	width: 600px; 
 	 	border-radius: 20px;
+	 	font-size: 18px;
  	} 
 	/* 테이블 왼쪽 */
  	.td_left { 
@@ -44,10 +51,10 @@
  	} 
 	/* 등록버튼 */
 	#s1 {
-		background-color: #513e30;
+		background-color: #fff5e6;
 		width: 100px;
 		height: 50px;
-		color: #fae37d;
+		color: #575754;
 		border-radius: 20px;
 		border-color: transparent;
 		font-weight: bold; 
@@ -55,10 +62,10 @@
 	}
 	/* 초기화버튼 */
 	#s2 {
-		background-color: #b38600;
+		background-color: #fff5e6;
 		width: 100px;
 		height: 50px;
-		color: #fae37d;
+		color: #575754;
 		border-radius: 20px;
 		border-color: transparent;
 		font-weight: bold; 
@@ -109,28 +116,30 @@
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
+	<div style="display: flex;">
+	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 100px">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
 	<!-- 게시판 등록 -->
 	<div align="center">
 	<div style="width: 1000px; margin-top: 50px;">
 	<section id="writeForm">
-		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 작성</b></h2>
 		<br>
 		<div class="d1">
 			<br>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구입하신 상품의 리뷰에 대해 아래와 같이 댕글포인트가 지급됩니다.<br>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;단, 저작권, 재고 등의 문제로 판매금지된 상품은 리워드 대상에서 제외 됩니다.<br>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,000원 미만 상품은 리워드 대상에서 제외됩니다.<br>
+			<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구입하신 상품의 리뷰에 대해 댕글포인트가 추후에 지급됩니다.<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;저작권, 재고등의 문제로 판매금지된 상품은 리워드 대상에서 제외 됩니다.<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;그러나 1,000원 미만 상품은 리워드 대상에서 제외됩니다.</b>
 			<br>
-			<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;리뷰 : 그린 도토리 300원 / 브라운 도토리 500원 / 골드 도토리 700원</b><br>
 			<br>
 		</div>
 		<br>
-		
 		<table>
 			<tr>
-				<td><img src="img/product/${review.product_img }" width="200"></td>
-				<td><h4>${review.product_name }</h4></td>
+				<td><img src="img/product/${review.product_img }" width="170"></td>
+				<td><b style="font-size: 25px">${review.product_name }</b></td>
 			</tr>
 		</table>
 		<br>
@@ -167,6 +176,7 @@
 					</td>
 				</tr>
 			</table>
+			
 			<br>
 			<section id="commandCell">
 				<input type="submit" value="등록" id="s1">&nbsp;&nbsp;
@@ -176,6 +186,7 @@
 		</form>
 	</section>
 	</div>
+</div>
 </div>
 	
 <!------------------------------------ 바닥글 --------------------------------------->
