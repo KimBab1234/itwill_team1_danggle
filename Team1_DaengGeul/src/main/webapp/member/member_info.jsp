@@ -387,17 +387,17 @@ function execDaumPostcode() {
 				
 				<div class="row">
 					<b>기존 비밀번호</b>
-					<input type="password" name="oldPasswd" id="oldPasswd" class="in-pw1" size="33" required="required" placeholder="비밀번호 입력">
+					<input type="password" name="oldPasswd" id="oldPasswd" class="in-pw1" size="34" required="required" placeholder="비밀번호 입력">
 				</div>
 				<div class="row">
-					<b>변경할 비밀번호</b>
-					<input type="password" name="newPasswd" id="newPasswd" class="in-pw2" size="33" placeholder="변경시 입력(8-16자리 영어 대/소문자,숫자,특수문자 조합)">
+					<b>새 비밀번호</b>
+					<input type="password" name="newPasswd" id="newPasswd" class="in-pw2" size="34" placeholder="변경시 입력">
 					<div id="rightPasswdResult"></div>
 				</div>
 				<div id="rightPasswdResult"></div>
 				<div class="row">
-					<b>변경할 비밀번호 확인</b>
-					<input type="password" name="newPasswd2" id="newPasswd2" class="in-pw3" size="28" placeholder="변경시 입력(8-16자리 영어 대/소문자,숫자,특수문자 조합)">
+					<b>새 비밀번호 확인</b>
+					<input type="password" name="newPasswd2" id="newPasswd2" class="in-pw3" size="34" placeholder="(8-16자리 영 대/소문자,숫자,특수문자 조합)">
 					<div id="checkPasswdResult"></div>
 				</div>
 				
