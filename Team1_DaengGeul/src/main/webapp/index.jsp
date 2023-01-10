@@ -119,7 +119,7 @@
         <div class="row px-xl-5">
             <div class="col-md-6 pb-4">
                 <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
-                    <img src="img/offer-1.png" alt="">
+                    <img src="img/ha.jpg" alt="">
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">할인도서</h5>
                         <h1 class="mb-4 font-weight-semi-bold">책과 겨울나기</h1>
@@ -129,7 +129,7 @@
             </div>
             <div class="col-md-6 pb-4">
                 <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
-                    <img src="img/offer-2.png" alt="">
+                    <img src="img/doc.jpg" alt="">
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">할인굿즈</h5>
                         <h1 class="mb-4 font-weight-semi-bold">다양한 제품</h1>
