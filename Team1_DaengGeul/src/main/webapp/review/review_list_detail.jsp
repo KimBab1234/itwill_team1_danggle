@@ -9,25 +9,53 @@
 <meta charset="UTF-8">
 <title>Review 게시판</title>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+
+$(function() {
+	//--------------------- 리뷰 상세 게시판 ---------------------
+	$("#reviewSubject").on("click", function() {
+		var row = $(this);
+		$.ajax({
+			type: "post",
+			url: "ReviewDetail.re",
+			dataType: "text", 
+			data: {
+				review_idx: $(this).prev().text(),
+				product_idx: '${product.product_idx}'
+			},
+			success: function(response) {
+				row.parent().after(response);
+// 				$("#reviewIdx${review.review_idx}").append(response);
+			},
+			error: function(xhr, textStatus, errorThrown) { 
+				alert("리뷰 상세조회 실패!");
+			}
+		});
+	});
+	
+	
+});
+
+</script>
 </head>
 <body>
 	<!-- 게시판 리스트 -->
 	<section id="listForm">
-	<h2>Review 게시판 글 목록</h2>
 	<table border="1">
 		<tr id="tr_top">
-			<td width="100">번호</td>
-			<td width="200">제목</td>
-			<td width="150">작성자</td>
-			<td width="150">별점</td>
-			<td width="150">날짜</td>
-			<td width="150"><i class='far fa-thumbs-up'></i>좋아요</td>
-			<td width="150">조회수</td>
+			<th width="100">번호</th>
+			<th width="200">제목</th>
+			<th width="150">작성자</th>
+			<th width="150">별점</th>
+			<th width="150">날짜</th>
+			<th width="150"><i class='far fa-thumbs-up'></i>좋아요</th>
+			<th width="150">조회수</th>
 		</tr>
 			<!-- JSTL 과 EL 활용하여 글목록 표시 작업 반복  -->
 		<c:forEach var="review" items="${reviewList }">
 			<tr>
-				<td>${review.review_idx }</td>
+				<td class="reviewIdx">${review.review_idx }</td>
 				<!-- 제목 하이퍼링크(BoardDetail.bo) 연결 -->
 				<c:choose>
 					<c:when test="${empty param.pageNum }">
@@ -37,10 +65,8 @@
 						<c:set var="pageNum" value="${param.pageNum }"></c:set>
 					</c:otherwise>
 				</c:choose>
-				<td>
-					<a href="ReviewDetail.re?review_idx=${review.review_idx }&pageNum=${pageNum}">
+				<td id="reviewSubject">
 					${review.review_subject }
-					</a>
 				</td>
 				<td>${review.member_id }</td>
 				<td>${review.review_score }</td>
@@ -49,7 +75,7 @@
 					<fmt:formatDate value="${review.review_date }" pattern="yy-MM-dd"/>
 				</td>
 				<td>
-					<i class='far fa-thumbs-up'></i>${param.review_like}
+					<i class='far fa-thumbs-up'></i>${review.review_like_count}
 				</td>
 				<td>${review.review_readcount }</td>
 			</tr>
