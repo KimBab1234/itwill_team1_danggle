@@ -7,6 +7,28 @@
     font-style: normal;
 }  
 
+.choice {
+	display: inline-block;
+	height: 30px;
+	width: 120px;
+	text-align: center;
+	background-color: #c9b584;
+	left: 480px;
+	position: relative;
+	padding-top: 5px;
+	font-size: 14px;
+	color: #736643;
+	font-weight: bold;
+	margin-right: 2px;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+	
+}
+
+.recoCheck {
+	accent-color: #736643;
+}
+
 /* 테이블 기본 설정 */
 .regi_table {
 	margin: 0 auto;
@@ -416,6 +438,7 @@ i {
 
 .detail_table textarea {
 	width: 420px;
+	height: 500px;
 	margin: auto;
 	border: none;
 	padding: 10px 10px;
