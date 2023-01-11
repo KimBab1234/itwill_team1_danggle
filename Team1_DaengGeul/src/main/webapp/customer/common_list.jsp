@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>자주 묻는 질문</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.dropdown-toggle', this).trigger('click').blur();
+});
+</script>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">
@@ -35,12 +41,13 @@
 	}
 	
 	table td {
-		text-align: center;
+		text-align: left;
 	}
 	
-	#subject {
-		text-align: left;
-		padding-left: 20px;
+	.subject1 a{
+ 		text-align: left; 
+/*  		padding-left: 20px;  */
+		color: brown;
 	}
 	
 	#pageList {
@@ -109,7 +116,7 @@
 			<c:forEach var="common" items="${commonList }">
 			<tr>
 				
-				<td id="subject">
+				<td class="subject1">
 				<img src ="img/re.gif">
 				<a href="CommonDetail.cu?common_idx=${common.common_idx }&sId=${sId }">
 				${common.common_subject}</a>

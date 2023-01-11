@@ -7,12 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>문의사항</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.dropdown-toggle', this).trigger('click').blur();
+});
+</script>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
 <style type="text/css">
 	#articleForm {
-		idth: 900px;
+		width: 900px;
 		height: 750px;
 		border: 1px red;
 	}
@@ -96,7 +102,7 @@
 		<div style="width: 1000px; margin-left: 20px; ">
 	<!-- 게시판 상세내용 보기 -->
 	<section id="articleForm">
-		<h4>글 상세내용 보기</h4>
+		<h4>문의 내용 보기</h4>
 		&nbsp;&nbsp;
 		<section id="basicInfoArea">
 			<table border="1">
@@ -122,11 +128,13 @@
 	<section id="commandList">
 	<c:if test="${sessionScope.sId == 'admin'}">
 		<input type="button" id="okBtn" value="답변" onclick="location.href='QnaReplyForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
+	</c:if>
+	<c:if test="${sessionScope.sId == qna.member_id || sessionScope.sId == 'admin'}">
 		<input type="button" id="okBtn" value="수정" onclick="location.href='QnaModifyForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;
 		<input type="button" id="okBtn" value="삭제" onclick="location.href='QnaDeleteForm.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum }'">&nbsp;&nbsp;	
-	</c:if>
 		<input type="button" id="okBtn" value="목록" onclick="location.href='QnaList.cu?qna_idx=${qna.qna_idx}&pageNum=${param.pageNum}'">&nbsp;&nbsp;
-		&nbsp;&nbsp;
+	</c:if>	
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</section>
 	</div>
 	</div>
