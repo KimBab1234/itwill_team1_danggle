@@ -38,19 +38,21 @@
 	                    <div class="col-12 pb-1">
 	                        <div class="d-flex justify-content-between mb-4">
 	                            	<c:if test="${param.type ne 'B_recomm' && param.type ne 'B_disc' }">
-				                       <span> ■ 베스트 순위는 최근 7일간 판매량 기준입니다.</span>
+				                       <span>&nbsp;&nbsp;■ 베스트 순위는 최근 7일간 판매량 기준입니다.</span>
+				                       <c:if test="${param.type ne 'B_best' }">
 			                            <div class="dropdown ml-4" style="">
-		                                <button class="btn border dropdown-toggle" type="button" id="triggerId2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		                                     정렬
-		                                </button>
-		                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId2">
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_new${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>최신순</a></li>
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_best${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>많이 팔린 순</a></li>
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_pricedown${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 낮은 순</a></li>
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_priceup${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 높은 순</a></li>
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_star${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>리뷰 좋은 순</a></li>
-		                                </ul>
-		                            </div>
+			                                <button class="btn border dropdown-toggle" type="button" id="triggerId2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                                     정렬
+			                                </button>
+			                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId2">
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_new${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>최신순</a></li>
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_best${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>많이 팔린 순</a></li>
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_pricedown${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 낮은 순</a></li>
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_priceup${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 높은 순</a></li>
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_star${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>리뷰 좋은 순</a></li>
+			                                </ul>
+		                           		</div>
+		                            </c:if>
 	                            	</c:if>
 	                        </div>
 	                    </div>
