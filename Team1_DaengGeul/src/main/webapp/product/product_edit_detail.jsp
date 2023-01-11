@@ -43,9 +43,9 @@
 					<tr>
 						<th>책 정보</th>
 						<td>
-							<div class="bookArea">작가명 : <input type="text" value="${product.book_writer}" readonly="readonly"></div>
-							<div class="bookArea">출판사 : <input type="text" value="${product.book_publisher }" readonly="readonly"></div>
-							<div class="bookArea">출판일 : <input type="text"  value="${product.book_date }" readonly="readonly"></div>
+							<div class="bookArea">&nbsp;작가명 : <input type="text" value="${product.book_writer}" readonly="readonly"></div>
+							<div class="bookArea">&nbsp;출판사 : <input type="text" value="${product.book_publisher }" readonly="readonly"></div>
+							<div class="bookArea">&nbsp;출판일 : <input type="text"  value="${product.book_date }" readonly="readonly"></div>
 						</td>
 					</tr>
 				</c:if>
@@ -94,9 +94,9 @@
 				<tr>
 					<th>상세 설명</th>
 					<td>
-						상세 이미지 : <input type="text"value="${product.detail_img }" readonly="readonly">
+						&nbsp;상세 이미지 : <input type="text"value="${product.detail_img }" readonly="readonly">
 						<hr>
-						상세 설명 : <br><br> <textarea readonly="readonly">${product.detail}</textarea>
+						&nbsp;상세 설명 : <br><br> <textarea readonly="readonly">${product.detail}</textarea>
 					</td>
 				</tr>
 			</table> 
