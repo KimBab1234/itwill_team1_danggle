@@ -73,7 +73,7 @@
 	<section id="listForm">
 	<div align="left" style="margin-left:100px;">
 		<h2>
-		<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 목록</b></h2>
+		<b style="border-left: 10px solid #795548">&nbsp;&nbsp;내가 쓴 리뷰 목록</b></h2>
 	<br>
 	<br>
 	<table border="1">
