@@ -10,6 +10,15 @@
 <title>Review 게시판</title>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<style>
+.reviewSubject:hover{
+	text-decoration: underline;
+	color: #513e30;
+}
+.reviewCon:hover{
+	background-color: #f9de4a;
+}
+</style>
 <script>
 
 $(function() {
@@ -50,7 +59,10 @@ $(function() {
 
 	});
 	
-	
+	if('${reviewList.size()}'=='0'){
+		$("table").css("display","none");
+		$("#listForm").html("<h2>작성된 리뷰가 없습니다.</h2>")
+	}
 	
 });
 </script>
@@ -58,19 +70,19 @@ $(function() {
 </head>
 <body>
 	<!-- 게시판 리스트 -->
-	<div id="listForm" align="center">
-	<table border="1">
+	<div id="listForm" align="center" style="width: 1000px;">
+	<table border="1" style="text-align: center;">
 		<tr id="tr_top" >
-			<th width="200">제목</th>
-			<th width="150">작성자</th>
-			<th width="150">별점</th>
-			<th width="150">날짜</th>
-			<th width="150"><i class='far fa-thumbs-up'></i>좋아요</th>
-			<th width="150">조회수</th>
+			<th width="500">제목</th>
+			<th width="100">작성자</th>
+			<th width="100">별점</th>
+			<th width="100">날짜</th>
+			<th width="100"><i class='far fa-thumbs-up'></i>좋아요</th>
+			<th width="100">조회수</th>
 		</tr>
 			<!-- JSTL 과 EL 활용하여 글목록 표시 작업 반복  -->
 		<c:forEach var="review" items="${reviewList }" varStatus="i">
-			<tr>
+			<tr class="reviewCon">
 				
 				<!-- 제목 하이퍼링크(BoardDetail.bo) 연결 -->
 				<c:choose>
@@ -81,7 +93,7 @@ $(function() {
 						<c:set var="pageNum" value="${param.pageNum }"></c:set>
 					</c:otherwise>
 				</c:choose>
-				<td class="reviewSubject">
+				<td class="reviewSubject" style="cursor: pointer;">
 					<input type="hidden" value="0" id="${review.review_idx }">
 					${review.review_subject }
 				</td>
@@ -97,7 +109,6 @@ $(function() {
 				<td>${review.review_readcount }</td>
 			</tr>
 		</c:forEach>
-			
 			
 	</table>
 	</div>

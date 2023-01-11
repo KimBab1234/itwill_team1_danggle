@@ -3,6 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 <head>
     <meta charset="utf-8">
     <title>머릿글</title>
@@ -28,7 +35,7 @@
     <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 
-<body>
+<body style="font-weight:bold;">
     <!-- Topbar Start -->
     <div class="container-fluid" style="width: 1920px;">
         <div class="row bg-secondary py-2 px-xl-5">
