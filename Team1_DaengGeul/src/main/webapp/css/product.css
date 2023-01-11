@@ -25,6 +25,9 @@
 	
 }
 
+.choice:hover {
+	cursor: pointer;	
+}
 .recoCheck {
 	accent-color: #736643;
 }
