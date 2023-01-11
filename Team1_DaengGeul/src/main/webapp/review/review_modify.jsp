@@ -113,13 +113,13 @@ $(function() {
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
 	<br>
-	<div style="display: flex; width: 1300px;">
-	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 100px">
+	<div style="display: flex; width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
 	<!-- 게시판 글 수정 -->
-	<div id="modifyForm" align="left" style="width: 1000px; margin-left: 350px;">
-		<h2><b style="border-left: 10px solid #795548">리뷰 수정</b></h2>
+	<div id="modifyForm" align="left" style="width: 1000px; margin-left: 350px; margin-top: 1px">
+		<h2><b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 수정</b></h2>
 		<br>
 		<br>
 		<table>
@@ -164,8 +164,8 @@ $(function() {
 				</tr>
 			</table>
 			<br>
-			<section id="commandCell" align= "center">
-				<input type="submit" value="수정" id="s1">&nbsp;&nbsp;
+			<section id="commandCell" style="width: 1800px; margin-left: 120px;">
+				<input type="submit" value="수정 완료" id="s1">&nbsp;&nbsp;
 				<input type="reset" value="다시쓰기" id="s2">&nbsp;&nbsp;
 				<input type="button" value="취소" id="s3" onclick="history.back()">
 			</section>

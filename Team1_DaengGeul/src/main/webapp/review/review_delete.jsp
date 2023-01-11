@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Review 게시판</title>
-<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript">
-$(function() {
-    $('.dropdown-toggle', this).trigger('click').blur();
-});
+	$(function() {
+	    $('.dropdown-toggle', this).trigger('click').blur();
+	});
 </script>
 <style type="text/css">
 	* {
@@ -57,8 +57,8 @@ $(function() {
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
-	<div style="display: flex;">
-	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 100px">
+	<div style="display: flex; width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 70px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
 	<!-- 게시판 글 삭제 -->

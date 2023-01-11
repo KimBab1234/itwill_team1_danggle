@@ -158,8 +158,8 @@ $(function() {
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
-	<div style="display: flex;">
-	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 100px">
+	<div style="display: flex; width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
 	<br>
@@ -214,7 +214,7 @@ $(function() {
 	</div>
 	
 	<br>
-	<section id="commandList" align="center">
+	<section id="commandList" style="width: 1800px; margin-left: 750px;">
 		<input type="button" value="수정" id="s1" onclick="location.href='ReviewModifyForm.re?review_idx=${param.review_idx}&pageNum=${param.pageNum}&product_idx=${review.product_idx }'">
 		<input type="button" value="삭제" id="s2" onclick="location.href='ReviewDeleteForm.re?review_idx=${param.review_idx}&pageNum=${param.pageNum}'">
 		<input type="button" value="목록" id="s3" onclick="location.href='ReviewList.re?pageNum=${param.pageNum}'">
