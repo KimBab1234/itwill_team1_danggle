@@ -84,7 +84,7 @@ textarea:focus {
 	padding: 0.4rem 8px; 
 	margin: 4px;
 	box-shadow: 0px 1px 7px #ededed inset;
-
+	font-weight: bold;
 }
 
 /* input number 박스*/
@@ -94,6 +94,7 @@ textarea:focus {
 	padding: 0.4rem 8px; 
 	margin: 5px;
 	box-shadow: 0px 1px 7px #ededed inset;
+	font-weight: bold;
 }
 
 /* 옵션 재고 number 박스 */
@@ -104,6 +105,7 @@ textarea:focus {
 	margin: 5px;
 	box-shadow: 0px 1px 7px #ededed inset;
 	width: 100px;
+	font-weight: bold;
 }
 
 /* 할인율 입력 number 박스*/
@@ -113,6 +115,7 @@ textarea:focus {
 	padding: 0.4rem 8px; 
 	margin: 5px 5px 5px 0px;
 	box-shadow: 0px 1px 7px #ededed inset;
+	font-weight: bold;
 }
 
 /* input[type="date"] */
@@ -123,6 +126,7 @@ textarea:focus {
 	padding: 3.5px 4px;
 	color: #575754;
 	box-shadow: 0px 1px 7px #ededed inset;
+	font-weight: bold;
 }
 
 /* 셀렉트 박스 */
@@ -135,6 +139,7 @@ select {
 	font-size: 10px;
 	line-height: 16px;
 	color: #575754;
+	font-weight: bold;
 }
 
 /* 라디오 버튼 */
@@ -209,6 +214,7 @@ label {
 	width: 320px;
 	color: gray;
 	font-size: 12px;
+	font-weight: bold;
 }
 
 /* 기존 파일 인풋 박스 안보이게 처리 */
@@ -231,6 +237,7 @@ textarea {
 	box-shadow: 0px 1px 7px #ededed inset;
 	resize: none;
 	font-size: 11px;
+	font-weight: bold;
 }
 
 /* textarea 마진 적용을 위한 div */
@@ -314,7 +321,6 @@ textarea {
  	padding-bottom: 5px;
 	padding-top: 5px;
 	font-size: 13.5px;
-	
 }
 
 /* 수정, 삭제 버튼 */
@@ -434,6 +440,7 @@ i {
 	margin: 4px 0px 4px 2px;
 	width: 350px;
 	color: #3d3d3d;
+	font-weight: bold;
 }
 
 .detail_table textarea {
@@ -452,4 +459,5 @@ i {
 	margin: 4px 0px 4px 2px;
 	width: 170px;
 	color: #3d3d3d;
+	font-weight: bold;
 }
