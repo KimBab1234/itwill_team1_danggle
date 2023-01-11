@@ -179,11 +179,7 @@ a {
 			</c:otherwise>
 		</c:choose>
 	</section>
-
-
-	<header>
+	<footer>
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>
-	</header>
-	</div>
-</body>
+	</footer>
 </html>
