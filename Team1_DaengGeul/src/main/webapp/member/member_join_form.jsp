@@ -202,7 +202,7 @@
 		// ---------------------------------------------------------------
 
 		
-		// --------------------- 이메일 중복체크 -------------------------
+		// -------------- 이메일 중복체크(email1 변경시) -----------------
 		$("#email2, #selectDomain").on("change", function() {
 			let email1 = $("#email1").val();
 			let email2 = $("#email2").val();
@@ -216,7 +216,49 @@
 						email2: email2
 					},
 					success: function(result) {
+						if(result == "true"){
+							existEmail = false;
+							$("#checkEmailResult").html("사용할 수 없는 이메일").css({
+								color : "#c9b584",
+								marginLeft : "137px"
+							});
+						} else {
+							existEmail = true;
+							$("#checkEmailResult").html("사용 가능한 이메일").css({
+								color : "#fae37d",
+								marginLeft : "137px"
+							});
+						}
 						
+					}
+					
+				});
+				
+			} else {
+				$("#checkEmailResult").html("이메일을 전부 입력하세요").css({
+					color : "red",
+					marginLeft : "137px"
+				});
+			}
+			
+		});
+		// ---------------------------------------------------------------
+		
+		
+		// -------------- 이메일 중복체크(email2 변경시) -----------------
+		$("#email1, #selectDomain").on("change", function() {
+			let email1 = $("#email1").val();
+			let email2 = $("#email2").val();
+			
+			if(email1 != "" && email2 != ""){
+
+				$.ajax({
+					url: "MemberCheckEmail.me",
+					data: {
+						email1: email1,
+						email2: email2
+					},
+					success: function(result) {
 						if(result == "true"){
 							existEmail = false;
 							$("#checkEmailResult").html("사용할 수 없는 이메일").css({
