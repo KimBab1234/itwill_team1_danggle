@@ -7,26 +7,62 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="css/default.css" rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
+	rel="stylesheet">
 <style type="text/css">
 * {
-   font-family: 'Gowun Dodum', sans-serif;
-   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-   }
-   
-table {
-	margin: auto;
-	width: 968px;
+	font-family: 'Gowun Dodum', sans-serif;
+	url:
+	@import
+	url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap')
+	;
 }
+
+#articleContentArea {
+	background:;
+	margin-top: 20px;
+	height: 550px;
+	text-align: center;
+	overflow: auto;
+	white-space: pre-line;
+}
+
+table {
+	margin: 0 auto;
+	border-collapse: collapse;
+/* 	border-style: solid; */
+	border-color: #b09f76;
+	width: 600px;
+}
+
 h2 {
 	margin: auto;
+	text-align: center;
 }
 
 tr {
 	align-content: center;
 }
 
-h2{
+#tr_top {
+	background: #b09f76;
+	text-align: center;
+}
+
+table td {
+	text-align: center;
+}
+
+#subject {
+	text-align: left;
+	padding-left: 20px;
+}
+
+#pageList {
+	margin: auto;
+	width: 1024px;
 	text-align: center;
 }
 </style>
@@ -38,7 +74,7 @@ h2{
 			if (result) {
 				location.href = "Community_DeletePro.co?board_idx=${board.board_idx }&board_real_file=${board.board_real_file}&board_type=${board.board_type }";
 			} else {
-				history.back();
+				location.href = "CommunityDetail.co?board_idx=${board.board_idx }";
 			}
 		}
 		$(function() {
@@ -56,7 +92,7 @@ h2{
 	</div>
 	<h2>회원들의 글추천,독후감</h2>
 	<br>
-	<table border="1" id="com_table">
+	<table border="1">
 		<tr align="center">
 			<td>글제목</td>
 			<td colspan="2">${board.board_subject }</td>
@@ -64,10 +100,6 @@ h2{
 		<tr align="center">
 			<td>작성자</td>
 			<td colspan="2">${board.member_id }</td>
-		</tr>
-		<tr align="center">
-			<td>내용</td>
-			<td width="500" height="500" colspan="2">${board.board_content }</td>
 		</tr>
 		<tr align="center">
 			<td>파일</td>
@@ -94,34 +126,34 @@ h2{
 			</th>
 		</tr>
 	</table>
+	<section id="articleContentArea">${board.board_content }</section>
 	<table id="but_table">
-	<tr align="right"><td><input type="button" value="뒤로가기"
-		onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
-	&nbsp;&nbsp;
-	<c:if test="${sessionScope.sId eq board.member_id}">
-		<input type="button" value="글수정"
-			onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
+		<tr align="right">
+			<td><input type="button" value="뒤로가기"
+				onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
+				&nbsp;&nbsp; <c:if test="${sessionScope.sId eq board.member_id}">
+					<input type="button" value="글수정"
+						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
 	&nbsp;&nbsp;
 				<input type="button" value="글삭제" onclick="delete2()">
-	</c:if>
-	</td>
-	</tr>
+				</c:if></td>
+		</tr>
 	</table>
 	<div id="rep_wrtie">
 		<form action="Community_ReplyPro.co">
-			<table>
+			<table id="reply">
 				<tr>
 					<c:choose>
 						<c:when test="${not empty sessionScope.sId }">
 							<td>${sessionScope.sId }</td>
 							<td><input type="text" name="reply_content"
-								placeholder="댓글을 작성하세요"></td>
+								placeholder="댓글을 작성하세요" required="required" width="400"></td>
 							<td><input type="submit" value="등록"></td>
 							<input type="hidden" name="board_type"
 								value="${board.board_type }">
 						</c:when>
 						<c:otherwise>
-							<td>로그인하세요</td>
+							<td><a href="MemberLoginForm.me">로그인이 필요합니다</a></td>
 						</c:otherwise>
 					</c:choose>
 				</tr>
