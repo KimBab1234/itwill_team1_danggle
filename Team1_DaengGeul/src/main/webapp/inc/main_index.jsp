@@ -3,6 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+.name2{
+	font-weight: bold;
+}
+.dropdown-menu a{
+	font-weight: bold;
+}
+</style>
 <head>
     <meta charset="utf-8">
     <title>메인</title>
@@ -96,7 +105,7 @@
 										<c:when test="${sessionScope.sId eq 'admin'}">
 											 <div class="nav-item dropdown">
 											 	<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px;">
-			                                	관리자
+			                                	<span class="name2">관리자</span>
 			                               		</button>
 			                             	   <div class="dropdown-menu rounded-0 m-0">
 			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
@@ -109,7 +118,7 @@
 										<c:otherwise>
 											 <div class="nav-item dropdown">
 											 	<button class="btn btn-primary dropdown-toggle" type="button" id="triggerId1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px;">
-			                                	${sessionScope.sId } 님
+			                                	<span class="name2">${sessionScope.sId } 님</span>
 			                               		</button>
 <!-- 				                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"></a> -->
 				                                <div class="dropdown-menu rounded-0 m-0">
