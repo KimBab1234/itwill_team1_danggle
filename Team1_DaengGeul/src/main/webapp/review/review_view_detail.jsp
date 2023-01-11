@@ -9,7 +9,48 @@
 <title>Review 게시판</title>
 <!-- <link href="review/css/review_view.css" rel="stylesheet" type="text/css"> -->
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<script src ="js/product_detail_review.js"></script>
+<script>
+$(function() {
+	
+	
+	
+	$(".thB").on("click", function(e) {
+		e.stopImmediatePropagation();
+		var likeRow = $(this).prev().val();
+		var nowLike = $(this);
+		var id = '${sessionScope.sId}';
+		if(id=='') {
+			alert("로그인 후 이용하세요.");
+		} else {
+			$.ajax({
+				type: "post",
+				url: "ReviewLikeUpdate.re",
+				data: {
+					review_idx: likeRow,
+					review_like_done: nowLike.val()
+					},
+					success: function(response) {
+						$("#like_count"+likeRow).text(response);
+						if(nowLike.val() =='Y') {
+							$("#review_like_th"+likeRow).css("color", "gray");
+							nowLike.val("N");
+						} else {
+							$("#review_like_th"+likeRow).css("color", "blue");
+							nowLike.val("Y");
+						}
+						
+					},
+					error: function(xhr, textStatus, errorThrown) { 
+						// 요청에 대한 처리 실패 시(= 에러 발생 시) 실행되는 이벤트
+						$("#resultArea").html("xhr = " + xhr + "<br>textStatus = " + textStatus + "<br>errorThrown = " + errorThrown);
+					}
+			});
+		}
+	});
+});
+
+
+</script>
 <style type="text/css">
 	/* 좋아요버튼 */
 	.review_like {
@@ -42,20 +83,35 @@
 	    text-shadow: 0 0 0 #ffcc00;
 	    background: none;
 	}
-	
 </style>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
-		${review.review_content}
-		<fieldset name="review_score" class="score" id="score">
-			<c:forEach var="i" begin="1" end="${review.review_score}">
-		       <i class="fas fa-solid fa-star" style="color: #ffcc00;"></i>
-			</c:forEach>
-		</fieldset>
-		<input type="hidden" value="${review.review_idx }">
-		<button type="button" type="button" id="${review.review_idx }" style="border: none; background: none;">
-		<i class='far fa-thumbs-up' id="review_like_th${review.review_idx }" style='font-size:28px'></i><div class="like_count">${review.review_like_count}</div></button>
+	<div id="reviewAll" style="display: flex;  display:table;">
+		<div align="center" style="width: 500px; display:table-cell; vertical-align:middle;">
+			${review.review_content}
+		</div>
+		<div align="center" style="width: 300px; display:table-cell; vertical-align:middle;">
+			<fieldset name="review_score" class="score" id="score">
+				<c:forEach var="i" begin="1" end="${review.review_score}">
+			       <i class="fas fa-solid fa-star" style="color: #ffcc00;"></i>
+				</c:forEach>
+			</fieldset>
+		</div>
+		<div align="center" style="width: 200px; display:table-cell; vertical-align:middle;">
+			<input type="hidden" value="${review.review_idx }">
+			<c:choose>
+				<c:when test="${review.review_like_done.equals('Y')}">
+					<button type="button" class="thB" id="${review.review_idx }" style="border: none; background: none;" value="${review.review_like_done}">
+					<i class='far fa-thumbs-up' id="review_like_th${review.review_idx }" style='font-size:28px; color: blue;'></i><div id="like_count${review.review_idx }">${review.review_like_count}</div></button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="thB" id="${review.review_idx }" style="border: none; background: none;" value="${review.review_like_done}">
+					<i class='far fa-thumbs-up' id="review_like_th${review.review_idx }" style='font-size:28px; color: gray;'></i><div id="like_count${review.review_idx }">${review.review_like_count}</div></button>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
 </body>
 </html>
 

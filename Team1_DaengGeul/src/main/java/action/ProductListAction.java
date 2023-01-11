@@ -69,6 +69,22 @@ public class ProductListAction implements Action {
 		request.setAttribute("productList", productList);
 		request.setAttribute("pageInfo", pageInfo);
 		
+		String title="";
+		
+		if(type.contains("recomm")) {
+			title="운영자 추천 도서";
+		} else if(type.contains("genre")) {
+			
+		} else if(type.contains("disc")) {
+			title="할인 중인 도서";
+		} else if(type.substring(0,1).equals("G")) {
+			title="굿즈샵";
+		}  else if(typeArr.length==2) {
+			if(type.contains("B_best") )
+			title="베스트셀러";
+		}
+		request.setAttribute("title", title);
+		
 		String ListPath = "order/product_list.jsp?type=" + request.getParameter("type") + "&pageNum=" + pageNum;
 		
 	

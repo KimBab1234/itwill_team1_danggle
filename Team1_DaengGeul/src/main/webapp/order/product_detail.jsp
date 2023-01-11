@@ -16,7 +16,13 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 	<link href="css/default_order.css" rel="stylesheet" type="text/css">
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	font-weight: bold;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
 #alert-box {
     z-index: 1;
     position: absolute;
@@ -33,6 +39,21 @@
     display: none;
     line-height: 50px;
 } 
+button {
+  color: #F0D264;
+  background-color:#513e30;
+}
+button:hover {
+  background-color: #F0D264;
+  color:#513e30;
+}
+button i{
+  color: #F0D264;
+  background-color:none;
+}
+button:hover i{
+  color:#513e30;
+}
 </style>
 <script>
 
@@ -186,7 +207,7 @@ function countModify(sign) {
 					<input type="hidden" id="price" value="${product.dis_price}">
 					<input type="hidden" id="img" value="${img}">
 					<input type="hidden" id="name" value="${product.name}">
-					<span style="font-family: 'Jua', sans-serif; font-size: 55px;">${product.name}</span>
+					<span style="font-size: 55px;">${product.name}</span>
 					<hr>
 					<div id="book_detail">
 						장르 : ${product.book_genre}

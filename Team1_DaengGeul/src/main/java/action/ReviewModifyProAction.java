@@ -25,14 +25,14 @@ public class ReviewModifyProAction implements Action {
 			
 			request.setCharacterEncoding("UTF-8");
 			review.setReview_idx(Integer.parseInt(request.getParameter("review_idx")));
-//			review.setProduct_idx(request.getParameter("product_idx"));
+			review.setProduct_idx(request.getParameter("product_idx"));
 			review.setMember_id((String)session.getAttribute("sId"));
 			review.setReview_subject(request.getParameter("review_subject"));
 			review.setReview_passwd(request.getParameter("review_passwd"));
 			review.setReview_score(Integer.parseInt(request.getParameter("review_score")));
 			review.setReview_content(request.getParameter("review_content"));
 			
-//			System.out.println(review);
+			System.out.println(review);
 			
 			ReviewModifyProService service = new ReviewModifyProService();
 			boolean isReviewWriter = service.isReviewWriter(review);
@@ -63,7 +63,7 @@ public class ReviewModifyProAction implements Action {
 					
 				}else { // 수정 성공시
 					forward = new ActionForward();
-					forward.setPath("ReviewDetail.re?review_idx=" + review.getReview_idx() + "&pageNum=" + request.getParameter("pageNum"));
+					forward.setPath("ReviewDetail.re?review_idx=" + review.getReview_idx() + "&pageNum=" + request.getParameter("pageNum") + "&product_idx="+request.getParameter("product_idx"));
 					forward.setRedirect(true);
 				}
 				
