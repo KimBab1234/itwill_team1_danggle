@@ -7,7 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>문의 목록</title>
-
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.dropdown-toggle', this).trigger('click').blur();
+});
+</script>
 <script>
 var id = '${sessionScope.sId}';
 
@@ -45,12 +50,11 @@ if(id=='') {
 	}
 	
 	table td {
-		text-align: center;
 	}
 	
-	#subject {
+	.subject1 a {
 		text-align: left;
-		padding-left: 20px;
+		color: brown;
 	}
 	
 	#pageList {
@@ -86,6 +90,7 @@ if(id=='') {
 	border-radius: 4px;
 	margin-top: 50px;
 }
+	
 </style>
 </head>
 <body>
@@ -116,8 +121,8 @@ if(id=='') {
 			<th width="150px">날짜</th>
 			
 			
-			
 		</tr>
+		
 		<c:forEach var="qna" items="${qnaList }">
 			<tr>
 				
@@ -131,7 +136,7 @@ if(id=='') {
 				</c:choose>
 				
 				
-				<td id="subject">
+				<td class="subject1">
 				<c:if test="${qna.qna_re_lev==0 && qna.qna_re_seq==0 }">
 					<c:forEach var="i" begin="1" end="${qna.qna_re_lev }">
 						&nbsp;&nbsp;
@@ -162,6 +167,7 @@ if(id=='') {
 				
 			</tr>
 		</c:forEach>
+		
 	</table>
 	</section>
 	<section id="buttonArea">
