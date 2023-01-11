@@ -8,6 +8,13 @@
 <title>상품 목록</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
 <link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
@@ -24,6 +31,7 @@
         </div>
 	    <!-- Shop Start -->
 	    <div class="container-fluid pt-5" style="margin-left: 20px; width: 1500px;">
+	    	<h1 style="text-align: left;">&nbsp;&nbsp;&nbsp;| ${title}</h1>
 	        <div class="row px-xl-5">
 	            <!-- Shop Product Start -->
 	                <div class="row pb-3">
@@ -73,7 +81,7 @@
 		                                    <h6 class="text-truncate mb-3">주간베스트&nbsp;</h6><h5 style="color: red;">${item.rank}</h5><h6 class="text-truncate mb-3">위</h6>
 		                                </div>
 	                            	</c:if>
-	                                <h5 class="text-truncate mb-3">${item.name}</h5>
+	                                <h5 class="text-truncate mb-3" style="font-weight: bold;">${item.name}</h5>
 	                                <div class="d-flex justify-content-center">
 	                                	<c:choose>
 	                                		<c:when test="${item.discount>0}">

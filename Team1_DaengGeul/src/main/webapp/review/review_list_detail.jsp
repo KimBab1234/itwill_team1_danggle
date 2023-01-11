@@ -10,7 +10,50 @@
 <title>Review 게시판</title>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
-<script src ="js/product_detail_review.js"></script>
+<script>
+
+$(function() {
+
+	Map.prototype.toJSON = function toJSON() {
+		  return [...Map.prototype.entries.call(this)];
+		}
+	//--------------------- 리뷰 상세 게시판 ---------------------
+	$(".reviewSubject").on("click", function() {
+		var row = $(this);
+		var reviewIdxNum = $(this).children('input').attr("id");
+		var viewNum = Number($("#"+reviewIdxNum).val());
+		if(viewNum>0) {
+			var detail = $("#"+reviewIdxNum).parents('tr').next();
+			if(detail.is(":visible")) {
+				detail.css("display", "none")
+			}else {
+				detail.css("display", "table-row")
+			}
+		} else {
+				$("#"+reviewIdxNum).val(viewNum+1);
+				$.ajax({
+					type: "post",
+					url: "ReviewDetail.re",
+					dataType: "text", 
+					data: {
+						review_idx: reviewIdxNum,
+						product_idx: '${product.product_idx}'
+					},
+					success: function(response) {
+						row.parent('tr').after("<tr style='display: table-row;'><td colspan='6' style='vertical-align: middle;'>"+response+"</td></tr>");
+					},
+					error: function(xhr, textStatus, errorThrown) { 
+						alert("리뷰 상세조회 실패!");
+					}
+				});
+		}
+
+	});
+	
+	
+	
+});
+</script>
 
 </head>
 <body>

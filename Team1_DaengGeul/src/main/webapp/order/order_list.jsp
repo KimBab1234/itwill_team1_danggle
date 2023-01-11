@@ -26,12 +26,11 @@
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
-	<div style="display: flex;">
-	<div align="left" style="width: 300px; margin-top: 100px;">
-		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
-	</div>
-	<div align="center" class="orderTable">
-	<div style="width: 1500px; margin-top: 50px; min-height: 500px;">
+	<div style="display: flex; width: 1800px;" align="center">
+		<div align="left" style="width: 300px; margin-top: 100px;">
+			<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+		</div>
+	<div align="right" class="orderTable" style="width: 1300px; margin-top: 50px; min-height: 500px;">
 	<h3 style="text-align: left; color:#736643; font-weight: bold;">| 주문 내역</h3>
 	<c:choose>
 		<c:when test="${orderList==null || orderList.size()==0}">
@@ -60,10 +59,10 @@
 				</c:otherwise>
 			</c:choose>
 			</div>
-			<table border="1" style="width: 1500px; text-align: center; margin-top: 20px" class="regi_table">
+			<table border="1" style="width: 1300px; text-align: center; margin-top: 20px" class="regi_table">
 				<tr>
 					<th width="70px">주문 날짜</th>
-					<th width="500px">상품</th>
+					<th width="300px">상품</th>
 					<th width="120px">결제한 금액</th>
 					<th width="100px">주문 상태</th>
 					<th width="70px">리뷰 쓰기</th>
