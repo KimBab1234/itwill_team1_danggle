@@ -7,18 +7,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
+	rel="stylesheet">
+<link href="css/default.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
-		$(function() {
-			$('.dropdown-toggle', this).trigger('click').blur();
-		});
-	</script>
+	$(function() {
+		$('.dropdown-toggle', this).trigger('click').blur();
+	});
+</script>
 <style type="text/css">
 * {
-   font-family: 'Gowun Dodum', sans-serif;
-   url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-   }
+	font-family: 'Gowun Dodum', sans-serif;
+	url:
+	@import
+	url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap')
+	;
+}
+
 #listForm {
 	width: 1024px;
 	max-height: 610px;
@@ -27,11 +34,13 @@
 
 h2 {
 	text-align: center;
+	margin-top: -10%;
 }
 
 table {
-	margin: auto;
 	width: 1024px;
+	margin-top: -10%;
+	margin: auto;
 }
 
 #tr_top {
@@ -74,50 +83,67 @@ a {
 </head>
 <body>
 	<div>
-	<header>
-		<jsp:include page="/inc/top.jsp"></jsp:include>
-		<jsp:include page="../inc/main.jsp"></jsp:include>
-	</header>
-	<hr>
-	<div style="width: 500px;" id="c_div">
-		<jsp:include page="../inc/community_left.jsp"></jsp:include>
+		<header>
+			<jsp:include page="/inc/top.jsp"></jsp:include>
+			<jsp:include page="../inc/main.jsp"></jsp:include>
+		</header>
+		<hr>
+		<div style="display: flex;">
+			<div style="width: 500px;" id="c_div">
+				<jsp:include page="../inc/community_left.jsp"></jsp:include>
+			</div>
+			<div>
+				<h2>
+					<img src="img/re.gif">&nbsp;&nbsp;회원들의 추천 목록&nbsp;&nbsp;<img
+						src="img/re.gif">
+				</h2>
+				<table>
+					<tr id="tr_top">
+						<td width="100">이름</td>
+						<td width="200">제목</td>
+						<td width="120">날짜</td>
+						<td width="50" align="center">조회수</td>
+					</tr>
+
+					<c:choose>
+						<c:when test="${empty param.pageNum }">
+							<c:set var="pageNum" value="1"></c:set>
+						</c:when>
+						<c:otherwise>
+							<c:set var="pageNum" value="${param.pageNum }"></c:set>
+						</c:otherwise>
+					</c:choose>
+
+					<c:forEach var="board" items="${Board }">
+						<tr>
+							<td>${board.member_id }</td>
+							<td><a
+								href="CommunityDetail.co?board_idx=${board.board_idx }">${board.board_subject }</a></td>
+							<td>${board.board_date }</td>
+							<td>${board.board_readcount }</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+		<br>
+		<section id="buttonArea">
+			<form action="Community0.co?board_type=0">
+				<input type="text" name="keyword"><input type="hidden"
+					name="board_type" value="0"> <input type="submit"
+					value="검색">
+				<c:choose>
+					<c:when test="${not empty sessionScope.sId }">
+						<input type="button" value="글쓰기"
+							onclick="location.href='CommunityWrite0.co'">
+					</c:when>
+					<c:otherwise>
+						<a href="MemberLoginForm.me">로그인이 필요합니다</a>
+					</c:otherwise>
+				</c:choose>
+			</form>
+		</section>
 	</div>
-	<h2>회원들의 추천 목록</h2>
-	<table>
-		<tr id="tr_top">
-			<td width="100">이름</td>
-			<td width="200">제목</td>
-			<td width="120">날짜</td>
-			<td width="50" align="center">조회수</td>
-		</tr>
-
-		<c:choose>
-			<c:when test="${empty param.pageNum }">
-				<c:set var="pageNum" value="1"></c:set>
-			</c:when>
-			<c:otherwise>
-				<c:set var="pageNum" value="${param.pageNum }"></c:set>
-			</c:otherwise>
-		</c:choose>
-
-		<c:forEach var="board" items="${Board }">
-			<tr>
-				<td>${board.member_id }</td>
-				<td><a href="CommunityDetail.co?board_idx=${board.board_idx }">${board.board_subject }</a></td>
-				<td>${board.board_date }</td>
-				<td>${board.board_readcount }</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<br>
-	<section id="buttonArea">
-		<form action="Community0.co?board_type=0">
-			<input type="text" name="keyword"><input type="hidden"
-				name="board_type" value="0"> <input type="submit" value="검색"> <input type="button" value="글쓰기"
-			onclick="location.href='CommunityWrite0.co'">
-		</form>
-	</section>
-
 	<section id="pageList">
 		<c:choose>
 			<c:when test="${pageNum > 1}">
@@ -158,6 +184,6 @@ a {
 	<header>
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>
 	</header>
-</div>
+	</div>
 </body>
 </html>
