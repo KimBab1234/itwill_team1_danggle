@@ -84,9 +84,9 @@ public class ReviewDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM review WHERE review_subject LIKE ? AND member_id=? LIMIT ?,?";
+			String sql = "SELECT * FROM review WHERE review_subject LIKE ? AND member_id=? ORDER BY review_date DESC LIMIT ?,?";
 			if(product_idx!=null) { //상품별 리뷰목록
-				sql = "SELECT * FROM review WHERE review_subject LIKE ? AND product_idx=? LIMIT ?,?";
+				sql = "SELECT * FROM review WHERE review_subject LIKE ? AND product_idx=? ORDER BY review_date DESC LIMIT ?,?";
 			}
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
