@@ -8,6 +8,13 @@
 <meta charset="UTF-8">
 <title>장바구니</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style>
 .cartB:focus, .cartB:active { outline:none; }

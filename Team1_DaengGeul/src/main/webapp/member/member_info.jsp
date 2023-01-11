@@ -11,8 +11,13 @@
 <%-------------------- 임시 홈페이지 CSS -------------------%>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="css/MemberInfoForm.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <%----------------------------------------------------------%>
-
+<style>
+* {
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 
 <%------------------------------ 회원상세정보 --------------------------------%>
 <script src="js/jquery-3.6.3.js"></script>
@@ -365,14 +370,16 @@ function execDaumPostcode() {
 		<jsp:include page="/inc/main.jsp"></jsp:include>
 	</header>
 	
-	<div class="clear"></div>
-	
-	<article>
-	
+	<div style="display: flex;  margin-left: 50px; width: 1500px;" align="center">
+		<div align="left" style="width: 300px; margin-top: 100px; font-family: 'Gowun Dodum', sans-serif;">
+			<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+		</div>
+	<div align="left" class="orderTable" style="width: 1000px; min-height: 500px; margin-left:100px;">
+		<h2><b style="border-left: 10px solid #795548">&nbsp;&nbsp;회원 정보</b></h2>
 		<!---------------------------------- 마이페이지 영역 ----------------------------------->
 	  	<form action="MemberUpdatePro.me" method="post" id="updateForm" name="updateForm">
 		<!-- 화면 커버 -->
-		<div class="join-cover">
+		<div class="join-cover"  align="left">
 	
 			<div class="join-wrapper">
 	
@@ -479,115 +486,10 @@ function execDaumPostcode() {
 			</div>
 		</div>
 	</form>
-	<!-------------------------------------------------------------------------------------->
-	  	
-	<div class="clear"></div>
-	
-	<!-- 내 최근 정보 테이블 모음 -->
-	<div class="container-fluid pt-5">
-		<div class="row px-xl-5 pb-3">
-		
-			<!---------------------------------- 최근 상품 리뷰------------------------------------->
-			<div class="col-lg-4 col-md-6 pb-1">
-				<div class="cat-item d-flex flex-column border mb-4"
-					style="padding: 30px;">
-					<h4>내 상품리뷰</h4>
-					<table>
-						<tr>
-							<th width="80">글번호</th>
-							<th width="150">게시판</th>
-							<th width="100">작성자</th>
-							<th width="100">작성일</th>
-						</tr>
-						<tr>
-							<td>12</td>
-							<td>도서추천 게시판</td>
-							<td>style</td>
-							<td>22-12/15</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<!-------------------------------------------------------------------------------------->
-			
-			<!--------------------------------- 최근 게시판 댓글 ----------------------------------->
-			<div class="col-lg-4 col-md-6 pb-1">
-				<div class="cat-item d-flex flex-column border mb-4"
-					style="padding: 30px;">
-					<table>
-						<h4>내 댓글</h4>
-						<tr>
-							<th width="80">글번호</th>
-							<th width="150">게시판</th>
-							<th width="100">작성자</th>
-							<th width="100">작성일</th>
-						</tr>
-						<tr>
-							<td>12</td>
-							<td>도서추천 게시판</td>
-							<td>style</td>
-							<td>22-12/15</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<!-------------------------------------------------------------------------------------->
-
-			<!-------------------------------- 최근 1:1 문의내역 ----------------------------------->
-			<div class="col-lg-4 col-md-6 pb-1">
-				<div class="cat-item d-flex flex-column border mb-4"
-					style="padding: 30px;">
-					<h4>1:1 문의내역</h4>
-					<table>
-						<tr>
-							<th width="80">글번호</th>
-							<th width="200">제목</th>
-							<th width="100">작성일</th>
-							<th width="100">상태</th>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>언제 배송되나요?</td>
-							<td>22-12/15</td>
-							<td>답변완료</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<!-------------------------------------------------------------------------------------->
-			
-			<!----------------------------------- 최근 주문내역 ------------------------------------>
-			<div class="col-lg-4 col-md-6 pb-1">
-				<div class="cat-item d-flex flex-column border mb-4"
-					style="padding: 30px;">
-					<h4>주문내역</h4>
-					<table>
-						<tr>
-							<th width="80">주문번호</th>
-							<th width="200">상품명</th>
-							<th width="100">구매일</th>
-							<th width="100">결제정보</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<!-------------------------------------------------------------------------------------->
-			
-			<!-- 최근 정보 추가 할거면 위에 div 양식 그대로 복붙해서 만들고 정보 뿌리시면 됩니다! -->
-			
-			<!-------------------------------------------------------------------------------------->
-
-		</div>
 	</div>
+	</div>
+	<!-------------------------------------------------------------------------------------->
 
-	</article>
-	
 	<div class="clear"></div>
 	<div class="clear"></div>
 	
