@@ -17,12 +17,14 @@
 
 	var optionIndex = 0;
 	var sum = 0;
-
+	
 	function discountSet() {
-
+		// 할인 설정 안함 체크 시 할인율 입력창 초기화, discount(hidden) value값 0으로 변경, 할인율 입력창 required 속성 해제, readonly 속성 추가
 		if(document.proRegi.disc[1].checked){
 			document.getElementById("discount").value = 0;
+			document.getElementById("disNum").value = "";
 			$("#disNum").attr("required", false);
+			$("#disNum").attr("readonly", true);
 		}
 	}
 	
@@ -34,6 +36,12 @@
 	$(function() {
 		$('.dropdown-toggle', this).trigger('click').blur();
 		
+		// 할인 설정 체크 시 readonly 속성 해제, required 속성 추가 
+		$(".regi_check2").on("click", function() {
+			$("#disNum").attr("required", true);
+			$("#disNum").attr("readonly", false);
+		});
+		
 		$("#goods_option").hide();
 		// 책 선택 시 책 정보 입력 창 보여주기
 		// 굿즈 선택 시 옵션 창 보여주기
@@ -43,12 +51,10 @@
 				$("#book_info").show();
 				$("#goods_option").hide();
 				
-				
-				
 			}else if($("input[type=radio][class=regi_check]:checked").val() == "goods"){
 				$("#book_info").hide();
 				$("#goods_option").show();
-				
+				// 굿즈 선택 시 책 관련 required 속성 해제
 				$("#writer").attr("required", false);
 				$("#publisher").attr("required", false);
 				$("#date").attr("required", false);
@@ -183,7 +189,7 @@
 				<th>상품 대표 이미지</th>
 				<td>
 				<div class="filebox">
-   					<input class="upload-name" value="첨부파일" placeholder="첨부파일" id="img_name">
+   					<input class="upload-name" placeholder="선택된 파일 없음" id="img_name">
     				<label for="img">파일찾기</label> 
    					<input type="file" required="required" name="img" id="img">
 				</div>
@@ -193,7 +199,7 @@
 				<th>상세 설명</th>
 				<td>
 					<div class="filebox">
-   						<input class="upload-name" value="첨부파일" placeholder="첨부파일" id="detail_img_name">
+   						<input class="upload-name" placeholder="선택된 파일 없음" id="detail_img_name">
     					<label for="detail_img">파일찾기</label> 
    						<input type="file" id="detail_img" name="detail_img">
 					</div>

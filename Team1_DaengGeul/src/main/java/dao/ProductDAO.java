@@ -484,32 +484,10 @@ public class ProductDAO {
 
 	public int deleteProduct(String product_idx) { // 상품 삭제
 		int deleteCount = 0;
-		String sql = "";
+
 		try {
 			
-			if(product_idx.substring(0, 1).equals("B")) { // 책 삭제
-				sql = "DELETE FROM book where book_idx=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, product_idx);
-				
-				pstmt.executeUpdate();
-				
-			}else { // 굿즈 삭제
-				// 굿즈 옵션 먼저 삭제
-				sql="DELETE FROM goods_options WHERE goodsOpt_idx=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, product_idx);
-				
-				pstmt.executeUpdate();
-				
-				sql = "DELETE FROM goods WHERE goods_idx=?";
-				pstmt1 = con.prepareStatement(sql);
-				pstmt1.setString(1, product_idx);
-				
-				pstmt1.executeUpdate();
-			}
-			
-			sql = "DELETE FROM product where product_idx=?"; // 상품번호(공통 테이블) 삭제
+			String sql = "DELETE FROM product where product_idx=?"; // 상품번호(공통 테이블) 삭제
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setString(1, product_idx);
 			deleteCount = pstmt2.executeUpdate();
@@ -519,8 +497,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}finally {
 			JdbcUtil.close(pstmt2);
-			JdbcUtil.close(pstmt1);
-			JdbcUtil.close(pstmt);
+			
 		}
 		
 		return deleteCount;

@@ -20,6 +20,9 @@
 	$(function() {
 		$('.dropdown-toggle', this).trigger('click').blur();
 		
+		$("#choice_book").css("background", "#c9b584").css("color", "#736643");
+		$("#choice_goods").css("background", "#736643").css("color", "#c9b584");
+		
 		// 굿즈 등록 후에만 굿즈 목록이 보이도록 함
 		// 기본 목록 페이지는 책 목록임
 		const URLSearch = new URLSearchParams(location.search);
@@ -29,32 +32,21 @@
 			$("input[type=checkbox][class=goods]").prop("checked", true);
 			$("#goodsList").show();
 			$("#bookList").hide();
-			$("#recoBook").hide();
+			$("#choice_goods").css("background", "#c9b584").css("color", "#736643");
+			$("#choice_book").css("background", "#736643").css("color", "#c9b584");
 		}
-
-		// 체크박스 책, 굿즈 중 하나만 누를 수 있게 하기
-		$("input[type=checkbox][id=productType]").on("click", function() {
-			if(this.checked){
-				const checkboxes = $("input[type=checkbox]");
-				for(let ind = 0; ind < checkboxes.length; ind++){
-					checkboxes[ind].checked = false;
-				}
-				this.checked = true;
-			} else {
-				this.checked = false;
-			}
-		});
 		
-		// 체크버튼 상태에 따라 다른 목록 보여주기
-		$("input[type=checkbox][id=productType]").on("click", function() {
-			if($("input[type=checkbox][class=book]").is(":checked") == true) {
-				$("#bookList").show();
-				$("#goodsList").hide();
-			} else if($("input[type=checkbox][class=goods]").is(":checked") == true){
-				$("#goodsList").show();
-				$("#bookList").hide();
-				$("#recoBook").hide();
-			}
+		$("#choice_book").on("click", function() {
+			$("#bookList").show();
+			$("#goodsList").hide();
+			$("#choice_book").css("background", "#c9b584").css("color", "#736643");
+			$("#choice_goods").css("background", "#736643").css("color", "#c9b584");
+		});
+		$("#choice_goods").on("click", function() {
+			$("#bookList").hide();
+			$("#goodsList").show();
+			$("#choice_goods").css("background", "#c9b584").css("color", "#736643");
+			$("#choice_book").css("background", "#736643").css("color", "#c9b584");
 		});
 		
 		$("#recoBtn").on("click", function() {
@@ -75,10 +67,7 @@
 	</header>
 	<div class="recoArea">
 		<h4 id="listH4">상품 관리</h4><br>
-		<div id="product_choice">
-			<input type="checkbox" value="book" id="productType" class="book" checked="checked"> 책
-			<input type="checkbox" value="goods" id="productType" class="goods"> 굿즈
-		</div>
+		<div class="choice" id="choice_book">책</div><div class="choice" id="choice_goods">굿즈</div>
 		<div id="bookList">
 		<form action="RecommendBook.ad" method="post" >
 			<table class="bookTable">
