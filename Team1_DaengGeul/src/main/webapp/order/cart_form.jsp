@@ -18,6 +18,13 @@
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <style>
 .cartB:focus, .cartB:active { outline:none; }
+
+.btn-primary i{
+	color:#F0D264;
+}
+.btn-primary:hover i{
+	color:#513e30;
+}
 </style>
 </head>
 </head>
@@ -162,22 +169,22 @@ Map.prototype.toJSON = function toJSON() {
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
 	<div align="center">
-	<div style="width: 1000px; margin-top: 50px; min-height: 500px;">
-	<h2 id="cartUse1" style="visibility: hidden; text-align: left; font-weight:bold; font-family: 'Poppins', sans-serif; color:#513e30">| 상품 확인</h2>
+	<div style="width: 1200px; margin-top: 50px; min-height: 500px;">
+	<h2 id="cartUse1" style="visibility: hidden; text-align: left; font-weight:bold; color:#513e30">| 상품 확인</h2>
 	<form action="OrderPayForm.or" method="post">
-		<h1 id="cartNone" style="visibility: hidden; font-family: 'Jua', sans-serif; color: #513e30;">장바구니가 비었습니다.</h1>
+		<h1 id="cartNone" style="visibility: hidden; color: #513e30;">장바구니가 비었습니다.</h1>
 		<div id="cartUse" style="visibility: hidden;">
 			<div align="right">
-				<button type="button" class="cartB" id="allChkB" onclick="allCheck(this.value)" value="true"><span id="allChk">전체 선택</span></button>
-				<button type="button" class="cartB" onclick="deleteCart()">선택 상품 장바구니 삭제하기</button>
+				<button type="button" class="cartB" id="allChkB" onclick="allCheck(this.value)" value="true"><span id="allChk" style="font-weight: bold;">전체 선택</span></button>
+				<button type="button" class="cartB" onclick="deleteCart()"><span style="font-weight: bold;">선택 상품 장바구니 삭제하기</span></button>
 			</div>
-			<table border="1" class="regi_table" style="width: 1000px; text-align: center; margin-top: 20px">
+			<table border="1" class="regi_table" style="width: 1200px; text-align: center; margin-top: 20px">
 				<tr id="tableFirst" >
 					<th width="30px">체크</th>
 					<th width="50px">이미지</th>
 					<th width="300px">상품</th>
 					<th width="70px">개당 가격</th>
-					<th width="70px">수량</th>
+					<th width="100px">수량</th>
 					<th width="70px">금액</th>
 				</tr>
 				<tr id="cartAddRow0" >
@@ -186,14 +193,18 @@ Map.prototype.toJSON = function toJSON() {
 					<td></td>
 					<td></td>
 					<td>
-						<button type="button" class="cartB small" onclick="countModify(this.value, '-')" style="width: 20px">-</button>
-						<input type="text" readonly="readonly" class="count" name="count" value="" style="width:30px; text-align: center;">
-						<button type="button" class="cartB small" onclick="countModify(this.value, '+')" style="width: 20px">+</button>
+					<button class="btn btn-primary btn-minus" type="button" style="width: 40px; border: none;" onclick="countModify(this.value, '-')">
+						<i class="fa fa-minus cartIcon" ></i>
+					</button>
+					<input type="text" readonly="readonly" class="count" name="count" value="" style=" margin:0; width:40px; text-align: center;">
+					<button class="btn btn-primary btn-plus" type="button" style="width: 40px; border: none;" onclick="countModify(this.value, '+')">
+						<i class="fa fa-plus cartIcon" ></i>
+					</button>
 					</td>
 					<td><span class="price"></span>원</td>
 				</tr>
 			</table>
-				<h3 style="margin-top: 50px; font-weight:bold; font-family: 'Poppins', sans-serif; color:#513e30">선택한 상품 : <span id="totalChk">0</span>개 | 
+				<h3 style="margin-top: 50px; font-weight:bold; color:#513e30">선택한 상품 : <span id="totalChk">0</span>개 | 
 				최종 금액 : <span id="total">0</span>원</h3>
 				<div class="wrap" style="margin-top: 30px; margin-bottom: 50px;">
 				  <button class="orderB">주문하기!</button>

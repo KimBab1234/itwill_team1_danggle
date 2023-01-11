@@ -120,7 +120,9 @@ public class ProductListAction implements Action {
 		}  else if(typeArr.length==2) {
 			if(type.contains("B_best") )
 			title="베스트셀러";
-		}
+		} else if(type.contains("search")) {
+			title="검색 결과 : " + totalProduct +"건";
+		} 
 		request.setAttribute("title", title);
 		
 		String ListPath = "order/product_list.jsp?type=" + request.getParameter("type") + "&pageNum=" + pageNum;
