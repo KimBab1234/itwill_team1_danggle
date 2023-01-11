@@ -200,7 +200,7 @@ function countModify(sign) {
 	
 	<!-- 상단 이미지, 큰 정보 감싸는 곳 -->
 		<div style="width: 1500px; margin-left: 20px;">
-			<form action="CartAdd.or" method="post" style="display: flex; align-items: center;">
+			<form action="CartAdd.or" method= "post" style="display: flex; align-items: center;">
 				<img src="${img}" style="width: 400px; margin-left: 200px">
 				<div class="mb-4 pt-2" style="text-align: left; width: 500px; align-content: center;  margin-left: 50px">
 					<input type="hidden" id="product_idx" value="${product.product_idx}">
@@ -266,7 +266,7 @@ function countModify(sign) {
 					</div>
                     <div class="tab-content">
 						<div class="tab-pane fade show active" id="tab-pane-1" align="center">
-	                       <p style="width: 1000px;" align="left">
+	                       <p style="width: 1000px; font-size: 20px;" align="left">
 	                        	${product.detail}
 	                       </p>
 	                       <div align="center">
@@ -276,7 +276,7 @@ function countModify(sign) {
 	                       </div>
 	                    </div>
                     	<div class="tab-pane fade"  id="tab-pane-3" align="center">
-                    		<div id="product-review-area" style="width: 1000px;" align="center">
+                    		<div id="product-review-area" style="width: 1300px;" align="center">
 								
 							</div>
                     	</div>
