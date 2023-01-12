@@ -32,11 +32,27 @@
 table {
 	margin: 0 auto;
 	border-collapse: collapse;
-/* 	border-style: solid; */
+	/* 	border-style: solid; */
 	border-color: #b09f76;
 	width: 600px;
 }
 
+#reply_table {
+	margin: auto;
+	width: 1000px;
+}
+
+#reply {
+	margin: auto;
+	width: 1000px;
+}
+
+#id_sId {
+	margin-left: -190px;
+}
+#submit {
+	margin-right: -50px;
+}
 h2 {
 	margin: auto;
 	text-align: center;
@@ -110,7 +126,7 @@ table td {
 			<td colspan="2">${board.board_date }</td>
 		</tr>
 		<tr align="center">
-			<th colspan="2">추천수 : ${likeCount } <c:if
+			<th colspan="2">추천수 : ${likeCount } &nbsp;&nbsp;<c:if
 					test="${not empty sessionScope.sId }">
 					<c:choose>
 						<c:when test="${duplicateLike == true}">
@@ -129,9 +145,10 @@ table td {
 	<section id="articleContentArea">${board.board_content }</section>
 	<table id="but_table">
 		<tr align="right">
-			<td><input type="button" value="뒤로가기"
+			<td><input type="button" value="목록"
 				onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
-				&nbsp;&nbsp; <c:if test="${sessionScope.sId eq board.member_id}">
+				&nbsp;&nbsp; <c:if
+					test="${sessionScope.sId eq board.member_id}">
 					<input type="button" value="글수정"
 						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
 	&nbsp;&nbsp;
@@ -139,44 +156,39 @@ table td {
 				</c:if></td>
 		</tr>
 	</table>
-	<div id="rep_wrtie">
-		<form action="Community_ReplyPro.co">
-			<table id="reply">
-				<tr>
-					<c:choose>
-						<c:when test="${not empty sessionScope.sId }">
-							<td>${sessionScope.sId }</td>
-							<td><input type="text" name="reply_content"
-								placeholder="댓글을 작성하세요" required="required" width="400"></td>
-							<td><input type="submit" value="등록"></td>
-							<input type="hidden" name="board_type"
-								value="${board.board_type }">
-						</c:when>
-						<c:otherwise>
-							<td><a href="MemberLoginForm.me">로그인이 필요합니다</a></td>
-						</c:otherwise>
-					</c:choose>
+	<br>
+	<div id="rep_wrtie"></div>
+	<form action="Community_ReplyPro.co">
+		<table id="reply_table">
+			<c:choose>
+				<c:when test="${not empty sessionScope.sId }">
+					<td>${sessionScope.sId }</td>
+					<td><input type="text" name="reply_content"
+						placeholder="댓글을 작성하세요" required="required" ></td>
+					<td id="submit"><input type="submit" value="등록"></td>
+					<input type="hidden" name="board_type" value="${board.board_type }">
+					<input type="hidden" name="board_idx" value="${board.board_idx }">
+					<input type="hidden" name="member_id" value="${sessionScope.sId }">
+				</c:when>
+				<c:otherwise>
+					<td><a href="MemberLoginForm.me">로그인이 필요합니다</a></td>
+				</c:otherwise>
+			</c:choose>
+			<c:forEach var="reply" items="${replyList }">
+				<tr align="center">
+					<td width="50">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
+					<td width="700">${reply.reply_content }</td>
+					<td>${reply.date }</td>
+					<c:if test="${reply.member_id eq sessionScope.sId }">
+				&nbsp;&nbsp;	<td><input type="button" value="댓글삭제"
+							onclick="location.href='CommunityReplyDeletePro.co?board_idx=${board.board_idx}&reply_idx=${reply.reply_idx }'"></td>
+					</c:if>
 				</tr>
-			</table>
-			<input type="hidden" name="board_idx" value="${board.board_idx }">
-			<input type="hidden" name="member_id" value="${sessionScope.sId }">
-		</form>
-	</div>
-	<table id="rep_table">
-		<c:forEach var="reply" items="${replyList }">
-			<tr align="center">
-				<td width="80">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
-				<td width="400">${reply.reply_content }</td>
-				<td>${reply.date }</td>
-				<c:if test="${reply.member_id eq sessionScope.sId }">
-					<td><input type="button" value="댓글삭제"
-						onclick="location.href='CommunityReplyDeletePro.co?board_idx=${board.board_idx}&reply_idx=${reply.reply_idx }'"></td>
-				</c:if>
-			</tr>
-		</c:forEach>
-	</table>
-	<header>
+			</c:forEach>
+		</table>
+	</form>
+	<footer>
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>
-	</header>
+	</footer>
 </body>
 </html>
