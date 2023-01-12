@@ -12,8 +12,6 @@
 <script>
 $(function() {
 	
-	
-	
 	$(".thB").on("click", function(e) {
 		e.stopImmediatePropagation();
 		var likeRow = $(this).prev().val();
@@ -47,6 +45,30 @@ $(function() {
 			});
 		}
 	});
+	
+	
+	$(".thB").on("mouseover", function(e) {
+		var nowLikeYN = $(this).val();
+		if(nowLikeYN=='Y') {
+			$(this).children("i").css("color","gray");
+		} else {
+			$(this).children("i").css("color","blue");
+		}
+	});
+	
+	$(".thB").on("mouseout", function(e) {
+		var nowLikeYN = $(this).val();
+		if(nowLikeYN=='Y') {
+			$(this).children("i").css("color","blue");
+		} else {
+			$(this).children("i").css("color","gray");
+		}
+	});
+	
+	
+	
+	
+	
 });
 
 
