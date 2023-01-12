@@ -17,7 +17,7 @@ public class QnaModifyFormAction implements Action {
 		String sId = (String)session.getAttribute("sId");
 		
 		int qna_idx = Integer.parseInt(request.getParameter("qna_idx"));
-		System.out.println("글번호:" + request.getParameter("qna_idx"));
+//		System.out.println("글번호:" + request.getParameter("qna_idx"));
 		QnaDetailService service = new QnaDetailService();
 		QnaBean qna = service.getQna(qna_idx);
 		
