@@ -12,7 +12,14 @@ public class CommunityBean {
 	private String board_file;
 	private String board_real_file;
 	private Date board_date;
+	private int board_likecount;
 	
+	public int getBoard_likecount() {
+		return board_likecount;
+	}
+	public void setBoard_likecount(int board_likecount) {
+		this.board_likecount = board_likecount;
+	}
 	public int getBoard_idx() {
 		return board_idx;
 	}
@@ -73,6 +80,8 @@ public class CommunityBean {
 		return "CommunityBean [board_idx=" + board_idx + ", board_type=" + board_type + ", board_readcount="
 				+ board_readcount + ", board_subject=" + board_subject + ", member_id=" + member_id + ", board_content="
 				+ board_content + ", board_file=" + board_file + ", board_real_file=" + board_real_file
-				+ ", board_date=" + board_date + "]";
+				+ ", board_date=" + board_date + ", board_likecount=" + board_likecount + "]";
 	}
+	
+
 }

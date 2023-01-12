@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import svc.CommunityDetailService;
 import svc.CommunityModifyService;
 import vo.ActionForward;
 import vo.CommunityBean;
@@ -21,7 +22,7 @@ public class CommunityModifyAction implements Action {
 		System.out.println("CommunityModifyAction");
 		String realPath = "";
 		String deleteFileName = "";
-
+		
 		try {
 			String uploadPath = "upload";
 			realPath = request.getServletContext().getRealPath(uploadPath);
@@ -50,7 +51,15 @@ public class CommunityModifyAction implements Action {
 
 			CommunityModifyService service = new CommunityModifyService();
 			boolean successModify = service.communityModify(community);
+			
+			int idx = Integer.parseInt(multi.getParameter("board_idx"));
 
+			CommunityDetailService service1 = new CommunityDetailService();
+			CommunityBean communityBoardDetail = service1.communityDetail(idx,true);
+
+			request.setAttribute("board", communityBoardDetail);
+
+			
 			if(!successModify) { // 삭제에 실패할 경우
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();

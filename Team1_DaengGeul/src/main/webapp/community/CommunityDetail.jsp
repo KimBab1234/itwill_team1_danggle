@@ -50,9 +50,11 @@ table {
 #id_sId {
 	margin-left: -190px;
 }
+
 #submit {
 	margin-right: -50px;
 }
+
 h2 {
 	margin: auto;
 	text-align: center;
@@ -119,7 +121,7 @@ table td {
 		</tr>
 		<tr align="center">
 			<td>파일</td>
-			<td colspan="2">${board.board_file }</td>
+			<td colspan="2"><a href="${board.board_file }" download>${board.board_file }</a></td>
 		</tr>
 		<tr align="center">
 			<td>조회수 : ${board.board_readcount}</td>
@@ -145,10 +147,16 @@ table td {
 	<section id="articleContentArea">${board.board_content }</section>
 	<table id="but_table">
 		<tr align="right">
-			<td><input type="button" value="목록"
-				onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }'">
-				&nbsp;&nbsp; <c:if
-					test="${sessionScope.sId eq board.member_id}">
+			<td><c:choose>
+					<c:when test="${not empty param.pageNum }">
+						<input type="button" value="목록"
+							onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }&pageNum=${param.pageNum }'">
+					</c:when>
+					<c:otherwise>
+						<input type="button" value="목록"
+							onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }&pageNum=1'">
+					</c:otherwise>
+				</c:choose> &nbsp;&nbsp; <c:if test="${sessionScope.sId eq board.member_id}">
 					<input type="button" value="글수정"
 						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
 	&nbsp;&nbsp;
@@ -164,7 +172,8 @@ table td {
 				<c:when test="${not empty sessionScope.sId }">
 					<td>${sessionScope.sId }</td>
 					<td><input type="text" name="reply_content"
-						placeholder="댓글을 작성하세요" required="required" ></td>
+						placeholder="댓글을 작성하세요" required="required"
+						style="border: 0 solid black;" size="75"></td>
 					<td id="submit"><input type="submit" value="등록"></td>
 					<input type="hidden" name="board_type" value="${board.board_type }">
 					<input type="hidden" name="board_idx" value="${board.board_idx }">
@@ -176,13 +185,16 @@ table td {
 			</c:choose>
 			<c:forEach var="reply" items="${replyList }">
 				<tr align="center">
-					<td width="50">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
-					<td width="700">${reply.reply_content }</td>
+					<td>${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
+					<td>${reply.reply_content }</td>
 					<td>${reply.date }</td>
 					<c:if test="${reply.member_id eq sessionScope.sId }">
 				&nbsp;&nbsp;	<td><input type="button" value="댓글삭제"
 							onclick="location.href='CommunityReplyDeletePro.co?board_idx=${board.board_idx}&reply_idx=${reply.reply_idx }'"></td>
 					</c:if>
+					<td><input type="button" value="추천"
+						onclick="location.href='ReplyLike.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }&reply_idx=${reply.reply_idx }'">
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

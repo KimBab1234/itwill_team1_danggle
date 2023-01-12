@@ -84,7 +84,7 @@
 		<table border="1">
 			<tr>
 				<td class="td_left">글제목</td>
-				<td class="td_right"><input type="text" name="board_subject" width="50"></td>
+				<td class="td_right"><input type="text" name="board_subject" size="70" style="border:0 solid black;"></td>
 			</tr>
 			<tr>
 				<td class="td_left">작성자</td>
@@ -92,7 +92,7 @@
 			</tr>
 			<tr>
 				<td class="td_left">내용</td>
-				<td class="td_right"><textarea rows="20" cols="50" name="board_content"></textarea></td>
+				<td class="td_right"><textarea rows="22" cols="71" name="board_content" style="border:0 solid black;"></textarea></td>
 			</tr>
 			<tr>
 				<td class="td_left">파일</td>

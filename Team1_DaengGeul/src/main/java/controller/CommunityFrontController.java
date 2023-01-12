@@ -19,6 +19,7 @@ import action.CommunityModifyAction;
 import action.CommunityReplyAction;
 import action.CommunityReplyDeleteAction;
 import action.CommunityWriteAction;
+import action.ReplyLikeAction;
 import vo.ActionForward;
 
 @WebServlet("*.co") 
@@ -85,6 +86,10 @@ public class CommunityFrontController extends HttpServlet {
 		} else if(command.equals("/CommunityLikeDelete.co")) {
 			System.out.println("커뮤니티 추천취소");
 			action = new CommunityLikeDeleteAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/ReplyLike.co")) {
+			System.out.println("댓글 추천");
+			action = new ReplyLikeAction();
 			forward = action.execute(request, response);
 		}
 

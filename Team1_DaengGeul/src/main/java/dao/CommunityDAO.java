@@ -10,6 +10,7 @@ import java.util.List;
 import db.JdbcUtil;
 import vo.CommunityBean;
 import vo.Like_community;
+import vo.Like_reply;
 import vo.Reply;
 
 public class CommunityDAO {
@@ -59,11 +60,12 @@ public class CommunityDAO {
 		}
 		return successCount;
 	}
-
+	
+	// ------------------------------------------------ 중요 ------------------------------------------------------
 	// 커뮤니티 글 목록 작업
 	public List<CommunityBean> selectCommunityList(int type, String keyword, int startRow, int listLimit) {
 		List<CommunityBean> communityList = null;
-
+		
 		try {
 			String sql = "SELECT * FROM community WHERE board_subject LIKE ? AND board_type=? ORDER BY board_idx DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
@@ -73,9 +75,9 @@ public class CommunityDAO {
 			pstmt.setInt(4, listLimit);
 			
 			rs = pstmt.executeQuery();
-
+			
 			communityList = new ArrayList<CommunityBean>();
-
+			
 			while(rs.next()) {
 				CommunityBean community = new CommunityBean();
 				community.setBoard_content(rs.getString("board_content"));
@@ -88,12 +90,39 @@ public class CommunityDAO {
 
 				communityList.add(community);
 			}
+			
+			// -------------------------------- 중요!! ----------------------------------------
+			// 리스트에서 좋아요 갯수 뽑는 부분
+			for(int i = 0; i < communityList.size(); i++) {
+				sql = "SELECT count(*) FROM like_community WHERE board_idx = ?";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setInt(1, communityList.get(i).getBoard_idx());
+				
+				rs = pstmt2.executeQuery();
+				if(rs.next()) {
+					communityList.get(i).setBoard_likecount(rs.getInt(1));
+				}
+			}
+			
+			// 향상된 for 문도 가능함
+//			for(CommunityBean community :  communityList) {
+//				sql = "SELECT count(*) FROM like_community WHERE board_idx = ?";
+//				pstmt2 = con.prepareStatement(sql);
+//				pstmt2.setInt(1, community.getBoard_idx());
+//				
+//				rs = pstmt2.executeQuery();
+//				if(rs.next()) {
+//					community.setBoard_likecount(rs.getInt(1));
+//				}
+//			}
+			
 		} catch (SQLException e) {
 			System.out.println("구문오류 communityList");
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
+			JdbcUtil.close(pstmt2);
 		}
 		return communityList;
 	}
@@ -420,6 +449,54 @@ public class CommunityDAO {
 			}
 			return successDelete;
 		}
+		
+		// 댓글 좋아요
+		public int replyLike(Like_reply like) {
+			int successLike = 0;
+			int deleteReadCount = 0;
+			
+			try {
+				String sql = "SELECT * FROM like_reply WHERE board_idx =? AND member_id=? AND reply_idx=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, like.getBoard_idx());
+				pstmt.setString(2, like.getMember_id());
+				pstmt.setInt(3, like.getReply_idx());
+				rs = pstmt.executeQuery();
+				
+				if(!rs.next()){
+					sql = "INSERT INTO like_reply VALUES (?,?,?)";
+					pstmt2 = con.prepareStatement(sql);
+					pstmt2.setInt(1, like.getReply_idx());
+					pstmt2.setString(2, like.getMember_id());
+					pstmt2.setInt(3, like.getBoard_idx());
+					
+					successLike = pstmt2.executeUpdate();
+
+					if(successLike > 0) {
+						sql = "UPDATE community SET board_readcount= board_readcount-1 WHERE board_idx = ?";
+						pstmt3 = con.prepareStatement(sql);
+						pstmt3.setInt(1, like.getBoard_idx());
+						deleteReadCount = pstmt3.executeUpdate();
+					} 
+				} else {
+					successLike = 0;
+				}
+			} catch (SQLException e) {
+				System.out.println("SQL 구문 오류 like_reply");
+				e.printStackTrace();
+			} finally {
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt);
+				if(pstmt2!=null) {
+					JdbcUtil.close(pstmt2);
+				}
+				if(deleteReadCount > 0) {
+					JdbcUtil.close(pstmt3);
+				}
+			}
+			return successLike;
+		}
+		
 		
 }
 
