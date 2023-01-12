@@ -4,6 +4,8 @@ package action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +48,8 @@ public class OrderPayProAction implements Action {
 			ArrayList<String> opt = new ArrayList<>();
 			ArrayList<Integer> price = new ArrayList<>();
 			ArrayList<Integer> cnt = new ArrayList<>();
+			ArrayList<String> prodname = null;
+			prodname = new ArrayList<>(List.of(request.getParameterValues("prodname")));
 
 			for(int i=0; i<cart.size(); i++) {
 
@@ -60,12 +64,14 @@ public class OrderPayProAction implements Action {
 				cnt.add(Integer.parseInt(String.valueOf(prodInfo.get(1))));
 				prodInfo = (JSONArray)prod.get(1);
 				price.add(Integer.parseInt(String.valueOf(prodInfo.get(1))));
+				
 			}
 
 			order.setOrder_prod_idx(idx);
 			order.setOrder_prod_opt(opt);
 			order.setOrder_prod_cnt(cnt);
 			order.setOrder_prod_price(price);
+			order.setOrder_prod_name(prodname);
 
 
 			///주문내역 저장하러가기

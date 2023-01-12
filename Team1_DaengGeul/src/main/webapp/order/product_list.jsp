@@ -87,7 +87,7 @@
 	                                <div class="d-flex justify-content-center">
 	                                	<c:choose>
 	                                		<c:when test="${item.discount>0}">
-			                                    <h6 class="text-muted ml-2"><del>${item.price}</del></h6>&nbsp;<h5 style="color: orange">${item.dis_price}</h5><h5 class="text-muted">원</h5>
+			                                    <h6 class="text-muted ml-2"><del>${item.price}</del></h6>&nbsp;<h4 style="color: orange; font-weight: bold;">${item.dis_price}</h4><h5 class="text-muted">원</h5>
 	                                		</c:when>
 	                                		<c:otherwise>
 			                                    <h4 style="color: orange; font-weight: bold;">${item.price}</h4><h4 class="text-muted">원</h4>

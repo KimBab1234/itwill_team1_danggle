@@ -57,14 +57,15 @@ public class OrderedDAO { //싱글톤디자인패턴
 
 				for(int i=0; i<order.getOrder_prod_cnt().size(); i++) {
 					///orderProd에 들어갈 데이터
-					sql = "INSERT INTO orderprod VALUES(?,?,?,?,?,'결제완료')";
+					sql = "INSERT INTO orderprod VALUES(?,?,?,?,?,'결제완료',?)";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, order.getOrder_merchant_uid());
 					pstmt.setString(2, order.getOrder_prod_idx().get(i));
 					pstmt.setString(3, order.getOrder_prod_opt().get(i));
 					pstmt.setInt(4, order.getOrder_prod_cnt().get(i));
 					pstmt.setInt(5, order.getOrder_prod_price().get(i));
-					System.out.println(pstmt);
+					pstmt.setString(6, order.getOrder_prod_name().get(i));
+//					System.out.println(pstmt);
 					insertCount = pstmt.executeUpdate();
 					if(insertCount > 0) {
 						prodInsertCount++;
@@ -98,7 +99,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 			String sql = "SELECT * FROM order_view WHERE member_id=? AND order_date BETWEEN date(now()-INTERVAL "+ period +") and date(now()) ORDER BY order_idx desc;";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			System.out.println(pstmt);
+//			System.out.println(pstmt);
 			rs=pstmt.executeQuery();
 
 			List<String> idxArr = new ArrayList<>();
@@ -113,29 +114,27 @@ public class OrderedDAO { //싱글톤디자인패턴
 
 
 
-			int i=0;
-			ArrayList<String> prod_idx=null;
 			for(OrderBean order : orderList) {
-				
-				prod_idx = new ArrayList<>();
+
+				ArrayList<String> prod_idx = new ArrayList<>();
 				ArrayList<String> name = new ArrayList<>();
 				ArrayList<String> status = new ArrayList<>();
 				ArrayList<String> opt = new ArrayList<>();
 				ArrayList<Integer> price = new ArrayList<>();
 				ArrayList<Integer> cnt = new ArrayList<>();
-				sql = "SELECT * FROM order_detail_view WHERE order_idx=?"; ///배열로 받아오기 실패 ㅎ..
+				sql = "SELECT * FROM orderprod WHERE order_idx=?"; 
 				pstmt2 = con.prepareStatement(sql);
-				pstmt2.setString(1, idxArr.get(i));
-				i++;
+				pstmt2.setString(1, order.getOrder_merchant_uid());
 				rs2=pstmt2.executeQuery();
 				while(rs2.next()) {
-					prod_idx.add(rs2.getString(4));
-					name.add(rs2.getString(5));
-					price.add(rs2.getInt(6));
-					cnt.add(rs2.getInt(7));
-					opt.add(rs2.getString(8));
-					status.add(rs2.getString(9));
+					prod_idx.add(rs2.getString(2));
+					price.add(rs2.getInt(5));
+					cnt.add(rs2.getInt(4));
+					opt.add(rs2.getString(3));
+					status.add(rs2.getString(6));
+					name.add(rs2.getString(7));
 				}
+
 				order.setOrder_prod_price(price);
 				order.setOrder_status(status);
 				order.setOrder_prod_name(name);
@@ -143,18 +142,18 @@ public class OrderedDAO { //싱글톤디자인패턴
 				order.setOrder_prod_opt(opt);
 				order.setOrder_prod_cnt(cnt);
 			}
-			
+
 			////리뷰 썼는지 유무 확인
-			i=0;
 			for(OrderBean order : orderList) {
-				prod_idx = order.getOrder_prod_idx();
+
+				ArrayList<String> prod_idx = order.getOrder_prod_idx();
 				ArrayList<String> review = new ArrayList<>();
+
 				for(String prod : prod_idx) {
 					sql = "SELECT * FROM review WHERE product_idx=? AND order_idx=?";
 					pstmt2 = con.prepareStatement(sql);
 					pstmt2.setString(1, prod);
 					pstmt2.setString(2, order.getOrder_merchant_uid());
-					i++;
 					rs2=pstmt2.executeQuery();
 					if(rs2.next()) {
 						review.add("Y");
@@ -163,6 +162,33 @@ public class OrderedDAO { //싱글톤디자인패턴
 					}
 				}
 				order.setReview_write(review);
+			}
+
+			////상품이미지 가져오기
+			for(OrderBean order : orderList) {
+
+				ArrayList<String> prod_idx = order.getOrder_prod_idx();
+				ArrayList<String> img = new ArrayList<>();
+
+				for(String prod : prod_idx) {
+					
+					if(prod.charAt(0)=='B') {
+						sql = "SELECT book_img FROM book WHERE book_idx=?";
+					} else if(prod.charAt(0)=='G') {
+						sql = "SELECT goods_img FROM goods WHERE goods_idx=?";
+					}
+					pstmt2 = con.prepareStatement(sql);
+					pstmt2.setString(1, prod);
+					rs2=pstmt2.executeQuery();
+					
+					if(rs2.next()) {
+						img.add(rs2.getString(1));
+					} else {
+						img.add("-");
+					}
+				}
+				order.setOrder_prod_img(img);
+//				System.out.println(order.getOrder_prod_img());
 			}
 
 		} catch (SQLException e) {
@@ -205,12 +231,12 @@ public class OrderedDAO { //싱글톤디자인패턴
 				order.setOrder_point(rs.getInt("order_point"));
 
 			}
-			
-			sql = "SELECT * from order_detail_view WHERE member_id=? AND order_idx=?";
-			
+
+			sql = "SELECT * FROM orderprod WHERE order_idx=? AND substr(order_idx,1,length(order_idx)-14)=?";
+
 			pstmt2 = con.prepareStatement(sql);
-			pstmt2.setString(1, id);
-			pstmt2.setString(2, order_idx);
+			pstmt2.setString(1, order_idx );
+			pstmt2.setString(2, id);
 			rs2=pstmt2.executeQuery();
 
 			ArrayList<String> prod_idx = new ArrayList<>();
@@ -221,12 +247,12 @@ public class OrderedDAO { //싱글톤디자인패턴
 			ArrayList<Integer> cnt = new ArrayList<>();
 
 			while(rs2.next()) {
-				prod_idx.add(rs2.getString(4));
-				name.add(rs2.getString(5));
-				price.add(rs2.getInt(6));
-				cnt.add(rs2.getInt(7));
-				opt.add(rs2.getString(8));
-				status.add(rs2.getString(9));
+				prod_idx.add(rs2.getString(2));
+				price.add(rs2.getInt(5));
+				cnt.add(rs2.getInt(4));
+				opt.add(rs2.getString(3));
+				status.add(rs2.getString(6));
+				name.add(rs2.getString(7));
 			}
 			order.setOrder_prod_price(price);
 			order.setOrder_status(status);
@@ -245,13 +271,13 @@ public class OrderedDAO { //싱글톤디자인패턴
 
 		return order;
 	}
-	
+
 	//=======================(지선)멤버 포인트 업데이트=======================
 	public boolean updateMemberPoint(String id, int point) {
 
 		System.out.println("DAO - updateMemberPoint 진입");
 		boolean isSuccessUpdate = false;
-		
+
 		try {
 			String sql = "UPDATE member SET member_point=member_point+? where member_id=?";
 			pstmt = con.prepareStatement(sql);

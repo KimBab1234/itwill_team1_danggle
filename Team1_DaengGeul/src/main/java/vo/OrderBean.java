@@ -22,7 +22,14 @@ public class OrderBean {
 	private ArrayList<Integer> order_prod_cnt;
 	private ArrayList<Integer> order_prod_price;
 	private ArrayList<String> review_write;
+	private ArrayList<String> order_prod_img;
 
+	public ArrayList<String> getOrder_prod_img() {
+		return order_prod_img;
+	}
+	public void setOrder_prod_img(ArrayList<String> order_prod_img) {
+		this.order_prod_img = order_prod_img;
+	}
 	public ArrayList<String> getReview_write() {
 		return review_write;
 	}

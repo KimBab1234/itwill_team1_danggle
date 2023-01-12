@@ -7,6 +7,15 @@
 <title>Review 게시판</title>
 <!-- <link href="review/css/review_write.css" rel="stylesheet" type="text/css"> -->
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script>
+var name = '${review.product_name }';
+
+if(name=='') {
+	alert("죄송합니다. 해당 상품은 현재 판매되지 않는 상품으로 리뷰 쓰기가 불가합니다.");
+	history.back();
+}
+
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">
 	* {
