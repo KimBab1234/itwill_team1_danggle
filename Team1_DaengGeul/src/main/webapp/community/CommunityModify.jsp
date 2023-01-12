@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	$(function() {
+		$('.dropdown-toggle', this).trigger('click').blur();
+	});
+</script>
 <link
 	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
 	rel="stylesheet">
@@ -68,11 +73,6 @@ table {
 	margin-top: 50px;
 }
 </style>
-<script type="text/javascript">
-	$(function() {
-		$('.dropdown-toggle', this).trigger('click').blur();
-	});
-</script>
 
 </head>
 <body>
@@ -99,7 +99,7 @@ table {
 				<tr>
 					<td>글제목</td>
 					<td><input type="text" name="board_subject" size="70"
-						required="required" style=" border: 0 solid black;" ></td>
+						required="required" style=" border: 0 solid black;"></td>
 				</tr>
 				<tr>
 					<td>작성자</td>
@@ -112,7 +112,7 @@ table {
 				</tr>
 				<tr>
 					<td>파일</td>
-					<td><input type="file" name="board_file" value="${board.board_file }"></td>
+					<td><input type="file" name="board_file"></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="right"><input type="submit" value="등록">
