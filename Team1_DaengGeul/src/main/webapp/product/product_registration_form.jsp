@@ -116,7 +116,11 @@
 <%-- 		<jsp:include page="../inc/main_index.jsp"/> --%>
 	</header>
 	<div class="recoArea">
-	<h4 id="h4">상품 등록</h4>
+	<div align="left" style="width: 300px; display:inline-block; margin-left:80px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
+	<div style="width : 1200px; display:inline-block;">
+	<h4 id="h4">상품 등록</h4><br>
 	<form action="ProductRegiPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
 		<table class="regi_table">
 			<tr>
@@ -216,7 +220,9 @@
 			<input type="button" id="okBtn" value="취소" onclick="history.back()">
 		</div>
 	</form>
+		</div>
 	</div>
+
 	<footer>
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	</footer>

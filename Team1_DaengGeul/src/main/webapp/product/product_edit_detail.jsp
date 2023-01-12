@@ -27,7 +27,11 @@
 		<jsp:include page="../inc/main.jsp"/>
 	</header>
 	<div class="recoArea">
-		<h4 id="h4">상품 수정 확인</h4>
+	<div align="left" style="width: 300px; display:inline-block; margin-left:80px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
+	<div style="width : 1200px; display:inline-block;">
+		<h4 id="h4">상품 수정 확인</h4><br>
 			<table class="detail_table">
 				<tr>
 					<th>상품명</th>
@@ -55,7 +59,7 @@
 						<td>
 							<c:if test="${product.option_name.size() ne 0}">
 								<c:forEach var="i" begin="0" end="${product.option_name.size() -1 }">
-									옵션명 : <input type="text" value="${product.option_name.get(i)}" id="optionDetail" readonly="readonly">
+									&nbsp;옵션명 : <input type="text" value="${product.option_name.get(i)}" id="optionDetail" readonly="readonly">
 									수량 : <input type="text" value="${product.option_qauntity.get(i)}" id="optionDetail" readonly="readonly"><br>
 								</c:forEach>
 							</c:if>
@@ -114,6 +118,8 @@
 				</c:choose>
 			</div>
 		</div>
+	</div>
+
 	<%-- 자바스크립트 영역 --%>
 	<script type="text/javascript"> 
 		
