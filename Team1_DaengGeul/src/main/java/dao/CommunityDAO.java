@@ -196,7 +196,7 @@ public class CommunityDAO {
 	}
 
 	// 커뮤니티 댓글 목록
-	public ArrayList<Reply> selectReplyList(int idx) {
+	public ArrayList<Reply> selectReplyList(int idx, String id) {
 		ArrayList<Reply> replyList = null;
 
 		try {
@@ -230,21 +230,21 @@ public class CommunityDAO {
 				}
 			}
 
-			// ---------------------------- 보류 ------------------------------------
 			for(Reply reply : replyList) {
-				sql = "SELECT COUNT(*) FROM like_reply WHERE reply_idx = ? AND member_id = ? AND board_idx=?";
+				sql = "SELECT * FROM like_reply WHERE reply_idx = ? AND member_id = ? AND board_idx=?";
 				pstmt3 = con.prepareStatement(sql);
 				pstmt3.setInt(1,reply.getReply_idx());
-				pstmt3.setString(2, reply.getMember_id());
+				pstmt3.setString(2, id);
 				pstmt3.setInt(3, reply.getBoard_idx());
 				rs = pstmt3.executeQuery();
 
 				if(rs.next()) {
-					reply.setReply_likeduplicate(rs.getInt(1));
+					reply.setReply_likeduplicate(1);
+				} else {
+					reply.setReply_likeduplicate(0);
 				}
 			}
 			
-			System.out.println(replyList);
 		} catch (SQLException e) {
 			System.out.println("구문오류 ReplyList");
 			e.printStackTrace();
@@ -505,6 +505,7 @@ public class CommunityDAO {
 			pstmt.setString(2, like.getMember_id());
 			pstmt.setInt(3, like.getReply_idx());
 			rs = pstmt.executeQuery();
+			System.out.println(pstmt);
 
 			if(!rs.next()){
 				sql = "INSERT INTO like_reply VALUES (?,?,?)";
@@ -512,13 +513,14 @@ public class CommunityDAO {
 				pstmt2.setInt(1, like.getReply_idx());
 				pstmt2.setString(2, like.getMember_id());
 				pstmt2.setInt(3, like.getBoard_idx());
-
+				System.out.println(pstmt2);
 				successLike = pstmt2.executeUpdate();
 
 				if(successLike > 0) {
 					sql = "UPDATE community SET board_readcount= board_readcount-1 WHERE board_idx = ?";
 					pstmt3 = con.prepareStatement(sql);
 					pstmt3.setInt(1, like.getBoard_idx());
+					System.out.println(pstmt3);
 					deleteReadCount = pstmt3.executeUpdate();
 				} 
 			} else {
@@ -539,6 +541,28 @@ public class CommunityDAO {
 		}
 		return successLike;
 	}
+	
+	// 추천취소
+	public int replyLikeDelete(Like_reply like) {
+		int successDelete = 0;
+		
+		try {
+			String sql = "DELETE FROM like_reply WHERE reply_idx = ? AND member_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, like.getReply_idx());
+			pstmt.setString(2, like.getMember_id());
+			
+			successDelete = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 replyLikeDelete");
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+		
+		return successDelete;
+	}
+
 
 
 }
