@@ -1,7 +1,14 @@
+<%@page import="svc.MemberPointService"%>
+<%@page import="dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<%
+	String id = (String)session.getAttribute("sId");
+	MemberPointService service = new MemberPointService();
+	int point = service.getMemberPoint(id);
+%>
 <style>
 a:link {
   color : #736643;
@@ -25,7 +32,7 @@ a:active {
 </style>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div style="margin-left:20px; font-weight:bolder; font-size:24px; background: white; color:#736643; width: 200px;" align="center">
-	${sessionScope.sId}님<br>
+	${sessionScope.sId}님<br><span style ="font-size: 20px;">현재 적립금 : <%=point%>원</span>
 </div>
 <div style="margin-left:20px; background: #F0D264; color:#736643; width: 200px; height: 200px; font-size: 20px;" align="center">
 	<c:choose>
