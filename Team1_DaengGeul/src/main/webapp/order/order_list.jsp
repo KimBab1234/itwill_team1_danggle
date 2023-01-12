@@ -66,8 +66,9 @@
 			</div>
 			<table border="1" style="width: 1300px; text-align: center; margin-top: 20px" class="regi_table">
 				<tr>
-					<th width="70px">주문 날짜</th>
-					<th width="300px">상품</th>
+					<th width="120px">주문 날짜</th>
+					<th width="100px" >이미지</th>
+					<th width="300px" >상품</th>
 					<th width="120px">결제한 금액</th>
 					<th width="100px">주문 상태</th>
 					<th width="70px">리뷰 쓰기</th>
@@ -76,11 +77,20 @@
 							<tr>
 								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList.or?order_idx=${order.order_merchant_uid}">${order.order_date}</a></td>
 								<c:choose>
-									<c:when test="${order.order_prod_opt.get(0) eq '-' }">
-										<td>${order.order_prod_name.get(0)}</td>
+									<c:when test="${order.order_prod_img.get(0) eq '-' }">
+										<td colspan="2">(현재 판매 종료된 상품)${order.order_prod_name.get(0)}</td>
 									</c:when>
 									<c:otherwise>
-										<td>${order.order_prod_name.get(0)}(옵션:${order.order_prod_opt.get(0)})</td>
+										<c:choose>
+											<c:when test="${order.order_prod_opt.get(0) eq '-' }">
+												<td><img src="img/product/${order.order_prod_img.get(0)}" width="100px;"></td>
+												<td>${order.order_prod_name.get(0)}</td>
+											</c:when>
+											<c:otherwise>
+												<td><img src="img/product/${order.order_prod_img.get(0)}" width="100px;"></td>
+												<td>${order.order_prod_name.get(0)}(옵션:${order.order_prod_opt.get(0)})</td>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
 								<td>${order.order_prod_price.get(0)}</td>
@@ -97,11 +107,20 @@
 						<c:forEach begin="1" end="${order.order_prod_name.size()-1}" var="i">
 							<tr>
 								<c:choose>
-									<c:when test="${order.order_prod_opt.get(i) eq '-' }">
-										<td>${order.order_prod_name.get(i)}</td>
+									<c:when test="${order.order_prod_img.get(i) eq '-' }">
+										<td colspan="2">(현재 판매 종료된 상품)${order.order_prod_name.get(i)}</td>
 									</c:when>
 									<c:otherwise>
-										<td>${order.order_prod_name.get(i)}(옵션:${order.order_prod_opt.get(i)})</td>
+										<c:choose>
+											<c:when test="${order.order_prod_opt.get(i) eq '-' }">
+												<td><img src="img/product/${order.order_prod_img.get(i)}" width="100px;"></td>
+												<td>${order.order_prod_name.get(i)}</td>
+											</c:when>
+											<c:otherwise>
+												<td><img src="img/product/${order.order_prod_img.get(i)}" width="100px;"></td>
+												<td>${order.order_prod_name.get(i)}(옵션:${order.order_prod_opt.get(i)})</td>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
 								<td>${order.order_prod_price.get(i)}</td>
