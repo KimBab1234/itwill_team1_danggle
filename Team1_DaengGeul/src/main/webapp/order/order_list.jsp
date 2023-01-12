@@ -35,11 +35,11 @@
 		<div align="left" style="width: 300px; margin-top: 100px;">
 			<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 		</div>
-	<div align="right" class="orderTable" style="width: 1300px; min-height: 500px; margin-left:50px;">
+	<div align="right" class="orderTable" style="width: 1300px; min-height: 500px; margin-left:100px;">
 	<h3 style="text-align: left; color:#736643; font-weight: bold;"><b style="border-left: 10px solid #795548">&nbsp;&nbsp;주문 내역</b></h3>
 	<c:choose>
 		<c:when test="${orderList==null || orderList.size()==0}">
-			<h1 style="font-weight:bold; color:gray;">주문 내역이 없습니다.</h1>
+			<h1 style="font-family: 'Jua', sans-serif; color:gray;">주문 내역이 없습니다.</h1>
 		</c:when>
 		<c:otherwise>
 			<div align="right">
@@ -72,9 +72,6 @@
 					<th width="100px">주문 상태</th>
 					<th width="70px">리뷰 쓰기</th>
 				</tr>
-				
-				
-				<!-- 상품을 두개 이상 주문했을 경우   -->
 				<c:forEach items="${orderList}" var="order" varStatus="status">
 							<tr>
 								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList.or?order_idx=${order.order_merchant_uid}">${order.order_date}</a></td>
