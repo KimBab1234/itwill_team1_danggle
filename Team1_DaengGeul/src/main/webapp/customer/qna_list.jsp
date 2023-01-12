@@ -160,8 +160,15 @@ if(id=='') {
 				${qna.qna_subject}
 				</a>
 				</td>
-				<td>${qna.member_id }</td>
-				<td>
+				
+				<c:if test="${qna.member_id == 'admin'}">
+					<td align="center">관리자</td>
+				</c:if>
+				<c:if test="${qna.member_id != 'admin' }">
+				<td align="center">${qna.member_id }</td>
+				</c:if>
+				
+				<td align="center">
 				<fmt:formatDate value="${qna.qna_date}" pattern="yy-MM-dd"/>
 				</td>
 				
