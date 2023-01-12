@@ -34,9 +34,13 @@
 		<jsp:include page="../inc/main.jsp"/>
 	</header>
 	<div class="recoArea">
+	<div align="left" style="width: 300px; display:inline-block; margin-left:80px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
+	<div style="width : 1200px; display:inline-block;">
 		<h4 id="recoH4">추천 도서 목록</h4><br>
 		<div id="bookList">
-			<table class="recoTable">
+			<table class="recoTable" style="margin-bottom: 100px;">
 				<tr>
 					<th width="85">상품 번호</th>
 					<th width="400">상품명</th>
@@ -54,6 +58,7 @@
 			</table>
 		</div>
 	</div>
+</div>
 	<footer>
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	</footer>

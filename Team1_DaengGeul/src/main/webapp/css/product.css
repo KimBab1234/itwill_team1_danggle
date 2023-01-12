@@ -13,7 +13,7 @@
 	width: 120px;
 	text-align: center;
 	background-color: #c9b584;
-	left: 480px;
+	left: 120px;
 	position: relative;
 	padding-top: 5px;
 	font-size: 14px;
@@ -169,8 +169,8 @@ select {
 	border-width: 7px;
 	padding: 2px 0px 0px 10px;
 	position: relative;
-	left: 612px;
-	margin: 50px 50px 40px 50px;
+	left: 250px;
+	margin: 0px 50px 20px 50px;
 	font-weight: bold;
 }
 
@@ -179,7 +179,7 @@ select {
 	border-width: 7px;
 	padding: 2px 0px 0px 10px;
 	position: relative;
-	left: 430px;
+	left: 70px;
 	margin: 50px 50px 40px 50px;
 	font-weight: bold;
 }
@@ -189,7 +189,7 @@ select {
 	border-width: 7px;
 	padding: 2px 0px 0px 10px;
 	position: relative;
-	left: 587px;
+	left: 228px;
 	margin: 50px 50px 40px 50px;
 	font-weight: bold;
 }
@@ -232,6 +232,7 @@ label {
 /* textarea */
 textarea {
 	width: 420px;
+	height: 300px;
 	margin: auto;
 	border: 1px solid #b09f76;
 	border-radius: 5px;
@@ -283,6 +284,7 @@ textarea {
 	width: 100px;
 	border-radius: 4px;
 	margin-top: 50px;
+	margin-right: 10px;
 }
 
 
@@ -375,8 +377,7 @@ i {
 /* 추천 도서 등록 버튼 */
 #recoBtn {
 	position: relative;
-	right: 30%;
-	left: 70%;
+	left: 980px;
 	color: #fff;
     background-color: #736643;
     cursor: pointer;
@@ -391,6 +392,7 @@ i {
 
 .recoArea{
 	width: 1920px;
+	display: flex;
 }
 
 /* 추천 목록 테이블 */
@@ -447,7 +449,7 @@ i {
 
 .detail_table textarea {
 	width: 420px;
-	height: 500px;
+	height: 300px;
 	margin: auto;
 	border: none;
 	padding: 10px 10px;

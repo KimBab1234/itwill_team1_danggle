@@ -54,7 +54,6 @@ table {
 #submit {
 	margin-right: -50px;
 }
-
 h2 {
 	margin: auto;
 	text-align: center;
@@ -147,6 +146,7 @@ table td {
 	<section id="articleContentArea">${board.board_content }</section>
 	<table id="but_table">
 		<tr align="right">
+
 			<td><c:choose>
 					<c:when test="${not empty param.pageNum }">
 						<input type="button" value="목록"
@@ -157,6 +157,7 @@ table td {
 							onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }&pageNum=1'">
 					</c:otherwise>
 				</c:choose> &nbsp;&nbsp; <c:if test="${sessionScope.sId eq board.member_id}">
+
 					<input type="button" value="글수정"
 						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
 	&nbsp;&nbsp;
@@ -174,6 +175,7 @@ table td {
 					<td><input type="text" name="reply_content"
 						placeholder="댓글을 작성하세요" required="required"
 						style="border: 0 solid black;" size="75"></td>
+
 					<td id="submit"><input type="submit" value="등록"></td>
 					<input type="hidden" name="board_type" value="${board.board_type }">
 					<input type="hidden" name="board_idx" value="${board.board_idx }">

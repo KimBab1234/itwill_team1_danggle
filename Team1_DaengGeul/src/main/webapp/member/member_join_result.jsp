@@ -9,6 +9,29 @@
 <%------------------- 임시 홈페이지 CSS -------------------%>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
+<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script>
+
+$(function() {
+	$.ajax({
+		url: "MemberJoinResult.me",
+		type : "post",
+		dataType: "text", 
+		data: {
+			email:'${email}',
+			name:'${name}'
+		},
+		success: function(response) {
+		},
+		error: function(xhr, textStatus, errorThrown) { 
+			alert("장바구니 추가 실패!");
+		}
+	});
+});
+
+
+
+</script>
 </head>
 <body>
 	<header>

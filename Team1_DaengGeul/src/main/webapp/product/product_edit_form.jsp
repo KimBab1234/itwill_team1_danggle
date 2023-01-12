@@ -113,7 +113,11 @@
 		<jsp:include page="../inc/main.jsp"/>
 	</header>
 	<div class="recoArea">
-	<h4 id="h4">상품 수정</h4>
+		<div align="left" style="width: 300px; display:inline-block; margin-left:80px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
+	<div style="width : 1200px; display:inline-block;">
+	<h4 id="h4">상품 수정</h4><br>
 	<form action="ProductEditPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
  		<input type="hidden" name="product_idx" value="${product.product_idx }">
@@ -226,6 +230,7 @@
 		</div>
 	</form>
 	</div>
+</div>
 	<%-- 자바스크립트 영역 --%>
 	<script type="text/javascript"> 
 		

@@ -73,6 +73,7 @@ table {
 		$('.dropdown-toggle', this).trigger('click').blur();
 	});
 </script>
+
 </head>
 <body>
 	<header>
