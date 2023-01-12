@@ -64,12 +64,12 @@
 		});
 		// 이미지 파일 선택 시 input 박스에 파일 이름 출력
 		$("#detail_img").on('change',function(){
-			  var fileName = $("#detail_img").val();
+			  var fileName = $("#detail_img").val().split('/').pop().split('\\').pop();;
 			  $("#detail_img_name").val(fileName);
 		});
 		
 		$("#img").on('change',function(){
-			  var fileName = $("#img").val();
+			  var fileName = $("#img").val().split('/').pop().split('\\').pop();;
 			  $("#img_name").val(fileName);
 		});
 		
@@ -115,11 +115,11 @@
 		<jsp:include page="../inc/main.jsp"/>
 <%-- 		<jsp:include page="../inc/main_index.jsp"/> --%>
 	</header>
-	<div class="recoArea">
-	<div align="left" style="width: 300px; display:inline-block; margin-left:80px;">
+	<div class="recoArea" style="width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
-	<div style="width : 1200px; display:inline-block;">
+	<div style="width : 1200px;" >
 	<h4 id="h4">상품 등록</h4><br>
 	<form action="ProductRegiPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
 		<table class="regi_table">

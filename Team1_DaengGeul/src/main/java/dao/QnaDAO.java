@@ -106,7 +106,6 @@ private QnaDAO() {
 			pstmt.setInt(4, listLimit);
 		}
 		
-	    //조건문으로 sql문을 두개 써서 관리자일 경우에는 member_id 파라미터가 필요 없다 그냥 다 보여줄거니까
 		
 		
 	
@@ -142,7 +141,7 @@ private QnaDAO() {
 	}
 
 
-	public int selectQnaListCount(String keyword) {
+	public int selectQnaListCount(String sId, String keyword) {
 		
 		int listCount = 0;
 		
@@ -150,11 +149,20 @@ private QnaDAO() {
 		 ResultSet rs = null;
 			
 		 try {
-		 String sql = "SELECT COUNT(*) FROM qna WHERE qna_subject LIKE ?";
-		 				
-		 pstmt = con.prepareStatement(sql);
-		 System.out.println(pstmt);
-		 pstmt.setString(1, "%" + keyword + "%");
+				String sql = "SELECT COUNT(*) FROM qna WHERE qna_re_ref IN (SELECT qna_idx FROM qna WHERE member_id=?) AND qna_subject LIKE ? ";
+				
+
+				if(sId.equals("admin")) {
+					sql = "SELECT COUNT(*) FROM qna WHERE qna_subject LIKE ?";
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "%" + keyword + "%");
+				} else {
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, sId);
+					pstmt.setString(2, "%" + keyword + "%");
+				}
 		 
 		 rs = pstmt.executeQuery();
 		 

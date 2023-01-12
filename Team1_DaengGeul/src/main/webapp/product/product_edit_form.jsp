@@ -36,11 +36,11 @@
 		
 		// 파일 이름 인풋 박스에 넣기
 		$("#detail_img").on('change',function(){
-			  var fileName = $("#detail_img").val();
+			  var fileName = $("#detail_img").val().split('/').pop().split('\\').pop();;
 			  $("#detail_img_name").val(fileName);
 		});
 		$("#img").on('change',function(){
-			  var fileName = $("#img").val();
+			  var fileName = $("#img").val().split('/').pop().split('\\').pop();;
 			  $("#img_name").val(fileName);
 		});
 		
@@ -112,11 +112,11 @@
 		<jsp:include page="../inc/top.jsp" />
 		<jsp:include page="../inc/main.jsp"/>
 	</header>
-	<div class="recoArea">
-		<div align="left" style="width: 300px; display:inline-block; margin-left:80px;">
+	<div class="recoArea" style="width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
-	<div style="width : 1200px; display:inline-block;">
+	<div style="width : 1200px;">
 	<h4 id="h4">상품 수정</h4><br>
 	<form action="ProductEditPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">

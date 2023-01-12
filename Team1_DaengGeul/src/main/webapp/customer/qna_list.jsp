@@ -9,19 +9,17 @@
 <title>문의 목록</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+    var id = '${sessionScope.sId}';
 $(function() {
     $('.dropdown-toggle', this).trigger('click').blur();
+
+    if(id=='') {
+       alert("로그인 후 이용하세요.");
+       location.href='MemberLoginForm.me';
+    }   
 });
 </script>
-<script>
-var id = '${sessionScope.sId}';
 
-if(id=='') {
-   alert("로그인 후 이용하세요.");
-   location.href='MemberLoginForm.me';
-}   
-
-</script>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style type="text/css">

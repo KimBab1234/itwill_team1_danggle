@@ -21,6 +21,18 @@ public class QnaListAction implements Action {
 		
 		HttpSession session = request.getSession();
 		String sId = (String)session.getAttribute("sId");
+		response.setContentType("text/html; charset=UTF-8");
+		try {
+			PrintWriter out;
+			out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('잘못된 접근입니다!')");
+			out.println("history.back()");
+			out.println("</script>");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		//페이징 처리
@@ -30,7 +42,7 @@ public class QnaListAction implements Action {
 		if(request.getParameter("pageNum") != null) {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		}
-		System.out.println("페이지" + pageNum);
+//		System.out.println("페이지" + pageNum);
 		
 		int startRow = (pageNum-1)*listLimit;
 		
@@ -47,7 +59,7 @@ public class QnaListAction implements Action {
 		//getQnaList 메서드 호출하여 게시물 목록 조회
 		List<QnaBean> qnaList=service.getQnaList(sId,keyword,startRow,listLimit);
 		
-		int listCount = service.getQnaListCount(keyword);
+		int listCount = service.getQnaListCount(sId,keyword);
 		
 		
 		int pageListLimit = 10;
@@ -63,7 +75,7 @@ public class QnaListAction implements Action {
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 		request.setAttribute("qnaList",qnaList);
 		request.setAttribute("pageInfo",pageInfo);
-	
+		
 //		System.out.println(qnaList);
 //		System.out.println(pageInfo);
 		

@@ -192,14 +192,14 @@ function countModify(sign) {
 	</header>
 	
 	<hr>
-	<div style="width: auto; display: flex; margin-left: 10px; min-height: 500px;">
+	<div style="width: 1900px; display: flex; margin-left: 30px; min-height: 500px;">
 		<div style="width: 200px;">
 			<jsp:include page="../inc/product_left.jsp"></jsp:include>
         </div>
 	<!-- 왼쪽 메뉴바 세트 끝 -->
 	
 	<!-- 상단 이미지, 큰 정보 감싸는 곳 -->
-		<div style="width: 1500px; margin-left: 20px;">
+		<div style="width: 1500px; margin-left: 50px;">
 			<form action="CartAdd.or" method= "post" style="display: flex; align-items: center;">
 				<img src="${img}" style="width: 400px; margin-left: 200px">
 				<div class="mb-4 pt-2" style="text-align: left; width: 500px; align-content: center;  margin-left: 50px">

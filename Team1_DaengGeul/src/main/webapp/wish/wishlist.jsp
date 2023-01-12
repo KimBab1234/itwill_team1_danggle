@@ -159,8 +159,8 @@ if(id=='') {
 			<c:forEach var="wishlist" items="${wishlist }">
 				<tr>				
 					<td><input type="checkbox" name="selectedwishlist" value="${wishlist.product_idx }"></td>
-					<td><img src="img/product/${wishlist.product_real_img}" width="130px" height="130px" style="object-fit: cover;"></td>
-					<td>${wishlist.product_name }</td>
+					<td><a href="ProductDetail.go?product_idx=${wishlist.product_idx }"><img src="img/product/${wishlist.product_real_img}" width="130px" height="130px" style="object-fit: cover;"></a></td>
+					<td><a href="ProductDetail.go?product_idx=${wishlist.product_idx }">${wishlist.product_name }</a></td>
 					<td>${wishlist.product_price }원</td>
 					<td>${wishlist.product_discount}원</td>
 					<td>${wishlist.wish_date }</td>
