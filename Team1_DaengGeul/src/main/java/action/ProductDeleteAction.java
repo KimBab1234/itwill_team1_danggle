@@ -19,6 +19,7 @@ public class ProductDeleteAction implements Action {
 		ActionForward forward = null;
 		
 		ProductDeleteService service = new ProductDeleteService();
+		String pageNum = request.getParameter("pageNum");
 		String product_idx = request.getParameter("product_idx");
 		// 이미지 파일명 조회
 		ProductBean product = service.selectFileName(product_idx);
@@ -42,7 +43,7 @@ public class ProductDeleteAction implements Action {
 			}
 			if(product_type.substring(0, 1).equals("B")) {
 				forward = new ActionForward();
-				forward.setPath("ProductList.ad");
+				forward.setPath("ProductList.ad?pageNum="+pageNum);
 				forward.setRedirect(true);
 			}else if(product_type.substring(0, 1).equals("G")) {
 			// 굿즈 삭제 후 굿즈 목록 페이지로 이동하기 위해 forward 나눴음
