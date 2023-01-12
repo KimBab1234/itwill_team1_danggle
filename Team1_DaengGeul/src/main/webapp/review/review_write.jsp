@@ -117,21 +117,21 @@
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
 	<div style="display: flex;">
-	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 100px">
+	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 50px">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
 	<!-- 게시판 등록 -->
 	<div align="center">
-	<div style="width: 1000px; margin-top: 50px;">
+	<div style="width: 1000px; margin-top: 50px; margin-left: 50px">
 	<section id="writeForm">
 		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 작성</b></h2>
 		<br>
 		<div class="d1">
 			<br>
-			<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구입하신 상품의 리뷰에 대해 댕글포인트가 추후에 지급됩니다.<br>
+			<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주문 상품의 리뷰에 대해 리뷰 한 건당 댕글포인트가 500포인트 지급됩니다.<br>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;저작권, 재고등의 문제로 판매금지된 상품은 리워드 대상에서 제외 됩니다.<br>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;그러나 1,000원 미만 상품은 리워드 대상에서 제외됩니다.</b>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,000원 미만 상품 역시 리워드 대상에서 제외됩니다.</b>
 			<br>
 			<br>
 		</div>
