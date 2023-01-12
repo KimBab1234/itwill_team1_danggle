@@ -64,12 +64,12 @@
 		});
 		// 이미지 파일 선택 시 input 박스에 파일 이름 출력
 		$("#detail_img").on('change',function(){
-			  var fileName = $("#detail_img").val();
+			  var fileName = $("#detail_img").val().split('/').pop().split('\\').pop();;
 			  $("#detail_img_name").val(fileName);
 		});
 		
 		$("#img").on('change',function(){
-			  var fileName = $("#img").val();
+			  var fileName = $("#img").val().split('/').pop().split('\\').pop();;
 			  $("#img_name").val(fileName);
 		});
 		

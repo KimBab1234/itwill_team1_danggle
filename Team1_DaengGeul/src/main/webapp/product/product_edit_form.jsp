@@ -36,11 +36,11 @@
 		
 		// 파일 이름 인풋 박스에 넣기
 		$("#detail_img").on('change',function(){
-			  var fileName = $("#detail_img").val();
+			  var fileName = $("#detail_img").val().split('/').pop().split('\\').pop();;
 			  $("#detail_img_name").val(fileName);
 		});
 		$("#img").on('change',function(){
-			  var fileName = $("#img").val();
+			  var fileName = $("#img").val().split('/').pop().split('\\').pop();;
 			  $("#img_name").val(fileName);
 		});
 		
