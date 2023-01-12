@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 수정 확인</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<link rel="shortcut icon" href="#">
+<link href="img/dot_daram.gif" rel="shortcut icon" type="image/x-icon">
 <script type="text/javascript">
 <%	String sId = (String)session.getAttribute("sId");
  if(sId == null || !sId.equals("admin")) { %>  

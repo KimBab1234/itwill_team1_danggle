@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 관리</title>
 <link href="css/product.css" rel="stylesheet" type="text/css" />
 <script src="https://kit.fontawesome.com/8f75f06127.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
@@ -16,6 +16,22 @@
 		alert("잘못된 접근입니다");
 		history.back();
 <%  }%>
+	
+	function Gdele(product_idx) {
+		var ment = confirm(product_idx + " 상품을 삭제하시겠습니까?");
+		if(ment){
+			location.href="ProductDelete.ad?product_idx="+product_idx;
+		}
+		
+	}
+	
+	function Bdele(product_idx, pageNum) {
+		var ment = confirm(product_idx + " 상품을 삭제하시겠습니까?");
+		if(ment){
+			location.href="ProductDelete.ad?product_idx="+product_idx+"&pageNum="+pageNum;
+		}
+		
+	}
 	
 	$(function() {
 		$('.dropdown-toggle', this).trigger('click').blur();
@@ -55,10 +71,11 @@
 				return false;
 			}
 		});
+	
 	});
 	
 </script>
-<link rel="shortcut icon" href="#">
+<link href="img/dot_daram.gif" rel="shortcut icon" type="image/x-icon">
 </head>
 <body>
 	<header>
@@ -112,7 +129,7 @@
 								</c:otherwise>
 							</c:choose>
 							<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}&pageNum=${pageNum }'"></td>
-							<td><input type="button" id="Listbtn" value="삭제" onclick="location.href='ProductDelete.ad?product_idx=${product.product_idx}&pageNum=${pageNum }'"></td>
+							<td><input type="button" id="Listbtn" value="삭제" class="BdeleBtn" onclick="Bdele('${product.product_idx}', '${pageNum }')"></td>
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -180,7 +197,7 @@
 								</c:otherwise>
 							</c:choose>
 							<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}'"></td>
-							<td><input type="button" id="Listbtn" value="삭제" onclick="location.href='ProductDelete.ad?product_idx=${product.product_idx}'"></td>
+							<td><input type="button" id="Listbtn" value="삭제" class="GdeleBtn" onclick="Gdele('${product.product_idx}')"></td>
 						</tr>
 					</c:if>
 				</c:forEach>

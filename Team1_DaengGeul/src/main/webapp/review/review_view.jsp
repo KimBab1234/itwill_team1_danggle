@@ -56,6 +56,27 @@ $(function() {
 				}
 		});
 	});
+	
+	$(".review_like").on("mouseover", function(e) {
+		var nowLikeYN = $("#review_like1").val();
+		if(nowLikeYN=='Y') {
+			$(this).children("i").css("color","gray");
+		} else {
+			$(this).children("i").css("color","blue");
+		}
+	});
+	
+	$(".review_like").on("mouseout", function() {
+		var nowLikeYN = $("#review_like1").val();
+		if(nowLikeYN=='Y') {
+			$(this).children("i").css("color","blue");
+		} else {
+			$(this).children("i").css("color","gray");
+		}
+	});
+	
+	
+	
 });
 </script>
 <style type="text/css">

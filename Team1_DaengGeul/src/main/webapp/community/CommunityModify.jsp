@@ -31,7 +31,7 @@ h2 {
 }
 
 table {
-	padding : 
+	
 	border-collapse: collapse;
 	border-style: solid;
 	border-color: #b09f76;
@@ -98,8 +98,8 @@ table {
 				<table border="1">
 				<tr>
 					<td>글제목</td>
-					<td><input type="text" name="board_subject" width="50"
-						required="required" value="${board.board_subject }"></td>
+					<td><input type="text" name="board_subject" size="70"
+						required="required" style=" border: 0 solid black;" ></td>
 				</tr>
 				<tr>
 					<td>작성자</td>
@@ -107,8 +107,8 @@ table {
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td><textarea rows="10" cols="74" name="board_content"
-							required="required">${board.board_content }</textarea></td>
+					<td><textarea rows="10" cols="70" name="board_content"
+							required="required" style="width: 500px; height: 600px; border: 0 solid black;">${board.board_content }</textarea></td>
 				</tr>
 				<tr>
 					<td>파일</td>
