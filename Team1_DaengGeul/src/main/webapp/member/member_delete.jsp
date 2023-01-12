@@ -45,11 +45,11 @@
 			<img src="img/brown_Acon.png" width="20" height="25">
 			<img src="img/gold_Acon.png" width="20" height="25">
 			<img src="img/daram.png" width="30" height="45">
-			 회원탈퇴  
-			<img src="img/daram2.png" width="30" height="45">
-			<img src="img/green_Acon.png" width="20" height="25">
-			<img src="img/brown_Acon.png" width="20" height="25">
+			 회원탈퇴
+			<img src="img/daram.png" width="30" height="45">
 			<img src="img/gold_Acon.png" width="20" height="25">
+			<img src="img/brown_Acon.png" width="20" height="25">
+			<img src="img/green_Acon.png" width="20" height="25">
 		</h2>
 	<section>
 		<form action="MemberDeletePro.me" name="deleteForm" method="post">
