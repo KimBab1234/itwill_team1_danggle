@@ -27,7 +27,7 @@ public class QnaListService {
 		return qnaList;
 	}
 
-	public int getQnaListCount(String keyword) {
+	public int getQnaListCount(String sId,String keyword) {
 		
 		int listCount = 0;
 		
@@ -38,7 +38,7 @@ public class QnaListService {
 		dao.setConnection(con);
 		
 		System.out.println("키워드 : " +keyword);
-		listCount =  dao.selectQnaListCount(keyword);
+		listCount =  dao.selectQnaListCount(sId,keyword);
 		
 		JdbcUtil.close(con);
 		
