@@ -99,10 +99,11 @@ a {
 				</h2>
 				<table>
 					<tr id="tr_top">
-						<td width="100">이름</td>
-						<td width="200">제목</td>
-						<td width="120">날짜</td>
-						<td width="50" align="center">조회수</td>
+						<td width="80">이름</td>
+						<td width="230">제목</td>
+						<td width="100">날짜</td>
+						<td width="25" align="center">조회수</td>
+						<td width="25" align="center">추천수</td>
 					</tr>
 
 					<c:choose>
@@ -117,10 +118,15 @@ a {
 					<c:forEach var="board" items="${Board }">
 						<tr>
 							<td>${board.member_id }</td>
-							<td><a
-								href="CommunityDetail.co?board_idx=${board.board_idx }">${board.board_subject }</a></td>
-							<td>${board.board_date }</td>
+							<td>
+							<a
+								href="CommunityDetail.co?board_idx=${board.board_idx }&pageNum=${param.pageNum }">${board.board_subject }</a>
+								</td>
+							<td>${board.board_date }
+							
+							</td>
 							<td>${board.board_readcount }</td>
+							<td>${board.board_likecount }</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -179,11 +185,7 @@ a {
 			</c:otherwise>
 		</c:choose>
 	</section>
-
-
-	<header>
+	<footer>
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>
-	</header>
-	</div>
-</body>
+	</footer>
 </html>

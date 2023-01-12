@@ -2,6 +2,7 @@ package svc;
 
 import java.sql.Connection;
 
+import dao.OrderedDAO;
 import dao.ReviewDAO;
 import db.JdbcUtil;
 import vo.ReviewBean;
@@ -28,8 +29,17 @@ public class ReviewWriteProService {
 		
 		// 6.
 		if(insertCount > 0) { // 성공시
-			JdbcUtil.commit(con);
-			isWriteSuccess = true;
+			
+			OrderedDAO dao2 = OrderedDAO.getInstance();
+			dao2.setConnection(con);
+			boolean updateSuccess=dao2.updateMemberPoint(review.getMember_id(), 500);
+			
+			if(updateSuccess) {
+				JdbcUtil.commit(con);
+				isWriteSuccess = true;
+			} else {
+				JdbcUtil.rollback(con);
+			}
 			
 		}else { // 실패시
 			JdbcUtil.rollback(con);

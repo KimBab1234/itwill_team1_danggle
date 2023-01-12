@@ -100,7 +100,7 @@ Map.prototype.toJSON = function toJSON() {
             pay_method : 'card',
             merchant_uid: orderNo, 
             name : orderProName,
-            amount : 100,
+            amount : $("#totalPay").val(),
             buyer_email : '${member.member_email}',
             buyer_name : '${member.member_name}',
             buyer_tel : '010-1234-5678',
@@ -119,13 +119,13 @@ Map.prototype.toJSON = function toJSON() {
 
 
         }, function (rsp) { // callback
+            if (rsp.success) {
         		$("#imp_uid").val(rsp.imp_uid);
         		$("#merchant_uid").val(rsp.merchant_uid);
         		$("#cartJson").val(JSON.stringify(new Map(JSON.parse(localStorage.getItem(id)))));
             	document.dangglePayForm.submit();
-            if (rsp.success) {
             } else {
-				alert("결제에 실패했습니다! 에러 내용: " +  rsp.error_msg);
+				alert("결제에 실패했습니다! " +  rsp.error_msg);
             }
         });
     }
