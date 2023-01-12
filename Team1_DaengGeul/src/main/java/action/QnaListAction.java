@@ -21,7 +21,18 @@ public class QnaListAction implements Action {
 		
 		HttpSession session = request.getSession();
 		String sId = (String)session.getAttribute("sId");
-		
+		response.setContentType("text/html; charset=UTF-8");
+		try {
+			PrintWriter out;
+			out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('잘못된 접근입니다!')");
+			out.println("history.back()");
+			out.println("</script>");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//페이징 처리
 		int listLimit = 10;
