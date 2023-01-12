@@ -23,7 +23,7 @@
 #articleContentArea {
 	background:;
 	margin-top: 20px;
-	height: 550px;
+	height: 200px;
 	text-align: center;
 	overflow: auto;
 	white-space: pre-line;
@@ -160,7 +160,7 @@ table td {
 						<input type="button" value="목록"
 							onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }&pageNum=1'">
 					</c:otherwise>
-				</c:choose> &nbsp;&nbsp; <c:if test="${sessionScope.sId eq board.member_id}">
+				</c:choose> &nbsp;&nbsp; <c:if test="${sessionScope.sId eq board.member_id || sessionScope.sId eq 'admin'}">
 
 					<input type="button" value="글수정"
 						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
@@ -218,7 +218,7 @@ table td {
 							</c:otherwise>
 						</c:choose>
 					</td>
-					<c:if test="${reply.member_id eq sessionScope.sId || sessionScope.sId eq 'admin'}">
+					<c:if test="${reply.member_id eq sessionScope.sId || sessionScope.sId eq 'admin' || board.member_id eq sessionScope.sId}">
 				&nbsp;&nbsp;	<td><input type="button" value="댓글삭제"
 							onclick="location.href='CommunityReplyDeletePro.co?board_idx=${board.board_idx}&reply_idx=${reply.reply_idx }'"></td>
 					</c:if>
