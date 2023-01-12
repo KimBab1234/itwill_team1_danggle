@@ -117,7 +117,14 @@
 							<td><input type="checkbox" name="recoCheck" class="recoCheck" value="${product.product_idx }"></td>
 							<td>${product.product_idx}</td>
 							<td>${product.name}</td>
-							<td>${product.quantity}</td>
+							<c:choose>
+								<c:when test="${product.quantity > 0}">
+									<td>${product.quantity}</td>
+								</c:when>
+								<c:when test="${product.quantity < 1}">
+									<td>품절</td>
+								</c:when>
+							</c:choose>
 							<td><fmt:formatNumber type="number" value="${product.price}"/>원</td>
 							<c:choose>
 								<c:when test="${product.discount } eq 0">
@@ -185,7 +192,14 @@
 						<tr>
 							<td>${product.product_idx}</td>
 							<td>${product.name}</td>
-							<td>${product.quantity}</td>
+							<c:choose>
+								<c:when test="${product.quantity > 0}">
+									<td>${product.quantity}</td>
+								</c:when>
+								<c:when test="${product.quantity < 1}">
+									<td>품절</td>
+								</c:when>
+							</c:choose>
 							<td>${product.price }원</td>
 							<c:choose>
 								<c:when test="${product.discount } eq 0">
