@@ -45,9 +45,7 @@
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="/CommonList.cu">FAQs</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">도움말</a>
+                    <a class="text-dark" href="CommonList.cu">FAQs</a>
                     <span class="text-muted px-2">|</span>
                     <a class="text-dark" href="NoticeList.ad">고객센터</a>
                 </div>
