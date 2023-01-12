@@ -126,6 +126,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 				sql = "SELECT * FROM order_detail_view WHERE order_idx=?"; ///배열로 받아오기 실패 ㅎ..
 				pstmt2 = con.prepareStatement(sql);
 				pstmt2.setString(1, idxArr.get(i));
+				System.out.println(pstmt2);
 				i++;
 				rs2=pstmt2.executeQuery();
 				while(rs2.next()) {

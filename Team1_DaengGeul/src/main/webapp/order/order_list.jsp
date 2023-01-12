@@ -72,6 +72,9 @@
 					<th width="100px">주문 상태</th>
 					<th width="70px">리뷰 쓰기</th>
 				</tr>
+				
+				
+				<!-- 상품을 두개 이상 주문했을 경우   -->
 				<c:forEach items="${orderList}" var="order" varStatus="status">
 							<tr>
 								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList.or?order_idx=${order.order_merchant_uid}">${order.order_date}</a></td>
