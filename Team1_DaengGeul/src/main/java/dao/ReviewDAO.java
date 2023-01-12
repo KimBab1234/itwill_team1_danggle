@@ -354,7 +354,6 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null, pstmt2=null, pstmt3=null;
 		
 		try {
-			System.out.println("review_like_done:" + review_like_done);
 			String sql=null;
 			if(review_like_done.equals("N")) {
 				
@@ -364,7 +363,6 @@ public class ReviewDAO {
 				
 				pstmt.setInt(1, review_idx);
 				pstmt.setString(2, member_id);
-				System.out.println(pstmt);
 				insertCount = pstmt.executeUpdate();
 				
 			}else if(review_like_done.equals("Y")) {
@@ -374,7 +372,6 @@ public class ReviewDAO {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, review_idx);
 				pstmt.setString(2, member_id);
-				System.out.println(pstmt);
 				insertCount = pstmt.executeUpdate();
 				
 			}
