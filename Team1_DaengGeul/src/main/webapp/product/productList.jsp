@@ -67,10 +67,10 @@
 	</header>
 
 	<div class="recoArea">
-	<div align="left" style="width: 300px; display:inline-block; margin-left:80px;">
+	<div align="left" style="width: 300px;  margin-left:80px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
-	<div style="width : 1200px; display:inline-block;">
+	<div style="width : 1200px; ">
 		<h4 id="listH4">상품 관리</h4><br>
 		<div class="choice" id="choice_book">책</div><div class="choice" id="choice_goods">굿즈</div>
 		<div id="bookList">

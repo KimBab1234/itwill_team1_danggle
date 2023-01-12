@@ -6,10 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <link href="img/daram.png" rel="shortcut icon" type="image/x-icon">
+<link href="css/product.css" rel="stylesheet" type="text/css" >
 <title>댕글댕글 : 회원관리</title>
 <%------------------- 임시 홈페이지 CSS -------------------%>
 <link href="css/memberList.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script>
+
+$(function() {
+	$('.dropdown-toggle', this).trigger('click').blur();
+});
+</script>
 </head>
 <body>
 	<header>
@@ -18,16 +26,18 @@
 		<jsp:include page="/inc/main.jsp"></jsp:include>
 	</header>
 	
-	<div class="clear"></div>
-	
-	<div id="body">
-	<article>
+	<div class="recoArea" style="width: 1800px;">
+	<div align="left" style="width: 300px;  margin-left:80px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
+	<div style="width : 1300px;" align="center">
 		<!-------------------------- 회원목록 --------------------------->
-		<div id="listName">
+		<div style="font-size: 30px;">
 			<img src="img/daram.png" width="50" height="75">
 			회원목록
 		</div>
-		<table border="1">
+		<div style="width: 1300px; font-size: 20px; ">
+		<table border="1" style="text-align: center;">
 			<tr>
 				<th width="150">아이디</th>
 				<th width="100">이름</th>
@@ -54,7 +64,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
+		</div>
 		<!-------------------------- 회원명 검색버튼 --------------------------->
 		<section id="buttonArea">
 			<form action="MemberList.me">
@@ -67,7 +77,7 @@
 		</section>
 		
 		<!-------------------------- 페이지 이동버튼 --------------------------->
-		<section id="pageList">
+		<div id="pageList">
 			<!-- 이전 페이지 -->
 			<c:choose>
 				<c:when test="${pageNum > 1}">
@@ -99,10 +109,9 @@
 					<input type="button" id="btnNext" value="다음">
 				</c:otherwise>
 			</c:choose>
-		</section>
-	</article>
+		</div>
 	</div>
-	
+	</div>
 	<div class="clear"></div>
 	<div class="clear"></div>
 	
@@ -117,7 +126,6 @@
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>

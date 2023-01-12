@@ -32,7 +32,14 @@ a:active {
 </style>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <div style="margin-left:20px; font-weight:bolder; font-size:24px; background: white; color:#736643; width: 200px;" align="center">
-	${sessionScope.sId}님<br><span style ="font-size: 20px;">현재 적립금 : <%=point%>원</span>
+<c:choose>
+	<c:when test="${sessionScope.sId eq 'admin'}">
+		관리자페이지<br>	
+	</c:when>
+	<c:otherwise>
+		${sessionScope.sId}님<br><span style ="font-size: 20px;">현재 적립금 : <%=point%>원</span>	
+	</c:otherwise>
+</c:choose>
 </div>
 <div style="margin-left:20px; background: #F0D264; color:#736643; width: 200px; height: 200px; font-size: 20px;" align="center">
 	<c:choose>
