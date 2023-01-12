@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 import com.mysql.cj.Session;
 
 import svc.ReviewDetailService;
@@ -16,6 +18,7 @@ import vo.ReviewBean;
 
 public class ReviewDetailAction implements Action {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = null;
@@ -33,7 +36,7 @@ public class ReviewDetailAction implements Action {
 		ReviewDetailService service = new ReviewDetailService();
 		ReviewBean review =  service.getReview(review_idx, true, member_id);
 		ReviewBean review1 = null;
-		if(product_idx.length()>0) {
+		if(product_idx!=null && product_idx.length()>0) {
 			ReviewWriteFormService service1 = new ReviewWriteFormService();
 			review1 = service1.getReview(product_idx);
 		}
@@ -53,6 +56,7 @@ public class ReviewDetailAction implements Action {
 		// URL 유지 및 request 객체 유지를 위해 Dispatch 방식 포워딩
 
 		forward = new ActionForward();
+		System.out.println(product_idx);
 		if(product_idx!=null && product_idx.length()>0) {
 			forward.setPath("review/review_view.jsp");
 		} else {

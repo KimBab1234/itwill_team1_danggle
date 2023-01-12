@@ -16,7 +16,13 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 	<link href="css/default_order.css" rel="stylesheet" type="text/css">
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	font-weight: bold;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
 #alert-box {
     z-index: 1;
     position: absolute;
@@ -33,6 +39,21 @@
     display: none;
     line-height: 50px;
 } 
+button {
+  color: #F0D264;
+  background-color:#513e30;
+}
+button:hover {
+  background-color: #F0D264;
+  color:#513e30;
+}
+button i{
+  color: #F0D264;
+  background-color:none;
+}
+button:hover i{
+  color:#513e30;
+}
 </style>
 <script>
 
@@ -179,14 +200,14 @@ function countModify(sign) {
 	
 	<!-- 상단 이미지, 큰 정보 감싸는 곳 -->
 		<div style="width: 1500px; margin-left: 20px;">
-			<form action="CartAdd.or" method="post" style="display: flex; align-items: center;">
+			<form action="CartAdd.or" method= "post" style="display: flex; align-items: center;">
 				<img src="${img}" style="width: 400px; margin-left: 200px">
 				<div class="mb-4 pt-2" style="text-align: left; width: 500px; align-content: center;  margin-left: 50px">
 					<input type="hidden" id="product_idx" value="${product.product_idx}">
 					<input type="hidden" id="price" value="${product.dis_price}">
 					<input type="hidden" id="img" value="${img}">
 					<input type="hidden" id="name" value="${product.name}">
-					<span style="font-family: 'Jua', sans-serif; font-size: 55px;">${product.name}</span>
+					<span style="font-size: 55px;">${product.name}</span>
 					<hr>
 					<div id="book_detail">
 						장르 : ${product.book_genre}
@@ -245,7 +266,7 @@ function countModify(sign) {
 					</div>
                     <div class="tab-content">
 						<div class="tab-pane fade show active" id="tab-pane-1" align="center">
-	                       <p style="width: 1000px;" align="left">
+	                       <p style="width: 1000px; font-size: 20px;" align="left">
 	                        	${product.detail}
 	                       </p>
 	                       <div align="center">
@@ -255,7 +276,7 @@ function countModify(sign) {
 	                       </div>
 	                    </div>
                     	<div class="tab-pane fade"  id="tab-pane-3" align="center">
-                    		<div id="product-review-area" style="width: 1000px;" align="center">
+                    		<div id="product-review-area" style="width: 1300px;" align="center">
 								
 							</div>
                     	</div>

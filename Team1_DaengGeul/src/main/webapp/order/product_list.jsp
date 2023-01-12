@@ -8,6 +8,13 @@
 <title>상품 목록</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
 <link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
@@ -24,25 +31,28 @@
         </div>
 	    <!-- Shop Start -->
 	    <div class="container-fluid pt-5" style="margin-left: 20px; width: 1500px;">
+	    	<h1 style="text-align: left;">&nbsp;&nbsp;&nbsp;| ${title}</h1>
 	        <div class="row px-xl-5">
 	            <!-- Shop Product Start -->
 	                <div class="row pb-3">
 	                    <div class="col-12 pb-1">
 	                        <div class="d-flex justify-content-between mb-4">
 	                            	<c:if test="${param.type ne 'B_recomm' && param.type ne 'B_disc' }">
-				                       <span> ■ 베스트 순위는 최근 7일간 판매량 기준입니다.</span>
+				                       <span>&nbsp;&nbsp;■ 베스트 순위는 최근 7일간 판매량 기준입니다.</span>
+				                       <c:if test="${param.type ne 'B_best' }">
 			                            <div class="dropdown ml-4" style="">
-		                                <button class="btn border dropdown-toggle" type="button" id="triggerId2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		                                     정렬
-		                                </button>
-		                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId2">
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_new${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>최신순</a></li>
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_best${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>많이 팔린 순</a></li>
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_pricedown${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 낮은 순</a></li>
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_priceup${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 높은 순</a></li>
-		                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_star${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>리뷰 좋은 순</a></li>
-		                                </ul>
-		                            </div>
+			                                <button class="btn border dropdown-toggle" type="button" id="triggerId2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                                     정렬
+			                                </button>
+			                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId2">
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_new${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>최신순</a></li>
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_best${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>많이 팔린 순</a></li>
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_pricedown${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 낮은 순</a></li>
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_priceup${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>가격 높은 순</a></li>
+			                                    <li><a class="dropdown-item" href='ProductList.go?type=${param.type.substring(0,1)}_star${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>리뷰 좋은 순</a></li>
+			                                </ul>
+		                           		</div>
+		                            </c:if>
 	                            	</c:if>
 	                        </div>
 	                    </div>
@@ -73,7 +83,7 @@
 		                                    <h6 class="text-truncate mb-3">주간베스트&nbsp;</h6><h5 style="color: red;">${item.rank}</h5><h6 class="text-truncate mb-3">위</h6>
 		                                </div>
 	                            	</c:if>
-	                                <h5 class="text-truncate mb-3">${item.name}</h5>
+	                                <h5 class="text-truncate mb-3" style="font-weight: bold;">${item.name}</h5>
 	                                <div class="d-flex justify-content-center">
 	                                	<c:choose>
 	                                		<c:when test="${item.discount>0}">

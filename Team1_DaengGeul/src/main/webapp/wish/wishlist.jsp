@@ -132,22 +132,22 @@ if(id=='') {
 		<jsp:include page="/inc/main.jsp"></jsp:include>
 	</header>
 	
-	<div style="display: flex;">
+	<div style="display: flex; margin-left: 50px; width: 1800px;;">
 	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
-	<div align="center" class="orderTable" style="width: 1500px; margin-top: 50px; min-height: 500px;">
+	<div align="center" class="orderTable" style="width: 1300px; min-height: 500px; margin-left:100px;">
 		
 	<div id="listName">
 		<img src="img/daram.png" width="50" height="75">
 		찜목록
 	</div>
 		<!-------------------------- 찜전체 취소버튼 --------------------------->
-		<div style="width: 1500px;" align="left">
+		<div style="width: 1300px;" align="left">
 			<input type="button" id="deleteSelectedWish" value="선택취소">			
 			<input type="button" id="deleteWishAll" value="전체취소">			
 		</div>
-		<table border="1" style="width: 1500px; text-align: center; margin-top: 20px">
+		<table border="1" style="width: 1300px; text-align: center; margin-top: 20px">
 			<tr>
 				<th width="80"><input type="checkbox" id="selectedWishAll">&nbsp;전체</th>
 				<th width="150">상품이미지</th>

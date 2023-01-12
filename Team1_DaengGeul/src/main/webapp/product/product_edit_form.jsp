@@ -16,9 +16,19 @@
 		history.back();
 <%  }%>
 	
-	
+	let productType = '<c:out value="${productType}"/>';
+
+
+
 
 	$(function() {
+		
+		if(productType == "goods"){
+			
+			$("#writer").prop("required", false);
+			$("#publisher").prop("required", false);
+			$("#date").prop("required", false);
+		}
 	    $('.dropdown-toggle', this).trigger('click').blur();
 		
 	    var optionIndex = 0;
@@ -34,15 +44,21 @@
 			  $("#img_name").val(fileName);
 		});
 		
-		// 할인 설정 안함 선택 시 할인율 0으로 변경
+		// 할인 설정 안함 선택 시 할인율 0으로 변경, 할인율 입력창 초기화, required 속성 해제, readonly 속성 추가
 		$(".regi_check").on("click", function() {
 			$("input[name=discount]").val(0);
-			$("input[type=number][id=disPercent]").val(0);
+			$("input[type=number][id=disPercent]").val("");
+			$(".disNum").attr("required", false);
+			$(".disNum").attr("readonly", true);
+			
+			
 		});
 		// 할인율 설정 시 입력한 할인율 반영
 		$(".regi_check2").on("click", function() {
 			var disNum = $("input[type=number][id=disPercent]").val();
 			$("input[name=discount]").val(disNum);
+			$(".disNum").attr("required", true);
+			$(".disNum").attr("readonly", false);
 		});
 		// 할인율 입력 시 hidden 박스에 반영
 		$("input[type=number][id=disPercent]").on("keyup", function() {
@@ -74,6 +90,16 @@
 				$.total();
 			});
 
+		});
+		// 기존에 있던 옵션 수정 시 총 재고 계산
+		$("input[type=number][name=option_qauntity]").on("change", function() {
+			$.total();
+		});
+		// 기존에 있던 옵션 삭제 버튼 동작
+		$(".removeOpt").on("click", function() {
+			$(this).parent().remove();
+			var NumLength = $("input[type=number]").length;
+			$.total();
 		});
 		
 	});
@@ -125,9 +151,9 @@
 				<tr>
 					<th>책 정보</th>
 					<td>
-						<div class="bookArea">작가명 : <input type="text" name="book_writer" id='book_div' value="${product.book_writer}"></div>
-						<div class="bookArea">출판사 : <input type="text" name="book_publisher"id="book_div" value="${product.book_publisher }"></div>
-						<div class="bookArea">출판일 : <input type="date" name="book_date" value="${product.book_date }"></div>
+						<div class="bookArea">작가명 : <input type="text" required="required" id="writer" name="book_writer" class="book_div" value="${product.book_writer}"></div>
+						<div class="bookArea">출판사 : <input type="text" required="required" id="publisher" name="book_publisher" class="book_div" value="${product.book_publisher }"></div>
+						<div class="bookArea">출판일 : <input type="date" required="required" id="date" name="book_date" value="${product.book_date }"></div>
 					</td>
 				</tr>
 			</c:if>
@@ -140,7 +166,7 @@
 							<c:forEach var="i" begin="0" end="${product.option_name.size() -1 }">
 								<div id="optionDiv' + optionIndex +'"><input type="text" name="option_name" value="${product.option_name.get(i)}">
 								<input type="number" name="option_qauntity" id="optionNum'+ optionIndex +'" class="optionNum" value="${product.option_qauntity.get(i)}">
-								<input type="button" value="✖️" class="removeOpt" onclick="removeOption('+ optionIndex + ')"></div>
+								<input type="button" value="✖️" class="removeOpt" ></div>
 							</c:forEach>
 						</c:if>
 					</div>
@@ -158,7 +184,7 @@
 				<th>할인</th>
 				<td>
 					<input type="radio" id="regi_check2" class="regi_check2" name="disc">
-					<input type="number" id="disPercent" name="not" min="0" max="100" class="disNum" value="${product.discount }">%할인 설정<br>
+					<input type="number" id="disPercent" required="required" name="not" min="0" max="100" class="disNum" value="${product.discount }">%할인 설정<br>
 					<input type="radio" name="disc" id="regi_check" class="regi_check">할인 설정 안함<br>
 					<input type="hidden" id="discount" name="discount" value="${product.discount }">
 				</td>
@@ -196,7 +222,7 @@
 		<br>
 		<div align="center">
 			<input type="submit" id="okBtn" value="수정">
-			<input type="button" id="okBtn" value="취소" onclick="history.back()">
+			<input type="button" id="okBtn" value="취소" onclick="location.href='ProductList.ad?pageNum=${param.pageNum }'">
 		</div>
 	</form>
 	</div>
@@ -220,6 +246,7 @@
 			document.getElementById("regi_check").checked = false;
 			document.getElementById("regi_check2").checked = true;
 		}
+		
 		
 	</script>
 	

@@ -11,7 +11,13 @@
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=family=Jua&Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 <style>
 .cartB:focus, .cartB:active { outline:none; }
 </style>
@@ -27,14 +33,14 @@
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
 	
-	<div style="display: flex;">
+	<div style="display: flex; margin-left: 50px; width: 1800px;">
 	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
-	<div align="center">
-	<div style="width: 1300px; margin-top: 50px;">
-	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 상세 주문 내역</h3>
-	<h4 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">■ 주문 날짜 - ${order.order_date}</h4>
+	<div style="width: 1300px; min-height: 500px; margin-left:100px;">
+	<div>
+	<h3 style="text-align: left; color:#736643; font-weight: bold;"><b style="border-left: 10px solid #795548">&nbsp;&nbsp;상세 주문 내역</b></h3>
+	<h3 style="text-align: left; color:#736643; font-weight: bold;">■ 주문 날짜 - ${order.order_date}</h3>
 	<table border="1" class="regi_table" style="width: 1300px; text-align: center; margin-top: 20px">
 		<tr>
 			<th width="300px">상품명</th>
@@ -54,9 +60,9 @@
 		</c:forEach>
 	</table>
 	</div>
-	<div style="width: 1300px; margin-top: 50px;" align="left">
-	<h3 style="text-align: left; margin-top: 50px; font-family: 'Jua', sans-serif; color: #513e30;">| 배송 정보</h3>
-	<table border="1" class="regi_table" style="width: 1300px; text-align: left; margin-top: 20px">
+	<div style="width: 900px; margin-top: 50px;" align="left">
+	<h3 style="text-align: left; color:#736643; font-weight: bold;"><b style="border-left: 10px solid #795548">&nbsp;&nbsp;배송 정보</b></h3>
+	<table border="1" class="regi_table" style="width: 800px; text-align: left; margin-top: 20px; margin-left: 0;">
 		<tr>
 			<th width="100px">받는 사람</th>
 			<td>${order.order_name}</td>
@@ -72,9 +78,10 @@
 	</table>
 	<br>
 	</div>
-	<div align="left" style="width: 1300px; margin-top: 50px;">
-	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 결제 정보</h3> 
-	<table border="1"  class="regi_table" style="width: 500px; text-align: left; margin-top: 20px; align-content: left;'">
+	<div align="left" style="width: 900px; margin-top: 50px;">
+		<h3 style="text-align: left; color:#736643; font-weight: bold;"><b style="border-left: 10px solid #795548">&nbsp;&nbsp;결제 정보</b></h3>
+	<div align="left">
+	<table border="1"  class="regi_table" style="width: 500px; text-align: left; margin-top: 20px;  margin-left: 0;'">
 		<tr>
 			<th width="200px">사용한 포인트</th>
 			<td>${order.order_point}원</td>
@@ -88,6 +95,7 @@
 			<td>${order.order_total_pay}원</td>
 		</tr>
 	</table>
+	</div>
 	</div>
 </div>
 </div>

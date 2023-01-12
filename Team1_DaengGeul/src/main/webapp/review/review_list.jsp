@@ -63,17 +63,17 @@
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
-	<div style="display: flex;">
-	<div align="left" style="width: 300px; margin-top: 60px; margin-left: 100px">
+	<div style="display: flex; width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
 	<!-- 게시판 리스트 -->
 	<div align="center">
-	<div style="width: 1000px; margin-top: 50px; min-height: 500px;">
+	<div style="width: 1300px; margin-top: 50px; min-height: 500px;">
 	<section id="listForm">
 	<div align="left" style="margin-left:100px;">
 		<h2>
-		<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 목록</b></h2>
+		<b style="border-left: 10px solid #795548">&nbsp;&nbsp;내가 쓴 리뷰 목록</b></h2>
 	<br>
 	<br>
 	<table border="1">

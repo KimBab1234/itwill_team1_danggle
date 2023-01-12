@@ -3,6 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+	
+.badge{
+	font-weight: bold;
+}
+</style>
 <head>
     <meta charset="utf-8">
     <title>머릿글</title>
@@ -28,13 +39,13 @@
     <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 
-<body>
+<body style="font-weight:bold;">
     <!-- Topbar Start -->
     <div class="container-fluid" style="width: 1920px;">
         <div class="row bg-secondary py-2 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="">FAQs</a>
+                    <a class="text-dark" href="/CommonList.cu">FAQs</a>
                     <span class="text-muted px-2">|</span>
                     <a class="text-dark" href="">도움말</a>
                     <span class="text-muted px-2">|</span>
@@ -44,19 +55,19 @@
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
                     <a class="text-dark px-2" href="">
-                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-facebook-f" style="color:#fae37d;"></i>
                     </a>
                     <a class="text-dark px-2" href="">
-                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-twitter" style="color:#fae37d;"></i>
                     </a>
                     <a class="text-dark px-2" href="">
-                        <i class="fab fa-linkedin-in"></i>
+                        <i class="fab fa-linkedin-in" style="color:#fae37d;"></i>
                     </a>
                     <a class="text-dark px-2" href="">
-                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-instagram" style="color:#fae37d;"></i>
                     </a>
                     <a class="text-dark pl-2" href="">
-                        <i class="fab fa-youtube"></i>
+                        <i class="fab fa-youtube" style="color:#fae37d;"></i>
                     </a>
                 </div>
             </div>
@@ -84,7 +95,7 @@
             <div class="col-lg-3 col-6 text-right">
                 <a href="Wishlist.ws" class="btn border" >
                     <i class="fas fa-heart text-primary"></i>
-			        <span class="badge" id="wishCount">
+			        <span class="badge" id="wishCount" style="font-weight: bold; font-size: 15px;">
 			        	<c:choose>
 	                   		<c:when test="${!empty sessionScope.sId }">
 	                   			${sessionScope.wishlistCount }
@@ -97,7 +108,7 @@
                 </a>
                 <a href="CartListForm.or" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge" id="cartBadge">
+                    <span class="badge" id="cartBadge" style="font-weight: bold; font-size: 15px;">
                     </span>
                 </a>
             </div>

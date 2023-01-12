@@ -197,7 +197,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 				order = new OrderBean();
 				order.setOrder_total_pay(rs.getInt("order_total_pay"));
 				int start = id.length();
-				order.setOrder_date(java.sql.Date.valueOf(order_idx.substring(start,start+4)+"-"+order_idx.substring(start+5,start+6)+"-"+order_idx.substring(start+7,start+8)));
+				order.setOrder_date(java.sql.Date.valueOf(order_idx.substring(start,start+4)+"-"+order_idx.substring(start+4,start+6)+"-"+order_idx.substring(start+6,start+8)));
 				order.setOrder_address(rs.getString("order_address"));
 				order.setOrder_name(rs.getString("order_name"));
 				order.setOrder_phone(rs.getString("order_phone"));

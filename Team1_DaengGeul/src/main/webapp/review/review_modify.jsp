@@ -113,31 +113,29 @@ $(function() {
 		<jsp:include page="../inc/main.jsp"></jsp:include> <!-- 본문1 -->
 	</header>
 	<br>
-	<div style="display: flex;">
-	<div align="left" style="width: 300px; margin-top: 100px; margin-left: 100px">
+	<div style="display: flex; width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
 	<!-- 게시판 글 수정 -->
-	<div align="center">
-	<div style="width: 1000px;">
-	<section id="modifyForm">
-		<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 수정</b></h2>
+	<div id="modifyForm" align="left" style="width: 1000px; margin-left: 350px; margin-top: 1px">
+		<h2><b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 수정</b></h2>
 		<br>
 		<br>
-		<table align = "center">
+		<table>
 			<tr>
 				<td><img src="img/product/${review1.product_img }" width="170" style="margin-right: 60px"></td>
 				<td><b style="font-size: 25px">${review1.product_name }</b></td>
 			</tr>
 		</table>
 		<br>
-		<form action="ReviewModifyPro.re" name="reviewForm"id="myform" method="post" action="./save">
+		<form action="ReviewModifyPro.re" name="reviewForm"id="myform" method="post" action="./save" >
 		<!-- 글번호, 페이지번호 / 글 수정 작업 동작 흐름-->
 			<!-- 입력받지 않은 글번호는 hidden으로 넘겨야함 -->
 			<input type="hidden" name="review_idx" value="${param.review_idx }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
-			<table border="2" class="b1" align = "center">
+			<input type="hidden" name="product_idx" value="${param.product_idx }">
+			<table border="1" class="b1" style="">
 				<tr>
 					<td class="td_left"><label for="review_subject"><b>제목</b></label></td>
 					<td class="td_right"><input type="text" name="review_subject" value="${review.review_subject }" required="required" class="r1"/></td>
@@ -166,14 +164,12 @@ $(function() {
 				</tr>
 			</table>
 			<br>
-			<section id="commandCell" align= "center">
-				<input type="submit" value="수정" id="s1">&nbsp;&nbsp;
+			<section id="commandCell" style="width: 1800px; margin-left: 120px;">
+				<input type="submit" value="수정 완료" id="s1">&nbsp;&nbsp;
 				<input type="reset" value="다시쓰기" id="s2">&nbsp;&nbsp;
 				<input type="button" value="취소" id="s3" onclick="history.back()">
 			</section>
 		</form>
-	</section>
-	</div>
 	</div>
 	</div>
 	<!------------------------------------ 바닥글 --------------------------------------->

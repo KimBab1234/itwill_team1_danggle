@@ -6,6 +6,13 @@
 <meta charset="UTF-8">
 <title>결제 완료</title>
 <link href="css/default_order.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 <script>
 var id = '${sessionScope.sId}';
 localStorage.removeItem(id);

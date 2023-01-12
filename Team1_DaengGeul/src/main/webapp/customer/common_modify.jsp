@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>문의 게시판</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.dropdown-toggle', this).trigger('click').blur();
+});
+</script>
+</script>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 

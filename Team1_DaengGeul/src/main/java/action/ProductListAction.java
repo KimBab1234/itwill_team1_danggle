@@ -69,6 +69,62 @@ public class ProductListAction implements Action {
 		request.setAttribute("productList", productList);
 		request.setAttribute("pageInfo", pageInfo);
 		
+		String title="";
+		
+		if(type.contains("recomm")) {
+			title="운영자 추천 도서";
+		} else if(type.contains("genre")) {
+			
+			switch (keyword) {
+			case "humanities":
+				title = "인문";
+				break;
+			case "novel":
+				title = "소설";
+				break;
+			case "poem":
+				title = "시";
+				break;
+			case "history":
+				title = "역사";
+				break;
+			case "religion":
+				title = "종교";
+				break;
+			case "society":
+				title = "사회";
+				break;
+			case "science":
+				title = "과학";
+				break;
+			case "self_improvement":
+				title = "자기계발";
+				break;
+			case "kids":
+				title = "어린이";
+				break;
+			case "health":
+				title = "건강";
+				break;
+			case "reference":
+				title = "참고서";
+				break;
+			}
+			
+			title="장르 : "+title;
+
+		} else if(type.contains("disc")) {
+			title="할인 중인 도서";
+		} else if(type.substring(0,1).equals("G")) {
+			title="굿즈샵";
+		}  else if(typeArr.length==2) {
+			if(type.contains("B_best") )
+			title="베스트셀러";
+		} else if(type.contains("search")) {
+			title="검색 결과 : " + totalProduct +"건";
+		} 
+		request.setAttribute("title", title);
+		
 		String ListPath = "order/product_list.jsp?type=" + request.getParameter("type") + "&pageNum=" + pageNum;
 		
 	

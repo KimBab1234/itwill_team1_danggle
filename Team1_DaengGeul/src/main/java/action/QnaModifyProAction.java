@@ -26,7 +26,7 @@ public class QnaModifyProAction implements Action {
 		String realPath = "";
 		// 수정 작업 결과에 따라 삭제할 파일이 달라지므로 파일명을 저장할 변수 선언
 		String deleteFileName = "";
-		
+		boolean isNewFile = false;
 		try {
 			String uploadPath = "upload"; // 업로드 가상 디렉토리(이클립스)
 			realPath = request.getServletContext().getRealPath(uploadPath);
@@ -57,7 +57,9 @@ public class QnaModifyProAction implements Action {
 			
 			
 			QnaBean qna = new QnaBean();
-			
+			if(multi.getOriginalFileName("qna_file")!=null) {
+				isNewFile = true;
+			}
 			HttpSession session = request.getSession();
 			String sId = (String)session.getAttribute("sId");
 			qna.setQna_idx(Integer.parseInt(multi.getParameter("qna_idx")));
@@ -105,10 +107,13 @@ public class QnaModifyProAction implements Action {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			File f = new File(realPath, deleteFileName);
+			if(isNewFile) {
+				
+				File f = new File(realPath, deleteFileName);
+				if(f.exists()) { // 존재할 경우
+					f.delete();
+			}
 			
-			if(f.exists()) { // 존재할 경우
-				f.delete();
 			}
 		}
 		
