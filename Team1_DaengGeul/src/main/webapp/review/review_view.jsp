@@ -221,7 +221,7 @@ $(function() {
 				</td>
 				<td width="150" height="50" align="center" style="font-weight: bold;">좋아요</td>
 				<td align="center">
-					<button type="button" type="button" class="review_like" id="review_like1">
+					<button type="button" type="button" class="review_like" id="review_like1" style="border-color: transparent; background-color: transparent;">
 					<i class='far fa-thumbs-up' style='font-size:28px'></i><div id="like_count">${review.review_like_count}</div></button>
 				</td>
 			</tr>
