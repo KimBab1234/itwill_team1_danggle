@@ -20,10 +20,10 @@ $(function() {
 $(function() {
 	
 	if('${review.review_like_done}' =='Y') {
-		$("#review_like1").css("color", "blue");
+		$("#review_like1").children("i").css("color", "blue");
 		$("#review_like1").val("Y");
 	} else {
-		$("#review_like1").css("color", "gray");
+		$("#review_like1").children("i").css("color", "gray");
 		$("#review_like1").val("N");
 	}
 	
@@ -40,11 +40,11 @@ $(function() {
 					$("#like_count").text(response);
 					
 					if(review_like_done =='Y') {
-						$("#review_like1").css("color", "gray");
+						$("#review_like1").children("i").css("color", "gray");
 						$("#review_like1").val("N");
 						$("#review_like_done").text("N");
 					} else {
-						$("#review_like1").css("color", "blue");
+						$("#review_like1").children("i").css("color", "blue");
 						$("#review_like1").val("Y");
 						$("#review_like_done").text("Y");
 					}
@@ -57,7 +57,7 @@ $(function() {
 		});
 	});
 	
-	$(".review_like").on("mouseover", function(e) {
+	$(".review_like").on("mouseover", function() {
 		var nowLikeYN = $("#review_like1").val();
 		if(nowLikeYN=='Y') {
 			$(this).children("i").css("color","gray");
@@ -221,8 +221,8 @@ $(function() {
 				</td>
 				<td width="150" height="50" align="center" style="font-weight: bold;">좋아요</td>
 				<td align="center">
-					<button type="button" type="button" class="review_like" id="review_like1" style="border-color: transparent; background-color: transparent;">
-					<i class='far fa-thumbs-up' style='font-size:28px'></i><div id="like_count">${review.review_like_count}</div></button>
+					<button type="button" type="button" class="review_like" id="review_like1" style="border-color: transparent; background-color: transparent;  outline: 0;">
+					<i class='far fa-thumbs-up' style='font-size:28px;'></i><div id="like_count">${review.review_like_count}</div></button>
 				</td>
 			</tr>
 			<tr>
