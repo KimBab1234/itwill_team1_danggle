@@ -224,6 +224,9 @@ table td {
 								<input type="button" value="추천취소"
 									onclick="location.href='ReplyLikeDelete.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }&reply_idx=${reply.reply_idx }'">
 							</c:when>
+							<c:when test="${empty sessionScope.sId }">
+								
+							</c:when>
 							<c:otherwise>
 								<input type="button" value="추천"
 									onclick="location.href='ReplyLike.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }&reply_idx=${reply.reply_idx }'">
