@@ -12,11 +12,9 @@
 <link href="css/memberList.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<script>
-
-$(function() {
-	$('.dropdown-toggle', this).trigger('click').blur();
-});
+<script type="text/javascript">
+	
+	    $('.dropdown-toggle', this).trigger('click').blur();
 </script>
 </head>
 <body>
@@ -26,8 +24,8 @@ $(function() {
 		<jsp:include page="/inc/main.jsp"></jsp:include>
 	</header>
 	
-	<div class="recoArea" style="width: 1800px;">
-	<div align="left" style="width: 300px;  margin-left:80px;">
+	<div class="recoArea" style="width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
 	<div style="width : 1300px;" align="center">
@@ -36,8 +34,8 @@ $(function() {
 			<img src="img/daram.png" width="50" height="75">
 			회원목록
 		</div>
-		<div style="width: 1300px; font-size: 20px; ">
-		<table border="1" style="text-align: center;">
+		<div style="width: 1300px; font-size: 20px; min-height: 207px;">
+		<table border="1" style="text-align: center;font-size: 20px; width: 1300px;">
 			<tr>
 				<th width="150">아이디</th>
 				<th width="100">이름</th>
@@ -59,14 +57,14 @@ $(function() {
 					<td>
 						<input type="button" value="상세정보" id="btnInfo"  onclick="location.href='MemberInfo.me?id=${member.member_id}'">
 						<!-- 주문내역 서블릿 수정 필요! -->
-						<input type="button" value="주문내역" id="btnOrder" onclick="location.href='MemberInfo.me?id=${member.member_id}'">
+						<input type="button" value="주문내역" id="btnOrder" onclick="location.href='OrderList.or?id=${member.member_id}'">
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
 		</div>
 		<!-------------------------- 회원명 검색버튼 --------------------------->
-		<section id="buttonArea">
+		<section id="buttonArea" style="width: 1300px; margin-top: 10px;">
 			<form action="MemberList.me">
 				<%-- 관리자만 검색 (관리자만 페이지 볼 수 있지만 JSTL 사용법 쫌 더 익숙해지길 바라며!!)--%>
 				<c:if test="${!empty sessionScope.sId && sessionScope.sId eq 'admin'}">
@@ -92,10 +90,10 @@ $(function() {
 			<c:forEach var="i" begin="${memberPageInfo.startPage }" end="${memberPageInfo.endPage }">
 				<c:choose>
 					<c:when test="${pageNum eq i}">
-						${i }
+						<span style="margin: 5px;">${i }</span>
 					</c:when>
 					<c:otherwise>
-						<a href="MemberList.me?pageNum=${i }">${i }</a>
+						<span style="margin: 5px;"><a href="MemberList.me?pageNum=${i }">${i }</a></span>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
