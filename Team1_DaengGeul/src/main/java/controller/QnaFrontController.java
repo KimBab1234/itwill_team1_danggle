@@ -18,6 +18,7 @@ import action.CommonModifyProAction;
 import action.CommonWriteProAction;
 import action.QnaDeleteProAction;
 import action.QnaDetailAction;
+import action.QnaEmailResult;
 import action.QnaListAction;
 import action.QnaModifyFormAction;
 import action.QnaModifyProAction;
@@ -107,7 +108,12 @@ public class QnaFrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("mail/mail_Pro.jsp");
 			forward.setRedirect(false);
+		} else if (command.equals("/MailResult.cu")) {
+			action = new QnaEmailResult();
+			forward = action.execute(request, response);
 		}
+		
+		
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
