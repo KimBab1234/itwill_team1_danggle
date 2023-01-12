@@ -44,7 +44,6 @@
  	} 
 	/* 테이블 위쪽 */
  	.td_top { 
- 		width: 200px; 
  		height: 50px;
  		background: #513e30; 
  		text-align: center; 
@@ -56,6 +55,23 @@
  		text-align: center;
  		height: 40px;
  	}
+ 	/* 별점 */
+	.rate {
+		align: center;
+	}
+	#myform fieldset{
+    	display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    	direction: rtl; /* 이모지 순서 반전 */
+    	border: 0; /* 필드셋 테두리 제거 */
+	}
+	#myform input[type=radio]{
+	    display: none; /* 라디오박스 감춤 */
+	}
+	#myform fieldset label{
+	    font-size: 1.5em; /* 이모지 크기 */
+	    color: transparent; /* 기존 이모지 컬러 제거 */
+	    text-shadow: 0 0 0 #ffcc00;
+	}
 </style>
 </head>
 <body>
@@ -76,14 +92,15 @@
 		<b style="border-left: 10px solid #795548">&nbsp;&nbsp;내가 쓴 리뷰 목록</b></h2>
 	<br>
 	<br>
+	<form id="myform">
 	<table border="1">
 		<tr id="tr_top">
 			<td width="400" class="td_top">제목</td>
 			<td width="150" class="td_top">작성자</td>
-			<td width="100" class="td_top">별점</td>
+			<td width="250" class="td_top">별점</td>
 			<td width="150" class="td_top">날짜</td>
-			<td width="100" class="td_top"><i class='far fa-thumbs-up'></i>&nbsp;&nbsp;좋아요</td>
-			<td width="150" class="td_top">조회수</td>
+			<td width="150" class="td_top"><i class='far fa-thumbs-up'></i>&nbsp;&nbsp;좋아요</td>
+			<td width="120" class="td_top">조회수</td>
 		</tr>
 			<!-- JSTL 과 EL 활용하여 글목록 표시 작업 반복  -->
 		<c:forEach var="review" items="${reviewList }">
@@ -103,7 +120,12 @@
 					</a>
 				</td>
 				<td>${review.member_id }</td>
-				<td>${review.review_score }점</td>
+				<td>
+					<fieldset name="review_score" class="score" id="score">
+							<c:forEach var="i" begin="1" end="${review.review_score}">
+						        <input type="radio" name="review_score" id="rate" checked="checked"><label for="rate">⭐</label>
+							</c:forEach>
+					</fieldset>
 				<td>
 					<!-- JSTL의 fmt 라이브러리 활용해서 날짜 표현 형식 변경 -->
 					<fmt:formatDate value="${review.review_date }" pattern="yy-MM-dd"/>
@@ -115,6 +137,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	</form>
 	</div>
 	</section>
 	<br>
