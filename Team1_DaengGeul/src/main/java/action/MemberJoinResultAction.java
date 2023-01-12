@@ -34,8 +34,7 @@ public class MemberJoinResultAction implements Action {
 		request.setCharacterEncoding("UTF-8");
 
 		String sender = "ths8190@gmail.com";
-//		String receiver = request.getParameter("email");
-		String receiver = "iun05@naver.com";
+		String receiver = request.getParameter("email");
 		String title = "댕글댕글에 가입해주셔서 감사합니다!";
 		String content = request.getParameter("name") + "님 댕글댕글의 회원이 되어주셔서 감사합니다!<br>"
 				+ "감사의 선물로 웰컴쿠폰과 적립금 1,500원이 지급되었습니다.<br>"
