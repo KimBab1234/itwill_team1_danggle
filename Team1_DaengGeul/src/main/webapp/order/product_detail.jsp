@@ -223,36 +223,48 @@ function countModify(sign) {
 					할인가: <span style="font-size: 2em; font: bold; color: #f4511e;">${product.dis_price }</span>원
 					(${product.discount }% 할인 적용)
 					<br>
-					<!--장바구니부분 -->
-					<div class="input-group mr-3" style="width: 500px; display: flex;">
-							<button class="btn btn-primary btn-minus" type="button" onclick="countModify('-')" style="width: 40px;">
-								<i class="fa fa-minus cartIcon" style="margin-left: 0px;"></i>
-							</button>
-							<input type="text" id="count" name="count" style="background-color: #F6F6F6; border:none; width: 40px;" class="text-center" value="1">
-							<button class="btn btn-primary btn-plus" type="button" style="width: 40px;" onclick="countModify('+')">
-								<i class="fa fa-plus cartIcon" style="margin-left: 0px;"></i>
-							</button>
-							&nbsp;&nbsp;&nbsp;
-							<c:if test="${product.goods_opt.size()>0 }">
-								<span id="goods_detail">
-								<select id="opt">
-									<option value="">==옵션 선택==</option>
-									<c:forEach var="i" begin="0" end="${product.goods_opt.size()-1}">
-										<option value="${product.goods_opt.get(i)}">${product.goods_opt.get(i) }</option>
-									</c:forEach>
-								</select>
+					
+					<c:choose>
+						<c:when test="${product.quantity<=0}">
+							<div style="display: flex; width: 500px; margin-top: 20px;">
+								<span style="width: 400px; font-size: 30px;">
+									품절되었습니다.
 								</span>
-							</c:if>
-					</div>
-					<div style="display: flex; width: 500px; margin-top: 20px;">
-						<button class="btn btn-primary px-3" type="button" id="cartAddBtn" style="width: 150px;">
-							<i class="fa fa-shopping-cart mr-1 cartIcon" style="margin-left: 0px;"></i> 장바구니
-						</button>
-						&nbsp;&nbsp;&nbsp;
-						<button class="btn btn-primary px-3" type="button" id="wish" style="width: 130px;">
-							<i class="fa fa-solid fa-heart cartIcon" style="margin-left: 0px;"></i> 찜하기
-						</button>
-					</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!--장바구니부분 -->
+							<div class="input-group mr-3" style="width: 500px; display: flex;">
+									<button class="btn btn-primary btn-minus" type="button" onclick="countModify('-')" style="width: 40px;">
+										<i class="fa fa-minus cartIcon" style="margin-left: 0px;"></i>
+									</button>
+									<input type="text" id="count" name="count" style="background-color: #F6F6F6; border:none; width: 40px;" class="text-center" value="1">
+									<button class="btn btn-primary btn-plus" type="button" style="width: 40px;" onclick="countModify('+')">
+										<i class="fa fa-plus cartIcon" style="margin-left: 0px;"></i>
+									</button>
+									&nbsp;&nbsp;&nbsp;
+									<c:if test="${product.goods_opt.size()>0 }">
+										<span id="goods_detail">
+										<select id="opt">
+											<option value="">==옵션 선택==</option>
+											<c:forEach var="i" begin="0" end="${product.goods_opt.size()-1}">
+												<option value="${product.goods_opt.get(i)}">${product.goods_opt.get(i) }</option>
+											</c:forEach>
+										</select>
+										</span>
+									</c:if>
+							</div>
+							<div style="display: flex; width: 500px; margin-top: 20px;">
+								<button class="btn btn-primary px-3" type="button" id="cartAddBtn" style="width: 150px;">
+									<i class="fa fa-shopping-cart mr-1 cartIcon" style="margin-left: 0px;"></i> 장바구니
+								</button>
+								&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-primary px-3" type="button" id="wish" style="width: 130px;">
+									<i class="fa fa-solid fa-heart cartIcon" style="margin-left: 0px;"></i> 찜하기
+								</button>
+							</div>
+						</c:otherwise>
+					</c:choose>
 					<div id="alert-box">추가되었습니다!</div>
 				</div>
 			</form>
