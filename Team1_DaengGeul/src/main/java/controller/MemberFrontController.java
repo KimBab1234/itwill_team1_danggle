@@ -16,6 +16,7 @@ import action.MemberCheckIdAction;
 import action.MemberDeleteProAction;
 import action.MemberInfoAction;
 import action.MemberJoinProAction;
+import action.MemberJoinResultAction;
 import action.MemberListAction;
 import action.MemberLoginProAction;
 import action.MemberLogoutProAction;
@@ -126,6 +127,10 @@ public class MemberFrontController extends HttpServlet {
 		} else if(command.equals("/MemberSearchPasswd.me")) {
 			System.out.println("비밀번호 찾기!");
 			action = new MemberSearchPasswdAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/MemberJoinResult.me")) {
+			System.out.println("회원가입 완료!");
+			action = new MemberJoinResultAction();
 			forward = action.execute(request, response);
 		}
 		
