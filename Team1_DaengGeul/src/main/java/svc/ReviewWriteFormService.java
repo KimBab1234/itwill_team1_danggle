@@ -9,7 +9,6 @@ import vo.ReviewBean;
 public class ReviewWriteFormService {
 
 	public ReviewBean getReview(String product_idx) {
-		System.out.println("get review 서비스");
 		ReviewBean review = null;
 		
 		Connection con = JdbcUtil.getConnection();
