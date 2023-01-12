@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="shortcut icon" href="#">
+<title>상품 수정</title>
+<link href="img/dot_daram.gif" rel="shortcut icon" type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 

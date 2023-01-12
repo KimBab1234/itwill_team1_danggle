@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>추천 도서 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <link href="css/product.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
@@ -26,7 +26,7 @@
 	       $('.dropdown-toggle', this).trigger('click').blur();
 	});
 </script>
-<link rel="shortcut icon" href="#">
+<link href="img/dot_daram.gif" rel="shortcut icon" type="image/x-icon">
 </head>
 <body>
 	<header>
