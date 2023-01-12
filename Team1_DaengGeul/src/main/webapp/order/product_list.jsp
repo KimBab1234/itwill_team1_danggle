@@ -80,7 +80,7 @@
 			                            	<c:if test="${param.type.indexOf('genre') >0}">
 			                            		<h6 class="text-truncate mb-3">장르&nbsp;</h6>
 			                            	</c:if>
-		                                    <h6 class="text-truncate mb-3">주간베스트&nbsp;</h6><h5 style="color: red;">${item.rank}</h5><h6 class="text-truncate mb-3">위</h6>
+		                                    <h6 class="text-truncate mb-3" style="font-weight: bold;">주간베스트&nbsp;</h6><h5 style="color: red; font-weight: bold;">${item.rank}</h5><h6 class="text-truncate mb-3" style="font-weight: bold;">위</h6>
 		                                </div>
 	                            	</c:if>
 	                                <h5 class="text-truncate mb-3" style="font-weight: bold;">${item.name}</h5>
@@ -90,14 +90,14 @@
 			                                    <h6 class="text-muted ml-2"><del>${item.price}</del></h6>&nbsp;<h5 style="color: orange">${item.dis_price}</h5><h5 class="text-muted">원</h5>
 	                                		</c:when>
 	                                		<c:otherwise>
-			                                    <h5 style="color: orange">${item.price}</h5><h5 class="text-muted">원</h5>
+			                                    <h4 style="color: orange; font-weight: bold;">${item.price}</h4><h4 class="text-muted">원</h4>
 	                                		</c:otherwise>
 	                                	</c:choose>
 	                                </div>
 	                                <div class="d-flex justify-content-center">
 	                                	<c:choose>
 	                                		<c:when test="${item.discount>0}">
-			                                    <h6 style="color: red">${item.discount}% 할인</h6>&nbsp;|&nbsp;<i class="fa fa-star" style="color: orange"></i>&nbsp;<h6 style="color: brown">${item.review_score}</h6>
+			                                    <h6 style="color: red; font-weight: bold;">${item.discount}% 할인</h6>&nbsp;|&nbsp;<i class="fa fa-star" style="color: orange"></i>&nbsp;<h6 style="color: brown">${item.review_score}</h6>
 	                                		</c:when>
 	                                		<c:otherwise>
 			                                   <i class="fa fa-star" style="color: orange"></i>&nbsp;<h6 style="color: brown">${item.review_score}</h6>
