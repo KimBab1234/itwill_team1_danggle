@@ -13,6 +13,7 @@ import svc.CommunityReplyListService;
 import vo.ActionForward;
 import vo.CommunityBean;
 import vo.Like_community;
+import vo.Like_reply;
 import vo.Reply;
 
 public class CommunityDetailAction implements Action {
@@ -51,7 +52,7 @@ public class CommunityDetailAction implements Action {
 		CommunityReplyListService service4 = new CommunityReplyListService();
 		ArrayList<Reply> replyList = null;
 
-		replyList = service4.communityReplyList(idx);
+		replyList = service4.communityReplyList(idx, sId);
 		request.setAttribute("replyList", replyList);
 
 		forward = new ActionForward();
@@ -60,7 +61,7 @@ public class CommunityDetailAction implements Action {
 		
 		// ------------------------------------------------------------------------------------
 		// ------------------------------ 댓글 추천 중복 체크 ------------------------------------
-		
+
 		
 		// ------------------------------------------------------------------------------------
 		// ------------------------------ 댓글 추천 취소 ------------------------------------

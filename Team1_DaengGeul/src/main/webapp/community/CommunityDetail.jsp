@@ -24,6 +24,7 @@
 	background:;
 	margin-top: 20px;
 	height: 200px;
+	width : 200px;
 	text-align: center;
 	overflow: auto;
 	white-space: pre-line;
@@ -40,6 +41,11 @@ table {
 #reply_table {
 	margin: auto;
 	width: 1000px;
+}
+
+#reply_table2 {
+	margin: auto;
+	width: 1100px;
 }
 
 #reply {
@@ -105,9 +111,11 @@ table td {
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
 	<hr>
+	<div style="display: flex;">
 	<div style="width: 500px;" id="c_div">
 		<jsp:include page="../inc/community_left.jsp"></jsp:include>
 	</div>
+	<div>
 	<h2>
 		<img src="img/re.gif">&nbsp;&nbsp;회원들의 글추천,독후감&nbsp;&nbsp;<img
 			src="img/re.gif">
@@ -115,7 +123,7 @@ table td {
 	<br>
 	<table border="1">
 		<tr align="center">
-			<td>글제목</td>
+			<td width="80">글제목</td>
 			<td colspan="2">${board.board_subject }</td>
 		</tr>
 		<tr align="center">
@@ -146,8 +154,10 @@ table td {
 				</c:if>
 			</th>
 		</tr>
+		<tr>
+			<td colspan="3" ><textarea style="width: 500px; height: 500px;border: 0 solid black;">${board.board_content }</textarea> </td>
+		</tr>
 	</table>
-	<section id="articleContentArea">${board.board_content }</section>
 	<table id="but_table">
 		<tr align="right">
 
@@ -194,11 +204,13 @@ table td {
 			<br>
 				</th>
 			</tr>
-			<c:forEach var="reply" items="${replyList }">
+		</table>
+		<table id="reply_table2">
+		<c:forEach var="reply" items="${replyList }">
 				<tr align="center">
 					<c:choose>
 						<c:when test="${reply.member_id eq 'admin' }">
-							<td width="100"><img src="img/re.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
+							<td width="150"><img src="img/re.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
 						</c:when>
 						<c:otherwise>
 							<td><img src="img/dot_Acon.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
@@ -206,9 +218,9 @@ table td {
 					</c:choose>
 					<td>${reply.reply_content }</td>
 					<td>${reply.date }</td>
-					<td>${reply.reply_likeduplicate }</td>
-					<td>${reply.reply_likecount }&nbsp;&nbsp;<c:choose>
-							<c:when test="${reply.reply_likeduplicate lt 0}">
+					<td>추천수 : ${reply.reply_likecount }</td>
+					<td>${re_duplicate }&nbsp;&nbsp;<c:choose>
+							<c:when test="${reply.reply_likeduplicate > 0 }">
 								<input type="button" value="추천취소"
 									onclick="location.href='ReplyLikeDelete.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }&reply_idx=${reply.reply_idx }'">
 							</c:when>
@@ -224,8 +236,12 @@ table td {
 					</c:if>
 				</tr>
 			</c:forEach>
+		
 		</table>
 	</form>
+	</div>
+	</div>
+	
 	<footer>
 		<jsp:include page="/inc/bottom.jsp"></jsp:include>
 	</footer>
