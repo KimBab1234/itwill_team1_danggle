@@ -543,6 +543,31 @@ public class MemberDAO { // MemberDAO
 	// ----------------------------------------------------------------------
 
 
+	// ------------------------ 포인트조회 (지선) ----------------------------
+		public int getMemberPoint(String id) {
+			int point = -1;
+			
+			try {
+				String sql = "SELECT member_point"
+						+ " FROM member"
+						+ " WHERE member_id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					point= rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt);
+			}
+			
+			return point;
+		} // 회원정보 끝
+		// ----------------------------------------------------------------------
 	
 } // MemberDAO 끝
 

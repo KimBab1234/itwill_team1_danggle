@@ -31,7 +31,7 @@ public class ReviewWriteProService {
 		if(insertCount > 0) { // 성공시
 			
 			OrderedDAO dao2 = OrderedDAO.getInstance();
-			
+			dao2.setConnection(con);
 			boolean updateSuccess=dao2.updateMemberPoint(review.getMember_id(), 500);
 			
 			if(updateSuccess) {
