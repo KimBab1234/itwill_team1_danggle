@@ -34,10 +34,10 @@
 		<jsp:include page="../inc/main.jsp"/>
 	</header>
 	<div class="recoArea">
-	<div align="left" style="width: 300px; display:inline-block; margin-left:80px;">
+	<div align="left" style="width: 300px; margin-left:80px;">
 		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
 	</div>
-	<div style="width : 1200px; display:inline-block;">
+	<div style="width : 1200px; ">
 		<h4 id="recoH4">추천 도서 목록</h4><br>
 		<div id="bookList">
 			<table class="recoTable" style="margin-bottom: 100px;">
