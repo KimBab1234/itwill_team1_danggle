@@ -226,7 +226,14 @@
 		<br>
 		<div align="center">
 			<input type="submit" id="okBtn" value="수정">
-			<input type="button" id="okBtn" value="취소" onclick="location.href='ProductList.ad?pageNum=${param.pageNum }'">
+			<c:choose>
+				<c:when test="${productType eq 'book'}">
+					<input type="button" id="okBtn" value="취소" onclick="location.href='ProductList.ad?pageNum=${param.pageNum }'">
+				</c:when>
+				<c:when test="${productType eq 'goods'}">
+					<input type="button" id="okBtn" value="취소" onclick="location.href='ProductList.ad?product=G'">
+				</c:when>
+			</c:choose>
 		</div>
 	</form>
 	</div>
