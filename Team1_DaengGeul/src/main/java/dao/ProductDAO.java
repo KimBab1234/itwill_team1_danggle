@@ -760,7 +760,6 @@ public class ProductDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, pageStartRow);
 			pstmt.setInt(2, pageProductCount);
-			System.out.println(pstmt);
 			rs=pstmt.executeQuery();
 
 			productList = new LinkedList<>();
