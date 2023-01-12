@@ -23,7 +23,7 @@
 #articleContentArea {
 	background:;
 	margin-top: 20px;
-	height: 550px;
+	height: 200px;
 	text-align: center;
 	overflow: auto;
 	white-space: pre-line;
@@ -54,6 +54,7 @@ table {
 #submit {
 	margin-right: -50px;
 }
+
 h2 {
 	margin: auto;
 	text-align: center;
@@ -107,7 +108,10 @@ table td {
 	<div style="width: 500px;" id="c_div">
 		<jsp:include page="../inc/community_left.jsp"></jsp:include>
 	</div>
-	<h2>회원들의 글추천,독후감</h2>
+	<h2>
+		<img src="img/re.gif">&nbsp;&nbsp;회원들의 글추천,독후감&nbsp;&nbsp;<img
+			src="img/re.gif">
+	</h2>
 	<br>
 	<table border="1">
 		<tr align="center">
@@ -156,16 +160,16 @@ table td {
 						<input type="button" value="목록"
 							onclick="location.href='Community${board.board_type}.co?board_type=${board.board_type }&pageNum=1'">
 					</c:otherwise>
-				</c:choose> &nbsp;&nbsp; <c:if test="${sessionScope.sId eq board.member_id}">
+				</c:choose> &nbsp;&nbsp; <c:if test="${sessionScope.sId eq board.member_id || sessionScope.sId eq 'admin'}">
 
 					<input type="button" value="글수정"
 						onclick="location.href='CommunityModify.co?board_idx=${board.board_idx}&board_type=${board.board_type }'">
-	&nbsp;&nbsp;
+	&nbsp;
 				<input type="button" value="글삭제" onclick="delete2()">
 				</c:if></td>
 		</tr>
 	</table>
-	<br>
+	<hr>
 	<div id="rep_wrtie"></div>
 	<form action="Community_ReplyPro.co">
 		<table id="reply_table">
@@ -185,18 +189,39 @@ table td {
 					<td><a href="MemberLoginForm.me">로그인이 필요합니다</a></td>
 				</c:otherwise>
 			</c:choose>
+			<tr>
+				<th>
+			<br>
+				</th>
+			</tr>
 			<c:forEach var="reply" items="${replyList }">
 				<tr align="center">
-					<td>${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
+					<c:choose>
+						<c:when test="${reply.member_id eq 'admin' }">
+							<td width="100"><img src="img/re.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
+						</c:when>
+						<c:otherwise>
+							<td><img src="img/dot_Acon.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
+						</c:otherwise>
+					</c:choose>
 					<td>${reply.reply_content }</td>
 					<td>${reply.date }</td>
-					<c:if test="${reply.member_id eq sessionScope.sId }">
+					<td>${reply.reply_likeduplicate }</td>
+					<td>${reply.reply_likecount }&nbsp;&nbsp;<c:choose>
+							<c:when test="${reply.reply_likeduplicate lt 0}">
+								<input type="button" value="추천취소"
+									onclick="location.href='ReplyLikeDelete.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }&reply_idx=${reply.reply_idx }'">
+							</c:when>
+							<c:otherwise>
+								<input type="button" value="추천"
+									onclick="location.href='ReplyLike.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }&reply_idx=${reply.reply_idx }'">
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<c:if test="${reply.member_id eq sessionScope.sId || sessionScope.sId eq 'admin' || board.member_id eq sessionScope.sId}">
 				&nbsp;&nbsp;	<td><input type="button" value="댓글삭제"
 							onclick="location.href='CommunityReplyDeletePro.co?board_idx=${board.board_idx}&reply_idx=${reply.reply_idx }'"></td>
 					</c:if>
-					<td><input type="button" value="추천"
-						onclick="location.href='ReplyLike.co?board_idx=${board.board_idx}&member_id=${sessionScope.sId }&reply_idx=${reply.reply_idx }'">
-					</td>
 				</tr>
 			</c:forEach>
 		</table>

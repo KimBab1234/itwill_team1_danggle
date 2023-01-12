@@ -5,6 +5,7 @@ public class Like_reply {
 	private int reply_idx;
 	private String member_id;
 	
+	
 	public int getBoard_idx() {
 		return board_idx;
 	}
@@ -26,6 +27,8 @@ public class Like_reply {
 	
 	@Override
 	public String toString() {
-		return "Like_reply [board_idx=" + board_idx + ", reply_idx=" + reply_idx + ", member_id=" + member_id + "]";
+		return "Like_reply [board_idx=" + board_idx + ", reply_idx=" + reply_idx + ", member_id=" + member_id
+				+ ", reply_likecount=" + "]";
 	}
+
 }

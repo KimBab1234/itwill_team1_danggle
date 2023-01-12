@@ -118,13 +118,19 @@ a {
 					<c:forEach var="board" items="${Board }">
 						<tr>
 							<td>${board.member_id }</td>
-							<td>
-							<a
-								href="CommunityDetail.co?board_idx=${board.board_idx }&pageNum=${param.pageNum }">${board.board_subject }</a>
-								</td>
-							<td>${board.board_date }
-							
-							</td>
+							<c:choose>
+								<c:when test="${board.board_replycount eq 0}">
+									<td><a
+										href="CommunityDetail.co?board_idx=${board.board_idx }&pageNum=${param.pageNum }">${board.board_subject }</a>
+									</td>
+								</c:when>
+								<c:otherwise>
+									<td><a
+										href="CommunityDetail.co?board_idx=${board.board_idx }&pageNum=${param.pageNum }">${board.board_subject }&nbsp;(${board.board_replycount })</a>
+									</td>
+								</c:otherwise>
+							</c:choose>
+							<td>${board.board_date }</td>
 							<td>${board.board_readcount }</td>
 							<td>${board.board_likecount }</td>
 						</tr>
