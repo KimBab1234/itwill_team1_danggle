@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 관리</title>
 <link href="css/product.css" rel="stylesheet" type="text/css" />
 <script src="https://kit.fontawesome.com/8f75f06127.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
@@ -75,7 +75,7 @@
 	});
 	
 </script>
-<link rel="shortcut icon" href="#">
+<link href="img/dot_daram.gif" rel="shortcut icon" type="image/x-icon">
 </head>
 <body>
 	<header>
