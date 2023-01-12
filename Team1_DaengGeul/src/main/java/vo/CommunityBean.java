@@ -13,6 +13,7 @@ public class CommunityBean {
 	private String board_real_file;
 	private Date board_date;
 	private int board_likecount;
+	private int board_replycount;
 	
 	public int getBoard_likecount() {
 		return board_likecount;
@@ -75,13 +76,19 @@ public class CommunityBean {
 		this.board_date = board_date;
 	}
 	
+	public int getBoard_replycount() {
+		return board_replycount;
+	}
+	public void setBoard_replycount(int board_replycount) {
+		this.board_replycount = board_replycount;
+	}
+	
 	@Override
 	public String toString() {
 		return "CommunityBean [board_idx=" + board_idx + ", board_type=" + board_type + ", board_readcount="
 				+ board_readcount + ", board_subject=" + board_subject + ", member_id=" + member_id + ", board_content="
 				+ board_content + ", board_file=" + board_file + ", board_real_file=" + board_real_file
-				+ ", board_date=" + board_date + ", board_likecount=" + board_likecount + "]";
+				+ ", board_date=" + board_date + ", board_likecount=" + board_likecount + ", board_replycount="
+				+ board_replycount + "]";
 	}
-	
-
 }
