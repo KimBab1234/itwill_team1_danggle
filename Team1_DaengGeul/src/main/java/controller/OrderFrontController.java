@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.OrderCartListAction;
 import action.OrderListAction;
 import action.OrderPayFormAction;
 import action.OrderDetailListAction;
@@ -34,9 +35,8 @@ public class OrderFrontController extends HttpServlet {
 		
 		if(command.equals("/CartListForm.or")) {
 			System.out.println("장바구니화면");
-			forward = new ActionForward();
-			forward.setPath("order/cart_form.jsp");
-			forward.setRedirect(false);
+			action = new OrderCartListAction();
+			forward = action.execute(request, response);
 		} else if(command.equals("/OrderPayForm.or")) {
 			System.out.println("결제 화면");
 			action = new OrderPayFormAction();

@@ -104,7 +104,7 @@
                     	</c:choose>
 			        </span>                    	
                 </a>
-                <a href="CartListForm.or" class="btn border">
+                <a href="#" class="btn border" onclick="cartMove()">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge" id="cartBadge" style="font-weight: bold; font-size: 15px;">
                     </span>
@@ -130,6 +130,12 @@
    		} else {
    			$("#cartBadge").text(0);
    		}
+   		
+   		function cartMove() {
+   			alert("a");
+			location.href="CartListForm.or?cartJson="+JSON.stringify(new Map(JSON.parse(localStorage.getItem(id))));
+		}
+   		
    	</script>
     
 </body>
