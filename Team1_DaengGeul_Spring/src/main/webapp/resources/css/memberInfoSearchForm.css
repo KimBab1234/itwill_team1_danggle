@@ -1,0 +1,223 @@
+@charset "EUC-KR";
+
+/* reset style */
+* {
+	box-sizing: border-box;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+/* 화면 커버 디자인 */
+.join-cover {
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+/* 로그인 영역 디자인 */
+.join-cover>.join-wrapper {
+	background: #513e30;
+	color: #c9b584;
+	margin: auto;
+	font-size: 10px;
+	font-weight:600;
+	padding: 1em;
+	box-shadow: 0.45em 0.6em 0 0 black;
+	width: 600px;
+	margin-bottom: 50px;;
+}
+
+/* 로그인 영역 내 행 디자인 */
+.join-cover>.join-wrapper>.row {
+	margin: 1em 0;
+	position: relative;
+}
+
+.join-cover>.join-wrapper>.row> b {
+	font-size: 20px;
+	margin-left: 8%;
+}
+
+.join-cover>.join-wrapper>.row> strong {
+	font-size: 20px;
+}
+
+.join-cover>.join-wrapper>.row.header {
+	font-size: 3em;
+	margin: 0.5em 0;
+	text-align: center;
+	margin-left: 8%;
+	letter-spacing: 0.25em;
+	color: #fae37d;
+}
+
+/* 입력창 및 버튼 디자인 */
+.join-cover>.join-wrapper>.row >.in-id
+{
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	font-size: 15px;
+	border:0.1em solid #c9b584;
+	outline: none;
+	margin-left: 39px;
+}
+
+.join-cover>.join-wrapper>.row > #searchIdResult,
+.join-cover>.join-wrapper>.row > #searchPasswdResult
+{
+	font: inherit;
+	background: inherit;
+	font-size: 15px;
+	outline: none;
+	text-align: center;
+	margin-top: 10px;
+	margin-left: 45px;
+	
+}
+
+.join-cover>.join-wrapper>.row >.in-e
+{
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	font-size: 15px;
+	border:0.1em solid #c9b584;
+	outline: none;
+	margin-left: 45px;
+}
+
+.join-cover>.join-wrapper>.row >.in-e2
+{
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	font-size: 15px;
+	border:0.1em solid #c9b584;
+	outline: none;
+}
+
+.join-cover>.join-wrapper>.row > select
+{
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	font-size: 15px;
+	border:0.1em solid #c9b584;
+	outline: none;
+	margin-left: 18px;
+}
+
+.join-cover>.join-wrapper>.row > #certNum,
+.join-cover>.join-wrapper>.row > #id
+{
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	font-size: 15px;
+	border:0.1em solid #c9b584;
+	outline: none;
+	margin-left: 45px;
+}
+
+.join-cover>.join-wrapper>.row > #checkCert,
+.join-cover>.join-wrapper>.row > #searchPasswd,
+.join-cover>.join-wrapper>.row > #sendCert,
+.join-cover>.join-wrapper>.row > #checkCert,
+.join-cover>.join-wrapper>.row > #searchPasswd,
+.join-cover>.join-wrapper>.row > #checkCert
+{
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	font-size: 15px;
+	font-weight: 600;
+	border:0.1em solid #c9b584;
+	outline: none;
+	margin-left: 9px
+}
+
+.join-cover>.join-wrapper>.row-button >.in-button{
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	font-size: 15px;
+	border: none;
+	outline: none;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.join-cover>.join-wrapper button[type=submit]
+	{
+	width: 100%;
+	font: inherit;
+	background: inherit;
+	color: inherit;
+	border: none;
+/* 	border:0.1em solid #c9b584; */
+	outline: none;
+	padding: 0.5em 0.25em;
+}
+
+.join-cover>.join-wrapper button[type=submit] {
+	border: 0.1em solid #c9b584;
+	letter-spacing: 0.1em;
+	cursor: pointer;
+}
+
+/* 가입하기 다시입력 뒤로가기 버튼 디자인 */
+.row-button {
+	text-align: center;
+	font-size: 15px;
+}
+
+/* 입력창 하단 하이라이트 선 디자인 */
+.join-cover>.join-wrapper .highlight {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 0.1em;
+	background: #c9b584;
+}
+
+/* 버튼 배경 그라데이션 추가 */
+.join-cover>.join-wrapper button[type=submit] {
+	background: rgb(255, 255, 255);
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%,
+		rgba(201, 181, 132, 0) 25%, rgba(226, 204, 129, 0.7511379551820728)
+		40%, rgba(250, 227, 125, 1) 50%, rgba(226, 204, 129, 0.75) 60%,
+		rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+	background-size: 500%;
+	background-position: 0 0;
+	transition: background 0.5s ease-out;
+}
+
+.join-cover>.join-wrapper button[type=submit]:hover {
+	border-color: #fae37d;
+	color: #fae37d;
+	background-position: 100% 0;
+}
+
+/* 하이라이트 선을 부드럽게 표시되도록 애니메이션 처리 */
+.join-cover>.join-wrapper .highlight::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 0.1em;
+	right: 100%;
+	background: #fae37d;
+	transition: right 0.2s ease-out;
+}
+
+.join-cover>.join-wrapper input:focus ~ .highlight::after,
+	.join-cover>.join-wrapper input:valid ~ .highlight::after {
+	right: 0;
+}

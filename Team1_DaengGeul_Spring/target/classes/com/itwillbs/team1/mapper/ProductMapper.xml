@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.team1.mapper.ProductMapper">
+
+	<!-- ========== 지선 ========== -->
+	<select id="selectProduct" resultType="product" parameterType="String">
+		SELECT g.goods_idx 'product_idx', g.goods_name 'name', g.goods_price 'price', g.goods_quantity 'quantity', g.goods_detail 'detail', g.goods_discount 'discount', g.goods_img 'img', g.goods_detail_img 'detail_img', v.ranking 'rank' FROM goods_sort_view v join goods g on g.goods_idx=v.goods_idx WHERE g.goods_idx=#{idx}
+	</select>
+	
+	
+</mapper>
