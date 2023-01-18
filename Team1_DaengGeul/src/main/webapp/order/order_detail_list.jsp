@@ -17,14 +17,48 @@
 	font-family: 'Gowun Dodum', sans-serif;
 	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 	}
-</style>
-<style>
 .cartB:focus, .cartB:active { outline:none; }
 
 .proDe:hover {
 	background: #F0D264;
 }
 </style>
+<script>
+
+$(function() {
+	// --------------------- 장바구니 추가 ---------------------
+	$("#cartAddBtn").on("click", function() {
+		var product_idx = '${product.product_idx}'+ "_opt_" +$('#opt').val();
+		var optionVal = $('#opt').val();
+		
+		$("#alert-box").css("display","block");
+		setTimeout(() => {
+			$('#alert-box').fadeOut(500);
+		 }, 1000)
+		var prod = {
+				'opt' :  $('#opt').val(),
+				'price' :  $('#price').val(),
+				'img' :  $('#img').val(),
+				'name' : '${product.name}',
+				'count' : $('#count').val()
+				};
+		if(cart.size==0) {
+			cart.set(product_idx, new Map(Object.entries(prod)));
+		} else {
+			if(cart.has(product_idx)) {
+				const cartProd = new Map(cart.get(product_idx));
+				cartProd.set('count', Number(cartProd.get('count'))+Number($("#count").val()));
+				cart.set(product_idx, cartProd);
+			} else {
+				cart.set(product_idx, new Map(Object.entries(prod)));
+			}
+		}
+		localStorage.setItem(id, JSON.stringify(cart));
+		$("#cartBadge").text(cart.size);
+	});
+});
+
+</script>
 </head>
 </head>
 <body>
@@ -57,8 +91,8 @@
 			<tr class="proDe">
 				<td><a href="ProductDetail.go?product_idx=${order.order_prod_idx.get(i)}">${order.order_prod_name.get(i)}</a></td>
 				<td>${order.order_prod_price.get(i)}</td>
-				<td>${order.order_prod_opt.get(i)}</td>
-				<td>${order.order_prod_cnt.get(i)}</td>
+				<td class="orderOpt">${order.order_prod_opt.get(i)}</td>
+				<td class="orderCnt">${order.order_prod_cnt.get(i)}</td>
 				<td>${order.order_prod_cnt.get(i)*order.order_prod_price.get(i)}</td>
 			</tr>
 		</c:forEach>
