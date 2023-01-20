@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.itwillbs.team1.vo.ProductBean" alias="product"/>
+		<typeAlias type="com.itwillbs.team1.vo.ProductOptBean" alias="productOpt"/>
 		<typeAlias type="com.itwillbs.team1.vo.OrderBean" alias="order"/>
 	</typeAliases>
 </configuration>

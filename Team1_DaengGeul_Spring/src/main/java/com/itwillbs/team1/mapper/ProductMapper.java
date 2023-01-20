@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.itwillbs.team1.vo.ProductBean;
+import com.itwillbs.team1.vo.ProductOptBean;
 
 public interface ProductMapper {
 
@@ -37,6 +38,7 @@ public interface ProductMapper {
 
 	//=====================상품 1개 가져오기=====================
 	public ProductBean selectProduct(String idx); 
+	public ArrayList<ProductOptBean> selectProductOpt(String idx); 
 
 	//=====================장바구니 정보 가져오기=====================
 	public ArrayList<ProductBean> selectProductList(Set<String> productSet); 

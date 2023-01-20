@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.team1.mapper.ProductMapper;
 import com.itwillbs.team1.vo.ProductBean;
+import com.itwillbs.team1.vo.ProductOptBean;
 
 @Service
 public class ProductService {
@@ -27,7 +28,11 @@ public class ProductService {
 	
 	public ProductBean getProduct(String product_idx) {
 		System.out.println("ProductDetailService- getProduct 진입");
-		return mapper.selectProduct(product_idx);
+		
+		ProductBean product = mapper.selectProduct(product_idx); 
+		product.setOption(mapper.selectProductOpt(product_idx)); 
+		
+		return product;
 	}
 	
 	public ArrayList<ProductBean> getProductList(int startRow, int listLimit) {
