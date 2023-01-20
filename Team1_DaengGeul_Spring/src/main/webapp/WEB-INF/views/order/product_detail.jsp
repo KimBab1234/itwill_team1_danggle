@@ -70,7 +70,7 @@ $(function() {
 	$('.recent-three').fadeIn(300);
 	
 	if('${product.product_idx.substring(0,1)}'=="G") {
-		 $("#book_detail").css("display", "none");
+		 $("#detail").css("display", "none");
 	} else {
 		$("#goods_detail").css("display", "none");
 	}
@@ -209,15 +209,15 @@ function countModify(sign) {
 					<input type="hidden" id="name" value="${product.name}">
 					<span style="font-size: 55px;">${product.name}</span>
 					<hr>
-					<div id="book_detail">
-						장르 : ${product.book_genre}
+					<div id="detail">
+						장르 : ${product.genre}
 						<hr>
-						작가 : ${product.book_writer} | 출판사 : ${product.book_publisher}
+						작가 : ${product.writer} | 출판사 : ${product.publisher}
 						<hr>
-						출간일 : ${product.book_date}<br>
+						출간일 : ${product.date}<br>
 						<hr>
 					</div>
-					주간 베스트 순위 : ${product.rank}위
+					월간 베스트 순위 : ${product.rank}위
 					<hr>
 					정가: ${product.price }원 <br>
 					할인가: <span style="font-size: 2em; font: bold; color: #f4511e;">${product.dis_price }</span>원

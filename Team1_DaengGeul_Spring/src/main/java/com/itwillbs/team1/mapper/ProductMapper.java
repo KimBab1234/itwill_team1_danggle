@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.itwillbs.team1.vo.ProductBean;
 import com.itwillbs.team1.vo.ProductOptBean;
 
@@ -37,17 +39,17 @@ public interface ProductMapper {
 
 
 	//=====================상품 1개 가져오기=====================
-	public ProductBean selectProduct(String idx); 
+	public ProductBean selectProduct(@Param("type") String type, @Param("idx") String idx); 
 	public ArrayList<ProductOptBean> selectProductOpt(String idx); 
 
 	//=====================장바구니 정보 가져오기=====================
 	public ArrayList<ProductBean> selectProductList(Set<String> productSet); 
 
 	//=====================상품 리스트 가져오기=====================
-	public List<ProductBean> selectProductList(String type, String sort, String keyword, int pageStartRow, int pageProductCount); 
+	public List<ProductBean> selectProductList(String sql); 
 
 	//=====================리스트별 상품 갯수 가져오기=====================
-	public int selectProductCount(String type, String sort, String keyword); 
+	public int selectProductCount(String sql); 
 
 	//=====================상품 발송 후 상품 재고, 판매량 업데이트=====================
 	public boolean updateProductSell(ArrayList<String> prodArr, ArrayList<String> optArr, ArrayList<Integer> countList); 

@@ -58,12 +58,12 @@ public class ProductDAO {
 			pstmt3 = con.prepareStatement(sql);
 			pstmt3.setString(1, product_idx);
 			pstmt3.setString(2, book.getName());
-			pstmt3.setString(3, book.getBook_genre());
-			pstmt3.setString(4, book.getBook_writer());
-			pstmt3.setString(5, book.getBook_publisher());
+			pstmt3.setString(3, book.getGenre());
+			pstmt3.setString(4, book.getWriter());
+			pstmt3.setString(5, book.getPublisher());
 			pstmt3.setInt(6, book.getPrice());
 			pstmt3.setInt(7, book.getQuantity());
-			pstmt3.setDate(8, book.getBook_date());
+			pstmt3.setDate(8, book.getDate());
 			pstmt3.setString(9, book.getDetail());
 			pstmt3.setInt(10, book.getDiscount());
 			pstmt3.setString(11, book.getImg());
@@ -248,10 +248,10 @@ public class ProductDAO {
 				book = new ProductBean();
 				book.setProduct_idx(rs.getString("book_idx"));
 				book.setName(rs.getString("book_name"));
-				book.setBook_writer(rs.getString("book_writer"));
-				book.setBook_publisher(rs.getString("book_publisher"));
-				book.setBook_date(rs.getDate("book_date"));
-				book.setBook_genre(rs.getString("book_genre"));
+				book.setWriter(rs.getString("book_writer"));
+				book.setPublisher(rs.getString("book_publisher"));
+				book.setDate(rs.getDate("book_date"));
+				book.setGenre(rs.getString("book_genre"));
 				book.setPrice(rs.getInt("book_price"));
 				book.setDiscount(rs.getInt("book_discount"));
 				book.setQuantity(rs.getInt("book_quantity"));
@@ -334,12 +334,12 @@ public class ProductDAO {
 					
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, book.getName());
-			pstmt.setString(2, book.getBook_genre());
-			pstmt.setString(3, book.getBook_writer());
-			pstmt.setString(4, book.getBook_publisher());
+			pstmt.setString(2, book.getGenre());
+			pstmt.setString(3, book.getWriter());
+			pstmt.setString(4, book.getPublisher());
 			pstmt.setInt(5, book.getPrice());
 			pstmt.setInt(6, book.getQuantity());
-			pstmt.setDate(7, book.getBook_date());
+			pstmt.setDate(7, book.getDate());
 			pstmt.setString(8, book.getDetail());
 			pstmt.setInt(9, book.getDiscount());
 			pstmt.setString(10, book.getImg());
@@ -635,10 +635,10 @@ public class ProductDAO {
 				rs=pstmt.executeQuery();
 
 				if(rs.next()) {
-					product.setBook_genre(rs.getString(1));
-					product.setBook_writer(rs.getString(2));
-					product.setBook_publisher(rs.getString(3));
-					product.setBook_date(rs.getDate(4));
+					product.setGenre(rs.getString(1));
+					product.setWriter(rs.getString(2));
+					product.setPublisher(rs.getString(3));
+					product.setDate(rs.getDate(4));
 				}
 			} else {
 				sql = "SELECT * FROM goods_options WHERE goodsOpt_idx=?";
@@ -774,14 +774,14 @@ public class ProductDAO {
 				product.setImg(rs.getString(5));
 				product.setDis_price(rs.getInt(6));
 				product.setSel_count(rs.getInt(7));
-				product.setBook_date(rs.getDate(8));
+				product.setDate(rs.getDate(8));
 				product.setReview_score(rs.getDouble("review_score"));
 				product.setRank(pageStartRow++);
 				
 				if(book_chk) {
-					product.setBook_genre(rs.getString(10));
-					product.setBook_writer(rs.getString(11));
-					product.setBook_publisher(rs.getString(12));
+					product.setGenre(rs.getString(10));
+					product.setWriter(rs.getString(11));
+					product.setPublisher(rs.getString(12));
 				}
 				productList.add(product);
 			}

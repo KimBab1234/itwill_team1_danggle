@@ -55,7 +55,7 @@
 		</tr>
 		<c:forEach begin="0" end="${order.order_prod_name.size()-1}" var="i" varStatus="status">
 			<tr class="proDe">
-				<td><a href="ProductDetail.go?product_idx=${order.order_prod_idx.get(i)}">${order.order_prod_name.get(i)}</a></td>
+				<td><a href="ProductDetail?product_idx=${order.order_prod_idx.get(i)}">${order.order_prod_name.get(i)}</a></td>
 				<td>${order.order_prod_price.get(i)}</td>
 				<td>${order.order_prod_opt.get(i)}</td>
 				<td>${order.order_prod_cnt.get(i)}</td>
