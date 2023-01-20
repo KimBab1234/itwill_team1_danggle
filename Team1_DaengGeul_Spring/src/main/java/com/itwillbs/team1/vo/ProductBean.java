@@ -4,6 +4,10 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author user
+ *
+ */
 public class ProductBean {
 	// 상품 번호
 	private int idx;
@@ -24,10 +28,10 @@ public class ProductBean {
 	private int rank;
 	
 	// + 책
-	private String book_genre;
-	private String book_writer;
-	private String book_publisher;
-	private Date book_date;
+	private String genre;
+	private String writer;
+	private String publisher;
+	private Date date;
 	
 	//굿즈 옵션
 	private List<String> goods_opt;
@@ -143,36 +147,35 @@ public class ProductBean {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	public String getBook_genre() {
-		return book_genre;
-	}
-	public void setBook_genre(String book_genre) {
-		this.book_genre = book_genre;
-	}
-	public String getBook_writer() {
-		return book_writer;
-	}
-	public void setBook_writer(String book_writer) {
-		this.book_writer = book_writer;
-	}
-	public String getBook_publisher() {
-		return book_publisher;
-	}
-	public void setBook_publisher(String book_publisher) {
-		this.book_publisher = book_publisher;
-	}
-	public Date getBook_date() {
-		return book_date;
-	}
-	public void setBook_date(Date book_date) {
-		this.book_date = book_date;
-	}
-	
 	public int getDis_price() {
 		return dis_price;
 	}
 	public void setDis_price(int dis_price) {
 		this.dis_price = dis_price;
+	}
+	public String getGenre() {
+		return genre;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	@Override
@@ -180,10 +183,10 @@ public class ProductBean {
 		return "ProductBean [idx=" + idx + ", product_idx=" + product_idx + ", name=" + name + ", price=" + price
 				+ ", quantity=" + quantity + ", sel_count=" + sel_count + ", detail=" + detail + ", img=" + img
 				+ ", detail_img=" + detail_img + ", discount=" + discount + ", dis_price=" + dis_price
-				+ ", review_score=" + review_score + ", rank=" + rank + ", book_genre=" + book_genre + ", book_writer="
-				+ book_writer + ", book_publisher=" + book_publisher + ", book_date=" + book_date + ", goods_opt="
-				+ goods_opt + ", reco_idx=" + Arrays.toString(reco_idx) + ", option_name=" + option_name
-				+ ", option_qauntity=" + option_qauntity + ", option=" + option + "]";
+				+ ", review_score=" + review_score + ", rank=" + rank + ", genre=" + genre + ", writer=" + writer
+				+ ", publisher=" + publisher + ", date=" + date + ", goods_opt=" + goods_opt + ", reco_idx="
+				+ Arrays.toString(reco_idx) + ", option_name=" + option_name + ", option_qauntity=" + option_qauntity
+				+ ", option=" + option + "]";
 	}
 	
 	

@@ -36,7 +36,7 @@ $(function() {
 	<button style="width: 120px; background: #513e30; border: none;" id="recentUp"><i class="fas fa-solid fa-chevron-up" style="color: #c9b584;"></i></button><br>
 	<div style="height:auto; max-height:360px;  overflow: scroll;" class="recentList">
 	<c:forEach begin="1" end="${sessionScope.recentImgList.size()}" var="i">
-		<a href="ProductDetail.go?product_idx=${sessionScope.recentIdxList.toArray()[sessionScope.recentIdxList.size()-i]}">
+		<a href="ProductDetail?product_idx=${sessionScope.recentIdxList.toArray()[sessionScope.recentIdxList.size()-i]}">
 			<img src="${pageContext.request.contextPath }/resources/${sessionScope.recentImgList.toArray()[sessionScope.recentImgList.size()-i]}" style="width: 120px; height: 120px; object-fit: cover;" >
 		</a>
 		<br>

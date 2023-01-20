@@ -92,10 +92,10 @@ public class ProductFrontController {
 
 		////책인지 굿즈인지 구분 필요함
 		String type = listSort.getType();
+		String keyword = listSort.getKeyword(); //장르, 검색시 들어옴
 		String[] typeArr= type.split("_");
 		String product_type = typeArr[0]; ///첫글자는 책인지 굿즈인지 구분
 		String order = typeArr.length>1 ? typeArr[1]:"new"; //혹시 type에 한글자만 들어왔을 경우 defulat로 new
-		String keyword = listSort.getKeyword(); //장르, 검색시 들어옴
 		String sort = "";
 
 		//장르, 검색일때만 keyword 있고 이때만 type split이 3개로 됨
@@ -108,7 +108,7 @@ public class ProductFrontController {
 		}
 
 		//장르, 검색할때만 갯수가 변하니까 sort로 지정
-		int totalProduct = service.getProductCount(product_type, sort, keyword); 
+		int totalProduct = service.getProductListCount(product_type, sort, keyword); 
 
 		///갯수가 0개면 후속 작업 없이 바로 리턴
 		if(totalProduct==0) {

@@ -65,7 +65,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">댕글추천도서</p>
-                    <a href="ProductList.go?type=B_recomm" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="ProductList?type=B_recomm" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="${pageContext.request.contextPath }/resources/img/b1.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">도서명</h5>
@@ -74,7 +74,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">베스트셀러</p>
-                    <a href="ProductList.go?type=B_best" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="ProductList?type=B_best" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="${pageContext.request.contextPath }/resources/img/b2.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">도서명</h5>
@@ -83,7 +83,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">최신도서</p>
-                    <a href="ProductList.go?type=B_new" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="ProductList?type=B_new" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="${pageContext.request.contextPath }/resources/img/b3.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">도서명</h5>
@@ -92,7 +92,7 @@
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">굿즈</p>
-                    <a href="ProductList.go?type=G" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="ProductList?type=G" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="${pageContext.request.contextPath }/resources/img/g1.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">문구세트</h5>

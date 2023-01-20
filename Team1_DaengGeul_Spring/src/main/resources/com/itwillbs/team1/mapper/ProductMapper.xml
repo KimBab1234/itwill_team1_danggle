@@ -4,11 +4,21 @@
 
 	<!-- ========== 지선 ========== -->
 	<select id="selectProduct" resultType="product" parameterType="String">
-		SELECT * FROM goods_sort_view WHERE product_idx=#{idx};
+		SELECT * FROM ${type} WHERE product_idx=#{idx};
 	</select>
 	
 	<select id="selectProductOpt" resultType="productOpt" parameterType="String">
 		SELECT * FROM goods_options WHERE goodsOpt_idx=#{idx};
+	</select>
+	
+	<!-- 상품 목록 가져오기-->
+	<select id="selectProductList" resultType="product" parameterType="String">
+		${sql};
+	</select>
+	
+	<!-- 상품 갯수 계산 -->
+	<select id="selectProductCount" resultType="_int" parameterType="String">
+		${sql};
 	</select>
 	
 	

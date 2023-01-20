@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
@@ -31,6 +31,39 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+
+<!-- SQL Logger추가 -->
+	
+	<!-- 1) SQL 쿼리 문장 로그 -->
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />		
+	</logger>
+
+	<!-- 2) SQL 쿼리 문장 실행에 소요된 시간 -->
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="console" />		
+	</logger>
+	
+	<!-- 3) JDBC 호출 정보 로그 (ResultSet 제외) -->
+	<logger name="jdbc.audit" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="console" />		
+	</logger>
+	
+	<!-- 4) JDBC ResultSet을 포함한 JDBC호출 정보 -->
+	<logger name="jdbc.result" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="console" />		
+	</logger>
+	
+	<!-- 5) SELECT실행 결과에 대한 로그 -->
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />		
+	</logger>
+
 
 	<!-- Root Logger -->
 	<root>

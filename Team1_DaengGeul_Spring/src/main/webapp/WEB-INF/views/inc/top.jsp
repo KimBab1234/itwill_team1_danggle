@@ -77,7 +77,7 @@
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="ProductList.go">
+                <form action="ProductList">
 					<input type="hidden" name="type" value="B_best_search">
                     <div class="input-group">
                         <input type="text" class="form-control" name="keyword" placeholder="찾으시는 도서명을 입력하세요">
