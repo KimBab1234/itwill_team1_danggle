@@ -57,7 +57,7 @@
 					<td>
 						<input type="button" value="상세정보" id="btnInfo"  onclick="location.href='MemberInfo.me?id=${member.member_id}'">
 						<!-- 주문내역 서블릿 수정 필요! -->
-						<input type="button" value="주문내역" id="btnOrder" onclick="location.href='OrderList.or?id=${member.member_id}'">
+						<input type="button" value="주문내역" id="btnOrder" onclick="location.href='OrderList?id=${member.member_id}'">
 					</td>
 				</tr>
 			</c:forEach>

@@ -26,7 +26,7 @@ localStorage.removeItem(id);
 	<div align="center" style="min-height: 500px; font-family: 'Jua', sans-serif; color: #513e30;">
 		<h1 style="margin-top: 200px;">주문이 완료되었습니다!</h1>
 		<button type="button" style="font-weight:lighter;" onclick="location.href='./'" class="orderB">홈으로</button>
-		<button type="button" style="font-weight:lighter;" onclick="location.href='OrderList.or'" class="orderB">주문내역으로</button>
+		<button type="button" style="font-weight:lighter;" onclick="location.href='OrderList'" class="orderB">주문내역으로</button>
 	</div>
 <!------------------------------------ 바닥글 --------------------------------------->
 	<footer>

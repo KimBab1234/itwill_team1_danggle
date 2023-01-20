@@ -31,12 +31,11 @@ public class ProductFrontController {
 	@GetMapping(value = "/ProductDetail")
 	public String ProductDetail(@RequestParam String product_idx, Model model, HttpSession session) {
 		System.out.println("책 or 굿즈 상세페이지");
-		
-		System.out.println(product_idx);
+
+		////로그인 컨버전 완료될때까지 임시로 session에 hong111 저장
+		session.setAttribute("sId", "hong111");
 		
 		ProductBean product = service.getProduct(product_idx); //상품 정보 가져오기
-		System.out.println(product+"a");
-		
 		
 		String recentImg = "\\img\\product\\" + product.getImg();
 		product.setDetail_img("\\img\\product_detail\\" + product.getDetail_img());

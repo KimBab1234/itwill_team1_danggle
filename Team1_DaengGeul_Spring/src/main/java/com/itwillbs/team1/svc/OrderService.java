@@ -35,6 +35,7 @@ public class OrderService {
 	}
 	//=====================주문 내역 가져오기=====================
 	public ArrayList<OrderBean> getOrderList(String id, String period) {
+		System.out.println(id+" "+period);
 		return mapper.selectOrderList(id, period);
 	}
 	//=====================주문 내역 1개 가져오기=====================
