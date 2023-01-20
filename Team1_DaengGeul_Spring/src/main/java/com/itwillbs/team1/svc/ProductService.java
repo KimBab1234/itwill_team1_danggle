@@ -134,7 +134,6 @@ public class ProductService {
 		}
 		
 		String sql = "SELECT * FROM "+product_type + sort + " LIMIT " + pageStartRow + "," + pageProductCount;
-		System.out.println(sql);
 	
 		return mapper.selectProductList(sql);
 	}

@@ -27,7 +27,7 @@ import com.itwillbs.team1.action.MemberUpdateProAction;
 import com.itwillbs.team1.vo.ActionForward;
 
 @WebServlet("*.me") 
-public class MemberFrontController2 extends HttpServlet {
+public class MemberFrontController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String command = request.getServletPath();

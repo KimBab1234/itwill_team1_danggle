@@ -124,7 +124,7 @@
 <!-- 				                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"></a> -->
 				                                <div class="dropdown-menu rounded-0 m-0">
 				                                   <a class="dropdown-item" href='MemberInfo.me?id=${sessionScope.sId}'>회원정보</a>
-				                                   <a class="dropdown-item" href='OrderList.or'>주문내역</a>
+				                                   <a class="dropdown-item" href='OrderList'>주문내역</a>
 				                                   <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
 				                                   <a class="dropdown-item" href="QnaList.cu">내 문의글</a>
 				                                   <a class="dropdown-item" href="Wishlist.ws">내 찜목록</a>

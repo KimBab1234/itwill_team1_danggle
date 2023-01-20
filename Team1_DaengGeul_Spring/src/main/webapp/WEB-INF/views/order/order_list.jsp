@@ -37,33 +37,33 @@
 		</div>
 	<div align="right" class="orderTable" style="width: 1300px; min-height: 500px; margin-left:100px;">
 	<h3 style="text-align: left; color:#736643; font-weight: bold;"><b style="border-left: 10px solid #795548">&nbsp;&nbsp;주문 내역</b></h3>
+	<div align="right">
+		<button type="button" onclick="location.href='OrderList?period=3 MONTH'" style="width: 200px;">최근 3개월 주문 내역</button>
+		<button type="button" onclick="location.href='OrderList?period=6 MONTH'" style="width: 200px;">최근 6개월 주문 내역</button>
+		<button type="button" onclick="location.href='OrderList?period=1 YEAR'" style="width: 200px;">최근 1년 주문 내역</button>
+	</div>
+	<div align="left">
 	<c:choose>
-		<c:when test="${orderList==null || orderList.size()==0}">
-			<h1 style="font-family: 'Jua', sans-serif; color:gray;">주문 내역이 없습니다.</h1>
+		<c:when test="${empty param.period}">
+			■ 최근 7일간 주문 내역입니다.
 		</c:when>
 		<c:otherwise>
-			<div align="right">
-				<button type="button" onclick="location.href='OrderList.or?period=3 MONTH'" style="width: 200px;">최근 3개월 주문 내역</button>
-				<button type="button" onclick="location.href='OrderList.or?period=6 MONTH'" style="width: 200px;">최근 6개월 주문 내역</button>
-				<button type="button" onclick="location.href='OrderList.or?period=1 YEAR'" style="width: 200px;">최근 1년 주문 내역</button>
-			</div>
-			<div align="left">
 			<c:choose>
-				<c:when test="${empty param.period}">
-					■ 최근 7일간 주문 내역입니다.
+				<c:when test="${param.period.substring(2) eq 'MONTH'}">
+					■ 최근 ${param.period.substring(0,1)}개월 주문 내역입니다.
 				</c:when>
 				<c:otherwise>
-					<c:choose>
-						<c:when test="${param.period.substring(2) eq 'MONTH'}">
-							■ 최근 ${param.period.substring(0,1)}개월 주문 내역입니다.
-						</c:when>
-						<c:otherwise>
-							■ 최근 ${param.period.substring(0,1)}년 주문 내역입니다.
-						</c:otherwise>
-					</c:choose>
+					■ 최근 ${param.period.substring(0,1)}년 주문 내역입니다.
 				</c:otherwise>
 			</c:choose>
-			</div>
+		</c:otherwise>
+	</c:choose>
+	</div>
+	<c:choose>
+		<c:when test="${orderList==null || orderList.size()==0}">
+			<h1 style="font-weight:bold; color:gray; margin-top: 50px;">최근 주문 내역이 없습니다.</h1>
+		</c:when>
+		<c:otherwise>
 			<table border="1" style="width: 1300px; text-align: center; margin-top: 20px" class="regi_table">
 				<tr>
 					<th width="120px">주문 날짜</th>
@@ -75,7 +75,7 @@
 				</tr>
 				<c:forEach items="${orderList}" var="order" varStatus="status">
 							<tr>
-								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList.or?order_idx=${order.order_merchant_uid}">${order.order_date}</a></td>
+								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList?order_idx=${order.order_merchant_uid}">${order.order_date}</a></td>
 								<c:choose>
 									<c:when test="${order.order_prod_img.get(0) eq '-' }">
 										<td colspan="2">(현재 판매 종료된 상품)${order.order_prod_name.get(0)}</td>
