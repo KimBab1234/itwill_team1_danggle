@@ -9,7 +9,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="jdbcUrl" value="jdbc:mysql://db.itwillbs.dev:3306/class5_220823_team1"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://db.itwillbs.dev:3306/class5_220823_team1?allowMultiQueries=true"></property>
 		<property name="username" value="class5_220823_team1"></property>
 		<property name="password" value="1234"></property>
 	</bean>

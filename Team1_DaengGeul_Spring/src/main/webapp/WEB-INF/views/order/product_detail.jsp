@@ -243,12 +243,19 @@ function countModify(sign) {
 										<i class="fa fa-plus cartIcon" style="margin-left: 0px;"></i>
 									</button>
 									&nbsp;&nbsp;&nbsp;
-									<c:if test="${product.goods_opt.size()>0 }">
+									<c:if test="${product.option.size()>0 }">
 										<span id="goods_detail">
 										<select id="opt">
 											<option value="">==옵션 선택==</option>
-											<c:forEach var="i" begin="0" end="${product.goods_opt.size()-1}">
-												<option value="${product.goods_opt.get(i)}">${product.goods_opt.get(i) }</option>
+											<c:forEach var="i" begin="0" end="${product.option.size()-1}">
+												<c:choose>
+													<c:when test="${product.option.get(i).option_quantity==0}">
+														<option value="${product.option.get(i).option_name}" disabled="disabled" style="background: lightgray">${product.option.get(i).option_name}(품절)</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${product.option.get(i).option_name}">${product.option.get(i).option_name}</option>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 										</select>
 										</span>

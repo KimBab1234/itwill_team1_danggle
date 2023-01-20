@@ -38,9 +38,15 @@ public class ProductBean {
     private List<String> option_name;
 	private List<Integer> option_qauntity;
 	
+	//지선 : 스프링 컨버전하면서 option만 모아놓은 arraylist가 필요했음..
+	private List<ProductOptBean> option;
 	
-	
-	
+	public List<ProductOptBean> getOption() {
+		return option;
+	}
+	public void setOption(List<ProductOptBean> option) {
+		this.option = option;
+	}
 	public String[] getReco_idx() {
 		return reco_idx;
 	}
@@ -168,6 +174,7 @@ public class ProductBean {
 	public void setDis_price(int dis_price) {
 		this.dis_price = dis_price;
 	}
+	
 	@Override
 	public String toString() {
 		return "ProductBean [idx=" + idx + ", product_idx=" + product_idx + ", name=" + name + ", price=" + price
@@ -176,10 +183,8 @@ public class ProductBean {
 				+ ", review_score=" + review_score + ", rank=" + rank + ", book_genre=" + book_genre + ", book_writer="
 				+ book_writer + ", book_publisher=" + book_publisher + ", book_date=" + book_date + ", goods_opt="
 				+ goods_opt + ", reco_idx=" + Arrays.toString(reco_idx) + ", option_name=" + option_name
-				+ ", option_qauntity=" + option_qauntity + ", toString()=" + super.toString() + "]";
+				+ ", option_qauntity=" + option_qauntity + ", option=" + option + "]";
 	}
-	
-	
 	
 	
 }
