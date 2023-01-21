@@ -21,5 +21,13 @@
 		${sql};
 	</select>
 	
+	<update id="updateProductSell" parameterType="orderProd">
+		UPDATE ${type} SET sel_count=sel_count+#{prod.cnt}, quantity=quantity-#{prod.cnt} WHERE product_idx=#{prod.idx};
+	</update>
+	
+	<update id="updateProductOptSell" parameterType="orderProd">
+		UPDATE goods_options SET option_quantity=option_quantity-#{prod.cnt}, count=count+#{prod.cnt} WHERE goodsOpt_idx=#{prod.idx} AND option_name=#{prod.opt};
+	</update>
+	
 	
 </mapper>

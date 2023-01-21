@@ -2,6 +2,7 @@ package com.itwillbs.team1.vo;
 
 public class OrderProdBean {
 
+	private String order_idx;
 	private String status;
 	private String idx;
 	private String name;
@@ -11,6 +12,12 @@ public class OrderProdBean {
 	private String review_write;
 	private String img;
 	
+	public String getOrder_idx() {
+		return order_idx;
+	}
+	public void setOrder_idx(String order_idx) {
+		this.order_idx = order_idx;
+	}
 	public String getStatus() {
 		return status;
 	}

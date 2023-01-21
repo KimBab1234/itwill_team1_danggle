@@ -13,15 +13,57 @@ public class OrderBean {
 	private int order_point;
 	private String order_name;
 	private String order_address;
+	private String postcode;
+	private String roadAddress;
+	private String addressDetail;
 	private String order_phone;
+	private String order_phone1;
+	private String order_phone2;
+	private String order_phone3;
 	private Date order_date;
-	private ArrayList<OrderBean> order_prod_list;
+	private ArrayList<OrderProdBean> order_prod_list;
 	
-	public ArrayList<OrderBean> getOrder_prod_list() {
+	public String getPostcode() {
+		return postcode;
+	}
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	public String getRoadAddress() {
+		return roadAddress;
+	}
+	public void setRoadAddress(String roadAddress) {
+		this.roadAddress = roadAddress;
+	}
+	public String getAddressDetail() {
+		return addressDetail;
+	}
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
+	public String getOrder_phone1() {
+		return order_phone1;
+	}
+	public void setOrder_phone1(String order_phone1) {
+		this.order_phone1 = order_phone1;
+	}
+	public String getOrder_phone2() {
+		return order_phone2;
+	}
+	public void setOrder_phone2(String order_phone2) {
+		this.order_phone2 = order_phone2;
+	}
+	public String getOrder_phone3() {
+		return order_phone3;
+	}
+	public void setOrder_phone3(String order_phone3) {
+		this.order_phone3 = order_phone3;
+	}
+	public ArrayList<OrderProdBean> getOrder_prod_list() {
 		return order_prod_list;
 	}
-	public void setOrder_prod_list(ArrayList<OrderBean> order_prod_list) {
-		this.order_prod_list = order_prod_list;
+	public void setOrder_prod_list(ArrayList<OrderProdBean> arrayList) {
+		this.order_prod_list = arrayList;
 	}
 	public String getMember_id() {
 		return member_id;
@@ -84,12 +126,15 @@ public class OrderBean {
 	public void setOrder_phone(String order_phone) {
 		this.order_phone = order_phone;
 	}
+	
 	@Override
 	public String toString() {
 		return "OrderBean [order_imp_uid=" + order_imp_uid + ", order_idx=" + order_idx + ", member_id=" + member_id
 				+ ", order_total_pay=" + order_total_pay + ", order_payment=" + order_payment + ", order_point="
-				+ order_point + ", order_name=" + order_name + ", order_address=" + order_address + ", order_phone="
-				+ order_phone + ", order_date=" + order_date + ", order_prod_list=" + order_prod_list + "]";
+				+ order_point + ", order_name=" + order_name + ", order_address=" + order_address + ", postcode="
+				+ postcode + ", roadAddress=" + roadAddress + ", addressDetail=" + addressDetail + ", order_phone="
+				+ order_phone + ", order_phone1=" + order_phone1 + ", order_phone2=" + order_phone2 + ", order_phone3="
+				+ order_phone3 + ", order_date=" + order_date + ", order_prod_list=" + order_prod_list + "]";
 	}
-
+	
 }

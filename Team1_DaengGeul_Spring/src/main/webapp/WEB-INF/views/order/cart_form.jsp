@@ -66,7 +66,7 @@ Map.prototype.toJSON = function toJSON() {
 				productList[i]= key;
 				$("#cartAddRow"+i+" input[type=checkbox]").val(key);
 				$("#cartAddRow"+i+" input[type=text]").val(prod.get('count'));
-				$("#cartAddRow"+i+" img").prop("src", prod.get('img'))
+				$("#cartAddRow"+i+" img").prop("src", "${pageContext.request.contextPath }/resources/"+prod.get('img'))
 				if(prod.get('opt')!=null) {
 					$("#cartAddRow"+i+" td").eq(2).text(prod.get('name')+" (선택 옵션 :"+prod.get('opt')+")");
 				} else {
@@ -134,8 +134,7 @@ Map.prototype.toJSON = function toJSON() {
 	}
 	
 	function deleteCart() {
-		var deleteConfirm = confirm("선택하신 상품 "+totalChk+"개를 삭제하시겠습니까?");
-		if(deleteConfirm) {
+		if(confirm("선택하신 상품 "+totalChk+"개를 삭제하시겠습니까?")) {
 			var deleteItem="";
 			for(var i=0; i<chkList.length; i++) {
 				if(chkList[i].checked) {
@@ -171,7 +170,7 @@ Map.prototype.toJSON = function toJSON() {
 	<div align="center">
 	<div style="width: 1200px; margin-top: 50px; min-height: 500px;">
 	<h2 id="cartUse1" style="visibility: hidden; text-align: left; font-weight:bold; color:#513e30">| 상품 확인</h2>
-	<form action="OrderPayForm.or" method="post">
+	<form action="OrderPayForm" method="post">
 		<h1 id="cartNone" style="visibility: hidden; color: #513e30;">장바구니가 비었습니다.</h1>
 		<div id="cartUse" style="visibility: hidden;">
 			<div align="right">
