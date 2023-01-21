@@ -14,6 +14,7 @@
 <style>
 * {
 	font-family: 'Gowun Dodum', sans-serif;
+	font-weight: bold;
 	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 	}
 </style>
@@ -33,7 +34,7 @@ Map.prototype.toJSON = function toJSON() {
 	var orderNo = '${member.member_id}'+ today.getFullYear() + month + day + hour + min + sec;
 	
 	if(totalPay==null || totalPay==0) {
-		alert("결제하실 상품을 선택해주세요.");
+		alert("장바구니가 비어있습니다.");
 		history.back();	
 	}
 	
@@ -120,10 +121,10 @@ Map.prototype.toJSON = function toJSON() {
 
         }, function (rsp) { // callback
 		$("#imp_uid").val(rsp.imp_uid);
-            if (rsp.success) {
         		$("#merchant_uid").val(rsp.merchant_uid);
         		$("#cartJson").val(JSON.stringify(new Map(JSON.parse(localStorage.getItem(id)))));
             	document.dangglePayForm.submit();
+            if (rsp.success) {
         		
             } else {
 				alert("결제에 실패했습니다! " +  rsp.error_msg);
@@ -175,8 +176,8 @@ Map.prototype.toJSON = function toJSON() {
 	</header>
 	<div align="center">
 	<div style="width: 1000px; margin-top: 50px; min-height: 500px;">
-	<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 결제</h3>
-		<form action="OrderPayPro.or" method="post" name="dangglePayForm">
+	<h3 style="text-align: left; color: #513e30; font-weight: bold;">| 결제</h3>
+		<form action="OrderPayPro" method="post" name="dangglePayForm">
 			<table border="1" class="regi_table"  style="width: 1000px; text-align: center; margin-top: 20px" id="payTb">
 				<tr style="background: #513e30; color:#F0D264">
 					<td width="300px">상품</td>
@@ -193,18 +194,18 @@ Map.prototype.toJSON = function toJSON() {
 			</table>
 			<hr>			
 			<section style="font-size: 20px;">
-				<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 적립금, 쿠폰</h3>
+				<h3 style="text-align: left; color: #513e30; font-weight: bold;">| 적립금, 쿠폰</h3>
 				적립금 : ${member.member_point}원
-				사용할 적립금 : <input type="text" name="point" style="background: #513e30; color:#F0D264" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
+				사용할 적립금 : <input type="text" name="order_point" style="background: #513e30; color:#F0D264" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
 				<button class="cartB" type="button" onclick="pointApply()">사용</button><br>
 			</section>
 			<hr>
 			<div align="left">
-			<h3 style="text-align: left; font-family: 'Jua', sans-serif; color: #513e30;">| 배송 주소</h3>
+			<h3 style="text-align: left; color: #513e30; font-weight: bold;">| 배송 주소</h3>
 			<table border="1" style="width: 800px; text-align: left; margin-top: 20px">
 				<tr>
 					<th width="100px" style="text-align:center; background: #513e30; color:#F0D264">주문자</th>
-					<td width="700px"><input type="text" name="name" value="${member.member_name}" style="width: 200px;"></td>
+					<td width="700px"><input type="text" name="order_name" value="${member.member_name}" style="width: 200px;"></td>
 				</tr>
 				<tr>
 					<th style="text-align:center; background: #513e30; color:#F0D264">주소</th>
@@ -221,20 +222,20 @@ Map.prototype.toJSON = function toJSON() {
 				<tr>
 					<th style="text-align:center; background: #513e30; color:#F0D264">연락처</th>
 					<td>
-						<input type="text" name="phone1" value="${member.member_phone.substring(0,3)}" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g, '');"  style="width: 64px;">-
-						<input type="text" name="phone2" value="${member.member_phone.substring(4,member.member_phone.lastIndexOf('-'))}" maxlength="4"  oninput="this.value=this.value.replace(/[^0-9]/g, '');" style="width: 60px;">-
-						<input type="text" name="phone3" value="${member.member_phone.substring(member.member_phone.lastIndexOf('-')+1)}"  maxlength="4"  oninput="this.value=this.value.replace(/[^0-9]/g, '');"  style="width: 60px;">
+						<input type="text" name="order_phone1" value="${member.member_phone.substring(0,3)}" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g, '');"  style="width: 64px;">-
+						<input type="text" name="order_phone2" value="${member.member_phone.substring(4,member.member_phone.lastIndexOf('-'))}" maxlength="4"  oninput="this.value=this.value.replace(/[^0-9]/g, '');" style="width: 60px;">-
+						<input type="text" name="order_phone3" value="${member.member_phone.substring(member.member_phone.lastIndexOf('-')+1)}"  maxlength="4"  oninput="this.value=this.value.replace(/[^0-9]/g, '');"  style="width: 60px;">
 					</td>
 				</tr>
 			</table>
 			</div>
 			<hr>
-			<h2 style="font-family: 'Jua', sans-serif; color: #513e30;">최종 금액 : <span id="total" style="color: red">${totalPay}</span>원</h2>
-			<input type="hidden" id="totalPay" name="totalPay" value="${totalPay}">
-			<input type="hidden" id="usePoint" name="usePoint" value="0">
-			<input type="hidden" id="payment" name="payment" value="card">
-			<input type="hidden" id="imp_uid" name="imp_uid" >
-			<input type="hidden" id="merchant_uid" name="merchant_uid">
+			<h2 style="color: #513e30;">최종 금액 : <span id="total" style="color: red">${totalPay}</span>원</h2>
+			<input type="hidden" id="totalPay" name="order_total_pay" value="${totalPay}">
+			<input type="hidden" id="usePoint" name="order_point" value="0">
+			<input type="hidden" id="payment" name="order_payment" value="card">
+			<input type="hidden" id="imp_uid" name="order_imp_uid" >
+			<input type="hidden" id="merchant_uid" name="order_idx">
 			<input type="hidden" id="cartJson" name="cartJson" >
 			<button class="button"  type="button" onclick="requestPay()" style="vertical-align:middle"><span>결제 </span></button>
 		</form>

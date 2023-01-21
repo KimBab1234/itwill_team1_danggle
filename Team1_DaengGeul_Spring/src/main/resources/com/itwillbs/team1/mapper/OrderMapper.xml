@@ -15,7 +15,38 @@
 		SELECT * from order_view WHERE substring(order_idx,1,length(#{id}))=#{id} AND order_idx=#{order_idx};
 	</select>
 	
+	<!--  주문 내역 저장 -->
+	<insert id="insertOrder" parameterType="order">
+		INSERT INTO orderInfo
+			VALUES(
+				#{order_idx}
+				,#{order_imp_uid}
+				,#{order_total_pay}
+				,#{order_payment}
+				,#{order_point}
+				,#{order_name}
+				,#{order_address}
+				,#{order_phone}
+			);
+	</insert>
 	
+	<insert id="insertOrderProd" parameterType="orderProd">
+		INSERT INTO orderprod
+			VALUES(
+				#{order_idx}	
+				,#{idx}	
+				,#{opt}	
+				,#{cnt}	
+				,#{price}
+				,'결제완료'
+				,#{name}	
+			);
+	</insert>
+	
+	<!--  멤버 포인트 업데이트-->
+	<update id="updateMemberPoint">
+		UPDATE member SET member_point=member_point+${point} where member_id=#{id};
+	</update>
 	
 	
 	
