@@ -38,7 +38,7 @@ public class OrderPayProAction implements Action {
 			order.setOrder_payment(request.getParameter("payment"));
 			order.setOrder_point(Integer.parseInt(request.getParameter("usePoint"))*(-1));
 			order.setOrder_imp_uid(request.getParameter("imp_uid"));
-			order.setOrder_merchant_uid(request.getParameter("merchant_uid"));
+			order.setorder_idx(request.getParameter("merchant_uid"));
 			order.setOrder_name(request.getParameter("name"));
 			order.setOrder_address(request.getParameter("postcode") + " " + request.getParameter("roadAddress") + " " + request.getParameter("addressDetail"));
 			order.setOrder_phone(request.getParameter("phone1")+"-"+request.getParameter("phone2")+"-"+request.getParameter("phone3"));

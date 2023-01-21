@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.team1.vo.OrderBean;
 import com.itwillbs.team1.vo.ProductBean;
 import com.itwillbs.team1.vo.ProductOptBean;
 
@@ -52,7 +53,7 @@ public interface ProductMapper {
 	public int selectProductCount(String sql); 
 
 	//=====================상품 발송 후 상품 재고, 판매량 업데이트=====================
-	public boolean updateProductSell(ArrayList<String> prodArr, ArrayList<String> optArr, ArrayList<Integer> countList); 
+	public int updateProductSell(ArrayList<OrderBean> prodArr); 
 	
 	//=====================주문한 상품 정보 가져오기=====================
 	public ArrayList<ProductBean> selectOrderProductList(String order_list);

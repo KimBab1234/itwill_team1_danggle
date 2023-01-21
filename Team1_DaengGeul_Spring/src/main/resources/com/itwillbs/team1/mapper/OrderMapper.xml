@@ -7,6 +7,15 @@
 		SELECT * FROM order_view WHERE member_id=#{id} AND order_date BETWEEN date(now()-INTERVAL ${period}) and date(now()) ORDER BY order_idx desc;
 	</select>
 	
+	<select id="selectOrderProdList" resultType="orderProd">
+		SELECT order_status 'status', order_prod_idx 'idx', order_prod_name 'name', order_prod_opt 'opt', order_prod_cnt 'cnt', order_prod_price 'price', case when review_idx is null then 'N' else 'Y' end 'review_write' FROM orderprod left join review r on orderprod.order_idx = r.order_idx and orderprod.order_prod_idx = r.product_idx WHERE orderprod.order_idx=#{order_idx};
+	</select>
+	
+	<select id="selectOrderDetail" resultType="order">
+		SELECT * from order_view WHERE substring(order_idx,1,length(#{id}))=#{id} AND order_idx=#{order_idx};
+	</select>
+	
+	
 	
 	
 	

@@ -16,31 +16,46 @@ public class OrderService {
 	@Autowired
 	private OrderMapper mapper;
 	private ProductMapper mapper2;
-	
+
 	//=====================주문 내역 저장=====================
 	public boolean setProductList(OrderBean order) {
-		
-		boolean isSuccess = false;
 
 		///주문내역 저장
-		isSuccess = isSuccess && mapper.insertOrderList(order);
+		int insertCount = mapper.insertOrderList(order);
+		if(insertCount==0) {
+			return false;
+		}
 
 		///멤버 포인트 업데이트
-		isSuccess = isSuccess && mapper.updateMemberPoint(order.getMember_id(), order.getOrder_point());
+		int updateCount = mapper.updateMemberPoint(order.getMember_id(), order.getOrder_point());
+		if(updateCount==0) {
+			return false;
+		}
 
 		///상품 재고 관리
-		isSuccess = isSuccess && mapper2.updateProductSell(order.getOrder_prod_idx(), order.getOrder_prod_opt() ,order.getOrder_prod_cnt());
-		
-		return isSuccess;
+		for(OrderBean prod : order.getOrder_prod_list()) {
+			updateCount = mapper2.updateProductSell(order.getOrder_prod_list());
+		}
+		if(updateCount==0) {
+			return false;
+		}
+
+		return true;
 	}
 	//=====================주문 내역 가져오기=====================
 	public ArrayList<OrderBean> getOrderList(String id, String period) {
-		System.out.println(id+" "+period);
-		return mapper.selectOrderList(id, period);
+		ArrayList<OrderBean> orderList = mapper.selectOrderList(id, period);
+
+		for(OrderBean order : orderList) {
+			order.setOrder_prod_list(mapper.selectOrderProdList(order.getOrder_idx()));
+		}
+		return orderList;
 	}
 	//=====================주문 내역 1개 가져오기=====================
 	public OrderBean getOrder(String id, String order_idx) {
-		return mapper.selectOrderDetail(id, order_idx);
+		OrderBean order = mapper.selectOrderDetail(id, order_idx);
+		order.setOrder_prod_list(mapper.selectOrderProdList(order.getOrder_idx()));
+		return order;
 	}
 	//=====================주문 상세 내역 가져오기=====================
 	public ArrayList<ProductBean> getOrderProductList(String order_product_list) {
