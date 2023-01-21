@@ -40,7 +40,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 			///orderInfo에 들어갈 데이터
 			String sql = "INSERT INTO orderInfo VALUES(?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, order.getOrder_merchant_uid()); //주문번호=결제번호
+			pstmt.setString(1, order.getorder_idx()); //주문번호=결제번호
 			pstmt.setString(2, order.getOrder_imp_uid());  //아임포트 고유번호
 			pstmt.setInt(3, order.getOrder_total_pay());
 			pstmt.setString(4, order.getOrder_payment());
@@ -59,7 +59,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 					///orderProd에 들어갈 데이터
 					sql = "INSERT INTO orderprod VALUES(?,?,?,?,?,'결제완료',?)";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, order.getOrder_merchant_uid());
+					pstmt.setString(1, order.getorder_idx());
 					pstmt.setString(2, order.getOrder_prod_idx().get(i));
 					pstmt.setString(3, order.getOrder_prod_opt().get(i));
 					pstmt.setInt(4, order.getOrder_prod_cnt().get(i));
@@ -105,7 +105,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 			List<String> idxArr = new ArrayList<>();
 			while(rs.next()) {
 				OrderBean order = new OrderBean();
-				order.setOrder_merchant_uid(rs.getString("order_idx"));
+				order.setorder_idx(rs.getString("order_idx"));
 				order.setOrder_total_pay(rs.getInt("order_total_pay"));
 				order.setOrder_date(rs.getDate("order_date"));
 				idxArr.add(rs.getString("order_idx"));
@@ -124,7 +124,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 				ArrayList<Integer> cnt = new ArrayList<>();
 				sql = "SELECT * FROM orderprod WHERE order_idx=?"; 
 				pstmt2 = con.prepareStatement(sql);
-				pstmt2.setString(1, order.getOrder_merchant_uid());
+				pstmt2.setString(1, order.getorder_idx());
 				rs2=pstmt2.executeQuery();
 				while(rs2.next()) {
 					prod_idx.add(rs2.getString(2));
@@ -153,7 +153,7 @@ public class OrderedDAO { //싱글톤디자인패턴
 					sql = "SELECT * FROM review WHERE product_idx=? AND order_idx=?";
 					pstmt2 = con.prepareStatement(sql);
 					pstmt2.setString(1, prod);
-					pstmt2.setString(2, order.getOrder_merchant_uid());
+					pstmt2.setString(2, order.getorder_idx());
 					rs2=pstmt2.executeQuery();
 					if(rs2.next()) {
 						review.add("Y");

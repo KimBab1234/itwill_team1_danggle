@@ -67,7 +67,7 @@
 			<table border="1" style="width: 1300px; text-align: center; margin-top: 20px" class="regi_table">
 				<tr>
 					<th width="120px">주문 날짜</th>
-					<th width="100px" >이미지</th>
+<!-- 					<th width="100px" >이미지</th> -->
 					<th width="300px" >상품</th>
 					<th width="120px">결제한 금액</th>
 					<th width="100px">주문 상태</th>
@@ -75,62 +75,48 @@
 				</tr>
 				<c:forEach items="${orderList}" var="order" varStatus="status">
 							<tr>
-								<td rowspan="${order.order_prod_name.size() }"><a href="OrderDetailList?order_idx=${order.order_merchant_uid}">${order.order_date}</a></td>
+								<td rowspan="${order.order_prod_list.size() }"><a href="OrderDetailList?order_idx=${order.order_idx}">${order.order_date}</a></td>
 								<c:choose>
-									<c:when test="${order.order_prod_img.get(0) eq '-' }">
-										<td colspan="2">(현재 판매 종료된 상품)${order.order_prod_name.get(0)}</td>
+									<c:when test="${order.order_prod_list.get(0).opt eq '-' }">
+<%-- 										<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+										<td>${order.order_prod_list.get(0).name}</td>
 									</c:when>
 									<c:otherwise>
-										<c:choose>
-											<c:when test="${order.order_prod_opt.get(0) eq '-' }">
-												<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_img.get(0)}" width="100px;"></td>
-												<td>${order.order_prod_name.get(0)}</td>
-											</c:when>
-											<c:otherwise>
-												<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_img.get(0)}" width="100px;"></td>
-												<td>${order.order_prod_name.get(0)}(옵션:${order.order_prod_opt.get(0)})</td>
-											</c:otherwise>
-										</c:choose>
+<%-- 										<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+										<td>${order.order_prod_list.get(0).name}(옵션:${order.order_prod_list.get(0).opt})</td>
 									</c:otherwise>
 								</c:choose>
-								<td>${order.order_prod_price.get(0)}</td>
-								<td>${order.order_status.get(0)}</td>
+								<td>${order.order_prod_list.get(0).price}</td>
+								<td>${order.order_prod_list.get(0).status}</td>
 								<c:choose>
-									<c:when test="${order.review_write.get(0) eq 'Y'}">
+									<c:when test="${order.order_prod_list.get(0).review_write eq 'Y'}">
 										<td>리뷰 작성 완료</td>
 									</c:when>
 									<c:otherwise>
-										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_idx.get(0)}&order_idx=${order.order_merchant_uid}'">리뷰쓰러가기</button></td>
+										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_list.get(0).idx}&order_idx=${order.order_idx}'">리뷰쓰러가기</button></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
-						<c:forEach begin="1" end="${order.order_prod_name.size()-1}" var="i">
+						<c:forEach begin="1" end="${order.order_prod_list.size()-1}" var="i">
 							<tr>
 								<c:choose>
-									<c:when test="${order.order_prod_img.get(i) eq '-' }">
-										<td colspan="2">(현재 판매 종료된 상품)${order.order_prod_name.get(i)}</td>
+									<c:when test="${order.order_prod_list.get(i).opt eq '-' }">
+<%-- 										<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+										<td>${order.order_prod_list.get(i).name}</td>
 									</c:when>
 									<c:otherwise>
-										<c:choose>
-											<c:when test="${order.order_prod_opt.get(i) eq '-' }">
-												<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_img.get(i)}" width="100px;"></td>
-												<td>${order.order_prod_name.get(i)}</td>
-											</c:when>
-											<c:otherwise>
-												<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_img.get(i)}" width="100px;"></td>
-												<td>${order.order_prod_name.get(i)}(옵션:${order.order_prod_opt.get(i)})</td>
-											</c:otherwise>
-										</c:choose>
+<%-- 										<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+										<td>${order.order_prod_list.get(i).name}(옵션:${order.order_prod_list.get(i).opt})</td>
 									</c:otherwise>
 								</c:choose>
-								<td>${order.order_prod_price.get(i)}</td>
-								<td>${order.order_status.get(i)}</td>
+								<td>${order.order_prod_list.get(i).price}</td>
+								<td>${order.order_prod_list.get(i).status}</td>
 								<c:choose>
-									<c:when test="${order.review_write.get(i) eq 'Y'}">
+									<c:when test="${order.order_prod_list.get(i).review_write eq 'Y'}">
 										<td>리뷰 작성 완료</td>
 									</c:when>
 									<c:otherwise>
-										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_idx.get(i)}&order_idx=${order.order_merchant_uid}'">리뷰쓰러가기</button></td>
+										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_list.get(i).idx}&order_idx=${order.order_idx}'">리뷰쓰러가기</button></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>

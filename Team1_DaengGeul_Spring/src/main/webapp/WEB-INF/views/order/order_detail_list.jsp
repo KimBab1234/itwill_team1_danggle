@@ -53,13 +53,13 @@
 			<th width="30px">수량</th>
 			<th width="70px">금액</th>
 		</tr>
-		<c:forEach begin="0" end="${order.order_prod_name.size()-1}" var="i" varStatus="status">
+		<c:forEach begin="0" end="${order.order_prod_list.size()-1}" var="i" varStatus="status">
 			<tr class="proDe">
-				<td><a href="ProductDetail?product_idx=${order.order_prod_idx.get(i)}">${order.order_prod_name.get(i)}</a></td>
-				<td>${order.order_prod_price.get(i)}</td>
-				<td>${order.order_prod_opt.get(i)}</td>
-				<td>${order.order_prod_cnt.get(i)}</td>
-				<td>${order.order_prod_cnt.get(i)*order.order_prod_price.get(i)}</td>
+				<td><a href="ProductDetail?product_idx=${order.order_prod_list.get(i).idx}">${order.order_prod_list.get(i).name}</a></td>
+				<td>${order.order_prod_list.get(i).price}</td>
+				<td>${order.order_prod_list.get(i).opt}</td>
+				<td>${order.order_prod_list.get(i).cnt}</td>
+				<td>${order.order_prod_list.get(i).cnt*order.order_prod_list.get(i).price}</td>
 			</tr>
 		</c:forEach>
 	</table>
