@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.team1.vo.OrderProdBean;
 import com.itwillbs.team1.vo.ProductBean;
 import com.itwillbs.team1.vo.ProductOptBean;
 
+@Mapper
 public interface ProductMapper {
 
 	public int regiBook(ProductBean book);  // 책 등록

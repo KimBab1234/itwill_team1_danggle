@@ -2,11 +2,13 @@ package com.itwillbs.team1.mapper;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.team1.vo.OrderBean;
 import com.itwillbs.team1.vo.OrderProdBean;
 
+@Mapper
 public interface OrderMapper {
 
 	//=====================주문 내역 저장=====================
