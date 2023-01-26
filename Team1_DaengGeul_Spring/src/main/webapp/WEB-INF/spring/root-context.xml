@@ -10,13 +10,13 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="jdbcUrl" value="jdbc:mysql://db.itwillbs.dev:3306/class5_220823_team1?allowMultiQueries=true"></property>
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://db.itwillbs.dev:3306/class5_220823_team1?allowMultiQueries=true"></property>
 		<property name="username" value="class5_220823_team1"></property>
 		<property name="password" value="1234"></property>
 	</bean>
 	
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close" >
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
 	<!--classpath => src/main/resources를 루트로 쓴다!  -->
@@ -26,12 +26,17 @@
 		<property name="mapperLocations" value="classpath:/**/*Mapper.xml"></property>
 	</bean>
 	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
+	<mybatis-spring:scan base-package="com.itwillbs.team1.mapper"/>
+	
 	<tx:annotation-driven transaction-manager="txManager"/>
 	
-	<mybatis-spring:scan base-package="com.itwillbs.team1"/>
 	
 </beans>

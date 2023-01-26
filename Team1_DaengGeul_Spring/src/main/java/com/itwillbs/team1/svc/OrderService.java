@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.team1.mapper.OrderMapper;
 import com.itwillbs.team1.mapper.ProductMapper;
@@ -15,20 +13,18 @@ import com.itwillbs.team1.vo.ProductBean;
 
 @Service
 public class OrderService {
-
+	
 	@Autowired
 	private OrderMapper mapper;
-
 	@Autowired
 	private ProductMapper mapper2;
-
+	
 	//=====================주문 내역 저장=====================
-	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
-	public boolean setProductList(OrderBean order) throws Exception {
+	public boolean setProductList(OrderBean order) {
 		System.out.println("주문 내역 저장 - setProductList");
+		boolean success=false;
+		
 		try {
-
-			boolean success=false;
 			///주문내역 저장
 			int insertCount = mapper.insertOrder(order);
 			if(insertCount==0) {
@@ -68,16 +64,18 @@ public class OrderService {
 					}
 				}
 			}
-
+			System.out.println("커밋");
 			success=true;
-			return success;
-		} catch (Exception e) {
+		}catch (Exception e) {
+			System.out.println("롤백");
 			e.printStackTrace();
-			throw new Exception(); // Spring에 던져준다
+		} 
+		finally {
 		}
+		return success;
 	}
+	
 	//=====================주문 내역 가져오기=====================
-	@Transactional(readOnly = true)
 	public ArrayList<OrderBean> getOrderList(String id, String period) {
 		ArrayList<OrderBean> orderList = mapper.selectOrderList(id, period);
 
@@ -87,14 +85,12 @@ public class OrderService {
 		return orderList;
 	}
 	//=====================주문 내역 1개 가져오기=====================
-	@Transactional(readOnly = true)
 	public OrderBean getOrder(String id, String order_idx) {
 		OrderBean order = mapper.selectOrderDetail(id, order_idx);
 		order.setOrder_prod_list(mapper.selectOrderProdList(order.getOrder_idx()));
 		return order;
 	}
 	//=====================주문 상세 내역 가져오기=====================
-	@Transactional (readOnly = true)
 	public ArrayList<ProductBean> getOrderProductList(String order_product_list) {
 		return mapper2.selectOrderProductList(order_product_list);
 	}
