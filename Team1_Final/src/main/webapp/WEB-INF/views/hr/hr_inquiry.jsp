@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,12 @@
 		<!-- 여기서부터 본문-->
 			<h2>사원 조회</h2>
 		<!-- 여기까지 본문-->
+		<c:forEach items="${hrList }" var="hrItem">
+			${hrItem.DEPT_CD}<br>
+			${hrItem.GRADE_CD}<br>
+			${hrItem.WORK_CD}<br>
+			${hrItem.PRIV_CD}<br>
+		</c:forEach>
 	</div>
 </body>
 </html>
