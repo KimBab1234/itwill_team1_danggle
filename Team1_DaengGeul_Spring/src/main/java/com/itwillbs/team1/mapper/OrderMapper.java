@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.team1.vo.OrderBean;
 import com.itwillbs.team1.vo.OrderProdBean;
 
 @Mapper
+@Transactional(rollbackFor = Exception.class)
 public interface OrderMapper {
 
 	//=====================주문 내역 저장=====================

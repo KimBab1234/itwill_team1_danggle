@@ -6,12 +6,14 @@ import java.util.Set;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.team1.vo.OrderProdBean;
 import com.itwillbs.team1.vo.ProductBean;
 import com.itwillbs.team1.vo.ProductOptBean;
 
 @Mapper
+@Transactional(rollbackFor = Exception.class)
 public interface ProductMapper {
 
 	public int regiBook(ProductBean book);  // 책 등록
