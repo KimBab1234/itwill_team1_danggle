@@ -42,11 +42,14 @@ function execDaumPostcode() {
 
 	function emailSelect(domain){
 		if(domain=='') {
+			$("#EMP_EMAIL2").val(domain);
 			$("#EMP_EMAIL2").prop("readOnly",false);
+			$("#EMP_EMAIL2").css("background","white");
 			
 		} else {
 			$("#EMP_EMAIL2").val(domain);
 			$("#EMP_EMAIL2").prop("readOnly",true);
+			$("#EMP_EMAIL2").css("background","lightgray");
 		}
 	}
 
@@ -100,7 +103,7 @@ function execDaumPostcode() {
 						<select onchange="emailSelect(this.value)">
 							<option value="">직접 입력</option>
 							<option value="naver.com">naver.com</option>
-							<option value="gmail.com">gmail.com.com</option>
+							<option value="gmail.com">gmail.com</option>
 							<option value="nate.com">nate.com</option>
 						</select>
 					</td>
@@ -127,19 +130,29 @@ function execDaumPostcode() {
 				<tr>
 					<td align="right" >입사일</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="HIRE_DATE" name="HIRE_DATE" >
+						<input type="date" id="HIRE_DATE" name="HIRE_DATE" >
 					</td>
 				</tr>
 				<tr>
 					<td align="right" >재직여부</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WORK_CD" name="WORK_CD" >
+						<select id="WORK_CD" name="WORK_CD" >	
+							<option value="1">재직</option>
+							<option value="2">휴직</option>
+							<option value="3">퇴사</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
 					<td align="right" >권한</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="PRIV_CD" name="PRIV_CD" >
+						<select id="PRIV_CD" name="PRIV_CD" >	
+							<option value="0">기본등록</option>
+							<option value="1">사원조회</option>
+							<option value="2">사원관리</option>
+							<option value="3">재고조회</option>
+							<option value="4">재고관리</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
