@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author user
  *
@@ -45,6 +47,18 @@ public class ProductBean {
 	//지선 : 스프링 컨버전하면서 option만 모아놓은 arraylist가 필요했음..
 	private List<ProductOptBean> option;
 	
+	// 경민 : 파일 두 개 배열로 받아올 변수
+	private MultipartFile[] files;
+	
+	// 상품 유형 구분을 위한 변수 추가
+	private String group;
+	
+	public String getGroup() {
+		return group;
+	}
+	public void setGroup(String group) {
+		this.group = group;
+	}
 	public List<ProductOptBean> getOption() {
 		return option;
 	}
@@ -140,6 +154,12 @@ public class ProductBean {
 	}
 	public void setDetail_img(String detail_img) {
 		this.detail_img = detail_img;
+	}
+	public MultipartFile[] getFiles() {
+		return files;
+	}
+	public void setFiles(MultipartFile[] files) {
+		this.files = files;
 	}
 	public int getDiscount() {
 		return discount;

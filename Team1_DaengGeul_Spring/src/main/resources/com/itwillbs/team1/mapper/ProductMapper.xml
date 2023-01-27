@@ -29,5 +29,44 @@
 		UPDATE goods_options SET option_quantity=option_quantity-#{prod.cnt}, count=count+#{prod.cnt} WHERE goodsOpt_idx=#{prod.idx} AND option_name=#{prod.opt};
 	</update>
 	
+	<!-- ========== 경민 ========== -->
+	<select id="selectIdx" resultType="int">
+		SELECT MAX(idx)
+			FROM product
+	</select>
+	<insert id="insertProduct">
+		INSERT 
+			INTO product
+			VALUES (
+				#{product.idx}
+				, #{product.product_idx}
+			);
+		<choose>
+			<when test="isBook">
+				INSERT 
+					INTO book
+					VALUES (
+						#{product.product_idx}
+						, #{product.name}
+						, #{product.genre}
+						, #{product.writer}
+						, #{product.publisher}
+						, #{product.price}
+						, #{product.quantity}
+						, #{product.date}
+						, 0
+						, #{product.detail}
+						, #{product.discount}
+						, #{product.img}
+						, #{product.detail_img}
+					)
+			</when>
+			<otherwise>
+			
+			
+			</otherwise>
+		</choose>
+		
 	
+	</insert>
 </mapper>
