@@ -35,7 +35,9 @@ a:visited{
 		<hr>
 		<div style="margin-left: 20px; margin-right: 20px; ">
 			<h2>기본 등록</h2>
-			<h3 class="menuH3">거래처 등록</h3>
+			<h3 class="menuH3">
+				<a href="AccRegist">거래처 등록</a>
+				</h3>
 			<h3 class="menuH3" onclick="location.href='WhList'">창고 등록</h3>
 			<h3 class="menuH3">
 				<a href="ItemRegist">품목 등록</a>
