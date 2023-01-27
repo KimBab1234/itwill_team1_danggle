@@ -15,10 +15,10 @@ import com.itwillbs.team1.vo.ProductOptBean;
 @Mapper
 @Transactional(rollbackFor = Exception.class)
 public interface ProductMapper {
-
-	public int regiBook(ProductBean book);  // 책 등록
-
-	public int regiGoods(ProductBean goods);  // 굿즈 등록
+	
+	public int selectIdx(); // 상품번호 조회
+	
+	public int insertProduct(@Param("product") ProductBean product, @Param("isBook") Boolean isBook); // 상품등록
 
 	public ArrayList<ProductBean> selectProductList(int startRow,  int listLimit);  // 목록 조회
 
@@ -62,6 +62,10 @@ public interface ProductMapper {
 	
 	//=====================주문한 상품 정보 가져오기=====================
 	public ArrayList<ProductBean> selectOrderProductList(String order_list);
+
+	
+
+	
 
 
 }

@@ -16,7 +16,23 @@ public class ProductService {
 	@Autowired
 	private ProductMapper mapper;
 	
-	///////////////// 경민 	/////////////////
+	///////////////// 경민 	/////////////////	
+	public int productRegistration(ProductBean product) {
+		int idx = mapper.selectIdx();
+		idx += 1;
+		product.setIdx(idx);
+		boolean isBook = false;
+		if(product.getGroup().equals("book")) {
+			product.setProduct_idx("B" + idx);
+			isBook = true;
+		}else if(product.getGroup().equals("goods")) {
+			product.setProduct_idx("G" + idx);
+		}
+		
+		
+		return mapper.insertProduct(product, isBook);
+	}
+	
 	public ProductBean selectFileName(String product_idx) {
 		System.out.println("selectFileName - 파일 이름 조회");
 		return mapper.selectFileName(product_idx);
@@ -38,16 +54,6 @@ public class ProductService {
 	public ProductBean getGoods(String product_idx) {
 		System.out.println("ProductEditService(getGoods) - 굿즈 수정");
 		return mapper.selectGoods(product_idx);
-	}
-	
-	public int bookregistration(ProductBean book) {
-		System.out.println("bookregistration - 책 등록 서비스 페이지");
-		return mapper.regiBook(book);
-	}
-	
-	public int goodsregistration(ProductBean goods) {
-		System.out.println("goodsregistration - 굿즈 등록 서비스 페이지");
-		return mapper.regiGoods(goods);
 	}
 	
 	///////////////// 경민+지선 /////////////////
@@ -137,6 +143,10 @@ public class ProductService {
 	
 		return mapper.selectProductList(sql);
 	}
+
+	
+
+	
 	
 	
 }

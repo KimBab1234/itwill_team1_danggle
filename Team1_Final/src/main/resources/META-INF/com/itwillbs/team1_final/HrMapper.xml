@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1_final.mapper.HrMapper">
-
 	<insert id="insertHr">
 		INSERT INTO hr VALUES (
 		
 		);
 	</insert>
+	
+	<select id="selectInfoForJoin" resultType="hr">
+		SELECT depart.* FROM depart union
+		SELECT grade.* FROM grade union
+		SELECT work.* FROM work union
+		SELECT priv.* FROM priv;
+	</select>
+	
 </mapper>
