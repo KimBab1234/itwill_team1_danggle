@@ -7,7 +7,9 @@ public class HrVO {
 	private String EMP_NUM;
 	private String EMP_NAME;
 	private String DEPT_CD;
+	private String DEPT_NAME;
 	private String GRADE_CD;
+	private String GRADE_NAME;
 	private String EMP_TEL;
 	private String EMP_DTEL;
 	private String EMP_EMAIL;
@@ -15,8 +17,35 @@ public class HrVO {
 	private String EMP_ADDR;
 	private Date HIRE_DATE;
 	private String WORK_CD;
+	private String WORK_TYPE;
 	private String PRIV_CD;
+	private String PRIV_TYPE;
 	private String PHOTO;
+	
+	public String getDEPT_NAME() {
+		return DEPT_NAME;
+	}
+	public void setDEPT_NAME(String dEPT_NAME) {
+		DEPT_NAME = dEPT_NAME;
+	}
+	public String getGRADE_NAME() {
+		return GRADE_NAME;
+	}
+	public void setGRADE_NAME(String gRADE_NAME) {
+		GRADE_NAME = gRADE_NAME;
+	}
+	public String getWORK_TYPE() {
+		return WORK_TYPE;
+	}
+	public void setWORK_TYPE(String wORK_TYPE) {
+		WORK_TYPE = wORK_TYPE;
+	}
+	public String getPRIV_TYPE() {
+		return PRIV_TYPE;
+	}
+	public void setPRIV_TYPE(String pRIV_TYPE) {
+		PRIV_TYPE = pRIV_TYPE;
+	}
 	public String getEMP_NUM() {
 		return EMP_NUM;
 	}
@@ -98,10 +127,11 @@ public class HrVO {
 	
 	@Override
 	public String toString() {
-		return "HrVO [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", DEPT_CD=" + DEPT_CD + ", GRADE_CD=" + GRADE_CD
-				+ ", EMP_TEL=" + EMP_TEL + ", EMP_DTEL=" + EMP_DTEL + ", EMP_EMAIL=" + EMP_EMAIL + ", EMP_POST_NO="
-				+ EMP_POST_NO + ", EMP_ADDR=" + EMP_ADDR + ", HIRE_DATE=" + HIRE_DATE + ", WORK_CD=" + WORK_CD
-				+ ", PRIV_CD=" + PRIV_CD + ", PHOTO=" + PHOTO + "]";
+		return "HrVO [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", DEPT_CD=" + DEPT_CD + ", DEPT_NAME="
+				+ DEPT_NAME + ", GRADE_CD=" + GRADE_CD + ", GRADE_NAME=" + GRADE_NAME + ", EMP_TEL=" + EMP_TEL
+				+ ", EMP_DTEL=" + EMP_DTEL + ", EMP_EMAIL=" + EMP_EMAIL + ", EMP_POST_NO=" + EMP_POST_NO + ", EMP_ADDR="
+				+ EMP_ADDR + ", HIRE_DATE=" + HIRE_DATE + ", WORK_CD=" + WORK_CD + ", WORK_TYPE=" + WORK_TYPE
+				+ ", PRIV_CD=" + PRIV_CD + ", PRIV_TYPE=" + PRIV_TYPE + ", PHOTO=" + PHOTO + "]";
 	}
 	
 }
