@@ -9,11 +9,7 @@
 <link href="img/dot_daram.gif" rel="shortcut icon" type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-<%	String sId = (String)session.getAttribute("sId");
- 	if(sId == null || !sId.equals("admin")) { %>  
-		alert("잘못된 접근입니다");
-		history.back();
-<%  }%>
+
 
 	var optionIndex = 0;
 	var sum = 0;
@@ -128,7 +124,7 @@
 				<td>
 					<input type="radio" id="group_book" class="regi_check" value="book" name="group" checked="checked">책
 					&nbsp;
-					<select name="book_genre" class="book_genre" required="required">
+					<select name="genre" class="book_genre" required="required">
 						<option value="" class="book_genre">==카테고리 선택==</option>
 						<option value="humanities" class="book_genre">인문</option>
 						<option value="novel" class="book_genre">소설</option>
@@ -155,9 +151,9 @@
 				<tr>
 					<th>책 정보</th>
 					<td>
-						<div class="bookArea">작가명 : <input type="text" id="writer" name="book_writer" class='book_div' required="required"></div>
-						<div class="bookArea">출판사 : <input type="text" id="publisher" name="book_publisher" class="book_div" required="required"></div>
-						<div class="bookArea">출판일 : <input type="date" id="date" name="book_date" required="required"></div>
+						<div class="bookArea">작가명 : <input type="text" id="writer" name="writer" class='book_div' required="required"></div>
+						<div class="bookArea">출판사 : <input type="text" id="publisher" name="publisher" class="book_div" required="required"></div>
+						<div class="bookArea">출판일 : <input type="date" id="date" name="date" required="required"></div>
 					</td>
 				</tr>
 			</tbody>
@@ -195,7 +191,7 @@
 				<div class="filebox">
    					<input class="upload-name" placeholder="선택된 파일 없음" id="img_name">
     				<label for="img">파일찾기</label> 
-   					<input type="file" required="required" name="img" id="img">
+   					<input type="file" required="required" name="files" id="img">
 				</div>
 				</td>
 			</tr>
@@ -205,7 +201,7 @@
 					<div class="filebox">
    						<input class="upload-name" placeholder="선택된 파일 없음" id="detail_img_name">
     					<label for="detail_img">파일찾기</label> 
-   						<input type="file" id="detail_img" name="detail_img">
+   						<input type="file" id="detail_img" name="files">
 					</div>
 					<hr>
 					<div id="textDiv">
