@@ -8,6 +8,7 @@ public class ItemController {
 
 	@GetMapping(value = "/ItemRegist")
 	public String itemRegist() {
+		System.out.println("품목 등록");
 		return "item/item_regist";
 	}
 	

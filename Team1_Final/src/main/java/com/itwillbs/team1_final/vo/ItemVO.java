@@ -12,7 +12,7 @@ package com.itwillbs.team1_final.vo;
 품목구분 ITEM_GUBUN
 대표이미지 ITEM_IMAGE
  */
-public class Item {
+public class ItemVO {
 
 	private String ITEM_CD;
 	private String ITEM_NAME;
