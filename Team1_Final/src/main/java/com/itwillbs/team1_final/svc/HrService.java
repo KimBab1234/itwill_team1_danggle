@@ -20,5 +20,8 @@ public class HrService {
 	public ArrayList<HrVO> getHrInfoJoin() {
 		return mapper.selectInfoForJoin();
 	}
+	public ArrayList<HrVO> getDepartSearch(String keyword) {
+		return mapper.selectDepartSearch(keyword);
+	}
 
 }

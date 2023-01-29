@@ -8,5 +8,6 @@ public interface HrMapper {
 
 	public int insertHr();
 	public ArrayList<HrVO> selectInfoForJoin();
+	public ArrayList<HrVO> selectDepartSearch(String keyword);
 	
 }

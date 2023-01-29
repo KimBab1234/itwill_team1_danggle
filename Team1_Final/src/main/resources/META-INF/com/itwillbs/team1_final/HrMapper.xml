@@ -14,4 +14,8 @@
 		SELECT priv.* FROM priv;
 	</select>
 	
+	<select id="selectDepartSearch" resultType="hr">
+		SELECT DEPT_CD,DEPT_NAME FROM depart WHERE DEPT_NAME LIKE '%${keyword}%';
+	</select>
+	
 </mapper>
