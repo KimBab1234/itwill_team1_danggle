@@ -73,27 +73,40 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >부서코드</td>
+					<td align="right" >부서</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="DEPT_CD" name="DEPT_CD" >
+						<input type="text" name="DEPT_CD" id="DEPT_CD" readonly="readonly" style="width: 50px;">
+						<input type="text" name="DEPT_NAME" id="DEPT_NAME" readonly="readonly" style="width: 80px;">
+						<button type="button" onclick="window.open('DepartSearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">부서 선택</button>
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >직급코드</td>
+					<td align="right" >직급</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="GRADE_CD" name="GRADE_CD" >
+						<select id="GRADE_CD" name="GRADE_CD" style="text-align: center;">
+							<option value="">==직급 선택==</option>
+							<c:forEach items="${hrList}" var="grade">
+								<c:if test='${grade.GRADE_CD.charAt(0) == 71 }'>
+									<option value="${grade.GRADE_CD}">${grade.GRADE_NAME}</option>
+								</c:if>
+							</c:forEach>
+						</select>
 					</td>
 				</tr>
 				<tr>
 					<td align="right" >연락처(개인)</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="EMP_TEL" name="EMP_TEL" >
+						<input type="text" id="EMP_TEL1" name="EMP_TEL1" >-
+						<input type="text" id="EMP_TEL2" name="EMP_TEL2" >-
+						<input type="text" id="EMP_TEL3" name="EMP_TEL3" >
 					</td>
 				</tr>
 				<tr>
 					<td align="right" >연락처(사무실)</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="EMP_DTEL" name="EMP_DTEL" >
+						<input type="text" id="EMP_DTEL1" name="EMP_DTEL1" >-
+						<input type="text" id="EMP_DTEL2" name="EMP_DTEL2" >-
+						<input type="text" id="EMP_DTEL3" name="EMP_DTEL3" >
 					</td>
 				</tr>
 				<tr>
