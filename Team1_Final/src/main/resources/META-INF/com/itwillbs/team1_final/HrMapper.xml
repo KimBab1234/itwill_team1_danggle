@@ -3,15 +3,25 @@
 <mapper namespace="com.itwillbs.team1_final.mapper.HrMapper">
 	<insert id="insertHr">
 		INSERT INTO hr VALUES (
-		
+		null,
+		concat(#{DEPT_CD},date_format(now(), '%y'),LPAD((select MAX(IDX) FROM hr)+1,3,'0')),
+		#{EMP_NAME},
+		#{DEPT_CD},
+		#{GRADE_CD},
+		#{EMP_TEL},
+		#{EMP_DTEL},
+		#{EMP_EMAIL},
+		#{EMP_POST_NO},
+		#{EMP_ADDR},
+		date_format(#{HIRE_DATE}, '%Y-%m-%d'),
+		'1',
+		#{PRIV_CD},
+		#{PHOTO}
 		);
 	</insert>
 	
-	<select id="selectInfoForJoin" resultType="hr">
-		SELECT depart.* FROM depart union
-		SELECT grade.* FROM grade union
-		SELECT work.* FROM work union
-		SELECT priv.* FROM priv;
+	<select id="selectGradeInfo" resultType="hr">
+		SELECT grade.* FROM grade
 	</select>
 	
 	<select id="selectDepartSearch" resultType="hr">
