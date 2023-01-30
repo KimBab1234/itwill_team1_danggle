@@ -1,5 +1,6 @@
 package com.itwillbs.team1_final.vo;
 
+import org.springframework.web.multipart.MultipartFile;
 
 /*
 품목코드 ITEM_CD
@@ -23,6 +24,7 @@ public class ItemVO {
 	private int ITEM_OUT_COST;
 	private String ITEM_GUBUN;
 	private String ITEM_IMAGE;
+	private MultipartFile file;
 	
 	public String getITEM_CD() {
 		return ITEM_CD;
@@ -78,13 +80,21 @@ public class ItemVO {
 	public void setITEM_IMAGE(String iTEM_IMAGE) {
 		ITEM_IMAGE = iTEM_IMAGE;
 	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	@Override
 	public String toString() {
-		return "Item [ITEM_CD=" + ITEM_CD + ", ITEM_NAME=" + ITEM_NAME + ", ITEM_GROUP=" + ITEM_GROUP
+		return "ItemVO [ITEM_CD=" + ITEM_CD + ", ITEM_NAME=" + ITEM_NAME + ", ITEM_GROUP=" + ITEM_GROUP
 				+ ", ITEM_STANDARD=" + ITEM_STANDARD + ", ITEM_BARCODE=" + ITEM_BARCODE + ", ITEM_IN_COST="
 				+ ITEM_IN_COST + ", ITEM_OUT_COST=" + ITEM_OUT_COST + ", ITEM_GUBUN=" + ITEM_GUBUN + ", ITEM_IMAGE="
-				+ ITEM_IMAGE + "]";
+				+ ITEM_IMAGE + ", file=" + file + "]";
 	}
+	
+	
 	
 	
 	

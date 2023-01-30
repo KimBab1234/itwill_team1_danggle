@@ -28,47 +28,51 @@ table {
 			<jsp:include page="../inc/left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
-		<div align="left" style="margin-left: 500px; margin-top: 30px;">
+		<div align="left" style="margin-left: 100px; margin-top: 30px;">
 		<h1><b style="border-bottom: 10px solid">품목 등록</b></h1>
-		<form action="ItemRegistPro" method="post">
+		<form action="ItemRegistPro" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
-					<td id="td_left">품목코드</td>
-					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_CD"></td>
+					<td id="td_left"><label for="ITEM_CD">품목코드</label></td>
+					<td>
+						<input type="text" style="height: 30px; width: 370px;" name="ITEM_CD" required="required">
+						<input type="submit" value="중복확인" style="height: 30px; width: 70px;">
+					</td>
+					
 				</tr>
 				<tr>
-					<td id="td_left">품목명</td>
-					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_NAME"></td>
+					<td id="td_left"><label for="ITEM_NAME">품목명</label></td>
+					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_NAME" required="required"></td>
 				</tr>
 				<tr>
-					<td id="td_left">품목그룹<br>
+					<td id="td_left"><label for="ITEM_GROUP">품목그룹</label><br>
 						<button style="height: 30px; width: 80px;">신규등록</button>
 					</td>
 					<td>
-						<input type="text" name="keyword" style="height: 30px; width: 370px;">
+						<input type="text" name="ITEM_GROUP" style="height: 30px; width: 370px;" required="required">
 						<input type="submit" value="검색" style="height: 30px; width: 70px;">
 					</td>
 				</tr>
 				<tr>
-					<td id="td_left">규격</td>
+					<td id="td_left"><label for="ITEM_STANDARD">규격</label></td>
 					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_STANDARD"></td>
 				</tr>
 				<tr>
-					<td id="td_left">바코드</td>
-					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_BARCODE"></td>
+					<td id="td_left"><label for="ITEM_BARCODE">바코드</label></td>
+					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_BARCODE" required="required"></td>
 				</tr>
 				<tr>
-					<td id="td_left">입고단가</td>
-					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_IN_COST"></td>
+					<td id="td_left"><label for="ITEM_IN_COST">입고단가</label></td>
+					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_IN_COST" required="required"></td>
 				</tr>
 				<tr>
-					<td id="td_left">출고단가</td>
-					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_OUT_COST"></td>
+					<td id="td_left"><label for="ITEM_OUT_COST">출고단가</label></td>
+					<td><input type="text" style="height: 30px; width: 450px;" name="ITEM_OUT_COST" required="required"></td>
 				</tr>
 				<tr>
-					<td id="td_left">품목구분</td>
+					<td id="td_left"><label for="ITEM_GUBUN">품목구분</label></td>
 					<td>
-						<select style="height: 30px; width: 460px;">
+						<select style="height: 30px; width: 460px;" name="ITEM_GUBUN">
 							<option value="">=======================  품목구분  =======================</option>
 							<option value="원재료">원재료</option>
 							<option value="부재료">부재료</option>
@@ -79,9 +83,9 @@ table {
 					</td>
 				</tr>
 				<tr>
-					<td id="td_left">대표이미지</td>
+					<td id="td_left"><label for="ITEM_IMAGE">대표이미지</label></td>
 					<td>
-						<input type="file" name="files" />
+						<input type="file" name="file" />
 					</td>
 				</tr>
 			</table>
