@@ -30,7 +30,7 @@ table {
 		<!-- 여기서부터 본문-->
 		<div align="left" style="margin-left: 500px; margin-top: 30px;">
 		<h1><b style="border-bottom: 10px solid">품목 등록</b></h1>
-		<form action="">
+		<form action="ItemRegistPro" method="post">
 			<table>
 				<tr>
 					<td id="td_left">품목코드</td>

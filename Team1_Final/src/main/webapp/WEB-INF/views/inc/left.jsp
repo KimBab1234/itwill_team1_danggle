@@ -45,6 +45,17 @@ a:visited{
 		</div>
 		<hr>
 		<div style="margin-left: 20px; margin-right: 20px; ">
+			<h2>기본 조회</h2>
+			<h3 class="menuH3">
+				<a href="AccRegist">거래처 조회</a>
+				</h3>
+			<h3 class="menuH3" onclick="location.href='WhList'">창고 조회</h3>
+			<h3 class="menuH3">
+				<a href="ItemRegist">품목 조회</a>
+			</h3>
+		</div>
+		<hr>
+		<div style="margin-left: 20px; margin-right: 20px; ">
 			<h2>발주 요청</h2>
 			<h3 class="menuH3">발주 요청 입력</h3>
 			<h3 class="menuH3">발주 요청 조회</h3>
