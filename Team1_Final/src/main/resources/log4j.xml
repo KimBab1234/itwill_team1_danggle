@@ -63,6 +63,12 @@
 		<level value="info" />
 		<appender-ref ref="console" />		
 	</logger>
+	
+<!-- 	5) SELECT실행 결과에 대한 로그 --> 
+<!-- 	<logger name="com.zaxxer.hikari" additivity="false"> -->
+<!-- 		<level value="DEBUG" /> -->
+<!-- 		<appender-ref ref="console" />		 -->
+<!-- 	</logger> -->
 
 
 	<!-- Root Logger -->
