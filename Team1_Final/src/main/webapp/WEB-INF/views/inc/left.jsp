@@ -51,7 +51,7 @@ a:visited{
 				</h3>
 			<h3 class="menuH3" onclick="location.href='WhList'">창고 조회</h3>
 			<h3 class="menuH3">
-				<a href="ItemRegist">품목 조회</a>
+				<a href="ItemInquiry">품목 조회</a>
 			</h3>
 		</div>
 		<hr>
