@@ -117,7 +117,7 @@
 			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
 			                                    <a class="dropdown-item" href='ProductList.ad'>상품 정보 관리</a>
 			                                    <a class="dropdown-item" href='RecommendBookList.ad'>추천 도서 관리</a>
-			                                    <a class="dropdown-item" href='MemberList.me'>회원 정보 관리</a>
+			                                    <a class="dropdown-item" href='AdminMain.me'>회원 정보 관리</a>
 			                                    </div>
 			                                </div>
 										</c:when>
