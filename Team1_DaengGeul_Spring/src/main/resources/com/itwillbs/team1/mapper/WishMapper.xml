@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.daenggeul.mapper.WishMapper">
+
+	<!--=================== 찜등록 =====================-->
+	<insert id="insertWish">
+		INSERT INTO wish
+			VALUES(
+				#{sId},
+				#{product_idx},
+				now()
+			)
+	</insert>
+	<!--================================================-->
+	
+	
+	<!--============== 찜목록 개수 조회 ================-->
+	<select id="selectWishlistCount" resultType="int">
+		SELECT COUNT(*)
+			FROM wishlist
+			WHERE member_id = #{sId}
+				<if test='!keyword.equals("")'>
+					AND
+					<choose>
+						<when test='searchType.equals("name")'>
+							product_name LIKE '%${keyword}%'
+						</when>
+						<when test='searchType.equals("code")'>
+							product_idx LIKE '%${keyword}%'
+						</when>
+						<when test='searchType.equals("name_code")'>
+							product_name LIKE '%${keyword}%'
+							OR product_idx LIKE '%${keyword}%'
+						</when>
+					</choose>
+				</if>
+	</select>
+	<!--================================================-->
+	
+	
+	<!--================ 찜목록&검색 ===================-->
+	<select id="selectWishlist" resultType="com.itwillbs.daenggeul.vo.WishlistVO">
+		SELECT *
+			FROM wishlist
+			WHERE member_id = #{sId}
+				<if test='!keyword.equals("")'>
+					AND
+					<choose>
+						<when test='searchType.equals("name")'>
+							product_name LIKE '%${keyword}%'
+						</when>
+						<when test='searchType.equals("code")'>
+							product_idx LIKE '%${keyword}%'
+						</when>
+						<when test='searchType.equals("name_code")'>
+							(product_name LIKE '%${keyword}%'
+							OR product_idx LIKE '%${keyword}%')
+						</when>
+					</choose>
+				</if>
+			LIMIT
+			#{startRow}
+			, #{listLimit}
+	</select>
+	<!--================================================-->
+	
+	
+	<!--================= 찜목록 삭제 ==================-->
+	<delete id="deleteWish" parameterType="java.util.List">
+		DELETE FROM wish
+			WHERE member_id = #{sId}
+			<if test='listArr!=null'>
+					AND product_idx IN
+				<foreach collection="listArr" item="wish" separator="," open="(" close=")">
+					#{wish}
+				</foreach>
+			</if>
+	</delete>
+	<!--================================================-->
+	
+	
+</mapper>
+
+
