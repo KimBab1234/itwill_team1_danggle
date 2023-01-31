@@ -6,30 +6,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="img/daram.png" rel="shortcut icon" type="image/x-icon">
+<link href="${pageContext.request.contextPath}/resources/img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 회원정보</title>
 <%-------------------- 임시 홈페이지 CSS -------------------%>
-<link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath }/resources/css/MemberInfoForm.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/MemberInfoForm.css" rel="stylesheet" type="text/css">
 <%----------------------------------------------------------%>
-<style>
-* {
-	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-	}
-</style>
+
 
 <%------------------------------ 회원상세정보 --------------------------------%>
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-
-	var emailStatus = false;
-	
 	$(function() {
-		 $('.dropdown-toggle', this).trigger('click').blur();
 		<%
-		String email1 = (String)request.getAttribute("email1");
-		String email2 = (String)request.getAttribute("email2");
+		String email1 = (String)request.getAttribute("member_email1");
+		String email2 = (String)request.getAttribute("member_email2");
  		%>
  		let getEmail1 = email1.value;
  		let getEmail2 = email2.value;
@@ -147,8 +138,8 @@
 		// ---------------------------------------------------------------
 		
 		
-		// ------------------ 이메일 중복체크(email1) --------------------
-		$("#email1, #selectDomain").on("change", function() {
+		// --------------------- 이메일 중복체크2 ------------------------
+		$("#email2, #selectDomain").on("change", function() {
 			let email1 = $("#email1").val();
 			let email2 = $("#email2").val();
 			
@@ -193,8 +184,8 @@
 		// ---------------------------------------------------------------
 		
 		
-		// ------------------ 이메일 중복체크(email2) --------------------
-		$("#email2, #selectDomain").on("change", function() {
+		// --------------------- 이메일 중복체크1 ------------------------
+		$("#email1, #selectDomain").on("change", function() {
 			let email1 = $("#email1").val();
 			let email2 = $("#email2").val();
 			
@@ -210,10 +201,15 @@
 						
 						if(result == "true"){
 							emailStatus = false;
-							$("#checkEmailResult").html("사용 불가능한 이메일").css({
-								color : "red",
-								marginLeft : "137px"
-							});
+							
+							if(getEmail1 == $("#email1").val() && getEmail2 == $("#email2").val()) {
+								$("#checkEmailResult").html("");
+							} else {
+								$("#checkEmailResult").html("사용 불가능한 이메일").css({
+									color : "red",
+									marginLeft : "137px"
+								});								
+							}
 						} else {
 							emailStatus = false;
 							$("#checkEmailResult").html("사용 가능한 이메일").css({
@@ -322,6 +318,9 @@
 										color : "#fae37d",
 										marginLeft : "137px"
 									});
+									$("#certNum").prop("readonly", true);
+									$("#sendCert").hide();
+									$("#checkCert").hide();
 								} else {
 									emailStatus = false;
 									$("#certEmailMsg").html("인증코드가 틀렸습니다!").css({
@@ -365,6 +364,7 @@
 				alert("이메일 인증을 해주세요!")
 				return false;
 			}
+			
 		});
 		// ---------------------------------------------------------------
 		
@@ -409,6 +409,15 @@ function execDaumPostcode() {
    }
    </script>
 <%-- 주소찾기 API --%>
+
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	font-weight:bold;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 </head>
 <body>
 	<header>
@@ -417,32 +426,30 @@ function execDaumPostcode() {
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
 	
-	<div style="display: flex;  margin-left: 50px; width: 1500px;" align="center">
-		<div align="left" style="width: 300px; margin-top: 100px; font-family: 'Gowun Dodum', sans-serif;">
-			<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
-		</div>
-	<div align="left" class="orderTable" style="width: 1000px; min-height: 500px; margin-left:100px;">
-		<h2><b style="border-left: 10px solid #795548">&nbsp;&nbsp;회원 정보</b></h2>
+	<div class="clear"></div>
+	
+	<article>
+	
 		<!---------------------------------- 마이페이지 영역 ----------------------------------->
 	  	<form action="MemberUpdatePro.me" method="post" id="updateForm" name="updateForm">
 		<!-- 화면 커버 -->
-		<div class="join-cover"  align="left">
+		<div class="join-cover">
 	
 			<div class="join-wrapper">
 	
 				<div class="row header">
 					마이페이지
-					<img src="${pageContext.request.contextPath }/resources/img/daram.png" width="40" height="50">
+					<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="40" height="50">
 				</div>
 
 				<div class="row">
 					<b>아이디</b>
-					<input type="text" name="id" class="in-id" id="id" value="${member.member_id }" readonly="readonly">
+					<input type="text" name="member_id" class="in-id" id="id" value="${member.member_id }" readonly="readonly">
 				</div>
 				
 				<div class="row">
 					<b>기존 비밀번호</b>
-					<input type="password" name="oldPasswd" id="oldPasswd" class="in-pw1" size="34" required="required" placeholder="비밀번호 입력">
+					<input type="password" name="member_passwd" id="oldPasswd" class="in-pw1" size="34" required="required" placeholder="비밀번호 입력">
 				</div>
 				<div class="row">
 					<b>새 비밀번호</b>
@@ -458,14 +465,14 @@ function execDaumPostcode() {
 				
 				<div class="row">
 					<b>이름</b>
-					<input type="text" name="name" id="name" class="in-na" required="required" value="${member.member_name }" readonly="readonly">
+					<input type="text" name="name" id="member_name" class="in-na" required="required" value="${member.member_name }" readonly="readonly">
 				</div>
 				<div id="checkNameResult"></div>
 				
 				<div class="row">
 					<b>E-Mail</b>
-					<input type="text" class="in-e" name="email1" id="email1" value="${requestScope.email1 }" required="required" size="10"> <strong>&nbsp;@&nbsp;</strong> 
-					<input type="text" class="in-e2" name="email2" id="email2" value="${requestScope.email2 }" required="required" size="10" placeholder="직접입력">
+					<input type="text" class="in-e" name="member_email1" id="email1" value="${member.member_email1 }" required="required" size="10"> <strong>&nbsp;@&nbsp;</strong> 
+					<input type="text" class="in-e2" name="member_email2" id="email2" value="${member.member_email2 }" required="required" size="10" placeholder="직접입력">
 					<select name="email" id="selectDomain" >
 					 	<option value="">직접입력</option>
 					 	<option value="naver.com">naver.com</option>
@@ -487,40 +494,39 @@ function execDaumPostcode() {
 				<!-- 배송정보 영역 -->
 				<div class="row header">
 					배송정보
-					<img src="${pageContext.request.contextPath }/resources/img/daram.png" width="40" height="50">
+					<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="40" height="50">
 				</div>
 				
 				<div class="row">
 					<b>휴대전화</b>
-					<select id="selectPhone1" name="phone1" >
-						<% String phone1 = (String)request.getAttribute("phone1"); %>
-						<option value="010" <%if(phone1.equals("010")) {%>  selected="selected" <%} %>>010</option>
-						<option value="011" <%if(phone1.equals("011")) {%>  selected="selected" <%} %>>011</option>
-						<option value="016" <%if(phone1.equals("016")) {%>  selected="selected" <%} %>>016</option>
-						<option value="017" <%if(phone1.equals("017")) {%>  selected="selected" <%} %>>017</option>
+					<select id="selectPhone1" name="member_phone1" >
+						<option value="010" <c:if test="${member.member_phone1 eq '010' }">selected</c:if>>010</option>
+						<option value="011" <c:if test="${member.member_phone1 eq '011' }">selected</c:if>>011</option>
+						<option value="016" <c:if test="${member.member_phone1 eq '016' }">selected</c:if>>016</option>
+						<option value="017" <c:if test="${member.member_phone1 eq '017' }">selected</c:if>>017</option>
 					</select>
 					<strong>&nbsp;-&nbsp;</strong>
-					<input type="text" class="in-ph" name="phone2" required="required" value="${requestScope.phone2 }"
+					<input type="text" class="in-ph" name="member_phone2" required="required" value="${member.member_phone2 }"
 						size="9" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
 					<strong>&nbsp;-&nbsp;</strong>
-					<input type="text" class="in-ph" name="phone3" required="required" value="${requestScope.phone3 }"
+					<input type="text" class="in-ph" name="member_phone3" required="required" value="${member.member_phone3 }"
 						size="10" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
 				</div>
 				
 				<div class="row">
 					<b>주소</b>
-					<input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${member.member_postcode }" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
+					<input type="text" id="postcode" name="member_postcode" placeholder="우편번호" value="${member.member_postcode }" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
 					<input type="button" id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기">
 				</div>
 				<div class="row">
 					<b>&nbsp;</b>
-					<input type="text" id="roadAddress" name="roadAddress" placeholder="도로주소" value="${member.member_roadAddress }">
-					<input type="text" id="jibunAddress" name="jibunAddress" size="23px" placeholder="지번주소" value="${member.member_jibunAddress }">
+					<input type="text" id="roadAddress" name="member_roadAddress" placeholder="도로주소" value="${member.member_roadAddress }">
+					<input type="text" id="jibunAddress" name="member_jibunAddress" size="23px" placeholder="지번주소" value="${member.member_jibunAddress }">
 				</div>
 				
 				<div class="row">
 					<b>상세주소</b>
-					<textarea rows="5" cols="49" name="addressDetail" placeholder="상세주소">${member.member_addressDetail }</textarea>	
+					<textarea rows="5" cols="49" name="member_addressDetail" placeholder="상세주소">${member.member_addressDetail }</textarea>	
 				</div>
 				
 				<!-- 버튼 -->
@@ -533,10 +539,115 @@ function execDaumPostcode() {
 			</div>
 		</div>
 	</form>
-	</div>
-	</div>
 	<!-------------------------------------------------------------------------------------->
+	  	
+	<div class="clear"></div>
+	
+	<!-- 내 최근 정보 테이블 모음 -->
+	<div class="container-fluid pt-5">
+		<div class="row px-xl-5 pb-3">
+		
+			<!---------------------------------- 최근 상품 리뷰------------------------------------->
+			<div class="col-lg-4 col-md-6 pb-1">
+				<div class="cat-item d-flex flex-column border mb-4"
+					style="padding: 30px;">
+					<h4>내 상품리뷰</h4>
+					<table>
+						<tr>
+							<th width="80">글번호</th>
+							<th width="150">게시판</th>
+							<th width="100">작성자</th>
+							<th width="100">작성일</th>
+						</tr>
+						<tr>
+							<td>12</td>
+							<td>도서추천 게시판</td>
+							<td>style</td>
+							<td>22-12/15</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------------------------->
+			
+			<!--------------------------------- 최근 게시판 댓글 ----------------------------------->
+			<div class="col-lg-4 col-md-6 pb-1">
+				<div class="cat-item d-flex flex-column border mb-4"
+					style="padding: 30px;">
+					<table>
+						<h4>내 댓글</h4>
+						<tr>
+							<th width="80">글번호</th>
+							<th width="150">게시판</th>
+							<th width="100">작성자</th>
+							<th width="100">작성일</th>
+						</tr>
+						<tr>
+							<td>12</td>
+							<td>도서추천 게시판</td>
+							<td>style</td>
+							<td>22-12/15</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------------------------->
 
+			<!-------------------------------- 최근 1:1 문의내역 ----------------------------------->
+			<div class="col-lg-4 col-md-6 pb-1">
+				<div class="cat-item d-flex flex-column border mb-4"
+					style="padding: 30px;">
+					<h4>1:1 문의내역</h4>
+					<table>
+						<tr>
+							<th width="80">글번호</th>
+							<th width="200">제목</th>
+							<th width="100">작성일</th>
+							<th width="100">상태</th>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>언제 배송되나요?</td>
+							<td>22-12/15</td>
+							<td>답변완료</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------------------------->
+			
+			<!----------------------------------- 최근 주문내역 ------------------------------------>
+			<div class="col-lg-4 col-md-6 pb-1">
+				<div class="cat-item d-flex flex-column border mb-4"
+					style="padding: 30px;">
+					<h4>주문내역</h4>
+					<table>
+						<tr>
+							<th width="80">주문번호</th>
+							<th width="200">상품명</th>
+							<th width="100">구매일</th>
+							<th width="100">결제정보</th>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-------------------------------------------------------------------------------------->
+			
+			<!-- 최근 정보 추가 할거면 위에 div 양식 그대로 복붙해서 만들고 정보 뿌리시면 됩니다! -->
+			
+			<!-------------------------------------------------------------------------------------->
+
+		</div>
+	</div>
+
+	</article>
+	
 	<div class="clear"></div>
 	<div class="clear"></div>
 	
@@ -553,15 +664,15 @@ function execDaumPostcode() {
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/lib/easing/easing.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="${pageContext.request.contextPath }/resources/mail/jqBootstrapValidation.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/mail/contact.js"></script>
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+    <script src="js/main.js"></script>
 	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
 </body>
 </html>

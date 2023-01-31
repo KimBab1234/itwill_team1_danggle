@@ -5,24 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="img/daram.png" rel="shortcut icon" type="image/x-icon">
+<link href="${pageContext.request.contextPath}/resources/img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 회원가입</title>
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta http-equiv="X-UA_Compatible" content="IE=edge">
 
 <!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hi+Melody&family=Nanum+Gothic&family=Noto+Serif+KR&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+* {
+	font-family: 'Gowun Dodum', sans-serif;
+	font-weight:bold;
+	url: @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	}
+</style>
 <%------------------- 임시 홈페이지 CSS -------------------%>
-<link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath }/resources/css/joinForm.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/joinForm.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
 
 <%----------------------------- 회원가입 CheckList----------------------------%>
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	// 아이디, 비밀번호, 이름, 이메일 유효성 검사 적용을 위한 변수
 	var idStatus = false;
@@ -53,7 +57,6 @@
 						id: $("#id").val()
 					},
 					success: function(result) {
-						
 						if(result == "true"){
 							idStatus = false;
 							$("#checkIdResult").html("이미 존재하는 아이디").css({
@@ -245,7 +248,7 @@
 		// ---------------------------------------------------------------
 		
 		
-		// -------------- 이메일 중복체크(email2 변경시) -----------------
+		// -------------- 이메일 중복체크(email1 변경시) -----------------
 		$("#email1, #selectDomain").on("change", function() {
 			let email1 = $("#email1").val();
 			let email2 = $("#email2").val();
@@ -381,6 +384,10 @@
 										color : "#fae37d",
 										marginLeft : "137px"
 									});
+									$("#certNum").prop("readonly", true);
+									$("#sendCert").hide();
+									$("#checkCert").hide();
+// 									$("#checkCert").attr("disabled", true).val("인증완료");
 								} else {
 									emailStatus = false;
 									$("#certEmailMsg").html("인증코드가 틀렸습니다!").css({
@@ -414,11 +421,11 @@
 			} else if(!eqPasswd){
 				alert("비밀번호를 일치시켜주세요!");
 				return false;				
-			} else if(!emailStatus){
-				alert("이메일 인증을 해주세요!");
-				return false;
 			} else if(!nameStatus){
 				alert("이름을 확인 해주세요!");
+				return false;
+			} else if(!emailStatus){
+				alert("이메일 인증을 해주세요!");
 				return false;
 			} else if(!existEmail) {
 				alert("사용할 수 없는 이메일입니다!");
@@ -486,19 +493,19 @@ function execDaumPostcode() {
 	
 				<div class="row header">
 					회원가입
-					<img src="${pageContext.request.contextPath }/resources/img/daram.png" width="40" height="50">
+					<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="40" height="50">
 				</div>
 
 				<div class="row">
 					<b>아이디</b>
-					<input type="text" class="in-id" name="id" id="id" required="required" size="30" 
+					<input type="text" class="in-id" name="member_id" id="id" required="required" size="30" 
 						placeholder="5-12자리 영문자,숫자 조합" maxlength="12">
 				</div>
 				<div id="checkIdResult"></div>
 				
 				<div class="row">
 					<b>비밀번호</b>
-					<input type="password" class="in-pw" name="passwd" id="passwd" required="required" size="40" 
+					<input type="password" class="in-pw" name="member_passwd" id="passwd" required="required" size="40" 
 						placeholder="8-16자리 영어 대/소문자,숫자,특수문자 조합" maxlength="16" >
 				</div>
 				<div id="rightPasswdResult"></div>
@@ -511,20 +518,20 @@ function execDaumPostcode() {
 				
 				<div class="row">
 					<b>이름</b>
-					<input type="text" class="in-na" name="name" id="name" required="required" size="20" placeholder="이름을 입력하세요.">
+					<input type="text" class="in-na" name="member_name" id="name" required="required" size="20" placeholder="이름을 입력하세요.">
 				</div>
 				<div id="checkNameResult"></div>
 				
 				<div class="row">
 					<b>성별</b>
-					<input type="radio" id="in-gen1" name="gender" value="남"><strong>남</strong>&nbsp;&nbsp;
-					<input type="radio" id="in-gen2" name="gender" value="여" checked="checked"><strong>여</strong>
+					<input type="radio" id="in-gen1" name="member_gender" value="남"><strong>남</strong>&nbsp;&nbsp;
+					<input type="radio" id="in-gen2" name="member_gender" value="여" checked="checked"><strong>여</strong>
 				</div>
 				
 				<div class="row">
 					<b>E-Mail</b>
-					<input type="text" class="in-e" name="email1" id="email1" required="required" size="10"> <strong>&nbsp;@&nbsp;</strong> 
-					<input type="text" class="in-e2" name="email2" id="email2" required="required" size="10" placeholder="직접입력">
+					<input type="text" class="in-e" name="member_email1" id="email1" required="required" size="10"> <strong>&nbsp;@&nbsp;</strong> 
+					<input type="text" class="in-e2" name="member_email2" id="email2" required="required" size="10" placeholder="직접입력">
 					<select name="email" id="selectDomain" >
 					 	<option value="">직접입력</option>
 					 	<option value="naver.com">naver.com</option>
@@ -543,31 +550,31 @@ function execDaumPostcode() {
 				
 				<div class="row">
 					<b>휴대전화</b>
-					<select name="phone1">
+					<select name="member_phone1">
 						<option value="010">010</option>
 						<option value="011">011</option>
 						<option value="016">016</option>
 						<option value="017">017</option>
 					</select>
-					<strong>&nbsp;-&nbsp;</strong><input type="text" class="in-ph" name="phone2" required="required" 
+					<strong>&nbsp;-&nbsp;</strong><input type="text" class="in-ph" name="member_phone2" required="required" 
 													size="9" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');"><strong>&nbsp;-&nbsp;</strong>
-					<input type="text" class="in-ph" name="phone3" required="required" size="10" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
+					<input type="text" class="in-ph" name="member_phone3" required="required" size="10" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
 				</div>
 				
 				<div class="row">
 					<b>주소</b>
-					<input type="text" id="postcode" name="postcode" placeholder="우편번호" required="required" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
+					<input type="text" id="postcode" name="member_postcode" placeholder="우편번호" required="required" oninput="this.value=this.value.replace(/[^0-9]/g, '');">
 					<input type="button" id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기">
 				</div>
 				<div class="row">
 					<b>&nbsp;</b>
-					<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소"><br>
-					<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+					<input type="text" id="jibunAddress" name="member_jibunAddress" placeholder="지번주소"><br>
+					<input type="text" id="roadAddress" name="member_roadAddress" placeholder="도로명주소">
 				</div>
 				
 				<div class="row">
 					<b>상세주소</b>
-					<textarea rows="3" cols="37" name="addressDetail" required="required"></textarea>	
+					<textarea rows="3" cols="37" name="member_addressDetail" required="required"></textarea>	
 				</div>
 				
 				<!-- 버튼 -->
@@ -596,15 +603,15 @@ function execDaumPostcode() {
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/lib/easing/easing.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="${pageContext.request.contextPath }/resources/mail/jqBootstrapValidation.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/mail/contact.js"></script>
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+    <script src="js/main.js"></script>
 	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
 </body>
 </html>

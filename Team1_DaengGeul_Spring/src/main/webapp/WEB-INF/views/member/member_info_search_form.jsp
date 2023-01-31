@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="img/daram.png" rel="shortcut icon" type="image/x-icon">
+<link href="${pageContext.request.contextPath}/resources/img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 회원정보 찾기</title>
 <%------------------- 임시 홈페이지 CSS -------------------%>
-<link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath }/resources/css/memberInfoSearchForm.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/memberInfoSearchForm.css" rel="stylesheet" type="text/css">
 <%---------------------------------------------------------%>
 
 <%------------------- 회원정보 찾기 -------------------%>
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.3.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var emailStatus = false;
@@ -46,11 +46,15 @@
 					url : "MemberSearchId.me",
 					type : 'POST',
 					data: {
-						email1: email1,
-						email2: email2
+						member_email1: email1,
+						member_email2: email2
 					},
 					success: function(findId){
-						$("#searchIdResult").html("회원님의 아이디는 : " + findId + "입니다").css("color", "#fae37d");;
+						if(findId != ""){
+							$("#searchIdResult").html("회원님의 아이디는 : " + findId + "입니다").css("color", "#fae37d");;							
+						} else {
+							$("#searchIdResult").html("이메일을 확인해주세요").css("color", "red");
+						}
 					},
 					error : function(request, status, error){
 						$("#searchIdResult").html("이메일을 확인해주세요").css("color", "red");
@@ -113,6 +117,9 @@
 							if(result == "true"){
 								emailStatus = true;
 								$("#searchPasswdResult").html("이메일이 인증되었습니다").css("color", "#fae37d");
+								$("#certNum").prop("readonly", true);
+								$("#sendCert").hide();
+								$("#checkCert").hide();
 							} else {
 								$("#searchPasswdResult").html("인증코드가 틀렸습니다!").css("color", "red");
 							}
@@ -154,18 +161,6 @@
 	
 	<div class="clear"></div>
 	
-<!-- 	<div> -->
-<!-- 		<form id="MemberSearchPasswd" action="MemberSearchPasswd.me"> -->
-<!-- 			<h5>비밀번호 찾기(Email로 인증코드 발송)</h5> -->
-<!-- 			<input type="text" name="id" id="id" placeholder="아이디 입력" ><br> -->
-<!-- 			<input type="text" id="certNum" placeholder="인증번호" > -->
-<!-- 			<input type="button" id="sendCert" value="인증번호 전송" ><br> -->
-<!-- 			<div id="searchPasswdResult"></div> -->
-<!-- 			<input type="button" id="checkCert" value="인증확인" > -->
-<!-- 			<input type="submit" id="searchPasswd" value="비밀번호 찾기" > -->
-<!-- 		</form> -->
-<!-- 	</div> -->
-	
 	<form action="MemberSearchId.me" method="post" id="MemberSearchId" name="joinForm">
 		
 		<!-- 화면 커버 -->
@@ -176,7 +171,7 @@
 	
 				<div class="row header">
 					아이디 찾기
-					<img src="${pageContext.request.contextPath }/resources/img/daram.png" width="40" height="50">
+					<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="40" height="50">
 				</div>
 				
 				<div class="row">
@@ -215,7 +210,7 @@
 	
 				<div class="row header">
 					비밀번호 찾기
-					<img src="${pageContext.request.contextPath }/resources/img/daram.png" width="40" height="50">
+					<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="40" height="50">
 				</div>
 				<div class="row">
 					<b>(Email로 인증코드 발송)</b>
@@ -254,15 +249,15 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/lib/easing/easing.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="${pageContext.request.contextPath }/resources/mail/jqBootstrapValidation.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/mail/contact.js"></script>
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+    <script src="js/main.js"></script>
 	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
 </body>
 </html>

@@ -4,10 +4,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="img/daram.png" rel="shortcut icon" type="image/x-icon">
+<link href="${pageContext.request.contextPath}/resources/img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 임시 비밀번호 발급</title>
 <%------------------- 임시 홈페이지 CSS -------------------%>
-<link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
+<link href="css/default.css" rel="stylesheet" type="text/css">
+<%---------------------------------------------------------%>
+<%---------------- 임시 비밀번호 메일 전송 ----------------%>
+<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script>
+	$(function() {
+		$.ajax({
+			url: "sendTempPassword",
+			type : "post",
+			dataType: "text", 
+			data: {
+				id : '${requestScope.id}'
+			},
+			success: function(response) {
+			}
+		});
+	});
+</script>
 <%---------------------------------------------------------%>
 </head>
 <body>
@@ -21,15 +38,15 @@
 	
 	<div align="center">
 		<h1>
-			<img src="${pageContext.request.contextPath }/resources/img/green_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath }/resources/img/brown_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath }/resources/img/gold_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath }/resources/img/daram.png" width="30" height="45">
+			<img src="${pageContext.request.contextPath}/resources/img/green_Acon.png" width="20" height="25">
+			<img src="${pageContext.request.contextPath}/resources/img/brown_Acon.png" width="20" height="25">
+			<img src="${pageContext.request.contextPath}/resources/img/gold_Acon.png" width="20" height="25">
+			<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="30" height="45">
 			임시 비밀번호가 메일로 발송되었습니다!
-			<img src="${pageContext.request.contextPath }/resources/img/daram.png" width="30" height="45">
-			<img src="${pageContext.request.contextPath }/resources/img/green_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath }/resources/img/brown_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath }/resources/img/gold_Acon.png" width="20" height="25">
+			<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="30" height="45">
+			<img src="${pageContext.request.contextPath}/resources/img/green_Acon.png" width="20" height="25">
+			<img src="${pageContext.request.contextPath}/resources/img/brown_Acon.png" width="20" height="25">
+			<img src="${pageContext.request.contextPath}/resources/img/gold_Acon.png" width="20" height="25">
 		</h1>
 			<br>
 		<h3>
@@ -58,15 +75,15 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/lib/easing/easing.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="${pageContext.request.contextPath }/resources/mail/jqBootstrapValidation.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/mail/contact.js"></script>
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+    <script src="js/main.js"></script>
 	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
 </body>
 </html>
