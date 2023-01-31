@@ -4,11 +4,11 @@ import java.sql.Connection;
 
 import com.itwillbs.team1.dao.MemberDAO;
 import com.itwillbs.team1.db.JdbcUtil;
-import com.itwillbs.team1.vo.AuthBean;
+import com.itwillbs.team1.vo.AuthVO;
 
 public class registAuthService {
 
-	public void registAuth(AuthBean auth) {
+	public void registAuth(AuthVO auth) {
 
 		Connection con = JdbcUtil.getConnection();
 		MemberDAO dao = MemberDAO.getInstance();

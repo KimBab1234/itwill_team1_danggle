@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.itwillbs.team1.db.JdbcUtil;
-import com.itwillbs.team1.vo.AuthBean;
-import com.itwillbs.team1.vo.MemberBean;
+import com.itwillbs.team1.vo.AuthVO;
+import com.itwillbs.team1.vo.MemberVO;
 
 public class MemberDAO { // MemberDAO
 	// ------------ 싱글톤 디자인 패턴을 활용한 MemberDAO 인스턴스 생성 작업 -------------
@@ -32,7 +32,7 @@ public class MemberDAO { // MemberDAO
 	
 	
 	// ---------------------- 회원가입(INSERT) ------------------------------
-	public int insertMember(MemberBean member) {
+	public int insertMember(MemberVO member) {
 		int insertCount = 0;
 		
 		try {
@@ -104,8 +104,8 @@ public class MemberDAO { // MemberDAO
 	
 
 	// ------------------------ 회원정보(SELECT) ----------------------------
-	public MemberBean getMemberInfo(String id) {
-		MemberBean member = null;
+	public MemberVO getMemberInfo(String id) {
+		MemberVO member = null;
 		
 		try {
 			String sql = "SELECT *"
@@ -116,7 +116,7 @@ public class MemberDAO { // MemberDAO
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				member = new MemberBean();
+				member = new MemberVO();
 				member.setMember_id(rs.getString("member_id"));
 				member.setMember_passwd(rs.getString("member_passwd"));
 				member.setMember_name(rs.getString("member_name"));
@@ -145,8 +145,8 @@ public class MemberDAO { // MemberDAO
 	
 
 	// ------------ 관리자 회원목록 조회 + 회원이름 검색(SELECT) ------------
-	public List<MemberBean> selectMemberList(String keyword, int startRow, int listLimit) {
-		List<MemberBean> memberList = null;
+	public List<MemberVO> selectMemberList(String keyword, int startRow, int listLimit) {
+		List<MemberVO> memberList = null;
 		
 		try {
 			String sql = "SELECT * FROM member"
@@ -160,10 +160,10 @@ public class MemberDAO { // MemberDAO
 			pstmt.setInt(3, listLimit);
 			rs = pstmt.executeQuery();
 			
-			memberList = new ArrayList<MemberBean>();
+			memberList = new ArrayList<MemberVO>();
 			
 			while(rs.next()) {
-				MemberBean member = new MemberBean();
+				MemberVO member = new MemberVO();
 				member.setMember_id(rs.getString("member_id"));
 				member.setMember_name(rs.getString("member_name"));
 				member.setMember_email(rs.getString("member_email"));
@@ -278,7 +278,7 @@ public class MemberDAO { // MemberDAO
 	
 
 	// ------------- 회원정보 수정 및 비밀번호 변경(UPDATE) -----------------
-	public int updateMember(MemberBean member, String Passwd) {
+	public int updateMember(MemberVO member, String Passwd) {
 		int updateCount = 0;
 		
 		try {
@@ -437,7 +437,7 @@ public class MemberDAO { // MemberDAO
 	
 
 	// ---------------- 인증코드 등록(SELECT/INSERT/UPDATE) -----------------
-	public int registAuth(AuthBean auth) {
+	public int registAuth(AuthVO auth) {
 		int registCount = 0;
 		
 		// 인증코드 존재 유무 확인

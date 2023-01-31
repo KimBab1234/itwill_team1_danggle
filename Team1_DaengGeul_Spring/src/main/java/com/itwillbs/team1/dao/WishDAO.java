@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.itwillbs.team1.db.JdbcUtil;
-import com.itwillbs.team1.vo.WishlistBean;
+import com.itwillbs.team1.vo.WishlistVO;
 
 public class WishDAO { // WishDAO
 	// ------------ 싱글톤 디자인 패턴을 활용한 WishDAO 인스턴스 생성 작업 -------------
@@ -59,8 +59,8 @@ public class WishDAO { // WishDAO
 
 		
 	// -------------- 찜목록 조회 + 상품명 검색(SELECT) -----------------
-	public List<WishlistBean> selectWishlist(String sId, String keyword, int startRow, int listLimit) {
-		List<WishlistBean> wishlist = null;
+	public List<WishlistVO> selectWishlist(String sId, String keyword, int startRow, int listLimit) {
+		List<WishlistVO> wishlist = null;
 		
 		try {
 			String sql = "SELECT *"
@@ -76,9 +76,9 @@ public class WishDAO { // WishDAO
 			pstmt.setInt(4, listLimit);
 			rs = pstmt.executeQuery();
 			
-			wishlist = new ArrayList<WishlistBean>();
+			wishlist = new ArrayList<WishlistVO>();
 			while(rs.next()) {
-				WishlistBean wishlistBean = new WishlistBean();
+				WishlistVO wishlistBean = new WishlistVO();
 				wishlistBean.setMember_id(sId);
 				wishlistBean.setProduct_idx(rs.getString("product_idx"));
 				wishlistBean.setWish_date(rs.getDate("wish_date"));
