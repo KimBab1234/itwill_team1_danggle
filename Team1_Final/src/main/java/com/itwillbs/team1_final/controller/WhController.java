@@ -1,13 +1,20 @@
 package com.itwillbs.team1_final.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.WhService;
 import com.itwillbs.team1_final.vo.PageInfo;
@@ -59,5 +66,76 @@ public class WhController {
 		
 		
 		return "wh/list";
+	}
+	
+	@GetMapping(value="/WhRegistForm")
+	public String regist(HttpSession session, Model model) {
+//		String sId = (String)session.getAttribute("sId");
+//		if(sId == null || sId.equals("")) {
+//			model.addAttribute("msg", "로그인 필수");
+//			return "fail_back";
+//		}
+		
+		return "wh/regist";
+		
+	}
+	
+	@ResponseBody
+	@PostMapping(value ="/codeCheck")
+	public void codeCheck(String WH_CD, HttpServletResponse response) {
+		
+		System.out.println("창고코드 : " + WH_CD);
+		if(WH_CD != null) {
+			int count = service.codeCheck(WH_CD);
+			try {
+				response.getWriter().print(count);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+	
+	
+	@PostMapping(value="/WhRegistPro")
+	public String registPro(@ModelAttribute WhVO wh, Model model, HttpSession session) {
+//		String sId = (String)session.getAttribute("sId");
+//		if(sId == null || sId.equals("")) {
+//			model.addAttribute("msg","로그인 필수!");
+//			return "fail_back";
+//		}
+		
+		int inserCount = service.registWh(wh);
+		return "redirect:/WhList";
+	}
+	
+	@GetMapping(value="/WhDetail")
+	public String detail(Model model, @RequestParam String WH_CD) {
+		WhVO wh = service.getWh(WH_CD);
+		
+		model.addAttribute("wh", wh);
+		return "wh/view";
+	}
+	
+	@GetMapping(value = "/WhDeleteForm")
+	public String delete() {
+		
+		return "wh/delete";
+	}
+	
+	@PostMapping(value="/WhDeletePro")
+	public String deletePro(@ModelAttribute WhVO wh,@RequestParam(defaultValue = "1")int pageNum,
+								Model model, HttpSession session) {
+		int deleteCount = service.removeWh(wh.getWH_CD());
+		if(deleteCount > 0) {
+			
+			return "redirect:/WhList?pageNum="+pageNum;
+		} else {
+			model.addAttribute("msg", "게시물 삭제 실패!");
+			return "fail_back";
+			
+		}
 	}
 }
