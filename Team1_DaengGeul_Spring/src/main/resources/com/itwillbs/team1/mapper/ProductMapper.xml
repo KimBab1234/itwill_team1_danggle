@@ -30,10 +30,13 @@
 	</update>
 	
 	<!-- ========== 경민 ========== -->
+	<!-- 상품 번호 조회 -->
 	<select id="selectIdx" resultType="int">
 		SELECT MAX(idx)
 			FROM product
 	</select>
+	
+	<!-- 상품 등록 -->
 	<insert id="insertProduct">
 		INSERT 
 			INTO product
@@ -62,11 +65,129 @@
 					)
 			</when>
 			<otherwise>
-			
-			
+				INSERT 
+					INTO goods
+					VALUES (
+						#{product.product_idx}
+						, #{product.name}
+						, #{product.price}
+						, #{product.quantity}
+						, #{product.detail}
+						, #{product.img}
+						, #{product.detail_img}
+						, #{product.discount}
+						, 0
+						, #{product.date}
+					)
 			</otherwise>
 		</choose>
-		
-	
 	</insert>
+	
+	<!-- 굿즈 옵션 등록 -->
+	<insert id="insertGoodsOpt">
+		INSERT
+			INTO goods_options
+			VALUES (
+				#{goodsOpt_idx}
+				, #{option_name}
+				, #{option_quantity}
+				, #{optNum}
+			)
+	</insert>
+	
+	<!-- 책 목록 조회 -->
+	<select id="selectBookList" resultType="com.itwillbs.team1.vo.ProductBean">
+		SELECT * 
+			FROM book
+		<if test='!keyword.equals("")'>
+			WHERE 
+				<choose>
+					<when test="searchType.equals('name')">
+						name LIKE '%${keyword}%'
+					</when>
+					<when test="searchType.equals('product_idx')">
+						product_idx LIKE '%${keyword}%'
+					</when>
+				</choose>
+		</if>
+		ORDER BY 
+			product_idx
+		LIMIT #{startRow}, #{listLimit}
+	</select>
+	
+	<!-- 책 전체 개수 조회 -->
+	<select id="selectBookListCount" resultType="int">
+		SELECT COUNT(*)
+			FROM book
+		<if test='!keyword.equals("")'>
+			WHERE 
+				<choose>
+					<when test="searchType.equals('name')">
+						name LIKE '%${keyword}%'
+					</when>
+					<when test="searchType.equals('product_idx')">
+						product_idx LIKE '%${keyword}%'
+					</when>
+				</choose>
+		</if>
+	</select>
+	
+	<!-- 굿즈 목록 조회 -->
+	<select id="selectGoodsList" resultType="com.itwillbs.team1.vo.ProductBean">
+		SELECT *
+			FROM goods
+			<if test='!keyword.equals("")'>
+			WHERE 
+				<choose>
+					<when test="searchType.equals('name')">
+						name LIKE '%${keyword}%'
+					</when>
+					<when test="searchType.equals('product_idx')">
+						product_idx LIKE '%${keyword}%'
+					</when>
+				</choose>
+		</if>
+		ORDER BY 
+			product_idx
+		LIMIT #{startRow}, #{listLimit}
+	</select>
+	
+	<select id="selectGoodsListCount" resultType="int">
+		SELECT COUNT(*)
+			FROM goods
+		<if test='!keyword.equals("")'>
+			WHERE 
+				<choose>
+					<when test="searchType.equals('name')">
+						name LIKE '%${keyword}%'
+					</when>
+					<when test="searchType.equals('product_idx')">
+						product_idx LIKE '%${keyword}%'
+					</when>
+				</choose>
+		</if>
+	</select>
+	
+	<!-- 추천 도서 목록 조회 -->
+	<select id="selectRecoBook" resultType="com.itwillbs.team1.vo.ProductBean">
+		SELECT *
+			FROM book, recommend_book 
+			WHERE book.product_idx = recommend_book.product_idx
+	</select>
+	
+	<!-- 추천 도서 등록 -->
+	<insert id="recommendBook">
+		INSERT INTO
+			recommend_book
+			VALUES(
+				#{recoIdx}
+			)
+	</insert>
+	
+	<!-- 추천 도서 삭제 -->
+	<delete id="deleteRecoBook">
+		DELETE 
+			FROM recommend_book
+			WHERE product_idx = #{product_idx}
+	</delete>
 </mapper>

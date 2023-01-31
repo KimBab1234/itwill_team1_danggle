@@ -19,7 +19,19 @@ public interface ProductMapper {
 	public int selectIdx(); // 상품번호 조회
 	
 	public int insertProduct(@Param("product") ProductBean product, @Param("isBook") Boolean isBook); // 상품등록
-
+	
+	public int insertGoodsOpt(ProductOptBean optBean); // 굿즈 옵션등록
+	
+	public List<ProductBean> selectBookList(@Param("searchType") String searchType, 
+			@Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit); // 책 목록
+	
+	public List<ProductBean> selectGoodsList(@Param("searchType") String searchType, 
+			@Param("keyword") String keyword, @Param("startRow") int startRow, @Param("listLimit") int listLimit); // 굿즈목록
+	
+	public int selectBookListCount(@Param("searchType") String searchType, @Param("keyword") String keyword); // 책 전체 개수 조회
+	
+	public int selectGoodsListCount(@Param("searchType") String searchType, @Param("keyword") String keyword); // 전체 책 개수 조회
+	
 	public ArrayList<ProductBean> selectProductList(int startRow,  int listLimit);  // 목록 조회
 
 	public int getProductListCount();  // 페이지 계산
@@ -67,5 +79,8 @@ public interface ProductMapper {
 
 	
 
+	
+
+	
 
 }

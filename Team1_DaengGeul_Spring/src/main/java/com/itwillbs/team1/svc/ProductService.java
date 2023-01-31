@@ -1,5 +1,6 @@
 package com.itwillbs.team1.svc;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,20 +18,74 @@ public class ProductService {
 	private ProductMapper mapper;
 	
 	///////////////// 경민 	/////////////////	
-	public int productRegistration(ProductBean product) {
+	public int productRegistration(ProductBean product) { // 상품 등록
 		int idx = mapper.selectIdx();
 		idx += 1;
 		product.setIdx(idx);
 		boolean isBook = false;
+
 		if(product.getGroup().equals("book")) {
 			product.setProduct_idx("B" + idx);
 			isBook = true;
-		}else if(product.getGroup().equals("goods")) {
+			return mapper.insertProduct(product, isBook);
+		}else {
 			product.setProduct_idx("G" + idx);
+			
+			if(product.getOption_name() != null) {
+				int count = 0;
+
+				mapper.insertProduct(product, isBook);
+				List<String> OptNameArr = product.getOption_name();
+				List<Integer> OptQauArr = product.getOption_qauntity();
+				
+				for(int i = 0; i < product.getOption_name().size(); i++) {
+					ProductOptBean optBean = new ProductOptBean();
+					optBean.setOption_name(OptNameArr.get(i));
+					optBean.setOption_quantity(OptQauArr.get(i).toString());
+					optBean.setGoodsOpt_idx(product.getProduct_idx());
+					optBean.setOptNum(1);
+					
+					count+= mapper.insertGoodsOpt(optBean);
+				}
+				return count;
+			}else {
+				return mapper.insertProduct(product, isBook);
+			}
 		}
+	}
+	
+	public List<ProductBean> getBookList(String searchType, String keyword, int startRow, int listLimit) { // 책목록
+		return mapper.selectBookList(searchType, keyword, startRow, listLimit);
+	}
+	
+	public List<ProductBean> getGoodsList(String searchType, String keyword, int startRow, int listLimit) { // 굿즈목록
+		return mapper.selectGoodsList(searchType, keyword, startRow, listLimit);
+	}
+	
+	public ArrayList<ProductBean> getrecoBookList() { // 추천 도서 목록
+		return mapper.selectRecoBook();
+	}
+	
+	public int recoBookregi(ProductBean product) { // 추천 도서 등록
 		
-		
-		return mapper.insertProduct(product, isBook);
+		int count = 0;
+		for(int i = 0; i < product.getReco_idx().length; i++) {
+			product.setRecoIdx(product.getReco_idx()[i]);
+			count += mapper.recommendBook(product);
+		}
+		return count;
+	}
+	
+	public int deleteRocoBook(String product_idx) { // 추천 도서 삭제
+		return mapper.deleteRecoBook(product_idx);
+	}
+	
+	public int getBookListCount(String searchType, String keyword) { // 전체 책 개수 조회
+		return mapper.selectBookListCount(searchType, keyword);
+	}
+	
+	public int getGoodsListCount(String searchType, String keyword) { // 전체 굿즈 개수 조회
+		return mapper.selectGoodsListCount(searchType, keyword);
 	}
 	
 	public ProductBean selectFileName(String product_idx) {
@@ -143,6 +198,24 @@ public class ProductService {
 	
 		return mapper.selectProductList(sql);
 	}
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 	
 
