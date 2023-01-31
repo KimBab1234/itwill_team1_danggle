@@ -6,6 +6,7 @@ public class ProductOptBean {
 	private String goodsOpt_idx;
 	private String option_name;
 	private String option_quantity;
+	 
 	
 	public String getGoodsOpt_idx() {
 		return goodsOpt_idx;

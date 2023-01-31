@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1_final.mapper.HrMapper">
-	<insert id="insertHr">
+	<insert id="insertEmp">
+		<selectKey keyProperty="idx" resultType="int" order="BEFORE">
+			SELECT ifnull(max(idx) , 0) FROM hr
+		</selectKey>
 		INSERT INTO hr VALUES (
-		null,
-		concat(#{DEPT_CD},date_format(now(), '%y'),LPAD((select MAX(IDX) FROM hr)+1,3,'0')),
+		#{idx}+1,
+		concat(#{DEPT_CD},date_format(now(), '%y'),LPAD(#{idx}+1,3,'0')),
 		#{EMP_NAME},
 		#{DEPT_CD},
 		#{GRADE_CD},
@@ -16,7 +19,9 @@
 		date_format(#{HIRE_DATE}, '%Y-%m-%d'),
 		'1',
 		#{PRIV_CD},
-		#{PHOTO}
+		#{PHOTO},
+		#{EMP_ADDR_DETAIL},
+		''
 		);
 	</insert>
 	
@@ -27,5 +32,44 @@
 	<select id="selectDepartSearch" resultType="hr">
 		SELECT DEPT_CD,DEPT_NAME FROM depart WHERE DEPT_NAME LIKE '%${keyword}%';
 	</select>
+	
+	<select id="selectEmpListCount" resultType="int">
+		SELECT COUNT(*) FROM hr ${search};
+	</select>
+	
+	<select id="selectEmpList" resultType="hr">
+		SELECT * FROM emp_view ${search} LIMIT #{startRow},#{listLimit};
+	</select>
+	
+	<select id="selectEmpDetail" resultType="hr">
+		SELECT * FROM emp_view WHERE EMP_NUM=#{empNo};
+	</select>
+	
+	<update id="updateEmp">
+		UPDATE hr 
+		SET
+			EMP_NUM = #{EMP_NUM},
+			EMP_NAME = #{EMP_NAME},
+			DEPT_CD = #{DEPT_CD},
+			GRADE_CD = #{GRADE_CD},
+			EMP_TEL = #{EMP_TEL},
+			EMP_DTEL = #{EMP_DTEL},
+			EMP_EMAIL = #{EMP_EMAIL},
+			EMP_POST_NO = #{EMP_POST_NO},
+			EMP_ADDR = #{EMP_ADDR},
+			EMP_ADDR_DETAIL = #{EMP_ADDR_DETAIL},
+			HIRE_DATE = #{HIRE_DATE},
+			WORK_CD = #{WORK_CD},
+			PRIV_CD = #{PRIV_CD},
+			PHOTO = #{PHOTO}
+		WHERE EMP_NUM=#{EMP_NUM};
+	</update>
+	
+	<update id="insertTempPass">
+		UPDATE hr SET EMP_PASS = #{pass} WHERE EMP_EMAIL=#{email};
+	</update>
+	
+
+	
 	
 </mapper>
