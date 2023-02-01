@@ -157,11 +157,22 @@ nav .fa.fa-angle-down {
 						<li><a href="HrInquiry">사원 조회</a></li>
 					</ul>
 				</li>
-				<li><a href="#">기본 등록<i class='fa fa-angle-down'></i></a>
+				<li><a href="#">거래처 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="#">거래처 등록</a></li>
+						<li><a href="#">거래처 조회</a></li>
+					</ul>
+				</li>
+				<li><a href="#">품목 관리<i class='fa fa-angle-down'></i></a>
+					<ul>
+						<li><a href="PdRegist">품목 등록</a></li>
+						<li><a href="PdInquiry">품목 조회</a></li>
+					</ul>
+				</li>
+				<li><a href="#">창고 관리<i class='fa fa-angle-down'></i></a>
+					<ul>
 						<li><a href="WhRegistForm">창고 등록</a></li>
-						<li><a href="#">품목 등록</a></li>
+						<li><a href="#">창고 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">발주 요청<i class='fa fa-angle-down'></i></a>
@@ -178,7 +189,8 @@ nav .fa.fa-angle-down {
 						<li><a href="#">구매 현황</a></li>
 					</ul>
 				</li>
-				<li><a href="#">WMS<i class='fa fa-angle-down'></i></a>
+				
+				<li><a href="#">입출고 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="WhList">창고 관리</a></li>
 						<li><a href="#">입고 예정</a></li>
