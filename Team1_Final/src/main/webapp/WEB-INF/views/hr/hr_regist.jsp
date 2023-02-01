@@ -237,7 +237,7 @@ function execDaumPostcode() {
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;" align="center">
-		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
+		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
 			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
