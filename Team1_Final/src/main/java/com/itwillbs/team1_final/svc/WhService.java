@@ -23,4 +23,24 @@ public class WhService {
 		
 		return mapper.selectWhListCount(searchType,keyword);
 	}
+
+	public int codeCheck(String WH_CD) {
+
+		return mapper.selectWhCode(WH_CD);
+	}
+
+	public int registWh(WhVO wh) {
+
+		return mapper.insertWhCode(wh);
+	}
+
+	public WhVO getWh(String WH_CD) {
+
+		return mapper.selectWh(WH_CD);
+	}
+
+	public int removeWh(String WH_CD) {
+
+		return mapper.deleteWh(WH_CD);
+	}
 }

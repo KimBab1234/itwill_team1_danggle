@@ -10,17 +10,59 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <link href="${pageContext.request.contextPath }/resources/css/product.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-<%	String sId = (String)session.getAttribute("sId");
- 	if(sId == null || !sId.equals("admin")) { %>  
-		alert("잘못된 접근입니다");
-		history.back();
-<%  }%>
-	function deleteBook(product){
-		var deleteBook = confirm("추천 도서 목록에서 삭제하시겠습니까?");
-		if(deleteBook){
-			location.href = "RecommendBookDelete.ad?product_idx=" + product;
- 		}
-	}
+
+	
+	
+
+	$(function() {
+		
+
+		
+		$.ajax({
+			type: "GET",
+			url: "RecommendJson",
+			dataType: "json"
+		})
+		.done(function(bookList) {
+			
+			
+			for(let book of bookList) {
+				
+				let result = "<tr>"
+							+ "<td>" + book.product_idx + "</td>"
+							+ "<td>" + book.name + "</td>"
+							+ "<td>" + book.quantity + "</td>"
+						+ "<td>" + "<input type='button' id='Listbtn' class='recobtn' value='삭제'>"
+						 + "<input type='hidden' class='recoHidden' value='"+book.product_idx +"'>" + "</td>"
+							+ "</tr>";
+				
+				// 지정된 위치(table 태그 내부)에 JSON 객체 출력문 추가
+				$(".recoTable").append(result);
+			}
+			
+			$(".recobtn").on("click", function() {
+				let product = $(this).next().val()
+		 		var deleteBook = confirm("추천 도서 목록에서 삭제하시겠습니까?");
+		 		if(deleteBook){
+		 			location.href = "RecommendBookDelete.ad?product_idx=" + product;
+		 		}
+			});
+			
+		})
+		.fail(function() {
+			$(".recoTable").append("<h3>요청 실패!</h3>");
+		});
+		
+		
+		
+	});
+	
+	
+
+// 	function deleteReco(product){
+		
+// 	}
+
 	
 	$(function() {
 	       $('.dropdown-toggle', this).trigger('click').blur();
@@ -47,14 +89,7 @@
 					<th width="60">재고</th>
 					<th width="55">삭제</th>
 				<tr>
-				<c:forEach var="book" items="${recoList }">
-					<tr>
-						<td>${book.product_idx}</td>
-						<td>${book.name}</td>
-						<td>${book.quantity}</td>
-						<td><input type="button" id="Listbtn" class="recobtn" value="삭제" onclick="deleteBook('${book.product_idx}')"></td>
-					</tr>
-				</c:forEach>
+				
 			</table>
 		</div>
 	</div>

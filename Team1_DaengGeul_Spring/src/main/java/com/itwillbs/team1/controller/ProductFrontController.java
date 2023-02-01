@@ -37,8 +37,8 @@ public class ProductFrontController {
 		
 		ProductBean product = service.getProduct(product_idx); //상품 정보 가져오기
 		
-		String recentImg = "\\img\\product\\" + product.getImg();
-		product.setDetail_img("\\img\\product_detail\\" + product.getDetail_img());
+		String recentImg = product.getImg();
+		product.setDetail_img(product.getDetail_img());
 		
 		model.addAttribute("product", product); //request에 저장하기 
 		model.addAttribute("img", recentImg);

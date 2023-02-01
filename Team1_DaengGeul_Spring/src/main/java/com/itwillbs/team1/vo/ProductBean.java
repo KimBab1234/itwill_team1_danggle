@@ -40,6 +40,7 @@ public class ProductBean {
 	
 	// 경민 : 추천 도서, 굿즈 옵션 위한 변수 추가
 	private String[] reco_idx;
+	private String recoIdx;
 
     private List<String> option_name;
 	private List<Integer> option_qauntity;
@@ -61,6 +62,12 @@ public class ProductBean {
 	}
 	public List<ProductOptBean> getOption() {
 		return option;
+	}
+	public String getRecoIdx() {
+		return recoIdx;
+	}
+	public void setRecoIdx(String recoIdx) {
+		this.recoIdx = recoIdx;
 	}
 	public void setOption(List<ProductOptBean> option) {
 		this.option = option;

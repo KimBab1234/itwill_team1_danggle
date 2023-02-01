@@ -1,11 +1,13 @@
 package com.itwillbs.team1_final.vo;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 import org.springframework.web.multipart.MultipartFile;
 
 public class HrVO {
 
+	private int idx;
 	private String EMP_NUM;
 	private String EMP_NAME;
 	private String DEPT_CD;
@@ -25,7 +27,7 @@ public class HrVO {
 	private String EMP_EMAIL2;
 	private String EMP_POST_NO;
 	private String EMP_ADDR;
-	private String EMP_ADDR_detail;
+	private String EMP_ADDR_DETAIL;
 	private Date HIRE_DATE;
 	private String WORK_CD;
 	private String WORK_TYPE;
@@ -34,6 +36,13 @@ public class HrVO {
 	private String PHOTO;
 	private MultipartFile registPHOTO;
 	private boolean[] PRIV_CD_Arr;
+	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	
 	public String getDEPT_NAME() {
 		return DEPT_NAME;
@@ -192,11 +201,12 @@ public class HrVO {
 	public void setEMP_EMAIL2(String eMP_EMAIL2) {
 		EMP_EMAIL2 = eMP_EMAIL2;
 	}
-	public String getEMP_ADDR_detail() {
-		return EMP_ADDR_detail;
+	
+	public String getEMP_ADDR_DETAIL() {
+		return EMP_ADDR_DETAIL;
 	}
-	public void setEMP_ADDR_detail(String eMP_ADDR_detail) {
-		EMP_ADDR_detail = eMP_ADDR_detail;
+	public void setEMP_ADDR_DETAIL(String eMP_ADDR_DETAIL) {
+		EMP_ADDR_DETAIL = eMP_ADDR_DETAIL;
 	}
 	public boolean[] getPRIV_CD_Arr() {
 		return PRIV_CD_Arr;
@@ -204,15 +214,18 @@ public class HrVO {
 	public void setPRIV_CD_Arr(boolean[] pRIV_CD_Arr) {
 		PRIV_CD_Arr = pRIV_CD_Arr;
 	}
+	
 	@Override
 	public String toString() {
-		return "HrVO [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", DEPT_CD=" + DEPT_CD + ", DEPT_NAME="
-				+ DEPT_NAME + ", GRADE_CD=" + GRADE_CD + ", GRADE_NAME=" + GRADE_NAME + ", EMP_TEL=" + EMP_TEL
-				+ ", EMP_DTEL=" + EMP_DTEL + ", EMP_EMAIL=" + EMP_EMAIL + ", EMP_POST_NO=" + EMP_POST_NO + ", EMP_ADDR="
-				+ EMP_ADDR + ", HIRE_DATE=" + HIRE_DATE + ", WORK_CD=" + WORK_CD + ", WORK_TYPE=" + WORK_TYPE
-				+ ", PRIV_CD=" + PRIV_CD + ", PRIV_TYPE=" + PRIV_TYPE + ", PHOTO=" + PHOTO + ", registPHOTO="
-				+ registPHOTO + "]";
+		return "HrVO [idx=" + idx + ", EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", DEPT_CD=" + DEPT_CD
+				+ ", DEPT_NAME=" + DEPT_NAME + ", GRADE_CD=" + GRADE_CD + ", GRADE_NAME=" + GRADE_NAME + ", EMP_TEL="
+				+ EMP_TEL + ", EMP_TEL1=" + EMP_TEL1 + ", EMP_TEL2=" + EMP_TEL2 + ", EMP_TEL3=" + EMP_TEL3
+				+ ", EMP_DTEL=" + EMP_DTEL + ", EMP_DTEL1=" + EMP_DTEL1 + ", EMP_DTEL2=" + EMP_DTEL2 + ", EMP_DTEL3="
+				+ EMP_DTEL3 + ", EMP_EMAIL=" + EMP_EMAIL + ", EMP_EMAIL1=" + EMP_EMAIL1 + ", EMP_EMAIL2=" + EMP_EMAIL2
+				+ ", EMP_POST_NO=" + EMP_POST_NO + ", EMP_ADDR=" + EMP_ADDR + ", EMP_ADDR_DETAIL=" + EMP_ADDR_DETAIL
+				+ ", HIRE_DATE=" + HIRE_DATE + ", WORK_CD=" + WORK_CD + ", WORK_TYPE=" + WORK_TYPE + ", PRIV_CD="
+				+ PRIV_CD + ", PRIV_TYPE=" + PRIV_TYPE + ", PHOTO=" + PHOTO + ", registPHOTO=" + registPHOTO
+				+ ", PRIV_CD_Arr=" + Arrays.toString(PRIV_CD_Arr) + "]";
 	}
-
 	
 }

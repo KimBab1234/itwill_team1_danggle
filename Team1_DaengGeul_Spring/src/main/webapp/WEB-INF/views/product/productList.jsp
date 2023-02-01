@@ -11,11 +11,6 @@
 <script src="https://kit.fontawesome.com/8f75f06127.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-<%	String sId = (String)session.getAttribute("sId");
- 	if(sId == null || !sId.equals("admin")) { %>  
-		alert("잘못된 접근입니다");
-		history.back();
-<%  }%>
 	
 	function Gdele(product_idx) {
 		var ment = confirm(product_idx + " 상품을 삭제하시겠습니까?");
@@ -32,6 +27,7 @@
 		}
 		
 	}
+	
 	
 	$(function() {
 		$('.dropdown-toggle', this).trigger('click').blur();
@@ -90,6 +86,17 @@
 	<div style="width : 1200px; ">
 		<h4 id="listH4">상품 관리</h4><br>
 		<div class="choice" id="choice_book">책</div><div class="choice" id="choice_goods">굿즈</div>
+		<div id="buttonArea">
+			<form action="ProductList.ad">
+				<!-- 검색 타입 추가 -->
+				<select name="searchType" id="searchType">
+					<option value="name" <c:if test="${param.searchType eq 'name'}">selected</c:if>>상품명</option>
+					<option value="product_idx" <c:if test="${param.searchType eq 'product_idx'}">selected</c:if>>상품번호</option>
+				</select>
+				<input type="text" name="keyword" id="keyword" value="${param.keyword }">
+				<input type="submit" id="keywordBtn" value="검색">
+			</form>
+		</div>
 		<div id="bookList">
 		<form action="RecommendBook.ad" method="post" >
 			<table class="bookTable">
@@ -188,6 +195,14 @@
 					<th width="55">삭제</th>
 				<tr>
 				<c:forEach var="product" items="${productList }">
+				<c:choose>
+						<c:when test="${empty param.pageNum }">
+							<c:set var="pageNum" value="1" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="pageNum" value="${param.pageNum }" />
+						</c:otherwise>
+					</c:choose>
 					<c:if test="${product.product_idx.substring(0,1) == 'G'}">
 						<tr>
 							<td>${product.product_idx}</td>
@@ -216,6 +231,34 @@
 					</c:if>
 				</c:forEach>
 			</table>
+			<section id="pageList">
+				<c:choose>
+					<c:when test="${pageNum > 1}">
+						<a href="ProductList.ad?product=G&pageNum=${pageNum - 1}"><i class="fas fa-solid fa-angles-left"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a><i class="fas fa-solid fa-angles-left"></i></a>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="i" begin="${goodsPageInfo.startPage }" end="${goodsPageInfo.endPage }">
+					<c:choose>
+						<c:when test="${pageNum eq i}">
+							<div class="here">${i }</div>
+						</c:when>
+						<c:otherwise>
+							<a href="ProductList.ad?product=G&pageNum=${i }"><div class="notHere">${i }</div></a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${pageNum < goodsPageInfo.maxPage}">
+					<a href="ProductList.ad?product=G&pageNum=${pageNum + 1}"><i class="fas fa-solid fa-angles-right"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a><i class="fas fa-solid fa-angles-right"></i></a>
+					</c:otherwise>
+				</c:choose>
+			</section> 
 		</div>
 		</div>
 	</div>

@@ -9,9 +9,9 @@
 <body>
 	<jsp:include page="inc/top.jsp"></jsp:include>
 	<div style="display: flex;">
-		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
-				<jsp:include page="inc/left.jsp"></jsp:include>
-		</div>
+<!-- 		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;"> -->
+<%-- 				<jsp:include page="inc/left.jsp"></jsp:include> --%>
+<!-- 		</div> -->
 		메인페이지
 	</div>
 </body>

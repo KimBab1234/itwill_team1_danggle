@@ -20,7 +20,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="${pageContext.request.contextPath }/resources/img/favicon.ico" rel="icon">
+    <link href="http://itwillbs3.cdn1.cafe24.com/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -111,7 +111,7 @@
 			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
 			                                    <a class="dropdown-item" href='ProductList.ad'>상품 정보 관리</a>
 			                                    <a class="dropdown-item" href='RecommendBookList.ad'>추천 도서 관리</a>
-			                                    <a class="dropdown-item" href='MemberList.me'>회원 정보 관리</a>
+			                                    <a class="dropdown-item" href='AdminMain.me'>회원 정보 관리</a>
 			                                    </div>
 			                                </div>
 										</c:when>
@@ -152,10 +152,10 @@
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" style="height: 410px;">
-                            <img class="img-fluid" src="${pageContext.request.contextPath }/resources/img/m1.PNG" alt="Image">
+                            <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/m1.PNG" alt="Image">
                         </div>
                         <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="${pageContext.request.contextPath }/resources/img/m2.PNG" alt="Image">
+                            <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/m2.PNG" alt="Image">
                         </div>
                     </div>
                     <div class="carousel-control-prev" >

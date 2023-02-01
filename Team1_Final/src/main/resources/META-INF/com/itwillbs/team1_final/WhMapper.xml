@@ -2,6 +2,95 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1_final.mapper.WhMapper">
 
-
+<select id="selectWhList" resultType="com.itwillbs.team1_final.vo.WhVO">
+		SELECT * FROM wh
+			<if test="!keyword.equals('')">
+			WHERE
+			<!-- 2. 검색타입(searchType) 에 따른 WHERE 대상 변경 -->
+			<!-- => 조건이 복수개이므로 choose 태그 사용 -->
+			<choose>
+				<when test="searchType.equals('code')">
+					WH_CD LIKE '%${keyword}%'
+				</when>
+				<when test="searchType.equals('name')">
+					WH_NAME LIKE '%${keyword}%'
+				</when>
+				<when test="searchType.equals('code_name')">
+					WH_CD LIKE '%${keyword}%' 
+					OR WH_NAME LIKE '%${keyword}%'
+				</when>
+				
+			</choose>		
+		</if>
+		ORDER BY
+			WH_CD,
+			WH_NAME
+		LIMIT 
+			#{startRow}
+			, #{listLimit}
+	</select>
+	
+	<select id="selectWhListCount" resultType="int">
+		SELECT COUNT(*)
+			FROM wh
+			
+			<if test="!keyword.equals('')">
+				WHERE
+				<!-- 2. 검색타입(searchType) 에 따른 WHERE 대상 변경 -->
+				<!-- => 조건이 복수개이므로 choose 태그 사용 -->
+				<choose>
+					<when test="searchType.equals('code')">
+						WH_CD LIKE '%${keyword}%'
+					</when>
+					<when test="searchType.equals('name')">
+						WH_NAME LIKE '%${keyword}%'
+					</when>
+					<when test="searchType.equals('code_name')">
+						WH_CD LIKE '%${keyword}%' 
+						OR WH_NAME LIKE '%${keyword}%'
+					</when>
+					
+				</choose>		
+			</if>
+	
+	</select>
+	
+	<select id="selectWhCode" resultType="int">
+		SELECT count(*)
+		FROM wh
+		WHERE WH_CD = #{WH_CD}
+	
+	</select>
+	
+	<insert id="insertWhCode">
+		INSERT 
+		INTO wh
+		VALUES (
+			#{WH_CD}
+			,#{WH_NAME}
+			,#{WH_GUBUN}
+			,#{WH_LOCATION}
+			,#{WH_ADDR}
+			,#{WH_TEL}
+			,#{WH_MAN_NAME}
+			,#{WH_USE}
+			,#{REMARKS}
+			,#{WH_POST_NO}
+			,#{WH_ADDR_DETAIL} 
+		)
+	</insert>
+	
+	<select id="selectWh" resultType="com.itwillbs.team1_final.vo.WhVO">
+		SELECT * 
+			FROM wh
+			WHERE WH_CD = #{WH_CD}
+			
+	</select>
+	
+	<delete id="deleteWh">
+		DELETE 
+			FROM wh
+			WHERE WH_CD = #{WH_CD}
+	</delete>
 
 </mapper>

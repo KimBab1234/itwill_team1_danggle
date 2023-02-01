@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,42 +62,49 @@
 </style>
 </head>
 <body>
-	<header>
-		<!-- Login, Join 링크 표시 영역 -->
-		<jsp:include page="../inc/top.jsp"></jsp:include>
-	</header>
+	
+<jsp:include page="../inc/top.jsp"></jsp:include>
+	<div style="display: flex;">
+		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
+				<jsp:include page="../inc/hr_left.jsp"></jsp:include>
+		</div>
+
+		
 	<!-- 게시판 리스트 -->
 	<section id="listForm">
+	<div align="center" style="width: 1000px;">
 	<h2>창고 목록</h2>
 	<section id="buttonArea">
-		<form action="WhList">
+		<form action="WhList">      
 			<select name="searchType">
-				<option value="code" <c:if test="${searchType eq 'code' }">selected</c:if>>창고 코드</option>
-				<option value="name" <c:if test="${searchType eq 'name' }">selected</c:if>>창고명</option>
-				<option value="code_name" <c:if test="${searchType eq 'code_name' }">selected</c:if>>창고 코드&창고명</option>
+				<option value="code" <c:if test="${searchType eq 'code' }"></c:if>>창고 코드</option>
+				<option value="name" <c:if test="${searchType eq 'name' }"></c:if>>창고명</option>
+				<option value="code_name" <c:if test="${searchType eq 'code_name' }"></c:if>>창고 코드&창고명</option>
 			</select>
 		<input type="text" name="keyword" value="${param.keyword }">
 		<input type="submit" value="검색">
 		&nbsp;&nbsp;
-		<input type="button" value="글쓰기" onclick="location.href='WhWriteForm'" />
+		<input type="button" value="신규 등록" onclick="location.href='WhRegistForm'" />
 		</form>
 	</section>
+	</div>
 	<table>
 		<tr id="tr_top">
 			<td>창고 코드</td>
 			<td width="150px">창고명</td>
+			<td>구분</td>
+			<td>관리자명</td>
+			<td>사용여부</td>
+			
 		</tr>
 		<c:forEach var="wh" items="${whList }">
 			<tr>
-				<td>${wh.WH_CD}</td>
-				<c:choose>
-					<c:when test="${empty param.pageNum }">
-						<c:set var="pageNum" value="1"/>
-					</c:when>
-					<c:otherwise>
-						<c:set var="pageNum" value="${param.pageNum}"/>
-					</c:otherwise>
-				</c:choose>
+				<td>
+				<a href="WhDetail?WH_CD=${wh.WH_CD}&pageNum=${pageNum}">
+				${wh.WH_CD}
+				</a>
+				</td>
+				
 <%-- 				<c:if test="${empty param.pageNum }"> --%>
 <%-- 					<c:set var="pageNum" value="1" /> --%>
 <%-- 				</c:if> --%>
@@ -106,13 +114,25 @@
 				${wh.WH_NAME}
 				</a>
 				</td>
+				<td>${wh.WH_GUBUN}</td>
+				<td>${wh.WH_MAN_NAME}</td>
+				<td>${wh.WH_USE}</td>
 				
 			</tr>
 		</c:forEach>
 	</table>
 	</section>
-	
+	</div>
+	<div align="center" style="width: 2100px;">
 	<section id="pageList">
+	<c:choose>
+					<c:when test="${empty param.pageNum }">
+						<c:set var="pageNum" value="1"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="pageNum" value="${param.pageNum}"/>
+					</c:otherwise>
+				</c:choose>
 		<!-- 
 		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
 		=> 클릭 시 BoardList.bo 서블릿 주소 요청하면서 
@@ -150,5 +170,7 @@
 			</c:otherwise>
 		</c:choose>
 	</section>
+	</div>
+	
 </body>
 </html>

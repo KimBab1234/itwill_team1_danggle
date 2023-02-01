@@ -53,6 +53,8 @@
 				// 굿즈 선택 시 책 관련 required 속성 해제
 				$("#writer").attr("required", false);
 				$("#publisher").attr("required", false);
+				document.getElementById("date").valueAsDate = new Date();
+// 				alert($("#date").val())
 				$("#date").attr("required", false);
 				$(".book_genre").attr("required", false);
 			}

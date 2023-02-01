@@ -8,7 +8,10 @@ public class PageInfo {
 	private int startPage;
 	private int endPage;
 	
+
 	public PageInfo() {}
+	
+	
 	public PageInfo(int listCount, int pageListLimit, int maxPage, int startPage, int endPage) {
 		super();
 		this.listCount = listCount;
@@ -17,6 +20,8 @@ public class PageInfo {
 		this.startPage = startPage;
 		this.endPage = endPage;
 	}
+
+
 
 	public int getListCount() {
 		return listCount;

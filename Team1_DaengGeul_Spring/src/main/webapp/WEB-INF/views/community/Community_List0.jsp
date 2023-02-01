@@ -94,8 +94,8 @@ a {
 			</div>
 			<div>
 				<h2>
-					<img src="${pageContext.request.contextPath }/resources/img/re.gif">&nbsp;&nbsp;회원들의 추천 목록&nbsp;&nbsp;<img
-						src="${pageContext.request.contextPath }/resources/img/re.gif">
+					<img src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">&nbsp;&nbsp;회원들의 추천 목록&nbsp;&nbsp;<img
+						src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">
 				</h2>
 				<table>
 					<tr id="tr_top">

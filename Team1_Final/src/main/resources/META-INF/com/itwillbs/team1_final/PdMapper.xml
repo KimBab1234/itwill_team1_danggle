@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.team1_final.mapper.ItemMapper">
+
+	<insert id="insertPd">
+		
+		INSERT
+			INTO product
+			VALUES (
+				null
+				,#{PRODUCT_NAME	}
+				,#{PRODUCT_GROUP_BOTTOM_CD	}
+				,#{SIZE_DES}
+				,#{UNIT}
+				,#{BARCODE}
+				,#{IN_UNIT_PRICE}
+				,#{OUT_UNIT_PRICE}
+				,#{PRODUCT_TYPE_CD}
+				,#{BUSINESS_NO}
+				,#{PRODUCT_IMAGE}
+				,#{REMARKS}
+				)
+	</insert>
+
+	<!-- 전체 게시물 목록 조회하는 select 태그 -->
+	<select id="selectPdList" resultType="com.itwillbs.team1_final.vo.PdVO" parameterType="String">
+		SELECT *
+			FROM product -- 이후 작업 분기 일어남
+		
+	</select>
+	
+
+
+</mapper>

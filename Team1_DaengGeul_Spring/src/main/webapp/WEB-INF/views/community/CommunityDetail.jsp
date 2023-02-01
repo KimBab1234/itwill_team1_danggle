@@ -117,8 +117,8 @@ table td {
 	</div>
 	<div>
 	<h2>
-		<img src="${pageContext.request.contextPath }/resources/img/re.gif">&nbsp;&nbsp;회원들의 글추천,독후감&nbsp;&nbsp;<img
-			src="${pageContext.request.contextPath }/resources/img/re.gif">
+		<img src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">&nbsp;&nbsp;회원들의 글추천,독후감&nbsp;&nbsp;<img
+			src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">
 	</h2>
 	<br>
 	<table border="1">
@@ -210,10 +210,10 @@ table td {
 				<tr align="center">
 					<c:choose>
 						<c:when test="${reply.member_id eq 'admin' }">
-							<td width="150"><img src="${pageContext.request.contextPath }/resources/img/re.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
+							<td width="150"><img src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
 						</c:when>
 						<c:otherwise>
-							<td><img src="${pageContext.request.contextPath }/resources/img/dot_Acon.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
+							<td><img src="http://itwillbs3.cdn1.cafe24.com/img/dot_Acon.gif">${reply.member_id }&nbsp;&nbsp;&nbsp;</td>
 						</c:otherwise>
 					</c:choose>
 					<td>${reply.reply_content }</td>

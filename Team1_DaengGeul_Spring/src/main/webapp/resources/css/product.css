@@ -71,7 +71,7 @@ textarea:focus {
 #okBtn:focus {
 	outline: none;
 }
-#recoBtn:focus, #optionBtn:focus, .removeOpt:focus {
+#recoBtn:focus, #optionBtn:focus, .removeOpt:focus, #searchType:focus {
 	outline:none;
 }
 
@@ -292,13 +292,6 @@ textarea {
 
 /* 상품 목록 css */
 
-/* 책, 굿즈 선택 체크박스 */
-#product_choice {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 50px;
-}
-
 /* 책 목록 */
 .bookTable {
 	margin: 0 auto;
@@ -325,6 +318,43 @@ textarea {
  	padding-bottom: 5px;
 	padding-top: 5px;
 	font-size: 13.5px;
+}
+
+#buttonArea {
+	display: inline-block;
+	position: relative;
+	left: 430px;
+	width: 400px;
+	text-align: right;
+
+}
+
+#searchType {
+	height: 25px;
+	font-size: 14px;
+	width: 80px;
+	border-color: #b09f76;
+}
+
+#keyword {
+	height: 24px;
+	font-size: 14px;
+	width: 180px;
+	border-radius: 3px;
+	border: 1px solid #b09f76;
+	padding-left: 5px;
+	margin-bottom: 1px;
+}
+
+#keywordBtn {
+	color: #fff;
+    background-color: #736643;
+    height: 25px;
+    width: 35px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+	
 }
 
 /* 수정, 삭제 버튼 */

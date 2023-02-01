@@ -95,8 +95,8 @@ a {
 		</div>
 		<div>
 			<h2 align="center">
-				<img src="${pageContext.request.contextPath }/resources/img/re.gif">&nbsp;&nbsp;독후감 목록&nbsp;&nbsp;<img
-					src="${pageContext.request.contextPath }/resources/img/re.gif">
+				<img src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">&nbsp;&nbsp;독후감 목록&nbsp;&nbsp;<img
+					src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">
 			</h2>
 			<table>
 				<tr id="tr_top">

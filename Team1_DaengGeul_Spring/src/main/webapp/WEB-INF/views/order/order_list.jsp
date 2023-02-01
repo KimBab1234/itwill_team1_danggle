@@ -78,11 +78,11 @@
 								<td rowspan="${order.order_prod_list.size() }"><a href="OrderDetailList?order_idx=${order.order_idx}">${order.order_date}</a></td>
 								<c:choose>
 									<c:when test="${order.order_prod_list.get(0).opt eq '-' }">
-<%-- 										<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+<%-- 										<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
 										<td>${order.order_prod_list.get(0).name}</td>
 									</c:when>
 									<c:otherwise>
-<%-- 										<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+<%-- 										<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
 										<td>${order.order_prod_list.get(0).name}(옵션:${order.order_prod_list.get(0).opt})</td>
 									</c:otherwise>
 								</c:choose>
@@ -101,11 +101,11 @@
 							<tr>
 								<c:choose>
 									<c:when test="${order.order_prod_list.get(i).opt eq '-' }">
-<%-- 										<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+<%-- 										<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
 										<td>${order.order_prod_list.get(i).name}</td>
 									</c:when>
 									<c:otherwise>
-<%-- 										<td><img src="${pageContext.request.contextPath }/resources/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+<%-- 										<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
 										<td>${order.order_prod_list.get(i).name}(옵션:${order.order_prod_list.get(i).opt})</td>
 									</c:otherwise>
 								</c:choose>
