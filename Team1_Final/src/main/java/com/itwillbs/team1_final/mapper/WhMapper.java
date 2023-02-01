@@ -24,4 +24,6 @@ public interface WhMapper {
 
 	int deleteWh(String wH_CD);
 
+	int updateWh(WhVO wh);
+
 }
