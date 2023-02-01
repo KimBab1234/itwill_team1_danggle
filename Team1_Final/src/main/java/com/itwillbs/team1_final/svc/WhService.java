@@ -43,4 +43,9 @@ public class WhService {
 
 		return mapper.deleteWh(WH_CD);
 	}
+
+	public int modifyWh(WhVO wh) {
+
+		return mapper.updateWh(wh);
+	}
 }

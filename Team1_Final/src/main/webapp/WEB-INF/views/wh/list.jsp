@@ -11,7 +11,6 @@
 	#listForm {
 		width: 1024px;
 		max-height: 610px;
-		margin: auto;
 	}
 	
 	h2 {
@@ -19,7 +18,6 @@
 	}
 	
 	table {
-		margin: auto;
 		width: 1024px;
 	}
 	
@@ -30,6 +28,7 @@
 	
 	table td {
 		text-align: center;
+	
 	}
 	
 	#subject {
@@ -38,19 +37,17 @@
 	}
 	
 	#pageList {
-		margin: auto;
 		width: 1024px;
 		text-align: center;
+		padding-right: 500px;
 	}
 	
 	#emptyArea {
-		margin: auto;
 		width: 1024px;
 		text-align: center;
 	}
 	
 	#buttonArea {
-		margin: auto;
 		width: 1024px;
 		text-align: right;
 		margin-top: 10px;
@@ -66,7 +63,7 @@
 <jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
-				<jsp:include page="../inc/hr_left.jsp"></jsp:include>
+				<jsp:include page="../inc/wms_left.jsp"></jsp:include>
 		</div>
 
 		
@@ -114,9 +111,17 @@
 				${wh.WH_NAME}
 				</a>
 				</td>
-				<td>${wh.WH_GUBUN}</td>
+				<td><c:choose>
+					<c:when test="${wh.WH_GUBUN eq 1 }">내부</c:when>
+					<c:when test="${wh.WH_GUBUN eq 2 }">외부</c:when>
+				
+				</c:choose></td>
 				<td>${wh.WH_MAN_NAME}</td>
-				<td>${wh.WH_USE}</td>
+				<td><c:choose>
+					<c:when test="${wh.WH_GUBUN eq 1 }">사용</c:when>
+					<c:when test="${wh.WH_GUBUN eq 2 }">미사용</c:when>
+				
+				</c:choose></td>
 				
 			</tr>
 		</c:forEach>

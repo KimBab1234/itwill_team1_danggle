@@ -6,7 +6,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>창고 등록</title>
+<title>창고 수정</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -87,13 +87,13 @@ function execDaumPostcode() {
 		</div>
 		<!-- 여기서부터 본문-->
 		<div align="center" style="width: 1300px;">
-			<h2 align="center">창고 등록</h2>
-			<form action="WhRegistPro" method="post">
+			<h2 align="center">창고 수정</h2>
+			<form action="WhModifyPro" method="post">
 			<table style="text-align: center; border: solid 1px; width: 600px; height: 400px;">
 				<tr>
 					<td align="right" style="width: 200px;">창고 코드</td> <!-- 입력 후 빠져나가면 중복확인 후 결과 표시하여 중복 방지 기능 적용 -->
 					<td align="left" style="width: 400px;" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WH_CD" name="WH_CD" required="required" placeholder="창고코드">
+						<input type="text" id="WH_CD" name="WH_CD" required="required" value="${param.WH_CD}">
 					</td>
 				</tr> 
 				<tr>
@@ -104,7 +104,7 @@ function execDaumPostcode() {
 				<tr>
 					<td align="right" >창고명</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WH_NAME" name="WH_NAME" required="required">
+						<input type="text" id="WH_NAME" name="WH_NAME" required="required" value="${wh.WH_NAME}">
 					</td>
 				</tr>
 				<tr>
@@ -126,20 +126,20 @@ function execDaumPostcode() {
 				<tr class="address">
 					<td align="right">우편번호</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WH_POST_NO" name="WH_POST_NO" style="width: 100px;" readonly="readonly">
+						<input type="text" id="WH_POST_NO" name="WH_POST_NO" style="width: 100px;" readonly="readonly" value="${wh.WH_POST_NO}">
 						<input type="button" id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기" >
 					</td>
 				</tr>
 				<tr class="address">
 					<td align="right" >주소</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WH_ADDR" name="WH_ADDR" style="width: 300px;" readonly="readonly">
+						<input type="text" id="WH_ADDR" name="WH_ADDR" style="width: 300px;" readonly="readonly" value="${wh.WH_ADDR}">
 					</td>
 				</tr>
 				<tr class="address">
 					<td align="right" >상세주소</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WH_ADDR_DETAIL" name="WH_ADDR_DETAIL" style="width: 300px;">
+						<input type="text" id="WH_ADDR_DETAIL" name="WH_ADDR_DETAIL" style="width: 300px;" value="${wh.WH_ADDR_DETAIL}">
 					</td>
 				</tr>
 				
@@ -147,13 +147,13 @@ function execDaumPostcode() {
 				<tr>
 					<td align="right" >전화번호</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WH_TEL" name="WH_TEL" required="required">
+						<input type="text" id="WH_TEL" name="WH_TEL" required="required" value="${wh.WH_TEL}">
 					</td>
 				</tr>
 				<tr>
 					<td align="right">관리자명</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WH_MAN_NAME" name="WH_MAN_NAME" required="required">
+						<input type="text" id="WH_MAN_NAME" name="WH_MAN_NAME" required="required" value="${wh.WH_MAN_NAME}">
 					</td>
 				</tr>
 				<tr>
@@ -166,7 +166,7 @@ function execDaumPostcode() {
 				<tr>
 					<td align="right">적요</td>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="REMARKS" name="REMARKS">
+						<input type="text" id="REMARKS" name="REMARKS" value="${wh.REMARKS}">
 					</td>
 				</tr>
 				<tr>

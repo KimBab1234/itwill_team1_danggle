@@ -34,7 +34,7 @@
 		<div style="margin-left: 20px; margin-right: 0px; ">
 			<h2>기본 등록</h2>
 			<h3 class="menuH3"><a href="#">거래처 등록</a></h3>
-			<h3 class="menuH3"><a href="#">창고 등록</a></h3>
+			<h3 class="menuH3"><a href="WhRegistForm">창고 등록</a></h3>
 			<h3 class="menuH3"><a href="#">품목 등록</a></h3>
 		</div>
 	</div>

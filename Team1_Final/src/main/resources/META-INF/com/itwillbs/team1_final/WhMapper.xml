@@ -92,5 +92,23 @@
 			FROM wh
 			WHERE WH_CD = #{WH_CD}
 	</delete>
+	
+	<update id="updateWh">
+		UPDATE wh
+			SET 
+			WH_CD = #{WH_CD}
+			,WH_NAME = #{WH_NAME}
+			,WH_GUBUN = #{WH_GUBUN}
+			,WH_LOCATION = #{WH_LOCATION}
+			,WH_ADDR = #{WH_ADDR}
+			,WH_TEL = #{WH_TEL}
+			,WH_MAN_NAME = #{WH_MAN_NAME}
+			,WH_USE = #{WH_USE}
+			,REMARKS = #{REMARKS}
+			,WH_POST_NO = #{WH_POST_NO}
+			,WH_ADDR_DETAIL = #{WH_ADDR_DETAIL} 
+			WHERE WH_CD = #{WH_CD}
+			
+	</update>
 
 </mapper>

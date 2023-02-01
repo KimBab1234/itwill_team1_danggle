@@ -138,4 +138,38 @@ public class WhController {
 			
 		}
 	}
+	
+	@GetMapping(value="/WhModifyForm")
+	public String modify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam String WH_CD) {
+//		String sId = (String)session.getAttribute("sId");
+//		if(sId == null || sId.equals("")) {
+//			model.addAttribute("msg","로그인 필수!");
+//			return "fail_back";
+//		}
+		wh = service.getWh(WH_CD);
+		
+		model.addAttribute("wh", wh);
+		
+		
+		return "wh/modify";
+	}
+	
+	@PostMapping(value = "/WhModifyPro")
+	public String modifyPro(@ModelAttribute WhVO wh,
+							Model model, HttpSession session) {
+		
+		System.out.println(wh);
+		int modifyCount = service.modifyWh(wh);
+		if(modifyCount > 0) {
+			
+			return "redirect:/WhDetail?WH_CD="+wh.getWH_CD();
+		} else {
+			model.addAttribute("msg", "게시물 수정 실패!");
+			return "fail_back";
+			
+		}
+		
+	}
+	
+	
 }

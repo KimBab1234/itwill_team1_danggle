@@ -10,7 +10,7 @@
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
-			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
+			<jsp:include page="../inc/wms_left.jsp"></jsp:include>
 		</div>
 			<div align="center" style="width: 1300px;">
 				<h2 align="center">창고 삭제</h2>
