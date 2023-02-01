@@ -71,8 +71,8 @@
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
 	<hr>
-	<h2><img src="${pageContext.request.contextPath }/resources/img/re.gif">&nbsp;&nbsp;독후감 작성&nbsp;&nbsp;<img
-					src="${pageContext.request.contextPath }/resources/img/re.gif"></h2>
+	<h2><img src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">&nbsp;&nbsp;독후감 작성&nbsp;&nbsp;<img
+					src="http://itwillbs3.cdn1.cafe24.com/img/re.gif"></h2>
 <div style="width: 1920px; display: flex; margin-left: 10px; min-height: 500px;">
 	<div style="width: 630px;" id="c_div">
 		<jsp:include page="../inc/community_left.jsp"></jsp:include>

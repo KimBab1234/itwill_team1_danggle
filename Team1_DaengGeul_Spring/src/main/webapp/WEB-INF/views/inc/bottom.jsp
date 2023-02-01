@@ -12,7 +12,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="${pageContext.request.contextPath }/resources/img/favicon.ico" rel="icon">
+    <link href="http://itwillbs3.cdn1.cafe24.com/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -37,7 +37,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="${pageContext.request.contextPath }/resources/img/favicon.ico" rel="icon">
+    <link href="http://itwillbs3.cdn1.cafe24.com/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -102,7 +102,7 @@
                 </p>
             </div>
             <div class="col-md-6 px-xl-0 text-center text-md-right">
-                <img class="img-fluid" src="${pageContext.request.contextPath }/resources/img/payments.png" alt="">
+                <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/payments.png" alt="">
             </div>
         </div>
     </div>

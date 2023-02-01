@@ -20,7 +20,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="${pageContext.request.contextPath }/resources/img/favicon.ico" rel="icon">
+    <link href="http://itwillbs3.cdn1.cafe24.com/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -87,7 +87,7 @@
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                     <a href="./" class="text-decoration-none d-block d-lg-none">
-                        <img alt="" src="${pageContext.request.contextPath }/resources/img/logo2.png" width="200" height="50">
+                        <img alt="" src="http://itwillbs3.cdn1.cafe24.com/img/logo2.png" width="200" height="50">
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
