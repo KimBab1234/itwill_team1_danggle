@@ -131,19 +131,19 @@ nav .fa.fa-angle-down {
 		<a href="/">댕글댕글 창고 재고관리</a>
 	</h1>
 	<h3 align="right" style="vertical-align: text-bottom;">
-		<c:choose>
-			<c:when test="${empty sessionScope.sId}">
-				<a href="#" style="color: black;">로그인</a>
-				<a href="#" style="font-size: 20px; text-align: center;"><i class="material-icons" style="color:black;">&#xe899;</i></a>
-			</c:when>
-			<c:otherwise>
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${empty sessionScope.sId}"> --%>
+<!-- 				<a href="#" style="color: black;">로그인</a> -->
+<!-- 				<a href="#" style="font-size: 20px; text-align: center;"><i class="material-icons" style="color:black;">&#xe899;</i></a> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:otherwise> --%>
 				<a href="#" style="color: black;">${sessionScope.sId}님</a>
 				<a href="#"><i class="material-icons" style="color:black;">&#xe898;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2bc;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i class="material-icons" style="color: black;">&#xe0e1;</i></a>
-			</c:otherwise>
-		</c:choose>
+<%-- 			</c:otherwise> --%>
+<%-- 		</c:choose> --%>
 	</h3>
 	<hr style="margin: 0px;">
 	<nav>
@@ -157,11 +157,22 @@ nav .fa.fa-angle-down {
 						<li><a href="HrInquiry">사원 조회</a></li>
 					</ul>
 				</li>
-				<li><a href="#">기본 등록<i class='fa fa-angle-down'></i></a>
+				<li><a href="#">거래처 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="#">거래처 등록</a></li>
+						<li><a href="#">거래처 조회</a></li>
+					</ul>
+				</li>
+				<li><a href="#">품목 관리<i class='fa fa-angle-down'></i></a>
+					<ul>
+						<li><a href="PdRegist">품목 등록</a></li>
+						<li><a href="PdInquiry">품목 조회</a></li>
+					</ul>
+				</li>
+				<li><a href="#">창고 관리<i class='fa fa-angle-down'></i></a>
+					<ul>
 						<li><a href="#">창고 등록</a></li>
-						<li><a href="#">품목 등록</a></li>
+						<li><a href="#">창고 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">발주 요청<i class='fa fa-angle-down'></i></a>
@@ -178,9 +189,9 @@ nav .fa.fa-angle-down {
 						<li><a href="#">구매 현황</a></li>
 					</ul>
 				</li>
-				<li><a href="#">WMS<i class='fa fa-angle-down'></i></a>
+				
+				<li><a href="#">입출고 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
-						<li><a href="#">창고 관리</a></li>
 						<li><a href="#">입고 예정</a></li>
 						<li><a href="#">입고 처리</a></li>
 						<li><a href="#">출고 예정</a></li>
