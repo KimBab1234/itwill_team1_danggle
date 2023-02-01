@@ -147,7 +147,7 @@ if(name=='') {
 		<br>
 		<table>
 			<tr>
-				<td><img src="${pageContext.request.contextPath }/resources/img/product/${review.product_img }" width="170"></td>
+				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${review.product_img }" width="170"></td>
 				<td><b style="font-size: 25px">${review.product_name }</b></td>
 			</tr>
 		</table>

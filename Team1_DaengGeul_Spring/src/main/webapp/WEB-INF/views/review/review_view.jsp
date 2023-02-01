@@ -194,7 +194,7 @@ $(function() {
 		<div align="center" style="width: 1100px">
 		<table>
 			<tr>
-				<td><img src="${pageContext.request.contextPath }/resources/img/product/${review1.product_img }" width="170"></td>
+				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${review1.product_img }" width="170"></td>
 				<td><b style="font-size: 25px">${review1.product_name }</b></td>
 			</tr>
 		</table>

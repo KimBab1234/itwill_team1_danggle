@@ -87,8 +87,8 @@ table {
 	</div>
 	<div>
 		<h2 style="height: 30px;">
-			<img src="${pageContext.request.contextPath }/resources/img/re.gif">&nbsp;&nbsp;글 수정&nbsp;&nbsp;<img
-				src="${pageContext.request.contextPath }/resources/img/re.gif">
+			<img src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">&nbsp;&nbsp;글 수정&nbsp;&nbsp;<img
+				src="http://itwillbs3.cdn1.cafe24.com/img/re.gif">
 		</h2>
 		<form action="CommunityModifyPro.co" method="post"
 			enctype="multipart/form-data" id="form">

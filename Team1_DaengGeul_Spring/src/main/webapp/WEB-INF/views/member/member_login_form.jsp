@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link href="${pageContext.request.contextPath}/resources/img/daram.png" rel="shortcut icon" type="image/x-icon">
+<link href="http://itwillbs3.cdn1.cafe24.com/img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 로그인</title>
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -86,15 +86,15 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-	<script src="lib/easing/easing.min.js"></script>
-	<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/lib/easing/easing.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
 	<!-- Contact Javascript File -->
-	<script src="mail/jqBootstrapValidation.min.js"></script>
-	<script src="mail/contact.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/mail/jqBootstrapValidation.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/mail/contact.js"></script>
 
 	<!-- Template Javascript -->
-	<script src="js/main.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
 	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
 </body>
 </html>
