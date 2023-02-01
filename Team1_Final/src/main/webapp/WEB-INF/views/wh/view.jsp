@@ -30,7 +30,7 @@ $(function() {
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
-			<jsp:include page="../inc/left.jsp"></jsp:include>
+			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
 		<div align="center" style="width: 1300px;">

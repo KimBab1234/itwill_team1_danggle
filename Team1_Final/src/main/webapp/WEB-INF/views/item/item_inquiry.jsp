@@ -86,7 +86,7 @@ table {
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
-			<jsp:include page="../inc/left.jsp"></jsp:include>
+			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
 		<!-- 게시판 리스트 -->
 		<div align="left" style="margin-left: 100px; margin-top: 30px;">
