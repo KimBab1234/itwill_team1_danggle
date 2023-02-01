@@ -6,8 +6,17 @@ public class ProductOptBean {
 	private String goodsOpt_idx;
 	private String option_name;
 	private String option_quantity;
+	private int optNum;
+	 
+	 
 	 
 	
+	public int getOptNum() {
+		return optNum;
+	}
+	public void setOptNum(int optNum) {
+		this.optNum = optNum;
+	}
 	public String getGoodsOpt_idx() {
 		return goodsOpt_idx;
 	}
@@ -23,15 +32,18 @@ public class ProductOptBean {
 	public String getOption_quantity() {
 		return option_quantity;
 	}
+	
 	public void setOption_quantity(String option_quantity) {
 		this.option_quantity = option_quantity;
 	}
 	
 	@Override
 	public String toString() {
-		return "ProductOptBean [goodsOpt_idx=" + goodsOpt_idx + ", option_name=" + option_name + ", option_qauntity="
-				+ option_quantity + "]";
+		return "ProductOptBean [goodsOpt_idx=" + goodsOpt_idx + ", option_name=" + option_name + ", option_quantity="
+				+ option_quantity + ", optNum=" + optNum + ", toString()=" + super.toString() + "]";
 	}
+	
+	
 	
 	
 }

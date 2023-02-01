@@ -12,6 +12,40 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	
+// 	let pageNum = 1;
+	
+// 	$(function() {
+// 		$.ajax({
+// 			type: "GET",
+// 			url: "GoodsListJson.ad?pageNum=" + pageNum + "&searchType=" + searchType + "&keyword=" + keyword,
+// 			dataType: "json"
+// 		})
+// 		.done(function(boardList) {
+		
+// 			for(let board of boardList) {
+// 				// 테이블에 표시할 JSON 데이터 출력문 생성
+// 				// => 출력할 데이터는 board.xxx 형식으로 접근
+// 				let result = "<tr height='100'>"
+// 							+ "<td>" + board.board_num + "</td>"
+// 							+ "<td id='subject'>" 
+// 							+ "<a href='BoardDetail?board_num=" + board.board_num + "'>"
+// 							+ board.board_subject +"</a></td>"
+// 							+ "<td>" + board.board_name + "</td>"
+// 							+ "<td>" + board.board_date + "</td>"
+// 							+ "<td>" + board.board_readcount + "</td>"
+// 							+ "</tr>";
+				
+// 				// 지정된 위치(table 태그 내부)에 JSON 객체 출력문 추가
+// 				$("#listForm > table").append(result);
+// 			}
+// 		})
+// 		.fail(function() {
+// 			$("#listForm > table").append("<h3>요청 실패!</h3>");
+// 		});
+// 	});
+	
+	
+	
 	function Gdele(product_idx) {
 		var ment = confirm(product_idx + " 상품을 삭제하시겠습니까?");
 		if(ment){
@@ -195,14 +229,6 @@
 					<th width="55">삭제</th>
 				<tr>
 				<c:forEach var="product" items="${productList }">
-				<c:choose>
-						<c:when test="${empty param.pageNum }">
-							<c:set var="pageNum" value="1" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="pageNum" value="${param.pageNum }" />
-						</c:otherwise>
-					</c:choose>
 					<c:if test="${product.product_idx.substring(0,1) == 'G'}">
 						<tr>
 							<td>${product.product_idx}</td>
@@ -231,34 +257,6 @@
 					</c:if>
 				</c:forEach>
 			</table>
-			<section id="pageList">
-				<c:choose>
-					<c:when test="${pageNum > 1}">
-						<a href="ProductList.ad?product=G&pageNum=${pageNum - 1}"><i class="fas fa-solid fa-angles-left"></i></a>
-					</c:when>
-					<c:otherwise>
-						<a><i class="fas fa-solid fa-angles-left"></i></a>
-					</c:otherwise>
-				</c:choose>
-				<c:forEach var="i" begin="${goodsPageInfo.startPage }" end="${goodsPageInfo.endPage }">
-					<c:choose>
-						<c:when test="${pageNum eq i}">
-							<div class="here">${i }</div>
-						</c:when>
-						<c:otherwise>
-							<a href="ProductList.ad?product=G&pageNum=${i }"><div class="notHere">${i }</div></a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${pageNum < goodsPageInfo.maxPage}">
-					<a href="ProductList.ad?product=G&pageNum=${pageNum + 1}"><i class="fas fa-solid fa-angles-right"></i></a>
-					</c:when>
-					<c:otherwise>
-						<a><i class="fas fa-solid fa-angles-right"></i></a>
-					</c:otherwise>
-				</c:choose>
-			</section> 
 		</div>
 		</div>
 	</div>
