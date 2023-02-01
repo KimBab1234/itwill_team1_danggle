@@ -2,5 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1_final.mapper.AccMapper">
 
+<insert id="insertAcc">
+	INSERT INTO acc
+		VALUES (
+			#{BUSINESS_NO}
+			,#{CUST_NAME}
+			,#{BOSS_NAME}
+			,#{UPTAE}
+			,#{JONGMOK}
+			,#{TEL}
+			,${EMAIL}
+			,#{POST_NO}
+			,${ADDR}
+			,#{G_GUBUN}
+			,#{FAX}
+			,#{MOBILE_NO}
+			,#{URL_PATH}
+			,#{MAN_NAME}
+			,#{MAN_TEL}
+			,#{MAN_EMAIL}
+			,#{REMARKS}
+		)
+</insert>
 
 </mapper>
