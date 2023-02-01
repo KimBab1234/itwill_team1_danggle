@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itwillbs.daenggeul.mapper.WishMapper">
+<mapper namespace="com.itwillbs.team1.mapper.WishMapper">
 
 	<!--=================== 찜등록 =====================-->
 	<insert id="insertWish">
@@ -39,7 +39,7 @@
 	
 	
 	<!--================ 찜목록&검색 ===================-->
-	<select id="selectWishlist" resultType="com.itwillbs.daenggeul.vo.WishlistVO">
+	<select id="selectWishlist" resultType="com.itwillbs.team1.vo.WishlistVO">
 		SELECT *
 			FROM wishlist
 			WHERE member_id = #{sId}
