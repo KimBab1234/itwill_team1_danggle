@@ -32,9 +32,28 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-	<tx:annotation-driven transaction-manager="txManager"/>
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="username" value="ljs930102@gmail.com"/>
+		<property name="password" value="bjfyjslxaoayaiuq"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop> <!-- 2단계본인인증을 했으니 보안적으로 true라고 준다 -->
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	
 	
 	<mybatis-spring:scan base-package="com.itwillbs.team1_final"/>
 	
+	<tx:annotation-driven transaction-manager="txManager"/>
+	
 </beans>
+
 

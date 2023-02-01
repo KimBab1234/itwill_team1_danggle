@@ -120,7 +120,14 @@
 		<dependency>
 		    <groupId>com.sun.mail</groupId>
 		    <artifactId>javax.mail</artifactId>
-		    <version>1.4.7</version>
+		    <version>1.6.2</version>
+		</dependency>
+		
+		<!-- 자바 메일 보내기 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
@@ -184,8 +191,7 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.14.1</version>
 		</dependency>
-				
-				
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

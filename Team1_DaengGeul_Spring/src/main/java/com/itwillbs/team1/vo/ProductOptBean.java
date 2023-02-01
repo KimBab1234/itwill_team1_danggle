@@ -7,9 +7,9 @@ public class ProductOptBean {
 	private String option_name;
 	private String option_quantity;
 	private int optNum;
-	
-	
-	
+	 
+	 
+	 
 	
 	public int getOptNum() {
 		return optNum;

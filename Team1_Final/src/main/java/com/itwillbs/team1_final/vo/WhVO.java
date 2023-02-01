@@ -11,6 +11,21 @@ public class WhVO {
 	private String WH_MAN_NAME;
 	private String WH_USE;
 	private String REMARKS;
+	private String WH_POST_NO;
+	private String WH_ADDR_DETAIL;
+	
+	public String getWH_POST_NO() {
+		return WH_POST_NO;
+	}
+	public void setWH_POST_NO(String wH_POST_NO) {
+		WH_POST_NO = wH_POST_NO;
+	}
+	public String getWH_ADDR_DETAIL() {
+		return WH_ADDR_DETAIL;
+	}
+	public void setWH_ADDR_DETAIL(String wH_ADDR_DETAIL) {
+		WH_ADDR_DETAIL = wH_ADDR_DETAIL;
+	}
 	public String getWH_CD() {
 		return WH_CD;
 	}
@@ -69,7 +84,9 @@ public class WhVO {
 	public String toString() {
 		return "WhVO [WH_CD=" + WH_CD + ", WH_NAME=" + WH_NAME + ", WH_GUBUN=" + WH_GUBUN + ", WH_LOCATION="
 				+ WH_LOCATION + ", WH_ADDR=" + WH_ADDR + ", WH_TEL=" + WH_TEL + ", WH_MAN_NAME=" + WH_MAN_NAME
-				+ ", WH_USE=" + WH_USE + ", REMARKS=" + REMARKS + "]";
+				+ ", WH_USE=" + WH_USE + ", REMARKS=" + REMARKS + ", WH_POST_NO=" + WH_POST_NO + ", WH_ADDR_DETAIL="
+				+ WH_ADDR_DETAIL + "]";
 	}
+	
 	
 }
