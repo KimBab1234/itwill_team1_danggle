@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.daenggeul.mapper.MemberMapper">
+
+	<!--================== 회원가입 ====================-->
+	<insert id="insertMember">
+		INSERT INTO member
+			VALUES(
+				#{member_id},
+				#{member_passwd},
+				#{member_name},
+				CONCAT(#{member_phone1}, '-' , #{member_phone2}, '-' , #{member_phone3}),
+				CONCAT(#{member_email1}, '@', #{member_email2}),
+				#{member_postcode},
+				#{member_roadAddress},
+				#{member_jibunAddress},
+				#{member_addressDetail},
+				now(),
+				#{member_gender},
+				#{member_point},
+				#{member_coupon},
+				'Y'
+			)
+	</insert>
+	<!--================================================-->
+	
+	
+	<!--=========== 회원가입 아이디 중복확인 ===========-->
+	<select id="selectMemberId" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+			FROM member
+			WHERE member_id = #{id}
+	</select>
+	<!--================================================-->
+	
+	
+	<!--=========== 회원가입 이메일 중복확인 ===========-->
+	<select id="selectMemberEmail" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+			FROM member
+			WHERE member_email = #{email}
+	</select>
+	<!--================================================-->
+	
+	
+	<!--============ 회원가입 인증번호 전송 ============-->
+	<select id="selectAuth" resultType="int">
+		SELECT COUNT(*)
+			FROM auth
+			WHERE auth_id = #{auth_id}
+	</select>
+	
+	<update id="updateCert">
+		UPDATE auth
+			SET authCode = #{authCode}
+			WHERE auth_id = #{auth_id}
+	</update>
+
+	<insert id="insertCert">
+		INSERT
+			INTO auth
+			VALUES(
+				#{auth_id},
+				#{authCode}
+			)
+	</insert>	
+	<!--================================================-->
+	
+	
+	<!--================= 이메일 인증 ==================-->
+	<select id="selectCertNum" resultType="string">
+		SELECT authCode
+			FROM auth
+			WHERE auth_id = #{id}
+	</select>
+	<!--================================================-->
+	
+	
+	<!--======== 이메일 인증 후, 인증번호 삭제 =========-->
+	<delete id="deleteCert">
+		DELETE FROM auth
+			WHERE auth_id = #{id}
+	</delete>
+	<!--================================================-->
+	
+	
+	<!--=================== 로그인 =====================-->
+	<select id="selectPasswd" resultType="string">
+		SELECT member_passwd
+			FROM member
+			WHERE member_id = #{member_id}
+	</select>
+	<!--================================================-->
+	
+	
+	<!--================= 마이페이지 ===================-->
+	<select id="selectMemberInfo" resultType="com.itwillbs.daenggeul.vo.MemberVO">
+		SELECT
+				member_name
+				, member_id
+				, member_email
+				, member_phone
+				, member_postcode
+				, member_roadAddress
+				, member_jibunAddress
+				, member_addressDetail
+			FROM member
+			WHERE member_id = #{id}
+	</select>
+	<!--================================================-->
+	
+	
+	<!--================ 회원정보 수정 =================-->
+	<update id="updateMemberInfo">
+		UPDATE member
+  			SET
+  				member_email = CONCAT(#{member.member_email1}, '@', #{member.member_email2})
+  				,member_phone = CONCAT(#{member.member_phone1}, '-' , #{member.member_phone2}, '-' , #{member.member_phone3})
+  				,member_postcode = #{member.member_postcode}
+  				,member_roadAddress = #{member.member_roadAddress}
+  				,member_jibunAddress = #{member.member_jibunAddress}
+  				,member_addressDetail = #{member.member_addressDetail}
+  				
+  				<if test='newPasswd neq null and newPasswd neq ""'>
+  					,member_passwd = #{newPasswd}  				
+  				</if>
+  				
+  			WHERE 
+  				member_id = #{member.member_id}
+	</update>
+	<!--================================================-->
+	
+	
+	<!--================== 회원탈퇴 ====================-->
+	<delete id="deleteMember">
+		DELETE FROM member
+			WHERE member_id = #{id}
+	</delete>
+	<!--================================================-->
+	
+	
+	<!--============== 관리자 페이지&검색 ==============-->
+	<select id="selectMemberList" resultType="com.itwillbs.daenggeul.vo.MemberVO">
+		SELECT 
+				member_id
+				, member_name
+				, member_email
+				, member_gender
+				, member_postcode
+				, member_join_date
+			FROM member
+			
+			<if test='!keyword.equals("")'>
+			WHERE
+				<choose>
+					<when test='searchType.equals("name")'>
+						member_name LIKE '%${keyword}%'
+					</when>
+					<when test='searchType.equals("id")'>
+						member_id LIKE '%${keyword}%'
+					</when>
+					<when test='searchType.equals("name_id")'>
+						member_name LIKE '%${keyword}%'
+						OR member_id LIKE '%${keyword}%'
+					</when>
+				</choose>
+			</if>
+		LIMIT
+			#{startRow}
+			, #{listLimit}
+	</select>
+	<!--================================================-->
+	
+	
+	<!--======= 관리자 페이지 회원목록 개수 조회 =======-->
+	<select id="selectMemberListCount" resultType="int">
+		SELECT COUNT(*)
+			FROM member
+			
+			<if test='!keyword.equals("")'>
+			WHERE
+				<!--
+				2. 검색타입(searchType)에 따른 WHERE 대상 변경
+				-->
+				<choose>
+					<when test='searchType.equals("name")'>
+						member_name LIKE '%${keyword}%'
+					</when>
+					<when test='searchType.equals("id")'>
+						member_id LIKE '%${keyword}%'
+					</when>
+					<when test='searchType.equals("name_id")'>
+						member_name LIKE '%${keyword}%'
+						OR member_id LIKE '%${keyword}%'
+					</when>
+				</choose>
+			</if>
+	</select>
+	<!--================================================-->
+	
+	
+	<!--============== 회원 아이디 찾기 ================-->
+	<select id="selectMemberSearchId" resultType="string">
+		SELECT member_id
+			FROM member
+			WHERE member_email = CONCAT(#{member_email1}, '@', #{member_email2})
+	</select>
+	<!--================================================-->
+
+
+	<!--============== 회원 비밀번호 찾기 ==============-->
+	<select id="selectNE" resultType="com.itwillbs.daenggeul.vo.MemberVO">
+		SELECT
+				member_id
+				, member_name
+				, member_email
+			FROM member
+			WHERE member_id = #{id}
+	</select>
+	<!--================================================-->
+	
+	
+	<!--============== 임시 비밀번호 발급 ==============-->
+	<update id="updateTempPasswd">
+		UPDATE member
+			SET member_passwd = #{tempPasswd}
+			WHERE member_id = #{member_id}
+	</update>
+	<!--================================================-->
+	
+</mapper>
+
