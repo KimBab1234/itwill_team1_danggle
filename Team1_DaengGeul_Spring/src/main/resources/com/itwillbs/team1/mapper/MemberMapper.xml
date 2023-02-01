@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itwillbs.daenggeul.mapper.MemberMapper">
+<mapper namespace="com.itwillbs.team1.mapper.MemberMapper">
 
 	<!--================== 회원가입 ====================-->
 	<insert id="insertMember">
@@ -94,7 +94,7 @@
 	
 	
 	<!--================= 마이페이지 ===================-->
-	<select id="selectMemberInfo" resultType="com.itwillbs.daenggeul.vo.MemberVO">
+	<select id="selectMemberInfo" resultType="com.itwillbs.team1.vo.MemberVO">
 		SELECT
 				member_name
 				, member_id
@@ -140,7 +140,7 @@
 	
 	
 	<!--============== 관리자 페이지&검색 ==============-->
-	<select id="selectMemberList" resultType="com.itwillbs.daenggeul.vo.MemberVO">
+	<select id="selectMemberList" resultType="com.itwillbs.team1.vo.MemberVO">
 		SELECT 
 				member_id
 				, member_name
@@ -209,7 +209,7 @@
 
 
 	<!--============== 회원 비밀번호 찾기 ==============-->
-	<select id="selectNE" resultType="com.itwillbs.daenggeul.vo.MemberVO">
+	<select id="selectNE" resultType="com.itwillbs.team1.vo.MemberVO">
 		SELECT
 				member_id
 				, member_name

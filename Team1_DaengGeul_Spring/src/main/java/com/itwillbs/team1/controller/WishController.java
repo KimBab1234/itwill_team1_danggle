@@ -24,13 +24,6 @@ public class WishController {
 	private WishService service;
 	
 	
-	// (임시) 상품 상세페이지
-	@GetMapping(value = "/ProductDetail")
-	public String PD() {
-		return "order/product_detail";
-	}
-	
-	
 	// 찜하기
 	@PostMapping(value = "/WishPro.ws")
 	@ResponseBody

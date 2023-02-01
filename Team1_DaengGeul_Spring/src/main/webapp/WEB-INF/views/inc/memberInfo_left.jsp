@@ -1,14 +1,13 @@
-<%@page import="com.itwillbs.team1.svc.MemberPointService"%>
 <%@page import="com.itwillbs.team1.dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <%
-	String id = (String)session.getAttribute("sId");
-	MemberPointService service = new MemberPointService();
-// 	int point = service.getMemberPoint(id);
-	int point=999999;
+// 	String id = (String)session.getAttribute("sId");
+// 	MemberPointService service = new MemberPointService();
+// // 	int point = service.getMemberPoint(id);
+// 	int point=999999;
 %>
 <style>
 a:link {
@@ -38,7 +37,7 @@ a:active {
 		관리자페이지<br>	
 	</c:when>
 	<c:otherwise>
-		${sessionScope.sId}님<br><span style ="font-size: 20px;">현재 적립금 : <%=point%>원</span>	
+		${sessionScope.sId}님<br><span style ="font-size: 20px;">현재 적립금 : 9999원</span>	
 	</c:otherwise>
 </c:choose>
 </div>
