@@ -9,6 +9,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<link href="${pageContext.request.contextPath }/resources/css/product.css" rel="stylesheet" type="text/css" />
 <style>
 /*input 은 숨겨주기*/
 input.chk_top{
@@ -92,6 +93,7 @@ function execDaumPostcode() {
 
 	/////처음 폼 들어왔을때 동작
 	var empNo = '${param.empNo}';
+	var priv = '${sessionScope.priv}';
 	var nowPageURL = location.href.split("/")[location.href.split("/").length-1];
 	var nowPage = nowPageURL.split("?")[0];
 	$(function() {
@@ -101,7 +103,7 @@ function execDaumPostcode() {
 			
 			$("#hrRegiTitle").text("| 사원 신규 등록");
 			$(".editMode").css("display","inline");
-			$("#hrFormSubmit").text("등록");
+			$("#hrFormSubmit").val("등록");
 			$("img").css("display","none");
 		} else {
 			
@@ -138,12 +140,27 @@ function execDaumPostcode() {
 				$("#hrRegiTitle").text("| 사원 정보 수정");
 				$(".editMode").css("display","inline");
 				$(".detailMode").css("display","none");
-				$("#hrFormSubmit").text("수정 완료");
+				$("#hrFormSubmit").val("수정하기");
+				
+				/////사원 관리 권한은 2번
+				if(priv.charAt(2) != "1") {
+					$("form input").prop("readOnly", true);
+					$("form input").css("background", "lightgray");
+					////select는 readOnly가 없음!
+					$("select").prop("disabled", true);
+					$("form button").prop("disabled", true);
+					$(".thisEmp").prop("readOnly", false);
+					$(".thisEmp").css("background", "white");
+				}
+				
+				
+				
+				
 			} else if(nowPage=='HrDetail') {
 				$("#hrRegiTitle").text("| 사원 상세 정보");
 				$(".editMode").css("display","none");
 				$(".detailMode").css("display","inline");
-				$("#hrFormSubmit").text("수정하기");
+				$("#hrFormSubmit").val("수정");
 				
 			}
 			
@@ -154,6 +171,9 @@ function execDaumPostcode() {
 		var chkArr = [0,0,0,0,0];
 		var chkClick = false;
 		$(".chk_top").on("click", function() {
+			if(priv.charAt(2) != "1") {
+				return false;
+			}
 			chkClick = true;
 			if(this.checked) {
 				chkArr[$(this).index()/2] = 1;
@@ -163,6 +183,73 @@ function execDaumPostcode() {
 		});
 		
 		
+		
+		
+		var checkPasswdResult = false;
+		var checkPasswdSame = false;
+		$("#EMP_PASS_NEW1").on("change", function() {
+			let passwd = $(this).val();
+			let regex = /^[\w!@#$%]{8,16}$/;
+			if(!regex.exec(passwd)){
+				$("#checkPasswdResult").html("8~16자 영문,숫자, 특수문자(_!@#$%) 필수").css("color","red");
+				checkPasswdResult = false;
+			} else {
+				let upperCaseRegex = /[A-Z]/;
+				let lowerCaseRegex = /[a-z]/;
+				let numberCaseRegex = /[0-9]/;
+				let specialCaseRegex = /[_!@#$%]/;
+				let count =0;
+				if(upperCaseRegex.exec(passwd)) {
+					count++;
+				}
+				if(lowerCaseRegex.exec(passwd)) {
+					count++;
+				}
+				if(numberCaseRegex.exec(passwd)) {
+					count++;
+				}
+				if(specialCaseRegex.exec(passwd)) {
+					count++;
+				}
+				
+				switch (count) {
+				case 1:
+					$("#checkPasswdResult").html("사용불가능한 비밀번호").css("color","red");
+					checkPasswdResult = false;
+					break;
+				case 2:
+					$("#checkPasswdResult").html("위험한 비밀번호").css("color","orange");
+					checkPasswdResult = true;
+					break;
+				case 3:
+					$("#checkPasswdResult").html("보통 비밀번호").css("color","green");
+					checkPasswdResult = true;
+					break;
+				case 4:
+					$("#checkPasswdResult").html("안전한 비밀번호").css("color","blue");
+					checkPasswdResult = true;
+					break;
+				}
+			}
+			
+			if($("#EMP_PASS_NEW2").val()==$(this).val()) {
+				$("#checkPasswdSame").html("비밀번호가 일치합니다.").css("color","blue");
+				checkPasswdSame=true;
+			} else {
+				$("#checkPasswdSame").html("비밀번호가 일치하지 않습니다.").css("color","red");
+				checkPasswdSame=false;
+			}
+		});
+		
+		$("#EMP_PASS_NEW2").on("change", function() {
+			if($("#EMP_PASS_NEW1").val()==$(this).val()) {
+				$("#checkPasswdSame").html("비밀번호가 일치합니다.").css("color","blue");
+				checkPasswdSame=true;
+			} else {
+				$("#checkPasswdSame").html("비밀번호가 일치하지 않습니다.").css("color","red");
+				checkPasswdSame=false;
+			}
+		});
 		
 		////등록, 수정 버튼 눌렀을때 동작
 		$("#hrFormSubmit").on("click", function() {
@@ -205,6 +292,15 @@ function execDaumPostcode() {
 				return false;
 			}
 			
+			if(!checkPasswdResult) {
+				alert("변경할 비밀번호가 안전하지 않습니다.");
+				return false;
+			}
+			
+			if(!checkPasswdSame) {
+				alert("변경할 비밀번호가 일치하지 않습니다.");
+				return false;
+			}
 		
 			///권한 배열 string으로 합친 후 hidden 넘겨주기
 			
@@ -218,8 +314,8 @@ function execDaumPostcode() {
 				
 			}
 			
-			
-			
+			////직전에 disable 된거 풀어주기
+			$("select").prop("disabled", false);
 			if(empNo=='') {
 				hrForm.action = "HrRegistPro";
 				hrForm.submit();
@@ -228,6 +324,8 @@ function execDaumPostcode() {
 				hrForm.submit();
 			}
 		});
+		
+		
 		
 	});
 	
@@ -243,19 +341,46 @@ function execDaumPostcode() {
 		<!-- 여기서부터 본문-->
 		<form name="hrForm" id="hrForm" action="HrRegistPro" method="post" enctype="multipart/form-data">
 		<div align="center" style="width: 1300px;">
-			<h1 align="left" style="margin-left: 300px;" id="hrRegiTitle"></h1>
-			<div align="left" style="margin-left: 300px;"><img src="${pageContext.request.contextPath}/resources/upload/${emp.PHOTO}" width="200"></div>
-			<table style="text-align: center; border: solid 1px; width: 700px;">
+			<h1 align="left"  id="hrRegiTitle"></h1>
+			<div align="left"><img src="${pageContext.request.contextPath}/resources/upload/${emp.PHOTO}" width="200"></div>
+		
+			<table class="regi_table" style="text-align: center; border: solid 1px; width: 700px;">
 				<tr>
-					<td align="right" width="150">이름</td>
+					<th align="right" width="150">이름</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.EMP_NAME}</span>
 						<input type="text" class="editMode" id="EMP_NAME" name="EMP_NAME" required="required" value="${emp.EMP_NAME}" >
-						<input type="hidden" name="EMP_NUM" value = "${param.empNo}">
 					</td>
 				</tr>
+				<c:if test="${param.empNo!=null}">
 				<tr>
-					<td align="right" >부서</td>
+					<th align="right" width="150">사번</th>
+					<td align="left" >&nbsp;&nbsp;&nbsp;
+						<span class="detailMode">${param.empNo}</span>
+						<input type="text" class="editMode" id="EMP_NUM" name="EMP_NUM" required="required" value="${param.empNo}" >
+					</td>
+				</tr>
+				<!-- 당사자가 들어왔으면 비밀번호 변경 보이게 -->
+				<c:if test="${emp.EMP_NUM eq sessionScope.empNo}">
+					<tr>
+						<th align="right" width="150">기존 비밀번호</th>
+						<td align="left" >&nbsp;&nbsp;&nbsp;
+							<input type="password" class="thisEmp" id="EMP_PASS" name="EMP_PASS" >
+						</td>
+					</tr>
+					<tr>
+						<th align="right" width="150">변경 비밀번호</th>
+						<td align="left" >&nbsp;&nbsp;&nbsp;
+							<input type="password" class="thisEmp" id="EMP_PASS_NEW1" name="EMP_PASS_NEW" >
+							<span id="checkPasswdResult"></span><br>&nbsp;&nbsp;&nbsp;
+							<input type="password" class="thisEmp" id="EMP_PASS_NEW2" >
+							<span id="checkPasswdSame"></span>
+						</td>
+					</tr>
+				</c:if>
+				</c:if>
+				<tr>
+					<th align="right" >부서</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 					<span class="detailMode">${emp.DEPT_NAME}</span>
 					<div class="editMode">
@@ -266,7 +391,7 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >직급</td>
+					<th align="right" >직급</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.GRADE_NAME}</span>
 						<select id="GRADE_CD" name="GRADE_CD" class="editMode" style="text-align: center;">
@@ -278,29 +403,29 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >연락처(개인)</td>
+					<th align="right" >연락처(개인)</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.EMP_TEL}</span>
 						<div class="editMode">
-							<input type="text" id="EMP_TEL1" name="EMP_TEL1" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL1}"> -
-							<input type="text" id="EMP_TEL2" name="EMP_TEL2" style="width: 50px;"oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL2}"> -
-							<input type="text" id="EMP_TEL3" name="EMP_TEL3" style="width: 50px;"oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL3}">
+							<input type="text" class="thisEmp" id="EMP_TEL1" name="EMP_TEL1" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL1}"> -
+							<input type="text" class="thisEmp" id="EMP_TEL2" name="EMP_TEL2" style="width: 50px;"oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL2}"> -
+							<input type="text" class="thisEmp" id="EMP_TEL3" name="EMP_TEL3" style="width: 50px;"oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL3}">
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >연락처(사무실)</td>
+					<th align="right" >연락처(사무실)</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.EMP_DTEL}</span>
 						<div class="editMode">
-							<input type="text" id="EMP_DTEL1" name="EMP_DTEL1" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL1}"> -
-							<input type="text" id="EMP_DTEL2" name="EMP_DTEL2" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL2}"> -
-							<input type="text" id="EMP_DTEL3" name="EMP_DTEL3" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL3}">
+							<input type="text" class="thisEmp" id="EMP_DTEL1" name="EMP_DTEL1" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL1}"> -
+							<input type="text" class="thisEmp" id="EMP_DTEL2" name="EMP_DTEL2" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL2}"> -
+							<input type="text" class="thisEmp" id="EMP_DTEL3" name="EMP_DTEL3" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL3}">
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >E-mail</td>
+					<th align="right" >E-mail</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.EMP_EMAIL}</span>
 						<div class="editMode">
@@ -316,38 +441,38 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 				<tr>
-					<td align="right">우편번호</td>
+					<th align="right">우편번호</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.EMP_POST_NO}</span>
 						<div class="editMode">
 							<input type="text" id="EMP_POST_NO" name="EMP_POST_NO" style="width: 100px;" readonly="readonly" value="${emp.EMP_POST_NO}">
-							<input type="button" id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기" >
+							<button id="postbutton" onclick="execDaumPostcode()">우편번호 찾기</button>
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >주소</td>
+					<th align="right" >주소</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.EMP_ADDR}</span>
 						<input type="text" class="editMode" id="EMP_ADDR" name="EMP_ADDR" style="width: 300px;" readonly="readonly" value="${emp.EMP_ADDR}">
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >상세주소</td>
+					<th align="right" >상세주소</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.EMP_ADDR_DETAIL}</span>
 						<input type="text" class="editMode" id="EMP_ADDR_DETAIL" name="EMP_ADDR_DETAIL" style="width: 300px;" value="${emp.EMP_ADDR_DETAIL}">
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >입사일</td>
+					<th align="right" >입사일</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.HIRE_DATE}</span>
 						<input type="date" class="editMode" id="HIRE_DATE" name="HIRE_DATE" required="required" value="${emp.HIRE_DATE}">
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >재직여부</td>
+					<th align="right" >재직여부</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.WORK_TYPE}</span>
 						<div class="editMode">
@@ -361,7 +486,7 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 				<tr>
-					<td align="right" >권한</td>
+					<th align="right" >권한</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" class="chk_top" id="chk_top1" />
   						<label for="chk_top1">&nbsp;기본등록</label>
@@ -376,19 +501,17 @@ function execDaumPostcode() {
   						<input type="hidden" name="PRIV_CD" id="PRIV_CD" value="${emp.PRIV_CD}">
 					</td>
 				</tr>
-				<tr height="10px;"></tr>
 				<tr>
-					<td align="right" >사진이미지</td>
+					<th align="right" >사진이미지</th>
 					<td align="left" style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;
-						<input type="file"  id="registPHOTO" name="registPHOTO" style="padding:0px;margin:0px;">
+						<input type="file" class = "thisEmp" id="registPHOTO" name="registPHOTO" style="padding:0px;margin:0px;">
 						<input type="hidden" name="PHOTO" value="${emp.PHOTO}" >
 					</td>
 				</tr>
-				<tr height="10px;"></tr>
 			</table>
 		</div>
-		<button type="button" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;"></button>
-		<button type="button" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;" onclick="history.back()">돌아가기</button>
+		<input type="button" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;">
+		<input type="button" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;" onclick="history.back()" value="돌아가기">
 		</form>
 		<!-- 여기까지 본문-->
 	</div>

@@ -14,8 +14,8 @@
 		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://db.itwillbs.dev:3306/class5_220823_team1_c"></property>
 		<property name="username" value="class5_220823_team1"></property>
 		<property name="password" value="1234"></property>
-		<property name="connectionTimeout" value="28000"></property>
-		<property name="maxLifetime" value="3599000"></property>
+		<property name="connectionTimeout" value="60000"></property>
+		<property name="maxLifetime" value="30000"></property>
 	</bean>
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close" >

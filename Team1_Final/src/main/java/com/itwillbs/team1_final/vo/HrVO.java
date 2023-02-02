@@ -36,7 +36,21 @@ public class HrVO {
 	private String PHOTO;
 	private MultipartFile registPHOTO;
 	private boolean[] PRIV_CD_Arr;
+	private String EMP_PASS;
+	private String EMP_PASS_NEW;
 	
+	public String getEMP_PASS_NEW() {
+		return EMP_PASS_NEW;
+	}
+	public void setEMP_PASS_NEW(String eMP_PASS_NEW) {
+		EMP_PASS_NEW = eMP_PASS_NEW;
+	}
+	public String getEMP_PASS() {
+		return EMP_PASS;
+	}
+	public void setEMP_PASS(String eMP_PASS) {
+		EMP_PASS = eMP_PASS;
+	}
 	public int getIdx() {
 		return idx;
 	}

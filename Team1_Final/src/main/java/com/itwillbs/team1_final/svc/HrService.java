@@ -16,9 +16,18 @@ public class HrService {
 	@Autowired
 	HrMapper mapper;
 
+	public int getEmpIdx() {
+		return mapper.selectEmpIdx();
+	}
+	
 	public int registEmp(HrVO newEmp) {
 		return mapper.insertEmp(newEmp);
 	}
+	
+	public String getEmpEmail(String empNo) {
+		return mapper.selectEmpEmail(empNo);
+	}
+	
 	public ArrayList<HrVO> getGradeInfo() {
 		return mapper.selectGradeInfo();
 	}
@@ -51,9 +60,15 @@ public class HrService {
 		return mapper.updateEmp(newEmp);
 	}
 
-	public int insertTempPass(String empNo, String Pass) {
-		return mapper.insertTempPass(empNo, Pass);
+	public int insertTempPass(String email, String Pass) {
+		return mapper.insertTempPass(email, Pass);
 	}
+
+	public HrVO getLoginEmpInfo(String email) {
+		return mapper.selectEmpPassPriv(email);
+	}
+	
+	
 	
 	
 
