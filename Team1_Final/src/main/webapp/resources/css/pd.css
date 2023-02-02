@@ -1,0 +1,569 @@
+@charset "UTF-8";
+
+.title_regi {
+	display: inline-block;
+	height: 30px;
+	width: 136px;
+	text-align: center;
+	background-color: #c9b584;
+	position: relative;
+	padding-top: 7px;
+	font-size: 13.5px;
+	color: #736643;
+	font-weight: bold;
+	margin-right: 2px;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+}
+
+.choice:hover {
+	cursor: pointer;	
+}
+.recoCheck {
+	accent-color: #736643;
+	vertical-align: -2px;
+}
+
+.in_table{
+	margin: 0 auto;
+	border-collapse: collapse;
+	border-style: solid;
+	border-color: #b09f76;;
+	width: 900px;
+}
+
+.in_table th {
+	border: 1px solid; 
+ 	background: #c9b584; 
+ 	text-align: center; 
+ 	border-color: #b09f76;
+ 	color: #736643;
+ 	width: 15%;
+ 	font-size: 12px;
+ 	padding-top: 10px;
+ 	padding-bottom: 10px;
+}
+
+.in_table td {
+	border: solid;
+	border-width: 0.5px;
+ 	border-color: #b09f76;
+ 	padding: 4px;
+ 	font-weight: bold;
+ 	font-size: 13px;
+ 	color : #575754;
+}
+
+.in_table input[type="date"] {
+	border: 1px solid #b09f76;
+	border-radius: 5px;
+	margin: 5px;
+	padding: 3.5px 4px;
+	color: #575754;
+	box-shadow: 0px 1px 7px #ededed inset;
+	font-weight: bold;
+	font-size: 12px;
+	width: 130px;
+}
+
+#product_cd, #in_schedule_qty, #size_des {
+	width: 80px;
+	border: none;
+	margin: 3px 0px 3px 0px;
+	color: #575754;
+}
+#product_name {
+	width: 230px;
+	border: none;
+	margin: 3px 0px 3px 0px;
+	color: #575754;
+}
+
+#remarks {
+	width: 180px;
+	border: none;
+	margin: 3px 0px 3px 0px;
+	color: #575754;
+}
+
+#total {
+	background: #c9b584;
+	border: none;
+	width: 80px;
+	font-weight: bold;
+	color: #575754;
+}
+/* 테이블 기본 설정 */
+.regi_table {
+	margin: 0 auto;
+	border-collapse: collapse;
+	border-style: solid;
+	border-color: #b09f76;;
+	width: 900px;
+	
+}
+
+.regi_table th {
+	border-bottom: 1px solid; 
+ 	background: #c9b584; 
+ 	text-align: center; 
+ 	border-color: #b09f76;
+ 	color: #736643;
+ 	width: 15%;
+ 	font-size: 12px;
+ 	padding-top: 10px;
+ 	padding-bottom: 10px;
+}
+
+.regi_table td {
+	border-bottom: solid;
+	border-width: 0.5px;
+ 	border-color: #b09f76;
+ 	padding: 8px;
+ 	font-weight: bold;
+ 	font-size: 13px;
+ 	color : #575754;
+}
+
+/* 포커스 됐을 때 인풋박스 테두리 없애기*/
+input:focus {
+	outline:none;
+}
+textarea:focus {
+	outline:none;
+}
+#okBtn:focus {
+	outline: none;
+}
+#recoBtn:focus, #optionBtn:focus, .removeOpt:focus, #searchType:focus {
+	outline:none;
+}
+
+/* input 박스 사이즈 변경*/
+.regi_table #productName {width: 420px;}
+.regi_table .book_div {width: 375px;}
+
+
+/* 비고 텍스트 박스 */
+.note {
+	border: 1px solid #b09f76;
+	border-radius: 5px;
+	padding: 0.4rem 8px; 
+	margin: 5px;
+	box-shadow: 0px 1px 7px #ededed inset;
+	font-weight: bold;
+	width: 240px;
+	color: #575754;
+}
+
+/* 옵션 재고 number 박스 */
+.optionNum{
+	border: 1px solid #b09f76;
+	border-radius: 5px;
+	padding: 0.4rem 8px; 
+	margin: 5px;
+	box-shadow: 0px 1px 7px #ededed inset;
+	width: 100px;
+	font-weight: bold;
+}
+
+.emp_code {
+	border: 1px solid #b09f76;
+	border-radius: 5px;
+	padding: 6px 0px 6px 5px; 
+	margin: 5px -2px 5px 5px;
+	box-shadow: 0px 1px 7px #ededed inset;
+	font-weight: bold;
+	font-size: 12px;
+	width: 100px;
+	color: #575754;
+}
+
+.emp_name {
+	border: 1px solid #b09f76;
+	border-radius: 5px;
+	padding: 6px 0px 6px 5px; 
+	margin: 5px 5px 5px 0px;
+	box-shadow: 0px 1px 7px #ededed inset;
+	font-weight: bold;
+	font-size: 12px;
+	width: 100px;
+	color: #575754;
+}
+
+/* input[type="date"] */
+.regi_table input[type="date"] {
+	border: 1px solid #b09f76;
+	border-radius: 5px;
+	margin: 5px;
+	padding: 3.5px 4px;
+	color: #575754;
+	box-shadow: 0px 1px 7px #ededed inset;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+/* 셀렉트 박스 */
+select {
+	width: 140px;
+	border: 1px solid #C4C4C4;
+	box-sizing: border-box;
+	border-radius: 5px;
+	padding: 2px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #575754;
+	font-weight: bold;
+}
+
+/* 라디오 버튼 */
+.regi_table .regi_check { 
+	width: 1.25em; 
+	height: 1.25em; 
+	display: inline-block;
+	vertical-align: middle; 
+	margin: 10px; 
+	accent-color:#736643; 
+} 
+
+/* 할인율 입력용 라디오 버튼 */
+.regi_check2 {
+	width: 1.25em; 
+	height: 1.25em; 
+	display: inline-block;
+	vertical-align: middle; 
+	margin: 10px 7px 10px 10px; 
+	accent-color:#736643; 
+}
+
+#h4 {
+	border-left:4px solid #736643;
+	border-width: 7px;
+	padding: 2px 0px 0px 10px;
+	position: relative;
+	left: 250px;
+	margin: 0px 50px 20px 50px;
+	font-weight: bold;
+}
+
+#listH4 {
+	border-left:4px solid #736643;
+	border-width: 7px;
+	padding: 2px 0px 0px 10px;
+	position: relative;
+	left: 70px;
+	margin: 50px 50px 40px 50px;
+	font-weight: bold;
+}
+
+#recoH4 {
+	border-left:4px solid #736643;
+	border-width: 7px;
+	padding: 2px 0px 0px 10px;
+	position: relative;
+	left: 228px;
+	margin: 50px 50px 40px 50px;
+	font-weight: bold;
+}
+/* 파일 버튼 */
+label {
+    display: inline-block;
+    padding: 7px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #736643;
+    cursor: pointer;
+    height: 32px;
+    margin: 3px 0px 0px 5px;
+    border-radius: 4px;
+}
+
+/* 파일 이름 뜨는 텍스트 박스 */
+.filebox .upload-name {
+    border: 1px solid #b09f76;
+	border-radius: 5px;
+	padding: 0.4rem 8px; 
+	margin: 5px 0px 5px 5px;
+	box-shadow: 0px 1px 7px #ededed inset;
+	width: 320px;
+	color: gray;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+/* 기존 파일 인풋 박스 안보이게 처리 */
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+/* textarea */
+textarea {
+	width: 420px;
+	height: 300px;
+	margin: auto;
+	border: 1px solid #b09f76;
+	border-radius: 5px;
+	padding: 10px 10px;
+	box-shadow: 0px 1px 7px #ededed inset;
+	resize: none;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+/* textarea 마진 적용을 위한 div */
+#textDiv {
+	margin-left: 5px;
+
+}
+
+/* 옵션 추가 버튼 */
+.optionBtn{
+    padding: 7px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #736643;
+    cursor: pointer;
+    height: 32px;
+    margin: 3px 0px 0px 5px;
+    border-radius: 4px;
+    border: none;
+    font-size: 12px;
+}
+
+/* 옵션 삭제 버튼 */
+.removeOpt {
+	background-color: white;
+	border: none;
+	cursor: pointer;
+	height: 25px;
+	width: 25px;
+	border-radius: 4px;
+}
+
+
+/* 확인 취소 버튼 */
+#hrFormSubmit {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 45px;
+	width: 100px;
+	border-radius: 4px;
+	margin-top: 50px;
+	margin-right: 10px;
+}
+
+
+/* ================================================================================= */
+
+/* 상품 목록 css */
+
+/* 책 목록 */
+.bookTable {
+	margin: 0 auto;
+	width: 960px;
+}
+
+
+.bookTable th, .recoTable th{
+	
+ 	background: #c9b584; 
+ 	text-align: center; 
+ 	border-color: #b09f76;
+ 	color: #736643;
+	padding-bottom: 7px;
+	padding-top: 7px;
+	font-size: 14px;
+}
+
+.bookTable td, .recoTable td{
+	border-bottom: solid;
+	border-width: 0.5px;
+ 	border-color: #b09f76;
+ 	text-align: center;
+ 	padding-bottom: 5px;
+	padding-top: 5px;
+	font-size: 13.5px;
+}
+
+#buttonArea {
+	display: inline-block;
+	position: relative;
+	left: 430px;
+	width: 400px;
+	text-align: right;
+
+}
+
+#searchType {
+	height: 25px;
+	font-size: 14px;
+	width: 80px;
+	border-color: #b09f76;
+}
+
+#keyword {
+	height: 24px;
+	font-size: 14px;
+	width: 180px;
+	border-radius: 3px;
+	border: 1px solid #b09f76;
+	padding-left: 5px;
+	margin-bottom: 1px;
+}
+
+#keywordBtn {
+	color: #fff;
+    background-color: #736643;
+    height: 25px;
+    width: 35px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+	
+}
+
+/* 수정, 삭제 버튼 */
+#Listbtn {
+    color: #fff;
+    background-color: #736643;
+    cursor: pointer;
+    height: 25px;
+    width: 40px;
+    font-size: 0.71rem;
+    border-radius: 4px;
+    border: none;
+}
+
+
+/* <<< 페이징 처리 >>> */
+
+/* 페이지 영역 */
+#pageList { 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+}
+
+/* << >> 아이콘 */
+i {
+	color: #736643;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* 현재 페이지 */
+.here {
+	display: inline;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: #736643;
+}
+
+/* 현재 페이지 외 다른 페이지 */
+.notHere {
+	display: inline;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: #b09f76;
+}
+
+/* <<< 추천 도서 목록 >>> */
+/* 추천 도서 등록 버튼 */
+#recoBtn {
+	position: relative;
+	left: 780px;
+	color: #fff;
+    background-color: #736643;
+    cursor: pointer;
+    height: 35px;
+    width: 120px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    border: none;
+    display: block;
+    margin-top: 10px;    
+}
+
+.recoArea{
+	width: 1920px;
+	display: flex;
+}
+
+/* 추천 목록 테이블 */
+.recoTable {
+	margin: 0 auto;
+	width: 650px;
+}
+
+
+/* <<< 수정 페이지 >>> */
+
+/* 수정 페이지 셀렉트 박스 마진 추가 */
+#selectBookcate{
+	margin: 5px;
+}
+
+/* <<< 디테일 페이지 >>> */
+.detail_table {
+	margin: 0 auto;
+	border-collapse: collapse;
+	border-style: solid;
+	border-color: #b09f76;;
+	width: 600px;
+}
+
+.detail_table th {
+	border: 1px solid; 
+ 	background: #c9b584; 
+ 	text-align: center; 
+ 	border-color: #b09f76;
+ 	color: #736643;
+ 	width: 25%;
+ 	font-size: 20px;
+ 	padding-top: 10px;
+ 	padding-bottom: 10px;
+}
+
+.detail_table td {
+	border-style: solid;
+	border-width: 0.5px;
+ 	border-color: #b09f76;
+ 	padding: 8px 0px 8px 4px;
+ 	font-size: 20px;
+}
+
+.detail_table input[type="text"]  {
+	border: none;
+	padding: 0.4rem 8px; 
+	margin: 4px 0px 4px 2px;
+	width: 350px;
+	color: #3d3d3d;
+	font-weight: bold;
+}
+
+.detail_table textarea {
+	width: 420px;
+	height: 300px;
+	margin: auto;
+	border: none;
+	padding: 10px 10px;
+	resize: none;
+	font-size: 12px;
+}
+
+.detail_table input[type="text"][id="optionDetail"] {
+	border: none;
+	padding: 0.4rem 8px; 
+	margin: 4px 0px 4px 2px;
+	width: 170px;
+	color: #3d3d3d;
+	font-weight: bold;
+}

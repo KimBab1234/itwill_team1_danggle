@@ -3,13 +3,12 @@
 <mapper namespace="com.itwillbs.team1_final.mapper.PdMapper">
 
 	<insert id="insertPd">
-		
 		INSERT
 			INTO product
 			VALUES (
 				null
 				,#{PRODUCT_NAME	}
-				,#{PRODUCT_GROUP_BOTTOM_CD	}
+				,#{PRODUCT_GROUP_BOTTOM_CD}
 				,#{SIZE_DES}
 				,#{UNIT}
 				,#{BARCODE}
@@ -24,6 +23,10 @@
 
 	<select id="selectPd_group_bottom_Search" resultType="com.itwillbs.team1_final.vo.PdVO">
 		SELECT PRODUCT_GROUP_TOP_CD,PRODUCT_GROUP_BOTTOM_CD,PRODUCT_GROUP_BOTTOM_NAME FROM product_bottom WHERE PRODUCT_GROUP_BOTTOM_NAME LIKE '%${keyword}%';
+	</select>
+	
+	<select id="selectPd_type_Search" resultType="com.itwillbs.team1_final.vo.PdVO">
+		SELECT PRODUCT_TYPE_CD,PRODUCT_TYPE_NAME FROM product_type WHERE PRODUCT_TYPE_NAME LIKE '%${keyword}%';
 	</select>
 	
 	<!-- 전체 게시물 목록 조회하는 select 태그 -->

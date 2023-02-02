@@ -37,6 +37,8 @@ public class PdController {
 	@Autowired
 	private PdService service;
 	
+	// ===============================================================================
+	// 품목 등록
 	@GetMapping(value = "/PdRegist")
 	public String pdRegist() {
 		System.out.println("품목 등록");
@@ -95,12 +97,8 @@ public class PdController {
 		
 	}
 	
-	// ===============================================================================
-		// AJAX 요청을 통한 글목록 조회
-		// => AJAX 요청에 대한 JSON 데이터로 응답
-		// => 현재 메서드에서 JSON 타입 응답 데이터를 바로 생성하여 출력하기 위해
-		//    @ResponseBody 어노테이션 필요
-		// => 이동할 페이지가 없으므로 리턴타입 void
+		// ===============================================================================
+		// 품목 목록 조회
 		
 		@GetMapping(value = "/PdInquiry")
 		public String pdInquiry() {
@@ -157,7 +155,7 @@ public class PdController {
 			
 		}
 		// ===============================================================================
-		/////품목 그룹 조회
+		// 품목 그룹 조회
 		@RequestMapping(value = "/Pd_group_bottom_SearchForm", method = RequestMethod.GET)
 		public String pd_group_bottom_Search(Model model) {
 			System.out.println("품목 그룹 선택 팝업");
@@ -191,5 +189,61 @@ public class PdController {
 			
 			return jsonStr.toJSONString();
 		}
+		
+		// ===============================================================================
+		//품목 구분 조회
+		@RequestMapping(value = "/Pd_type_SearchForm", method = RequestMethod.GET)
+		public String pd_type_Search(Model model) {
+			System.out.println("품목 구분 선택 팝업");
+			return "pd/pd_type_Search";
+		}
+		
+		@SuppressWarnings("unchecked")
+		@ResponseBody
+		@RequestMapping(value = "/Pd_type_Search", method = RequestMethod.POST)
+		public String pd_type_SearchPro(String keyword) {
+			System.out.println("품목 구분 선택 : keyword="+keyword);
+			
+			ArrayList<PdVO> pd_type_List = service.getPd_type_Search(keyword);
+			
+			JSONObject jsonStr = new JSONObject();
+			JSONArray arr = new JSONArray();
+			
+			for(PdVO bean : pd_type_List) {
+				JSONObject product = new JSONObject();
+				
+				product.put("PRODUCT_TYPE_CD", bean.getPRODUCT_TYPE_CD());
+				product.put("PRODUCT_TYPE_NAME", bean.getPRODUCT_TYPE_NAME());
+				arr.add(product);
+			}
+			
+			jsonStr.put("jsonPd_type", arr);
+			
+//			System.out.println("pd_group_bottom_List: " + pd_group_bottom_List);
+//			System.out.println("jsonStr: " + jsonStr);
+			
+			return jsonStr.toJSONString();
+		}
+		
+	// ===============================================================================
+	// 바코드 생성
+	   @ResponseBody
+	   @RequestMapping(value = "/Barcode", method = RequestMethod.GET)
+	   public String newBarcode() {
+	      System.out.println("바코드생성");
 	
+	      char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+	      String barcode= "";
+	      int idx = 0;
+	      for (int i = 0; i < 10; i++) {
+	         idx = (int) (charSet.length * Math.random());
+	         barcode += charSet[idx];
+	         
+	         System.out.println("barcode: " + barcode);
+	         // pd_regist에서 ajax로 해야함(href지우기!!)
+	      
+	   }
+	      return "";
+		
+	   }	
 }
