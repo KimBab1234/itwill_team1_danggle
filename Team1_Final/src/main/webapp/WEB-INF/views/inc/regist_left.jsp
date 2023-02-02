@@ -9,6 +9,7 @@
 	position: absolute;
 	height: 100%;
 	border-right:solid 1px; border-color: #BDBDBD;
+	z-index: -1;
 }
 
 .menuH3:hover{
