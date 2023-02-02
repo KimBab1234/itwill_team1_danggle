@@ -30,4 +30,9 @@ public class PdService {
 		return mapper.selectPd_group_bottom_Search(keyword);
 	}
 
+	// 품목 구분 선택
+	public ArrayList<PdVO> getPd_type_Search(String keyword) {
+		return mapper.selectPd_type_Search(keyword);
+	}
+
 }
