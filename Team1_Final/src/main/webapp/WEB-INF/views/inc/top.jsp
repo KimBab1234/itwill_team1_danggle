@@ -159,8 +159,8 @@ nav .fa.fa-angle-down {
 				</li>
 				<li><a href="#">거래처 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
-						<li><a href="#">거래처 등록</a></li>
-						<li><a href="#">거래처 조회</a></li>
+						<li><a href="AccRegist">거래처 등록</a></li>
+						<li><a href="AccList">거래처 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">품목 관리<i class='fa fa-angle-down'></i></a>

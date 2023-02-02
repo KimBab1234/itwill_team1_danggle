@@ -87,8 +87,10 @@ public class AccVO {
 	}
 	public void setTEL3(String tEL3) {
 		TEL3 = tEL3;
-		if(TEL1 != "" && TEL2 != "" && TEL3 != "") {
+		if(TEL1 != "" || TEL2 != "" || TEL3 != "") {
 			TEL = TEL1+"-"+TEL2+"-"+TEL3;
+		} else {
+			TEL = "";
 		}
 	}
 	public String getEMAIL() {
@@ -109,8 +111,10 @@ public class AccVO {
 	public void setEMAIL2(String eMAIL2) {
 		EMAIL2 = eMAIL2;
 		
-		if(EMAIL1 != "" && EMAIL2 != "") {
+		if(EMAIL1 != "" || EMAIL2 != "") {
 			EMAIL = EMAIL1+"@"+EMAIL2;
+		} else {
+			EMAIL = "";
 		}
 	}
 	public String getPOST_NO() {
@@ -137,9 +141,7 @@ public class AccVO {
 	public void setADDR2(String aDDR2) {
 		ADDR2 = aDDR2;
 		
-		if(ADDR1 != "" & ADDR2 != "") {
-			ADDR = ADDR1+ADDR2;
-		}
+		ADDR = ADDR1+ADDR2;
 	}
 	public String getG_GUBUN() {
 		return G_GUBUN;
@@ -217,6 +219,8 @@ public class AccVO {
 		MAN_TEL3 = mAN_TEL3;
 		if(MAN_TEL1 != "" && MAN_TEL2 != "" && MAN_TEL3 != "") {
 			MAN_TEL = MAN_TEL1+"-"+MAN_TEL2+"-"+MAN_TEL3;
+		} else {
+			MAN_TEL = "";
 		}
 	}
 	public String getMAN_EMAIL() {
@@ -238,6 +242,8 @@ public class AccVO {
 		MAN_EMAIL2 = mAN_EMAIL2;
 		if(MAN_EMAIL1 != "" && MAN_EMAIL2 != "") {
 			MAN_EMAIL = MAN_EMAIL1+"@"+MAN_EMAIL2;
+		} else {
+			MAN_EMAIL = "";
 		}
 	}
 	public String getREMARKS() {
