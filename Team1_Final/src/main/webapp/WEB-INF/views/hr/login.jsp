@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <style>
 /*input 은 숨겨주기*/
 input.chk_top{
@@ -42,26 +43,16 @@ input.chk_top:checked + label:before{
 </style>
 <title>Insert title here</title>
 <script>
-function emailSelect(domain){
-	if(domain=='') {
-		$("#EMP_EMAIL2").val(domain);
-		$("#EMP_EMAIL2").prop("readOnly",false);
-		$("#EMP_EMAIL2").css("background","white");
-		
-	} else {
-		$("#EMP_EMAIL2").val(domain);
-		$("#EMP_EMAIL2").prop("readOnly",true);
-		$("#EMP_EMAIL2").css("background","lightgray");
-	}
-}
 
 ///localStorage에 저장된 email 가져오기
 var email1 = localStorage.getItem("email1");
+var email2 = localStorage.getItem("email2");
 if(email1 != null) {
-	$("#EMP_EMAIL1").val(emailSplit[0]);
+	$("#EMP_EMAIL1").val(email1);
 
+		alert("aa");
+		alert($("option").length);
 	///email select 
-	var email2 = emailSplit[1];
 	for(var i=1; i<$("#EMP_EMAIL2_SEL").children().length; i++){
 		var opt = $("#EMP_EMAIL2_SEL option").eq(i).val();
 		if(email2 == opt) {
@@ -74,6 +65,19 @@ if(email1 != null) {
 			$("#EMP_EMAIL2").val(email2);
 		}
 		
+	}
+}
+
+function emailSelect(domain){
+	if(domain=='') {
+		$("#EMP_EMAIL2").val(domain);
+		$("#EMP_EMAIL2").prop("readOnly",false);
+		$("#EMP_EMAIL2").css("background","white");
+		
+	} else {
+		$("#EMP_EMAIL2").val(domain);
+		$("#EMP_EMAIL2").prop("readOnly",true);
+		$("#EMP_EMAIL2").css("background","lightgray");
 	}
 }
 
