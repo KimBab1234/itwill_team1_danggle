@@ -9,39 +9,44 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-<link href="${pageContext.request.contextPath }/resources/css/product.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
 <style>
-/*input 은 숨겨주기*/
-input.chk_top{
-  display:none;
-  }
-/*input 바로 다음의 label*/
+/* input 은 숨겨주기 */
+ input.chk_top{
+   display:none;
+  } 
+/* input 바로 다음의 label */
 input.chk_top + label{
   cursor:pointer;
+  vertical-align: middle;
+  line-height:17px; 
+   font-size:14px; 
  }
 
-/*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
-input.chk_top + label:before{
-  content:"";
-  display:inline-block;
-  width:17px;
-  height:17px;
-  line-height:17px;
-  border:1px solid #cbcbcb;
-  vertical-align:middle;/*체크 전과 체크 후 높이 차이 때문에 설정*/
-  }
+/* input 바로 다음의 label:before 에 체크하기 전 CSS 설정 */
+ input.chk_top + label:before{ 
+   content:""; 
+   display: inline-block; 
+   width:17px; 
+   height:17px; 
+   line-height:17px; 
+   border:1px solid #cbcbcb; 
+   vertical-align: middle;
+   margin: 0px;
+   }
   
-/*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/  
-input.chk_top:checked + label:before{
-  content:"\f00c";/*폰트어썸 유니코드*/
-  font-family:"Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
-  font-weight:900;/*폰트어썸 설정*/
-  color:#fff;
-  background-color:#000;
-  border-color:#000;
-  font-size:13px;
-  text-align:center;
-  }
+/*  checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정    */
+ input.chk_top:checked + label:before{ 
+   content:"\f00c"; 
+   font-family:"Font Awesome 5 free"; 
+    font-weight:900; 
+   color:#fff; 
+   background-color:#c9b584; 
+   border-color:#c9b584; 
+   font-size:13px; 
+   text-align:center; 
+   vertical-align: middle;
+   } 
   
 
 </style>
@@ -65,7 +70,7 @@ function execDaumPostcode() {
                }
                // 건물명이 있고, 공동주택일 경우 추가한다.
                if(data.buildingName !== '' && data.apartment === 'Y'){
-                  extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                  extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildinzgName);
                }
 
                // 우편번호와 주소 정보를 해당 필드에 넣는다.
@@ -87,13 +92,19 @@ function execDaumPostcode() {
 		} else {
 			$("#EMP_EMAIL2").val(domain);
 			$("#EMP_EMAIL2").prop("readOnly",true);
-			$("#EMP_EMAIL2").css("background","lightgray");
+			$("#EMP_EMAIL2").css("background","#c9b584");
 		}
 	}
 
 	/////처음 폼 들어왔을때 동작
 	var empNo = '${param.empNo}';
 	var priv = '${sessionScope.priv}';
+	
+// 	if(priv=='' || priv.charAt(2)!='1') {
+// 		alert("잘못된 접근입니다.");
+// 		history.back();
+// 	}
+	
 	var nowPageURL = location.href.split("/")[location.href.split("/").length-1];
 	var nowPage = nowPageURL.split("?")[0];
 	$(function() {
@@ -118,7 +129,7 @@ function execDaumPostcode() {
 				if(email2 == opt) {
 					$("#EMP_EMAIL2_SEL option").eq(i).prop("selected", true);
 					$("#EMP_EMAIL2").prop("readOnly",true);
-					$("#EMP_EMAIL2").css("background","lightgray");
+					$("#EMP_EMAIL2").css("background","#c9b584");
 					break;
 				} else {
 					$("#EMP_EMAIL2_SEL option").eq(0).prop("selected", true);
@@ -145,7 +156,7 @@ function execDaumPostcode() {
 				/////사원 관리 권한은 2번
 				if(priv.charAt(2) != "1") {
 					$("form input").prop("readOnly", true);
-					$("form input").css("background", "lightgray");
+					$("form input").css("background", "#c9b584");
 					////select는 readOnly가 없음!
 					$("select").prop("disabled", true);
 					$("form button").prop("disabled", true);
@@ -171,9 +182,9 @@ function execDaumPostcode() {
 		var chkArr = [0,0,0,0,0];
 		var chkClick = false;
 		$(".chk_top").on("click", function() {
-			if(priv.charAt(2) != "1") {
-				return false;
-			}
+// 			if(priv.charAt(2) != "1") {
+// 				return false;
+// 			}
 			chkClick = true;
 			if(this.checked) {
 				chkArr[$(this).index()/2] = 1;
@@ -184,7 +195,7 @@ function execDaumPostcode() {
 		
 		
 		
-		
+		/////비밀번호 확인
 		var checkPasswdResult = false;
 		var checkPasswdSame = false;
 		$("#EMP_PASS_NEW1").on("change", function() {
@@ -250,6 +261,9 @@ function execDaumPostcode() {
 				checkPasswdSame=false;
 			}
 		});
+	/////비밀번호 확인 끝
+		
+		
 		
 		////등록, 수정 버튼 눌렀을때 동작
 		$("#hrFormSubmit").on("click", function() {
@@ -292,18 +306,22 @@ function execDaumPostcode() {
 				return false;
 			}
 			
-			if(!checkPasswdResult) {
-				alert("변경할 비밀번호가 안전하지 않습니다.");
-				return false;
-			}
 			
-			if(!checkPasswdSame) {
-				alert("변경할 비밀번호가 일치하지 않습니다.");
-				return false;
+			///신규 등록할때는 비밀번호 필요없음
+			if(empNo != '') {
+				if(!checkPasswdResult) {
+					alert("변경할 비밀번호가 안전하지 않습니다.");
+					return false;
+				}
+				
+				if(!checkPasswdSame) {
+					alert("변경할 비밀번호가 일치하지 않습니다.");
+					return false;
+				}
 			}
-		
+
+			
 			///권한 배열 string으로 합친 후 hidden 넘겨주기
-			
 			if(chkClick) {
 				var privStr = "";
 				for(var i of chkArr) {
@@ -334,7 +352,7 @@ function execDaumPostcode() {
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
-	<div style="display: flex;" align="center">
+	<div style="display: flex; min-height: 1300px;" align="center">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
 			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
@@ -344,7 +362,7 @@ function execDaumPostcode() {
 			<h1 align="left"  id="hrRegiTitle"></h1>
 			<div align="left"><img src="${pageContext.request.contextPath}/resources/upload/${emp.PHOTO}" width="200"></div>
 		
-			<table class="regi_table" style="text-align: center; border: solid 1px; width: 700px;">
+			<table class="regi_table" style="text-align: center; border: solid 1px; width: 900px;">
 				<tr>
 					<th align="right" width="150">이름</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
@@ -510,8 +528,8 @@ function execDaumPostcode() {
 				</tr>
 			</table>
 		</div>
-		<input type="button" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;">
-		<input type="button" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;" onclick="history.back()" value="돌아가기">
+		<input type="button" class="hrFormBtn" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;">
+		<input type="button" class="hrFormBtn" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;" onclick="history.back()" value="돌아가기">
 		</form>
 		<!-- 여기까지 본문-->
 	</div>

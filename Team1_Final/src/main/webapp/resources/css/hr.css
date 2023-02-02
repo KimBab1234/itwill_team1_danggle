@@ -124,6 +124,7 @@ textarea:focus {
 	font-weight: bold;
 }
 
+
 /* 셀렉트 박스 */
 select {
 	width: 140px;
@@ -131,7 +132,7 @@ select {
 	box-sizing: border-box;
 	border-radius: 5px;
 	padding: 2px;
-	font-size: 10px;
+	font-size: 16px;
 	line-height: 16px;
 	color: #575754;
 	font-weight: bold;
@@ -268,7 +269,7 @@ textarea {
 
 
 /* 확인 취소 버튼 */
-#hrFormSubmit {
+.hrFormBtn {
 	background-color: #736643;
 	border: none;
 	cursor: pointer;
