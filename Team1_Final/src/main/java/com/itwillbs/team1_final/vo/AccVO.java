@@ -111,7 +111,7 @@ public class AccVO {
 	public void setEMAIL2(String eMAIL2) {
 		EMAIL2 = eMAIL2;
 		
-		if(EMAIL1 != "" || EMAIL2 != "") {
+		if(EMAIL1 != "") {
 			EMAIL = EMAIL1+"@"+EMAIL2;
 		} else {
 			EMAIL = "";
@@ -141,7 +141,7 @@ public class AccVO {
 	public void setADDR2(String aDDR2) {
 		ADDR2 = aDDR2;
 		
-		ADDR = ADDR1+ADDR2;
+		ADDR = ADDR1+", "+ADDR2;
 	}
 	public String getG_GUBUN() {
 		return G_GUBUN;
@@ -154,6 +154,10 @@ public class AccVO {
 	}
 	public void setFAX(String fAX) {
 		FAX = fAX;
+		
+		if(FAX == "") {
+			FAX = "";
+		}
 	}
 	public String getMOBILE_NO() {
 		return MOBILE_NO;
@@ -178,8 +182,10 @@ public class AccVO {
 	}
 	public void setMOBILE_NO3(String mOBILE_NO3) {
 		MOBILE_NO3 = mOBILE_NO3;
-		if(MOBILE_NO1 != "" && MOBILE_NO2 != "" && MOBILE_NO3 != "") {
+		if(MOBILE_NO1 != "") {
 			MOBILE_NO = MOBILE_NO1+"-"+MOBILE_NO2+"-"+MOBILE_NO3;
+		} else {
+			MOBILE_NO = "";
 		}
 	}
 	public String getURL_PATH() {
@@ -217,7 +223,7 @@ public class AccVO {
 	}
 	public void setMAN_TEL3(String mAN_TEL3) {
 		MAN_TEL3 = mAN_TEL3;
-		if(MAN_TEL1 != "" && MAN_TEL2 != "" && MAN_TEL3 != "") {
+		if(MAN_TEL1 != "") {
 			MAN_TEL = MAN_TEL1+"-"+MAN_TEL2+"-"+MAN_TEL3;
 		} else {
 			MAN_TEL = "";
@@ -240,7 +246,7 @@ public class AccVO {
 	}
 	public void setMAN_EMAIL2(String mAN_EMAIL2) {
 		MAN_EMAIL2 = mAN_EMAIL2;
-		if(MAN_EMAIL1 != "" && MAN_EMAIL2 != "") {
+		if(MAN_EMAIL1 != "") {
 			MAN_EMAIL = MAN_EMAIL1+"@"+MAN_EMAIL2;
 		} else {
 			MAN_EMAIL = "";

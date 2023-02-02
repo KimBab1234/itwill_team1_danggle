@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1_final.mapper.AccMapper">
 
+<!-- 거래처 등록 -->
 <insert id="insertAcc">
 	INSERT INTO acc
 		VALUES (
@@ -11,9 +12,9 @@
 			,#{UPTAE}
 			,#{JONGMOK}
 			,#{TEL}
-			,${EMAIL}
+			,#{EMAIL}
 			,#{POST_NO}
-			,${ADDR}
+			,#{ADDR}
 			,#{G_GUBUN}
 			,#{FAX}
 			,#{MOBILE_NO}
@@ -25,4 +26,53 @@
 		)
 </insert>
 
+<!-- 거래처 목록 조회 -->
+	<select id="accList" resultType="com.itwillbs.team1_final.vo.AccVO">
+	SELECT * 
+			FROM acc -- 이후 작업 분기 일어남 
+			<!-- 
+			조건에 따른 SQL 구문을 실행하기 위해서는
+			choose, when, otherwise 태그를 사용하여 복수개의 조건 판별(if ~ else if 문 구조)
+			 -->
+			 
+			 <!-- 1. 검색어(keyword) 가 널스트링이 아닐 때 검색어 추가 수행, 아니면 검색어 생략-->
+			 <!-- => 조건이 하나일 경우 if 태그를 사용하여 단일 조건 판별(if 문 구조) -->
+<!-- 			 <if test="!keyword.equals('')"> -->
+<!-- 			 	WHERE -->
+<!-- 					2. 검색타입(searchType) 에 따른 WHERE 대상 변경 		 -->
+<!-- 					=> 조건이 복수개이므로 choose 태그 사용 -->
+<!-- 					<choose> -->
+<!-- 						<when test="searchType.equals('subject')"> -->
+<!-- 							board_subject LIKE '%${keyword}%' -->
+<!-- 						</when> -->
+<!-- 						<when test="searchType.equals('content')"> -->
+<!-- 							board_content LIKE '%${keyword}%' -->
+<!-- 						</when> -->
+<!-- 						<when test="searchType.equals('subject_content')"> -->
+<!-- 							board_subject LIKE '%${keyword}' -->
+<!-- 							OR board_content LIKE '%${keyword}%' -->
+<!-- 						</when> -->
+<!-- 						<when test="searchType.equals('name')"> -->
+<!-- 							board_name LIKE '%${keyword}%' -->
+<!-- 						</when> -->
+<!-- 					</choose> -->
+<!-- 			 </if> -->
+<!-- 			 ORDER BY CUST_NAME DESC -->
+	</select>
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
