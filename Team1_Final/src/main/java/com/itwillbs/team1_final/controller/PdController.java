@@ -12,8 +12,9 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.team1_final.svc.PdService;
-import com.itwillbs.team1_final.vo.HrVO;
 import com.itwillbs.team1_final.vo.PdVO;
 
 
@@ -81,7 +81,7 @@ public class PdController {
 		// --------------------------------------------------------------------
 		// Service 객체의 registBoard() 메서드를 호출하여 게시물 등록 작업 요청
 		// => 파라미터 : BoardVO 객체    리턴타입 : int(insertCount)
-		int insertCount = service.registItem(product);
+		int insertCount = service.registPd(product);
 		
 		// 등록 성공/실패에 따른 포워딩 작업 수행
 		if(insertCount > 0) { // 성공
@@ -132,11 +132,13 @@ public class PdController {
 			
 			for(PdVO product : pdList) {
 				
-				JSONObject jsonObject = new JSONObject(product);
+				JSONObject jsonObject = new JSONObject();
+//				JSONObject jsonObject = new JSONObject(product);
 				
 //				System.out.println(jsonObject);
 			
-				jsonArray.put(jsonObject);
+				jsonArray.add(jsonObject);
+//				jsonArray.put(jsonObject);
 				
 			}
 			
@@ -155,32 +157,38 @@ public class PdController {
 			
 		}
 		// ===============================================================================
-		/////부서 조회
-		@RequestMapping(value = "/Pd_groupSearchForm", method = RequestMethod.GET)
-		public String pd_groupSearch(Model model) {
+		/////품목 그룹 조회
+		@RequestMapping(value = "/Pd_group_bottom_SearchForm", method = RequestMethod.GET)
+		public String pd_group_bottom_Search(Model model) {
 			System.out.println("품목 그룹 선택 팝업");
-			return "pd/pd_groupSearch";
+			return "pd/pd_group_bottom_Search";
 		}
 
 		@SuppressWarnings("unchecked")
 		@ResponseBody
-		@RequestMapping(value = "/Pd_groupSearch", method = RequestMethod.POST)
-		public String pd_groupSearchPro(String keyword) {
+		@RequestMapping(value = "/Pd_group_bottom_Search", method = RequestMethod.POST)
+		public String pd_group_bottom_SearchPro(String keyword) {
 			System.out.println("품목 그룹 선택 : keyword="+keyword);
 
-			ArrayList<PdVO> pd_groupList = service.getPd_groupSearch(keyword);
+			ArrayList<PdVO> pd_group_bottom_List = service.getPd_group_bottom_Search(keyword);
 
 			JSONObject jsonStr = new JSONObject();
 			JSONArray arr = new JSONArray();
 
-			for(PdVO bean : pd_groupList) {
+			for(PdVO bean : pd_group_bottom_List) {
 				JSONObject product = new JSONObject();
-				product.put("DEPT_CD", product.get);
-				product.put("DEPT_NAME", product.getDEPT_NAME());
+				
+				product.put("PRODUCT_GROUP_TOP_CD", bean.getPRODUCT_GROUP_TOP_CD());
+				product.put("PRODUCT_GROUP_BOTTOM_CD", bean.getPRODUCT_GROUP_BOTTOM_CD());
+				product.put("PRODUCT_GROUP_BOTTOM_NAME", bean.getPRODUCT_GROUP_BOTTOM_NAME());
 				arr.add(product);
 			}
 
-			jsonStr.put("jsonDepart", arr);
+			jsonStr.put("jsonPd_group_bottom", arr);
+			
+//			System.out.println("pd_group_bottom_List: " + pd_group_bottom_List);
+//			System.out.println("jsonStr: " + jsonStr);
+			
 			return jsonStr.toJSONString();
 		}
 	
