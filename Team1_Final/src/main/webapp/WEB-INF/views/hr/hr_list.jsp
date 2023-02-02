@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -14,9 +15,21 @@
 			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
-		<div align="center" style="width: 1500px;">
-		<h1 align="left" style="margin-left: 100px;">| 사원 조회</h1>
-		<table border="1" style="text-align: center; width: 1300px; font-size: 20px;">
+		<div style="width: 1500px;">
+		<h1 align="left" style="text-align: left; margin-left: 100px;">| 사원 조회</h1>
+		<div style="display: flex; width: 1500px; text-align: right" >
+			<button type="button" style="width: 180px; font-size:18px; font-weight: bold;" onclick="location.href='HrRegist'">신규 등록</button>
+			<form action="HrList" method="post">
+				<select name="searchType">
+					<option value="">검색어 선택</option>
+					<option value="EMP_NUM">사번</option>
+					<option value="">검색어 선택</option>
+				</select>
+				<input type="text" name="keyword">
+				<button type="button" style="width: 180px; font-size:18px; font-weight: bold;" onclick="location.href='HrList'">사원 검색</button>
+			</form>
+		</div>
+		<table border="1" class="regi_table" style="text-align: center; width: 1300px; font-size: 20px;">
 			<tr>
 				<th width="150">사진</th>
 				<th width="150">사번</th>
@@ -30,7 +43,7 @@
 		
 			<c:forEach items="${empList}" var="emp">
 				<tr>
-					<td><img src="${pageContext.request.contextPath}/resources/upload/${emp.PHOTO}" width="100"></td>
+					<td><img src="${pageContext.request.contextPath}/resources/img/${emp.PHOTO}" width="100"></td>
 					<td>${emp.EMP_NUM }</td>
 					<td>${emp.EMP_NAME }</td>
 					<td>${emp.DEPT_NAME }</td>

@@ -32,12 +32,12 @@
 <body>
 	<div id="verticalNav" align="center" style="width: 200px; margin-top: 0px;">
 		<div style="margin-left: 20px; margin-right: 0px; ">
-			<h2>WMS</h2>
+			<h2>입출고 관리</h2>
 			<h3 class="menuH3"><a href="WhList">창고 관리</a></h3>
 			<h3 class="menuH3"><a href="#">입고 예정</a></h3>
 			<h3 class="menuH3"><a href="#">입고 처리</a></h3>
-			<h3 class="menuH3"><a href="#">출고 예정</a></h3>
-			<h3 class="menuH3"><a href="#">출고 처리</a></h3>
+			<h3 class="menuH3"><a href="OutSchList">출고 예정</a></h3>
+			<h3 class="menuH3"><a href="OutProList">출고 처리</a></h3>
 			<h3 class="menuH3"><a href="#">재고 조정</a></h3>
 		</div>
 	</div>

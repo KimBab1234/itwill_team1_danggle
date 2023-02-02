@@ -57,7 +57,7 @@ a:visited {
 }
 
 .container {
-	width: 1000px;
+	width: 1280px;
 	margin: auto;
 }
 
@@ -128,7 +128,7 @@ nav .fa.fa-angle-down {
 
 <body>
 	<h1 align="center" id="titleName">
-		<a href="./">댕글댕글 창고 재고관리</a>
+		<a href="./"><img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="vertical-align: top;">  ERP</a>
 	</h1>
 	<h3 align="right" style="vertical-align: text-bottom;">
 		<c:choose>
@@ -138,8 +138,8 @@ nav .fa.fa-angle-down {
 			</c:when>
 			<c:otherwise>
 				<a href="#" style="color: black;">${sessionScope.empName}님</a>
-				<a href="#"><i class="material-icons" style="color:black;">&#xe898;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="Logout"><i class="material-icons" style="color:black;">&#xe898;</i>로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="HrDetail?empNo=${sessionScope.empNo}"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i>${sessionScope.empName}님</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2bc;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i class="material-icons" style="color: black;">&#xe0e1;</i></a>
 			</c:otherwise>
@@ -172,7 +172,7 @@ nav .fa.fa-angle-down {
 				<li><a href="#">창고 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="WhRegistForm">창고 등록</a></li>
-						<li><a href="#">창고 조회</a></li>
+						<li><a href="WhList">창고 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">발주 요청<i class='fa fa-angle-down'></i></a>
@@ -195,8 +195,8 @@ nav .fa.fa-angle-down {
 						<li><a href="WhList">창고 관리</a></li>
 						<li><a href="IN_Schedule">입고 예정</a></li>
 						<li><a href="IN_Process">입고 처리</a></li>
-						<li><a href="#">출고 예정</a></li>
-						<li><a href="#">출고 처리</a></li>
+						<li><a href="OutSchList">출고 예정</a></li>
+						<li><a href="OutProList">출고 처리</a></li>
 						<li><a href="#">재고 조정</a></li>
 					</ul>
 				</li>

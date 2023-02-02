@@ -3,20 +3,21 @@ package com.itwillbs.team1_final.vo;
 import java.sql.Date;
 
 public class InVO {
-	private String in_schedule_cd;
-	private String business_no;
-	private String emp_num;
-	private Date in_date;
-	private String remarks;
-	private String in_complete;
-	private int product_cd;
-	private String product_name;
-	private String size_des;
-	private int in_schedule_qty;
-	private int in_qty;
-	private int wh_loc_in_area_cd;
-	private String in_type_cd;
-	private String in_type_name;
+	private String in_schedule_cd; // 입고예정코드
+	private String business_no; // 거래처코드
+	private String emp_num; // 담당자(사원번호)
+	private Date in_date; // 납기일자
+	private String remarks; // 적요
+	private String in_complete; // 진행상태
+	private int product_cd; // 품목코드
+	private String product_name; // 품목명
+	private String size_des; // 규격
+	private int in_schedule_qty; // 입고예정수량
+	private int in_qty; // 입고수량 
+	private int wh_loc_in_area_cd; // 창고 구역 내 위치코드
+	private String in_type_cd; // 입고유형코드
+	private String in_type_name; //입고유형명
+	
 	public String getIn_schedule_cd() {
 		return in_schedule_cd;
 	}

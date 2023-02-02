@@ -37,12 +37,14 @@ table {
 					<td><input type="text" style="height: 30px; width: 450px;" name="PRODUCT_NAME" required="required"></td>
 				</tr>
 				<tr>
-					<td id="td_left"><label for="PRODUCT_GROUP_BOTTOM_CD">품목그룹(소)</label><br>
+					<td id="td_left"><label for="PRODUCT_GROUP_BOTTOM_CD">품목그룹</label><br>
 						<button style="height: 30px; width: 80px;">신규등록</button>
 					</td>
 					<td>
-						<input type="text" name="PRODUCT_GROUP_BOTTOM_CD" id="PRODUCT_GROUP_BOTTOM_CD" readonly="readonly" required="required" style="height: 30px; width: 340px;">
-						<button type="button" onclick="window.open('ItemSearchhForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">품목그룹 선택</button>
+						<input type="text" name="PRODUCT_GROUP_TOP_CD" id="PRODUCT_GROUP_TOP_CD" readonly="readonly" required="required" style="height: 30px; width: 105px;">
+						<input type="text" name="PRODUCT_GROUP_BOTTOM_CD" id="PRODUCT_GROUP_BOTTOM_CD" readonly="readonly" required="required" style="height: 30px; width: 105px;">
+						<input type="text" name="PRODUCT_GROUP_BOTTOM_NAME" id="PRODUCT_GROUP_BOTTOM_NAME" readonly="readonly" required="required" style="height: 30px; width: 105px;">
+						<button type="button" onclick="window.open('Pd_group_bottom_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">품목그룹(소) 선택</button>
 					</td>
 				</tr>
 				<tr>
