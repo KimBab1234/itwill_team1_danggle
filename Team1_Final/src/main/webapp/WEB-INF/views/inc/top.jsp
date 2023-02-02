@@ -172,7 +172,7 @@ nav .fa.fa-angle-down {
 				<li><a href="#">창고 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="WhRegistForm">창고 등록</a></li>
-						<li><a href="#">창고 조회</a></li>
+						<li><a href="WhList">창고 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">발주 요청<i class='fa fa-angle-down'></i></a>
