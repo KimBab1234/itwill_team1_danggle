@@ -10,6 +10,8 @@ import com.itwillbs.team1_final.vo.HrVO;
 @Transactional
 public interface HrMapper {
 
+	public int selectEmpIdx();
+	public String selectEmpEmail(String empNo);
 	public int insertEmp(HrVO newEmp);
 	public ArrayList<HrVO> selectGradeInfo();
 	public ArrayList<HrVO> selectDepartSearch(String keyword);
@@ -18,5 +20,6 @@ public interface HrMapper {
 	public HrVO selectEmpDetail(String empNo);
 	public int updateEmp(HrVO newEmp);
 	public int insertTempPass(@Param("email") String email, @Param("pass") String pass);
+	public HrVO selectEmpPassPriv(String email);
 	
 }

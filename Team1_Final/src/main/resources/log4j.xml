@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.itwillbs.team1">
+	<logger name="com.itwillbs.team1_final">
 		<level value="info" />
 	</logger>
 	
@@ -32,7 +32,7 @@
 		<level value="info" />
 	</logger>
 
-<!-- SQL Logger추가 -->
+	<!-- SQL Logger추가 -->
 	
 	<!-- 1) SQL 쿼리 문장 로그 -->
 	<logger name="jdbc.sqlonly" additivity="false">
@@ -64,12 +64,7 @@
 		<appender-ref ref="console" />		
 	</logger>
 	
-<!-- 	5) SELECT실행 결과에 대한 로그 --> 
-<!-- 	<logger name="com.zaxxer.hikari" additivity="false"> -->
-<!-- 		<level value="DEBUG" /> -->
-<!-- 		<appender-ref ref="console" />		 -->
-<!-- 	</logger> -->
-
+	
 
 	<!-- Root Logger -->
 	<root>

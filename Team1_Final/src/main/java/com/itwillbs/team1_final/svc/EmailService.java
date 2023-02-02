@@ -3,6 +3,7 @@ package com.itwillbs.team1_final.svc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.team1_final.mapper.HrMapper;
@@ -16,7 +17,7 @@ public class EmailService{
 	@Autowired
 	private HrMapper mapper;
 	
-	public void sendEmail(String email) {
+	public void sendEmail(String empNo) {
 
 		///임시비밀번호 6자리 생성
 		// ------------------------ 임시 비밀번호 생성 ------------------------
@@ -29,15 +30,24 @@ public class EmailService{
 			idx = (int) (charSet.length * Math.random());
 			tempPasswd += charSet[idx];
 		}
+		
+		////임시비밀번호 암호화
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String tempEncodedPass = passwordEncoder.encode(tempPasswd);
+		
 		// --------------------------------------------------------------------
 
+		String email = mapper.selectEmpEmail(empNo);
+		
 		SimpleMailMessage smm = new SimpleMailMessage();
 		smm.setFrom("ljs930102@naver.com");
 		smm.setTo(email);
-		smm.setSubject("신규 사원 등록 완료. 임시 비밀번호가 발급되었습니다.");
-		smm.setText("임시 비밀번호가 발급되었습니다. 로그인 후 비밀번호 변경을 해주세요. 임시 비밀번호 :" + tempPasswd);
+		smm.setSubject("댕글댕글 신규 사원 등록 완료. 임시 비밀번호가 발급되었습니다.");
+		smm.setText("댕글댕글 신규 사원 등록 완료! \\n 임시 비밀번호가 발급되었습니다. \\n 로그인 후 비밀번호 변경을 해주세요. \\n 임시 비밀번호 :" + tempPasswd);
 		
-		mapper.insertTempPass(email,tempPasswd);
+		
+		mapper.insertTempPass(email,tempEncodedPass);
 		
 		mailSender.send(smm);
 

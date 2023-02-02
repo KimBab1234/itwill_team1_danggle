@@ -16,7 +16,7 @@
 				type : "post",
 				dataType: "text", 
 				data: {
-					email:'${param.email}'
+					empNo:'${param.empNo}'
 				},
 				success: function(response) {
 				},

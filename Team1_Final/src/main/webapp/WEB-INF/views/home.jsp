@@ -5,14 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+
+	var needPassChange = '${sessionScope.needPassChange}'
+	
+	if(needPassChange=='Y') {
+		window.open('MovePassChange', 'searchPopup', 'width=500, height=500, left=600, top=400');
+	}
+
+</script>
 </head>
 <body>
 	<jsp:include page="inc/top.jsp"></jsp:include>
-	<div style="display: flex;">
-<!-- 		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;"> -->
-<%-- 				<jsp:include page="inc/left.jsp"></jsp:include> --%>
-<!-- 		</div> -->
-		메인페이지
-	</div>
+		<h1 align="center" style="text-align: center;">메인페이지</h1>
 </body>
 </html>

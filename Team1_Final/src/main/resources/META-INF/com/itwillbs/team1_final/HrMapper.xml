@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1_final.mapper.HrMapper">
+	
+	<select id="selectEmpIdx" resultType="int">
+		SELECT ifnull(max(idx) , 0) FROM hr
+	</select>
+
+	<select id="selectEmpEmail" resultType="string">
+		SELECT EMP_EMAIL FROM hr WHERE EMP_NUM=#{empNo};
+	</select>
+	
 	<insert id="insertEmp">
-		<selectKey keyProperty="idx" resultType="int" order="BEFORE">
-			SELECT ifnull(max(idx) , 0) FROM hr
-		</selectKey>
 		INSERT INTO hr VALUES (
-		#{idx}+1,
-		concat(#{DEPT_CD},date_format(now(), '%y'),LPAD(#{idx}+1,3,'0')),
+		null,
+		#{EMP_NUM},
 		#{EMP_NAME},
 		#{DEPT_CD},
 		#{GRADE_CD},
@@ -60,6 +66,9 @@
 			EMP_ADDR_DETAIL = #{EMP_ADDR_DETAIL},
 			HIRE_DATE = #{HIRE_DATE},
 			WORK_CD = #{WORK_CD},
+			<if test="EMP_PASS_NEW != null">
+				EMP_PASS = #{EMP_PASS_NEW},
+			</if>
 			PRIV_CD = #{PRIV_CD},
 			PHOTO = #{PHOTO}
 		WHERE EMP_NUM=#{EMP_NUM};
@@ -68,7 +77,10 @@
 	<update id="insertTempPass">
 		UPDATE hr SET EMP_PASS = #{pass} WHERE EMP_EMAIL=#{email};
 	</update>
-	
+
+	<select id="selectEmpPassPriv" resultType="hr">
+		SELECT EMP_NUM, EMP_NAME, EMP_PASS, PRIV_CD from hr WHERE EMP_EMAIL=#{EMP_EMAIL};
+	</select>
 
 	
 	

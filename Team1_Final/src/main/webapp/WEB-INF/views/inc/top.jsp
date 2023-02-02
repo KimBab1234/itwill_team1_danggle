@@ -6,16 +6,13 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-
-<link rel="stylesheet"
-	href="http://netdna.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 	
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <style>
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,500);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,500&Gowun+Dodum&display=swap);
 
 /* main Styles */
 html {
@@ -24,6 +21,9 @@ html {
 
 *, *:before, *:after {
 	box-sizing: inherit;
+}
+* {
+	font-family: 'Gowun Dodum', sans-serif;
 }
 
 body {
@@ -131,19 +131,19 @@ nav .fa.fa-angle-down {
 		<a href="/">댕글댕글 창고 재고관리</a>
 	</h1>
 	<h3 align="right" style="vertical-align: text-bottom;">
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${empty sessionScope.sId}"> --%>
-<!-- 				<a href="#" style="color: black;">로그인</a> -->
-<!-- 				<a href="#" style="font-size: 20px; text-align: center;"><i class="material-icons" style="color:black;">&#xe899;</i></a> -->
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
-				<a href="#" style="color: black;">${sessionScope.sId}님</a>
+		<c:choose>
+			<c:when test="${empty sessionScope.empName}">
+				<a href="Login" style="color: black;">로그인</a>
+				<a href="#" style="font-size: 20px; text-align: center;"><i class="material-icons" style="color:black;">&#xe899;</i></a>
+			</c:when>
+			<c:otherwise>
+				<a href="#" style="color: black;">${sessionScope.empName}님</a>
 				<a href="#"><i class="material-icons" style="color:black;">&#xe898;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2bc;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i class="material-icons" style="color: black;">&#xe0e1;</i></a>
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
+			</c:otherwise>
+		</c:choose>
 	</h3>
 	<hr style="margin: 0px;">
 	<nav>
