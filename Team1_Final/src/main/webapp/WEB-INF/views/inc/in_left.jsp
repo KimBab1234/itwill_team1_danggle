@@ -43,10 +43,10 @@
 				<a href="IN_Process">입고 처리</a>
 			</h3>
 			<h3 class="menuH3">
-				<a href="#">출고 예정</a>
+				<a href="OutSchList">출고 예정</a>
 			</h3>
 			<h3 class="menuH3">
-				<a href="#">출고 처리</a>
+				<a href="OutProList">출고 처리</a>
 			</h3>
 			<h3 class="menuH3">
 				<a href="#">재고 조정</a>

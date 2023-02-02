@@ -57,7 +57,7 @@ a:visited {
 }
 
 .container {
-	width: 1000px;
+	width: 1280px;
 	margin: auto;
 }
 
@@ -128,7 +128,7 @@ nav .fa.fa-angle-down {
 
 <body>
 	<h1 align="center" id="titleName">
-		<a href="/">댕글댕글 창고 재고관리</a>
+		<a href="/"><img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="vertical-align: top;">  ERP</a>
 	</h1>
 	<h3 align="right" style="vertical-align: text-bottom;">
 		<c:choose>
@@ -195,8 +195,8 @@ nav .fa.fa-angle-down {
 						<li><a href="WhList">창고 관리</a></li>
 						<li><a href="IN_Schedule">입고 예정</a></li>
 						<li><a href="IN_Process">입고 처리</a></li>
-						<li><a href="#">출고 예정</a></li>
-						<li><a href="#">출고 처리</a></li>
+						<li><a href="OutSchList">출고 예정</a></li>
+						<li><a href="OutProList">출고 처리</a></li>
 						<li><a href="#">재고 조정</a></li>
 					</ul>
 				</li>
