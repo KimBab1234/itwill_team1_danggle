@@ -128,7 +128,7 @@ nav .fa.fa-angle-down {
 
 <body>
 	<h1 align="center" id="titleName">
-		<a href="/">댕글댕글 창고 재고관리</a>
+		<a href="./">댕글댕글 창고 재고관리</a>
 	</h1>
 	<h3 align="right" style="vertical-align: text-bottom;">
 		<c:choose>
@@ -149,12 +149,12 @@ nav .fa.fa-angle-down {
 	<nav>
 		<div class="container">
 			<ul>
-				<li><a href="/">Home</a></li>
+				<li><a href="./">Home</a></li>
 				<li><a href="#">회사 연혁</a></li>
 				<li><a href="#">인사 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="HrRegist">사원 등록</a></li>
-						<li><a href="HrInquiry">사원 조회</a></li>
+						<li><a href="HrList">사원 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">거래처 관리<i class='fa fa-angle-down'></i></a>
