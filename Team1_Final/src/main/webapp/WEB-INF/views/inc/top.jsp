@@ -138,8 +138,8 @@ nav .fa.fa-angle-down {
 			</c:when>
 			<c:otherwise>
 				<a href="#" style="color: black;">${sessionScope.empName}님</a>
-				<a href="#"><i class="material-icons" style="color:black;">&#xe898;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="Logout"><i class="material-icons" style="color:black;">&#xe898;</i>로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="HrDetail?empNo=${sessionScope.empNo}"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i>${sessionScope.empName}님</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2bc;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i class="material-icons" style="color: black;">&#xe0e1;</i></a>
 			</c:otherwise>

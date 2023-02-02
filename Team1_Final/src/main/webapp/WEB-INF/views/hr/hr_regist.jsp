@@ -198,7 +198,7 @@ function execDaumPostcode() {
 		/////비밀번호 확인
 		var checkPasswdResult = false;
 		var checkPasswdSame = false;
-		$("#EMP_PASS_NEW1").on("change", function() {
+		$("#EMP_PASS_NEW1").on("keyup", function() {
 			let passwd = $(this).val();
 			let regex = /^[\w!@#$%]{8,16}$/;
 			if(!regex.exec(passwd)){
@@ -252,7 +252,7 @@ function execDaumPostcode() {
 			}
 		});
 		
-		$("#EMP_PASS_NEW2").on("change", function() {
+		$("#EMP_PASS_NEW2").on("keyup", function() {
 			if($("#EMP_PASS_NEW1").val()==$(this).val()) {
 				$("#checkPasswdSame").html("비밀번호가 일치합니다.").css("color","blue");
 				checkPasswdSame=true;
@@ -360,8 +360,6 @@ function execDaumPostcode() {
 		<form name="hrForm" id="hrForm" action="HrRegistPro" method="post" enctype="multipart/form-data">
 		<div align="center" style="width: 1300px;">
 			<h1 align="left"  id="hrRegiTitle"></h1>
-			<div align="left"><img src="${pageContext.request.contextPath}/resources/upload/${emp.PHOTO}" width="200"></div>
-		
 			<table class="regi_table" style="text-align: center; border: solid 1px; width: 900px;">
 				<tr>
 					<th align="right" width="150">이름</th>
@@ -387,10 +385,15 @@ function execDaumPostcode() {
 						</td>
 					</tr>
 					<tr>
-						<th align="right" width="150">변경 비밀번호</th>
+						<th align="right" width="150">신규 비밀번호</th>
 						<td align="left" >&nbsp;&nbsp;&nbsp;
 							<input type="password" class="thisEmp" id="EMP_PASS_NEW1" name="EMP_PASS_NEW" >
-							<span id="checkPasswdResult"></span><br>&nbsp;&nbsp;&nbsp;
+							<span id="checkPasswdResult"></span>
+						</td>
+					</tr>
+					<tr>
+						<th align="right" width="150">신규 비밀번호 확인</th>
+						<td align="left" >&nbsp;&nbsp;&nbsp;
 							<input type="password" class="thisEmp" id="EMP_PASS_NEW2" >
 							<span id="checkPasswdSame"></span>
 						</td>
@@ -522,8 +525,9 @@ function execDaumPostcode() {
 				<tr>
 					<th align="right" >사진이미지</th>
 					<td align="left" style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;
-						<input type="file" class = "thisEmp" id="registPHOTO" name="registPHOTO" style="padding:0px;margin:0px;">
+						<input type="file" class = "thisEmp" id="registPHOTO" name="registPHOTO" style="">
 						<input type="hidden" name="PHOTO" value="${emp.PHOTO}" >
+						<span><img src="${pageContext.request.contextPath}/resources/img/${emp.PHOTO}" width="150"></span>
 					</td>
 				</tr>
 			</table>
