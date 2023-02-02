@@ -6,7 +6,7 @@
 #verticalNav{
 	margin: 0;
 	padding: 0;
-	position: fixed;
+	position: absolute;
 	height: 100%;
 	border-right:solid 1px; border-color: #BDBDBD;
 }
