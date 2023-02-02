@@ -10,11 +10,6 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 
-<%	String sId = (String)session.getAttribute("sId");
-	if(sId == null || !sId.equals("admin")) { %>  
-		alert("잘못된 접근입니다");
-		history.back();
-<%  }%>
 	
 	let productType = '<c:out value="${productType}"/>';
 
@@ -136,7 +131,7 @@
 					<th>카테고리</th>
 					<td>
 						<div id="selectBookcate">
-							<select name="book_genre" class="book_genre">
+							<select name="genre" class="book_genre">
 								<option value="humanities" class="book_genre">인문</option>
 								<option value="novel" class="book_genre">소설</option>
 								<option value="poem" class="book_genre">시</option>
@@ -155,21 +150,22 @@
 				<tr>
 					<th>책 정보</th>
 					<td>
-						<div class="bookArea">작가명 : <input type="text" required="required" id="writer" name="book_writer" class="book_div" value="${product.book_writer}"></div>
-						<div class="bookArea">출판사 : <input type="text" required="required" id="publisher" name="book_publisher" class="book_div" value="${product.book_publisher }"></div>
-						<div class="bookArea">출판일 : <input type="date" required="required" id="date" name="book_date" value="${product.book_date }"></div>
+						<div class="bookArea">작가명 : <input type="text" required="required" id="writer" name="book_writer" class="book_div" value="${product.writer}"></div>
+						<div class="bookArea">출판사 : <input type="text" required="required" id="publisher" name="book_publisher" class="book_div" value="${product.publisher }"></div>
+						<div class="bookArea">출판일 : <input type="date" required="required" id="date" name="book_date" value="${product.date }"></div>
 					</td>
 				</tr>
 			</c:if>
 			<c:if test="${productType eq 'goods'}">
+				
 				<tr>
 					<th>옵션</th>
 					<td>
 					<div id="optionArea">
-						<c:if test="${product.option_name.size() ne 0}">
-							<c:forEach var="i" begin="0" end="${product.option_name.size() -1 }">
-								<div id="optionDiv' + optionIndex +'"><input type="text" name="option_name" value="${product.option_name.get(i)}">
-								<input type="number" name="option_qauntity" id="optionNum'+ optionIndex +'" class="optionNum" value="${product.option_qauntity.get(i)}">
+						<c:if test="${product.option.size() ne 0}">
+							<c:forEach var="i" begin="0" end="${product.option.size()-1}">
+								<div id="optionDiv' + optionIndex +'"><input type="text" name="option_name" value="${product.option.get(i).option_name}">
+								<input type="number" name="option_qauntity" id="optionNum'+ optionIndex +'" class="optionNum" value="${product.option.get(i).option_quantity}">
 								<input type="button" value="✖️" class="removeOpt" ></div>
 							</c:forEach>
 						</c:if>
@@ -218,7 +214,7 @@
 
 					<hr>
 					<div id="textDiv">
-						<textarea rows="30" cols="50" name="detail">${product.detail}</textarea>
+						<textarea rows="30" cols="50" name="detail">${product.detail }</textarea>
 					</div>
 				</td>
 			</tr>
@@ -242,7 +238,7 @@
 	<script type="text/javascript"> 
 		
 		let genre = document.getElementsByClassName("book_genre");
-		let ori_genre = '<c:out value="${product.book_genre}"/>';
+		let ori_genre = '<c:out value="${product.genre}"/>';
 		for(var i = 0; i < genre.length; i++){
 			if(ori_genre == genre[i].value){
 				genre[i].selected = 'selected';

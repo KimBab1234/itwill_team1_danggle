@@ -49,6 +49,7 @@ import com.itwillbs.team1.svc.ProductService;
 import com.itwillbs.team1.vo.ActionForward;
 import com.itwillbs.team1.vo.PageInfo;
 import com.itwillbs.team1.vo.ProductBean;
+import com.itwillbs.team1.vo.ProductOptBean;
 
 
 @Controller
@@ -61,7 +62,11 @@ public class BookFrontController extends HttpServlet {
 	public String ProductRegistration(Model model, HttpSession session) {
 		System.out.println("상품 등록 폼 페이지");
 		
-		// 관리자 아니면 쫒아내기 추가하기
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("") || !sId.equals("admin")) {
+			model.addAttribute("msg", "잘못된 접근입니다");
+			return "fail_back";
+		}
 		
 		return "product/product_registration_form";
 	}
@@ -150,14 +155,18 @@ public class BookFrontController extends HttpServlet {
 			Model model, HttpServletResponse response, HttpSession session) {
 		System.out.println("상품 목록");
 		
-		// 관리자 외 쫒아내기 추가 필요
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("") || !sId.equals("admin")) {
+			model.addAttribute("msg", "잘못된 접근입니다");
+			return "fail_back";
+		}
 		
 		
 		int listLimit = 10; 
 		int startRow = (pageNum - 1) * listLimit;
+		
 
-		List<ProductBean> bookList = service.getBookList(searchType, keyword, startRow, listLimit);
-		List<ProductBean> goodsList = service.getGoodsList(searchType, keyword, startRow, listLimit);
+		
 		
 		int goodslistCount = service.getGoodsListCount(searchType, keyword); // 굿즈 전체 게시물 조회
 		int listCount = service.getBookListCount(searchType, keyword); // 책 전체 게시물 조회
@@ -173,7 +182,6 @@ public class BookFrontController extends HttpServlet {
         int endPage = startPage + pageListLimit - 1;
         
         int goodsEndPage = startPage + pageListLimit - 1;
-        
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
@@ -182,18 +190,25 @@ public class BookFrontController extends HttpServlet {
 		
 		int goodsMaxPage = goodslistCount / listLimit 
     			+ (goodslistCount % listLimit == 0 ? 0 : 1); 
-		System.out.println("마지막 페이지 확인 : " + goodsMaxPage);
-		System.out.println("end 페이지 확인 : " + goodsEndPage);
 	
 		if(goodsEndPage > goodsMaxPage) {
 			goodsEndPage = goodsMaxPage;
 		}
-		System.out.println("굿즈 end 페이지 : " + goodsEndPage);
-//		PageInfo goodsPageInfo = new PageInfo(goodslistCount, pageListLimit, goodsMaxPage, startPage, goodsEndPage, endPage, maxPage);
+		int GoodsstartRow = (pageNum - 1) * listLimit;
+		if(pageNum > goodsEndPage) {
+			GoodsstartRow = (goodsEndPage - 1) * listLimit; 
+		}
+		
+		List<ProductBean> bookList = service.getBookList(searchType, keyword, startRow, listLimit);
+		List<ProductBean> goodsList = service.getGoodsList(searchType, keyword, GoodsstartRow, listLimit);
+		
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 		PageInfo goodsPageInfo = new PageInfo(goodslistCount, pageListLimit, goodsMaxPage, startPage, goodsEndPage);
 		
+		System.out.println("굿즈목록 확인 : " + goodsList);
+		
 		bookList.addAll(goodsList);
+		
 		
 		model.addAttribute("goodsPageInfo", goodsPageInfo);
 		model.addAttribute("productList", bookList);
@@ -203,13 +218,74 @@ public class BookFrontController extends HttpServlet {
 		
 
 	}
+	
+	@GetMapping(value = "/ProductEditForm.ad")
+	public String productEdit(HttpSession session, Model model, @RequestParam String product_idx) {
+		System.out.println("상품 수정 폼 페이지");
+		
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("") || !sId.equals("admin")) {
+			model.addAttribute("msg", "잘못된 접근입니다");
+			return "fail_back";
+		}
+		
+		ProductBean product = service.getProduct(product_idx);
 
+		if(product.getProduct_idx().substring(0, 1).equals("B")) {
+			model.addAttribute("productType", "book");
+		}else {
+			model.addAttribute("productType", "goods");
+		}
+		model.addAttribute("product", product);
+
+		return"product/product_edit_form";
+	}
+	
+	@GetMapping(value = "//ProductDelete.ad")
+	public String deleteProduct(HttpSession session, Model model, @RequestParam String product_idx, @RequestParam(defaultValue = "1") int pageNum,
+			@ModelAttribute ProductBean product) {
+		System.out.println("상품 삭제");
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("") || !sId.equals("admin")) {
+			model.addAttribute("msg", "잘못된 접근입니다");
+			return "fail_back";
+		}
+		
+		ProductBean fileName = service.selectFileName(product.getProduct_idx());
+//		System.out.println("파일이름 확인 : " + fileName);
+
+		int deleteCount = service.removeProduct(product_idx);
+		
+		if(deleteCount > 0) {
+			String uploadDir = "/resources/upload";
+			String saveDir = session.getServletContext().getRealPath(uploadDir);
+			
+			String img = fileName.getImg(); // 대표이미지는 무조건 삭제
+			
+			
+			
+			
+			
+			
+		}else {
+			
+		}
+		
+		
+		
+		return "product/productList?pageNum";
+	}
+	
 	
 	@GetMapping(value = "/RecommendBookList.ad")
-	public String recommendBookList() {
+	public String recommendBookList(Model model, HttpSession session) {
 		System.out.println("추천 도서 목록");
 		
-		// 관리자 외 쫓아내기 추가
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("") || !sId.equals("admin")) {
+			model.addAttribute("msg", "잘못된 접근입니다");
+			return "fail_back";
+		}
 		
 		return "product/recommend_bookList";
 	}
@@ -261,7 +337,11 @@ public class BookFrontController extends HttpServlet {
 	public String recoBookDelete(@RequestParam String product_idx, Model model, HttpSession session) {
 		System.out.println("추천 도서 삭제");
 		
-		// 관리자 외 쫓아내기 추가 필요
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("") || !sId.equals("admin")) {
+			model.addAttribute("msg", "잘못된 접근입니다");
+			return "fail_back";
+		}
 		
 		int deleteCount = service.deleteRocoBook(product_idx);
 		

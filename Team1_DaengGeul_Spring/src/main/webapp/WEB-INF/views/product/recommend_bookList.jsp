@@ -9,6 +9,7 @@
 <title>추천 도서 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <link href="${pageContext.request.contextPath }/resources/css/product.css" rel="stylesheet" type="text/css" />
+<script src="https://kit.fontawesome.com/8f75f06127.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 	
@@ -91,6 +92,11 @@
 				<tr>
 				
 			</table>
+			<section id="pageList">
+				<a><i class="fas fa-solid fa-angles-left"></i></a>
+				<div class="here">1</div>
+				<a><i class="fas fa-solid fa-angles-right"></i></a>
+			</section> 
 		</div>
 	</div>
 </div>

@@ -90,12 +90,24 @@ public class ProductService {
 	
 	public ProductBean selectFileName(String product_idx) {
 		System.out.println("selectFileName - 파일 이름 조회");
-		return mapper.selectFileName(product_idx);
+		
+		if(product_idx.substring(0, 1).equals("B")) {
+			return mapper.selectBookFileName(product_idx);
+		}else {
+			return mapper.selectGoodsFileName(product_idx);
+		}
+		
 	}
 
 	public int removeProduct(String product_idx) {
 		System.out.println("removeProduct - 상품 삭제");
-		return mapper.deleteProduct(product_idx);
+		
+		if(product_idx.substring(0, 1).equals("B")) {
+			return mapper.deleteBook(product_idx);
+		}else {
+			return mapper.deleteGoods(product_idx);
+		}
+
 	}
 	
 	public int updateBook(ProductBean product) {

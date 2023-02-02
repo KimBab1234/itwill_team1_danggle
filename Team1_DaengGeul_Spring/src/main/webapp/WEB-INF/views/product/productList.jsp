@@ -59,6 +59,8 @@
 			$("#goodsList").show();
 			$("#choice_goods").css("background", "#c9b584").css("color", "#736643");
 			$("#choice_book").css("background", "#736643").css("color", "#c9b584");
+			
+			
 		});
 		
 		$("#recoBtn").on("click", function() {
@@ -195,14 +197,6 @@
 					<th width="55">삭제</th>
 				<tr>
 				<c:forEach var="product" items="${productList }">
-				<c:choose>
-						<c:when test="${empty param.pageNum }">
-							<c:set var="pageNum" value="1" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="pageNum" value="${param.pageNum }" />
-						</c:otherwise>
-					</c:choose>
 					<c:if test="${product.product_idx.substring(0,1) == 'G'}">
 						<tr>
 							<td>${product.product_idx}</td>
@@ -232,32 +226,9 @@
 				</c:forEach>
 			</table>
 			<section id="pageList">
-				<c:choose>
-					<c:when test="${pageNum > 1}">
-						<a href="ProductList.ad?product=G&pageNum=${pageNum - 1}"><i class="fas fa-solid fa-angles-left"></i></a>
-					</c:when>
-					<c:otherwise>
-						<a><i class="fas fa-solid fa-angles-left"></i></a>
-					</c:otherwise>
-				</c:choose>
-				<c:forEach var="i" begin="${goodsPageInfo.startPage }" end="${goodsPageInfo.endPage }">
-					<c:choose>
-						<c:when test="${pageNum eq i}">
-							<div class="here">${i }</div>
-						</c:when>
-						<c:otherwise>
-							<a href="ProductList.ad?product=G&pageNum=${i }"><div class="notHere">${i }</div></a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${pageNum < goodsPageInfo.maxPage}">
-					<a href="ProductList.ad?product=G&pageNum=${pageNum + 1}"><i class="fas fa-solid fa-angles-right"></i></a>
-					</c:when>
-					<c:otherwise>
-						<a><i class="fas fa-solid fa-angles-right"></i></a>
-					</c:otherwise>
-				</c:choose>
+					<a><i class="fas fa-solid fa-angles-left"></i></a>
+					<div class="here">1</div>
+					<a><i class="fas fa-solid fa-angles-right"></i></a>
 			</section> 
 		</div>
 		</div>
