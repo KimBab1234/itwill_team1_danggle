@@ -128,7 +128,7 @@ nav .fa.fa-angle-down {
 
 <body>
 	<h1 align="center" id="titleName">
-		<a href="/"><img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="vertical-align: top;">  ERP</a>
+		<a href="./"><img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="vertical-align: top;">  ERP</a>
 	</h1>
 	<h3 align="right" style="vertical-align: text-bottom;">
 		<c:choose>
@@ -149,18 +149,18 @@ nav .fa.fa-angle-down {
 	<nav>
 		<div class="container">
 			<ul>
-				<li><a href="/">Home</a></li>
+				<li><a href="./">Home</a></li>
 				<li><a href="#">회사 연혁</a></li>
 				<li><a href="#">인사 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="HrRegist">사원 등록</a></li>
-						<li><a href="HrInquiry">사원 조회</a></li>
+						<li><a href="HrList">사원 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">거래처 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
-						<li><a href="#">거래처 등록</a></li>
-						<li><a href="#">거래처 조회</a></li>
+						<li><a href="AccRegist">거래처 등록</a></li>
+						<li><a href="AccList">거래처 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">품목 관리<i class='fa fa-angle-down'></i></a>
@@ -172,7 +172,7 @@ nav .fa.fa-angle-down {
 				<li><a href="#">창고 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="WhRegistForm">창고 등록</a></li>
-						<li><a href="#">창고 조회</a></li>
+						<li><a href="WhList">창고 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">발주 요청<i class='fa fa-angle-down'></i></a>
