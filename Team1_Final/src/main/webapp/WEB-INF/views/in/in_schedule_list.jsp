@@ -38,7 +38,7 @@ th{
 				<th>인쇄</th>
 			</tr>
 		</table><br>
-		<button onclick="window.open('IncomingRegistration', 'incomeRegi', 'width=800, height=500, left=600, top=400')">등록</button>
+		<button onclick="window.open('IncomingRegistration', 'incomeRegi', 'width=1000, height=700, left=600, top=400')">등록</button>
 	</div>
 </body>
 </html>
