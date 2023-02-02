@@ -6,7 +6,7 @@
 	
 	let result = "${result}";
 	
-	if(result){
+	if(result=="true"){
 		
 		let ment = "추천 도서에 등록되었습니다. \n추천 도서 목록으로 이동하시겠습니까?";
 		
@@ -17,7 +17,7 @@
 		}
 	}
 	
-	alter('${msg}');
+	alert('${msg}');
 	history.back();
 	
 	
