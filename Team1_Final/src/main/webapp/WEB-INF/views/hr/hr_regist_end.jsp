@@ -30,11 +30,11 @@
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;" align="center">
-		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
+		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
 			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
-		<div style="width: 1300;" align="center">
+		<div style="width: 1500px;" align="center">
 			<h1>등록 완료</h1>
 			<h3>등록한 이메일로 임시 비밀번호가 발송되었습니다.</h3>
 			<h3>임시 비밀번호로 로그인 후 비밀번호 변경을 해주세요.</h3>

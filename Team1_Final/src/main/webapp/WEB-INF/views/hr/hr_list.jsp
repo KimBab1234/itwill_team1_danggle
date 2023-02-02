@@ -18,18 +18,19 @@
 		<div style="width: 1500px;">
 		<h1 align="left" style="text-align: left; margin-left: 100px;">| 사원 조회</h1>
 		<div style="display: flex; width: 1500px; text-align: right" >
-			<button type="button" style="width: 180px; font-size:18px; font-weight: bold;" onclick="location.href='HrRegist'">신규 등록</button>
-			<form action="HrList" method="post">
-				<select name="searchType">
-					<option value="">검색어 선택</option>
+			<span><button type="button" style="width: 180px; font-size:18px; font-weight: bold;" onclick="location.href='HrRegist'">신규 등록</button></span>
+			<form action="HrList" method="post" style="width: 1500px; text-align: right;">
+				<select name="searchType" style="text-align: center;">
+					<option value="">검색 유형</option>
 					<option value="EMP_NUM">사번</option>
-					<option value="">검색어 선택</option>
+					<option value="EMP_NAME">사원명</option>
+					<option value="DEPT_NAME">부서명</option>
 				</select>
 				<input type="text" name="keyword">
 				<button type="button" style="width: 180px; font-size:18px; font-weight: bold;" onclick="location.href='HrList'">사원 검색</button>
 			</form>
 		</div>
-		<table border="1" class="regi_table" style="text-align: center; width: 1300px; font-size: 20px;">
+		<table border="1" class="regi_table" style="text-align: center; width: 1300px; margin-top:20px;  font-size: 20px;">
 			<tr>
 				<th width="150">사진</th>
 				<th width="150">사번</th>
