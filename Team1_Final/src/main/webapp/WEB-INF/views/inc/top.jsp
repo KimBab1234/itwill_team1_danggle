@@ -130,14 +130,13 @@ nav .fa.fa-angle-down {
 	<h1 align="center" id="titleName">
 		<a href="./"><img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="vertical-align: top;">  ERP</a>
 	</h1>
-	<h3 align="right" style="vertical-align: text-bottom;">
+	<h3 align="right" style="vertical-align: text-bottom; margin-right: 20px;">
 		<c:choose>
 			<c:when test="${empty sessionScope.empName}">
 				<a href="Login" style="color: black;">로그인</a>
 				<a href="#" style="font-size: 20px; text-align: center;"><i class="material-icons" style="color:black;">&#xe899;</i></a>
 			</c:when>
 			<c:otherwise>
-				<a href="#" style="color: black;">${sessionScope.empName}님</a>
 				<a href="Logout"><i class="material-icons" style="color:black;">&#xe898;</i>로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="HrDetail?empNo=${sessionScope.empNo}"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i>${sessionScope.empName}님</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2bc;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
