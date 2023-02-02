@@ -3,6 +3,8 @@ package com.itwillbs.team1_final.vo;
 import org.springframework.web.multipart.MultipartFile;
 
 /*
+ * 
+ * ALTER TABLE '테이블명' MODIFY 컬럼명 INT NOT NULL AUTO_INCREMENT;로 자동추가인 애들 다 추가해줌
 PRODUCT_CD	품목코드	NUMBER
 PRODUCT_NAME	품목명	VARCHAR(100)
 PRODUCT_GROUP_BOTTOM_CD	품목그룹(소)	VARCHAR(50)
@@ -52,6 +54,7 @@ public class PdVO {
 	private int PRODUCT_GROUP_TOP_CD;
 	private String PRODUCT_GROUP_TOP_NAME;
 	private String PRODUCT_GROUP_BOTTOM_NAME;
+	private String PRODUCT_TYPE_NAME;
 	
 	public int getPRODUCT_CD() {
 		return PRODUCT_CD;
@@ -131,14 +134,42 @@ public class PdVO {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+	public int getPRODUCT_GROUP_TOP_CD() {
+		return PRODUCT_GROUP_TOP_CD;
+	}
+	public void setPRODUCT_GROUP_TOP_CD(int pRODUCT_GROUP_TOP_CD) {
+		PRODUCT_GROUP_TOP_CD = pRODUCT_GROUP_TOP_CD;
+	}
+	public String getPRODUCT_GROUP_TOP_NAME() {
+		return PRODUCT_GROUP_TOP_NAME;
+	}
+	public void setPRODUCT_GROUP_TOP_NAME(String pRODUCT_GROUP_TOP_NAME) {
+		PRODUCT_GROUP_TOP_NAME = pRODUCT_GROUP_TOP_NAME;
+	}
+	public String getPRODUCT_GROUP_BOTTOM_NAME() {
+		return PRODUCT_GROUP_BOTTOM_NAME;
+	}
+	public void setPRODUCT_GROUP_BOTTOM_NAME(String pRODUCT_GROUP_BOTTOM_NAME) {
+		PRODUCT_GROUP_BOTTOM_NAME = pRODUCT_GROUP_BOTTOM_NAME;
+	}
+	public String getPRODUCT_TYPE_NAME() {
+		return PRODUCT_TYPE_NAME;
+	}
+	public void setPRODUCT_TYPE_NAME(String pRODUCT_TYPE_NAME) {
+		PRODUCT_TYPE_NAME = pRODUCT_TYPE_NAME;
+	}
 	@Override
 	public String toString() {
-		return "ItemVO [PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME + ", PRODUCT_GROUP_BOTTOM_CD="
+		return "PdVO [PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME + ", PRODUCT_GROUP_BOTTOM_CD="
 				+ PRODUCT_GROUP_BOTTOM_CD + ", SIZE_DES=" + SIZE_DES + ", UNIT=" + UNIT + ", BARCODE=" + BARCODE
 				+ ", IN_UNIT_PRICE=" + IN_UNIT_PRICE + ", OUT_UNIT_PRICE=" + OUT_UNIT_PRICE + ", PRODUCT_TYPE_CD="
 				+ PRODUCT_TYPE_CD + ", BUSINESS_NO=" + BUSINESS_NO + ", PRODUCT_IMAGE=" + PRODUCT_IMAGE + ", REMARKS="
-				+ REMARKS + ", file=" + file + "]";
+				+ REMARKS + ", file=" + file + ", PRODUCT_GROUP_TOP_CD=" + PRODUCT_GROUP_TOP_CD
+				+ ", PRODUCT_GROUP_TOP_NAME=" + PRODUCT_GROUP_TOP_NAME + ", PRODUCT_GROUP_BOTTOM_NAME="
+				+ PRODUCT_GROUP_BOTTOM_NAME + ", PRODUCT_TYPE_NAME=" + PRODUCT_TYPE_NAME + "]";
 	}
+	
+	
 	
 	
 	
