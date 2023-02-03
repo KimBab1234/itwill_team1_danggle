@@ -229,7 +229,7 @@ public class PdController {
 	// 바코드 생성
 	   @ResponseBody
 	   @RequestMapping(value = "/Barcode", method = RequestMethod.GET)
-	   public String newBarcode() {
+	   public void Barcode(Model model) {
 	      System.out.println("바코드생성");
 	
 	      char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -240,10 +240,10 @@ public class PdController {
 	         barcode += charSet[idx];
 	         
 	         System.out.println("barcode: " + barcode);
-	         // pd_regist에서 ajax로 해야함(href지우기!!)
+	         model.addAttribute("barcode", barcode);
+	         
 	      
 	   }
-	      return "";
 		
 	   }	
 }

@@ -21,7 +21,24 @@ table {
 	
 }
 </style>
+<script type="text/javascript">
+	function Barcode() {
 
+		$.ajax({
+			type: "GET",
+			url: "Barcode",
+			dataType: "json",
+				
+		})
+		.done(function(barcode) {
+			$("#BARCODE").val(barcode);
+		})
+		.fail(function() {
+			$("#BARCODE").append("<h3>요청 실패!</h3>");
+		});
+	
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -67,8 +84,8 @@ table {
 				<tr>
 					<td id="td_left"><label for="BARCODE">바코드</label></td>
 					<td>
-						<input type="text" name="BARCODE" id="BARCODE" required="required" style="height: 30px; width: 105px;">
-						<button type="button" onclick="location.href='Barcode'">바코드 생성</button>
+						<input type="text" name="BARCODE" id="BARCODE" required="required" readonly="readonly" style="height: 30px; width: 105px;" value="${barcode }">
+						<button type="button" onclick="Barcode()">바코드 생성</button>
 					</td>
 				</tr>
 				<tr>
