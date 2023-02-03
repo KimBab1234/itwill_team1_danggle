@@ -138,7 +138,7 @@ public class HrController {
 		
 		System.out.println("사원 조회");
 		
-		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
+		int listLimit = 1; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
 		ArrayList<HrVO> empList = service.getEmpList(searchType, keyword, startRow, listLimit);
 		
@@ -165,7 +165,7 @@ public class HrController {
 		
 		System.out.println("사원 조회 목록 페이지처리");
 		
-		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
+		int listLimit = 1; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int listCount = service.getEmpListCount(searchType, keyword);
 		int pageListLimit = 3;
 		int maxPage = listCount / listLimit + (listCount % listLimit == 0 ? 0 : 1); 

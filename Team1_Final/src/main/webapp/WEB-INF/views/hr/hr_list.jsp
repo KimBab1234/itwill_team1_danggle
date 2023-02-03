@@ -5,22 +5,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
 <script src="https://kit.fontawesome.com/5fad4a5f29.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<style>
+
+.here {
+	margin : 20px;
+}
+
+.here:hover {
+	cursor: pointer;
+	
+}
+
+</style>
 <title>Insert title here</title>
 <script>
+	
+	
+
 	$(function() {
+		var pageList = {};
 		
-// 		var pageList = {
-// 			listCount   
-// 			pageListLimit; 
-// 			maxPage;       
-// 			startPage;     s
-// 			endPage;       
-// 		}
 		///처음 들어왔을때 기본값 1
 		var pageNum = 1;
 		var pageListLimit = 5;
+		var startPage;
+		var endPage;
+		var maxPage;
+		var	searchType;
+		var keyword;
 		
 		function getEmpList(toPageNum, searchType, keyword) {
 			////새로운 페이지로 바꿔주기
@@ -37,21 +52,21 @@
 				success : function(response) {
 					emp = response.jsonEmp;
 					/// 테이블 초기화
-					$(".empListAdd").html("");
+					$("tbody").empty();
 					/// 데이터 뿌리기
 					if(emp.length==0) {
 						$("#searchNone").html("<h3>검색 결과가 없습니다.</h3>");
 					} else {
 						for(var i=0; i<emp.length; i++) {
-							$(".regi_table").append('<tr class="empListAdd"><td><img src="${pageContext.request.contextPath}/resources/img/'+emp[i].PHOTO+'" width="100"></td>'
-									+'<td>'+emp[i].EMP_NUM+'</td>'
-									+'<td>'+emp[i].EMP_NAME+'</td>'
-									+'<td>'+emp[i].DEPT_NAME+'</td>'
-									+'<td>'+emp[i].GRADE_NAME+'</td>'
-									+'<td>'+emp[i].EMP_TEL+'</td>'
-									+'<td>'+emp[i].EMP_EMAIL+'</td>'
-									+'<td><button type="button" class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; " onclick="location.href=\'HrDetail?empNo='+emp[i].EMP_NUM+'\'">상세정보</button>'
-									+'<br><button type="button"  class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; margin-top: 10px;" onclick="location.href=\'HrEdit?empNo='+emp[i].EMP_NUM+'\'">수정</button></td>'
+							$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td><img src="${pageContext.request.contextPath}/resources/img/'+emp[i].PHOTO+'" width="100"></td>'
+									+'<td width="150">'+emp[i].EMP_NUM+'</td>'
+									+'<td width="150">'+emp[i].EMP_NAME+'</td>'
+									+'<td width="120">'+emp[i].DEPT_NAME+'</td>'
+									+'<td width="150">'+emp[i].GRADE_NAME+'</td>'
+									+'<td width="70">'+emp[i].EMP_TEL+'</td>'
+									+'<td width="150">'+emp[i].EMP_EMAIL+'</td>'
+									+'<td>width="250"<button type="button" class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; " onclick="location.href=\'HrDetail?empNo='+emp[i].EMP_NUM+'\'">상세정보</button>'
+									+'<br>width="200"<button type="button"  class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; margin-top: 10px;" onclick="location.href=\'HrEdit?empNo='+emp[i].EMP_NUM+'\'">수정</button></td>'
 									+'</tr>');
 						}
 					}
@@ -59,6 +74,35 @@
 				}
 			});
 		}
+		
+		////페이지 목록 뿌리기 (가지고있는 데이터로 뿌리기만 함)
+		function pageListChange(toPage) {
+			
+			///pageNum 변경
+			pageNum = toPage;
+			
+			/// pageList 영역 초기화
+			$("#pageListSection").html("");
+			
+			/// 데이터 뿌리기
+			startPage = (pageNum-1) / pageListLimit * pageListLimit + 1;
+			endPage = startPage + pageListLimit - 1;
+			maxPage = pageList.maxPage; 
+
+			if(endPage > maxPage) {
+				endPage = maxPage;
+			}
+			if(pageNum > pageListLimit) {
+				$("#pageListSection").append('<i class="fas fa-solid fa-angles-left"></i>');
+			}
+			for(var i=startPage; i <= endPage; i++) {
+				$("#pageListSection").append('<span class="here">'+ i + '</span>');
+			}
+			if(pageNum > pageListLimit && endPage < pageListLimit) {
+				$("#pageListSection").append('<i class="fas fa-solid fa-angles-right"></i>');
+			}
+		}
+		
 		
 		////페이징처리
 		function getPageList(pageNum, searchType, keyword) {
@@ -80,29 +124,6 @@
 			pageListChange(pageNum);
 		}
 		
-		////페이지 목록 뿌리기 (가지고있는 데이터로 뿌리기만 함)
-		function pageListChange(toPage) {
-			
-			///pageNum 변경
-			pageNum = toPage;
-			
-			/// pageList 영역 초기화
-			$(".pageListSection").html("");
-			
-			/// 데이터 뿌리기
-			var startPage = (pageNum-1) / pageListLimit * pageListLimit + 1;
-			var endPage = startPage + pageListLimit - 1;
-			alert("A"+pageList.maxPage);
-			if(endPage > pageList.maxPage) {
-				endPage = pageList.maxPage;
-			}
-			
-			for(var i=startPage; i < endPage; i++) {
-				pageListSection.append('<div class="here">'+i+'</div>');
-			}
-		}
-		
-		
 		
 		////재직 or 휴,퇴직 선택시 목록 변경
 		$(".choice").on("click", function() {
@@ -111,15 +132,13 @@
 			getEmpList(1, 'WORK_CD', workTypeSel);
 		});
 		
+		$(".here").on("click", function() {
+			getPageList(pageNum, searchType, keyword);
+		});
 		
-		
-		
-		///폼들어오면 제일 기본페이지(=재직중인 사람 1페이지) 보여주기
 		getEmpList(1,'WORK_CD','1');
 		getPageList(1,'WORK_CD','1');
-		
 	});
-
 
 </script>
 <style>
@@ -164,13 +183,16 @@ option {
 				<th width="250">E-MAIL</th>
 				<th width="200">버튼</th>
 			</tr>
+			<tbody>
+			
+			</tbody>
 		</table>
 		<div align="right" style="width: 1300px;">
 		<button type="button" class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; margin-top: 10px;" onclick="location.href='HrRegist'">신규 등록</button>
 		</div>
 		
 		<!-- 페이지 목록 부분 -->
-      <section id="pageListSection">
+      <section id="pageListSection" style="font-weight: bold; font-size: 20px;">
 			
 		</section> 
         <!-- 페이지 목록 끝-->
