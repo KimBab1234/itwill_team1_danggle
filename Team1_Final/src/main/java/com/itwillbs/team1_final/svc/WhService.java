@@ -55,18 +55,19 @@ public class WhService {
 	}
 
 
-	public List<WhVO> selectWhArea(String wH_CD, String wH_AREA, String wH_AREA_CD) {
+	public List<WhVO> selectWhArea(String WH_CD) {
 		
-		return mapper.selectWhArea(wH_CD,wH_AREA,wH_AREA_CD);
+		return mapper.selectWhArea(WH_CD);
 	}
 
-	public List<WhVO> getWhLocationList(String wH_AREA_CD, String wH_LOC_IN_AREA, String wH_LOC_IN_AREA_CD) {
-		
-		return mapper.selectLocationList(wH_AREA_CD,wH_LOC_IN_AREA,wH_LOC_IN_AREA_CD);
-	}
 
 	public int registWhLocation(WhVO wh) {
 
 		return mapper.insertWhLocation(wh);
+	}
+
+	public List<WhVO> getWhLocationList(int WH_AREA_CD) {
+		
+		return mapper.selectWhLocation(WH_AREA_CD);
 	}
 }

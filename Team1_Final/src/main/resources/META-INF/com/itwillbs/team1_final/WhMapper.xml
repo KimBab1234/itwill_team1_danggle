@@ -122,24 +122,24 @@
 	
 	</insert>
 	
-	<select id="selectWhArea">
+	<select id="selectWhArea" resultType="com.itwillbs.team1_final.vo.WhVO">
 		SELECT *
 			FROM wh_area
 			WHERE WH_CD = #{WH_CD}
 			
 	</select>
 	
-	<select id="getWhLocationList">
+	<select id="selectWhLocation" resultType="com.itwillbs.team1_final.vo.WhVO">
 		SELECT *
 			FROM wh_loc
-			WHERE WH_AREA_CD = #{WH_AREA_CD}
+			WHERE WH_AREA_CD = #{WH_AREA_CD} 
 	
 	</select>
 	
 	<insert id="insertWhLocation">
 		INSERT
 			INTO wh_loc
-			VALUSE(
+			VALUES(
 				#{WH_AREA_CD}
 				,#{WH_LOC_IN_AREA}
 				,null

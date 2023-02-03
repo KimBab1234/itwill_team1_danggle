@@ -172,8 +172,8 @@ public class WhController {
 	}
 	
 	@GetMapping(value = "/WhAreaRegist")
-	public String WhAreaRegist(Model model, HttpSession session, WhVO wh
-								,@RequestParam String WH_CD,@RequestParam String WH_AREA,@RequestParam String WH_AREA_CD) {
+	public String WhAreaRegist(Model model, HttpSession session, WhVO wh,@RequestParam String WH_CD) {
+//								,@RequestParam String WH_AREA,@RequestParam int WH_AREA_CD) {
 		
 //		String sId = (String)session.getAttribute("sId");
 //		if(sId == null || sId.equals("")) {
@@ -181,7 +181,7 @@ public class WhController {
 //			return "fail_back";
 //		}
 		//select 하는 거 만들기 
-		List<WhVO> WhAreaList = service.selectWhArea(WH_CD,WH_AREA,WH_AREA_CD);
+		List<WhVO> WhAreaList = service.selectWhArea(WH_CD);
 		
 		return "wh/area_regist";
 	}
@@ -201,15 +201,15 @@ public class WhController {
 	}
 	
 	@GetMapping(value = "/WhLocationRegist")
-	public String WhLocationRegist(Model model, HttpSession session, WhVO wh, @RequestParam String WH_AREA_CD,
-									@RequestParam String WH_LOC_IN_AREA,@RequestParam String WH_LOC_IN_AREA_CD) {
+	public String WhLocationRegist(Model model, HttpSession session, WhVO wh, @RequestParam int WH_AREA_CD) {
+//									@RequestParam String WH_LOC_IN_AREA,@RequestParam String WH_LOC_IN_AREA_CD) {
 //		String sId = (String)session.getAttribute("sId");
 //		if(sId == null || sId.equals("")) {
 //			model.addAttribute("msg", "로그인 필수");
 //			return "fail_back";
 //		}
 		
-		List<WhVO> WhLocationList =service.getWhLocationList(WH_AREA_CD,WH_LOC_IN_AREA,WH_LOC_IN_AREA_CD);
+		List<WhVO> WhLocationList =service.getWhLocationList(WH_AREA_CD);
 		
 		return "wh/location_regist";
 	}

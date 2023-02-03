@@ -23,7 +23,7 @@
 		<div align="center" style="width: 1300px;">
 			<h2 align="center">위치 등록</h2>
 			<form action="WhLocationRegistPro" method="post">
-			<input type="hidden" name="WH_AREA_CD" value="${param.WH_AREA_CD}">
+			<input type="hidden" name="WH_AREA_CD" value="${WH_AREA_CD}">
 			<table style="text-align: center; border: solid 1px; width: 500px; height: 150px;">
 				<tr>
 					<td align="right" style="width: 200px;">위치명</td> 
