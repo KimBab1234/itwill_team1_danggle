@@ -66,20 +66,20 @@
 	width: 130px;
 }
 
-.product_cd, .in_schedule_qty, .size_des {
+#product_cd, #in_schedule_qty, #size_des {
 	width: 80px;
 	border: none;
 	margin: 3px 0px 3px 0px;
 	color: #575754;
 }
-.product_name {
+#product_name {
 	width: 230px;
 	border: none;
 	margin: 3px 0px 3px 0px;
 	color: #575754;
 }
 
-.remarks {
+#remarks {
 	width: 180px;
 	border: none;
 	margin: 3px 0px 3px 0px;

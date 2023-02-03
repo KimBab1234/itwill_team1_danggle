@@ -70,6 +70,23 @@ table {
 			}
 		});
 	});
+	
+	$(function() {
+		// 담당자 이메일 도메인 선택 시 두번째 항목에 도메인 자동 입력
+		$("#domain2").on("change", function() {
+			$("#MAN_EMAIL2").val($(this).val());
+
+			// 도메인이 널스트링("")일 경우 입력창 잠금 해제, 아니면 입력창 잠금
+			if ($(this).val() == "") {
+				$("#MAN_EMAIL2").prop("readonly", false); // 잠금 해제
+				$("#MAN_EMAIL2").css("background-color", "white"); // 흰색 변경
+				$("#MAN_EMAIL2").focus(); // 포커스 요청
+			} else {
+				$("#MAN_EMAIL2").prop("readonly", true); // 잠금
+				$("#MAN_EMAIL2").css("background-color", "lightgray"); // 회색 변경
+			}
+		});
+	});
 </script>
 </head>
 <body>
@@ -77,7 +94,7 @@ table {
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
-			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
+			<jsp:include page="../inc/acc_left.jsp"></jsp:include>
 		</div>
 
 		<div align="center">
@@ -87,7 +104,7 @@ table {
 					<tr>
 						<td>회사명 &nbsp;</td>
 						<td colspan="4"><input type="text" name="CUST_NAME"
-							id="CUST_NAME" required="required"></td>
+							id="CUST_NAME" required="required" ></td>
 					</tr>
 					<tr>
 						<td>대표자명</td>
@@ -96,7 +113,7 @@ table {
 					</tr>
 					<tr>
 						<td>거래처코드</td>
-						<td><input type="text" name="BUSINESS_NO" id="BUSINESS_NO" required="required"></td>
+						<td><input type="text" name="BUSINESS_NO" id="BUSINESS_NO" required="required" maxlength="16"></td>
 					</tr>
 					<tr>
 						<td>거래처코드 &nbsp;</td>
@@ -120,21 +137,21 @@ table {
 					<tr>
 						<td>대표전화번호 &nbsp;</td>
 						<td colspan="4"><input type="text" name="TEL1" id="TEL1"
-							size="7">-<input type="text" name="TEL2" id="TEL2"
-							size="7">-<input type="text" name="TEL3" id="TEL3"
-							size="7"></td>
+							size="7" maxlength="3">-<input type="text" name="TEL2" id="TEL2"
+							size="7" maxlength="4">-<input type="text" name="TEL3" id="TEL3"
+							size="7" maxlength="4"></td>
 					</tr>
 					<tr>
 						<td>모바일</td>
 						<td colspan="4"><input type="text" name="MOBILE_NO1"
-							id="MOBILE_NO1" size="7">-<input type="text"
-							name="MOBILE_NO2" id="MOBILE_NO2" size="7">-<input
-							type="text" name="MOBILE_NO3" id="MOBILE_NO3" size="7"></td>
+							id="MOBILE_NO1" size="7" maxlength="3">-<input type="text"
+							name="MOBILE_NO2" id="MOBILE_NO2" size="7" maxlength="4">-<input
+							type="text" name="MOBILE_NO3" id="MOBILE_NO3" size="7" maxlength="4"></td>
 					</tr>
 					<tr>
 						<td>E-Mail</td>
 						<td colspan="4"><input type="text" name="EMAIL1" id="EMAIL1"
-							size="10">@<input type="text" name="EMAIL2" id="EMAIL2"
+							size="10" maxlength="20">@<input type="text" name="EMAIL2" id="EMAIL2"
 							size="10"> <select name="selectDomain" id="domain">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
@@ -157,7 +174,7 @@ table {
 					<tr>
 						<td>상세주소</td>
 						<td colspan="4"><input type="text" name="ADDR2" id="ADDR2"
-							required="required"></td>
+							required="required" maxlength="20"></td>
 					</tr>
 					<tr>
 						<td>홈페이지</td>
@@ -170,7 +187,7 @@ table {
 					</tr>
 					<tr>
 						<td>적요</td>
-						<td colspan="4"><textarea cols="20" rows="10" name="REMARKS"
+						<td colspan="4"><textarea cols="50" rows="10" name="REMARKS"
 								id="REMARKS"></textarea></td>
 					</tr>
 					<tr>
@@ -181,16 +198,16 @@ table {
 					<tr>
 						<td>담당자 전화번호</td>
 						<td colspan="4"><input type="text" name="MAN_TEL1"
-							id="MAN_TEL1" size="7">-<input type="text"
-							name="MAN_TEL2" id="MAN_TEL2" size="7">-<input
-							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7"></td>
+							id="MAN_TEL1" size="7" maxlength="3">-<input type="text"
+							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4">-<input
+							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4"></td>
 					</tr>
 					<tr>
 						<td>담당자 이메일</td>
 						<td colspan="4"><input type="text" name="MAN_EMAIL1"
 							id="MAN_EMAIL1" size="10">@<input type="text"
 							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10"> <select
-							name="selectDomain" id="domain">
+							name="selectDomain" id="domain2">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>

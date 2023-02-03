@@ -1,5 +1,7 @@
 package com.itwillbs.team1_final.svc;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class AccService {
 
 	public int insertAcc(AccVO acc) {
 		return mapper.insertAcc(acc);
+	}
+
+	public List<AccVO> getAccList() {
+		return mapper.accList();
 	}
 	
 	
