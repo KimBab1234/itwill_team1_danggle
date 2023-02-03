@@ -7,14 +7,19 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.team1_final.mapper.InMapper;
 import com.itwillbs.team1_final.vo.HrVO;
+import com.itwillbs.team1_final.vo.PdVO;
 
 @Service
 public class InService {
 	@Autowired
 	private InMapper mapper;
 
-//	public ArrayList<HrVO> getHrList(String keyword) {
-//		return mapper.selectHrList(keyword);
-//	}
+	public ArrayList<HrVO> getHrList(String keyword) {
+		return mapper.selectHrList(keyword);
+	}
+
+	public ArrayList<PdVO> getProductList(String keyword) {
+		return mapper.selectProductList(keyword);
+	}
 	
 }
