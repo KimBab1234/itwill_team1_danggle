@@ -253,7 +253,7 @@ public class BookFrontController extends HttpServlet {
 		
 		ProductBean fileName = service.selectFileName(product.getProduct_idx());
 //		System.out.println("파일이름 확인 : " + fileName);
-
+		
 		int deleteCount = service.removeProduct(product_idx);
 		
 		if(deleteCount > 0) {
@@ -261,19 +261,37 @@ public class BookFrontController extends HttpServlet {
 			String saveDir = session.getServletContext().getRealPath(uploadDir);
 			
 			String img = fileName.getImg(); // 대표이미지는 무조건 삭제
+			Path path = Paths.get(saveDir + "/" + img);
 			
+			if(!fileName.getDetail_img().equals("")) { // 상세이미지는 있을 때만 삭제
+				String detail_img = fileName.getDetail_img();
+				Path path2 = Paths.get(saveDir + "/" + detail_img);
+				
+				try {
+					Files.deleteIfExists(path2);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
 			
+			try {
+				Files.deleteIfExists(path);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			
-			
+			if(product_idx.substring(0, 1).equals("B")) {
+				return "redirect:/ProductList.ad?pageNum"+pageNum;	
+			}else {
+				return "redirect:/ProductList.ad?product=G";
+			}
 			
 			
 		}else {
-			
+			model.addAttribute("msg", "상품 삭제 실패!");
+			return "fail_back";
 		}
 		
-		
-		
-		return "product/productList?pageNum";
 	}
 	
 	

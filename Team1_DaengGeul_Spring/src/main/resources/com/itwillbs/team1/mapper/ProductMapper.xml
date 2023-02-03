@@ -136,36 +136,11 @@
 	<select id="selectGoodsList" resultType="com.itwillbs.team1.vo.ProductBean">
 		SELECT *
 			FROM goods
-			<if test='!keyword.equals("")'>
-			WHERE 
-				<choose>
-					<when test="searchType.equals('name')">
-						name LIKE '%${keyword}%'
-					</when>
-					<when test="searchType.equals('product_idx')">
-						product_idx LIKE '%${keyword}%'
-					</when>
-				</choose>
-		</if>
-		ORDER BY 
-			product_idx
-		LIMIT #{startRow}, #{listLimit}
 	</select>
 	
 	<select id="selectGoodsListCount" resultType="int">
 		SELECT COUNT(*)
 			FROM goods
-		<if test='!keyword.equals("")'>
-			WHERE 
-				<choose>
-					<when test="searchType.equals('name')">
-						name LIKE '%${keyword}%'
-					</when>
-					<when test="searchType.equals('product_idx')">
-						product_idx LIKE '%${keyword}%'
-					</when>
-				</choose>
-		</if>
 	</select>
 	
 	<select id="selectBookFileName" resultType="com.itwillbs.team1.vo.ProductBean">
