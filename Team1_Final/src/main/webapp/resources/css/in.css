@@ -1,5 +1,23 @@
 @charset "UTF-8";
 
+.choice_in {
+	display: inline-block;
+	height: 30px;
+	width: 120px;
+	text-align: center;
+	background-color: #c9b584;
+	left: 450px;
+	position: relative;
+	padding-top: 5px;
+	font-size: 15px;
+	color: #736643;
+	font-weight: bold;
+	margin-right: 2px;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+	
+}
+
 .title_regi {
 	display: inline-block;
 	height: 30px;
@@ -386,15 +404,18 @@ textarea {
 /* 책 목록 */
 .bookTable {
 	margin: 0 auto;
-	width: 960px;
+	width: 1000px;
+	border-collapse: collapse;
+	border-style: solid;
+	border-color: #b09f76;;
 }
 
 
 .bookTable th, .recoTable th{
-	
  	background: #c9b584; 
  	text-align: center; 
  	border-color: #b09f76;
+ 	border: 1px solid;
  	color: #736643;
 	padding-bottom: 7px;
 	padding-top: 7px;

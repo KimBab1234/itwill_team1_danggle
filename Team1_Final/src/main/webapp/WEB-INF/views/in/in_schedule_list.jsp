@@ -4,26 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
-<style type="text/css">
-table{
-	border: 1px solid;
-}
-
-th{
-	border-left: 1px solid;
-}
-</style>
+<title>입고예정</title>
+<link rel="shortcut icon" href="#">
+<link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<header>
-		<jsp:include page="../inc/top.jsp"></jsp:include>
-	</header>
-	<jsp:include page="../inc/in_left.jsp"></jsp:include>
-	<div align="center">
+	<div>
+		<header>
+			<jsp:include page="../inc/top.jsp"></jsp:include>
+		</header>
+		<jsp:include page="../inc/in_left.jsp"></jsp:include>
+	</div>
+	<div style="width:1900px;">
 		<h3>입고 예정</h3>
-		<table>
+		<div class="choice_in">전체</div><div class="choice_in">진행중</div><div class="choice_in">완료</div>
+		<table class="bookTable">
 			<tr>
 				<th><input type="checkbox"></th>
 				<th>입고예정번호</th>
