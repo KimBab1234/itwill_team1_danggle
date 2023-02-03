@@ -8,7 +8,6 @@
 	padding: 0;
 	position: fixed;
 	height: 100%;
-	border-right:solid 1px; border-color: #BDBDBD;
 }
 
 .menuH3:hover{
@@ -29,7 +28,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body >
 	<div id="verticalNav" align="center" style="width: 200px; margin-top: 0px;">
 		<div style="margin-left: 20px; margin-right: 0px; ">
 			<h2>인사 관리</h2>
@@ -37,7 +36,7 @@
 				<a href="HrRegist">사원 등록</a>
 			</h3>
 			<h3 class="menuH3">
-				<a href="HrInquiry">사원 조회</a>
+				<a href="HrList">사원 조회</a>
 			</h3>
 		</div>
 	</div>
