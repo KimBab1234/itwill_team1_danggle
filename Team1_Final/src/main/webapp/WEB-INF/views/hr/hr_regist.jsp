@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
 <style>
+*{
+	color:#513e30;
+}
+
 /* input 은 숨겨주기 */
  input.chk_top{
    display:none;
@@ -98,12 +102,19 @@ function execDaumPostcode() {
 
 	/////처음 폼 들어왔을때 동작
 	var empNo = '${param.empNo}';
+	var loginEmp = '${sessionScope.empNo}';
+	var isThisEmp = false;
+	var chkArr = [0,0,0,0,0];
+	if(empNo==loginEmp) {
+		isThisEmp = true;
+	}
+	
 	var priv = '${sessionScope.priv}';
 	
-// 	if(priv=='' || priv.charAt(2)!='1') {
-// 		alert("잘못된 접근입니다.");
-// 		history.back();
-// 	}
+	if(priv=='' || priv.charAt(2)!='1') {
+		alert("잘못된 접근입니다.");
+		history.back();
+	}
 	
 	var nowPageURL = location.href.split("/")[location.href.split("/").length-1];
 	var nowPage = nowPageURL.split("?")[0];
@@ -143,6 +154,7 @@ function execDaumPostcode() {
 			for(var i=0; i<5; i++){
 				if(empPrivStr.charAt(i)=='1') {
 					$(".chk_top").eq(i).prop("checked",true);
+					chkArr[i]=1;
 				}
 			}
 			
@@ -179,12 +191,11 @@ function execDaumPostcode() {
 		/////처음 폼 들어왔을때 동작 끝
 	
 		///권한 체크박스 동작
-		var chkArr = [0,0,0,0,0];
 		var chkClick = false;
 		$(".chk_top").on("click", function() {
-// 			if(priv.charAt(2) != "1") {
-// 				return false;
-// 			}
+			if(priv.charAt(2) != "1") {
+				return false;
+			}
 			chkClick = true;
 			if(this.checked) {
 				chkArr[$(this).index()/2] = 1;
@@ -307,8 +318,8 @@ function execDaumPostcode() {
 			}
 			
 			
-			///신규 등록할때는 비밀번호 필요없음
-			if(empNo != '') {
+			///신규 등록 및 관리자가 수정할때엔 비밀번호 필요없음
+			if(isThisEmp) {
 				if(!checkPasswdResult) {
 					alert("변경할 비밀번호가 안전하지 않습니다.");
 					return false;
@@ -328,19 +339,17 @@ function execDaumPostcode() {
 					privStr += i;
 				}
 				$("#PRIV_CD").val(privStr);
-			} else {
-				
+				alert(privStr);
 			}
 			
 			////직전에 disable 된거 풀어주기
 			$("select").prop("disabled", false);
 			if(empNo=='') {
 				hrForm.action = "HrRegistPro";
-				hrForm.submit();
 			} else {
 				hrForm.action = "HrEditPro";
-				hrForm.submit();
 			}
+			hrForm.submit();
 		});
 		
 		
@@ -358,7 +367,7 @@ function execDaumPostcode() {
 		</div>
 		<!-- 여기서부터 본문-->
 		<form name="hrForm" id="hrForm" action="HrRegistPro" method="post" enctype="multipart/form-data">
-		<div align="center" style="width: 1300px;">
+		<div align="center" style="width: 1300px; border-left: solid 10px; border-color: #BDBDBD;">
 			<h1 align="left"  id="hrRegiTitle"></h1>
 			<table class="regi_table" style="text-align: center; border: solid 1px; width: 900px;">
 				<tr>
