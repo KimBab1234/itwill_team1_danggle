@@ -58,15 +58,15 @@
 						$("#searchNone").html("<h3>검색 결과가 없습니다.</h3>");
 					} else {
 						for(var i=0; i<emp.length; i++) {
-							$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td><img src="${pageContext.request.contextPath}/resources/img/'+emp[i].PHOTO+'" width="100"></td>'
+							$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td width="150"><img src="${pageContext.request.contextPath}/resources/img/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;"></td>'
 									+'<td width="150">'+emp[i].EMP_NUM+'</td>'
-									+'<td width="150">'+emp[i].EMP_NAME+'</td>'
-									+'<td width="120">'+emp[i].DEPT_NAME+'</td>'
-									+'<td width="150">'+emp[i].GRADE_NAME+'</td>'
-									+'<td width="70">'+emp[i].EMP_TEL+'</td>'
-									+'<td width="150">'+emp[i].EMP_EMAIL+'</td>'
-									+'<td>width="250"<button type="button" class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; " onclick="location.href=\'HrDetail?empNo='+emp[i].EMP_NUM+'\'">상세정보</button>'
-									+'<br>width="200"<button type="button"  class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; margin-top: 10px;" onclick="location.href=\'HrEdit?empNo='+emp[i].EMP_NUM+'\'">수정</button></td>'
+									+'<td width="120">'+emp[i].EMP_NAME+'</td>'
+									+'<td width="150">'+emp[i].DEPT_NAME+'</td>'
+									+'<td width="70">'+emp[i].GRADE_NAME+'</td>'
+									+'<td width="150">'+emp[i].EMP_TEL+'</td>'
+									+'<td width="250">'+emp[i].EMP_EMAIL+'</td>'
+									+'<td width="200"><button type="button" class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; " onclick="location.href=\'HrDetail?empNo='+emp[i].EMP_NUM+'\'">상세정보</button>'
+									+'<br><button type="button"  class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; margin-top: 10px;" onclick="location.href=\'HrEdit?empNo='+emp[i].EMP_NUM+'\'">수정</button></td>'
 									+'</tr>');
 						}
 					}
