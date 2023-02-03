@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>창고 목록</title>
+<title>창고 관리 목록</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <link href="css/default.css" rel="stylesheet" type="text/css">
@@ -72,7 +72,7 @@
 	<!-- 게시판 리스트 -->
 	<section id="listForm">
 	<div align="center" style="width: 1000px;">
-	<h2>창고 목록</h2>
+	<h2>창고 관리 목록</h2>
 	<section id="buttonArea">
 		<form action="WhList">      
 			<select name="searchType">
@@ -95,14 +95,13 @@
 			<td>관리자명</td>
 			<td>사용여부</td>
 			<td>창고 내부구역 추가</td>
-			<td>창고 구역 내 위치 추가</td>
 			
 		</tr>
-		<c:forEach begin="0" end="${whList.size()-1}" var="i" >
+		<c:forEach var="wh" items="${whList }">
 			<tr>
 				<td>
-				<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
-				${whList.get(i).WH_CD}
+				<a href="WhDetail?WH_CD=${wh.WH_CD}&pageNum=${pageNum}">
+				${wh.WH_CD}
 				</a>
 				</td>
 				
@@ -111,29 +110,24 @@
 <%-- 				</c:if> --%>
 				<td id="name">
 				
-				<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
-				${whList.get(i).WH_NAME}
+				<a href="WhDetail?WH_CD=${wh.WH_CD}&pageNum=${pageNum}">
+				${wh.WH_NAME}
 				</a>
 				</td>
 				<td><c:choose>
-					<c:when test="${whList.get(i).WH_GUBUN eq 1 }">내부</c:when>
-					<c:when test="${whList.get(i).WH_GUBUN eq 2 }">외부</c:when>
+					<c:when test="${wh.WH_GUBUN eq 1 }">내부</c:when>
+					<c:when test="${wh.WH_GUBUN eq 2 }">외부</c:when>
 				
 				</c:choose></td>
-				<td>${whList.get(i).WH_MAN_NAME}</td>
+				<td>${wh.WH_MAN_NAME}</td>
 				<td><c:choose>
-					<c:when test="${whList.get(i).WH_GUBUN eq 1 }">사용</c:when>
-					<c:when test="${whList.get(i).WH_GUBUN eq 2 }">미사용</c:when>
+					<c:when test="${wh.WH_GUBUN eq 1 }">사용</c:when>
+					<c:when test="${wh.WH_GUBUN eq 2 }">미사용</c:when>
 				
 				</c:choose></td>
 				
 			<td>
-				<a href="WhAreaRegist?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
-				<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i>
-				</a>
-			</td>
-			<td>
-				<a href="WhLocationRegist?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+				<a href="WhAreaRegist?WH_CD=${wh.WH_CD}&pageNum=${pageNum}">
 				<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i>
 				</a>
 			</td>

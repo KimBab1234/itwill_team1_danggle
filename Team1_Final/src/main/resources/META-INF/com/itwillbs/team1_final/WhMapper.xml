@@ -3,7 +3,7 @@
 <mapper namespace="com.itwillbs.team1_final.mapper.WhMapper">
 
 <select id="selectWhList" resultType="com.itwillbs.team1_final.vo.WhVO">
-		SELECT * FROM wh
+		SELECT * FROM wh_view
 			<if test="!keyword.equals('')">
 			WHERE
 			<!-- 2. 검색타입(searchType) 에 따른 WHERE 대상 변경 -->
@@ -110,5 +110,41 @@
 			WHERE WH_CD = #{WH_CD}
 			
 	</update>
+	
+	<insert id="insertWhArea">
+		INSERT
+		INTO wh_area
+		VALUES(
+			#{WH_CD}
+			,#{WH_AREA}
+			,null
+		)
+	
+	</insert>
+	
+	<select id="selectWhArea">
+		SELECT *
+			FROM wh_area
+			WHERE WH_CD = #{WH_CD}
+			
+	</select>
+	
+	<select id="getWhLocationList">
+		SELECT *
+			FROM wh_loc
+			WHERE WH_AREA_CD = #{WH_AREA_CD}
+	
+	</select>
+	
+	<insert id="insertWhLocation">
+		INSERT
+			INTO wh_loc
+			VALUSE(
+				#{WH_AREA_CD}
+				,#{WH_LOC_IN_AREA}
+				,null
+			)
+	
+	</insert>
 
 </mapper>
