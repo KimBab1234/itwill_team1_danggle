@@ -50,7 +50,7 @@ public class EmailService{
 //		mapper.insertTempPass(email,tempEncodedPass);
 		
 		/////프로젝트 하는동안은 1234로 고정
-		mapper.insertTempPass(email,"$2a$10$T5g9nGZjN94GMqeFa2vNyOxdHaWWjfZ8qBwBL.D7E27u3E.Q5i1Mq");
+		mapper.insertTempPass(email,"$2a$10$YYOpNkIbQ5FNhuyUIiUtv.4yXc9bBv7IDPMmcEQZJYACYOCqEE4IK");
 		
 		mailSender.send(smm);
 		

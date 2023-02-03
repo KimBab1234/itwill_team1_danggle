@@ -110,8 +110,7 @@ function execDaumPostcode() {
 	}
 	
 	var priv = '${sessionScope.priv}';
-	
-	if(priv=='' || priv.charAt(2)!='1') {
+	if(!isThisEmp && priv.charAt(2) !='1') {
 		alert("잘못된 접근입니다.");
 		history.back();
 	}
@@ -359,15 +358,15 @@ function execDaumPostcode() {
 
 </script>
 </head>
-<body>
+<body style="border-left: solid 10px; border-color: #BDBDBD;">
 	<jsp:include page="../inc/top.jsp"></jsp:include>
-	<div style="display: flex; min-height: 1300px;" align="center">
+	<div style="display: flex; margin-bottom:100px; " align="center">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
 			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
 		<form name="hrForm" id="hrForm" action="HrRegistPro" method="post" enctype="multipart/form-data">
-		<div align="center" style="width: 1300px; border-left: solid 10px; border-color: #BDBDBD;">
+		<div align="center" style="width: 1300px;">
 			<h1 align="left"  id="hrRegiTitle"></h1>
 			<table class="regi_table" style="text-align: center; border: solid 1px; width: 900px;">
 				<tr>
