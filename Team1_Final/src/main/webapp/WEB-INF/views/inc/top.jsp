@@ -7,13 +7,22 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
-	
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
+<!-- 폰트 변경 끝  -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,500&Gowun+Dodum&display=swap);
-
+*{
+	color:#513e30;
+	font-family: 'Gowun Dodum', sans-serif;
+}
+</style>
+<!-- 폰트 변경 끝  -->
+<style>
 /* main Styles */
 html {
 	box-sizing: border-box;
@@ -130,14 +139,13 @@ nav .fa.fa-angle-down {
 	<h1 align="center" id="titleName">
 		<a href="./"><img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="vertical-align: top;">  ERP</a>
 	</h1>
-	<h3 align="right" style="vertical-align: text-bottom;">
+	<h3 align="right" style="vertical-align: text-bottom; margin-right: 20px;">
 		<c:choose>
 			<c:when test="${empty sessionScope.empName}">
 				<a href="Login" style="color: black;">로그인</a>
 				<a href="#" style="font-size: 20px; text-align: center;"><i class="material-icons" style="color:black;">&#xe899;</i></a>
 			</c:when>
 			<c:otherwise>
-				<a href="#" style="color: black;">${sessionScope.empName}님</a>
 				<a href="Logout"><i class="material-icons" style="color:black;">&#xe898;</i>로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="HrDetail?empNo=${sessionScope.empNo}"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i>${sessionScope.empName}님</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2bc;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;

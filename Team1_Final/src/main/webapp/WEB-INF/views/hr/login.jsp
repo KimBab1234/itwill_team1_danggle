@@ -47,53 +47,58 @@ input.chk_top:checked + label:before{
 ///localStorage에 저장된 email 가져오기
 var email1 = localStorage.getItem("email1");
 var email2 = localStorage.getItem("email2");
-if(email1 != null) {
-	$("#EMP_EMAIL1").val(email1);
 
-		alert("aa");
-		alert($("option").length);
-	///email select 
-	for(var i=1; i<$("#EMP_EMAIL2_SEL").children().length; i++){
-		var opt = $("#EMP_EMAIL2_SEL option").eq(i).val();
-		if(email2 == opt) {
-			$("#EMP_EMAIL2_SEL option").eq(i).prop("selected", true);
+$(function() {
+	
+	if(email1 != null) {
+		$("#EMP_EMAIL1").val(email1);
+		$("#EMP_EMAIL2").val(email2);
+		$("#rememberEmailChk").prop("checked",true);
+		///email select 
+		for(var i=1; i<$("#EMP_EMAIL2_SEL").children().length; i++){
+			var opt = $("#EMP_EMAIL2_SEL option").eq(i).val();
+			if(email2 == opt) {
+				$("#EMP_EMAIL2_SEL option").eq(i).prop("selected", true);
+				$("#EMP_EMAIL2").prop("readOnly",true);
+				$("#EMP_EMAIL2").css("background","lightgray");
+				break;
+			} else {
+				$("#EMP_EMAIL2_SEL option").eq(0).prop("selected", true);
+			}
+			
+		}
+	}
+	
+	function emailSelect(domain){
+		if(domain=='') {
+			$("#EMP_EMAIL2").val(domain);
+			$("#EMP_EMAIL2").prop("readOnly",false);
+			$("#EMP_EMAIL2").css("background","white");
+			
+		} else {
+			$("#EMP_EMAIL2").val(domain);
 			$("#EMP_EMAIL2").prop("readOnly",true);
 			$("#EMP_EMAIL2").css("background","lightgray");
-			break;
-		} else {
-			$("#EMP_EMAIL2_SEL option").eq(0).prop("selected", true);
-			$("#EMP_EMAIL2").val(email2);
 		}
-		
 	}
-}
+	
+	
+});
+	/////로그인 버튼 눌렀을때 이메일 기억 및 폼 전송
+	function loginSubmit() {
+		if($("#rememberEmailChk").prop("checked")) {
+			alert("체크됨");
+			localStorage.setItem("email1", $("#EMP_EMAIL1").val());
+			localStorage.setItem("email2", $("#EMP_EMAIL2").val());
+		} else {
+			alert("체크안됨");
+			localStorage.removeItem("email1");
+			localStorage.removeItem("email2");
+		}
+		loginForm.submit();
+	}
 
-function emailSelect(domain){
-	if(domain=='') {
-		$("#EMP_EMAIL2").val(domain);
-		$("#EMP_EMAIL2").prop("readOnly",false);
-		$("#EMP_EMAIL2").css("background","white");
-		
-	} else {
-		$("#EMP_EMAIL2").val(domain);
-		$("#EMP_EMAIL2").prop("readOnly",true);
-		$("#EMP_EMAIL2").css("background","lightgray");
-	}
-}
 
-/////로그인 버튼 눌렀을때 이메일 기억 및 폼 전송
-function loginSubmit() {
-	if($("#rememberEmailChk").prop("checked")) {
-		alert("체크됨");
-		localStorage.setItem("email1", $("#EMP_EMAIL1").val());
-		localStorage.setItem("email2", $("#EMP_EMAIL2").val());
-	} else {
-		alert("체크안됨");
-		localStorage.removeItem("email1");
-		localStorage.removeItem("email2");
-	}
-	loginForm.submit();
-}
 
 
 </script>

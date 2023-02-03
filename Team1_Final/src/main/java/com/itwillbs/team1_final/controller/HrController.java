@@ -326,7 +326,6 @@ public class HrController {
 		System.out.println("임시 비밀번호 발송");
 
 		mailService.sendEmail(empNo);
-
 	}
 
 	/////로그인 폼
@@ -347,6 +346,12 @@ public class HrController {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		HrVO loginEmp = service.getLoginEmpInfo(emp.getEMP_EMAIL());
 
+		
+		System.out.println("====================================");
+		System.out.println(emp.getEMP_PASS());
+		System.out.println("====================================");
+		
+		
 		//아이디가 존재하지 않거나, 비밀번호가 맞지 않는 경우
 		if(loginEmp==null || !passwordEncoder.matches(emp.getEMP_PASS(), loginEmp.getEMP_PASS())) {
 			

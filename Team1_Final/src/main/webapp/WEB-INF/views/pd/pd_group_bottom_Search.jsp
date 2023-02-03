@@ -15,7 +15,6 @@
 			},
 			dataType : 'json',
 			success : function(response) {
-				alert(response.jsonPd_group_bottom);
 				pd_group_bottom = response.jsonPd_group_bottom;
 				$("#PRODUCT_GROUP_TOP_CD").html("");
 				$("#PRODUCT_GROUP_BOTTOM_CD").html("");

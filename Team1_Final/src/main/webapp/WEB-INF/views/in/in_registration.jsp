@@ -5,6 +5,57 @@
 <head>
 <meta charset="UTF-8">
 <title>입고 예정 입력</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+
+	$(function() {
+		
+		let sum = 0;
+		
+		$.total = function() {
+			
+			var numberClass = $(".in_schedule_qty").length;
+			let sum = 0;
+			for(var i= 0; i < numberClass; i++){
+				sum += Number($("input[type=number][name=in_schedule_qty]").eq(i).val());
+			}
+			$("input[type=number][name=total]").val(sum);
+		};
+		
+		$("input[type=number][name=in_schedule_qty]").on("change", function() {
+			
+			$.total();
+		});
+		
+		
+		$("#recoBtn").on("click", function() {
+			
+			$("#optionArea").append(
+					'<tr>' 
+					+'<td><input type="text" class="product_cd" name="product_cd"></td>'
+					+ '<td><input type="text" class="product_name" name="product_name"></td>'
+					+ '<td><input type="text" class="size_des" name="size_des"></td>'
+					+ '<td><input type="number" class="in_schedule_qty" name="in_schedule_qty"></td>'
+					+ '<td><input type="date" class="in_date" name="in_date"></td>'
+					+ '<td><input type="text" class="remarks" name="remarks"></td>'
+				    + '</tr>'
+				
+			);
+			var inClass = $(".in_schedule_qty").length;
+
+			$("input[type=number][name=in_schedule_qty]").on("change", function() {
+				
+				$.total();
+				
+			});
+			
+			
+		});
+		
+	});
+
+
+</script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -55,34 +106,35 @@
 					<th width="200">적요</th>
 				</tr>
 				<tr>
-					<td><input type="text" id="product_cd" name="product_cd"></td>
-					<td><input type="text" id="product_name" name="product_name"></td>
-					<td><input type="text" id="size_des" name="size_des"></td>
-					<td><input type="text" id="in_schedule_qty" name="in_schedule_qty"></td>
-					<td><input type="date" id="in_date" name="in_date"></td>
-					<td><input type="text" id="remarks" name="remarks"></td>
+					<td><input type="text" class="product_cd" name="product_cd"></td>
+					<td><input type="text" class="product_name" name="product_name"></td>
+					<td><input type="text" class="size_des" name="size_des"></td>
+					<td><input type="number" class="in_schedule_qty" name="in_schedule_qty"></td>
+					<td><input type="date" class="in_date" name="in_date"></td>
+					<td><input type="text" class="remarks" name="remarks"></td>
 				</tr>
 				<tr>
-					<td><input type="text" id="product_cd" name="product_cd"></td>
-					<td><input type="text" id="product_name" name="product_name"></td>
-					<td><input type="text" id="size_des" name="size_des"></td>
-					<td><input type="text" id="in_schedule_qty" name="in_schedule_qty"></td>
-					<td><input type="date" id="in_date" name="in_date"></td>
-					<td><input type="text" id="remarks" name="remarks"></td>
+					<td><input type="text" class="product_cd" name="product_cd"></td>
+					<td><input type="text" class="product_name" name="product_name"></td>
+					<td><input type="text" class="size_des" name="size_des"></td>
+					<td><input type="number" class="in_schedule_qty" name="in_schedule_qty"></td>
+					<td><input type="date" class="in_date" name="in_date"></td>
+					<td><input type="text" class="remarks" name="remarks"></td>
 				</tr>
 				<tr>
-					<td><input type="text" id="product_cd" name="product_cd"></td>
-					<td><input type="text" id="product_name" name="product_name"></td>
-					<td><input type="text" id="size_des" name="size_des"></td>
-					<td><input type="text" id="in_schedule_qty" name="in_schedule_qty"></td>
-					<td><input type="date" id="in_date" name="in_date"></td>
-					<td><input type="text" id="remarks" name="remarks"></td>
+					<td><input type="text" class="product_cd" name="product_cd"></td>
+					<td><input type="text" class="product_name" name="product_name"></td>
+					<td><input type="text" class="size_des" name="size_des"></td>
+					<td><input type="number" class="in_schedule_qty" name="in_schedule_qty"></td>
+					<td><input type="date" class="in_date" name="in_date"></td>
+					<td><input type="text" class="remarks" name="remarks"></td>
 				</tr>
+				<tbody id="optionArea"></tbody>
 				<tr>
 					<th></th>
 					<th></th>
 					<th></th>
-					<th><input type="number" id="total" ></th>
+					<th><input type="number" id="total" name="total"></th>
 					<th></th>
 					<th></th>
 				</tr>

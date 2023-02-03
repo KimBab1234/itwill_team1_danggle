@@ -31,8 +31,8 @@ public class EmailService{
 			tempPasswd += charSet[idx];
 		}
 		
-		////임시비밀번호 암호화
-		
+//		////임시비밀번호 암호화
+//		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String tempEncodedPass = passwordEncoder.encode(tempPasswd);
 		
@@ -47,10 +47,13 @@ public class EmailService{
 		smm.setText("댕글댕글 신규 사원 등록 완료! \\n 임시 비밀번호가 발급되었습니다. \\n 로그인 후 비밀번호 변경을 해주세요. \\n 임시 비밀번호 :" + tempPasswd);
 		
 		
-		mapper.insertTempPass(email,tempEncodedPass);
+//		mapper.insertTempPass(email,tempEncodedPass);
+		
+		/////프로젝트 하는동안은 1234로 고정
+		mapper.insertTempPass(email,"$2a$10$T5g9nGZjN94GMqeFa2vNyOxdHaWWjfZ8qBwBL.D7E27u3E.Q5i1Mq");
 		
 		mailSender.send(smm);
-
+		
 	}
 
 }

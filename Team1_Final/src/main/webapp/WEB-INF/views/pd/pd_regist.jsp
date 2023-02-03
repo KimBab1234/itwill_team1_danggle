@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<%-- <link href="${pageContext.request.contextPath }/resources/css/pd.css" rel="stylesheet" type="text/css" /> --%>
 <style type="text/css">
 table {
 	height: 600px;
@@ -20,6 +21,7 @@ table {
 	
 }
 </style>
+
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -52,8 +54,22 @@ table {
 					<td><input type="text" style="height: 30px; width: 450px;" name="SIZE_DES"></td>
 				</tr>
 				<tr>
+					<td id="td_left"><label for="UNIT">단위</label></td>
+					<td>
+						<select style="height: 30px; width: 460px;" name="UNIT">
+							<option value="">=======================  단위  =======================</option>
+							<option value="SET">SET</option>
+							<option value="BOX">BOX</option>
+							<option value="EA">EA</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<td id="td_left"><label for="BARCODE">바코드</label></td>
-					<td><input type="text" style="height: 30px; width: 450px;" name="BARCODE" required="required"></td>
+					<td>
+						<input type="text" name="BARCODE" id="BARCODE" required="required" style="height: 30px; width: 105px;">
+						<button type="button" onclick="location.href='Barcode'">바코드 생성</button>
+					</td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="IN_UNIT_PRICE">입고단가</label></td>
@@ -64,21 +80,19 @@ table {
 					<td><input type="text" style="height: 30px; width: 450px;" name="OUT_UNIT_PRICE" required="required"></td>
 				</tr>
 				<tr>
-					<td id="td_left"><label for="PRODUCT_TYPE_CD">품목타입코드</label></td>
+					<td id="td_left"><label for="PRODUCT_TYPE_CD">품목구분</label></td>
 					<td>
-						<select style="height: 30px; width: 460px;" name="PRODUCT_TYPE_CD">
-							<option value="">=======================  품목구분  =======================</option>
-							<option value="원재료">원재료</option>
-							<option value="부재료">부재료</option>
-							<option value="제품">제품</option>
-							<option value="반제품">반제품</option>
-							<option value="상품">상품</option>
-						</select>
+						<input type="text" name="PRODUCT_TYPE_CD" id="PRODUCT_TYPE_CD" readonly="readonly" required="required" style="height: 30px; width: 105px;">
+						<input type="text" name="PRODUCT_TYPE_NAME" id="PRODUCT_TYPE_NAME" readonly="readonly" required="required" style="height: 30px; width: 105px;">
+						<button type="button" onclick="window.open('Pd_type_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">품목구분 선택</button>
 					</td>
 				</tr>
 				<tr>
-					<td id="td_left"><label for="BUSINESS_NO">구매거래처코드</label></td>
-					<td><input type="text" style="height: 30px; width: 450px;" name="BUSINESS_NO" required="required"></td>
+					<td id="td_left"><label for="BUSINESS_NO">구매거래처</label></td>
+					<td>
+						<input type="text" name="BUSINESS_NO" id="BUSINESS_NO" readonly="readonly" required="required" style="height: 30px; width: 105px;">
+						<button type="button" onclick="window.open('Pd_type_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">거래처목록 선택</button>
+					</td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="PRODUCT_IMAGE">대표이미지</label></td>
