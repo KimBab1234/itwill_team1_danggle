@@ -81,12 +81,14 @@
 	border: none;
 	margin: 3px 0px 3px 0px;
 	color: #575754;
+	font-weight: bold;
 }
 .product_name {
 	width: 230px;
 	border: none;
 	margin: 3px 0px 3px 0px;
 	color: #575754;
+	font-weight: bold;
 }
 
 .remarks {
@@ -94,6 +96,7 @@
 	border: none;
 	margin: 3px 0px 3px 0px;
 	color: #575754;
+	font-weight: bold;
 }
 
 #total {
@@ -570,6 +573,7 @@ i {
  	border-color: #b09f76;
 	padding: 5px 0px 5px 0px;
  	font-size: 13px;
+ 	font-weight: bold;
 }
 
 .detail_table input[type="text"]  {

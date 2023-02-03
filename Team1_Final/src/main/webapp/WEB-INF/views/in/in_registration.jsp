@@ -5,6 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>입고 예정 입력</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+*{
+	color:#513e30;
+	font-family: 'Gowun Dodum', sans-serif;
+}
+</style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	

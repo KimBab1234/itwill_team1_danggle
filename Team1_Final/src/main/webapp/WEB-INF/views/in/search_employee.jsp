@@ -5,13 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>사원 검색</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+*{
+	color:#513e30;
+	font-family: 'Gowun Dodum', sans-serif;
+}
+</style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	var empList;
 	var i = 0;
-
-		
-		
 		
 		function func(){
 		
@@ -32,13 +38,12 @@
 					
 					for(var i = 0; i < empList.length; i++) {
 						let result = "<tr>"
-									+ "<td>" + empList[i].EMP_NUM + "</td>"
+									+ "<td>" + empList[i].DEPT_NAME + "</td>"
 									+ "<td>" + empList[i].EMP_NAME + "</td>"
 									+ "<td>" + "<input type='button' id='Listbtn' class='recobtn' value='선택' onclick='departSelect("+i+")'>"
 									+ "</tr>";
 									
 						$(".detail_table").append(result);
-						
 					}
 				}
 			})
@@ -46,11 +51,10 @@
 				$(".recoTable").append("<h3>요청 실패!</h3>");
 			});
 		
-		
-	}
+		}
 	
 		function departSelect(i) {
-			alert(empList);
+
 			$(opener.document).find('#emp_code').val(empList[i].EMP_NUM);
 			$(opener.document).find('#emp_name').val(empList[i].EMP_NAME);
 			this.close();
@@ -73,7 +77,7 @@
 			<br>
 			<table class="detail_table">
 				<tr>
-					<th width="150">사원 번호</th>
+					<th width="150">부서명</th>
 					<th width="200">사원명</th>
 					<th width="100">선택</th>
 				</tr>
