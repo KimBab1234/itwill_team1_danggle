@@ -7,13 +7,28 @@
 <title>입고 예정 입력</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-
+	
 	$(function() {
 		
+		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
+		$("#today").val(today);
+
+		$("input[type=checkbox][name=in_type_cd]").click(function(){
+		 // 발주서, 구매 중 체크박스 하나만 선택하게 하기
+			if($(this).prop('checked')){
+				$("input[type=checkbox][name=in_type_cd]").prop('checked',false);
+				$(this).prop('checked',true);
+			}
+		});
+		
+		$(".product_cd").on("dblclick", function() { // 더블클릭 시 새 창 띄우기
+			window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
+		});
+		
+		//====================== 여기서부터 <tr>생성 & 합계 계산 =====================================
 		let sum = 0;
 		
 		$.total = function() {
-			
 			var numberClass = $(".in_schedule_qty").length;
 			let sum = 0;
 			for(var i= 0; i < numberClass; i++){
@@ -23,13 +38,10 @@
 		};
 		
 		$("input[type=number][name=in_schedule_qty]").on("change", function() {
-			
 			$.total();
 		});
 		
-		
 		$("#recoBtn").on("click", function() {
-			
 			$("#optionArea").append(
 					'<tr>' 
 					+'<td><input type="text" class="product_cd" name="product_cd"></td>'
@@ -39,18 +51,22 @@
 					+ '<td><input type="date" class="in_date" name="in_date"></td>'
 					+ '<td><input type="text" class="remarks" name="remarks"></td>'
 				    + '</tr>'
-				
 			);
+			
 			var inClass = $(".in_schedule_qty").length;
 
 			$("input[type=number][name=in_schedule_qty]").on("change", function() {
-				
 				$.total();
-				
 			});
 			
+			$(".product_cd").on("dblclick", function() { // 더블클릭 시 새 창 띄우기
+				window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
+			});
 			
 		});
+		
+			
+			
 		
 	});
 
@@ -65,12 +81,12 @@
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
-					<td><input type="date" name="in_date"></td>
+					<td><input type="text" name="today" id="today"></td>
 					<th>유형</th>
 					<td>
 						<div>
-							<input type="checkbox" value="1" class="recoCheck"> 발주서
-							<input type="checkbox" value="2" class="recoCheck"> 구매
+							<input type="checkbox" value="1" class="recoCheck" name="in_type_cd"> 발주서
+							<input type="checkbox" value="2" class="recoCheck" name="in_type_cd"> 구매
 						</div>
 					</td>
 				</tr>
@@ -79,20 +95,20 @@
 					<td>
 						<input type="text" class="emp_code" placeholder="사원번호">
 						<input type="text" class="emp_name" placeholder="사원명">
-						<button id="Listbtn">검색</button>
+						<button id="Listbtn" type="button" onclick="window.open('SearchEMP', 'searchEmployee', 'width=500, height=500, left=750, top=400')">검색</button>
 					</td>
 					<th>거래처</th>
 					<td>
 						<input type="text" class="emp_code" placeholder="거래처 코드">
 						<input type="text" class="emp_name" placeholder="거래처명">
-						<button id="Listbtn">검색</button>
+						<button id="Listbtn" type="button" onclick="window.open('searchBusiness_no', 'SearchBUS', 'width=500, height=500, left=1000, top=400')">검색</button>
 					</td>
 				</tr>
 				<tr>
-					<th>비고</th>
-					<td><input type="text" class="note"></td>
 					<th>납기일자</th>
 					<td><input type="date" name="in_date"></td>
+					<th>비고</th>
+					<td><input type="text" class="note"></td>
 				</tr>
 			</table>
 			<br>
@@ -134,12 +150,15 @@
 					<th></th>
 					<th></th>
 					<th></th>
-					<th><input type="number" id="total" name="total"></th>
+					<th><input type="number" id="total" name="total" readonly="readonly"></th>
 					<th></th>
 					<th></th>
 				</tr>
 			</table>
-			<input type="button" value="품목 추가" id="recoBtn">
+			<div>
+				<input type="button" value="품목 추가" id="recoBtn">
+				<input type="submit" value="저장" id="recoBtn2">
+			</div>
 		</form>
 	</div>
 
