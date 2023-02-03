@@ -98,6 +98,13 @@
 			<td>창고 구역 내 위치 추가</td>
 			
 		</tr>
+		<c:choose>
+		<c:when test="${whList.size() == 0}" >
+			
+		</c:when>
+		<c:otherwise>
+		
+		
 		<c:forEach begin="0" end="${whList.size()-1}" var="i" >
 			<tr>
 				<td>
@@ -133,12 +140,14 @@
 				</a>
 			</td>
 			<td>
-				<a href="WhLocationRegist?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+				<a href="WhLocationRegist?WH_AREA_CD=${wh_area.WH_AREA_CD}&pageNum=${pageNum}">
 				<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i>
 				</a>
 			</td>
 			</tr>
 		</c:forEach>
+		</c:otherwise>
+		</c:choose>
 	</table>
 	</section>
 	</div>

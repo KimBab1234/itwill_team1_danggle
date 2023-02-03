@@ -17,6 +17,7 @@ public class WhVO {
 	private int WH_AREA_CD;
 	private String WH_LOC_IN_AREA;
 	private String WH_LOC_IN_AREA_CD;
+	
 	public String getWH_CD() {
 		return WH_CD;
 	}
