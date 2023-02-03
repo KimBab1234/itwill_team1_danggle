@@ -38,7 +38,6 @@ html {
 body {
 	background: #fafafa;
 	font-family: "Roboto", sans-serif;
-	font-size: 14px;
 	margin: 0;
 }
 
@@ -94,7 +93,7 @@ nav ul li {
 nav ul li a {
 	color: #fae37d; <%-- #fff --%>
 	display: block;
-	font-size: 14px;
+	font-size: 18px;
 	padding: 15px 14px;
 	transition: 0.3s linear;
 }
@@ -137,7 +136,7 @@ nav .fa.fa-angle-down {
 
 <body>
 	<h1 align="center" id="titleName">
-		<a href="./"><img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="vertical-align: top;">  ERP</a>
+		<a href="./"><img src="http://itwillbs3.cdn1.cafe24.com/img/logo2.png" style="width:250px; vertical-align: top;">  ERP</a>
 	</h1>
 	<h3 align="right" style="vertical-align: text-bottom; margin-right: 20px;">
 		<c:choose>

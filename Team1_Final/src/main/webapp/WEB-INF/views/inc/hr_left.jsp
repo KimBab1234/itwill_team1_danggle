@@ -8,7 +8,7 @@
 	padding: 0;
 	position: absolute;
 	height: 100%;
-	border-right:solid 1px; border-color: #BDBDBD;
+/* 	border-right:solid 1px; border-color: #BDBDBD; */
 	z-index: -1;
 }
 

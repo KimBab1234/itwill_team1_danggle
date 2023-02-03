@@ -123,7 +123,7 @@ public class HrController {
 	}
 
 	/////사원 조회
-	@RequestMapping(value = "/HrList", method = RequestMethod.GET)
+	@RequestMapping(value = "/HrList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String hrList(
 			@RequestParam(defaultValue = "1") int pageNum
 			,@RequestParam(defaultValue = "") String searchType
