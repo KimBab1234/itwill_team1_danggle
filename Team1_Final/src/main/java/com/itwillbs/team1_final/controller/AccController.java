@@ -48,13 +48,15 @@ public class AccController {
 		}
 
 	}
-
+	
+	// 거래처 리스트 요청
 	@GetMapping("/AccList")
 	public String accList() {
 		System.out.println("거래처리스트");
 		return "acc/acc_list";
 	}
 	
+	// 거래처 리스트 작업 수행 요청
 	@ResponseBody
 	@GetMapping("/SearchAccList")
 	public void searchAccList(@RequestParam(defaultValue = "") String searchType,
@@ -78,7 +80,7 @@ public class AccController {
 					// 2. JSONObject 클래스 인스턴스 생성
 					// => 파라미터 : VO(Bean) 객체(멤버변수 및 Getter/Setter, 기본생성자 포함)
 					JSONObject jsonObject = new JSONObject(acc);
-					System.out.println("weqewqdsda"+jsonObject);
+					System.out.println(jsonObject);
 					
 					// 참고. 저장되어 있는 JSON 데이터를 꺼낼 수도 있다! - get() 메서드 활용
 //					System.out.println(jsonObject.get("TEL"));
@@ -107,8 +109,36 @@ public class AccController {
 				
 				
 			}
-		
+	
+		// 거래처 상세보기
+		@GetMapping("/AccView")
+		public String accView(Model model, @RequestParam String BUSINESS_NO) {
+			
+			AccVO acc = service.accDetail(BUSINESS_NO);
 
+			model.addAttribute("acc",acc);
+			
+			return "acc/acc_detail";
+		}
+		
+		// 거래처 수정
+		@GetMapping("/AccModify")
+		public String accModify(@ModelAttribute AccVO acc, Model model ) {
+			
+			
+//			int updateCount = service.modifyMemberInfo();
+
+//			// 수정 성공/실패에 따른 포워딩 작업 수행
+//			if(updateCount > 0) {
+//				return "redirect:/";	
+//			} else {
+//				model.addAttribute("msg", "회원수정 실패!");
+//				return "fail_back";
+//			}
+			
+			return "acc/acc_modify";
+		}
+	
 }
 
 

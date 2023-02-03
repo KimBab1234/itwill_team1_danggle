@@ -12,4 +12,6 @@ public interface AccMapper {
 
 	List<AccVO> accList();
 
+	AccVO accView(String BUSINESS_NO);
+
 }
