@@ -60,6 +60,13 @@
 <!-- 			 ORDER BY CUST_NAME DESC -->
 	</select>
 	
+	<select id="accView" resultType="com.itwillbs.team1_final.vo.AccVO">
+		SELECT
+			*
+			FROM acc
+				WHERE BUSINESS_NO = #{BUSINESS_NO}
+	</select>
+	
 	
 </mapper>
 

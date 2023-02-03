@@ -21,6 +21,14 @@ public class AccService {
 	public List<AccVO> getAccList() {
 		return mapper.accList();
 	}
+
+	public int modifyMemberInfo() {
+		return 0;
+	}
+
+	public AccVO accDetail(String BUSINESS_NO) {
+		return mapper.accView(BUSINESS_NO);
+	}
 	
 	
 }
