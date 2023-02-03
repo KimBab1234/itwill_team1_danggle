@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.team1_final.mapper.OutMapper">
+
+	<!-- 거래처 검색 -->
+	<select id="selectAcc" resultType="com.itwillbs.team1_final.vo.AccVO">
+		SELECT BUSINESS_NO, CUST_NAME
+			FROM acc
+			<if test='!keyword.equals("")'>
+			WHERE
+				<choose>
+					<when test='searchType.equals("acc_name")'>
+						CUST_NAME LIKE '%${keyword}%'
+					</when>
+					<when test='searchType.equals("acc_code")'>
+						BUSINESS_NO LIKE '%${keyword}%'
+					</when>
+				</choose>
+		</if>
+		ORDER BY
+			BUSINESS_NO DESC
+	</select>
+
+</mapper>

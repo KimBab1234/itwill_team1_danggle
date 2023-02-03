@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link href="${pageContext.request.contextPath }/resources/css/out.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 table{
 	border: 1px solid;
