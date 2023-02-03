@@ -7,11 +7,14 @@
 <title>사원 검색</title>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	
-	$(function() {
+	var empList;
+	var i = 0;
+
 		
-		$("#Listbtn2").on("click", function() {
-			
+		
+		
+		function func(){
+		
 			$.ajax({
 				url: "SearchEmp",
 				type: "GET",
@@ -20,30 +23,41 @@
 				},
 				dataType: "json"
 			})
-			.done(function(EmpList) {
-				
-				
-// 				for(let book of bookList) {
+			.done(function(response) {
+				empList =JSON.parse(response.EmpList);
+				if(empList.length == 0){
+					alert("검색 결과가 없습니다");
+				}else {					
+					$(".detail_table").find("tr:gt(0)").remove();
 					
-// 					let result = "<tr>"
-// 								+ "<td>" + book.product_idx + "</td>"
-// 								+ "<td>" + book.name + "</td>"
-// 								+ "<td>" + book.quantity + "</td>"
-// 							+ "<td>" + "<input type='button' id='Listbtn' class='recobtn' value='삭제'>"
-// 							 + "<input type='hidden' class='recoHidden' value='"+book.product_idx +"'>" + "</td>"
-// 								+ "</tr>";
-					
-// 					// 지정된 위치(table 태그 내부)에 JSON 객체 출력문 추가
-// 					$(".recoTable").append(result);
-// 				}
-				
-				
+					for(var i = 0; i < empList.length; i++) {
+						let result = "<tr>"
+									+ "<td>" + empList[i].EMP_NUM + "</td>"
+									+ "<td>" + empList[i].EMP_NAME + "</td>"
+									+ "<td>" + "<input type='button' id='Listbtn' class='recobtn' value='선택' onclick='departSelect("+i+")'>"
+									+ "</tr>";
+									
+						$(".detail_table").append(result);
+						
+					}
+				}
 			})
 			.fail(function() {
 				$(".recoTable").append("<h3>요청 실패!</h3>");
 			});
-		});
-	});
+		
+		
+	}
+	
+		function departSelect(i) {
+			alert(empList);
+			$(opener.document).find('#emp_code').val(empList[i].EMP_NUM);
+			$(opener.document).find('#emp_name').val(empList[i].EMP_NAME);
+			this.close();
+		}
+
+	
+	
 	
 </script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
@@ -54,9 +68,15 @@
 		<div class="box">
 			<div class="in_box">
 				<input type="text" class="note" placeholder="사원명을 입력하세요" name="keyword" id="keyword">
-				<input type="button" id="Listbtn2" value="검색">
+				<input type="button" id="Listbtn2" value="검색" onclick="func()">
 			</div>
-			<table>
+			<br>
+			<table class="detail_table">
+				<tr>
+					<th width="150">사원 번호</th>
+					<th width="200">사원명</th>
+					<th width="100">선택</th>
+				</tr>
 			</table>
 		</div>
 	</div>

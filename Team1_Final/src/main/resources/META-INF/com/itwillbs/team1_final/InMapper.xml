@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.team1_final.mapper.InMapper">
+	<!-- 사원 조회 -->
+	<select id="selectHrList" resultType="com.itwillbs.team1_final.vo.HrVO">
+	SELECT 
+		EMP_NUM, EMP_NAME
+		FROM hr
+		WHERE
+			EMP_NAME LIKE '%${keyword}%'
+	</select>
+	
+	<!-- 품목 조회 -->
+	<select id="selectProductList" resultType="com.itwillbs.team1_final.vo.PdVO">
+		SELECT 
+			PRODUCT_CD, PRODUCT_NAME, SIZE_DES
+			FROM product
+			WHERE 
+				PRODUCT_NAME LIKE '%${keyword}%'
+	</select>
+</mapper>

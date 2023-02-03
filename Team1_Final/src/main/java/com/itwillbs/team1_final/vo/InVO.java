@@ -18,6 +18,9 @@ public class InVO {
 	private String in_type_cd; // 입고유형코드
 	private String in_type_name; //입고유형명
 	
+	
+	
+	
 	public String getIn_schedule_cd() {
 		return in_schedule_cd;
 	}

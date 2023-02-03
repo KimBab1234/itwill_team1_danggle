@@ -8,6 +8,10 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	
+	function funct(){
+		window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
+	}
+	
 	$(function() {
 		
 		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
@@ -19,10 +23,6 @@
 				$("input[type=checkbox][name=in_type_cd]").prop('checked',false);
 				$(this).prop('checked',true);
 			}
-		});
-		
-		$(".product_cd").on("dblclick", function() { // 더블클릭 시 새 창 띄우기
-			window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
 		});
 		
 		//====================== 여기서부터 <tr>생성 & 합계 계산 =====================================
@@ -43,7 +43,7 @@
 		
 		$("#recoBtn").on("click", function() {
 			$("#optionArea").append(
-					'<tr>' 
+					'<tr class="indexCh" ondblclick="funct()">' 
 					+'<td><input type="text" class="product_cd" name="product_cd"></td>'
 					+ '<td><input type="text" class="product_name" name="product_name"></td>'
 					+ '<td><input type="text" class="size_des" name="size_des"></td>'
@@ -59,15 +59,9 @@
 				$.total();
 			});
 			
-			$(".product_cd").on("dblclick", function() { // 더블클릭 시 새 창 띄우기
-				window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
-			});
-			
 		});
 		
 			
-			
-		
 	});
 
 
@@ -93,8 +87,8 @@
 				<tr>
 					<th>담당자</th>
 					<td>
-						<input type="text" class="emp_code" placeholder="사원번호">
-						<input type="text" class="emp_name" placeholder="사원명">
+						<input type="text" class="emp_code" id="emp_code" name="emp_code" placeholder="사원번호">
+						<input type="text" class="emp_name" id="emp_name" name="emp_name" placeholder="사원명">
 						<button id="Listbtn" type="button" onclick="window.open('SearchEMP', 'searchEmployee', 'width=500, height=500, left=750, top=400')">검색</button>
 					</td>
 					<th>거래처</th>
@@ -121,7 +115,16 @@
 					<th width="150">납기일자</th>
 					<th width="200">적요</th>
 				</tr>
-				<tr>
+				<tr class="indexCh" ondblclick="funct()">
+					<td><input type="hidden" id="index">
+					<input type="text" class="product_cd" name="product_cd"></td>
+					<td><input type="text" class="product_name" name="product_name"></td>
+					<td><input type="text" class="size_des" name="size_des"></td>
+					<td><input type="number" class="in_schedule_qty" name="in_schedule_qty"></td>
+					<td><input type="date" class="in_date" name="in_date"></td>
+					<td><input type="text" class="remarks" name="remarks"></td>
+				</tr>
+				<tr class="indexCh" ondblclick="funct()"> 
 					<td><input type="text" class="product_cd" name="product_cd"></td>
 					<td><input type="text" class="product_name" name="product_name"></td>
 					<td><input type="text" class="size_des" name="size_des"></td>
@@ -129,15 +132,7 @@
 					<td><input type="date" class="in_date" name="in_date"></td>
 					<td><input type="text" class="remarks" name="remarks"></td>
 				</tr>
-				<tr>
-					<td><input type="text" class="product_cd" name="product_cd"></td>
-					<td><input type="text" class="product_name" name="product_name"></td>
-					<td><input type="text" class="size_des" name="size_des"></td>
-					<td><input type="number" class="in_schedule_qty" name="in_schedule_qty"></td>
-					<td><input type="date" class="in_date" name="in_date"></td>
-					<td><input type="text" class="remarks" name="remarks"></td>
-				</tr>
-				<tr>
+				<tr class="indexCh" ondblclick="funct()">
 					<td><input type="text" class="product_cd" name="product_cd"></td>
 					<td><input type="text" class="product_name" name="product_name"></td>
 					<td><input type="text" class="size_des" name="size_des"></td>
