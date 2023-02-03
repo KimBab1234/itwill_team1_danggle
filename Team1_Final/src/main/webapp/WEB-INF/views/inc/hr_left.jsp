@@ -38,7 +38,7 @@
 				<a href="HrRegist">사원 등록</a>
 			</h3>
 			<h3 class="menuH3">
-				<a href="HrList">사원 조회</a>
+				<a href="HrListForm">사원 조회</a>
 			</h3>
 		</div>
 	</div>

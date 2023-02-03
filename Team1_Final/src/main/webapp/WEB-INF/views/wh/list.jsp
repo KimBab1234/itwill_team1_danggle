@@ -8,6 +8,7 @@
 <title>창고 목록</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src="https://kit.fontawesome.com/5fad4a5f29.js" crossorigin="anonymous"></script>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 	#listForm {
@@ -28,7 +29,7 @@
 		text-align: center;
 	}
 	
-	table td {
+	.wh_td {
 		text-align: center;
 	
 	}
@@ -98,56 +99,63 @@
 			<td>창고 구역 내 위치 추가</td>
 			
 		</tr>
-		<c:choose>
-		<c:when test="${whList.size() == 0}" >
-			
-		</c:when>
-		<c:otherwise>
-		
-		
-		<c:forEach begin="0" end="${whList.size()-1}" var="i" >
-			<tr>
-				<td>
-				<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
-				${whList.get(i).WH_CD}
-				</a>
-				</td>
-				
-<%-- 				<c:if test="${empty param.pageNum }"> --%>
-<%-- 					<c:set var="pageNum" value="1" /> --%>
-<%-- 				</c:if> --%>
-				<td id="name">
-				
-				<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
-				${whList.get(i).WH_NAME}
-				</a>
-				</td>
-				<td><c:choose>
-					<c:when test="${whList.get(i).WH_GUBUN eq 1 }">내부</c:when>
-					<c:when test="${whList.get(i).WH_GUBUN eq 2 }">외부</c:when>
-				
-				</c:choose></td>
-				<td>${whList.get(i).WH_MAN_NAME}</td>
-				<td><c:choose>
-					<c:when test="${whList.get(i).WH_GUBUN eq 1 }">사용</c:when>
-					<c:when test="${whList.get(i).WH_GUBUN eq 2 }">미사용</c:when>
-				
-				</c:choose></td>
-				
-			<td>
-				<a href="WhAreaRegist?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
-				<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i>
-				</a>
-			</td>
-			<td>
-				<a href="WhLocationRegist?WH_AREA_CD=${wh_area.WH_AREA_CD}&pageNum=${pageNum}">
-				<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i>
-				</a>
-			</td>
-			</tr>
-		</c:forEach>
-		</c:otherwise>
-		</c:choose>
+		<c:if test="${whList.size() > 0}" >
+			<c:forEach begin="1" end="${whList.size()-1}" var="i" >
+				<c:if test="${whList.get(i-1).WH_CD != whList.get(i).WH_CD}">
+					<tr class="wh_td">
+						<td>
+						<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+						${whList.get(i).WH_CD}
+						</a>
+						</td>
+						<td id="name">
+						
+						<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+						${whList.get(i).WH_NAME}
+						</a>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${whList.get(i).WH_GUBUN eq 1 }">내부</c:when>
+								<c:when test="${whList.get(i).WH_GUBUN eq 2 }">외부</c:when>
+							</c:choose>
+						</td>
+						<td>${whList.get(i).WH_MAN_NAME}</td>
+						<td>
+							<c:choose>
+								<c:when test="${whList.get(i).WH_GUBUN eq 1 }">사용</c:when>
+								<c:when test="${whList.get(i).WH_GUBUN eq 2 }">미사용</c:when>
+							</c:choose>
+						</td>
+					<td>
+						<a href="WhAreaRegist?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+						<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i>
+						</a>
+					</td>
+					<td>
+						<a href="WhLocationRegist?WH_AREA_CD=${wh_area.WH_AREA_CD}&pageNum=${pageNum}">
+						<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i>
+						</a>
+					</td>
+					</tr>
+				</c:if>
+				<c:if test="${whList.get(i-1).WH_AREA_CD != whList.get(i).WH_AREA_CD}">
+					<tr style="text-align: left">
+						<td></td>
+						<td colspan="4"><i class="fa-solid fa-right-long"></i>${whList.get(i).WH_AREA}</td>
+						<td class="wh_td">위치 추가 버튼</td>
+						<td class="wh_td">구역 삭제 버튼</td>
+					</tr>
+				</c:if>
+				<c:if test="${whList.get(i-1).WH_LOC_IN_AREA_CD != whList.get(i).WH_LOC_IN_AREA_CD}">
+					<tr align="left">
+						<td></td>
+						<td colspan="5"><i class="fa-solid fa-right-long"></i><i class="fa-solid fa-right-long"></i> ${whList.get(i).WH_LOC_IN_AREA}</td>
+						<td class="wh_td">구역 삭제 버튼</td>
+					</tr>
+				</c:if>
+			</c:forEach>
+		</c:if>
 	</table>
 	</section>
 	</div>

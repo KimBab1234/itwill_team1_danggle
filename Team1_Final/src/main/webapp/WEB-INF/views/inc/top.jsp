@@ -161,7 +161,7 @@ nav .fa.fa-angle-down {
 				<li><a href="#">인사 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="HrRegist">사원 등록</a></li>
-						<li><a href="HrList">사원 조회</a></li>
+						<li><a href="HrListForm">사원 조회</a></li>
 					</ul>
 				</li>
 				<li><a href="#">거래처 관리<i class='fa fa-angle-down'></i></a>

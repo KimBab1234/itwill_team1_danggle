@@ -36,6 +36,9 @@ public class WhController {
 		int startRow = (pageNum -1) * listLimit;
 		
 		List<WhVO> whList = service.getWhList(searchType,keyword,startRow,listLimit);
+
+		////dummy데이터
+		whList.add(0, new WhVO());
 		
 		int listCount = service.getWhListCount(searchType,keyword);
 		

@@ -9,13 +9,12 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -116,44 +115,73 @@ public class HrController {
 	}
 
 
-	/////사원 조회
+	/////사원 등록 끝
 	@RequestMapping(value = "/HrRegistEnd", method = RequestMethod.GET)
 	public String hrRegistEnd(Model model) {
 		return "hr/hr_regist_end";
 	}
 
+	/////사원 목록 폼
+	@RequestMapping(value = "/HrListForm", method = {RequestMethod.GET})
+	public String hrListForm() {
+		return "hr/hr_list";
+	}
+	
 	/////사원 조회
-	@RequestMapping(value = "/HrList", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	@RequestMapping(value = "/HrList", method = {RequestMethod.POST, RequestMethod.GET})
 	public String hrList(
 			@RequestParam(defaultValue = "1") int pageNum
 			,@RequestParam(defaultValue = "") String searchType
 			, @RequestParam(defaultValue = "") String keyword
 			, Model model) {
-
+		
 		System.out.println("사원 조회");
-
+		
 		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
 		ArrayList<HrVO> empList = service.getEmpList(searchType, keyword, startRow, listLimit);
+		
+		JSONObject jsonStr = new JSONObject();
+		JSONArray arr = new JSONArray();
 
+		for(HrVO bean : empList) {
+			JSONObject emp = new JSONObject(bean);
+			arr.put(emp);
+		}
+
+		jsonStr.put("jsonEmp", arr);
+		return jsonStr.toString();
+	}
+	
+	/////페이징처리
+	@ResponseBody
+	@RequestMapping(value = "/HrListPage", method = {RequestMethod.POST, RequestMethod.GET})
+	public String hrListPage(
+			@RequestParam(defaultValue = "1") int pageNum
+			,@RequestParam(defaultValue = "") String searchType
+			, @RequestParam(defaultValue = "") String keyword
+			, Model model) {
+		
+		System.out.println("사원 조회 목록 페이지처리");
+		
+		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int listCount = service.getEmpListCount(searchType, keyword);
 		int pageListLimit = 3;
 		int maxPage = listCount / listLimit + (listCount % listLimit == 0 ? 0 : 1); 
 		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
 		int endPage = startPage + pageListLimit - 1;
-
+		
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
-
+		
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
-
-
-		model.addAttribute("empList", empList);
-		model.addAttribute("pageInfo", pageInfo);
-
-
-		return "hr/hr_list";
+		
+		JSONObject pageObj = new JSONObject(pageInfo);
+		JSONObject jsonPage = new JSONObject();
+		jsonPage.put("jsonPage", pageObj.toString());
+		return jsonPage.toString();
 	}
 
 
@@ -164,7 +192,6 @@ public class HrController {
 		return "hr/hr_departSearch";
 	}
 
-	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value = "/DepartSearch", method = RequestMethod.POST)
 	public String departSearchPro(String keyword) {
@@ -176,14 +203,12 @@ public class HrController {
 		JSONArray arr = new JSONArray();
 
 		for(HrVO bean : hrList) {
-			JSONObject depart = new JSONObject();
-			depart.put("DEPT_CD", bean.getDEPT_CD());
-			depart.put("DEPT_NAME", bean.getDEPT_NAME());
-			arr.add(depart);
+			JSONObject depart = new JSONObject(bean);
+			arr.put(depart);
 		}
 
 		jsonStr.put("jsonDepart", arr);
-		return jsonStr.toJSONString();
+		return jsonStr.toString();
 	}
 
 
@@ -311,7 +336,7 @@ public class HrController {
 					e.printStackTrace();
 				}
 			}
-			return "redirect:/HrList";
+			return "redirect:/HrListForm";
 		} else {
 			model.addAttribute("msg", "사원 수정 실패!");
 			return "fail_back";

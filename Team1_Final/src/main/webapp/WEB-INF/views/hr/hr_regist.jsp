@@ -23,8 +23,10 @@
 input.chk_top + label{
   cursor:pointer;
   vertical-align: middle;
-  line-height:17px; 
-   font-size:14px; 
+  line-height:20px; 
+  font-size:16px;
+  font-weight: bold;  
+  color: #736643
  }
 
 /* input 바로 다음의 label:before 에 체크하기 전 CSS 설정 */
@@ -45,7 +47,7 @@ input.chk_top + label{
    font-family:"Font Awesome 5 free"; 
     font-weight:900; 
    color:#fff; 
-   background-color:#c9b584; 
+   background-color:#736643; 
    border-color:#c9b584; 
    font-size:13px; 
    text-align:center; 
@@ -360,15 +362,15 @@ function execDaumPostcode() {
 </head>
 <body style="border-left: solid 10px; border-color: #BDBDBD;">
 	<jsp:include page="../inc/top.jsp"></jsp:include>
-	<div style="display: flex; margin-bottom:100px; " align="center">
+	<div style="display: flex; margin-bottom:100px; ">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
 			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
 		<form name="hrForm" id="hrForm" action="HrRegistPro" method="post" enctype="multipart/form-data">
+		<h1 id="hrRegiTitle"  style="width: 1300px;"></h1>
 		<div align="center" style="width: 1300px;">
-			<h1 align="left"  id="hrRegiTitle"></h1>
-			<table class="regi_table" style="text-align: center; border: solid 1px; width: 900px;">
+			<table class="regi_table" style="text-align: center; border: solid 1px; width: 600px;">
 				<tr>
 					<th align="right" width="150">이름</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
@@ -516,13 +518,13 @@ function execDaumPostcode() {
 				</tr>
 				<tr>
 					<th align="right" >권한</th>
-					<td align="left" >&nbsp;&nbsp;&nbsp;
+					<td align="left" >
 						<input type="checkbox" class="chk_top" id="chk_top1" />
-  						<label for="chk_top1">&nbsp;기본등록</label>
+  						<label for="chk_top1">&nbsp;기본등록</label><br>
 						<input type="checkbox" class="chk_top" id="chk_top2" />
   						<label for="chk_top2">&nbsp;사원조회</label>
 						<input type="checkbox" class="chk_top" id="chk_top3" />
-  						<label for="chk_top3">&nbsp;사원관리</label>
+  						<label for="chk_top3">&nbsp;사원관리</label><br>
 						<input type="checkbox" class="chk_top" id="chk_top4" />
   						<label for="chk_top4">&nbsp;재고조회</label>
 						<input type="checkbox" class="chk_top" id="chk_top5" />
@@ -539,9 +541,9 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 			</table>
-		</div>
 		<input type="button" class="hrFormBtn" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;">
 		<input type="button" class="hrFormBtn" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;" onclick="history.back()" value="돌아가기">
+		</div>
 		</form>
 		<!-- 여기까지 본문-->
 	</div>
