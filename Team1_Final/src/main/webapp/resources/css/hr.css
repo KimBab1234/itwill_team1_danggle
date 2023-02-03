@@ -18,9 +18,7 @@
 .choice, .choiceSelect:hover {
 	cursor: pointer;	
 }
-.recoCheck {
-	accent-color: #736643;
-}
+
 
 /* 테이블 기본 설정 */
 .regi_table {
@@ -191,7 +189,6 @@ label {
     padding: 7px 20px;
     color: #fff;
     vertical-align: middle;
-    background-color: #736643;
     cursor: pointer;
     height: 32px;
     margin: 3px 0px 0px 5px;
