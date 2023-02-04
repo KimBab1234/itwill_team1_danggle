@@ -1,6 +1,5 @@
 package com.itwillbs.team1_final.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +22,7 @@ public class OutController {
 	@Autowired
 	OutService service;
 	
+	// ------------------ 출고 예정 Controller ------------------
 	// 출고예정 목록 창
 	@GetMapping(value = "/OutSchList")
 	public String OutList() {
@@ -36,7 +36,10 @@ public class OutController {
 		return "out/out_regist";
 	}
 	
+	// ----------------------------------------------------------
 	
+	
+	// ------------------ 정보 검색 Controller ------------------
 	// 거래처 검색 창
 	@GetMapping(value = "/AccSearch")
 	public String searchAcc() {
@@ -56,26 +59,26 @@ public class OutController {
 		JSONArray jsonAcc = new JSONArray();
 		
 		for(AccVO acc : accList) {
-
+			
 			JSONObject jsonObject = new JSONObject(acc);
 			jsonAcc.put(jsonObject);
 		}
-	      
+		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("accList", jsonAcc.toString());
-		System.out.println(jsonObject);
 		
 		return jsonObject.toString();
 		
 	}
+	// ----------------------------------------------------------
 	
 	
-	
-	
+	// ------------------ 출고 처리 Controller ------------------
 	// 출고처리 목록 창
 	@GetMapping(value = "/OutProList")
 	public String schedule() {
 		return "out/out_process_list";
 	}
+	// ----------------------------------------------------------
 	
 }

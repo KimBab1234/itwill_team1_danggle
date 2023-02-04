@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+#outTitle {
+	margin-left: 300px;
+}
+
 table{
 	margin: 0 auto;
 	margin-left: 300px;
@@ -35,7 +39,6 @@ td {
 }
 
 button {
-	position: relative;
 	color: #fff;
     background-color: #736643;
     cursor: pointer;
@@ -45,7 +48,8 @@ button {
     border-radius: 4px;
     border: none;
     display: block;
-    margin-top: 10px; 
+    margin-top: 10px;
+    margin-left: 300px;
 }
 </style>
 </head>
@@ -54,8 +58,9 @@ button {
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<jsp:include page="../inc/in_left.jsp"></jsp:include>
+	
+	<h3 id="outTitle">출고 예정</h3>
 	<div align="center">
-		<h3>출고 예정</h3>
 		<table>
 			<tr>
 				<th width="50px"><input type="checkbox"></th>
@@ -71,7 +76,8 @@ button {
 				<th width="200px">인쇄</th>
 			</tr>
 		</table><br>
-		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=950, height=600, left=400, top=300')">등록</button>
 	</div>
+	<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=950, height=600, left=400, top=300')">등록</button>
+	
 </body>
 </html>
