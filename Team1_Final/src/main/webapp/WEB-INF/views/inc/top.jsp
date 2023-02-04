@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- 폰트 변경 끝  -->
+<!-- 폰트 변경 시작  -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
@@ -203,7 +203,7 @@ nav .fa.fa-angle-down {
 						<li><a href="IN_Process">입고 처리</a></li>
 						<li><a href="OutSchList">출고 예정</a></li>
 						<li><a href="OutProList">출고 처리</a></li>
-						<li><a href="#">재고 조정</a></li>
+						<li><a href="StockListForm">재고 관리</a></li>
 					</ul>
 				</li>
 				<li><a href="#">건의사항</a></li>

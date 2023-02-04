@@ -134,13 +134,14 @@ public class HrController {
 			@RequestParam(defaultValue = "1") int pageNum
 			,@RequestParam(defaultValue = "") String searchType
 			, @RequestParam(defaultValue = "") String keyword
+			, @RequestParam(defaultValue = "") String workType
 			, Model model) {
 		
 		System.out.println("사원 조회");
 		
 		int listLimit = 1; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
-		ArrayList<HrVO> empList = service.getEmpList(searchType, keyword, startRow, listLimit);
+		ArrayList<HrVO> empList = service.getEmpList(workType, searchType, keyword, startRow, listLimit);
 		
 		JSONObject jsonStr = new JSONObject();
 		JSONArray arr = new JSONArray();
@@ -161,12 +162,13 @@ public class HrController {
 			@RequestParam(defaultValue = "1") int pageNum
 			,@RequestParam(defaultValue = "") String searchType
 			, @RequestParam(defaultValue = "") String keyword
+			, @RequestParam(defaultValue = "1") String workType
 			, Model model) {
 		
 		System.out.println("사원 조회 목록 페이지처리");
 		
 		int listLimit = 1; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
-		int listCount = service.getEmpListCount(searchType, keyword);
+		int listCount = service.getEmpListCount(searchType, keyword, workType);
 		int pageListLimit = 3;
 		int maxPage = listCount / listLimit + (listCount % listLimit == 0 ? 0 : 1); 
 		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;

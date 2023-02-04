@@ -3,5 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.itwillbs.team1_final.vo.HrVO" alias="hr"/>
+		<typeAlias type="com.itwillbs.team1_final.vo.StockVO" alias="stock"/>
 	</typeAliases>
 </configuration>

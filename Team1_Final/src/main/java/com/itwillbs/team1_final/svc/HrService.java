@@ -34,20 +34,20 @@ public class HrService {
 	public ArrayList<HrVO> getDepartSearch(String keyword) {
 		return mapper.selectDepartSearch(keyword);
 	}
-	public ArrayList<HrVO> getEmpList(String searchType, String keyword, int startRow, int listLimit) {
+	public ArrayList<HrVO> getEmpList(String workType, String searchType, String keyword, int startRow, int listLimit) {
 
-		String search = "";
+		String search = "WHERE WORK_CD="+workType;
 		if(searchType!=null && !searchType.equals("") ) {
-			search = "WHERE " + searchType + " LIKE '%" + keyword + "%'";
+			search = " " + searchType + " LIKE '%" + keyword + "%'";
 		}
 
 		return mapper.selectEmpList(search,startRow,listLimit);
 	}
-	public int getEmpListCount(String searchType, String keyword) {
+	public int getEmpListCount(String searchType, String keyword, String workType) {
 
-		String search = "";
+		String search = "WHERE WORK_CD="+workType;
 		if(searchType!=null && !searchType.equals("") ) {
-			search = "WHERE " + searchType + " LIKE '%" + keyword + "%'";
+			search = " " + searchType + " LIKE '%" + keyword + "%'";
 		}
 
 		return mapper.selectEmpListCount(search);
