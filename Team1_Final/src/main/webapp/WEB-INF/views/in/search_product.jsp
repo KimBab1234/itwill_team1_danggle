@@ -37,7 +37,7 @@
 				}else {					
 					
 					
-					$("#detail").find("tr:gt(0)").remove();
+					$("#detail_table").find("tr:gt(0)").remove();
 					
 					for(var i = 0; i < proList.length; i++) {
 						let result = "<tr>"
