@@ -33,29 +33,18 @@
 	
 	///처음 들어왔을때 기본값 1
 	var pageNum;
-	var pageListLimit = 2;
+	var pageListLimit = 1;
 	var startPage;
 	var endPage;
 	var maxPage;
 	var	searchType = '';
 	var keyword = '';
-	var workType;
 
 	$(function() {
-		
-		workType=1;
-		
-		////재직 or 휴,퇴직 선택시 목록 변경
-		$(".choice").on("click", function() {
-			workType = $(this).attr("id");
-			///pageNum은 일부러 null로주기
-			getPageList(null);
-		});
-		
 		getPageList(1);
 	});
 	
-	function getEmpList(toPageNum) {
+	function getStockList(toPageNum) {
 
 		///같은 페이지 들어오면 아무일 없음
 		if(pageNum == toPageNum) {
@@ -66,52 +55,66 @@
 			toPageNum = 1;
 		}
 		pageNum = toPageNum;
+		
 		$.ajax({
-			url: 'HrList',
-			type: 'get',
+			url: 'StockList',
+			type: 'POST',
 			data: {
 				pageNum : toPageNum,
-				workType : workType,
 				searchType : searchType,
 				keyword : keyword
 			},
 			dataType : 'json',
 			success : function(response) {
-				emp = response.jsonEmp;
+				stock = response.jsonStock;
 				/// 테이블 초기화
 				$("tbody").empty();
 				/// 데이터 뿌리기
-				if(emp.length==0) {
-					$("#searchNone").html("<h3>검색 결과가 없습니다.</h3>");
+				if(stock.length==0) {
+					$(".regi_table").append('<tr><td colspan="6" style="font-size: 20px;">검색 결과가 없습니다.</td></tr>');
 				} else {
-					for(var i=0; i<emp.length; i++) {
-						$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td width="150"><img src="${pageContext.request.contextPath}/resources/img/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;"></td>'
-								+'<td width="150">'+emp[i].EMP_NUM+'</td>'
-								+'<td width="120">'+emp[i].EMP_NAME+'</td>'
-								+'<td width="150">'+emp[i].DEPT_NAME+'</td>'
-								+'<td width="70">'+emp[i].GRADE_NAME+'</td>'
-								+'<td width="150">'+emp[i].EMP_TEL+'</td>'
-								+'<td width="250">'+emp[i].EMP_EMAIL+'</td>'
-								+'<td width="200"><button type="button" class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; " onclick="location.href=\'HrDetail?empNo='+emp[i].EMP_NUM+'\'">상세정보</button>'
-								+'<br><button type="button"  class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; margin-top: 10px;" onclick="location.href=\'HrEdit?empNo='+emp[i].EMP_NUM+'\'">수정</button></td>'
+					for(var i=0; i<stock.length; i++) {
+						$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150">'
+								+'<td width="100"><a href="javascript:showStockDetail(' + stock[i].STOCK_CD + ')">' + stock[i].STOCK_CD + '</a></td>'
+								+'<td width="100">'+stock[i].PRODUCT_CD+'</td>'
+								+'<td width="250">'+stock[i].PRODUCT_NAME+'</td>'
+								+'<td width="150">'+stock[i].WH_AREA+'</td>'
+								+'<td width="150">'+stock[i].WH_LOC_IN_AREA+'</td>'
+								+'<td width="70">'+stock[i].STOCK_QTY+'</td>'
 								+'</tr>');
 					}
 				}
 				
 			}
 		});
+		
+	}
+
+    function searchEnter() {
+		if(window.event.keyCode == 13) {
+			searchList();
+		}
 	}
 	
+    function searchList() {
+    	searchType = $("#searchType").val();
+		if(searchType=='') {
+			alert("검색 유형을 선택하세요.");
+			return false;
+		}
+		keyword = $("#keyword").val();
+		getPageList(null);
+    }
+    
 	////페이지 목록 뿌리기 (가지고있는 데이터로 뿌리기만 함)
-	function pageListChange(toPage) {
+	function pageListChange(toPageNum) {
 		
-		if(toPage==null) {
-			toPage = 1;
+		if(toPageNum==null) {
+			toPageNum = 1;
 		}
 		
 		///pageNum 변경
-		pageNum = toPage;
-		
+		pageNum = toPageNum;
 		/// pageList 영역 초기화
 		$("#pageListSection").html("");
 		
@@ -136,34 +139,36 @@
 	
 	
 	////페이징처리
-	function getPageList(pageNum) {
+	function getPageList(toPageNum) {
 		$.ajax({
-			url: 'HrListPage',
+			url: 'StockListPage',
 			type: 'post',
 			data: {
-				pageNum : pageNum,
-				workType : workType,
+				pageNum : toPageNum,
 				searchType : searchType,
 				keyword : keyword
 			},
 			dataType : 'json',
 			success : function(response) {
 				pageList = JSON.parse(response.jsonPage);
-				pageListChange(pageNum);
+				getStockList(toPageNum);
+				pageListChange(toPageNum);
 			}
 		});
-		getEmpList(pageNum);
-		pageListChange(pageNum);
 	}
 	
-	
 	function hereClick(herePage){
-		getEmpList(herePage);
+		getStockList(herePage);
 	};
 	
 	function arrowClick(herePage){
 		getPageList(herePage);
 	};
+	
+	 function showStockDetail(stockNo) {
+		 window.open('StockDetail?stockNo='+stockNo, 'searchPopup', 'width=1000, height=700, left=600, top=400');
+	}
+	
 
 </script>
 <style>
@@ -181,43 +186,38 @@ option {
 		</div>
 		<!-- 여기서부터 본문-->
 		<div style="width: 1500px;"  align="center" >
-		<h1 align="left" style="width: 1500px; text-align: left; margin-left: 100px;">| 사원 조회</h1>
+		<h1 align="left" style="width: 1500px; text-align: left; margin-left: 100px;">| 재고 조회</h1>
 		<div style="display: flex; width: 1300px; text-align: right" align="right">
-			<div class="choice" id="1">재직</div><div class="choice" id="2">휴직</div><div class="choice" id="3">퇴직</div>
-			<form method="post" style="width: 1400px; margin-bottom:10px; text-align: right;">
-				<select name="searchType" style="text-align: center; font-weight: bold; width: 100px;">
+			<div style="width: 1400px; margin-bottom:10px; text-align: right;">
+				<select name="searchType" id="searchType" style="text-align: center; font-weight: bold; width: 100px; height: 35px;">
 					<option value="">검색 유형</option>
-					<option value="EMP_NUM">사번</option>
-					<option value="EMP_NAME">사원명</option>
-					<option value="DEPT_NAME">부서명</option>
+					<option value="PRODUCT_CD">품목코드</option>
+					<option value="PRODUCT_NAME">품목명</option>
+					<option value="WH_AREA">구역명</option>
+					<option value="WH_LOC_IN_AREA">위치명</option>
 				</select>
-				<input type="text" name="keyword">
-				<button  class="hrFormBtn"  style="width: 100px; height:30px; font-size:18px;" >
+				<input type="text" name="keyword" id="keyword" onkeyup="searchEnter()" style="height: 35px;">
+				<button  class="hrFormBtn"  style="width: 100px; height:30px; font-size:18px;" onclick="searchList()">
 					<i class="fa-solid fa-magnifying-glass" style="color: #fff; margin: 0;"></i>&nbsp;검색
 				</button>
-			</form>
+			</div>
 		</div>
 		<table border="1" class="regi_table" style="text-align: center; width: 1300px; font-size: 20px;">
 			<tr>
-				<th width="150">사진</th>
-				<th width="150">사번</th>
-				<th width="120">이름</th>
-				<th width="150">부서</th>
-				<th width="70">직급</th>
-				<th width="150">연락처</th>
-				<th width="250">E-MAIL</th>
-				<th width="200">버튼</th>
+				<th width="150">재고번호</th>
+				<th width="120">품목코드</th>
+				<th width="200">품목명</th>
+				<th width="150">구역명</th>
+				<th width="150">위치명</th>
+				<th width="70">재고수량</th>
 			</tr>
 			<tbody>
 			
 			</tbody>
 		</table>
-		<div align="right" style="width: 1300px;">
-		<button type="button" class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; margin-top: 10px;" onclick="location.href='HrRegist'">신규 등록</button>
-		</div>
-		
+	
 		<!-- 페이지 목록 부분 -->
-        <div id="pageListSection" align="center" style="width:1500px; font-weight: bold; display:flex table; font-size: 20px;">
+        <div id="pageListSection" align="center" style="width:1500px; margin-top:20px; font-weight: bold; display:flex table; font-size: 20px;">
 			
 		</div> 
         <!-- 페이지 목록 끝-->
