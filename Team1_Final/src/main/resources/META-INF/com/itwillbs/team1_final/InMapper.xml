@@ -17,4 +17,53 @@
 			WHERE 
 				PRODUCT_NAME LIKE '%${keyword}%'
 	</select>
+	
+	<!-- 거래처 검색 -->
+	<select id="selectAcc" resultType="com.itwillbs.team1_final.vo.AccVO">
+		SELECT BUSINESS_NO, CUST_NAME
+			FROM acc
+			WHERE
+				CUST_NAME LIKE '%${keyword}%'
+	</select>
+	
+	<!-- 입고예정코드 조회 -->
+	<select id="selectToday" resultType="int">
+		SELECT COUNT(IN_SCHEDULE_CD)
+			FROM in_schedule
+			WHERE
+				IN_SCHEDULE_CD LIKE '%${today}%'
+	</select>
+	
+	<!-- 입고 예정 등록 -->
+	<insert id="insertIncoming">
+		INSERT
+			INTO in_schedule
+			VALUES (
+				#{IN_SCHEDULE_CD}
+				, #{IN_TYPE_CD}
+				, #{BUSINESS_NO}
+				, #{EMP_NUM}
+				, #{IN_DATE}
+				, #{REMARKS}
+				, 0
+				, #{TOTAL_QTY}
+			)
+	</insert>
+	
+	<insert id="insertIncomingProduct">
+		INSERT
+			INTO in_schedule_per_product
+			VALUES (
+				#{PRODUCT_CD}
+				, #{PRODUCT_NAME}
+				, #{SIZE_DES}
+				, #{IN_SCHEDULE_QTY}
+				, 0
+				, null
+				, #{IN_PD_SCHEDULE_CD}
+				, #{IN_PD_DATE}
+				, #{IN_PD_REMARKS}
+				, 0
+			)
+	</insert>
 </mapper>

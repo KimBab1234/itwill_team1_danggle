@@ -1,8 +1,11 @@
 package com.itwillbs.team1_final.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,10 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.InService;
+import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
+import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
 
 @Controller
@@ -75,7 +82,26 @@ public class InController {
 		return "in/search_business_no";
 	}
 	
-	
+	@ResponseBody
+	@GetMapping(value = "/AccSearchPro")
+	public String searchAccPro(String keyword, Model model, HttpServletResponse response) {
+		System.out.println("거래처 검색 에이젝스");
+		List<AccVO> accList = service.searchAcc(keyword);
+		
+		JSONArray jsonAcc = new JSONArray();
+		
+		for(AccVO acc : accList) {
+			
+			JSONObject jsonObject = new JSONObject(acc);
+			jsonAcc.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("accList", jsonAcc.toString());
+		
+		return jsonObject.toString();
+		
+	}
 	
 	@GetMapping(value = "/SearchProduct")
 	public String SearchPro() {
@@ -101,5 +127,36 @@ public class InController {
 		jsonObject.put("productList", jsonArray.toString());
 		System.out.println("jsonObject : " + jsonObject);
 		return jsonObject.toString();
+	}
+	
+	@PostMapping(value = "/IncomingRegiPro")
+	public String regiPro(Model model, HttpSession session, @ModelAttribute InVO in
+			, HttpServletRequest request) {
+		System.out.println("입고 예정 품목 등록");
+		
+		String today = request.getParameter("TODAY"); // 날짜 받아오기
+		int product_num = service.searchToday(today); // 입고예정코드 조회
+		int idx = 1;
+		String schedule_cd = "";
+		
+		if(product_num == 0) { // 입고예정코드 조회 결과 0일 때
+			schedule_cd = today + "-" + idx; 
+			in.setIN_SCHEDULE_CD(schedule_cd);
+		}else { // 입고예정코드 조회 결과가 있을 때
+			product_num += 1;
+			schedule_cd = today + "-" + product_num;
+			in.setIN_SCHEDULE_CD(schedule_cd);
+		}
+		
+		int insertCount = service.regiIncoming(in);
+		
+		if(insertCount > 0) {
+			
+		}else {
+			model.addAttribute("msg", "입고 예정 상품 등록 실패!");
+			return "fail_back";
+		}
+		
+		return "in/in_schedule_list";
 	}
 }

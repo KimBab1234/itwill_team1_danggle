@@ -1,120 +1,178 @@
 package com.itwillbs.team1_final.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class InVO {
-	private String in_schedule_cd; // 입고예정코드
-	private String business_no; // 거래처코드
-	private String emp_num; // 담당자(사원번호)
-	private Date in_date; // 납기일자
-	private String remarks; // 적요
-	private String in_complete; // 진행상태
-	private int product_cd; // 품목코드
-	private String product_name; // 품목명
-	private String size_des; // 규격
-	private int in_schedule_qty; // 입고예정수량
-	private int in_qty; // 입고수량 
-	private int wh_loc_in_area_cd; // 창고 구역 내 위치코드
-	private String in_type_cd; // 입고유형코드
-	private String in_type_name; //입고유형명
+	
+	private String IN_SCHEDULE_CD; // 입고예정코드
+	private String IN_TYPE_CD; // 입고유형코드
+	private String BUSINESS_NO; // 거래처코드
+	private String EMP_NUM; // 담당자(사원번호)
+	private Date IN_DATE; // 납기일자
+	private String REMARKS; // 적요
+	private String IN_COMPLETE; // 진행상태
+	private String IN_TYPE_NAME; //입고유형명
+	private int TOTAL_QTY; // 총 입고예정수량
+	
+	// 입고예정품목
+	private List<Integer> PRODUCT_CD; // 품목코드
+	private List<String> PRODUCT_NAME; // 품목명
+	private List<String> SIZE_DES; // 규격
+	private List<Integer> IN_SCHEDULE_QTY; // 입고예정수량
+	private int IN_QTY; // 입고수량 
+	private List<Date> IN_PD_DATE; // 납기일자
+	private List<String> IN_PD_REMARKS; // 적요
+	private String STOCK_CD; // 재고번호
 	
 	
 	
-	
-	public String getIn_schedule_cd() {
-		return in_schedule_cd;
+
+	public List<Integer> getPRODUCT_CD() {
+		return PRODUCT_CD;
 	}
-	public void setIn_schedule_cd(String in_schedule_cd) {
-		this.in_schedule_cd = in_schedule_cd;
+
+	public void setPRODUCT_CD(List<Integer> pRODUCT_CD) {
+		PRODUCT_CD = pRODUCT_CD;
 	}
-	public String getBusiness_no() {
-		return business_no;
+
+	public List<String> getPRODUCT_NAME() {
+		return PRODUCT_NAME;
 	}
-	public void setBusiness_no(String business_no) {
-		this.business_no = business_no;
+
+	public void setPRODUCT_NAME(List<String> pRODUCT_NAME) {
+		PRODUCT_NAME = pRODUCT_NAME;
 	}
-	public String getEmp_num() {
-		return emp_num;
+
+	public List<String> getSIZE_DES() {
+		return SIZE_DES;
 	}
-	public void setEmp_num(String emp_num) {
-		this.emp_num = emp_num;
+
+	public void setSIZE_DES(List<String> sIZE_DES) {
+		SIZE_DES = sIZE_DES;
 	}
-	public Date getIn_date() {
-		return in_date;
+
+	public List<Integer> getIN_SCHEDULE_QTY() {
+		return IN_SCHEDULE_QTY;
 	}
-	public void setIn_date(Date in_date) {
-		this.in_date = in_date;
+
+	public void setIN_SCHEDULE_QTY(List<Integer> iN_SCHEDULE_QTY) {
+		IN_SCHEDULE_QTY = iN_SCHEDULE_QTY;
 	}
-	public String getRemarks() {
-		return remarks;
+
+	public List<Date> getIN_PD_DATE() {
+		return IN_PD_DATE;
 	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+
+	public void setIN_PD_DATE(List<Date> iN_PD_DATE) {
+		IN_PD_DATE = iN_PD_DATE;
 	}
-	public String getIn_complete() {
-		return in_complete;
+
+	public List<String> getIN_PD_REMARKS() {
+		return IN_PD_REMARKS;
 	}
-	public void setIn_complete(String in_complete) {
-		this.in_complete = in_complete;
+
+	public void setIN_PD_REMARKS(List<String> iN_PD_REMARKS) {
+		IN_PD_REMARKS = iN_PD_REMARKS;
 	}
-	public int getProduct_cd() {
-		return product_cd;
+
+	public int getIN_QTY() {
+		return IN_QTY;
 	}
-	public void setProduct_cd(int product_cd) {
-		this.product_cd = product_cd;
+
+	public void setIN_QTY(int iN_QTY) {
+		IN_QTY = iN_QTY;
 	}
-	public String getProduct_name() {
-		return product_name;
+
+	public String getSTOCK_CD() {
+		return STOCK_CD;
 	}
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
+
+	public void setSTOCK_CD(String sTOCK_CD) {
+		STOCK_CD = sTOCK_CD;
 	}
-	public String getSize_des() {
-		return size_des;
+
+	public int getTOTAL_QTY() {
+		return TOTAL_QTY;
 	}
-	public void setSize_des(String size_des) {
-		this.size_des = size_des;
+
+	public void setTOTAL_QTY(int tOTAL_QTY) {
+		TOTAL_QTY = tOTAL_QTY;
 	}
-	public int getIn_schedule_qty() {
-		return in_schedule_qty;
+
+	public String getIN_SCHEDULE_CD() {
+		return IN_SCHEDULE_CD;
 	}
-	public void setIn_schedule_qty(int in_schedule_qty) {
-		this.in_schedule_qty = in_schedule_qty;
+
+	public void setIN_SCHEDULE_CD(String iN_SCHEDULE_CD) {
+		IN_SCHEDULE_CD = iN_SCHEDULE_CD;
 	}
-	public int getIn_qty() {
-		return in_qty;
+
+	public String getIN_TYPE_CD() {
+		return IN_TYPE_CD;
 	}
-	public void setIn_qty(int in_qty) {
-		this.in_qty = in_qty;
+
+	public void setIN_TYPE_CD(String iN_TYPE_CD) {
+		IN_TYPE_CD = iN_TYPE_CD;
 	}
-	public int getWh_loc_in_area_cd() {
-		return wh_loc_in_area_cd;
+
+	public String getBUSINESS_NO() {
+		return BUSINESS_NO;
 	}
-	public void setWh_loc_in_area_cd(int wh_loc_in_area_cd) {
-		this.wh_loc_in_area_cd = wh_loc_in_area_cd;
+
+	public void setBUSINESS_NO(String bUSINESS_NO) {
+		BUSINESS_NO = bUSINESS_NO;
 	}
-	public String getIn_type_cd() {
-		return in_type_cd;
+
+	public String getEMP_NUM() {
+		return EMP_NUM;
 	}
-	public void setIn_type_cd(String in_type_cd) {
-		this.in_type_cd = in_type_cd;
+
+	public void setEMP_NUM(String eMP_NUM) {
+		EMP_NUM = eMP_NUM;
 	}
-	public String getIn_type_name() {
-		return in_type_name;
+
+	public Date getIN_DATE() {
+		return IN_DATE;
 	}
-	public void setIn_type_name(String in_type_name) {
-		this.in_type_name = in_type_name;
+
+	public void setIN_DATE(Date iN_DATE) {
+		IN_DATE = iN_DATE;
 	}
-	
+
+	public String getREMARKS() {
+		return REMARKS;
+	}
+
+	public void setREMARKS(String rEMARKS) {
+		REMARKS = rEMARKS;
+	}
+
+	public String getIN_COMPLETE() {
+		return IN_COMPLETE;
+	}
+
+	public void setIN_COMPLETE(String iN_COMPLETE) {
+		IN_COMPLETE = iN_COMPLETE;
+	}
+
+	public String getIN_TYPE_NAME() {
+		return IN_TYPE_NAME;
+	}
+
+	public void setIN_TYPE_NAME(String iN_TYPE_NAME) {
+		IN_TYPE_NAME = iN_TYPE_NAME;
+	}
+
 	@Override
 	public String toString() {
-		return "InVO [in_schedule_cd=" + in_schedule_cd + ", business_no=" + business_no + ", emp_num=" + emp_num
-				+ ", in_date=" + in_date + ", remarks=" + remarks + ", in_complete=" + in_complete + ", product_cd="
-				+ product_cd + ", product_name=" + product_name + ", size_des=" + size_des + ", in_schedule_qty="
-				+ in_schedule_qty + ", in_qty=" + in_qty + ", wh_loc_in_area_cd=" + wh_loc_in_area_cd + ", in_type_cd="
-				+ in_type_cd + ", in_type_name=" + in_type_name + ", toString()=" + super.toString() + "]";
+		return "InVO [IN_SCHEDULE_CD=" + IN_SCHEDULE_CD + ", IN_TYPE_CD=" + IN_TYPE_CD + ", BUSINESS_NO=" + BUSINESS_NO
+				+ ", EMP_NUM=" + EMP_NUM + ", IN_DATE=" + IN_DATE + ", REMARKS=" + REMARKS + ", IN_COMPLETE="
+				+ IN_COMPLETE + ", IN_TYPE_NAME=" + IN_TYPE_NAME + ", TOTAL_QTY=" + TOTAL_QTY + ", PRODUCT_CD="
+				+ PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", IN_SCHEDULE_QTY="
+				+ IN_SCHEDULE_QTY + ", IN_QTY=" + IN_QTY + ", IN_PD_DATE=" + IN_PD_DATE + ", IN_PD_REMARKS="
+				+ IN_PD_REMARKS + ", STOCK_CD=" + STOCK_CD + ", toString()=" + super.toString() + "]";
 	}
-	
-	
+
 	
 }
