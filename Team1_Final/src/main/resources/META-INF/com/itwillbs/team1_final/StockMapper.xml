@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.team1_final.mapper.StockMapper">
+	
+	
+	<select id="selectStockListCount" resultType="int">
+		SELECT COUNT(*) FROM stock_view ${search};
+	</select>
+	
+	<select id="selectStockList" resultType="stock">
+		SELECT * FROM stock_view ${search} LIMIT #{startRow},#{listLimit};
+	</select>
+	
+	<select id="selectStockDetail" resultType="stock">
+		SELECT * FROM sh_view WHERE STOCK_CD=#{stockNo};
+	</select>
+	
+	<update id="updateStock">
+		UPDATE STOCK 
+		SET
+		
+		WHERE STOCK_CD=#{EMP_NUM};
+	</update>
+	
+
+	
+	
+</mapper>
