@@ -19,4 +19,7 @@ public interface PdMapper {
 	// 품목 구분 선택
 	ArrayList<PdVO> selectPd_type_Search(String keyword);
 
+	// 거래처 선택
+	ArrayList<PdVO> selectBusiness_no_Search(String keyword);
+
 }
