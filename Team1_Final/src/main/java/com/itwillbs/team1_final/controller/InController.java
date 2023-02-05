@@ -173,8 +173,9 @@ public class InController {
 		return jsonObject.toString();
 	}
 	
+	@ResponseBody
 	@PostMapping(value = "/IncomingRegiPro")
-	public void regiPro(Model model, HttpSession session, @ModelAttribute InVO in
+	public int regiPro(Model model, HttpSession session, @ModelAttribute InVO in
 			, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("입고 예정 품목 등록");
 		
@@ -194,20 +195,10 @@ public class InController {
 		
 		int insertCount = service.regiIncoming(in);
 		
-		if(insertCount < 0) {
-			try {
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.print("<script>alert('입고 예정 상품 등록 실패');</script>");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-			
-		
-		
-		
+		return insertCount;
 	}
+	
+	
 //	@PostMapping(value = "/IncomingRegiPro")
 //	public String regiPro(Model model, HttpSession session, @ModelAttribute InVO in
 //			, HttpServletRequest request) {
