@@ -5,12 +5,12 @@
 	height: 30px;
 	width: 120px;
 	text-align: center;
-	background-color: #c9b584;
-	left: 450px;
+	background-color: #736643;
+	left: 250px;
 	position: relative;
 	padding-top: 5px;
 	font-size: 15px;
-	color: #736643;
+	color: #c9b584;
 	font-weight: bold;
 	margin-right: 2px;
 	border-top-left-radius: 9px;
@@ -20,11 +20,11 @@
 
 .title_regi {
 	display: inline-block;
+	position: relative;
 	height: 30px;
 	width: 136px;
 	text-align: center;
 	background-color: #c9b584;
-	position: relative;
 	padding-top: 7px;
 	font-size: 13.5px;
 	color: #736643;
@@ -403,7 +403,8 @@ textarea {
 
 /* 책 목록 */
 .bookTable {
-	margin: 0 auto;
+	margin-left: 250px;
+	left: -60px;
 	width: 1000px;
 	border-collapse: collapse;
 	border-style: solid;
@@ -420,6 +421,7 @@ textarea {
 	padding-bottom: 7px;
 	padding-top: 7px;
 	font-size: 14px;
+	
 }
 
 .bookTable td, .recoTable td{
@@ -430,6 +432,7 @@ textarea {
  	padding-bottom: 5px;
 	padding-top: 5px;
 	font-size: 13.5px;
+
 }
 
 #buttonArea {

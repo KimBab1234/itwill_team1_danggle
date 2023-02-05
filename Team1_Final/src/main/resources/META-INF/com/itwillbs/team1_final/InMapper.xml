@@ -66,4 +66,20 @@
 				, 0
 			)
 	</insert>
+	
+	<select id="selectSchedule" resultType="com.itwillbs.team1_final.vo.InListVO">
+		SELECT *
+			FROM in_schedule_view
+	</select>
+	
+	<select id="selectScheduleStatus" resultType="com.itwillbs.team1_final.vo.InListVO">
+		SELECT *
+			FROM in_schedule_view
+			WHERE
+				IN_COMPLETE LIKE '%${keyword}%'
+	</select>
+	
+	<select id="selectProductProgress">
+		SELECT 
+	</select>
 </mapper>

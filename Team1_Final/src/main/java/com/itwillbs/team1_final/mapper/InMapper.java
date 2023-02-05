@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
+import com.itwillbs.team1_final.vo.InListVO;
 import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
@@ -21,6 +22,12 @@ public interface InMapper {
 
 	void insertIncoming(InVO in); // 입고예정등록
 
-	int insertIncomingProduct(InPdVO product);
+	int insertIncomingProduct(InPdVO product); // 입고예정 상품 등록
+
+	ArrayList<InListVO> selectSchedule(); // 입고예정목록
+
+	ArrayList<InListVO> selectScheduleStatus(String keyword); // 입고예정목록(전체/진행중/완료)
+
+	ArrayList<InPdVO> selectProductProgress(); //입고처리 진행상태
 
 }

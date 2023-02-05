@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.team1_final.mapper.InMapper;
 import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
+import com.itwillbs.team1_final.vo.InListVO;
 import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
@@ -76,6 +77,58 @@ public class InService {
 		
 		return count;
 	}
+
+	public ArrayList<InListVO> getScheduleList() {
+		ArrayList<InListVO> inList = mapper.selectSchedule();
+
+		for(int i = 0; i < inList.size(); i++) {
+			if(!inList.get(i).getSIZE_DES().equals("")) {
+				String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+				inList.get(i).setPRODUCT_NAME(product_size);
+			}
+		}
+		
+		for(int i = 0; i < inList.size(); i++) {
+			if(inList.get(i).getIN_COMPLETE().equals("0")) {
+				String status = "종결";
+				inList.get(i).setIN_COMPLETE(status);
+			}else if(inList.get(i).getIN_COMPLETE().equals("1")) {
+				String status = "취소";
+				inList.get(i).setIN_COMPLETE(status);
+			}
+			
+		}
+		return inList;
+	}
+
+	public ArrayList<InListVO> getScheduleList(String keyword) {
+		ArrayList<InListVO> inList = mapper.selectScheduleStatus(keyword);
+
+		for(int i = 0; i < inList.size(); i++) {
+			if(!inList.get(i).getSIZE_DES().equals("")) {
+				String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+				inList.get(i).setPRODUCT_NAME(product_size);
+			}
+		}
+		
+		for(int i = 0; i < inList.size(); i++) {
+			if(inList.get(i).getIN_COMPLETE().equals("0")) {
+				String status = "종결";
+				inList.get(i).setIN_COMPLETE(status);
+			}else if(inList.get(i).getIN_COMPLETE().equals("1")) {
+				String status = "취소";
+				inList.get(i).setIN_COMPLETE(status);
+			}
+			
+		}
+		return inList;
+	}
+
+	public ArrayList<InPdVO> getProgress() {
+		return mapper.selectProductProgress();
+	}
+
+
 
 	
 	

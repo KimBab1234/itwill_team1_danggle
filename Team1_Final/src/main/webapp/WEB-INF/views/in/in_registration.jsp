@@ -78,15 +78,32 @@
 			
 	});
 	
-	function functi(){
-		for(var i = 0; i < $(".in_date").length; i++){
-			if($(".in_date").eq(i).val() == ""){
-				$(".in_date").eq(i).val("1900-01-01");
-			}
-		}
-		proRegi.submit();
-	}
 	
+	
+		function functi(){
+			for(var i = 0; i < $(".in_date").length; i++){
+				if($(".in_date").eq(i).val() == ""){
+					$(".in_date").eq(i).val("1900-01-01");
+				}
+			}
+			
+			proRegi.submit();
+			
+
+			setTimeout("closeWin()",3000);
+			
+			
+		
+		}
+	function closeWin() {
+		alert("함수 호출");
+		opener.location.reload();
+		window.close();
+	}
+		
+// 	function closeWin(){
+// 		setTimeout("window.close()",5000);
+// 	}
 
 </script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
@@ -94,7 +111,7 @@
 <body>
 	<div style="width:1200px;">
 		<div class="title_regi">입고예정입력</div>
-		<form action="IncomingRegiPro" onsubmit="return false" method="post" name="proRegi" style="width:900px;">
+		<form action="IncomingRegiPro" onsubmit="return false" id="inSc_regi" method="post" name="proRegi" style="width:900px;">
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
