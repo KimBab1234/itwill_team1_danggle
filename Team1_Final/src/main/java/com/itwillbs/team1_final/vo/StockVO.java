@@ -20,6 +20,63 @@ public class StockVO {
 	private String EMP_NAME;
 	private Date STOCK_DATE;
 	private String REMARKS;
+	private int[] STOCK_CD_Arr;
+	private String[] STOCK_CONTROL_TYPE_CD_Arr;
+	private int[] PRODUCT_CD_Arr;
+	private int[] SOURCE_STOCK_CD_Arr;
+	private int[] TARGET_STOCK_CD_Arr;
+	private int[] QTY_Arr;
+	private int[] MOVE_QTY_Arr;
+	private String[] REMARKS_Arr;
+	
+	public int[] getSTOCK_CD_Arr() {
+		return STOCK_CD_Arr;
+	}
+	public void setSTOCK_CD_Arr(int[] sTOCK_CD_Arr) {
+		STOCK_CD_Arr = sTOCK_CD_Arr;
+	}
+	public String[] getSTOCK_CONTROL_TYPE_CD_Arr() {
+		return STOCK_CONTROL_TYPE_CD_Arr;
+	}
+	public void setSTOCK_CONTROL_TYPE_CD_Arr(String[] sTOCK_CONTROL_TYPE_CD_Arr) {
+		STOCK_CONTROL_TYPE_CD_Arr = sTOCK_CONTROL_TYPE_CD_Arr;
+	}
+	public int[] getPRODUCT_CD_Arr() {
+		return PRODUCT_CD_Arr;
+	}
+	public void setPRODUCT_CD_Arr(int[] pRODUCT_CD_Arr) {
+		PRODUCT_CD_Arr = pRODUCT_CD_Arr;
+	}
+	public int[] getSOURCE_STOCK_CD_Arr() {
+		return SOURCE_STOCK_CD_Arr;
+	}
+	public void setSOURCE_STOCK_CD_Arr(int[] sOURCE_STOCK_CD_Arr) {
+		SOURCE_STOCK_CD_Arr = sOURCE_STOCK_CD_Arr;
+	}
+	public int[] getTARGET_STOCK_CD_Arr() {
+		return TARGET_STOCK_CD_Arr;
+	}
+	public void setTARGET_STOCK_CD_Arr(int[] tARGET_STOCK_CD_Arr) {
+		TARGET_STOCK_CD_Arr = tARGET_STOCK_CD_Arr;
+	}
+	public int[] getQTY_Arr() {
+		return QTY_Arr;
+	}
+	public void setQTY_Arr(int[] qTY_Arr) {
+		QTY_Arr = qTY_Arr;
+	}
+	public int[] getMOVE_QTY_Arr() {
+		return MOVE_QTY_Arr;
+	}
+	public void setMOVE_QTY_Arr(int[] mOVE_QTY_Arr) {
+		MOVE_QTY_Arr = mOVE_QTY_Arr;
+	}
+	public String[] getREMARKS_Arr() {
+		return REMARKS_Arr;
+	}
+	public void setREMARKS_Arr(String[] rEMARKS_Arr) {
+		REMARKS_Arr = rEMARKS_Arr;
+	}
 	
 	public int getSTOCK_CD() {
 		return STOCK_CD;

@@ -78,6 +78,7 @@ textarea:focus {
 	font-weight: bold;
 }
 
+
 /* input number 박스*/
 .number {
 	border: 1px solid #b09f76;
@@ -272,6 +273,7 @@ textarea {
 	height: 45px;
 	width: 100px;
 	border-radius: 4px;
+	font-size: 20px;
 }
 
 

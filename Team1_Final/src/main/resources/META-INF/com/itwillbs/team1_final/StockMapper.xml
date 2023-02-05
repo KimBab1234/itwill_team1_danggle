@@ -11,6 +11,10 @@
 		SELECT * FROM stock_view ${search} LIMIT #{startRow},#{listLimit};
 	</select>
 	
+	<select id="selectWhList" resultType="com.itwillbs.team1_final.vo.WhVO">
+		SELECT * FROM wh_view ${search} LIMIT #{startRow},#{listLimit};
+	</select>
+	
 	<select id="selectStockDetail" resultType="stock">
 		SELECT * FROM sh_view WHERE STOCK_CD=#{stockNo};
 	</select>

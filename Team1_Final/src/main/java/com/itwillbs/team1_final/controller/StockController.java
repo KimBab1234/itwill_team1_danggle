@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.StockService;
+import com.itwillbs.team1_final.svc.WhService;
 import com.itwillbs.team1_final.vo.StockVO;
+import com.itwillbs.team1_final.vo.WhVO;
+import com.itwillbs.team1_final.vo.HrVO;
 import com.itwillbs.team1_final.vo.PageInfo;
 
 /**
@@ -26,17 +29,57 @@ public class StockController {
 
 	@Autowired
 	StockService service;
+	
+	/////창고 조회 폼
+	@RequestMapping(value = "/WhSearchForm", method = RequestMethod.GET)
+	public String whSearchForm(Model model) {
+		System.out.println("창고 검색 팝업");
+		return "stock/search_wh";
+	}
+
+	/////창고 조회 Pro
+	@ResponseBody
+	@RequestMapping(value = "/WhSearch", method = RequestMethod.POST)
+	public String whSearch(@RequestParam(defaultValue = "1") int pageNum
+			,@RequestParam(defaultValue = "") String searchType
+			, @RequestParam(defaultValue = "") String keyword) {
+		
+		System.out.println("창고 검색 : keyword="+keyword);
+		
+		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
+		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
+
+		ArrayList<WhVO> whList = service.getWhList(searchType, keyword, startRow, listLimit);
+
+		JSONObject jsonStr = new JSONObject();
+		JSONArray arr = new JSONArray();
+
+		for(WhVO bean : whList) {
+			JSONObject wh = new JSONObject(bean);
+			arr.put(wh);
+		}
+
+		jsonStr.put("jsonWh", arr);
+		return jsonStr.toString();
+	}
+	
+	
 
 	/////재고 목록 폼
 	@RequestMapping(value = "/StockListForm", method = {RequestMethod.GET})
-	public String hrListForm() {
+	public String stockListForm() {
 		return "stock/stock_list";
+	}
+	/////재고 조정 폼
+	@RequestMapping(value = "/StockMove", method = {RequestMethod.GET})
+	public String stockMove() {
+		return "stock/stock_move";
 	}
 	
 	/////재고 목록 조회
 	@ResponseBody
 	@RequestMapping(value = "/StockList", method = {RequestMethod.POST, RequestMethod.GET})
-	public String hrList(
+	public String stockList(
 			@RequestParam(defaultValue = "1") int pageNum
 			,@RequestParam(defaultValue = "") String searchType
 			, @RequestParam(defaultValue = "") String keyword
@@ -44,7 +87,7 @@ public class StockController {
 		
 		System.out.println("재고 목록 조회");
 		
-		int listLimit = 1; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
+		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
 		ArrayList<StockVO> stockList = service.getStockList(searchType, keyword, startRow, listLimit);
 		
@@ -63,7 +106,7 @@ public class StockController {
 	/////페이징처리
 	@ResponseBody
 	@RequestMapping(value = "/StockListPage", method = {RequestMethod.POST, RequestMethod.GET})
-	public String hrListPage(
+	public String stockListPage(
 			@RequestParam(defaultValue = "1") int pageNum
 			,@RequestParam(defaultValue = "") String searchType
 			, @RequestParam(defaultValue = "") String keyword
@@ -71,7 +114,7 @@ public class StockController {
 		
 		System.out.println("재고 조회 목록 페이지처리");
 		
-		int listLimit = 1; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
+		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int listCount = service.getStockListCount(searchType, keyword);
 		int pageListLimit = 3;
 		int maxPage = listCount / listLimit + (listCount % listLimit == 0 ? 0 : 1); 
@@ -104,18 +147,8 @@ public class StockController {
 		return "stock/stock_detail";
 	}
 
-	/////재고 수정폼
-	@RequestMapping(value = "/StockEdit", method = RequestMethod.GET)
-	public String stockEdit(String stockNo, Model model) {
-		System.out.println("재고 수정 폼");
-
-	
-
-		return "stock/hr_regist";
-	}
-
 	/////재고 수정
-	@RequestMapping(value = "/StockEditPro", method = RequestMethod.POST)
+	@RequestMapping(value = "/StockMovePro", method = RequestMethod.POST)
 	public String stockEditPro(StockVO updateStock, Model model, HttpSession session) {
 		System.out.println("재고 수정 작업");
 
@@ -124,7 +157,7 @@ public class StockController {
 		if(updateCount >0) {
 			return "redirect:/StockListForm";
 		} else {
-			model.addAttribute("msg", "사원 수정 실패!");
+			model.addAttribute("msg", "재고 수정 실패!");
 			return "fail_back";
 		}
 

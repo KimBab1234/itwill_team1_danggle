@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.team1_final.vo.StockVO;
+import com.itwillbs.team1_final.vo.WhVO;
 
 @Transactional
 public interface StockMapper {
@@ -14,5 +15,6 @@ public interface StockMapper {
 	public ArrayList<StockVO> selectStockList(@Param("search") String search,@Param("startRow") int startRow,@Param("listLimit") int listLimit);
 	public StockVO selectStockDetail(String stockNo);
 	public int updateStock(@Param("stockNo") String stockNo);
+	public ArrayList<WhVO> selectWhList(@Param("search")String search,@Param("startRow") int startRow, @Param("listLimit")int listLimit);
 	
 }
