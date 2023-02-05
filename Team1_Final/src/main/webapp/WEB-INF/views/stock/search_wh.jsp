@@ -57,7 +57,7 @@
 								+'<td>'+wh[i].WH_NAME+'</td>'
 								+'<td>'+wh[i].WH_AREA+'</td>'
 								+'<td>'+wh[i].WH_LOC_IN_AREA+'</td>'
-								+'<td><button onclick="whSelect(' + i + ')">선택</button></td>'
+								+'<td><button class="Listbtn3" onclick="whSelect(' + i + ')">선택</button></td>'
 								+'</tr>');
 					}
 				}
@@ -67,14 +67,18 @@
 	}
 
 	function whSelect(i) {
-		alert(opener.selectIdx);
-		$(opener.document).find('.searchLoc').eq(opener.selectIdx).text(wh[i].WH_NAME + "-" + wh[i].WH_AREA + "-" + wh[i].WH_LOC_IN_AREA);
-		$(opener.document).find('.TARGET_STOCK_CD_Arr').eq(opener.selectIdx).val(wh[i].WH_LOC_IN_AREA_CD);
+		if(i==-1) {
+			$(opener.document).find('.searchLoc').eq(opener.selectIdx).text("");
+			$(opener.document).find('.TARGET_STOCK_CD_Arr').eq(opener.selectIdx).val("");
+		} else {
+			$(opener.document).find('.searchLoc').eq(opener.selectIdx).text(wh[i].WH_NAME + "-" + wh[i].WH_AREA + "-" + wh[i].WH_LOC_IN_AREA);
+			$(opener.document).find('.TARGET_STOCK_CD_Arr').eq(opener.selectIdx).val(wh[i].WH_LOC_IN_AREA_CD);
+		}
 		this.close();
 	}
 	
 </script>
-<link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath }/resources/css/stock.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div style="width:750px;">
@@ -88,7 +92,7 @@
 					<option value="WH_LOC_IN_AREA">위치명</option>
 				</select>
 				<input type="text" class="note" name="keyword" style="font-size: 20px;" id="keyword" onkeyup="searchEnter()" >
-				<button style="font-size: 20px; width: 100px; height: 35px;" id="Listbtn2"  onclick="searchWhFunc()">
+				<button style="font-size: 20px; width: 100px; height: 35px;" class="Listbtn2"  onclick="searchWhFunc()">
 					<i class="fa-solid fa-magnifying-glass" style="color: #fff; margin: 0;"></i>&nbsp;검색
 				</button>
 			</div>
@@ -106,6 +110,9 @@
 				
 				</tbody>
 			</table>
+			<div style="width:750px;">
+				<button type="button" style="margin-top:20px; font-weight: normal; font-size: 20px;" class="Listbtn2" onclick="whSelect(-1)">위치 선택 취소</button>
+			</div>
 		</div>
 	</div>
 </body>

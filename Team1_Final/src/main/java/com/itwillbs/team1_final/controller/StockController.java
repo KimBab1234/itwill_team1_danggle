@@ -152,10 +152,12 @@ public class StockController {
 	public String stockEditPro(StockVO updateStock, Model model, HttpSession session) {
 		System.out.println("재고 수정 작업");
 
-		int updateCount=0;
+		int updateCount=1;
 		
 		if(updateCount >0) {
-			return "redirect:/StockListForm";
+			model.addAttribute("closePop", "success");
+			model.addAttribute("msg", "수정이 완료되었습니다.");
+			return "fail_back";
 		} else {
 			model.addAttribute("msg", "재고 수정 실패!");
 			return "fail_back";
