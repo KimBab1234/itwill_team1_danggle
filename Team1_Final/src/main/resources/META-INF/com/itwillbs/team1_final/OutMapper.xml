@@ -20,5 +20,35 @@
 		ORDER BY
 			BUSINESS_NO DESC
 	</select>
+	
+	
+	<!-- 담당자 검색 -->
+	<select id="selectEmp" resultType="com.itwillbs.team1_final.vo.HrVO">
+	SELECT *
+		FROM emp_view
+		WHERE
+			EMP_NAME LIKE '%${keyword}%'
+	</select>
+	
+	
+	<!-- 품목 검색 -->
+	<select id="selectPd" resultType="com.itwillbs.team1_final.vo.PdVO">
+		SELECT
+			PRODUCT_CD, PRODUCT_NAME, SIZE_DES, REMARKS
+			FROM product
+			<if test='!keyword.equals("")'>
+			WHERE
+				<choose>
+					<when test='searchType.equals("pd_name")'>
+						PRODUCT_NAME LIKE '%${keyword}%'
+					</when>
+					<when test='searchType.equals("pd_code")'>
+						PRODUCT_CD LIKE '%${keyword}%'
+					</when>
+				</choose>
+		</if>
+		ORDER BY
+			PRODUCT_CD DESC
+	</select>
 
 </mapper>
