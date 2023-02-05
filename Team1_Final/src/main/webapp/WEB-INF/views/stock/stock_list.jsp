@@ -118,8 +118,8 @@ input.chk_top + label{
 								+'<td width="150"><a href="javascript:showStockDetail(' + stock[i].STOCK_CD + ')">' + stock[i].STOCK_CD + '</a></td>'
 								+'<td width="120">'+stock[i].PRODUCT_CD+'</td>'
 								+'<td width="400">'+stock[i].PRODUCT_NAME+'</td>'
-								+'<td width="250">'+stock[i].WH_NAME+'</td>'
-								+'<td width="250">'+stock[i].WH_AREA+'</td>'
+								+'<td width="250">'+stock[i].WH_NAME +'</td>'
+								+'<td width="250">'+stock[i].WH_AREA +'</td>'
 								+'<td width="250">'+stock[i].WH_LOC_IN_AREA+'</td>'
 								+'<td width="150">'+stock[i].STOCK_QTY+'</td>'
 								+'</tr>');
