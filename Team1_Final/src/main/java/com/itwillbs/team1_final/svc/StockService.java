@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.team1_final.mapper.StockMapper;
 import com.itwillbs.team1_final.vo.StockVO;
+import com.itwillbs.team1_final.vo.WhVO;
 
 @Service
 @Transactional
@@ -39,8 +40,15 @@ public class StockService {
 	public int updateStock(String stockNo) {
 		return mapper.updateStock(stockNo);
 	}
-
-
+	public ArrayList<WhVO> getWhList(String searchType, String keyword, int startRow, int listLimit) {
+		String search = "";
+		if(searchType!=null && !searchType.equals("") ) {
+			search = "WHERE " + searchType + " LIKE '%" + keyword + "%'";
+		}
+		return mapper.selectWhList(search,startRow,listLimit);
+	}
+	
+	
 	
 	
 	

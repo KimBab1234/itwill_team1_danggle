@@ -37,8 +37,8 @@ option {
 </head>
 <body>
 	
-	<h1 align="left" style="width: 950px; text-align: left; margin-left: 20px;">| 재고 이력 </h1>
-	<table border="1" class="regi_table" style="text-align: center; margin-left: 20px; width: 950px; font-size: 20px;">
+	<h1 align="left" style="width: 1250px; text-align: left; margin-left: 20px;">| 재고 이력 </h1>
+	<table border="1" class="regi_table" style="text-align: center; margin-left: 20px; width: 1250px; font-size: 20px;">
 		<tr>
 			<th width="200">작업일자</th>
 			<th width="150">작업구분</th>
@@ -47,7 +47,7 @@ option {
 			<th width="250">받는 재고번호</th>
 			<th width="150">수량</th>
 			<th width="150">작업자명</th>
-			<th width="150">적요</th>
+			<th width="500">적요</th>
 		</tr>
 		<tr>
 			<td>${stock.STOCK_DATE}</td>

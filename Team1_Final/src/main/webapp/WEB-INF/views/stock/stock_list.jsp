@@ -25,6 +25,45 @@
 	
 }
 
+/* input 은 숨겨주기 */
+ input.chk_top{
+   display:none;
+  } 
+/* input 바로 다음의 label */
+input.chk_top + label{
+  cursor:pointer;
+  vertical-align: middle;
+  line-height:0px; 
+  font-size:16px;
+  font-weight: bold;  
+  color: #736643
+ }
+
+/* input 바로 다음의 label:before 에 체크하기 전 CSS 설정 */
+ input.chk_top + label:before{ 
+   content:""; 
+   display: inline-block; 
+   width:30px; 
+   height:30px; 
+   line-height:30px; 
+   border:1px solid #cbcbcb; 
+   vertical-align: middle;
+   margin: 0px;
+   }
+  
+/*  checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정    */
+ input.chk_top:checked + label:before{ 
+   content:"\f00c"; 
+   font-family:"Font Awesome 5 free"; 
+    font-weight:900; 
+   color:#fff; 
+   background-color:#736643; 
+   border-color:#c9b584; 
+   font-size:25px; 
+   text-align:center; 
+   vertical-align: middle;
+   } 
+
 </style>
 <title>Insert title here</title>
 <script>
@@ -33,7 +72,7 @@
 	
 	///처음 들어왔을때 기본값 1
 	var pageNum;
-	var pageListLimit = 1;
+	var pageListLimit = 10;
 	var startPage;
 	var endPage;
 	var maxPage;
@@ -68,19 +107,21 @@
 			success : function(response) {
 				stock = response.jsonStock;
 				/// 테이블 초기화
-				$("tbody").empty();
+				$("table tbody").empty();
 				/// 데이터 뿌리기
 				if(stock.length==0) {
 					$(".regi_table").append('<tr><td colspan="6" style="font-size: 20px;">검색 결과가 없습니다.</td></tr>');
 				} else {
 					for(var i=0; i<stock.length; i++) {
-						$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150">'
-								+'<td width="100"><a href="javascript:showStockDetail(' + stock[i].STOCK_CD + ')">' + stock[i].STOCK_CD + '</a></td>'
-								+'<td width="100">'+stock[i].PRODUCT_CD+'</td>'
-								+'<td width="250">'+stock[i].PRODUCT_NAME+'</td>'
-								+'<td width="150">'+stock[i].WH_AREA+'</td>'
-								+'<td width="150">'+stock[i].WH_LOC_IN_AREA+'</td>'
-								+'<td width="70">'+stock[i].STOCK_QTY+'</td>'
+						$(".regi_table").append('<tr>'
+								+'<td width="50"><input type="checkbox" class="chk_top" id="chk_top'+i+'" /><label for="chk_top'+i+'" /></td>'
+								+'<td width="150"><a href="javascript:showStockDetail(' + stock[i].STOCK_CD + ')">' + stock[i].STOCK_CD + '</a></td>'
+								+'<td width="120">'+stock[i].PRODUCT_CD+'</td>'
+								+'<td width="400">'+stock[i].PRODUCT_NAME+'</td>'
+								+'<td width="250">'+stock[i].WH_NAME+'</td>'
+								+'<td width="250">'+stock[i].WH_AREA+'</td>'
+								+'<td width="250">'+stock[i].WH_LOC_IN_AREA+'</td>'
+								+'<td width="150">'+stock[i].STOCK_QTY+'</td>'
 								+'</tr>');
 					}
 				}
@@ -165,8 +206,23 @@
 		getPageList(herePage);
 	};
 	
-	 function showStockDetail(stockNo) {
-		 window.open('StockDetail?stockNo='+stockNo, 'searchPopup', 'width=1000, height=700, left=600, top=400');
+	function showStockDetail(stockNo) {
+		 window.open('StockDetail?stockNo='+stockNo, 'searchPopup', 'width=1300, height=700, left=300, top=200');
+	}
+	
+	function showStockMoveList() {
+		var oneChk = false;
+		for(var i=0; i < $(".chk_top").length; i++) {
+			if($(".chk_top").eq(i).prop("checked")) {
+				oneChk=true;
+				break;
+			}			
+		}
+		if(oneChk) {
+			window.open('StockMove', 'movePopup', 'width=1500, height=700, left=150, top=50');
+		} else {
+			alert("조정할 재고를 선택하세요.");
+		}
 	}
 	
 
@@ -203,19 +259,25 @@ option {
 			</div>
 		</div>
 		<table border="1" class="regi_table" style="text-align: center; width: 1300px; font-size: 20px;">
+			<thead>
 			<tr>
+				<th width="50">조정체크</th>
 				<th width="150">재고번호</th>
 				<th width="120">품목코드</th>
-				<th width="200">품목명</th>
-				<th width="150">구역명</th>
-				<th width="150">위치명</th>
-				<th width="70">재고수량</th>
+				<th width="400">품목명</th>
+				<th width="250">창고명</th>
+				<th width="250">구역명</th>
+				<th width="250">위치명</th>
+				<th width="150">재고수량</th>
 			</tr>
+			</thead>
 			<tbody>
 			
 			</tbody>
 		</table>
-	
+		<div align="left" style="width: 1300px; margin-top: 20px;">
+			<button type="button" class="hrFormBtn" onclick="showStockMoveList()" style="width:200px; font-size: 20px;">재고 조정</button>
+		</div>
 		<!-- 페이지 목록 부분 -->
         <div id="pageListSection" align="center" style="width:1500px; margin-top:20px; font-weight: bold; display:flex table; font-size: 20px;">
 			
