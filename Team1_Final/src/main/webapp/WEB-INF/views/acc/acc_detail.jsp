@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +71,7 @@ table {
 			}
 		});
 	});
-	
+
 	$(function() {
 		// 담당자 이메일 도메인 선택 시 두번째 항목에 도메인 자동 입력
 		$("#domain2").on("change", function() {
@@ -93,67 +94,74 @@ table {
 
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;">
-		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
+		<div
+			style="width: 300px; margin-top: 0px; margin-right: 0px; border-right: solid 1px; border-color: #BDBDBD;">
 			<jsp:include page="../inc/acc_left.jsp"></jsp:include>
 		</div>
 
 		<div align="center">
 			<h2>거래처 상세정보</h2>
-			<form action="accregistPro" method="post" name="accRegistForm">
+			<form action="accDeletePro" method="post" name="accRegistForm">
 				<table>
 					<tr>
 						<td>회사명 &nbsp;</td>
 						<td colspan="4"><input type="text" name="CUST_NAME"
-							id="CUST_NAME" required="required" >${acc.CUST_NAME }</td>
+							id="CUST_NAME" readonly="readonly" value="${acc.CUST_NAME }"></td>
 					</tr>
 					<tr>
 						<td>대표자명</td>
 						<td colspan="4"><input type="text" name="BOSS_NAME"
-							id="BOSS_NAME" required="required">${acc.BOSS_NAME}</td>
+							id="BOSS_NAME" readonly="readonly" value="${acc.BOSS_NAME}"></td>
 					</tr>
 					<tr>
 						<td>거래처코드</td>
-						<td><input type="text" name="BUSINESS_NO" id="BUSINESS_NO" required="required" maxlength="16" readonly="readonly">
-						${acc.BUSINESS_NO}</td>
+						<td><input type="text" id="BUSINESS_NO" name="BUSINESS_NO" value="${acc.BUSINESS_NO}" size="20"
+							readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>거래처코드 &nbsp;</td>
-						<td colspan="4">
-							<input type="radio" name="G_GUBUN" value="01"checked="checked" readonly="readonly">사업자등록번호
-							<input type="radio"name="G_GUBUN" value="02">해외사업자등록번호
-							<input type="radio"name="G_GUBUN" value="03">주민등록번호
-							<input type="radio"name="G_GUBUN" value="04">외국인&nbsp;
-						</td>
+						<td colspan="4"><input type="radio" name="G_GUBUN" value="01"
+							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if>>사업자등록번호
+							<input type="radio" name="G_GUBUN" value="02"
+							<c:if test="${acc.g_GUBUN eq '02' }">checked</c:if>>해외사업자등록번호
+							<input type="radio" name="G_GUBUN" value="03"
+							<c:if test="${acc.g_GUBUN eq '03' }">checked</c:if>>주민등록번호
+							<input type="radio" name="G_GUBUN" value="04"
+							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if>>외국인&nbsp;</td>
 					</tr>
 					<tr>
 						<td>업태 &nbsp;</td>
 						<td colspan="4"><input type="text" name="UPTAE" id="UPTAE"
-							required="required"></td>
+							readonly="readonly" value="${acc.UPTAE }"></td>
 					</tr>
 					<tr>
 						<td>종목</td>
 						<td colspan="4"><input type="text" name="JONGMOK"
-							id="JONGMOK" required="required"></td>
+							id="JONGMOK" readonly="readonly" value="${acc.JONGMOK }"></td>
 					</tr>
 					<tr>
 						<td>대표전화번호 &nbsp;</td>
 						<td colspan="4"><input type="text" name="TEL1" id="TEL1"
-							size="7" maxlength="3">-<input type="text" name="TEL2" id="TEL2"
-							size="7" maxlength="4">-<input type="text" name="TEL3" id="TEL3"
-							size="7" maxlength="4"></td>
+							size="7" maxlength="3" value="${acc.TEL1 }">-<input type="text" name="TEL2"
+							id="TEL2" size="7" maxlength="4">-<input type="text"
+							name="TEL3" id="TEL3" size="7" maxlength="4">
+						<input type="text" name="TEL" id="TEL" value="${acc.TEL }">
+							</td>
 					</tr>
 					<tr>
 						<td>모바일</td>
 						<td colspan="4"><input type="text" name="MOBILE_NO1"
-							id="MOBILE_NO1" size="7" maxlength="3">-<input type="text"
-							name="MOBILE_NO2" id="MOBILE_NO2" size="7" maxlength="4">-<input
-							type="text" name="MOBILE_NO3" id="MOBILE_NO3" size="7" maxlength="4"></td>
+							id="MOBILE_NO1" size="7" maxlength="3">-<input
+							type="text" name="MOBILE_NO2" id="MOBILE_NO2" size="7"
+							maxlength="4">-<input type="text" name="MOBILE_NO3"
+							id="MOBILE_NO3" size="7" maxlength="4"></td>
 					</tr>
 					<tr>
 						<td>E-Mail</td>
 						<td colspan="4"><input type="text" name="EMAIL1" id="EMAIL1"
-							size="10" maxlength="20">@<input type="text" name="EMAIL2" id="EMAIL2"
-							size="10"> <select name="selectDomain" id="domain">
+							size="10" maxlength="20">@<input type="text"
+							name="EMAIL2" id="EMAIL2" size="10"> <select
+							name="selectDomain" id="domain">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
@@ -163,38 +171,38 @@ table {
 					<tr>
 						<td>우편번호 &nbsp;</td>
 						<td colspan="3"><input type="text" name="POST_NO"
-							id="POST_NO" placeholder="우편번호" required="required"
-							readonly="readonly" size="15"> <input type="button"
-							id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기"></td>
+							id="POST_NO" placeholder="우편번호" value="${acc.POST_NO }"
+							readonly="readonly" size="15" > <input type="button"
+							id="postbutton" onclick="execDaumPostcode()" value="찾기"></td>
 					</tr>
 					<tr>
 						<td>주소 &nbsp;</td>
 						<td colspan="4"><input type="text" name="ADDR1" id="ADDR1"
-							readonly="readonly" size="50px" required="required"></td>
+							readonly="readonly" size="50px" readonly="readonly" value="${acc.ADDR1 }"></td>
 					</tr>
 					<tr>
 						<td>상세주소</td>
 						<td colspan="4"><input type="text" name="ADDR2" id="ADDR2"
-							required="required" maxlength="20"></td>
+							readonly="readonly" maxlength="20" value="${acc.ADDR2 }"></td>
 					</tr>
 					<tr>
 						<td>홈페이지</td>
 						<td colspan="4"><input type="text" name="URL_PATH"
-							id="URL_PATH"></td>
+							id="URL_PATH" value="${acc.URL_PATH }"></td>
 					</tr>
 					<tr>
 						<td>팩스</td>
-						<td colspan="4"><input type="text" name="FAX" id="FAX"></td>
+						<td colspan="4"><input type="text" name="FAX" id="FAX" value="${acc.FAX }"></td>
 					</tr>
 					<tr>
 						<td>적요</td>
 						<td colspan="4"><textarea cols="50" rows="10" name="REMARKS"
-								id="REMARKS"></textarea></td>
+								id="REMARKS" >${acc.REMARKS }</textarea></td>
 					</tr>
 					<tr>
 						<td>담당자명</td>
 						<td colspan="4"><input type="text" name="MAN_NAME"
-							id="MAN_NAME"></td>
+							id="MAN_NAME" value="${acc.MAN_NAME }"></td>
 					</tr>
 					<tr>
 						<td>담당자 전화번호</td>
@@ -216,7 +224,8 @@ table {
 						</select></td>
 					</tr>
 					<tr>
-						<td colspan="5"><input type="submit" value="등록"></td>
+						<td colspan="5"><input type="button" value="삭제" onclick="location.href='AccDeletePro?BUSINESS_NO=${acc.BUSINESS_NO}'"></td>
+						<td colspan="5"><input type="button" value="수정" onclick="location.href='AccModify?BUSINESS_NO=${acc.BUSINESS_NO}'"></td>
 					</tr>
 				</table>
 			</form>

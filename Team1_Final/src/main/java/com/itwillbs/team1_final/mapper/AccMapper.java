@@ -14,4 +14,8 @@ public interface AccMapper {
 
 	AccVO accView(String BUSINESS_NO);
 
+	int accDelete(AccVO acc);
+
+	int accModify(AccVO acc);
+
 }

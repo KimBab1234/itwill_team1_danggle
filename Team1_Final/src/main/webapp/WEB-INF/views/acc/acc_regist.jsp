@@ -70,7 +70,7 @@ table {
 			}
 		});
 	});
-	
+
 	$(function() {
 		// 담당자 이메일 도메인 선택 시 두번째 항목에 도메인 자동 입력
 		$("#domain2").on("change", function() {
@@ -93,7 +93,8 @@ table {
 
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="display: flex;">
-		<div style="width: 300px; margin-top: 0px; margin-right: 0px; border-right:solid 1px; border-color: #BDBDBD;">
+		<div
+			style="width: 300px; margin-top: 0px; margin-right: 0px; border-right: solid 1px; border-color: #BDBDBD;">
 			<jsp:include page="../inc/acc_left.jsp"></jsp:include>
 		</div>
 
@@ -104,7 +105,7 @@ table {
 					<tr>
 						<td>회사명 &nbsp;</td>
 						<td colspan="4"><input type="text" name="CUST_NAME"
-							id="CUST_NAME" required="required" ></td>
+							id="CUST_NAME" required="required"></td>
 					</tr>
 					<tr>
 						<td>대표자명</td>
@@ -113,16 +114,20 @@ table {
 					</tr>
 					<tr>
 						<td>거래처코드</td>
-						<td><input type="text" name="BUSINESS_NO" id="BUSINESS_NO" required="required" maxlength="16"></td>
+						<td><input type="text" name="BUSINESS_NO1" id="BUSINESS_NO1"
+							required="required" size="7" maxlength="3">-<input
+							type="text" name="BUSINESS_NO2" id="BUSINESS_NO2"
+							required="required" size="7" maxlength="2">-<input
+							type="text" name="BUSINESS_NO3" id="BUSINESS_NO3"
+							required="required" maxlength="5"></td>
 					</tr>
 					<tr>
 						<td>거래처코드 &nbsp;</td>
-						<td colspan="4">
-							<input type="radio" name="G_GUBUN" value="01"checked="checked">사업자등록번호
-							<input type="radio"name="G_GUBUN" value="02">해외사업자등록번호
-							<input type="radio"name="G_GUBUN" value="03">주민등록번호
-							<input type="radio"name="G_GUBUN" value="04">외국인&nbsp;
-						</td>
+						<td colspan="4"><input type="radio" name="G_GUBUN" value="01"
+							checked="checked">사업자등록번호 <input type="radio"
+							name="G_GUBUN" value="02">해외사업자등록번호 <input type="radio"
+							name="G_GUBUN" value="03">주민등록번호 <input type="radio"
+							name="G_GUBUN" value="04">외국인&nbsp;</td>
 					</tr>
 					<tr>
 						<td>업태 &nbsp;</td>
@@ -137,22 +142,24 @@ table {
 					<tr>
 						<td>대표전화번호 &nbsp;</td>
 						<td colspan="4"><input type="text" name="TEL1" id="TEL1"
-							size="7" maxlength="3">-<input type="text" name="TEL2" id="TEL2"
-							size="7" maxlength="4">-<input type="text" name="TEL3" id="TEL3"
-							size="7" maxlength="4"></td>
+							size="7" maxlength="3">-<input type="text" name="TEL2"
+							id="TEL2" size="7" maxlength="4">-<input type="text"
+							name="TEL3" id="TEL3" size="7" maxlength="4"></td>
 					</tr>
 					<tr>
 						<td>모바일</td>
 						<td colspan="4"><input type="text" name="MOBILE_NO1"
-							id="MOBILE_NO1" size="7" maxlength="3">-<input type="text"
-							name="MOBILE_NO2" id="MOBILE_NO2" size="7" maxlength="4">-<input
-							type="text" name="MOBILE_NO3" id="MOBILE_NO3" size="7" maxlength="4"></td>
+							id="MOBILE_NO1" size="7" maxlength="3">-<input
+							type="text" name="MOBILE_NO2" id="MOBILE_NO2" size="7"
+							maxlength="4">-<input type="text" name="MOBILE_NO3"
+							id="MOBILE_NO3" size="7" maxlength="4"></td>
 					</tr>
 					<tr>
 						<td>E-Mail</td>
 						<td colspan="4"><input type="text" name="EMAIL1" id="EMAIL1"
-							size="10" maxlength="20">@<input type="text" name="EMAIL2" id="EMAIL2"
-							size="10"> <select name="selectDomain" id="domain">
+							size="10" maxlength="20">@<input type="text"
+							name="EMAIL2" id="EMAIL2" size="10"> <select
+							name="selectDomain" id="domain">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
