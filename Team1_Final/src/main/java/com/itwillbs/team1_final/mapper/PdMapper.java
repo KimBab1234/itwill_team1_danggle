@@ -3,6 +3,8 @@ package com.itwillbs.team1_final.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.itwillbs.team1_final.vo.PdVO;
 
 public interface PdMapper {
@@ -11,7 +13,8 @@ public interface PdMapper {
 	int insertPd(PdVO product);
 
 	//품목 목록 조회
-	List<PdVO> selectPdList(String searchType, String keyword, int startRow, int listLimit);
+	List<PdVO> selectPdList(@Param("searchType")String searchType, @Param("keyword")String keyword, 
+			@Param("startRow")int startRow, @Param("listLimit")int listLimit, @Param("search")String search );
 
 	// 품목 그룹(소) 선택
 	ArrayList<PdVO> selectPd_group_bottom_Search(String keyword);
@@ -21,5 +24,11 @@ public interface PdMapper {
 
 	// 거래처 선택
 	ArrayList<PdVO> selectBusiness_no_Search(String keyword);
+
+	// 품목 그룹 등록
+	int insertPd_group_bottom(PdVO product);
+
+	// 품목 그룹(대) 선택
+	ArrayList<PdVO> selectPd_group_top_Search(String keyword);
 
 }

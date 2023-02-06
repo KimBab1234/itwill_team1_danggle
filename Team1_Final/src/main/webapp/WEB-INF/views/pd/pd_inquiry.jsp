@@ -50,12 +50,13 @@ table {
 			url: "PdInquiryJson?pageNum=" + pageNum + "&searchType=" + searchType + "&keyword=" + keyword, 
 			dataType: "json"
 		})
-		.done(function(pdList) { // 요청 성공 시
-// 			$("#listForm > table").append(boardList);
+		.done(function(response) { // 요청 성공 시
 			
+// 			$("#listForm > table").append(boardList);
+			var pdList2 = JSON.parse(response.pdList);
 			// JSONArray 객체를 통해 배열 형태로 전달받은 JSON 데이터를
 			// 반복문을 통해 하나씩 접근하여 객체 꺼내기
-			for(let product of pdList) {
+			for(let product of pdList2) {
 				// 테이블에 표시할 JSON 데이터 출력문 생성
 				// => 출력할 데이터는 board.xxx 형식으로 접근
 				let result = "<tr height='100'>"
@@ -96,11 +97,11 @@ table {
 		<section id="listForm">
 		<h1><b style="border-bottom: 10px solid">품목 조회</b></h1>
 		<section id="buttonArea">
-			<form action="PdList">
+			<form>
 				<!-- 검색 타입 추가 -->
 				<select name="searchType" id="searchType">
-					<option value="PRODUCT_NAME" <c:if test="${param.searchType eq 'PRODUCT_NAME'}">selected</c:if>>품목명</option>
-					<option value="PRODUCT_GROUP_BOTTOM_CD" <c:if test="${param.searchType eq 'PRODUCT_GROUP_BOTTOM_CD'}">selected</c:if>>품목그룹</option>
+					<option value="PRODUCT_CD" selected="selected" >품목코드</option>
+<%-- 					<option value="PRODUCT_NAME" <c:if test="${param.searchType eq 'PRODUCT_NAME'}">selected</c:if>>품목명</option> --%>
 				</select>
 				<input type="text" name="keyword" id="keyword" value="${param.keyword }">
 				<input type="submit" value="검색">

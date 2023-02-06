@@ -25,6 +25,7 @@
 	<!-- 품목 그룹(소) 선택 -->
 	<select id="selectPd_group_bottom_Search" resultType="com.itwillbs.team1_final.vo.PdVO">
 		SELECT PRODUCT_GROUP_TOP_CD,PRODUCT_GROUP_BOTTOM_CD,PRODUCT_GROUP_BOTTOM_NAME FROM product_bottom WHERE PRODUCT_GROUP_BOTTOM_NAME LIKE '%${keyword}%';
+<!-- 		SELECT * FROM product_view WHERE PRODUCT_GROUP_BOTTOM_NAME LIKE '%${keyword}%'; -->
 	</select>
 	
 	<!-- 품목 구분 선택 -->
@@ -37,13 +38,45 @@
 		SELECT BUSINESS_NO, CUST_NAME FROM acc WHERE CUST_NAME LIKE '%${keyword}%';
 	</select>
 	
-	<!-- 품목 목록 조회 -->
-	<select id="selectPdList" resultType="com.itwillbs.team1_final.vo.PdVO" parameterType="String">
-		SELECT *
-			FROM product -- 이후 작업 분기 일어남
-		
+	<!-- 품목 그룹 등록 -->
+	<insert id="insertPd_group_bottom">
+		INSERT
+			INTO product_bottom
+			VALUES (
+				#{PRODUCT_GROUP_TOP_CD	}
+				,null
+				,#{PRODUCT_GROUP_BOTTOM_NAME}
+				)
+	</insert>
+	
+	<!-- 품목 그룹(대) 선택 -->
+	<select id="selectPd_group_top_Search" resultType="com.itwillbs.team1_final.vo.PdVO">
+		SELECT PRODUCT_GROUP_TOP_CD,PRODUCT_GROUP_TOP_NAME FROM product_top WHERE PRODUCT_GROUP_TOP_NAME LIKE '%${keyword}%';
 	</select>
 	
+	<!-- 품목 목록 조회 -->
+	<select id="selectPdList" resultType="com.itwillbs.team1_final.vo.PdVO">
+		SELECT *
+			FROM product
+			
+			<if test="!keyword.equals('')">
+			WHERE
+			<!-- 2. 검색타입(searchType) 에 따른 WHERE 대상 변경 -->
+			<!-- => 조건이 복수개이므로 choose 태그 사용 -->
+			<choose>
+				<when test="searchType.equals('PRODUCT_CD')">
+					PRODUCT_CD LIKE '%${keyword}%'
+				</when>
+				<when test="searchType.equals('PRODUCT_NAME')">
+					PRODUCT_NAME LIKE '%${keyword}%'
+				</when>
+			</choose>		
+		</if>
+		LIMIT 
+			#{startRow}
+			, #{listLimit}
+		
+	</select>
 
 
 </mapper>
