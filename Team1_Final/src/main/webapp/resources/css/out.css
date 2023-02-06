@@ -66,7 +66,11 @@
 	width: 130px;
 }
 
-#size_des {
+#out_today {
+	border: none;
+}
+
+.size_des {
 	width: 80px;
 	border: none;
 	margin: 3px 0px 3px 0px;
@@ -74,7 +78,7 @@
 }
 
 
-#remarks, #pd_remarks {
+.remarks, .pd_remarks {
 	width: 180px;
 	border: none;
 	margin: 3px 0px 3px 0px;
@@ -148,7 +152,7 @@ input:focus {
 	color: #575754;
 }
 
-.code, .name, #out_schedule_qty,
+.code, .name, .out_schedule_qty,
 .product_cd, .product_name {
 	border: 1px solid #b09f76;
 	border-radius: 5px;

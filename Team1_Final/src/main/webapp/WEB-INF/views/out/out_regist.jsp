@@ -17,7 +17,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	// ------------------------------------ 검색창 ------------------------------------
+
+	// ----------------------------------- 검색창 -------------------------------------
 	function searchEmp(){
 		window.open('EmpSearch', 'searchEmp', 'width=500, height=500, left=600, top=400')
 	}
@@ -31,14 +32,15 @@
 	}
 	// --------------------------------------------------------------------------------
 	
+	
+	// ------------------------------- 출고 예정 기능 ---------------------------------
 	$(function() {
 		// 오늘날짜 자동으로 기입
 		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
 		$("#out_today").val(today);
 		
-		//====================== 여기서부터 <tr>생성 & 합계 계산 =====================================
+		// 품목 수량 합계 계산
 		let sum = 0;
-		
 		$.total = function() {
 			var numberClass = $(".out_schedule_qty").length;
 			let sum = 0;
@@ -48,66 +50,82 @@
 			$("input[type=number][name=TOTAL_QTY]").val(sum);
 		};
 		
-		$("input[type=number][name=IN_SCHEDULE_QTY]").on("change", function() {
+		$("input[type=number][name=OUT_SCHEDULE_QTY]").on("change", function() {
 			$.total();
 		});
 		
+		// 품목 추가
 		$("#recoBtn").on("click", function() {
 			$("#optionArea").append(
 					'<tr class="idx">' 
 					+ '<td>'
-					+ 	'<input type="text" class="product_cd" id="product_cd" name="PRODUCT_CD" ondblclick="searchPd()">'
+					+ 	'<input type="text" class="product_cd" name="PRODUCT_CD" ondblclick="searchPd()">'
 					+ 	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
 				    + '</td>'
 					+ '<td>'
-					+	'<input type="text" class="product_name" id="product_name" name="PRODUCT_NAME" ondblclick="searchPd()">'
+					+	'<input type="text" class="product_name" name="PRODUCT_NAME" ondblclick="searchPd()">'
 					+	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
 					+ '</td>'
-					+ '<td><input type="text" id="size_des" name="SIZE_DES" readonly="readonly"></td>'
-					+ '<td><input type="text" id="out_schedule_qty" name="OUT_SCHEDULE_QTY"></td>'
-					+ '<td><input type="date" id="out_date" name="OUT_DATE"></td>'
-					+ '<td><input type="text" id="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>'
+					+ '<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>'
+					+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY"></td>'
+					+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE"></td>'
+					+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>'
 				    + '</tr>'
 			);
 
+			// 추가된 품목 수량 합계 계산
 			var inClass = $(".out_schedule_qty").length;
 
 			$("input[type=number][name=OUT_SCHEDULE_QTY]").on("change", function() {
 				$.total();
 			});
 			
+		});
+		
+	});
+	// --------------------------------------------------------------------------------
+	
+	
+	// -------------------------------- 출고예정 등록 ---------------------------------
+	function registFunc(){
+		for(var i = 0; i < $(".pd_out_date").length; i++){
+			if($(".pd_out_date").eq(i).val() == ""){
+				$(".pd_out_date").eq(i).val("1900-01-01");
+			}
+		}
+		alert($("#OUT_DATE").val());
+		alert($("#REMARKS").val());
+		$.ajax({
+			url: 'OutSchRegistPro',
+			type: 'POST',
+			data: $("#proRegi").serialize(),
+			
+			dataType : 'json',
+			success : function(response) {
+				
+			}
 			
 		});
 		
-			
-	});
-	
-	function functi(){
-		for(var i = 0; i < $(".out_date").length; i++){
-			if($(".out_date").eq(i).val() == ""){
-				$(".out_date").eq(i).val("1900-01-01");
-			}
-		}
-		proRegi.submit();
 	}
+	// --------------------------------------------------------------------------------
 	
-
 </script>
 
 </head>
 <body>
 	<div style="width:900px;">
 		<div class="title_regi">출고예정 입력</div>
-		<form action="#" method="post" name="proRegi" style="width:600px;">
+		<form action="javascript:registFunc()" method="post" id="proRegi" name="proRegi" style="width:600px;">
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
-					<td><input type="date" id="out_today" name="out_today"></td>
+					<td><input type="text" id="out_today" name="out_today" readonly="readonly"></td>
 					<th>유형</th>
 					<td>
 						<div>
-							<input type="radio" checked="checked" name="typeA" value="1" class="recoCheck" name="IN_TYPE_CD"> 발주서
-							<input type="radio" name="typeA" value="2" class="recoCheck" name="IN_TYPE_CD"> 구매
+							<input type="radio" value="1" class="recoCheck" name="OUT_TYPE_CODE" checked="checked"> 발주서
+							<input type="radio" value="2" class="recoCheck" name="OUT_TYPE_CODE"> 구매
 						</div>
 					</td>
 				</tr>
@@ -120,16 +138,16 @@
 					</td>
 					<th>거래처</th>
 					<td>
-						<input type="text" class="code" id="acc_code" name="acc_code" name="BUSINESS_NO" placeholder="거래처 코드" ondblclick="searchAcc()">
-						<input type="text" class="name" id="acc_name" name="acc_name" placeholder="거래처명" ondblclick="searchAcc()">
+						<input type="text" class="code" id="acc_code" name="BUSINESS_NO" placeholder="거래처 코드" ondblclick="searchAcc()">
+						<input type="text" class="name" id="acc_name" name="BUSINESS_NAME" placeholder="거래처명" ondblclick="searchAcc()">
 						<button id="Listbtn" type="button" onclick="searchAcc()">검색</button>
 					</td>
 				</tr>
 				<tr>
 					<th>비고</th>
-					<td><input type="text" class="note" id=""></td>
+					<td><input type="text" class="note" name="REMARKS" id="REMARKS"></td>
 					<th>납기일자</th>
-					<td><input type="date" name="out_date"></td>
+					<td><input type="date" name="OUT_DATE" id="OUT_DATE"></td>
 				</tr>
 			</table>
 			<br>
@@ -144,24 +162,24 @@
 				</tr>
 				<tr class="idx">
 					<td>
-						<input type="text" class="product_cd" id="product_cd" name="PRODUCT_CD" ondblclick="searchPd()">
+						<input type="text" class="product_cd" name="PRODUCT_CD" ondblclick="searchPd()">
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
 					</td>
 					<td>
-						<input type="text" class="product_name" id="product_name" name="PRODUCT_NAME" ondblclick="searchPd()">
+						<input type="text" class="product_name" name="PRODUCT_NAME" ondblclick="searchPd()">
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
 					</td>
-					<td><input type="text" class="size_des" id="size_des" name="SIZE_DES" readonly="readonly"></td>
-					<td><input type="text" class="out_schedule_qty" id="out_schedule_qty" name="OUT_SCHEDULE_QTY"></td>
-					<td><input type="date" class="out_date" id="out_date" name="OUT_DATE"></td>
-					<td><input type="text" class="pd_remarks" id="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>
+					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
+					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY"></td>
+					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE"></td>
+					<td><input type="text" class="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>
 				</tr>
 				<tbody id="optionArea"></tbody>
 				<tr>
 					<th></th>
 					<th></th>
 					<th></th>
-					<th><input type="number" id="total" ></th>
+					<th><input type="number" id="total" name="TOTAL_QTY"></th>
 					<th></th>
 					<th></th>
 				</tr>
