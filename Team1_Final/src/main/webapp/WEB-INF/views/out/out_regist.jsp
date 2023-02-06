@@ -93,16 +93,21 @@
 				$(".pd_out_date").eq(i).val("1900-01-01");
 			}
 		}
-		alert($("#OUT_DATE").val());
-		alert($("#REMARKS").val());
+		
 		$.ajax({
 			url: 'OutSchRegistPro',
 			type: 'POST',
 			data: $("#proRegi").serialize(),
-			
 			dataType : 'json',
 			success : function(response) {
-				
+				if(response == "성공") {
+					alert("성공");
+// 	                window.close();
+// 	                opener.location.reload();
+	            } else {
+	            	alert("출고예정 등록 실패!");
+	            }
+
 			}
 			
 		});
@@ -120,12 +125,12 @@
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
-					<td><input type="text" id="out_today" name="out_today" readonly="readonly"></td>
+					<td><input type="text" id="out_today" name="OUT_TODAY" readonly="readonly"></td>
 					<th>유형</th>
 					<td>
 						<div>
-							<input type="radio" value="1" class="recoCheck" name="OUT_TYPE_CODE" checked="checked"> 발주서
-							<input type="radio" value="2" class="recoCheck" name="OUT_TYPE_CODE"> 구매
+							<input type="radio" value="1" class="recoCheck" name="OUT_TYPE_NAME" checked="checked"> 발주서
+							<input type="radio" value="2" class="recoCheck" name="OUT_TYPE_NAME"> 구매
 						</div>
 					</td>
 				</tr>
