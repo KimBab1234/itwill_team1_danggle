@@ -95,6 +95,7 @@
 		}
 		alert($("#OUT_DATE").val());
 		alert($("#REMARKS").val());
+		alert($("#proRegi").serialize());
 		$.ajax({
 			url: 'OutSchRegistPro',
 			type: 'POST',

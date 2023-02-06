@@ -50,6 +50,7 @@
 			)
 	</insert>
 	
+	<!-- 입고 예정 상품 등록 -->
 	<insert id="insertIncomingProduct">
 		INSERT
 			INTO in_schedule_per_product
@@ -67,11 +68,13 @@
 			)
 	</insert>
 	
+	<!-- 입고 예정 목록 -->
 	<select id="selectSchedule" resultType="com.itwillbs.team1_final.vo.InListVO">
 		SELECT *
 			FROM in_schedule_view
 	</select>
 	
+	<!-- 입고 예정 목록(완료/진행중/전체) -->
 	<select id="selectScheduleStatus" resultType="com.itwillbs.team1_final.vo.InListVO">
 		SELECT *
 			FROM in_schedule_view
@@ -79,7 +82,52 @@
 				IN_COMPLETE LIKE '%${keyword}%'
 	</select>
 	
-	<select id="selectProductProgress">
-		SELECT 
+	<!-- 입고처리 진행상태 -->
+	<select id="selectProductProgress" resultType="com.itwillbs.team1_final.vo.InPdVO">
+		SELECT *
+			FROM in_schedule_per_product
+			WHERE 
+				IN_PD_SCHEDULE_CD LIKE '${keyword}'
+	</select>
+	
+	<!-- 입고 예정 수정 조회 -->
+	<select id="selectInProduct" resultType="com.itwillbs.team1_final.vo.InVO">
+		 SELECT ins.IN_SCHEDULE_CD, ins.IN_TYPE_CD, ins.BUSINESS_NO, ins.EMP_NUM, ins.IN_DATE, ins.REMARKS, ins.TOTAL_QTY, h.EMP_NAME, ac.CUST_NAME
+		 	FROM  in_schedule AS ins
+		 	JOIN hr AS h
+		 		ON ins.EMP_NUM = h.EMP_NUM
+		 	JOIN acc AS ac
+		 		ON ins.BUSINESS_NO = ac.BUSINESS_NO
+		 		WHERE 
+		 			ins.IN_SCHEDULE_CD LIKE '${keyword}'
+	</select>
+	
+	<!-- 이름 만들 때 쓸 상품 개수 구해오기 -->
+	<select id="selectCountName" resultType="int">
+		SELECT COUNT(*)
+			FROM in_schedule_per_product
+			WHERE 
+				IN_PD_SCHEDULE_CD = '${in_SCHEDULE_CD}'
+	</select>
+	
+	<!-- 입고 예정 목록 종결 상태 전환 -->
+	<update id="updateCom">
+		UPDATE in_schedule
+			<choose>
+				<when test="com_status.equals('종결')">
+					SET IN_COMPLETE = "1"
+				</when>
+				<when test="com_status.equals('취소')">
+					SET IN_COMPLETE = "0"
+				</when>
+			</choose>
+			WHERE
+				IN_SCHEDULE_CD = '${keyword}'
+	</update>
+	
+	<!-- 입고 처리 목록 -->
+	<select id="selectProgressList" resultType="com.itwillbs.team1_final.vo.InListVO">
+		SELECT *
+			FROM in_process_view
 	</select>
 </mapper>

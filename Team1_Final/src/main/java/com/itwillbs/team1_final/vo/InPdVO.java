@@ -14,8 +14,14 @@ public class InPdVO {
 	private String IN_PD_REMARKS; // 적요
 	private String IN_PD_COMPLETE; // 진행상태
 	private String STOCK_CD; // 재고번호
+	private int NO_IN_QTY;
 	
-	
+	public int getNO_IN_QTY() {
+		return NO_IN_QTY;
+	}
+	public void setNO_IN_QTY(int nO_IN_QTY) {
+		NO_IN_QTY = nO_IN_QTY;
+	}
 	public String getIN_PD_SCHEDULE_CD() {
 		return IN_PD_SCHEDULE_CD;
 	}
