@@ -45,6 +45,7 @@
 				$(opener.document).find('.product_name').eq(j).val(pd[i].PRODUCT_NAME);
 				$(opener.document).find('.size_des').eq(j).val(pd[i].SIZE_DES);
 				$(opener.document).find('.pd_remarks').eq(j).val(pd[i].REMARKS);
+				break;
 			}
 		}
 		this.close();
