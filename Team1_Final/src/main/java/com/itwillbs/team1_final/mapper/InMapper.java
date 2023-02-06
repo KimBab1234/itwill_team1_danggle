@@ -3,6 +3,8 @@ package com.itwillbs.team1_final.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
 import com.itwillbs.team1_final.vo.InListVO;
@@ -28,6 +30,14 @@ public interface InMapper {
 
 	ArrayList<InListVO> selectScheduleStatus(String keyword); // 입고예정목록(전체/진행중/완료)
 
-	ArrayList<InPdVO> selectProductProgress(); //입고처리 진행상태
+	ArrayList<InPdVO> selectProductProgress(String keyword); // 입고처리 진행상태
+
+	ArrayList<InVO> selectInProduct(String keyword); // 입고 예정 조회
+
+	int selectCountName(String in_SCHEDULE_CD); // 이름 만들 때 
+
+	int updateCom(@Param("keyword") String keyword, @Param("com_status") String com_status); // 입고 예정 목록 종결 여부 전환
+
+	ArrayList<InListVO> selectProgressList(); // 입고 처리 목록
 
 }

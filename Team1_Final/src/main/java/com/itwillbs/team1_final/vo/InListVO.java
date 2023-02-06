@@ -14,6 +14,56 @@ public class InListVO {
 	private int TOTAL_QTY; // 총 입고예정수량
 	private String IN_COMPLETE; // 진행상태
 	
+	//  입고 처리 목록
+	private String IN_PD_SCHEDULE_CD; // 입고 예정 코드
+	private Date IN_PD_DATE; // 납기일자
+	private int IN_SCHEDULE_QTY; // 입고 예정 수량
+	private int IN_QTY; // 입고 수량
+	private String IN_PD_REMARKS; // 적요
+
+	
+	
+	
+	
+	public String getIN_PD_SCHEDULE_CD() {
+		return IN_PD_SCHEDULE_CD;
+	}
+
+	public void setIN_PD_SCHEDULE_CD(String iN_PD_SCHEDULE_CD) {
+		IN_PD_SCHEDULE_CD = iN_PD_SCHEDULE_CD;
+	}
+
+	public Date getIN_PD_DATE() {
+		return IN_PD_DATE;
+	}
+
+	public void setIN_PD_DATE(Date iN_PD_DATE) {
+		IN_PD_DATE = iN_PD_DATE;
+	}
+
+	public int getIN_SCHEDULE_QTY() {
+		return IN_SCHEDULE_QTY;
+	}
+
+	public void setIN_SCHEDULE_QTY(int iN_SCHEDULE_QTY) {
+		IN_SCHEDULE_QTY = iN_SCHEDULE_QTY;
+	}
+
+	public int getIN_QTY() {
+		return IN_QTY;
+	}
+
+	public void setIN_QTY(int iN_QTY) {
+		IN_QTY = iN_QTY;
+	}
+
+	public String getIN_PD_REMARKS() {
+		return IN_PD_REMARKS;
+	}
+
+	public void setIN_PD_REMARKS(String iN_PD_REMARKS) {
+		IN_PD_REMARKS = iN_PD_REMARKS;
+	}
 
 	public String getIN_SCHEDULE_CD() {
 		return IN_SCHEDULE_CD;
@@ -91,9 +141,13 @@ public class InListVO {
 	public String toString() {
 		return "InListVO [IN_SCHEDULE_CD=" + IN_SCHEDULE_CD + ", IN_TYPE_NAME=" + IN_TYPE_NAME + ", CUST_NAME="
 				+ CUST_NAME + ", EMP_NAME=" + EMP_NAME + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES
-				+ ", IN_DATE=" + IN_DATE + ", TOTAL_QTY=" + TOTAL_QTY + ", IN_COMPLETE=" + IN_COMPLETE + ", toString()="
+				+ ", IN_DATE=" + IN_DATE + ", TOTAL_QTY=" + TOTAL_QTY + ", IN_COMPLETE=" + IN_COMPLETE
+				+ ", IN_PD_SCHEDULE_CD=" + IN_PD_SCHEDULE_CD + ", IN_PD_DATE=" + IN_PD_DATE + ", IN_SCHEDULE_QTY="
+				+ IN_SCHEDULE_QTY + ", IN_QTY=" + IN_QTY + ", IN_PD_REMARKS=" + IN_PD_REMARKS + ", toString()="
 				+ super.toString() + "]";
 	}
+
+	
 
 	
 	

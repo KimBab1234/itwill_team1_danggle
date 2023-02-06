@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	var inList;
 	var i = 0;	
-	
+	var selectIdx;
 	
 	
 	function sc_status(){
@@ -35,8 +35,8 @@
 							+ "<td>" + inList[i].PRODUCT_NAME + "</td>"
 							+ "<td>" + inList[i].IN_DATE + "</td>"
 							+ "<td>" + inList[i].TOTAL_QTY + "</td>"
-							+ "<td>" + inList[i].IN_COMPLETE + "</td>"
-							+ "<td onclick='openWin("+inList[i].IN_SCHEDULE_CD+")'>진행</td>"
+							+ "<td onclick='openCom("+inList[i].IN_SCHEDULE_CD+")'>" + inList[i].IN_COMPLETE + "</td>"
+							+ "<td onclick='openWin("+inList[i].IN_SCHEDULE_CD+")' class='td_color'>조회</td>"
 							+ "</tr>";
 							
 				$(".bookTable").append(result);
@@ -63,18 +63,18 @@
 			$(".bookTable").find("tr:gt(0)").remove();
 
 			for(var i = 0; i < inList.length; i++) {
-// 				var product = inList[i].IN_SCHEDULE_CD;
+
 				let result = "<tr>"
 							+ "<td><input type='checkbox'></td>"
-							+ "<td>" + inList[i].IN_SCHEDULE_CD + "</td>"
+							+ "<td>" +inList[i].IN_SCHEDULE_CD + "</td>"
 							+ "<td>" + inList[i].IN_TYPE_NAME + "</td>"
 							+ "<td>" + inList[i].CUST_NAME + "</td>"
 							+ "<td>" + inList[i].EMP_NAME + "</td>"
 							+ "<td>" + inList[i].PRODUCT_NAME + "</td>"
 							+ "<td>" + inList[i].IN_DATE + "</td>"
 							+ "<td>" + inList[i].TOTAL_QTY + "</td>"
-							+ "<td>" + inList[i].IN_COMPLETE + "</td>"
-							+ "<td onclick='openWin("+inList[i].IN_SCHEDULE_CD+")'>진행</td>"
+							+ "<td onclick='openCom("+i+")'>" + inList[i].IN_COMPLETE + "</td>"
+							+ "<td onclick='openWin("+i+")' class='td_color'>조회</td>"
 							+ "</tr>";
 							
 				$(".bookTable").append(result);
@@ -111,18 +111,17 @@
 		});
 		
 		
-		
-		
-		
-		
-		
 	});
 		
 	function openWin(product_cd){
-		alert(product_cd);
+		selectIdx = product_cd;
 		window.open('ScheduleProgress', 'schedule_progress', 'width=500, height=500, left=750, top=400');
 	}
 	
+	function openCom(product_cd){
+		selectIdx = product_cd;
+		window.open('ScheduleComplete', 'schedule_complete', 'width=500, height=500, left=750, top=400');
+	}
 
 	
 	
@@ -138,7 +137,7 @@
 		<jsp:include page="../inc/in_left.jsp"></jsp:include>
 	</div>
 	<div style="width:1900px;">
-		<h3>입고 예정 목록</h3>
+		<h3 id="h4">입고 예정</h3>
 		<div class="choice_in" id="all_sc">전체</div><div class="choice_in" id="sc_ing">진행중</div><div class="choice_in" id="sc_com">완료</div>
 		<table class="bookTable">
 			<tr>
@@ -157,7 +156,7 @@
 				<th width="65">진행상태</th>
 			</tr>
 		</table><br>
-		<button onclick="window.open('IncomingRegistration', 'incomeRegi', 'width=1000, height=700, left=600, top=400')">등록</button>
+		<button onclick="window.open('IncomingRegistration', 'incomeRegi', 'width=1000, height=700, left=600, top=200')" id="list_recoBtn">신규 등록</button>
 	</div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>입고 예정 입력</title>
+<title>입고 예정 수정</title>
 <link rel="shortcut icon" href="#">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,101 +17,53 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+	var proList;
+	var i = 0;
+	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
 	
-	
-	
+	// 품목 검색
 	function funct(){
 		window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
 	}
 	
 	$(function() {
 		
-		// 오늘날짜 자동으로 기입
-		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
-		$("#today").val(today);
+		
 
+		// 발주서, 구매 중 체크박스 하나만 선택하게 하기
 		$("input[type=checkbox][name=in_type_cd]").click(function(){
-		 // 발주서, 구매 중 체크박스 하나만 선택하게 하기
 			if($(this).prop('checked')){
 				$("input[type=checkbox][name=in_type_cd]").prop('checked',false);
 				$(this).prop('checked',true);
 			}
 		});
 		
-		//====================== 여기서부터 <tr>생성 & 합계 계산 =====================================
-		let sum = 0;
 		
-		$.total = function() {
-			var numberClass = $(".in_schedule_qty").length;
-			let sum = 0;
-			for(var i= 0; i < numberClass; i++){
-				sum += Number($("input[type=number][name=IN_SCHEDULE_QTY]").eq(i).val());
-			}
-			$("input[type=number][name=TOTAL_QTY]").val(sum);
-		};
 		
-		$("input[type=number][name=IN_SCHEDULE_QTY]").on("change", function() {
-			$.total();
-		});
-		
-		$("#recoBtn").on("click", function() {
-			$("#optionArea").append(
-					'<tr class="indexCh" ondblclick="funct()">' 
-					+'<td><input type="text" class="product_cd" name="PRODUCT_CD"></td>'
-					+ '<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>'
-					+ '<td><input type="text" class="size_des" name="SIZE_DES"></td>'
-					+ '<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>'
-					+ '<td><input type="date" class="in_date" name="IN_PD_DATE"></td>'
-					+ '<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>'
-				    + '</tr>'
-			);
-			
-			var inClass = $(".in_schedule_qty").length;
-
-			$("input[type=number][name=IN_SCHEDULE_QTY]").on("change", function() {
-				$.total();
-			});
-			
-			
-		});
-		
-			
-	});
-	
-	
-	
-		function functi(){
+		$('#recoBtn2').click(function() {
+					
 			for(var i = 0; i < $(".in_date").length; i++){
 				if($(".in_date").eq(i).val() == ""){
 					$(".in_date").eq(i).val("1900-01-01");
 				}
 			}
 			
-			proRegi.submit();
-			
-
-			setTimeout("closeWin()",3000);
-			
-			
+		});
 		
-		}
-	function closeWin() {
-		alert("함수 호출");
-		opener.location.reload();
-		window.close();
-	}
 		
-// 	function closeWin(){
-// 		setTimeout("window.close()",5000);
-// 	}
+		
+		
+	});
+	
+	
 
 </script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div style="width:1200px;">
-		<div class="title_regi">입고예정입력</div>
-		<form action="IncomingRegiPro" onsubmit="return false" id="inSc_regi" method="post" name="proRegi" style="width:900px;">
+		<div class="title_regi">입고예정수정</div>
+		<form onsubmit="return false" id="inSc_regi" name="proRegi" style="width:900px;">
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
@@ -191,8 +143,7 @@
 				</tr>
 			</table>
 			<div>
-				<input type="button" value="품목 추가" id="recoBtn">
-				<input type="button" value="저장" id="recoBtn2" onclick="functi()">
+				<input type="button" value="수정" id="recoBtn4">
 			</div>
 		</form>
 	</div>

@@ -30,10 +30,10 @@
 		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
 		$("#today").val(today);
 
-		$("input[type=checkbox][name=in_type_cd]").click(function(){
+		$("input[type=checkbox][name=IN_TYPE_CD]").click(function(){
 		 // 발주서, 구매 중 체크박스 하나만 선택하게 하기
 			if($(this).prop('checked')){
-				$("input[type=checkbox][name=in_type_cd]").prop('checked',false);
+				$("input[type=checkbox][name=IN_TYPE_CD]").prop('checked',false);
 				$(this).prop('checked',true);
 			}
 		});
@@ -95,7 +95,7 @@
 		                opener.location.reload();
 		            } else {
 		            	alert("입고 예정 등록 실패!");
-		                	                
+		            	window.close();	                
 		            }
 		        },
 		        error: function(a, b, c) {
@@ -113,7 +113,7 @@
 </head>
 <body>
 	<div style="width:1200px;">
-		<div class="title_regi">입고예정입력</div>
+		<div class="title_regi">입고예정등록</div>
 		<form onsubmit="return false" id="inSc_regi" name="proRegi" style="width:900px;">
 			<table class="regi_table">
 				<tr>

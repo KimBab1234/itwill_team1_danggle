@@ -77,15 +77,30 @@ public class InService {
 		
 		return count;
 	}
-
-	public ArrayList<InListVO> getScheduleList() {
+	
+	// 입고 예정 목록
+	public ArrayList<InListVO> getScheduleList() { 
 		ArrayList<InListVO> inList = mapper.selectSchedule();
 
 		for(int i = 0; i < inList.size(); i++) {
-			if(!inList.get(i).getSIZE_DES().equals("")) {
-				String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
-				inList.get(i).setPRODUCT_NAME(product_size);
+			
+			int nameCount = mapper.selectCountName(inList.get(i).getIN_SCHEDULE_CD());
+			if(nameCount == 1) {
+				
+				if(!inList.get(i).getSIZE_DES().equals("")) {
+					String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+					inList.get(i).setPRODUCT_NAME(product_size);
+				}
+				
+			}else {
+				
+				if(!inList.get(i).getSIZE_DES().equals("")) {
+					String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "] 외 " + (nameCount - 1) + "건";
+					inList.get(i).setPRODUCT_NAME(product_size);
+				}
 			}
+			
+			
 		}
 		
 		for(int i = 0; i < inList.size(); i++) {
@@ -100,14 +115,26 @@ public class InService {
 		}
 		return inList;
 	}
-
+	
+	// 입고 예정 목록 ( 전체 / 진행중 / 완료)
 	public ArrayList<InListVO> getScheduleList(String keyword) {
 		ArrayList<InListVO> inList = mapper.selectScheduleStatus(keyword);
 
 		for(int i = 0; i < inList.size(); i++) {
-			if(!inList.get(i).getSIZE_DES().equals("")) {
-				String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
-				inList.get(i).setPRODUCT_NAME(product_size);
+			int nameCount = mapper.selectCountName(inList.get(i).getIN_SCHEDULE_CD());
+			if(nameCount == 1) {
+				
+				if(!inList.get(i).getSIZE_DES().equals("")) {
+					String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+					inList.get(i).setPRODUCT_NAME(product_size);
+				}
+				
+			}else {
+				
+				if(!inList.get(i).getSIZE_DES().equals("")) {
+					String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "] 외 " + (nameCount - 1) + "건";
+					inList.get(i).setPRODUCT_NAME(product_size);
+				}
 			}
 		}
 		
@@ -123,10 +150,45 @@ public class InService {
 		}
 		return inList;
 	}
-
-	public ArrayList<InPdVO> getProgress() {
-		return mapper.selectProductProgress();
+	
+	// 입고처리 진행상태
+	public ArrayList<InPdVO> getProgress(String keyword) {
+		return mapper.selectProductProgress(keyword);
 	}
+	
+	// 입고 예정 수정 폼
+	public ArrayList<InVO> getinProduct(String keyword) {
+		ArrayList<InVO> proList = new ArrayList<InVO>();
+		// 입고 예정 조회
+		proList = mapper.selectInProduct(keyword);
+		
+		return proList;
+	}
+	
+	// 입고 예정 목록 종결 / 취소 변환
+	public int modifyComplete(String keyword, String com_status) {
+		return mapper.updateCom(keyword, com_status);
+	}
+	
+	// 입고 처리 목록
+	public ArrayList<InListVO> getProgressList() {
+		ArrayList<InListVO> inList = mapper.selectProgressList();
+		
+		for(int i = 0; i < inList.size(); i++) {
+			if(!inList.get(i).getSIZE_DES().equals("")) {
+				String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+				inList.get(i).setPRODUCT_NAME(product_size);
+			}
+		}
+		return inList;
+	}
+
+	public List<InVO> getProductDetail() {
+		
+		return mapper.selectProductDetail();
+	}
+
+	
 
 
 

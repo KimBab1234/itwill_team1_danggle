@@ -24,7 +24,7 @@ public class InVO {
 	private List<String> IN_PD_REMARKS; // 적요
 	private String STOCK_CD; // 재고번호
 	
-
+	
 
 	public List<Integer> getPRODUCT_CD() {
 		return PRODUCT_CD;

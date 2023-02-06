@@ -28,6 +28,7 @@ import com.itwillbs.team1_final.vo.InListVO;
 import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 @Controller
 public class InController {
@@ -58,7 +59,6 @@ public class InController {
 		jsonObject.put("in_scList", jsonArray.toString());
 		
 		return jsonObject.toString();
-		
 	}
 	
 	@ResponseBody 
@@ -84,12 +84,6 @@ public class InController {
 	public String inRegi() {
 		System.out.println("입고 등록 폼 페이지");
 		return "in/in_registration";
-	}
-	
-	@GetMapping(value = "/IN_Process")
-	public String in_process() {
-		System.out.println("입고 처리 목록");
-		return "in/in_process_list";
 	}
 	
 	@GetMapping(value = "/SearchEMP")
@@ -118,8 +112,6 @@ public class InController {
 
 	}
 	
-	
-	
 	@GetMapping(value = "/searchBusiness_no")
 	public String SearchBus() {
 		System.out.println("거래처 검색");
@@ -144,7 +136,6 @@ public class InController {
 		jsonObject.put("accList", jsonAcc.toString());
 		
 		return jsonObject.toString();
-		
 	}
 	
 	@GetMapping(value = "/SearchProduct")
@@ -198,49 +189,18 @@ public class InController {
 		return insertCount;
 	}
 	
-	
-//	@PostMapping(value = "/IncomingRegiPro")
-//	public String regiPro(Model model, HttpSession session, @ModelAttribute InVO in
-//			, HttpServletRequest request) {
-//		System.out.println("입고 예정 품목 등록");
-//		
-//		String today = request.getParameter("TODAY"); // 날짜 받아오기
-//		int product_num = service.searchToday(today); // 입고예정코드 조회
-//		int idx = 1;
-//		String schedule_cd = "";
-//		
-//		if(product_num == 0) { // 입고예정코드 조회 결과 0일 때
-//			schedule_cd = today + "-" + idx; 
-//			in.setIN_SCHEDULE_CD(schedule_cd);
-//		}else { // 입고예정코드 조회 결과가 있을 때
-//			product_num += 1;
-//			schedule_cd = today + "-" + product_num;
-//			in.setIN_SCHEDULE_CD(schedule_cd);
-//		}
-//		
-//		int insertCount = service.regiIncoming(in);
-//		
-//		if(insertCount > 0) {
-//			
-//		}else {
-//			model.addAttribute("msg", "입고 예정 상품 등록 실패!");
-//			return "fail_back";
-//		}
-//		
-//		return "in/in_schedule_list";
-//	}
-	
 	@GetMapping(value = "/ScheduleProgress")
 	public String progress() {
+		System.out.println("입고처리 진행상태");
 		return "in/product_progress";
 	}
 	
 	@ResponseBody
 	@GetMapping(value = "/ProductProgress")
-	public String progressBody(HttpServletResponse response) {
+	public String progressBody(HttpServletResponse response, String keyword) {
 		System.out.println("입고처리 진행상태 에이젝스");
-		
-		ArrayList<InPdVO> ProgressList = service.getProgress();
+
+		ArrayList<InPdVO> ProgressList = service.getProgress(keyword);
 		JSONArray jsonArray = new JSONArray();
 		
 		for(InPdVO progress : ProgressList) {
@@ -253,4 +213,55 @@ public class InController {
 		
 		return jsonObject.toString();
 	}
+	
+	@GetMapping(value = "/ScheduleComplete")
+	public String complete() {
+		System.out.println("입고 예정 목록 종결 / 취소 변환");
+		return "in/in_complete";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/UpdateComplete")
+	public int updateCom(HttpServletResponse response, String keyword, String com_status) {
+		System.out.println("입고 예정 목록 종결 / 취소 변환 에이젝스");
+
+		int updateCount = service.modifyComplete(keyword , com_status);
+		return updateCount;
+	}
+	
+	@GetMapping(value = "/IN_Process")
+	public String in_process() {
+		System.out.println("입고 처리 목록");
+		return "in/in_process_list";
+	}
+	
+	@ResponseBody 
+	@GetMapping(value = "/in_process_list")
+	public String processList(HttpServletResponse response) {
+		System.out.println("입고 처리 목록 에이젝스");
+		ArrayList<InListVO> progressList = service.getProgressList();
+		JSONArray jsonArray = new JSONArray();
+		
+		for(InListVO in : progressList) {
+			JSONObject jsonObject = new JSONObject(in);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("progressList", jsonArray.toString());
+		
+		return jsonObject.toString();
+		
+	}
+	
+	@GetMapping(value = "/ScheduleUpdate")
+	public String update(Model model, HttpSession session, InVO in) {
+		System.out.println("입고예정 수정");
+		
+		List<InVO> progress_list = service.getProductDetail();
+		
+		
+		return "in/in_product_update";
+	}
+	
 }
