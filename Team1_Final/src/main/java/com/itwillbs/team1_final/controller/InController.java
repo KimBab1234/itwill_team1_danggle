@@ -1,5 +1,7 @@
 package com.itwillbs.team1_final.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +17,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.InService;
 import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
+import com.itwillbs.team1_final.vo.InListVO;
+import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 @Controller
 public class InController {
@@ -36,16 +43,47 @@ public class InController {
 		return "in/in_schedule_list";
 	}
 	
+	@ResponseBody 
+	@GetMapping(value = "/in_schedule_list")
+	public String in_list() {
+		System.out.println("입고 예정 목록 에이젝스 - 전체");
+		ArrayList<InListVO> in_scList = service.getScheduleList();
+		JSONArray jsonArray = new JSONArray();
+		
+		for(InListVO in : in_scList) {
+			JSONObject jsonObject = new JSONObject(in);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("in_scList", jsonArray.toString());
+		
+		return jsonObject.toString();
+	}
+	
+	@ResponseBody 
+	@GetMapping(value = "/in_schedule_list_status")
+	public String in_list_ing(HttpServletResponse response, String keyword) {
+		System.out.println("입고 예정 목록 에이젝스 - 진행중");
+		ArrayList<InListVO> in_scList = service.getScheduleList(keyword);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(InListVO in : in_scList) {
+			JSONObject jsonObject = new JSONObject(in);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("in_scList", jsonArray.toString());
+		
+		return jsonObject.toString();
+		
+	}
+	
 	@GetMapping(value = "/IncomingRegistration")
 	public String inRegi() {
 		System.out.println("입고 등록 폼 페이지");
 		return "in/in_registration";
-	}
-	
-	@GetMapping(value = "/IN_Process")
-	public String in_process() {
-		System.out.println("입고 처리 목록");
-		return "in/in_process_list";
 	}
 	
 	@GetMapping(value = "/SearchEMP")
@@ -56,7 +94,7 @@ public class InController {
 	
 	@ResponseBody 
 	@GetMapping(value = "/SearchEmp")
-	public String search_emp(Model model, HttpServletResponse response, String keyword) {
+	public String search_emp(HttpServletResponse response, String keyword) {
 		System.out.println("사원 검색 에이젝스");
 		
 		ArrayList<HrVO> hrList = service.getHrList(keyword);
@@ -73,8 +111,6 @@ public class InController {
 		return jsonObject.toString();
 
 	}
-	
-	
 	
 	@GetMapping(value = "/searchBusiness_no")
 	public String SearchBus() {
@@ -100,7 +136,6 @@ public class InController {
 		jsonObject.put("accList", jsonAcc.toString());
 		
 		return jsonObject.toString();
-		
 	}
 	
 	@GetMapping(value = "/SearchProduct")
@@ -129,9 +164,10 @@ public class InController {
 		return jsonObject.toString();
 	}
 	
+	@ResponseBody
 	@PostMapping(value = "/IncomingRegiPro")
-	public String regiPro(Model model, HttpSession session, @ModelAttribute InVO in
-			, HttpServletRequest request) {
+	public int regiPro(Model model, HttpSession session, @ModelAttribute InVO in
+			, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("입고 예정 품목 등록");
 		
 		String today = request.getParameter("TODAY"); // 날짜 받아오기
@@ -150,13 +186,82 @@ public class InController {
 		
 		int insertCount = service.regiIncoming(in);
 		
-		if(insertCount > 0) {
-			
-		}else {
-			model.addAttribute("msg", "입고 예정 상품 등록 실패!");
-			return "fail_back";
+		return insertCount;
+	}
+	
+	@GetMapping(value = "/ScheduleProgress")
+	public String progress() {
+		System.out.println("입고처리 진행상태");
+		return "in/product_progress";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/ProductProgress")
+	public String progressBody(HttpServletResponse response, String keyword) {
+		System.out.println("입고처리 진행상태 에이젝스");
+
+		ArrayList<InPdVO> ProgressList = service.getProgress(keyword);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(InPdVO progress : ProgressList) {
+			JSONObject jsonObject = new JSONObject(progress);
+			jsonArray.put(jsonObject);
 		}
 		
-		return "in/in_schedule_list";
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("ProgressList", jsonArray.toString());
+		
+		return jsonObject.toString();
 	}
+	
+	@GetMapping(value = "/ScheduleComplete")
+	public String complete() {
+		System.out.println("입고 예정 목록 종결 / 취소 변환");
+		return "in/in_complete";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/UpdateComplete")
+	public int updateCom(HttpServletResponse response, String keyword, String com_status) {
+		System.out.println("입고 예정 목록 종결 / 취소 변환 에이젝스");
+
+		int updateCount = service.modifyComplete(keyword , com_status);
+		return updateCount;
+	}
+	
+	@GetMapping(value = "/IN_Process")
+	public String in_process() {
+		System.out.println("입고 처리 목록");
+		return "in/in_process_list";
+	}
+	
+	@ResponseBody 
+	@GetMapping(value = "/in_process_list")
+	public String processList(HttpServletResponse response) {
+		System.out.println("입고 처리 목록 에이젝스");
+		ArrayList<InListVO> progressList = service.getProgressList();
+		JSONArray jsonArray = new JSONArray();
+		
+		for(InListVO in : progressList) {
+			JSONObject jsonObject = new JSONObject(in);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("progressList", jsonArray.toString());
+		
+		return jsonObject.toString();
+		
+	}
+	
+	@GetMapping(value = "/ScheduleUpdate")
+	public String update(Model model, HttpSession session, InVO in) {
+		System.out.println("입고예정 수정");
+		
+		List<InVO> progress_list = service.getProductDetail();
+		
+		
+		return "in/in_product_update";
+	}
+	
 }

@@ -12,8 +12,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -108,13 +108,13 @@ public class PdController {
 		
 		@ResponseBody
 		@GetMapping("/PdInquiryJson")
-		public void pdInquiryJson(
+		public String pdInquiryJson(
 				@RequestParam(defaultValue = "") String searchType,
 				@RequestParam(defaultValue = "") String keyword,
 				@RequestParam(defaultValue = "1") int pageNum,
 				Model model,
 				HttpServletResponse response) {
-			
+//			System.out.println(searchType + keyword + pageNum);
 			// 페이징 처리를 위한 변수 선언
 			int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 			int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
@@ -128,30 +128,24 @@ public class PdController {
 
 			JSONArray jsonArray = new JSONArray();
 			
+			System.out.println(pdList);
 			for(PdVO product : pdList) {
-				
-				JSONObject jsonObject = new JSONObject();
+				JSONObject jsonObject = new JSONObject(product);
 //				JSONObject jsonObject = new JSONObject(product);
 				
 //				System.out.println(jsonObject);
 			
-				jsonArray.add(jsonObject);
+				jsonArray.put(jsonObject);
 //				jsonArray.put(jsonObject);
 				
 			}
 			
 //			System.out.println(jsonArray);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("pdList", jsonArray.toString());
 			
-			try {
-				// 응답 데이터를 직접 생성하여 웹페이지에 출력
-				// response 객체의 setCharacterEncodinf() 메서드로 출력 데이터 인코딩 지정 후
-				// response 객체의 getWriter() 메서드로 PrintWriter 객체를 리턴받아
-				// PrintWriter 객체의 print() 메서드를 호출하여 응답데이터 출력
-				response.setCharacterEncoding("UTF-8");
-				response.getWriter().print(jsonArray);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
+			return  jsonObject.toString();
 			
 		}
 		// ===============================================================================
@@ -179,7 +173,7 @@ public class PdController {
 				product.put("PRODUCT_GROUP_TOP_CD", bean.getPRODUCT_GROUP_TOP_CD());
 				product.put("PRODUCT_GROUP_BOTTOM_CD", bean.getPRODUCT_GROUP_BOTTOM_CD());
 				product.put("PRODUCT_GROUP_BOTTOM_NAME", bean.getPRODUCT_GROUP_BOTTOM_NAME());
-				arr.add(product);
+				arr.put(product);
 			}
 
 			jsonStr.put("jsonPd_group_bottom", arr);
@@ -187,7 +181,7 @@ public class PdController {
 //			System.out.println("pd_group_bottom_List: " + pd_group_bottom_List);
 //			System.out.println("jsonStr: " + jsonStr);
 			
-			return jsonStr.toJSONString();
+			return jsonStr.toString();
 		}
 		
 		// ===============================================================================
@@ -214,7 +208,7 @@ public class PdController {
 				
 				product.put("PRODUCT_TYPE_CD", bean.getPRODUCT_TYPE_CD());
 				product.put("PRODUCT_TYPE_NAME", bean.getPRODUCT_TYPE_NAME());
-				arr.add(product);
+				arr.put(product);
 			}
 			
 			jsonStr.put("jsonPd_type", arr);
@@ -222,14 +216,14 @@ public class PdController {
 //			System.out.println("pd_group_bottom_List: " + pd_group_bottom_List);
 //			System.out.println("jsonStr: " + jsonStr);
 			
-			return jsonStr.toJSONString();
+			return jsonStr.toString();
 		}
 		
 	// ===============================================================================
 	// 바코드 생성
 	   @ResponseBody
 	   @RequestMapping(value = "/Barcode", method = RequestMethod.GET)
-	   public void Barcode(Model model) {
+	   public String Barcode() {
 	      System.out.println("바코드생성");
 	
 	      char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -239,11 +233,108 @@ public class PdController {
 	         idx = (int) (charSet.length * Math.random());
 	         barcode += charSet[idx];
 	         
-	         System.out.println("barcode: " + barcode);
-	         model.addAttribute("barcode", barcode);
+//	         System.out.println("barcode: " + barcode);
 	         
-	      
-	   }
-		
+	      }
+	      return barcode;
 	   }	
+	   
+	// ===============================================================================
+	//거래처 조회
+	@RequestMapping(value = "/Business_No_SearchForm", method = RequestMethod.GET)
+	public String business_no_Search(Model model) {
+		System.out.println("거래처 선택 팝업");
+		return "pd/business_no_Search";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = "/Business_no_Search", method = RequestMethod.POST)
+	public String business_no_SearchPro(String keyword) {
+		System.out.println("거래처 선택 : keyword="+keyword);
+		
+		ArrayList<PdVO> business_no_List = service.getBusiness_no_Search(keyword);
+		
+		JSONObject jsonStr = new JSONObject();
+		JSONArray arr = new JSONArray();
+		
+		for(PdVO bean : business_no_List) {
+			JSONObject product = new JSONObject();
+			
+			product.put("BUSINESS_NO", bean.getBUSINESS_NO());
+			product.put("CUST_NAME", bean.getCUST_NAME());
+			arr.put(product);
+		}
+		
+		jsonStr.put("jsonBusiness_no", arr);
+		
+//				System.out.println("pd_group_bottom_List: " + pd_group_bottom_List);
+//				System.out.println("jsonStr: " + jsonStr);
+		
+		return jsonStr.toString();
+	}
+	
+	// ===============================================================================
+	// 품목 그룹 신규 등록
+	@RequestMapping(value = "/Pd_group_bottom_registForm", method = RequestMethod.GET)
+	public String pd_group_bottom_Regist(Model model) {
+		System.out.println("품목 그룹 신규 등록");
+		return "pd/pd_group_bottom_regist";
+	}
+	
+	@RequestMapping(value = "/Pd_group_bottom_registPro", method = RequestMethod.POST)
+	public String pd_group_bottom_RegistPro(@ModelAttribute PdVO product, Model model, HttpSession session) {
+		
+		// --------------------------------------------------------------------
+		// Service 객체의 registBoard() 메서드를 호출하여 게시물 등록 작업 요청
+		// => 파라미터 : BoardVO 객체    리턴타입 : int(insertCount)
+		int insertCount = service.registPd_group_bottom(product);
+		
+		// 등록 성공/실패에 따른 포워딩 작업 수행
+		if(insertCount > 0) { // 성공
+			
+			return "redirect:/PdRegist";
+		} else { // 실패
+			// "msg" 속성명으로 "글 쓰기 실패!" 메세지 전달 후 fail_back 포워딩
+			model.addAttribute("msg", "품목 그룹 등록 실패!");
+			return "fail_back";
+		}
+	}
+		
+	// ===============================================================================
+	//품목 그룹(대) 조회
+	@RequestMapping(value = "/Pd_group_top_SearchForm", method = RequestMethod.GET)
+	public String pd_group_top_Search(Model model) {
+		System.out.println("품목 그룹(대) 선택 팝업");
+		return "pd/pd_group_top_Search";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = "/Pd_group_top_Search", method = RequestMethod.POST)
+	public String pd_group_top_SearchPro(String keyword) {
+		System.out.println("품목 그룹(대) 선택 : keyword="+keyword);
+		
+		ArrayList<PdVO> pd_group_top_List = service.getPd_group_top_Search(keyword);
+		
+		JSONObject jsonStr = new JSONObject();
+		JSONArray arr = new JSONArray();
+		
+		for(PdVO bean : pd_group_top_List) {
+			JSONObject product = new JSONObject();
+			
+			product.put("PRODUCT_GROUP_TOP_CD", bean.getPRODUCT_GROUP_TOP_CD());
+			product.put("PRODUCT_GROUP_TOP_NAME", bean.getPRODUCT_GROUP_TOP_NAME());
+			arr.put(product);
+		}
+		
+		jsonStr.put("jsonPd_group_top", arr);
+		
+//					System.out.println("pd_group_bottom_List: " + pd_group_bottom_List);
+//					System.out.println("jsonStr: " + jsonStr);
+		
+		return jsonStr.toString();
+	}
+
+	
 }

@@ -6,7 +6,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>위치 추가</title>
+<title>내부 구역 수정</title>
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -21,20 +21,20 @@
 		</div>
 		<!-- 여기서부터 본문-->
 		<div align="center" style="width: 1300px;">
-			<h2 align="center">위치 등록</h2>
-			<form action="WhLocationRegistPro" method="post">
+			<h2 align="center">내부 구역 이름 변경</h2>
+			<form action="WhAreaModifyPro" method="post">
 			<input type="hidden" name="WH_AREA_CD" value="${param.WH_AREA_CD}">
 			<table style="text-align: center; border: solid 1px; width: 500px; height: 150px;">
 				<tr>
-					<td align="right" style="width: 200px;">위치명</td> 
+					<td align="right" style="width: 200px;">구역명</td> 
 					<td align="left" style="width: 400px;" >&nbsp;&nbsp;&nbsp;
-						<input type="text" id="WH_LOC_IN_AREA" name="WH_LOC_IN_AREA" required="required" placeholder="위치명">
+						<input type="text" id="WH_AREA" name="WH_AREA" required="required" placeholder="${wh.WH_AREA }">
 					</td>
 				</tr> 
 				<tr>
 					
 				<td colspan="2" align="center">
-					<input type="submit" value="위치 등록">
+					<input type="submit" value="구역명 등록">
 					<input type="button" value="취소" onclick="history.back()">
 				</td>
 			</tr>

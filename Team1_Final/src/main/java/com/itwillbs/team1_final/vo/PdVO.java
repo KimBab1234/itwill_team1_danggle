@@ -22,31 +22,45 @@ PRODUCT_GROUP_TOP_CD 품목그룹코드(대)
 PRODUCT_GROUP_TOP_NAME 품목그룹명(대)
 
 CREATE TABLE PRODUCT (
-PRODUCT_CD INT PRIMARY KEY,
+PRODUCT_CD INT PRIMARY KEY AUTO INCREMENT,
 PRODUCT_NAME VARCHAR(100) NOT NULL,
-PRODUCT_GROUP_BOTTOM_CD VARCHAR(50) NOT NULL,
+PRODUCT_GROUP_BOTTOM_CD int NOT NULL,
 SIZE_DES VARCHAR(30),
 UNIT VARCHAR(30) NOT NULL,
 BARCODE VARCHAR(30) NOT NULL,
 IN_UNIT_PRICE INT NOT NULL,
 OUT_UNIT_PRICE INT NOT NULL,
-PRODUCT_TYPE_CD VARCHAR(10) NOT NULL,
-BUSINESS_NO VARCHAR(10) NOT NULL,
+PRODUCT_TYPE_CD INT NOT NULL,
+BUSINESS_NO VARCHAR(30) NOT NULL,
 PRODUCT_IMAGE VARCHAR(100),
-REMARKS VARCHAR(2000)
+REMARKS VARCHAR(2000),
+FOREIGN KEY(business_no) REFERENCES acc(business_no),
+FOREIGN KEY(PRODUCT_GROUP_BOTTOM_CD) REFERENCES PRODUCT_BOTTOM(PRODUCT_GROUP_BOTTOM_CD) on delete cascade on update cascade,
+FOREIGN KEY(PRODUCT_TYPE_CD) REFERENCES PRODUCT_TYPE(PRODUCT_TYPE_CD) on delete cascade on update cascade
 );
+
+alter table product add FOREIGN KEY(business_no) REFERENCES acc(business_no) on delete cascade on update cascade;
+business_no/ product_group_bottom_cd/ product_type_cd/ product_group_top_cd 도 다 해주기
+
+CREATE VIEW product_view AS(
+SELECT pr.product_cd, pr.PRODUCT_NAME, pr.product_group_bottom_cd, pr.SIZE_DES, pr.UNIT, pr.BARCODE, pr.IN_UNIT_PRICE, pr.OUT_UNIT_PRICE, pr.product_type_cd, pr.BUSINESS_NO, pr.PRODUCT_IMAGE, pr.REMARKS, pb.PRODUCT_GROUP_TOP_CD, pb.PRODUCT_GROUP_BOTTOM_NAME, pty.PRODUCT_TYPE_NAME, acc.CUST_NAME 
+FROM product pr 
+join product_bottom pb on pb.product_group_bottom_cd = pr.product_group_bottom_cd 
+join product_top pt on pb.product_group_top_cd = pt.product_group_top_cd
+join product_type pty on pty.product_type_cd = pr.product_type_cd
+join acc on acc.BUSINESS_NO = pr.BUSINESS_NO);
  */
 public class PdVO {
 
 	private int PRODUCT_CD;
 	private String PRODUCT_NAME;
-	private String PRODUCT_GROUP_BOTTOM_CD;
+	private int PRODUCT_GROUP_BOTTOM_CD;
 	private String SIZE_DES;
 	private String UNIT;
 	private String BARCODE;
 	private int IN_UNIT_PRICE;
 	private int OUT_UNIT_PRICE;
-	private String PRODUCT_TYPE_CD;
+	private int PRODUCT_TYPE_CD;
 	private String BUSINESS_NO;
 	private String PRODUCT_IMAGE;
 	private String REMARKS;
@@ -55,7 +69,7 @@ public class PdVO {
 	private String PRODUCT_GROUP_TOP_NAME;
 	private String PRODUCT_GROUP_BOTTOM_NAME;
 	private String PRODUCT_TYPE_NAME;
-	
+	private String CUST_NAME;
 	public int getPRODUCT_CD() {
 		return PRODUCT_CD;
 	}
@@ -68,10 +82,10 @@ public class PdVO {
 	public void setPRODUCT_NAME(String pRODUCT_NAME) {
 		PRODUCT_NAME = pRODUCT_NAME;
 	}
-	public String getPRODUCT_GROUP_BOTTOM_CD() {
+	public int getPRODUCT_GROUP_BOTTOM_CD() {
 		return PRODUCT_GROUP_BOTTOM_CD;
 	}
-	public void setPRODUCT_GROUP_BOTTOM_CD(String pRODUCT_GROUP_BOTTOM_CD) {
+	public void setPRODUCT_GROUP_BOTTOM_CD(int pRODUCT_GROUP_BOTTOM_CD) {
 		PRODUCT_GROUP_BOTTOM_CD = pRODUCT_GROUP_BOTTOM_CD;
 	}
 	public String getSIZE_DES() {
@@ -104,10 +118,10 @@ public class PdVO {
 	public void setOUT_UNIT_PRICE(int oUT_UNIT_PRICE) {
 		OUT_UNIT_PRICE = oUT_UNIT_PRICE;
 	}
-	public String getPRODUCT_TYPE_CD() {
+	public int getPRODUCT_TYPE_CD() {
 		return PRODUCT_TYPE_CD;
 	}
-	public void setPRODUCT_TYPE_CD(String pRODUCT_TYPE_CD) {
+	public void setPRODUCT_TYPE_CD(int pRODUCT_TYPE_CD) {
 		PRODUCT_TYPE_CD = pRODUCT_TYPE_CD;
 	}
 	public String getBUSINESS_NO() {
@@ -158,6 +172,12 @@ public class PdVO {
 	public void setPRODUCT_TYPE_NAME(String pRODUCT_TYPE_NAME) {
 		PRODUCT_TYPE_NAME = pRODUCT_TYPE_NAME;
 	}
+	public String getCUST_NAME() {
+		return CUST_NAME;
+	}
+	public void setCUST_NAME(String cUST_NAME) {
+		CUST_NAME = cUST_NAME;
+	}
 	@Override
 	public String toString() {
 		return "PdVO [PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME + ", PRODUCT_GROUP_BOTTOM_CD="
@@ -166,8 +186,12 @@ public class PdVO {
 				+ PRODUCT_TYPE_CD + ", BUSINESS_NO=" + BUSINESS_NO + ", PRODUCT_IMAGE=" + PRODUCT_IMAGE + ", REMARKS="
 				+ REMARKS + ", file=" + file + ", PRODUCT_GROUP_TOP_CD=" + PRODUCT_GROUP_TOP_CD
 				+ ", PRODUCT_GROUP_TOP_NAME=" + PRODUCT_GROUP_TOP_NAME + ", PRODUCT_GROUP_BOTTOM_NAME="
-				+ PRODUCT_GROUP_BOTTOM_NAME + ", PRODUCT_TYPE_NAME=" + PRODUCT_TYPE_NAME + "]";
+				+ PRODUCT_GROUP_BOTTOM_NAME + ", PRODUCT_TYPE_NAME=" + PRODUCT_TYPE_NAME + ", CUST_NAME=" + CUST_NAME
+				+ "]";
 	}
+	
+	
+	
 	
 	
 	

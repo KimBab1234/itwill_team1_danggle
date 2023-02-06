@@ -11,18 +11,34 @@
 		SELECT * FROM stock_view ${search} LIMIT #{startRow},#{listLimit};
 	</select>
 	
+	<select id="selectWhList" resultType="com.itwillbs.team1_final.vo.WhVO">
+		SELECT * FROM wh_view ${search} LIMIT #{startRow},#{listLimit};
+	</select>
+	
 	<select id="selectStockDetail" resultType="stock">
 		SELECT * FROM sh_view WHERE STOCK_CD=#{stockNo};
 	</select>
 	
-	<update id="updateStock">
-		UPDATE STOCK 
-		SET
-		
-		WHERE STOCK_CD=#{EMP_NUM};
-	</update>
+	<select id="selectNewStockCD" resultType="int">
+		SELECT MAX(STOCK_CD) FROM STOCK
+	</select>
 	
-
+	<insert id="insertStock">
+		INSERT INTO stock VALUES (#{STOCK_CD}+1, #{PRODUCT_CD}, #{WH_LOC_IN_AREA_CD}, #{MOVE_QTY}) ON DUPLICATE KEY UPDATE STOCK_QTY =STOCK_QTY+#{MOVE_QTY};
+	</insert>
 	
+	<insert id="insertStockHistory">
+		INSERT INTO STOCK_HISTORY VALUES(
+			#{STOCK_CD}
+			,#{STOCK_CONTROL_TYPE_CD}
+			,#{PRODUCT_CD}
+			,#{SOURCE_STOCK_CD}
+			,#{TARGET_STOCK_CD}
+			,#{MOVE_QTY}
+			,#{EMP_NUM}
+			,#{STOCK_DATE}
+			,#{REMARKS}
+		);
+	</insert>
 	
 </mapper>

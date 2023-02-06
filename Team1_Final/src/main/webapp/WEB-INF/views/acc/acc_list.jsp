@@ -16,55 +16,6 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-	// 게시물 목록 조회를 AJAX + JSON 으로 처리할 load_list() 함수 정의
-	// => 검색타입과 검색어를 파라미터로 지정
-		$.ajax({
-			type: "GET",
-// 			url: "BoardListJson.bo?pageNum=" + pageNum,
-			url: "SearchAccList",
-			dataType: "json"
-		})
-		.done(function(AccList) { // 요청 성공 시
-// 			$("#listForm > table").append(boardList);
-			
-			// JSONArray 객체를 통해 배열 형태로 전달받은 JSON 데이터를
-			// 반복문을 통해 하나씩 접근하여 객체 꺼내기
-			let result="";
-			for(let acc of AccList) {
-				// 테이블에 표시할 JSON 데이터 출력문 생성
-				// => 출력할 데이터는 board.xxx 형식으로 접근
-				result += "<tr align='center' height='50'>"
-							+ "<td><input type='checkbox' id='accCheck'></td>"
-							+ "<td>" + acc.CUST_NAME + "</td>"
-// 							+ "<td id='subject'>" 
-// 								+ "<a href='BoardDetail.bo?board_num=" + board.board_num + "'>"
-							+ "<td><a href='AccView?BUSINESS_NO=" + acc.BUSINESS_NO + "'>"+acc.BUSINESS_NO+"</a></td>"
-							+ "<td>"+ acc.g_GUBUN + "</td>"
-							+ "<td>" + acc.BOSS_NAME + "</td>"
-							+ "<td>" + acc.UPTAE+ "</td>"
-							+ "<td>" + acc.JONGMOK + "</td>"
-							+ "<td>" + acc.ADDR + "</td>"
-							+ "</a>"
-							+ "</tr>";
-				
-				// 지정된 위치(table 태그 내부)에 JSON 객체 출력문 추가
-			}
-// 			alert(result);
-			$("#listform").append(result);
-		})
-		.fail(function() {
-			$("#listform > table").append("<h3>요청 실패!</h3>");
-		});
-	
-// 	$("#accAllCheck").click(function() {
-// 		if($("#accAllCheck").is(":checked")){
-// 			$("checkbox").each(function(index, item) {
-// 				$(item).prop("checked", true);
-// 			});
-// 		} else {
-// 				$(item).prop("checked", false);
-// 		}
-// 	});
 	$(function() {
 	$("#accAllCheck").on("change", function() {
          if($("#accAllCheck").is(":checked")) {
@@ -90,25 +41,67 @@
 	
 	<form action="listForm">
 		<h1>거래처 목록 리스트</h1>
+		<select name="accName">
+			<option id="BUSINESS_NO" value="BUSINESS_NO">거래처코드</option>
+			<option id="CUST_NAME" value="CUST_NAME">거래처명</option>
+			<option id="UPTAE" value="UPTAE"></option>
+		</select>
+		<input type="text" name="keyword">
+			<input type="submit" value="검색">
+			<br>
 			<table border="1" id="listform" >
 				<tr align="center" height="50">
-					<td>전체선택<br><input type="checkbox" id="accAllCheck"></td>
+					<td width="80">전체선택<br><input type="checkbox" id="accAllCheck"></td>
 					<td width="200">회사명</td>
-					<td width="50">사업자번호</td>
+					<td width="200">사업자번호</td>
 					<td width="80">분류코드</td>
 					<td width="80">대표명</td>
 					<td width="200">업태</td>
 					<td width="200">종목</td>
 					<td width="450">주소</td>
 				</tr>
-
+				
 			</table>
 			<br>
 			<div align="right">
 			<input type="button" name="modifyAcc" value="수정" onclick="location.href='AccModify'">&nbsp;
 			<input type="button" name="deleteAcc" value="삭제" onclick="location.href='AccDelete'">
 			</div>
+			<div align="center">
+					<section id="pageList">
+		<c:choose>
+			<c:when test="${pageNum > 1}">
+				<input type="button" value="이전" onclick="location.href='BoardList.bo?pageNum=${pageNum - 1}'">
+			</c:when>
+			<c:otherwise>
+				<input type="button" value="이전">
+			</c:otherwise>
+		</c:choose>
+			
+		<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
+			<c:choose>
+				<c:when test="${pageNum eq i}">
+					${i }
+				</c:when>
+				<c:otherwise>
+					<a href="BoardList.bo?pageNum=${i }">${i }</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+
+		<c:choose>
+			<c:when test="${pageNum < pageInfo.maxPage}">
+				<input type="button" value="다음" onclick="location.href='BoardList.bo?pageNum=${pageNum + 1}'">
+			</c:when>
+			<c:otherwise>
+				<input type="button" value="다음">
+			</c:otherwise>
+		</c:choose>
+	</section>
+	</div>
 		</form>
+		
+
 		</div>
 </body>
 </html>

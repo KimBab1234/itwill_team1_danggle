@@ -2,6 +2,9 @@ package com.itwillbs.team1_final.vo;
 
 public class AccVO {
 	private String BUSINESS_NO;
+	private String BUSINESS_NO1;
+	private String BUSINESS_NO2;
+	private String BUSINESS_NO3;
 	private String CUST_NAME;
 	private String BOSS_NAME;
 	private String UPTAE;
@@ -39,6 +42,28 @@ public class AccVO {
 	}
 	public void setBUSINESS_NO(String bUSINESS_NO) {
 		BUSINESS_NO = bUSINESS_NO;
+//			BUSINESS_NO1 = BUSINESS_NO.split("-")[0];
+//			BUSINESS_NO2 = BUSINESS_NO.split("-")[1];
+//			BUSINESS_NO3 = BUSINESS_NO.split("-")[2];
+	}
+	public String getBUSINESS_NO1() {
+		return BUSINESS_NO1;
+	}
+	public void setBUSINESS_NO1(String bUSINESS_NO1) {
+		BUSINESS_NO1 = bUSINESS_NO1;
+	}
+	public String getBUSINESS_NO2() {
+		return BUSINESS_NO2;
+	}
+	public void setBUSINESS_NO2(String bUSINESS_NO2) {
+		BUSINESS_NO2 = bUSINESS_NO2;
+	}
+	public String getBUSINESS_NO3() {
+		return BUSINESS_NO3;
+	}
+	public void setBUSINESS_NO3(String bUSINESS_NO3) {
+		BUSINESS_NO3 = bUSINESS_NO3;
+		
 	}
 	public String getCUST_NAME() {
 		return CUST_NAME;
@@ -69,6 +94,11 @@ public class AccVO {
 	}
 	public void setTEL(String tEL) {
 		TEL = tEL;
+//		if(!TEL.equals("")) {
+//		TEL1 = TEL.split("-")[0];
+//		TEL2 = TEL.split("-")[1];
+//		TEL3 = TEL.split("-")[2];
+//		}
 	}
 	public String getTEL1() {
 		return TEL1;
@@ -87,17 +117,17 @@ public class AccVO {
 	}
 	public void setTEL3(String tEL3) {
 		TEL3 = tEL3;
-		if(TEL1 != "" || TEL2 != "" || TEL3 != "") {
-			TEL = TEL1+"-"+TEL2+"-"+TEL3;
-		} else {
-			TEL = "";
-		}
+
 	}
 	public String getEMAIL() {
 		return EMAIL;
 	}
 	public void setEMAIL(String eMAIL) {
 		EMAIL = eMAIL;
+//		if(!EMAIL.equals("")) {
+//		EMAIL1 = EMAIL.split("@")[0];
+//		EMAIL2 = EMAIL.split("@")[1];
+//		}
 	}
 	public String getEMAIL1() {
 		return EMAIL1;
@@ -111,11 +141,6 @@ public class AccVO {
 	public void setEMAIL2(String eMAIL2) {
 		EMAIL2 = eMAIL2;
 		
-		if(EMAIL1 != "") {
-			EMAIL = EMAIL1+"@"+EMAIL2;
-		} else {
-			EMAIL = "";
-		}
 	}
 	public String getPOST_NO() {
 		return POST_NO;
@@ -128,6 +153,9 @@ public class AccVO {
 	}
 	public void setADDR(String aDDR) {
 		ADDR = aDDR;
+		
+//		ADDR1 = ADDR.split(", ")[0];
+//		ADDR2 = ADDR.split(", ")[1];
 	}
 	public String getADDR1() {
 		return ADDR1;
@@ -140,8 +168,6 @@ public class AccVO {
 	}
 	public void setADDR2(String aDDR2) {
 		ADDR2 = aDDR2;
-		
-		ADDR = ADDR1+", "+ADDR2;
 	}
 	public String getG_GUBUN() {
 		return G_GUBUN;
@@ -154,16 +180,18 @@ public class AccVO {
 	}
 	public void setFAX(String fAX) {
 		FAX = fAX;
-		
-		if(FAX == "") {
-			FAX = "";
-		}
 	}
 	public String getMOBILE_NO() {
 		return MOBILE_NO;
 	}
 	public void setMOBILE_NO(String mOBILE_NO) {
 		MOBILE_NO = mOBILE_NO;
+		
+//		if(MOBILE_NO != ("")) {
+//		MOBILE_NO1 = MOBILE_NO.split("-")[0];
+//		MOBILE_NO2 = MOBILE_NO.split("-")[1];
+//		MOBILE_NO3 = MOBILE_NO.split("-")[2];
+//		}
 	}
 	public String getMOBILE_NO1() {
 		return MOBILE_NO1;
@@ -182,11 +210,6 @@ public class AccVO {
 	}
 	public void setMOBILE_NO3(String mOBILE_NO3) {
 		MOBILE_NO3 = mOBILE_NO3;
-		if(MOBILE_NO1 != "") {
-			MOBILE_NO = MOBILE_NO1+"-"+MOBILE_NO2+"-"+MOBILE_NO3;
-		} else {
-			MOBILE_NO = "";
-		}
 	}
 	public String getURL_PATH() {
 		return URL_PATH;
@@ -205,6 +228,11 @@ public class AccVO {
 	}
 	public void setMAN_TEL(String mAN_TEL) {
 		MAN_TEL = mAN_TEL;
+//		if(!MAN_TEL.equals("")) {
+//		MAN_TEL1 = MAN_TEL.split("-")[0];
+//		MAN_TEL2 = MAN_TEL.split("-")[1];
+//		MAN_TEL3 = MAN_TEL.split("-")[2];
+//		}
 	}
 	public String getMAN_TEL1() {
 		return MAN_TEL1;
@@ -223,17 +251,16 @@ public class AccVO {
 	}
 	public void setMAN_TEL3(String mAN_TEL3) {
 		MAN_TEL3 = mAN_TEL3;
-		if(MAN_TEL1 != "") {
-			MAN_TEL = MAN_TEL1+"-"+MAN_TEL2+"-"+MAN_TEL3;
-		} else {
-			MAN_TEL = "";
-		}
 	}
 	public String getMAN_EMAIL() {
 		return MAN_EMAIL;
 	}
 	public void setMAN_EMAIL(String mAN_EMAIL) {
 		MAN_EMAIL = mAN_EMAIL;
+//		if(!MAN_EMAIL.equals("")) {
+//		MAN_EMAIL1 = MAN_EMAIL.split("@")[0];
+//		MAN_EMAIL2 = MAN_EMAIL.split("@")[1];
+//		}
 	}
 	public String getMAN_EMAIL1() {
 		return MAN_EMAIL1;
@@ -246,11 +273,6 @@ public class AccVO {
 	}
 	public void setMAN_EMAIL2(String mAN_EMAIL2) {
 		MAN_EMAIL2 = mAN_EMAIL2;
-		if(MAN_EMAIL1 != "") {
-			MAN_EMAIL = MAN_EMAIL1+"@"+MAN_EMAIL2;
-		} else {
-			MAN_EMAIL = "";
-		}
 	}
 	public String getREMARKS() {
 		return REMARKS;
@@ -260,7 +282,8 @@ public class AccVO {
 	}
 	@Override
 	public String toString() {
-		return "AccVO [BUSINESS_NO=" + BUSINESS_NO + ", CUST_NAME=" + CUST_NAME + ", BOSS_NAME=" + BOSS_NAME
+		return "AccVO [BUSINESS_NO=" + BUSINESS_NO + ", BUSINESS_NO1=" + BUSINESS_NO1 + ", BUSINESS_NO2=" + BUSINESS_NO2
+				+ ", BUSINESS_NO3=" + BUSINESS_NO3 + ", CUST_NAME=" + CUST_NAME + ", BOSS_NAME=" + BOSS_NAME
 				+ ", UPTAE=" + UPTAE + ", JONGMOK=" + JONGMOK + ", TEL=" + TEL + ", TEL1=" + TEL1 + ", TEL2=" + TEL2
 				+ ", TEL3=" + TEL3 + ", EMAIL=" + EMAIL + ", EMAIL1=" + EMAIL1 + ", EMAIL2=" + EMAIL2 + ", POST_NO="
 				+ POST_NO + ", ADDR=" + ADDR + ", ADDR1=" + ADDR1 + ", ADDR2=" + ADDR2 + ", G_GUBUN=" + G_GUBUN
@@ -270,6 +293,4 @@ public class AccVO {
 				+ MAN_TEL3 + ", MAN_EMAIL=" + MAN_EMAIL + ", MAN_EMAIL1=" + MAN_EMAIL1 + ", MAN_EMAIL2=" + MAN_EMAIL2
 				+ ", REMARKS=" + REMARKS + "]";
 	}
-
-
 }

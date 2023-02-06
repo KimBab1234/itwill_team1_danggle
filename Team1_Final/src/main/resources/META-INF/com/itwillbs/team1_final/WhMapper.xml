@@ -125,7 +125,7 @@
 	<select id="selectWhArea" resultType="com.itwillbs.team1_final.vo.WhVO">
 		SELECT *
 			FROM wh_area
-			WHERE WH_CD = #{WH_CD}
+			WHERE WH_AREA_CD = #{WH_AREA_CD}
 			
 	</select>
 	
@@ -146,5 +146,33 @@
 			)
 	
 	</insert>
+	
+	<delete id="deleteWhArea">
+		DELETE
+			FROM wh_area
+			WHERE WH_AREA_CD=#{WH_AREA_CD}
+	
+	</delete>
+	
+	<update id="updateWhArea">
+		UPDATE wh_area
+			SET WH_AREA = #{WH_AREA}
+			WHERE WH_AREA_CD = #{WH_AREA_CD}
+	
+	</update>
+	
+	<delete id="deleteWhLocation">
+		DELETE 
+			FROM wh_loc
+			WHERE WH_LOC_IN_AREA_CD = #{wh_LOC_IN_AREA_CD}
+	</delete>
+	
+	<update id="updateWhLocation">
+		UPDATE wh_loc
+			SET WH_LOC_IN_AREA = #{WH_LOC_IN_AREA}
+			WHERE WH_LOC_IN_AREA_CD = #{WH_LOC_IN_AREA_CD}
+	
+	
+	</update>
 
 </mapper>

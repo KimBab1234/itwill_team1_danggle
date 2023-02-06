@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.team1_final.mapper.InMapper;
 import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
+import com.itwillbs.team1_final.vo.InListVO;
 import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
@@ -76,6 +77,120 @@ public class InService {
 		
 		return count;
 	}
+	
+	// 입고 예정 목록
+	public ArrayList<InListVO> getScheduleList() { 
+		ArrayList<InListVO> inList = mapper.selectSchedule();
+
+		for(int i = 0; i < inList.size(); i++) {
+			
+			int nameCount = mapper.selectCountName(inList.get(i).getIN_SCHEDULE_CD());
+			if(nameCount == 1) {
+				
+				if(!inList.get(i).getSIZE_DES().equals("")) {
+					String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+					inList.get(i).setPRODUCT_NAME(product_size);
+				}
+				
+			}else {
+				
+				if(!inList.get(i).getSIZE_DES().equals("")) {
+					String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "] 외 " + (nameCount - 1) + "건";
+					inList.get(i).setPRODUCT_NAME(product_size);
+				}
+			}
+			
+			
+		}
+		
+		for(int i = 0; i < inList.size(); i++) {
+			if(inList.get(i).getIN_COMPLETE().equals("0")) {
+				String status = "종결";
+				inList.get(i).setIN_COMPLETE(status);
+			}else if(inList.get(i).getIN_COMPLETE().equals("1")) {
+				String status = "취소";
+				inList.get(i).setIN_COMPLETE(status);
+			}
+			
+		}
+		return inList;
+	}
+	
+	// 입고 예정 목록 ( 전체 / 진행중 / 완료)
+	public ArrayList<InListVO> getScheduleList(String keyword) {
+		ArrayList<InListVO> inList = mapper.selectScheduleStatus(keyword);
+
+		for(int i = 0; i < inList.size(); i++) {
+			int nameCount = mapper.selectCountName(inList.get(i).getIN_SCHEDULE_CD());
+			if(nameCount == 1) {
+				
+				if(!inList.get(i).getSIZE_DES().equals("")) {
+					String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+					inList.get(i).setPRODUCT_NAME(product_size);
+				}
+				
+			}else {
+				
+				if(!inList.get(i).getSIZE_DES().equals("")) {
+					String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "] 외 " + (nameCount - 1) + "건";
+					inList.get(i).setPRODUCT_NAME(product_size);
+				}
+			}
+		}
+		
+		for(int i = 0; i < inList.size(); i++) {
+			if(inList.get(i).getIN_COMPLETE().equals("0")) {
+				String status = "종결";
+				inList.get(i).setIN_COMPLETE(status);
+			}else if(inList.get(i).getIN_COMPLETE().equals("1")) {
+				String status = "취소";
+				inList.get(i).setIN_COMPLETE(status);
+			}
+			
+		}
+		return inList;
+	}
+	
+	// 입고처리 진행상태
+	public ArrayList<InPdVO> getProgress(String keyword) {
+		return mapper.selectProductProgress(keyword);
+	}
+	
+	// 입고 예정 수정 폼
+	public ArrayList<InVO> getinProduct(String keyword) {
+		ArrayList<InVO> proList = new ArrayList<InVO>();
+		// 입고 예정 조회
+		proList = mapper.selectInProduct(keyword);
+		
+		return proList;
+	}
+	
+	// 입고 예정 목록 종결 / 취소 변환
+	public int modifyComplete(String keyword, String com_status) {
+		return mapper.updateCom(keyword, com_status);
+	}
+	
+	// 입고 처리 목록
+	public ArrayList<InListVO> getProgressList() {
+		ArrayList<InListVO> inList = mapper.selectProgressList();
+		
+		for(int i = 0; i < inList.size(); i++) {
+			if(!inList.get(i).getSIZE_DES().equals("")) {
+				String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+				inList.get(i).setPRODUCT_NAME(product_size);
+			}
+		}
+		return inList;
+	}
+
+	public List<InVO> getProductDetail() {
+		
+		return mapper.selectProductDetail();
+	}
+
+	
+
+
 
 	
 	

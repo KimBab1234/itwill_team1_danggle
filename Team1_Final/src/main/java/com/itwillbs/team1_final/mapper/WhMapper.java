@@ -10,6 +10,8 @@ public interface WhMapper {
 
 
 
+
+
 	List<WhVO> selectWhList(@Param("searchType")String searchType,
 			@Param("keyword")String keyword,
 			@Param("startRow")int startRow,
@@ -22,7 +24,7 @@ public interface WhMapper {
 
 	int insertWhCode(WhVO wh);
 
-	WhVO selectWh(String wH_CD);
+	WhVO selectWh(String WH_CD);
 
 	int deleteWh(String wH_CD);
 
@@ -30,10 +32,20 @@ public interface WhMapper {
 
 	int insertWhArea(WhVO wh);
 
-	List<WhVO> selectWhArea(String WH_CD);
+//	List<WhVO> selectWhArea(String WH_CD);
 
 	int insertWhLocation(WhVO wh);
 
 	List<WhVO> selectWhLocation(int WH_AREA_CD);
+
+	int deleteWhArea(int wh_AREA_CD);
+
+	WhVO selectWhArea(WhVO wh);
+
+	int updateWhArea(WhVO wh);
+
+	int deleteWhLocation(String wh_LOC_IN_AREA_CD);
+
+	int updateWhLocation(WhVO wh);
 
 }

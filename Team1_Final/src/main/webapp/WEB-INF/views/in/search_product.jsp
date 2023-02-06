@@ -34,10 +34,8 @@
 				
 				if(proList.length == 0){
 					alert("검색 결과가 없습니다");
-				}else {					
-					
-					
-					$("#detail_table").find("tr:gt(0)").remove();
+				}else {			
+					$(".detail_table").find("tr:gt(0)").remove();
 					
 					for(var i = 0; i < proList.length; i++) {
 						let result = "<tr>"

@@ -12,7 +12,6 @@ public class InVO {
 	private Date IN_DATE; // 납기일자
 	private String REMARKS; // 적요
 	private String IN_COMPLETE; // 진행상태
-	private String IN_TYPE_NAME; //입고유형명
 	private int TOTAL_QTY; // 총 입고예정수량
 	
 	// 입고예정품목
@@ -24,7 +23,6 @@ public class InVO {
 	private List<Date> IN_PD_DATE; // 납기일자
 	private List<String> IN_PD_REMARKS; // 적요
 	private String STOCK_CD; // 재고번호
-	
 	
 	
 
@@ -156,19 +154,12 @@ public class InVO {
 		IN_COMPLETE = iN_COMPLETE;
 	}
 
-	public String getIN_TYPE_NAME() {
-		return IN_TYPE_NAME;
-	}
-
-	public void setIN_TYPE_NAME(String iN_TYPE_NAME) {
-		IN_TYPE_NAME = iN_TYPE_NAME;
-	}
 
 	@Override
 	public String toString() {
 		return "InVO [IN_SCHEDULE_CD=" + IN_SCHEDULE_CD + ", IN_TYPE_CD=" + IN_TYPE_CD + ", BUSINESS_NO=" + BUSINESS_NO
 				+ ", EMP_NUM=" + EMP_NUM + ", IN_DATE=" + IN_DATE + ", REMARKS=" + REMARKS + ", IN_COMPLETE="
-				+ IN_COMPLETE + ", IN_TYPE_NAME=" + IN_TYPE_NAME + ", TOTAL_QTY=" + TOTAL_QTY + ", PRODUCT_CD="
+				+ IN_COMPLETE + ", TOTAL_QTY=" + TOTAL_QTY + ", PRODUCT_CD="
 				+ PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", IN_SCHEDULE_QTY="
 				+ IN_SCHEDULE_QTY + ", IN_QTY=" + IN_QTY + ", IN_PD_DATE=" + IN_PD_DATE + ", IN_PD_REMARKS="
 				+ IN_PD_REMARKS + ", STOCK_CD=" + STOCK_CD + ", toString()=" + super.toString() + "]";

@@ -6,22 +6,58 @@
 <insert id="insertAcc">
 	INSERT INTO acc
 		VALUES (
-			#{BUSINESS_NO}
+			CONCAT(#{BUSINESS_NO1},'-',#{BUSINESS_NO2},'-',#{BUSINESS_NO3})
 			,#{CUST_NAME}
 			,#{BOSS_NAME}
 			,#{UPTAE}
 			,#{JONGMOK}
-			,#{TEL}
-			,#{EMAIL}
+			,<choose>
+				<when test='TEL1 == ""'>
+					''
+				</when>
+				<when test="TEL != ''">
+					CONCAT(#{TEL1},'-',#{TEL2},'-',#{TEL3})
+				</when>
+			</choose>
+			,
+			<choose>
+				<when test='EMAIL1 == ""'>
+					''
+				</when>
+				<otherwise>
+					CONCAT(#{EMAIL1},'@',#{EMAIL2})
+				</otherwise>
+			</choose>
 			,#{POST_NO}
-			,#{ADDR}
+			,CONCAT(#{ADDR1},',',#{ADDR2})
 			,#{G_GUBUN}
 			,#{FAX}
-			,#{MOBILE_NO}
+			, <choose>
+				<when test='MOBILE_NO1 == ""'>
+					''
+				</when>
+				<otherwise>
+					CONCAT(#{MOBILE_NO1},'-',#{MOBILE_NO2},'-',#{MOBILE_NO3})
+				</otherwise>
+			</choose>
 			,#{URL_PATH}
 			,#{MAN_NAME}
-			,#{MAN_TEL}
-			,#{MAN_EMAIL}
+			, <choose>
+				<when test='MAN_TEL == ""'>
+					''
+				</when>
+				<otherwise>
+					CONCAT(#{MAN_TEL1},'-',#{MAN_TEL2},'-',#{MAN_TEL3})
+				</otherwise>
+			</choose>
+			, <choose>
+				<when test='MAN_EMAIL1 == ""'>
+					''
+				</when>
+				<otherwise>
+					CONCAT(#{MAN_EMAIL1},'@',#{MAN_EMAIL2})
+				</otherwise>
+			</choose>
 			,#{REMARKS}
 		)
 </insert>
@@ -67,6 +103,33 @@
 				WHERE BUSINESS_NO = #{BUSINESS_NO}
 	</select>
 	
+	<!-- 거래처 삭제 --> 
+	<delete id="accDelete" >
+		DELETE
+			FROM acc
+				WHERE BUSINESS_NO = #{BUSINESS_NO}
+	</delete>
+	
+	<update id="accModify">
+		UPDATE acc
+			SET
+				CUST_NAME = #{CUST_NAME}
+				,BOSS_NAME = #{BOSS_NAME}
+				,UPTAE = #{UPTAE}
+				,JONGMOK = #{JONGMOK}
+				,TEL = CONCAT(#{TEL1},'-',#{TEL2},'-',#{TEL3})
+				,EMAIL = CONCAT(#{EMAIL1},'@',#{EMAIL2})
+				,POST_NO = #{POST_NO}
+				,ADDR = CONCAT(#{ADDR1},',',#{ADDR2})
+				,G_GUBUN = #{G_GUBUN}
+				,FAX = #{FAX}
+				,MOBILE_NO = CONCAT(#{MOBILE_NO1},'-',#{MOBILE_NO2},'-',#{MOBILE_NO3})
+				,MAN_NAME = #{MAN_NAME}
+				,MAN_TEL = CONCAT(#{MAN_TEL1},'-',#{MAN_TEL2},'-',#{MAN_TEL3})
+				,MAN_EMAIL = CONCAT(#{MAN_EMAIL1},'@',#{MAN_EMAIL2})
+				,REMARKS = #{REMARKS}
+				WHERE BUSINESS_NO = #{BUSINESS_NO}
+	</update>
 	
 </mapper>
 

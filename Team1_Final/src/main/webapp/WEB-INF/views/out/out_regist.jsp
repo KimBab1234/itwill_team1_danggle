@@ -93,7 +93,6 @@
 				$(".pd_out_date").eq(i).val("1900-01-01");
 			}
 		}
-		
 		$.ajax({
 			url: 'OutSchRegistPro',
 			type: 'POST',
