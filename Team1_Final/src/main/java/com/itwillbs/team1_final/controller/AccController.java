@@ -117,28 +117,48 @@ public class AccController {
 			AccVO acc = service.accDetail(BUSINESS_NO);
 
 			model.addAttribute("acc",acc);
-			
 			return "acc/acc_detail";
 		}
 		
-		// 거래처 수정
+		// 거래처 수정 폼 요청
 		@GetMapping("/AccModify")
-		public String accModify(@ModelAttribute AccVO acc, Model model ) {
+		public String accModify(@ModelAttribute AccVO acc, Model model,@RequestParam String BUSINESS_NO ) {
 			
-			
-//			int updateCount = service.modifyMemberInfo();
+			acc = service.accDetail(BUSINESS_NO);
 
-//			// 수정 성공/실패에 따른 포워딩 작업 수행
-//			if(updateCount > 0) {
-//				return "redirect:/";	
-//			} else {
-//				model.addAttribute("msg", "회원수정 실패!");
-//				return "fail_back";
-//			}
+			model.addAttribute("acc",acc);
 			
 			return "acc/acc_modify";
 		}
-	
+		
+		// 거래처 수정 작업 요청
+		@PostMapping("/AccModifyPro")
+		public String AccModifyPro(@ModelAttribute AccVO acc, Model model) {
+			
+			int accModifyCount = service.accModify(acc);
+			
+			if(accModifyCount > 0) {
+				return "redirect:/AccView?BUSINESS_NO="+ acc.getBUSINESS_NO();	
+			} else {
+				model.addAttribute("msg", "거래처삭제 실패!");
+				return "fail_back";
+			}
+		}
+		
+		// 거래처 삭제
+		@PostMapping("/AccDeletePro")
+		public String accDelete(@ModelAttribute AccVO acc, Model model) {
+			
+			int deleteCount = service.accDelete(acc);
+			
+			if(deleteCount > 0) {
+				return "redirect:/";	
+			} else {
+				model.addAttribute("msg", "거래처삭제 실패!");
+				return "fail_back";
+			}
+			
+		}
 }
 
 

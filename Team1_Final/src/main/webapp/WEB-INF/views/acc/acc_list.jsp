@@ -94,7 +94,7 @@
 				<tr align="center" height="50">
 					<td>전체선택<br><input type="checkbox" id="accAllCheck"></td>
 					<td width="200">회사명</td>
-					<td width="50">사업자번호</td>
+					<td width="200">사업자번호</td>
 					<td width="80">분류코드</td>
 					<td width="80">대표명</td>
 					<td width="200">업태</td>

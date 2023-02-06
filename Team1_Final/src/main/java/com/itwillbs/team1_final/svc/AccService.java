@@ -29,6 +29,14 @@ public class AccService {
 	public AccVO accDetail(String BUSINESS_NO) {
 		return mapper.accView(BUSINESS_NO);
 	}
+
+	public int accDelete(AccVO acc) {
+		return mapper.accDelete(acc);
+	}
+
+	public int accModify(AccVO acc) {
+		return mapper.accModify(acc);
+	}
 	
 	
 }
