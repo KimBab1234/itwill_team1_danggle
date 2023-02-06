@@ -42,11 +42,9 @@ public class AccVO {
 	}
 	public void setBUSINESS_NO(String bUSINESS_NO) {
 		BUSINESS_NO = bUSINESS_NO;
-//		if(!BUSINESS_NO.equals("")) {
 //			BUSINESS_NO1 = BUSINESS_NO.split("-")[0];
 //			BUSINESS_NO2 = BUSINESS_NO.split("-")[1];
 //			BUSINESS_NO3 = BUSINESS_NO.split("-")[2];
-//		}
 	}
 	public String getBUSINESS_NO1() {
 		return BUSINESS_NO1;

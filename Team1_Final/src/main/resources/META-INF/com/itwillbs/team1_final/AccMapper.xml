@@ -12,7 +12,7 @@
 			,#{UPTAE}
 			,#{JONGMOK}
 			,<choose>
-				<when test="TEL1 == ''">
+				<when test='TEL1 == ""'>
 					''
 				</when>
 				<when test="TEL != ''">
@@ -21,7 +21,7 @@
 			</choose>
 			,
 			<choose>
-				<when test="EMAIL1 == ''">
+				<when test='EMAIL1 == ""'>
 					''
 				</when>
 				<otherwise>
@@ -29,20 +29,11 @@
 				</otherwise>
 			</choose>
 			,#{POST_NO}
-			,
-			<choose>
-				<when test="ADDR1 == ''">
-					''	
-				</when>
-				<otherwise>
-					CONCAT(#{ADDR1},',',#{ADDR2})
-				</otherwise>
-				</choose>
+			,CONCAT(#{ADDR1},',',#{ADDR2})
 			,#{G_GUBUN}
 			,#{FAX}
-			,
-			<choose>
-				<when test="MOBILE_NO1 == ''">
+			, <choose>
+				<when test='MOBILE_NO1 == ""'>
 					''
 				</when>
 				<otherwise>
@@ -51,18 +42,16 @@
 			</choose>
 			,#{URL_PATH}
 			,#{MAN_NAME}
-			,
-			<choose>
-				<when test="MAN_TEL == ''">
+			, <choose>
+				<when test='MAN_TEL == ""'>
 					''
 				</when>
 				<otherwise>
 					CONCAT(#{MAN_TEL1},'-',#{MAN_TEL2},'-',#{MAN_TEL3})
 				</otherwise>
 			</choose>
-			,
-			<choose>
-				<when test="MAN_EMAIL1 == ''">
+			, <choose>
+				<when test='MAN_EMAIL1 == ""'>
 					''
 				</when>
 				<otherwise>
