@@ -1,5 +1,6 @@
 package com.itwillbs.team1_final.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.OutService;
 import com.itwillbs.team1_final.vo.AccVO;
+import com.itwillbs.team1_final.vo.HrVO;
+import com.itwillbs.team1_final.vo.PdVO;
 
 @Controller
 public class OutController {
@@ -69,6 +72,60 @@ public class OutController {
 		
 		return jsonObject.toString();
 		
+	}
+	
+	
+	// 담당자 검색 창
+	@GetMapping(value = "/EmpSearch")
+	public String searchEmp() {
+		return "out/out_empSearch";
+	}
+	
+	// 담당자 검색
+	@PostMapping(value = "/EmpSearchPro")
+	@ResponseBody 
+	public String search_emp(Model model, HttpServletResponse response, String keyword) {
+		
+		ArrayList<HrVO> hrList = service.getHrList(keyword);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(HrVO hr : hrList) {
+			JSONObject jsonObject = new JSONObject(hr);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("empList", jsonArray.toString());
+		return jsonObject.toString();
+
+	}
+	
+	
+	// 품목 검색 창
+	@GetMapping(value = "/PdSearch")
+	public String SearchPro() {
+		return "out/out_pdSearch";
+	}
+	
+	// 품목 검색
+	@ResponseBody
+	@PostMapping(value = "/PdSearchPro")
+	public String searchProduct(
+			String searchType, String keyword,
+			Model model, HttpServletResponse response) {
+		
+		ArrayList<PdVO> pdList = service.getPdList(searchType, keyword);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(PdVO pd : pdList) {
+
+			JSONObject jsonObject = new JSONObject(pd);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("pdList", jsonArray.toString());
+		return jsonObject.toString();
 	}
 	// ----------------------------------------------------------
 	

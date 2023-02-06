@@ -4,8 +4,9 @@
 <!---------------------------- 거래처 검색 --------------------------------->
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script>
-
 	var acc;
+	var i = 0;
+	
 	function searchFunc() {
 		$.ajax({
 			url: 'AccSearchPro',

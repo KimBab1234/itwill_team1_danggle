@@ -77,7 +77,7 @@ button {
 			</tr>
 		</table><br>
 	</div>
-	<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=950, height=600, left=400, top=300')">등록</button>
+	<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
 	
 </body>
 </html>
