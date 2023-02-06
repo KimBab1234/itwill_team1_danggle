@@ -51,6 +51,47 @@ button {
     margin-top: 10px;
     margin-left: 300px;
 }
+
+.nav-tabs {
+    margin: -5px 0 0 -130px;
+    padding: 0 0 0 14px;
+    list-style: none;
+    width: 1000px;
+    clear: both;
+}
+
+.navli {
+    float: left;
+}
+
+.nav-tabs>li>#outAll {
+    padding: 0;
+    background-color: #c9b584;
+    color: #736643;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    padding: 4px 10px 5px 11px;
+    border-style: solid;
+ 	border-color: #b09f76;
+    border-radius: 10px 10px 0 0;
+}
+.nav-tabs>li>#outPro, .nav-tabs>li>#outCom {
+    padding: 0;
+    background-color: #FFF;
+    color: #736643;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    padding: 4px 10px 5px 11px;
+    border-style: solid;
+ 	border-color: #b09f76;
+    border-radius: 10px 10px 0 0;
+}
+
+
 </style>
 </head>
 <body>
@@ -61,6 +102,17 @@ button {
 	
 	<h3 id="outTitle">출고 예정</h3>
 	<div align="center">
+		<ul class="nav nav-tabs" style="width: 755px;">
+			<li class="navli">
+				<a id="outAll">전체</a>
+			</li>
+			<li class="navli">
+				<a id="outPro">진행중</a>
+			</li>
+			<li class="navli">
+				<a id="outCom">완료</a>
+			</li>
+		</ul><br>
 		<table>
 			<tr>
 				<th width="50px"><input type="checkbox"></th>

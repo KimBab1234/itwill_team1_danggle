@@ -50,5 +50,19 @@
 		ORDER BY
 			PRODUCT_CD DESC
 	</select>
+	
+	
+	<!-- 출고 예정 등록 -->
+	
+	
+	
+	
+	<!-- 출고 예정 품목 -->
+	
+	
+	
+	
+	
+	
 
 </mapper>
