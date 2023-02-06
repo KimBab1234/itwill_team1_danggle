@@ -35,4 +35,9 @@ public class PdService {
 		return mapper.selectPd_type_Search(keyword);
 	}
 
+	// 거래처 선택
+	public ArrayList<PdVO> getBusiness_no_Search(String keyword) {
+		return mapper.selectBusiness_no_Search(keyword);
+	}
+
 }

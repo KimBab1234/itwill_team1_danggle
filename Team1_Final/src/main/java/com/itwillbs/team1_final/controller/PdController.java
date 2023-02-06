@@ -229,7 +229,7 @@ public class PdController {
 	// 바코드 생성
 	   @ResponseBody
 	   @RequestMapping(value = "/Barcode", method = RequestMethod.GET)
-	   public void Barcode(Model model) {
+	   public String Barcode() {
 	      System.out.println("바코드생성");
 	
 	      char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -239,11 +239,45 @@ public class PdController {
 	         idx = (int) (charSet.length * Math.random());
 	         barcode += charSet[idx];
 	         
-	         System.out.println("barcode: " + barcode);
-	         model.addAttribute("barcode", barcode);
+//	         System.out.println("barcode: " + barcode);
 	         
-	      
-	   }
-		
+	      }
+	      return barcode;
 	   }	
+	   
+	// ===============================================================================
+	//거래처 조회
+	@RequestMapping(value = "/Business_No_SearchForm", method = RequestMethod.GET)
+	public String business_no_Search(Model model) {
+		System.out.println("거래처 선택 팝업");
+		return "pd/business_no_Search";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = "/Business_no_Search", method = RequestMethod.POST)
+	public String business_no_SearchPro(String keyword) {
+		System.out.println("거래처 선택 : keyword="+keyword);
+		
+		ArrayList<PdVO> business_no_List = service.getBusiness_no_Search(keyword);
+		
+		JSONObject jsonStr = new JSONObject();
+		JSONArray arr = new JSONArray();
+		
+		for(PdVO bean : business_no_List) {
+			JSONObject product = new JSONObject();
+			
+			product.put("BUSINESS_NO", bean.getBUSINESS_NO());
+			product.put("CUST_NAME", bean.getCUST_NAME());
+			arr.add(product);
+		}
+		
+		jsonStr.put("jsonBusiness_no", arr);
+		
+//				System.out.println("pd_group_bottom_List: " + pd_group_bottom_List);
+//				System.out.println("jsonStr: " + jsonStr);
+		
+		return jsonStr.toJSONString();
+	}
+			
 }
