@@ -350,5 +350,11 @@ public class WhController {
 		
 	}
 	
+	@GetMapping(value = "/WhStockDetail")
+	public String WhStockDetail() {
+		
+		return "wh/stock_view";
+	}
+	
 	
 }

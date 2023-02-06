@@ -143,7 +143,7 @@
 					<tr style="text-align: left">
 						<td></td>
 						<td colspan="4"><i class="fa-solid fa-right-long"></i>
-						<a href="WhAreaDetail?WH_CD=${whList.get(i).WH_CD}&WH_AREA_CD=${whList.get(i).WH_AREA_CD}&pageNum=${pageNum}">${whList.get(i).WH_AREA}</a>
+						<a href="WhStockDetail?WH_CD=${whList.get(i).WH_CD}&WH_AREA_CD=${whList.get(i).WH_AREA_CD}&pageNum=${pageNum}">${whList.get(i).WH_AREA}</a>
 						</td>
 						<td><input type="button" value="구역 이름 수정" onclick="location.href='WhAreaModifyForm?WH_AREA_CD=${whList.get(i).WH_AREA_CD}&pageNum=${param.pageNum }'"></td>
 						<td class="wh_td"><!-- 위치추가 버튼 -->창고 구역 내 위치 추가
@@ -160,7 +160,9 @@
 				<c:if test="${whList.get(i-1).WH_LOC_IN_AREA_CD != whList.get(i).WH_LOC_IN_AREA_CD}">
 					<tr align="left">
 						<td></td>
-						<td colspan="5"><i class="fa-solid fa-right-long"></i><i class="fa-solid fa-right-long"></i> ${whList.get(i).WH_LOC_IN_AREA}</td>
+						<td colspan="5"><i class="fa-solid fa-right-long"></i><i class="fa-solid fa-right-long"></i> 
+						<a href="WhStockDetail?WH_LOC_IN_AREA_CD=${whList.get(i).WH_LOC_IN_AREA_CD}&pageNum=${param.pageNum}">${whList.get(i).WH_LOC_IN_AREA}</a>
+						</td>
 						<td><input type="button" value="위치 이름 수정" onclick="location.href='WhLocationModifyForm?WH_LOC_IN_AREA_CD=${whList.get(i).WH_LOC_IN_AREA_CD}&pageNum=${param.pageNum }'"></td>
 						<td class="wh_td"><!--  위치 삭제 버튼 -->창고 구역 내 위치 삭제
 						<a href="WhLocationDelete?WH_AREA_CD=${whList.get(i).WH_AREA_CD}&WH_LOC_IN_AREA_CD=${whList.get(i).WH_LOC_IN_AREA_CD }&pageNum=${pageNum}">
