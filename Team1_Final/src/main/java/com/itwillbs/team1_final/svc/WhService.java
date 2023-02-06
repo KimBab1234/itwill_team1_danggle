@@ -55,10 +55,10 @@ public class WhService {
 	}
 
 
-	public List<WhVO> selectWhArea(String WH_CD) {
-		
-		return mapper.selectWhArea(WH_CD);
-	}
+//	public List<WhVO> selectWhArea(String WH_CD) {
+//		
+//		return mapper.selectWhArea(WH_CD);
+//	}
 
 
 	public int registWhLocation(WhVO wh) {
@@ -69,5 +69,29 @@ public class WhService {
 	public List<WhVO> getWhLocationList(int WH_AREA_CD) {
 		
 		return mapper.selectWhLocation(WH_AREA_CD);
+	}
+
+	public int removeWhArea(int wh_AREA_CD) {
+		return mapper.deleteWhArea(wh_AREA_CD);
+	}
+
+	public WhVO getWhArea(WhVO wh) {
+
+		return mapper.selectWhArea(wh);
+	}
+
+	public int modifyWhArea(WhVO wh) {
+		// TODO Auto-generated method stub
+		return mapper.updateWhArea(wh);
+	}
+
+	public int removeWhLocation(String wh_LOC_IN_AREA_CD) {
+		// TODO Auto-generated method stub
+		return mapper.deleteWhLocation(wh_LOC_IN_AREA_CD);
+	}
+
+	public int modifyWhLocation(WhVO wh) {
+		// TODO Auto-generated method stub
+		return mapper.updateWhLocation(wh);
 	}
 }
