@@ -22,7 +22,7 @@ PRODUCT_GROUP_TOP_CD 품목그룹코드(대)
 PRODUCT_GROUP_TOP_NAME 품목그룹명(대)
 
 CREATE TABLE PRODUCT (
-PRODUCT_CD INT PRIMARY KEY,
+PRODUCT_CD INT PRIMARY KEY AUTO INCREMENT,
 PRODUCT_NAME VARCHAR(100) NOT NULL,
 PRODUCT_GROUP_BOTTOM_CD int NOT NULL,
 SIZE_DES VARCHAR(30),
@@ -30,14 +30,25 @@ UNIT VARCHAR(30) NOT NULL,
 BARCODE VARCHAR(30) NOT NULL,
 IN_UNIT_PRICE INT NOT NULL,
 OUT_UNIT_PRICE INT NOT NULL,
-PRODUCT_TYPE_CD VARCHAR(10) NOT NULL,
-BUSINESS_NO VARCHAR(10) NOT NULL,
+PRODUCT_TYPE_CD INT NOT NULL,
+BUSINESS_NO VARCHAR(30) NOT NULL,
 PRODUCT_IMAGE VARCHAR(100),
-REMARKS VARCHAR(2000)
+REMARKS VARCHAR(2000),
+FOREIGN KEY(business_no) REFERENCES acc(business_no),
+FOREIGN KEY(PRODUCT_GROUP_BOTTOM_CD) REFERENCES PRODUCT_BOTTOM(PRODUCT_GROUP_BOTTOM_CD) on delete cascade on update cascade,
+FOREIGN KEY(PRODUCT_TYPE_CD) REFERENCES PRODUCT_TYPE(PRODUCT_TYPE_CD) on delete cascade on update cascade
 );
 
 alter table product add FOREIGN KEY(business_no) REFERENCES acc(business_no) on delete cascade on update cascade;
 business_no/ product_group_bottom_cd/ product_type_cd/ product_group_top_cd 도 다 해주기
+
+CREATE VIEW product_view AS(
+SELECT pr.product_cd, pr.PRODUCT_NAME, pr.product_group_bottom_cd, pr.SIZE_DES, pr.UNIT, pr.BARCODE, pr.IN_UNIT_PRICE, pr.OUT_UNIT_PRICE, pr.product_type_cd, pr.BUSINESS_NO, pr.PRODUCT_IMAGE, pr.REMARKS, pb.PRODUCT_GROUP_TOP_CD, pb.PRODUCT_GROUP_BOTTOM_NAME, pty.PRODUCT_TYPE_NAME, acc.CUST_NAME 
+FROM product pr 
+join product_bottom pb on pb.product_group_bottom_cd = pr.product_group_bottom_cd 
+join product_top pt on pb.product_group_top_cd = pt.product_group_top_cd
+join product_type pty on pty.product_type_cd = pr.product_type_cd
+join acc on acc.BUSINESS_NO = pr.BUSINESS_NO);
  */
 public class PdVO {
 

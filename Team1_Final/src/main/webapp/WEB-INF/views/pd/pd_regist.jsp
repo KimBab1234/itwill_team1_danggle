@@ -58,7 +58,8 @@ table {
 				</tr>
 				<tr>
 					<td id="td_left"><label for="PRODUCT_GROUP_BOTTOM_CD">품목그룹</label><br>
-						<button style="height: 30px; width: 80px;"><b>신규등록</b></button>
+						<button style="height: 30px; width: 80px;"onclick="window.open('Pd_group_bottom_registForm', 'searchPopup', 
+																'width=800, height=500, left=600, top=400')" ><b>신규등록</b></button>
 					</td>
 					<td>
 						<input type="text" name="PRODUCT_GROUP_TOP_CD" id="PRODUCT_GROUP_TOP_CD" readonly="readonly" required="required" style="height: 30px; width: 105px;">
