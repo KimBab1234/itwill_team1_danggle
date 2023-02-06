@@ -99,12 +99,12 @@
 			data: $("#proRegi").serialize(),
 			dataType : 'json',
 			success : function(response) {
-				if(response == "성공") {
-					alert("성공");
-// 	                window.close();
-// 	                opener.location.reload();
+				if (result != "0") {
+	                window.close();
+	                opener.location.reload();
 	            } else {
-	            	alert("출고예정 등록 실패!");
+	            	alert("출고 예정 등록 실패!");
+	            	window.close();	                
 	            }
 
 			}
