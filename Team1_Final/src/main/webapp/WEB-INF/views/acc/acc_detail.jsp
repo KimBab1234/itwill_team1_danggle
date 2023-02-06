@@ -142,18 +142,17 @@ table {
 						<td>대표전화번호 &nbsp;</td>
 						<td colspan="4"><input type="text" name="TEL1" id="TEL1"
 							size="7" maxlength="3" value="${acc.TEL1 }">-<input type="text" name="TEL2"
-							id="TEL2" size="7" maxlength="4">-<input type="text"
-							name="TEL3" id="TEL3" size="7" maxlength="4">
-						<input type="text" name="TEL" id="TEL" value="${acc.TEL }">
+							id="TEL2" size="7" maxlength="4" value="${acc.TEL2 }">-<input type="text"
+							name="TEL3" id="TEL3" size="7" maxlength="4" value="${acc.TEL3 }">
 							</td>
 					</tr>
 					<tr>
 						<td>모바일</td>
 						<td colspan="4"><input type="text" name="MOBILE_NO1"
-							id="MOBILE_NO1" size="7" maxlength="3">-<input
+							id="MOBILE_NO1" size="7" maxlength="3" value="${acc.MOBILE_NO1 }">-<input
 							type="text" name="MOBILE_NO2" id="MOBILE_NO2" size="7"
-							maxlength="4">-<input type="text" name="MOBILE_NO3"
-							id="MOBILE_NO3" size="7" maxlength="4"></td>
+							maxlength="4" value="${acc.MOBILE_NO2 }">-<input type="text" name="MOBILE_NO3"
+							id="MOBILE_NO3" size="7" maxlength="4" value="${acc.MOBILE_NO3 }"></td>
 					</tr>
 					<tr>
 						<td>E-Mail</td>
@@ -206,16 +205,16 @@ table {
 					<tr>
 						<td>담당자 전화번호</td>
 						<td colspan="4"><input type="text" name="MAN_TEL1"
-							id="MAN_TEL1" size="7" maxlength="3">-<input type="text"
-							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4">-<input
-							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4"></td>
+							id="MAN_TEL1" size="7" maxlength="3" value="${acc.MAN_TEL1 }">-<input type="text"
+							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4" value="${acc.MAN_TEL2 }">-<input
+							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4" value="${acc.MAN_TEL3 }"></td>
 					</tr>
 					<tr>
 						<td>담당자 이메일</td>
 						<td colspan="4"><input type="text" name="MAN_EMAIL1"
-							id="MAN_EMAIL1" size="10">@<input type="text"
-							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10"> <select
-							name="selectDomain" id="domain2">
+							id="MAN_EMAIL1" size="10" value="${acc.MAN_EMAIL1 }">@<input type="text"
+							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10" value="${acc.MAN_EMAIL2 }"> <select
+							name="selectDomain" id="domain2" >
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>

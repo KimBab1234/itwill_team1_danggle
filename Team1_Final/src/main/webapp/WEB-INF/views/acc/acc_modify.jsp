@@ -101,7 +101,7 @@ table {
 
 		<div align="center">
 			<h2>거래처 수정</h2>
-			<form action="AccModifyPro" method="post" name="accRegistForm">
+			<form action="AccModifyPro" method="POST" >
 				<table>
 					<tr>
 						<td>회사명 &nbsp;</td>
@@ -111,7 +111,7 @@ table {
 					<tr>
 						<td>대표자명</td>
 						<td colspan="4"><input type="text" name="BOSS_NAME"
-							id="BOSS_NAME" required="required" value="${acc.BOSS_NAME}"></td>
+							id="BOSS_NAME" readonly="readonly" value="${acc.BOSS_NAME}"></td>
 					</tr>
 					<tr>
 						<td>거래처코드</td>
@@ -132,35 +132,34 @@ table {
 					<tr>
 						<td>업태 &nbsp;</td>
 						<td colspan="4"><input type="text" name="UPTAE" id="UPTAE"
-							required="required" value="${acc.UPTAE }"></td>
+							readonly="readonly" value="${acc.UPTAE }"></td>
 					</tr>
 					<tr>
 						<td>종목</td>
 						<td colspan="4"><input type="text" name="JONGMOK"
-							id="JONGMOK" required="required" value="${acc.JONGMOK }"></td>
+							id="JONGMOK" readonly="readonly" value="${acc.JONGMOK }"></td>
 					</tr>
 					<tr>
 						<td>대표전화번호 &nbsp;</td>
 						<td colspan="4"><input type="text" name="TEL1" id="TEL1"
 							size="7" maxlength="3" value="${acc.TEL1 }">-<input type="text" name="TEL2"
-							id="TEL2" size="7" maxlength="4">-<input type="text"
-							name="TEL3" id="TEL3" size="7" maxlength="4">
-						<input type="text" name="TEL" id="TEL" value="${acc.TEL }">
+							id="TEL2" size="7" maxlength="4" value="${acc.TEL2 }">-<input type="text"
+							name="TEL3" id="TEL3" size="7" maxlength="4" value="${acc.TEL3 }">
 							</td>
 					</tr>
 					<tr>
 						<td>모바일</td>
 						<td colspan="4"><input type="text" name="MOBILE_NO1"
-							id="MOBILE_NO1" size="7" maxlength="3">-<input
+							id="MOBILE_NO1" size="7" maxlength="3" value="${acc.MOBILE_NO1 }">-<input
 							type="text" name="MOBILE_NO2" id="MOBILE_NO2" size="7"
-							maxlength="4">-<input type="text" name="MOBILE_NO3"
-							id="MOBILE_NO3" size="7" maxlength="4"></td>
+							maxlength="4" value="${acc.MOBILE_NO2 }">-<input type="text" name="MOBILE_NO3"
+							id="MOBILE_NO3" size="7" maxlength="4" value="${acc.MOBILE_NO3 }"></td>
 					</tr>
 					<tr>
 						<td>E-Mail</td>
 						<td colspan="4"><input type="text" name="EMAIL1" id="EMAIL1"
-							size="10" maxlength="20">@<input type="text"
-							name="EMAIL2" id="EMAIL2" size="10"> <select
+							size="10" maxlength="20" value="${acc.EMAIL1 }">@<input type="text"
+							name="EMAIL2" id="EMAIL2" size="10" value="${acc.EMAIL2 }"> <select
 							name="selectDomain" id="domain">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
@@ -172,18 +171,18 @@ table {
 						<td>우편번호 &nbsp;</td>
 						<td colspan="3"><input type="text" name="POST_NO"
 							id="POST_NO" placeholder="우편번호" value="${acc.POST_NO }"
-							required="required" size="15" > <input type="button"
+							readonly="readonly" size="15" > <input type="button"
 							id="postbutton" onclick="execDaumPostcode()" value="찾기"></td>
 					</tr>
 					<tr>
 						<td>주소 &nbsp;</td>
 						<td colspan="4"><input type="text" name="ADDR1" id="ADDR1"
-							readonly="readonly" size="50px" required="required" value="${acc.ADDR}"></td>
+							readonly="readonly" size="50px" readonly="readonly" value="${acc.ADDR1 }"></td>
 					</tr>
 					<tr>
 						<td>상세주소</td>
 						<td colspan="4"><input type="text" name="ADDR2" id="ADDR2"
-							 maxlength="20" value="${acc.ADDR2 }"></td>
+							readonly="readonly" maxlength="20" value="${acc.ADDR2 }"></td>
 					</tr>
 					<tr>
 						<td>홈페이지</td>
@@ -207,16 +206,16 @@ table {
 					<tr>
 						<td>담당자 전화번호</td>
 						<td colspan="4"><input type="text" name="MAN_TEL1"
-							id="MAN_TEL1" size="7" maxlength="3">-<input type="text"
-							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4">-<input
-							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4"></td>
+							id="MAN_TEL1" size="7" maxlength="3" value="${acc.MAN_TEL1 }">-<input type="text"
+							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4" value="${acc.MAN_TEL2 }">-<input
+							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4" value="${acc.MAN_TEL3 }"></td>
 					</tr>
 					<tr>
 						<td>담당자 이메일</td>
 						<td colspan="4"><input type="text" name="MAN_EMAIL1"
-							id="MAN_EMAIL1" size="10">@<input type="text"
-							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10"> <select
-							name="selectDomain" id="domain2">
+							id="MAN_EMAIL1" size="10" value="${acc.MAN_EMAIL1 }">@<input type="text"
+							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10" value="${acc.MAN_EMAIL2 }"> <select
+							name="selectDomain" id="domain2" >
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
@@ -224,11 +223,13 @@ table {
 						</select></td>
 					</tr>
 					<tr>
-						<td colspan="5"><input type="button" value="뒤로가기" onclick="location.href='AccView?BUSINESS_NO=${acc.BUSINESS_NO}'"></td>
-						<td colspan="5"><input type="submit" value="수정"></td>
+						<td colspan="5" align="right"><input type="button" value="삭제" onclick="location.href='AccDeletePro?BUSINESS_NO=${acc.BUSINESS_NO}'">
+						<input type="submit" value="수정">
+						<input type="button" value="뒤로가기" onclick="location.href='AccList'"></td>
+					
 					</tr>
 				</table>
-			</form>
+				</form>
 		</div>
 
 		<!-- 여기까지 본문-->
