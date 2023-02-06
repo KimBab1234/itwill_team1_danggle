@@ -174,6 +174,7 @@ public class WhController {
 		
 	}
 	
+	//여기부터 AREA
 	@GetMapping(value = "/WhAreaRegist")
 	public String WhAreaRegist(Model model, HttpSession session, WhVO wh,@RequestParam String WH_CD) {
 //								,@RequestParam String WH_AREA,@RequestParam int WH_AREA_CD) {
@@ -184,7 +185,7 @@ public class WhController {
 //			return "fail_back";
 //		}
 		//select 하는 거 만들기 
-		List<WhVO> WhAreaList = service.selectWhArea(WH_CD);
+//		List<WhVO> WhAreaList = service.selectWhArea(WH_CD);
 		
 		return "wh/area_regist";
 	}
@@ -196,12 +197,76 @@ public class WhController {
 //			model.addAttribute("msg", "로그인 필수");
 //			return "fail_back";
 //		}	
-		
+//		System.out.println(wh);
 		int insertCount = service.registWhArea(wh);
 		
 		
 		return "redirect:/WhList";
 	}
+	
+	@GetMapping(value="/WhAreaDetail")
+	public String areaDetail(Model model, @RequestParam String WH_CD, @RequestParam int WH_AREA_CD, WhVO wh) {
+		wh = service.getWhArea(wh);
+		System.out.println("창고명 : " + wh.getWH_NAME());
+		model.addAttribute("wh", wh);
+		return "wh/area_view";
+	}
+	
+	@GetMapping(value = "/WhAreaDeleteForm")
+	public String WhAreadelete() {
+		
+		return "wh/area_delete";
+	}
+	
+	@PostMapping(value="/WhAreaDeletePro")
+	public String WhAreadeletePro(@ModelAttribute WhVO wh,@RequestParam(defaultValue = "1")int pageNum,
+								Model model, HttpSession session) {
+		int deleteCount = service.removeWhArea(wh.getWH_AREA_CD());
+		if(deleteCount > 0) {
+			
+			return "redirect:/WhList?pageNum="+pageNum;
+		} else {
+			model.addAttribute("msg", "내부구역 삭제 실패!");
+			return "fail_back";
+			
+		}
+	}
+	
+	@GetMapping(value="/WhAreaModifyForm")
+	public String WhAreaModify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_AREA_CD) {
+//		String sId = (String)session.getAttribute("sId");
+//		if(sId == null || sId.equals("")) {
+//			model.addAttribute("msg","로그인 필수!");
+//			return "fail_back";
+//		}
+//		wh = service.getWh(WH_CD);
+		
+		model.addAttribute("wh", wh);
+		
+		
+		return "wh/area_modify";
+	}
+	
+	@PostMapping(value = "/WhAreaModifyPro")
+	public String WhAreaModifyPro(@ModelAttribute WhVO wh,
+							Model model, HttpSession session,@RequestParam(defaultValue = "1")int pageNum) {
+		
+//		System.out.println(wh);
+		int modifyCount = service.modifyWhArea(wh);
+		if(modifyCount > 0) {
+			
+			return "redirect:/WhList?pageNum="+pageNum;
+		} else {
+			model.addAttribute("msg", "게시물 수정 실패!");
+			return "fail_back";
+			
+		}
+		
+	}
+	
+	
+	
+	// 여기부터 LOCATION
 	
 	@GetMapping(value = "/WhLocationRegist")
 	public String WhLocationRegist(Model model, HttpSession session, WhVO wh, @RequestParam int WH_AREA_CD) {
@@ -212,23 +277,78 @@ public class WhController {
 //			return "fail_back";
 //		}
 		
-		List<WhVO> WhLocationList =service.getWhLocationList(WH_AREA_CD);
-		
+//		List<WhVO> WhLocationList =service.getWhLocationList(WH_AREA_CD);
+//		System.out.println("구역코드" +WH_AREA_CD);
 		return "wh/location_regist";
 	}
 	
 	@PostMapping(value = "/WhLocationRegistPro")
-	public String WhLocationRegistPro(@ModelAttribute WhVO wh, Model model, HttpSession session) {
+	public String WhLocationRegistPro(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_AREA_CD) {
 		
 //		String sId = (String)session.getAttribute("sId");
 //		if(sId == null || sId.equals("")) {
 //			model.addAttribute("msg", "로그인 필수");
 //			return "fail_back";
 //		}
+		System.out.println("구역코드:" + WH_AREA_CD);
 		
 		int insertCount = service.registWhLocation(wh);
 		
 		return "redirect:/WhList";
 	}
+	
+	@GetMapping(value = "/WhLocationDelete")
+	public String WhLocationdelete() {
+		
+		return "wh/location_delete";
+	}
+	
+	@PostMapping(value="/WhLocationDeletePro")
+	public String WhLocationdeletePro(@ModelAttribute WhVO wh,@RequestParam(defaultValue = "1")int pageNum,
+								Model model, HttpSession session) {
+		int deleteCount = service.removeWhLocation(wh.getWH_LOC_IN_AREA_CD());
+		if(deleteCount > 0) {
+			
+			return "redirect:/WhList?pageNum="+pageNum;
+		} else {
+			model.addAttribute("msg", "위치 삭제 실패!");
+			return "fail_back";
+			
+		}
+	}
+	
+	@GetMapping(value="/WhLocationModifyForm")
+	public String WhLocationModify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_LOC_IN_AREA_CD
+									) {
+//		String sId = (String)session.getAttribute("sId");
+//		if(sId == null || sId.equals("")) {
+//			model.addAttribute("msg","로그인 필수!");
+//			return "fail_back";
+//		}
+//		wh = service.getWh(WH_CD);
+		
+		model.addAttribute("wh", wh);
+		
+		
+		return "wh/location_modify";
+	}
+	
+	@PostMapping(value = "/WhLocationModifyPro")
+	public String WhLocationModifyPro(@ModelAttribute WhVO wh,
+							Model model, HttpSession session,@RequestParam(defaultValue = "1")int pageNum) {
+		
+//		System.out.println(wh);
+		int modifyCount = service.modifyWhLocation(wh);
+		if(modifyCount > 0) {
+			
+			return "redirect:/WhList?pageNum="+pageNum;
+		} else {
+			model.addAttribute("msg", "위치명 수정 실패!");
+			return "fail_back";
+			
+		}
+		
+	}
+	
 	
 }
