@@ -91,6 +91,35 @@ $(function() {
 			<input type="button" value="삭제" onclick="location.href='WhDeleteForm?WH_CD=${param.WH_CD}&pageNum=${param.pageNum }'">
 			<input type="button" value="목록" onclick="location.href='WhList?pageNum=${param.pageNum}'">
 		</div>
+			<div align="center" style="width: 1300px;">
+			<h2 align="center">재고 목록</h2>
+			<table style="text-align: center; border: solid 1px; width: 600px; height: 400px;">
+		
+			
+			<tr>
+				<th align="center" style="width: 200px;">재고번호</th><td>${stockList.stock_cd }</td>
+			</tr>
+			<tr>
+				<th align="center" style="width: 200px;">품목명</th><td>${stockList.product_name }</td> 
+			</tr>
+			<tr>
+				<th align="center" style="width: 200px;">규격</th><td>${stockList.SIZE_DES }</td> 
+			</tr>
+			<tr>
+				<th align="center" style="width: 200px;">수량</th><td>${stockList.stock_qty }</td> 
+			</tr>
+			<tr>
+				<th align="center" style="width: 200px;">창고명</th><td>${stockList.wh_name }</td> 
+			</tr>
+			<tr>
+				<th align="center" style="width: 200px;">구역명</th><td>${stockList.wh_area}</td> 
+			</tr>
+			<tr>
+				<th align="center" style="width: 200px;">위치명</th><td>${stockList.wh_loc_in_area }</td> 
+			</tr>
+	
+			</table>
+		</div>
 	</div>
 </body>
 </html>
