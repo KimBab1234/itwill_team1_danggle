@@ -46,14 +46,14 @@ input[type="button"]{
 						'<tr class="empListAdd">'
 						+'<td><input type="hidden" class="STOCK_CD_Arr" name="STOCK_CD_Arr" value="'+stock[i].STOCK_CD+'"/>'+stock[i].STOCK_CD+'</td>'
 						+'<td><input type="hidden" name="PRODUCT_CD_Arr" value="'+stock[i].PRODUCT_CD+'">'+stock[i].PRODUCT_NAME+'</td>'
-						+'<td><input type="hidden" class="SOURCE_STOCK_CD_Arr" name="SOURCE_STOCK_CD_Arr" value="'+stock[i].WH_LOC_IN_AREA_CD+'">'+stock[i].WH_NAME+"-"+stock[i].WH_AREA+"-"+stock[i].WH_LOC_IN_AREA+'</td>'
+						+'<td>'+stock[i].WH_NAME+"-"+stock[i].WH_AREA+"-"+stock[i].WH_LOC_IN_AREA+'</td>'
 						+'<td>'+stock[i].STOCK_QTY+'</td>'
 						+'<td><input type="text" name="QTY_Arr" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, \'\');" /></td>'
-						+'<td><input type="hidden" name="TARGET_STOCK_CD_Arr" class="TARGET_STOCK_CD_Arr" readOnly="readOnly" />'
+						+'<td><input type="hidden" name="WH_LOC_IN_AREA_CD_Arr" class="TARGET_STOCK_CD_Arr" readOnly="readOnly" />'
 						+'<span class="searchLoc"></span><input type="button" class="hrFormBtn" style="height:35px" value="위치 검색" onclick="searchFormOpen('+j+')"/></td>'
 						+'<td><input type="text" name="MOVE_QTY_Arr" class="MOVE_QTY_Arr" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, \'\');" /></td>'
-						+'<td><input type="text" id="sum" readOnly="readOnly" /></td>'
-						+'<td><input type="text" style="width:200" name="REMARKS_Arr" /><input type="hidden" name="STOCK_CONTROL_TYPE_CD_Arr" value="2" /></td>'
+						+'<td><input type="text" id="sum" readOnly="readOnly" /><input type="hidden" class="STOCK_DATE_Arr" name="STOCK_DATE_Arr" value="1900-01-01" /></td>'
+						+'<td><input type="text" style="width:200" name="REMARKS_Arr" value="-" /></td>'
 						+'</tr>'
 				);
 				j++;
@@ -108,6 +108,8 @@ input {
 	
 	<h1 align="left" style="width: 1450px; text-align: left; margin-left: 20px;">| 재고 조정 </h1>
 	<form action="StockMovePro" method="post" name="stockForm">
+	<input type="hidden" name="STOCK_CONTROL_TYPE_CD" value="2" />
+	<input type="hidden" name="EMP_NUM" value="${sessionScope.empNo }" />
 	<table border="1" class="regi_table" style="text-align: center; margin-left: 20px; width: 1450px; font-size: 20px;">
 		<thead>
 		<tr>

@@ -1,38 +1,50 @@
 package com.itwillbs.team1_final.vo;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 public class StockVO {
 
-	private int STOCK_CD;
+	private Integer STOCK_CD;
 	private int PRODUCT_CD;
-	private int WH_LOC_IN_AREA_CD;
-	private int STOCK_QTY;
 	private String PRODUCT_NAME;
-	private String WH_LOC_IN_AREA;
+	private String WH_NAME;
 	private String WH_AREA;
-	private int SOURCE_STOCK_CD;
-	private int TARGET_STOCK_CD;
+	private String WH_LOC_IN_AREA;
+	private int WH_LOC_IN_AREA_CD;
+	private Integer SOURCE_STOCK_CD;
+	private Integer TARGET_STOCK_CD;
 	private String STOCK_CONTROL_TYPE_CD;
 	private String STOCK_CONTROL_TYPE_NAME;
-	private int QTY;
+	private Integer QTY;
+	private Integer MOVE_QTY;
+	private int STOCK_QTY;
 	private String EMP_NUM;
 	private String EMP_NAME;
 	private Date STOCK_DATE;
 	private String REMARKS;
-	private int[] STOCK_CD_Arr;
+	private Integer[] STOCK_CD_Arr;
 	private String[] STOCK_CONTROL_TYPE_CD_Arr;
 	private int[] PRODUCT_CD_Arr;
-	private int[] SOURCE_STOCK_CD_Arr;
-	private int[] TARGET_STOCK_CD_Arr;
-	private int[] QTY_Arr;
-	private int[] MOVE_QTY_Arr;
+	private Integer[] SOURCE_STOCK_CD_Arr;
+	private Integer[] TARGET_STOCK_CD_Arr;
+	private Integer[] QTY_Arr;
+	private Integer[] MOVE_QTY_Arr;
 	private String[] REMARKS_Arr;
+	private int[] WH_LOC_IN_AREA_CD_Arr;
+	private Date[] STOCK_DATE_Arr;
 	
-	public int[] getSTOCK_CD_Arr() {
+	public String getWH_NAME() {
+		return WH_NAME;
+	}
+	public void setWH_NAME(String wH_NAME) {
+		WH_NAME = wH_NAME;
+	}
+	
+	public Integer[] getSTOCK_CD_Arr() {
 		return STOCK_CD_Arr;
 	}
-	public void setSTOCK_CD_Arr(int[] sTOCK_CD_Arr) {
+	public void setSTOCK_CD_Arr(Integer[] sTOCK_CD_Arr) {
 		STOCK_CD_Arr = sTOCK_CD_Arr;
 	}
 	public String[] getSTOCK_CONTROL_TYPE_CD_Arr() {
@@ -47,28 +59,28 @@ public class StockVO {
 	public void setPRODUCT_CD_Arr(int[] pRODUCT_CD_Arr) {
 		PRODUCT_CD_Arr = pRODUCT_CD_Arr;
 	}
-	public int[] getSOURCE_STOCK_CD_Arr() {
+	public Integer[] getSOURCE_STOCK_CD_Arr() {
 		return SOURCE_STOCK_CD_Arr;
 	}
-	public void setSOURCE_STOCK_CD_Arr(int[] sOURCE_STOCK_CD_Arr) {
+	public void setSOURCE_STOCK_CD_Arr(Integer[] sOURCE_STOCK_CD_Arr) {
 		SOURCE_STOCK_CD_Arr = sOURCE_STOCK_CD_Arr;
 	}
-	public int[] getTARGET_STOCK_CD_Arr() {
+	public Integer[] getTARGET_STOCK_CD_Arr() {
 		return TARGET_STOCK_CD_Arr;
 	}
-	public void setTARGET_STOCK_CD_Arr(int[] tARGET_STOCK_CD_Arr) {
+	public void setTARGET_STOCK_CD_Arr(Integer[] tARGET_STOCK_CD_Arr) {
 		TARGET_STOCK_CD_Arr = tARGET_STOCK_CD_Arr;
 	}
-	public int[] getQTY_Arr() {
+	public Integer[] getQTY_Arr() {
 		return QTY_Arr;
 	}
-	public void setQTY_Arr(int[] qTY_Arr) {
+	public void setQTY_Arr(Integer[] qTY_Arr) {
 		QTY_Arr = qTY_Arr;
 	}
-	public int[] getMOVE_QTY_Arr() {
+	public Integer[] getMOVE_QTY_Arr() {
 		return MOVE_QTY_Arr;
 	}
-	public void setMOVE_QTY_Arr(int[] mOVE_QTY_Arr) {
+	public void setMOVE_QTY_Arr(Integer[] mOVE_QTY_Arr) {
 		MOVE_QTY_Arr = mOVE_QTY_Arr;
 	}
 	public String[] getREMARKS_Arr() {
@@ -120,16 +132,16 @@ public class StockVO {
 	public void setWH_AREA(String wH_AREA) {
 		WH_AREA = wH_AREA;
 	}
-	public int getSOURCE_STOCK_CD() {
+	public Integer getSOURCE_STOCK_CD() {
 		return SOURCE_STOCK_CD;
 	}
-	public void setSOURCE_STOCK_CD(int sOURCE_STOCK_CD) {
+	public void setSOURCE_STOCK_CD(Integer sOURCE_STOCK_CD) {
 		SOURCE_STOCK_CD = sOURCE_STOCK_CD;
 	}
-	public int getTARGET_STOCK_CD() {
+	public Integer getTARGET_STOCK_CD() {
 		return TARGET_STOCK_CD;
 	}
-	public void setTARGET_STOCK_CD(int tARGET_STOCK_CD) {
+	public void setTARGET_STOCK_CD(Integer tARGET_STOCK_CD) {
 		TARGET_STOCK_CD = tARGET_STOCK_CD;
 	}
 	public String getSTOCK_CONTROL_TYPE_CD() {
@@ -175,15 +187,43 @@ public class StockVO {
 		REMARKS = rEMARKS;
 	}
 	
-	@Override
-	public String toString() {
-		return "StockVO [STOCK_CD=" + STOCK_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", WH_LOC_IN_AREA_CD="
-				+ WH_LOC_IN_AREA_CD + ", STOCK_QTY=" + STOCK_QTY + ", PRODUCT_NAME=" + PRODUCT_NAME
-				+ ", WH_LOC_IN_AREA=" + WH_LOC_IN_AREA + ", WH_AREA=" + WH_AREA + ", SOURCE_STOCK_CD=" + SOURCE_STOCK_CD
-				+ ", TARGET_STOCK_CD=" + TARGET_STOCK_CD + ", STOCK_CONTROL_TYPE_CD=" + STOCK_CONTROL_TYPE_CD
-				+ ", STOCK_CONTROL_TYPE_NAME=" + STOCK_CONTROL_TYPE_NAME + ", QTY=" + QTY + ", EMP_NUM=" + EMP_NUM
-				+ ", EMP_NAME=" + EMP_NAME + ", STOCK_DATE=" + STOCK_DATE + ", REMARKS=" + REMARKS + "]";
+	public int[] getWH_LOC_IN_AREA_CD_Arr() {
+		return WH_LOC_IN_AREA_CD_Arr;
+	}
+	public void setWH_LOC_IN_AREA_CD_Arr(int[] wH_LOC_IN_AREA_CD_Arr) {
+		WH_LOC_IN_AREA_CD_Arr = wH_LOC_IN_AREA_CD_Arr;
+	}
+	public void setSTOCK_CD(Integer sTOCK_CD) {
+		STOCK_CD = sTOCK_CD;
 	}
 	
-		
+	@Override
+	public String toString() {
+		return "StockVO [STOCK_CD=" + STOCK_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME
+				+ ", WH_NAME=" + WH_NAME + ", WH_AREA=" + WH_AREA + ", WH_LOC_IN_AREA=" + WH_LOC_IN_AREA
+				+ ", WH_LOC_IN_AREA_CD=" + WH_LOC_IN_AREA_CD + ", SOURCE_STOCK_CD=" + SOURCE_STOCK_CD
+				+ ", TARGET_STOCK_CD=" + TARGET_STOCK_CD + ", STOCK_CONTROL_TYPE_CD=" + STOCK_CONTROL_TYPE_CD
+				+ ", STOCK_CONTROL_TYPE_NAME=" + STOCK_CONTROL_TYPE_NAME + ", QTY=" + QTY + ", STOCK_QTY=" + STOCK_QTY
+				+ ", EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", STOCK_DATE=" + STOCK_DATE + ", REMARKS="
+				+ REMARKS + ", STOCK_CD_Arr=" + Arrays.toString(STOCK_CD_Arr) + ", STOCK_CONTROL_TYPE_CD_Arr="
+				+ Arrays.toString(STOCK_CONTROL_TYPE_CD_Arr) + ", PRODUCT_CD_Arr=" + Arrays.toString(PRODUCT_CD_Arr)
+				+ ", SOURCE_STOCK_CD_Arr=" + Arrays.toString(SOURCE_STOCK_CD_Arr) + ", TARGET_STOCK_CD_Arr="
+				+ Arrays.toString(TARGET_STOCK_CD_Arr) + ", QTY_Arr=" + Arrays.toString(QTY_Arr) + ", MOVE_QTY_Arr="
+				+ Arrays.toString(MOVE_QTY_Arr) + ", REMARKS_Arr=" + Arrays.toString(REMARKS_Arr)
+				+ ", WH_LOC_IN_AREA_CD_Arr=" + Arrays.toString(WH_LOC_IN_AREA_CD_Arr) + "]";
+	}
+	public Date[] getSTOCK_DATE_Arr() {
+		return STOCK_DATE_Arr;
+	}
+	public void setSTOCK_DATE_Arr(Date[] sTOCK_DATE_Arr) {
+		STOCK_DATE_Arr = sTOCK_DATE_Arr;
+	}
+	public int getMOVE_QTY() {
+		return MOVE_QTY;
+	}
+	public void setMOVE_QTY(int mOVE_QTY) {
+		MOVE_QTY = mOVE_QTY;
+	}
+	
+	
 }
