@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>입고 예정 등록</title>
+<title>입고 예정 입력</title>
 <link rel="shortcut icon" href="#">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,38 +75,35 @@
 			
 		});
 		
-		$('#recoBtn2').click(function() {
-					
+			
+	});
+	
+	
+	
+		function functi(){
 			for(var i = 0; i < $(".in_date").length; i++){
 				if($(".in_date").eq(i).val() == ""){
 					$(".in_date").eq(i).val("1900-01-01");
 				}
 			}
 			
-		    $.ajax({
-						
-		        type: "POST",
-		        url: "IncomingRegiPro",
-		        data: $('#inSc_regi').serialize(),
-		        dataType: 'json',
-		        success: function(result) {
-		            if (result != "0") {
-		                window.close();
-		                opener.location.reload();
-		            } else {
-		            	alert("입고 예정 등록 실패!");
-		                	                
-		            }
-		        },
-		        error: function(a, b, c) {
-		            console.log(a, b, c);
-		        }
-						
-		    });
-		});
-	});
-	
-	
+			proRegi.submit();
+			
+
+			setTimeout("closeWin()",3000);
+			
+			
+		
+		}
+	function closeWin() {
+		alert("함수 호출");
+		opener.location.reload();
+		window.close();
+	}
+		
+// 	function closeWin(){
+// 		setTimeout("window.close()",5000);
+// 	}
 
 </script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
@@ -114,7 +111,7 @@
 <body>
 	<div style="width:1200px;">
 		<div class="title_regi">입고예정입력</div>
-		<form onsubmit="return false" id="inSc_regi" name="proRegi" style="width:900px;">
+		<form action="IncomingRegiPro" onsubmit="return false" id="inSc_regi" method="post" name="proRegi" style="width:900px;">
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
@@ -195,7 +192,7 @@
 			</table>
 			<div>
 				<input type="button" value="품목 추가" id="recoBtn">
-				<input type="button" value="저장" id="recoBtn2">
+				<input type="button" value="저장" id="recoBtn2" onclick="functi()">
 			</div>
 		</form>
 	</div>

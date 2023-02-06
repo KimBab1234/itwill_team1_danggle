@@ -6,6 +6,128 @@
 <meta charset="UTF-8">
 <title>입고예정</title>
 <link rel="shortcut icon" href="#">
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+	var inList;
+	var i = 0;	
+	
+	
+	
+	function sc_status(){
+		$.ajax({
+			url: "in_schedule_list_status",
+			type: "GET",
+			data : {
+				keyword : $("#keyword").val()
+			},
+			dataType: "json"
+		})
+		.done(function(response) {
+			inList =JSON.parse(response.in_scList);			
+			$(".bookTable").find("tr:gt(0)").remove();	
+			for(var i = 0; i < inList.length; i++) {
+				let result = "<tr>"
+							+ "<td><input type='checkbox'></td>"
+							+ "<td>" + inList[i].IN_SCHEDULE_CD + "</td>"
+							+ "<td>" + inList[i].IN_TYPE_NAME + "</td>"
+							+ "<td>" + inList[i].CUST_NAME + "</td>"
+							+ "<td>" + inList[i].EMP_NAME + "</td>"
+							+ "<td>" + inList[i].PRODUCT_NAME + "</td>"
+							+ "<td>" + inList[i].IN_DATE + "</td>"
+							+ "<td>" + inList[i].TOTAL_QTY + "</td>"
+							+ "<td>" + inList[i].IN_COMPLETE + "</td>"
+							+ "<td onclick='openWin("+inList[i].IN_SCHEDULE_CD+")'>진행</td>"
+							+ "</tr>";
+							
+				$(".bookTable").append(result);
+			}
+			
+		})
+		.fail(function() {
+			$(".bookTable").append("<h3>요청 실패!</h3>");
+		});
+		
+	}
+	
+	$(function() {
+		
+		$("#all_sc").css("background", "#c9b584").css("color", "#736643");
+		
+		$.ajax({
+			url: "in_schedule_list",
+			type: "GET",
+			dataType: "json"
+		})
+		.done(function(response) {
+			inList =JSON.parse(response.in_scList);			
+			$(".bookTable").find("tr:gt(0)").remove();
+
+			for(var i = 0; i < inList.length; i++) {
+// 				var product = inList[i].IN_SCHEDULE_CD;
+				let result = "<tr>"
+							+ "<td><input type='checkbox'></td>"
+							+ "<td>" + inList[i].IN_SCHEDULE_CD + "</td>"
+							+ "<td>" + inList[i].IN_TYPE_NAME + "</td>"
+							+ "<td>" + inList[i].CUST_NAME + "</td>"
+							+ "<td>" + inList[i].EMP_NAME + "</td>"
+							+ "<td>" + inList[i].PRODUCT_NAME + "</td>"
+							+ "<td>" + inList[i].IN_DATE + "</td>"
+							+ "<td>" + inList[i].TOTAL_QTY + "</td>"
+							+ "<td>" + inList[i].IN_COMPLETE + "</td>"
+							+ "<td onclick='openWin("+inList[i].IN_SCHEDULE_CD+")'>진행</td>"
+							+ "</tr>";
+							
+				$(".bookTable").append(result);
+			}
+			
+		})
+		.fail(function() {
+			$(".bookTable").append("<h3>요청 실패!</h3>");
+		});
+		
+		
+		$("#sc_ing").on("click", function() {
+			$("#sc_ing").css("background", "#c9b584").css("color", "#736643");
+			$("#all_sc").css("background", "#736643").css("color", "#c9b584");
+			$("#sc_com").css("background", "#736643").css("color", "#c9b584");
+			$("#keyword").val("0");
+			sc_status()
+		});
+		
+		$("#all_sc").on("click", function() {
+			$("#all_sc").css("background", "#c9b584").css("color", "#736643");
+			$("#sc_ing").css("background", "#736643").css("color", "#c9b584");
+			$("#sc_com").css("background", "#736643").css("color", "#c9b584");
+			$("#keyword").val("");
+			sc_status()
+		});
+		
+		$("#sc_com").on("click", function() {
+			$("#sc_com").css("background", "#c9b584").css("color", "#736643");
+			$("#sc_ing").css("background", "#736643").css("color", "#c9b584");
+			$("#all_sc").css("background", "#736643").css("color", "#c9b584");
+			$("#keyword").val("1");
+			sc_status()
+		});
+		
+		
+		
+		
+		
+		
+		
+	});
+		
+	function openWin(product_cd){
+		alert(product_cd);
+		window.open('ScheduleProgress', 'schedule_progress', 'width=500, height=500, left=750, top=400');
+	}
+	
+
+	
+	
+	
+</script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -16,21 +138,23 @@
 		<jsp:include page="../inc/in_left.jsp"></jsp:include>
 	</div>
 	<div style="width:1900px;">
-		<h3>입고 예정</h3>
-		<div class="choice_in">전체</div><div class="choice_in">진행중</div><div class="choice_in">완료</div>
+		<h3>입고 예정 목록</h3>
+		<div class="choice_in" id="all_sc">전체</div><div class="choice_in" id="sc_ing">진행중</div><div class="choice_in" id="sc_com">완료</div>
 		<table class="bookTable">
 			<tr>
-				<th><input type="checkbox"></th>
-				<th>입고예정번호</th>
-				<th>유형</th>
-				<th>보낸곳명</th>
-				<th>담당자명</th>
-				<th>품목명[규격]</th>
-				<th>납기일자</th>
-				<th>입고예정수량합계</th>
-				<th>종결여부</th>
-				<th>진행상태</th>
-				<th>인쇄</th>
+				<th width="40">
+					<input type="checkbox">
+					<input type="hidden" id="keyword" name="keyword">
+				</th>
+				<th width="120">입고예정번호</th>
+				<th width="75">유형</th>
+				<th width="105">보낸곳명</th>
+				<th width="80">담당자명</th>
+				<th width="220">품목명[규격]</th>
+				<th width="100">납기일자</th>
+				<th width="130">입고예정수량합계</th>
+				<th width="65">종결여부</th>
+				<th width="65">진행상태</th>
 			</tr>
 		</table><br>
 		<button onclick="window.open('IncomingRegistration', 'incomeRegi', 'width=1000, height=700, left=600, top=400')">등록</button>
