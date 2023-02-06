@@ -101,7 +101,6 @@ table {
 
 		<div align="center">
 			<h2>거래처 상세정보</h2>
-			<form action="accDeletePro" method="post" name="accRegistForm">
 				<table>
 					<tr>
 						<td>회사명 &nbsp;</td>
@@ -159,8 +158,8 @@ table {
 					<tr>
 						<td>E-Mail</td>
 						<td colspan="4"><input type="text" name="EMAIL1" id="EMAIL1"
-							size="10" maxlength="20">@<input type="text"
-							name="EMAIL2" id="EMAIL2" size="10"> <select
+							size="10" maxlength="20" value="${acc.EMAIL1 }">@<input type="text"
+							name="EMAIL2" id="EMAIL2" size="10" value="${acc.EMAIL2 }"> <select
 							name="selectDomain" id="domain">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
@@ -224,11 +223,12 @@ table {
 						</select></td>
 					</tr>
 					<tr>
-						<td colspan="5"><input type="button" value="삭제" onclick="location.href='AccDeletePro?BUSINESS_NO=${acc.BUSINESS_NO}'"></td>
-						<td colspan="5"><input type="button" value="수정" onclick="location.href='AccModify?BUSINESS_NO=${acc.BUSINESS_NO}'"></td>
+						<td colspan="5" align="right"><input type="button" value="삭제" onclick="location.href='AccDeletePro?BUSINESS_NO=${acc.BUSINESS_NO}'">
+						<input type="button" value="수정" onclick="location.href='AccModify?BUSINESS_NO=${acc.BUSINESS_NO}'">
+						<input type="button" value="뒤로가기" onclick="location.href='AccList'"></td>
+					
 					</tr>
 				</table>
-			</form>
 		</div>
 
 		<!-- 여기까지 본문-->

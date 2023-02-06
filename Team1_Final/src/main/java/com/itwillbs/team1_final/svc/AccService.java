@@ -18,8 +18,8 @@ public class AccService {
 		return mapper.insertAcc(acc);
 	}
 
-	public List<AccVO> getAccList() {
-		return mapper.accList();
+	public List<AccVO> getAccList(String searchType,String keyword,int startRow, int listLimit) {
+		return mapper.accList(searchType, keyword, startRow, listLimit);
 	}
 
 	public int modifyMemberInfo() {
@@ -36,6 +36,10 @@ public class AccService {
 
 	public int accModify(AccVO acc) {
 		return mapper.accModify(acc);
+	}
+
+	public int getAccListCount(String searchType, String keyword) {
+		return mapper.accListCount(searchType, keyword);
 	}
 	
 	
