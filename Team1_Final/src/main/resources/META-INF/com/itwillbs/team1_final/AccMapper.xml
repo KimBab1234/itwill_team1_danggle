@@ -66,36 +66,74 @@
 	<select id="accList" resultType="com.itwillbs.team1_final.vo.AccVO">
 	SELECT * 
 			FROM acc -- 이후 작업 분기 일어남 
-			<!-- 
-			조건에 따른 SQL 구문을 실행하기 위해서는
-			choose, when, otherwise 태그를 사용하여 복수개의 조건 판별(if ~ else if 문 구조)
-			 -->
-			 
-			 <!-- 1. 검색어(keyword) 가 널스트링이 아닐 때 검색어 추가 수행, 아니면 검색어 생략-->
-			 <!-- => 조건이 하나일 경우 if 태그를 사용하여 단일 조건 판별(if 문 구조) -->
-<!-- 			 <if test="!keyword.equals('')"> -->
-<!-- 			 	WHERE -->
+			 <if test="!keyword.equals('')">
+			 	WHERE
 <!-- 					2. 검색타입(searchType) 에 따른 WHERE 대상 변경 		 -->
 <!-- 					=> 조건이 복수개이므로 choose 태그 사용 -->
-<!-- 					<choose> -->
-<!-- 						<when test="searchType.equals('subject')"> -->
-<!-- 							board_subject LIKE '%${keyword}%' -->
-<!-- 						</when> -->
-<!-- 						<when test="searchType.equals('content')"> -->
-<!-- 							board_content LIKE '%${keyword}%' -->
-<!-- 						</when> -->
-<!-- 						<when test="searchType.equals('subject_content')"> -->
-<!-- 							board_subject LIKE '%${keyword}' -->
-<!-- 							OR board_content LIKE '%${keyword}%' -->
-<!-- 						</when> -->
-<!-- 						<when test="searchType.equals('name')"> -->
-<!-- 							board_name LIKE '%${keyword}%' -->
-<!-- 						</when> -->
-<!-- 					</choose> -->
-<!-- 			 </if> -->
-<!-- 			 ORDER BY CUST_NAME DESC -->
+					<choose>
+						<when test="searchType.equals('BUSINESS_NO')">
+							BUSINESS_NO LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('CUST_NAME')">
+							CUST_NAME LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('UPTAE')">
+							UPTAE LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('JONGMOK')">
+							JONGMOK LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('G_GUBUN')">
+							G_GUBUN LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('BOSS_NAME')">
+							BOSS_NAME LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('MAN_NAME')">
+							MAN_NAME LIKE '%${keyword}%'
+						</when>
+					</choose>
+			 </if>
+<!-- 			 LIMIT  -->
+<!-- 			#{startRow} -->
+<!-- 			, #{listLimit} -->
 	</select>
 	
+	<!-- 거래처 전체 갯수 조회 -->
+	<select id="accListCount" resultType="int">
+		SELECT COUNT(*)
+			FROM acc -- 이후 작업 분기 일어남
+			<if test="!keyword.equals('')">
+				WHERE
+				<!-- 2. 검색타입(searchType) 에 따른 WHERE 대상 변경 -->
+				<!-- => 조건이 복수개이므로 choose 태그 사용 -->
+					<choose>
+						<when test="searchType.equals('BUSINESS_NO')">
+							BUSINESS_NO LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('CUST_NAME')">
+							CUST_NAME LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('UPTAE')">
+							UPTAE LIKE '%${keyword}'
+						</when>
+						<when test="searchType.equals('JONGMOK')">
+							JONGMOK LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('G_GUBUN')">
+							G_GUBUN LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('BOSS_NAME')">
+							BOSS_NAME LIKE '%${keyword}%'
+						</when>
+						<when test="searchType.equals('MAN_NAME')">
+							MAN_NAME LIKE '%${keyword}%'
+						</when>
+					</choose>
+			 </if>
+	</select>
+	
+	<!-- 거래처 상세 조회 -->
 	<select id="accView" resultType="com.itwillbs.team1_final.vo.AccVO">
 		SELECT
 			*
@@ -117,7 +155,14 @@
 				,BOSS_NAME = #{BOSS_NAME}
 				,UPTAE = #{UPTAE}
 				,JONGMOK = #{JONGMOK}
-				,TEL = CONCAT(#{TEL1},'-',#{TEL2},'-',#{TEL3})
+				, <choose>
+					<when test='#{TEL1 == ""}'>
+						TEL = ''
+					</when>
+					<otherwise>
+						TEL = CONCAT(#{TEL1},'-',#{TEL2},'-',#{TEL3})
+					</otherwise>
+				</choose>
 				,EMAIL = CONCAT(#{EMAIL1},'@',#{EMAIL2})
 				,POST_NO = #{POST_NO}
 				,ADDR = CONCAT(#{ADDR1},',',#{ADDR2})

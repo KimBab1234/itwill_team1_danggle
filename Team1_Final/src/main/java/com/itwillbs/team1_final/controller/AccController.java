@@ -54,6 +54,7 @@ public class AccController {
 		System.out.println("거래처리스트");
 		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
+		System.out.println(startRow);
 		
 		List<AccVO> acc = service.getAccList(searchType, keyword, startRow, listLimit);
 		// -------------------- 페이징 처리 ------------------------------
@@ -119,7 +120,37 @@ public class AccController {
 	public String accView(Model model, @RequestParam String BUSINESS_NO) {
 
 		AccVO acc = service.accDetail(BUSINESS_NO);
-
+		// 주소 분리해서 넣어주기
+		acc.setADDR1(acc.getADDR().split(",")[0]);
+		acc.setADDR2(acc.getADDR().split(",")[1]);
+		acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
+		acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
+		acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
+		
+		if(!acc.getEMAIL().equals("") && acc.getEMAIL().contains("@")) {
+			acc.setEMAIL1(acc.getEMAIL().split("@")[0]);
+			acc.setEMAIL2(acc.getEMAIL().split("@")[1]);
+		}
+		if(!acc.getTEL().equals("")) {
+			acc.setTEL1(acc.getTEL().split("-")[0]);
+			acc.setTEL2(acc.getTEL().split("-")[1]);
+			acc.setTEL3(acc.getTEL().split("-")[2]);
+		}
+		if(!acc.getMOBILE_NO().equals("")) {
+			acc.setMOBILE_NO1(acc.getMOBILE_NO().split("-")[0]);
+			acc.setMOBILE_NO2(acc.getMOBILE_NO().split("-")[1]);
+			acc.setMOBILE_NO3(acc.getMOBILE_NO().split("-")[2]);
+		}
+		if(!acc.getMAN_EMAIL().equals("")) {
+			acc.setMAN_EMAIL1(acc.getMAN_EMAIL().split("@")[0]);
+			acc.setMAN_EMAIL2(acc.getMAN_EMAIL().split("@")[1]);
+		}
+		if(!acc.getMAN_TEL().equals("")) {
+			acc.setMAN_TEL1(acc.getMAN_TEL().split("-")[0]);
+			acc.setMAN_TEL2(acc.getMAN_TEL().split("-")[1]);
+			acc.setMAN_TEL3(acc.getMAN_TEL().split("-")[2]);
+		}
+		
 		model.addAttribute("acc",acc);
 
 		return "acc/acc_detail";
@@ -130,7 +161,36 @@ public class AccController {
 	public String accModify(@ModelAttribute AccVO acc, Model model,@RequestParam String BUSINESS_NO ) {
 
 		acc = service.accDetail(BUSINESS_NO);
-
+		// 주소 분리해서 넣어주기
+		acc.setADDR1(acc.getADDR().split(",")[0]);
+		acc.setADDR2(acc.getADDR().split(",")[1]);
+		acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
+		acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
+		acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
+		
+		if(!acc.getEMAIL().equals("")) {
+			acc.setEMAIL1(acc.getEMAIL().split("@")[0]);
+			acc.setEMAIL2(acc.getEMAIL().split("@")[1]);
+		}
+		if(!acc.getTEL().equals("")) {
+			acc.setTEL1(acc.getTEL().split("-")[0]);
+			acc.setTEL2(acc.getTEL().split("-")[1]);
+			acc.setTEL3(acc.getTEL().split("-")[2]);
+		}
+		if(!acc.getMOBILE_NO().equals("")) {
+			acc.setMOBILE_NO1(acc.getMOBILE_NO().split("-")[0]);
+			acc.setMOBILE_NO2(acc.getMOBILE_NO().split("-")[1]);
+			acc.setMOBILE_NO3(acc.getMOBILE_NO().split("-")[2]);
+		}
+		if(!acc.getMAN_EMAIL().equals("")) {
+			acc.setMAN_EMAIL1(acc.getMAN_EMAIL().split("@")[0]);
+			acc.setMAN_EMAIL2(acc.getMAN_EMAIL().split("@")[1]);
+		}
+		if(!acc.getMAN_TEL().equals("")) {
+			acc.setMAN_TEL1(acc.getMAN_TEL().split("-")[0]);
+			acc.setMAN_TEL2(acc.getMAN_TEL().split("-")[1]);
+			acc.setMAN_TEL3(acc.getMAN_TEL().split("-")[2]);
+		}
 		model.addAttribute("acc",acc);
 
 		return "acc/acc_modify";
@@ -142,6 +202,8 @@ public class AccController {
 
 		int accModifyCount = service.accModify(acc);
 
+		
+		
 		if(accModifyCount > 0) {
 			return "redirect:/AccView?BUSINESS_NO="+ acc.getBUSINESS_NO();	
 		} else {
