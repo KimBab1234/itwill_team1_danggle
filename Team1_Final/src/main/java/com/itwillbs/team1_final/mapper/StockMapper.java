@@ -14,7 +14,9 @@ public interface StockMapper {
 	public int selectStockListCount(@Param("search") String search);
 	public ArrayList<StockVO> selectStockList(@Param("search") String search,@Param("startRow") int startRow,@Param("listLimit") int listLimit);
 	public StockVO selectStockDetail(String stockNo);
-	public int updateStock(@Param("stockNo") String stockNo);
 	public ArrayList<WhVO> selectWhList(@Param("search")String search,@Param("startRow") int startRow, @Param("listLimit")int listLimit);
+	public int insertStockHistory(StockVO stock);
+	public int insertStock(StockVO stock);
+	public int selectNewStockCD();
 	
 }
