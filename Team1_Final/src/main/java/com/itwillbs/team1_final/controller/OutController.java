@@ -1,12 +1,10 @@
 package com.itwillbs.team1_final.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.OutService;
@@ -37,6 +34,8 @@ public class OutController {
 	}
 	
 	
+	
+	
 	// 출고예정 등록 창
 	@GetMapping(value = "/OutRegist")
 	public String regitOut() {
@@ -46,22 +45,26 @@ public class OutController {
 	// 출고예정 등록
 	@PostMapping(value = "OutSchRegistPro")
 	@ResponseBody
-	public void schRegist(
-			@RequestParam(defaultValue = "") String OUT_TODAY,
-			@RequestParam(defaultValue = "") OutSchVo outSch,
+	public int schRegist(
+			String OUT_TODAY,
+			OutSchVo outSch,
 			HttpServletResponse response) {
 		
-//		System.out.println(OUT_TODAY);
-//		System.out.println(outSch);
-		System.out.println("보냄X");
+		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
+		int idx = 1;
+		String out_schedule_cd = "";
 		
-		try {
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().print("성공");
-			System.out.println("보냄");
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(todayCount > 0) {
+			todayCount += 1;
+			out_schedule_cd = OUT_TODAY + "-" + todayCount;
+			outSch.setOUT_SCHEDULE_CD(out_schedule_cd);
+		} else {
+			out_schedule_cd = OUT_TODAY + "-" + idx;
+			outSch.setOUT_SCHEDULE_CD(out_schedule_cd);
 		}
+		
+		int insertCount = service.registOutSchAndPd(outSch);
+		return insertCount;
 		
 	}
 	// ----------------------------------------------------------

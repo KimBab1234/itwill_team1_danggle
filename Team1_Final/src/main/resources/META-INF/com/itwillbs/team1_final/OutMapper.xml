@@ -52,13 +52,47 @@
 	</select>
 	
 	
+	<!-- 출고예정코드 추가 또는 증가 -->
+	<select id="selectToday" resultType="int">
+		SELECT COUNT(OUT_SCHEDULE_CD)
+			FROM OUT_SCHEDULE
+			WHERE
+				OUT_SCHEDULE_CD LIKE '${oUT_TODAY}%'
+	</select>
+	
+	
 	<!-- 출고 예정 등록 -->
+	<insert id="insertOutSch">
+		INSERT
+			INTO OUT_SCHEDULE
+			VALUES (
+				#{OUT_SCHEDULE_CD}
+				, #{OUT_TYPE_NAME}
+				, #{BUSINESS_NO}
+				, #{EMP_NUM}
+				, #{OUT_DATE}
+				, #{REMARKS}
+				, 0
+				, #{TOTAL_QTY}
+			)
+	</insert>
 	
 	
-	
-	
-	<!-- 출고 예정 품목 -->
-	
+	<!-- 출고 예정 품목 등록 -->
+	<insert id="insertOutSchPd">
+		INSERT
+			INTO OUT_SCHEDULE_PER_PRODUCT
+			VALUES (
+				#{PRODUCT_CD}
+				, #{OUT_SCHEDULE_CD}
+				, #{OUT_SCHEDULE_QTY}
+				, 0
+				, #{OUT_DATE}
+				, #{REMARKS}
+				, null
+				, 0
+			)
+	</insert>
 	
 	
 	

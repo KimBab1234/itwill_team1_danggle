@@ -82,39 +82,93 @@
 			
 		});
 		
+		// 입력 Check
+		let empCheck = false;
+		let accCheck = false;
+		let outDateCheck = false;
+		let pdCheck = false;
+		let qtyCheck = false;
+		let outPdDateCheck = false;
+		
+		$("#proRegi").submit(function() {
+	
+			if(!$("#emp_code").val() == "" && !$("#emp_name").val() == "") {
+				empCheck = true;
+			}
+			if(!$("#acc_code").val() == "" && !$("#acc_name").val() == "") {
+				accCheck = true;
+			}
+			if(!$("#OUT_DATE").val() == "") {
+				outDateCheck = true;
+			}
+			if(!$(".product_cd").val() == "" && !$(".product_name").val() == "") {
+				pdCheck = true;
+			}
+			if(!$(".out_schedule_qty").val() == "0" || !$(".out_schedule_qty").val() == ""){
+				qtyCheck = true;
+			}
+			if(!$(".pd_out_date").val() == "" || !$(".pd_out_date").val() == "1900-01-01"){
+				outPdDateCheck = true;
+			}
+			
+			
+			if(!empCheck){
+				alert("담당자 정보를 검색해주세요!");
+				return false;
+			} else if(!accCheck) {
+				alert("거래처 정보를 검색해주세요!");
+				return false;
+			} else if(!outDateCheck) {
+				alert("날기일자를 선택해주세요!");
+				return false;
+			} else if(!pdCheck) {
+				alert("품목 정보를 검색해주세요!");
+				return false;
+			} else if(!qtyCheck){
+				alert("품목 수량을 입력해주세요!");
+				return false;
+			} else if(!outPdDateCheck){
+				alert("개별 품목 납기일자를 입력해주세요!");
+				return false;
+			}
+			
+		});
+		
 	});
 	// --------------------------------------------------------------------------------
 	
 	
 	// -------------------------------- 출고예정 등록 ---------------------------------
 	function registFunc(){
-		for(var i = 0; i < $(".pd_out_date").length; i++){
-			if($(".pd_out_date").eq(i).val() == ""){
-				$(".pd_out_date").eq(i).val("1900-01-01");
+		$("#submitBtn").click(function() {
+			
+			for(var i = 0; i < $(".pd_out_date").length; i++){
+				if($(".pd_out_date").eq(i).val() == ""){
+					$(".pd_out_date").eq(i).val("1900-01-01");
+				}
 			}
-		}
-		$.ajax({
-			url: 'OutSchRegistPro',
-			type: 'POST',
-			data: $("#proRegi").serialize(),
-			dataType : 'json',
-			success : function(response) {
-				if(response == "성공") {
-					alert("성공");
-// 	                window.close();
-// 	                opener.location.reload();
-	            } else {
-	            	alert("출고예정 등록 실패!");
-	            }
-
-			}
+			$.ajax({
+				url: 'OutSchRegistPro',
+				type: 'POST',
+				data: $("#proRegi").serialize(),
+				dataType : 'json',
+				success : function(response) {
+					if (response != "0") {
+		                window.close();
+		                opener.location.reload();
+		            } else {
+		            	alert("출고 예정 등록 실패!");
+		            	window.close();
+		            }
+				}
+			});
 			
 		});
 		
 	}
 	// --------------------------------------------------------------------------------
-	
-</script>
+
+	</script>
 
 </head>
 <body>
@@ -174,7 +228,7 @@
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
 					</td>
 					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
-					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY"></td>
+					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
 					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE"></td>
 					<td><input type="text" class="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>
 				</tr>
