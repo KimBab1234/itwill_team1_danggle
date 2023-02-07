@@ -119,7 +119,7 @@ button {
 							+ "<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
 							+ "<td>" + "</td>"
 							+ "<td>" + outSchList[i].EMP_NAME + "</td>"
-							+ "<td>" + outSchList[i].PRODUCT_NAME + "</td>"
+							+ "<td>" + outSchList[i].PRODUCT_NAME[0] + " 외 " + PRODUCT_NAME.size() + "건</td>"
 							+ "<td>" + outSchList[i].OUT_DATE + "</td>"
 							+ "<td>" + outSchList[i].TOTAL_QTY + "</td>"
 							+ "<td>" + outSchList[i].OUT_COMPLETE + "</td>"
