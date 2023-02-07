@@ -134,6 +134,7 @@ nav .fa.fa-angle-down {
 </head>
 
 <body>
+<div>
 	<h1 align="center" id="titleName">
 		<a href="./"><img src="http://itwillbs3.cdn1.cafe24.com/img/logo2.png" style="width:250px; vertical-align: top;">  ERP</a>
 	</h1>
@@ -145,9 +146,7 @@ nav .fa.fa-angle-down {
 			</c:when>
 			<c:otherwise>
 				<a href="Logout"><i class="material-icons" style="color:black;">&#xe898;</i>로그아웃</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="HrDetail?empNo=${sessionScope.empNo}"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i>${sessionScope.empName}님</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="#"><i style="font-size:24px; color: black;" class="fa">&#xf2bc;</i></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="#"><i class="material-icons" style="color: black;">&#xe0e1;</i></a>
+				<a href="HrDetail?empNo=${sessionScope.empNo}"><i style="font-size:24px; color: black;" class="fa">&#xf2c0;</i>${sessionScope.empName}님</a>&nbsp;&nbsp;
 			</c:otherwise>
 		</c:choose>
 	</h3>
@@ -222,6 +221,6 @@ nav .fa.fa-angle-down {
 	  }
 	);
 	</script>
-
+</div>
 </body>
 </html>

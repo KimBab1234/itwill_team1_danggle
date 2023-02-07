@@ -6,11 +6,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
 <style>
-
-* {
-	font-weight: bold;
-}
 
 /*input 은 숨겨주기*/
 input.chk_top{
@@ -25,10 +22,11 @@ input.chk_top + label{
 input.chk_top + label:before{
   content:"";
   display:inline-block;
-  width:20px;
-  height:20px;
-  line-height:20px;
-  border:1px solid #cbcbcb;
+  width:24px;
+  height:24px;
+  line-height:24px;
+  background-color: #736643;
+  border:1px solid #736643;
   vertical-align:middle;/*체크 전과 체크 후 높이 차이 때문에 설정*/
   }
   
@@ -38,9 +36,9 @@ input.chk_top:checked + label:before{
   font-family:"Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
   font-weight:900;/*폰트어썸 설정*/
   color:#fff;
-  background-color:#000;
-  border-color:#000;
-  font-size:13px;
+  background-color: #736643;
+  border-color:#736643;
+  font-size:20px;
   text-align:center;
   }
   
@@ -131,10 +129,10 @@ $(function() {
 		<form name="loginForm"  action="LoginPro" method="post" >
 		<div align="center" style="width: 1300px;">
 			<h1 align="left">로그인</h1>
-			<table style="text-align: center; border: solid 1px; width: 500px;">
+			<table class="regi_table" style="text-align: center; border: solid 1px; width: 600px;">
 			<tr>
-				<td align="right" >E-mail</td>
-				<td align="left" >&nbsp;&nbsp;&nbsp;
+				<th align="right" width="100px;">E-mail</th>
+				<td align="left" width="300">&nbsp;&nbsp;&nbsp;
 					<input type="text" id="EMP_EMAIL1" name="EMP_EMAIL1" required="required" onkeyup="searchEnter()" style="width: 100px;"> @
 					<input type="text" id="EMP_EMAIL2" name="EMP_EMAIL2" required="required" onkeyup="searchEnter()" style="width: 100px;">
 					<select onchange="emailSelect(this.value)" id="EMP_EMAIL2_SEL">
@@ -146,7 +144,7 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<td align="right" >비밀번호</td>
+				<th align="right" >비밀번호</th>
 				<td align="left" >&nbsp;&nbsp;&nbsp;
 					<input type="password" id="EMP_PASS" name="EMP_PASS" onkeyup="searchEnter()" style="width: 200px;">
 				</td>
@@ -155,9 +153,9 @@ $(function() {
 		</div>
 		<table style="margin: 20px; font-size: 20px;">
 		<tr>
-			<td align="center" style="vertical-align: middle;">
-				<input type="checkbox" class="chk_top" id="rememberEmailChk" style="width: 250px;"/>
-				<label for="rememberEmailChk" style="vertical-align: bottom;">&nbsp;&nbsp;&nbsp;이메일 기억</label>
+			<td align="center" >
+				<input type="checkbox" class="chk_top" id="rememberEmailChk" style="vertical-align: middle; width: 250px;"/>
+				<label for="rememberEmailChk" style="vertical-align: middle; font-weight: bold;  color:#736643;">&nbsp;&nbsp;&nbsp;이메일 기억</label>
 			</td>
 		</tr>
 		</table>

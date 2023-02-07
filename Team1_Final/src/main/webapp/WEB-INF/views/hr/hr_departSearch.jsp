@@ -2,6 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link href="${pageContext.request.contextPath }/resources/css/stock.css" rel="stylesheet" type="text/css" />
+<!-- 폰트 변경 시작  -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+*{
+	color:#513e30;
+	font-family: 'Gowun Dodum', sans-serif;
+}
+</style>
+<!-- 폰트 변경 끝  -->
 <script>
 
 	var depart;
@@ -43,17 +55,17 @@
 	<h1>부서 검색</h1>
 	<form action="javascript:searchFunc()">
 	
-	<input type="text" name="keyword" id ="keyword" onsubmit="searchFunc()">
-	<button type="button" onclick="searchFunc()">검색</button>
+	<input type="text" name="keyword" style="width: 150px; height: 30px;" id ="keyword" onsubmit="searchFunc()">
+	<button type="button" class="hrFormBtn" onclick="searchFunc()">검색</button>
 	</form>
 	<hr>
 	<div align="center" id="searchNone">
 	</div>
 	<div align="center" style="display: flex;" >
-		<div id="departCode" align="right" style="width: 200px;">
+		<div id="departCode" align="right" style="width: 200px; font-size: 18px;">
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<div id="departName" align="left" style="width: 300px;">
+		<div id="departName" align="left" style="width: 300px; font-size: 18px;">
 		</div>
 	</div>
 </div>
