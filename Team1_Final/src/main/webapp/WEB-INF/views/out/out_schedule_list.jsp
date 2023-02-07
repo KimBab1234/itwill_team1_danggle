@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,20 +115,26 @@ button {
 			
 			for(var i = 0; i < outSchList.length; i++) {
 				let result = "<tr>"
-							+ "<td><input type='checkbox'></td>"
-							+ "<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
-							+ "<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
-							+ "<td>" + "</td>"
-							+ "<td>" + outSchList[i].EMP_NAME + "</td>"
-							+ "<td>" + outSchList[i].PRODUCT_NAME[0] + " 외 " + PRODUCT_NAME.size() + "건</td>"
-							+ "<td>" + outSchList[i].OUT_DATE + "</td>"
-							+ "<td>" + outSchList[i].TOTAL_QTY + "</td>"
-							+ "<td>" + outSchList[i].OUT_COMPLETE + "</td>"
-							+ "<td>조회</td>"
+					+ "<td><input type='checkbox'></td>"
+					+ "<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
+					+ "<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
+					+ "<td>" + "</td>"
+					+ "<td>" + outSchList[i].EMP_NAME + "</td>"
+					+ "<td>" + outSchList[i].PRODUCT + "</td>"
+					+ "<td>" + outSchList[i].OUT_DATE + "</td>"
+					+ "<td>" + outSchList[i].TOTAL_QTY + "</td>";
+					
+					if("${outSchList[i].OUT_COMPLETE eq 0 }" ) {
+						result += "<td>종결</td>";
+					} else {
+						result += "<td>취소</td>";
+					}
+
+					result += "<td>조회</td>"
 							+ "</tr>";
+				console.log(result);
 				$("#outListT").append(result);
 			}
-			
 		})
 		.fail(function() {
 			$("#outListT").append("<h3>요청 실패!</h3>");

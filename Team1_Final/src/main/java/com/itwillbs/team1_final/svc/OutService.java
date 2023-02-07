@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.team1_final.mapper.OutMapper;
 import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
-import com.itwillbs.team1_final.vo.OutListInfoVO;
 import com.itwillbs.team1_final.vo.OutPdVO;
 import com.itwillbs.team1_final.vo.OutSchVo;
 import com.itwillbs.team1_final.vo.PdVO;
@@ -48,10 +47,10 @@ public class OutService {
 		
 		// 출고예정품목 등록
 		String out_schedule_cd = outSch.getOUT_SCHEDULE_CD();
-		List<Integer> codeList = outSch.getPRODUCT_CD();
-		List<Integer> qtyList = outSch.getOUT_SCHEDULE_QTY();
-		List<Date> dateList = outSch.getPD_OUT_DATE();
-		List<String> remarkList = outSch.getPD_REMARKS();
+		List<Integer> codeList = outSch.getPRODUCT_CD_Arr();
+		List<Integer> qtyList = outSch.getOUT_SCHEDULE_QTY_Arr();
+		List<Date> dateList = outSch.getPD_OUT_DATE_Arr();
+		List<String> remarkList = outSch.getPD_REMARKS_Arr();
 		
 		int count = 0;
 		
@@ -74,28 +73,11 @@ public class OutService {
 	}
 
 	public List<OutSchVo> searchOutSchList(String keyword) {
+		
 		List<OutSchVo> outSch = mapper.selectOutSch(keyword);
 		
-		for(int i = 0; i < outSch.size(); i++) {
-			
-			// 담당자 이름 조회
-			String sEmp_num = outSch.get(i).getEMP_NUM();
-			List<HrVO> hrInfo = mapper.selectEmp(sEmp_num);
-			
-			String emp_name = hrInfo.get(0).getEMP_NAME();
-			outSch.get(i).setEMP_NAME(emp_name);
-
-			// 품목 정보 조회
-			String sOut_schedule_cd = outSch.get(i).getOUT_SCHEDULE_CD();
-			for(int j = 0; j < outSch.size(); j++) {
-				List<OutListInfoVO> outListInfo = mapper.selectoutListInfo(sOut_schedule_cd);
-				
-				outSch.get(i).setPRODUCT_NAME(outListInfo.get(j).getPRODUCT_NAME());
-				outSch.get(i).setSIZE_DES(outListInfo.get(j).getSIZE_DES());
-				
-			}
-			
-		}
+		// 품목명[규격] 코카콜 500ml 외 1건
+		
 		return outSch;
 	}
 	

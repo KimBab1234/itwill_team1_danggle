@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
-import com.itwillbs.team1_final.vo.OutListInfoVO;
 import com.itwillbs.team1_final.vo.OutPdVO;
 import com.itwillbs.team1_final.vo.OutSchVo;
 import com.itwillbs.team1_final.vo.PdVO;
@@ -38,14 +37,6 @@ public interface OutMapper {
 
 	// 출고 예정 목록 조회
 	List<OutSchVo> selectOutSch(String keyword);
-	
-	// 출고 예정 목록 조회 - 출고 예정 품목
-	List<OutPdVO> selectOutSchPd(String sOut_schesule_cd);
 
-	List<OutPdVO> selectPdList(String product_cd);
-
-	List<OutListInfoVO> selectoutListInfo(String sOut_schedule_cd);
-
-	
 
 }

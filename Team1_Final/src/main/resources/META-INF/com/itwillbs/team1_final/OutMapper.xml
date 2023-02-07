@@ -97,7 +97,9 @@
 	
 	<!-- 출고 예정 목록 조회 -->
 	<select id="selectOutSch" resultType="com.itwillbs.team1_final.vo.OutSchVo">
-		SELECT * FROM OUT_SCHEDULE
+		SELECT
+			DISTINCT(out_schedule_cd), out_type_name, emp_name, out_date, total_qty, out_complete
+			FROM outSch_view
 			<if test='!keyword.equals("")'>
 			WHERE
 				<choose>
@@ -108,16 +110,10 @@
 						OUT_COMPLETE = "1"
 					</when>
 				</choose>
-		</if>
+			</if>
+		ORDER BY out_schedule_cd
 	</select>
 	
-	
-	<!-- 출고 예정 목록 조회 - 필요 컬럼 view 생성 -->
-	<select id="selectoutListInfo" resultType="com.itwillbs.team1_final.vo.OutListInfoVO">
-		SELECT *
-			FROM outSch_view
-			WHERE OUT_SCHEDULE_CD = #{sOut_schedule_cd}
-	</select>
 	
 	
 
