@@ -112,17 +112,13 @@
 	</select>
 	
 	
-	<!-- 출고 예정 목록 조회 - 출고 예정 품목 -->
-	<select id="selectPdInfo" resultType="String">
+	<!-- 출고 예정 목록 조회 - 필요 컬럼 view 생성 -->
+	<select id="selectoutListInfo" resultType="com.itwillbs.team1_final.vo.OutListInfoVO">
 		SELECT *
-			FROM OUT_SCHEDULE_CD = #{sOut_schesule_cd}
+			FROM outSch_view
+			WHERE OUT_SCHEDULE_CD = #{sOut_schedule_cd}
 	</select>
 	
-<!-- 이름 바꿔주세요~! -->	
-<!-- 	<select id="selectPdInfo"> -->
-<!-- 		SELECT * -->
-<!-- 			FROM PRODUCT -->
-<!-- 			WHERE PRODUCT_CD = #{sProduct_cd} -->
-<!-- 	</select> -->
+	
 
 </mapper>
