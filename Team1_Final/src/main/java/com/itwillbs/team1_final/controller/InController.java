@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -145,6 +147,12 @@ public class InController {
 		return "in/search_product";
 	}
 	
+	@GetMapping(value = "/SearchProductUpdate")
+	public String SearchProUpdate() {
+		System.out.println("업데이트 품목 검색");
+		return "in/search_product_update";
+	}
+	
 	@ResponseBody
 	@GetMapping(value = "/SearchPro")
 	public String searchProduct(Model model, HttpServletResponse response, String keyword) {
@@ -272,19 +280,33 @@ public class InController {
 		}
 		InPdVO ProductInfo = service.getProductInfo(product_cd, product_name);
 
-		
-//		
-//		for(InPdVO progress : ProgressList) {
-//		JSONObject jsonObject = new JSONObject(ProductInfo);
-//			jsonArray.put(jsonObject);
-//		}
-//		
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("ProgressList", jsonArray.toString());
-//		
-//		return jsonObject.toString();
-		System.out.println("확인 해보자 : " + ProductInfo);
 		return ProductInfo;
 	}
 	
+	@ResponseBody
+	@PostMapping(value = "/InProductUpdate")
+	public int productUpdate(HttpServletResponse response, @ModelAttribute InPdVO product, HttpServletRequest request) {
+		System.out.println("입고 예정 수정 에이젝스");
+		
+		String product_cd = request.getParameter("in_product_cd");
+		String product_name = request.getParameter("in_product_name");
+		
+		if(product_name.contains("[")) {
+			product_name = product_name.split("\\[")[0];
+		}
+		
+		int updateCount = service.modifyProduct(product_cd, product_name, product);
+		
+		return updateCount;
+	}
+	
+	@GetMapping(value = "/incomingProcess")
+	public String process() {
+		System.out.println("입고 처리");
+		
+		return "in/in_product_process";
+	}
+	
+	
 }
+

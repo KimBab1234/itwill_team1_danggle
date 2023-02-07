@@ -190,6 +190,13 @@ public class InService {
 		
 	}
 
+	public int modifyProduct(String product_cd, String product_name, InPdVO product) { // 입고 예정 수정
+		mapper.updateIncoming(product_cd, product);
+		int updateCount = mapper.updateIncomingProduct(product_cd, product_name, product);
+		
+		return updateCount;
+	}
+
 
 
 	

@@ -140,4 +140,33 @@
 			AND
 				PRODUCT_NAME = '${product_name}'
 	</select>
+	
+	<!-- 입고 예정 수정 -->
+	<update id="updateIncoming">
+		UPDATE in_schedule
+			SET
+				IN_TYPE_CD = #{product.IN_TYPE_CD}
+				, BUSINESS_NO = #{product.BUSINESS_NO}
+				, EMP_NUM = #{product.EMP_NUM}
+				, IN_DATE = #{product.IN_DATE}
+				, REMARKS = #{product.REMARKS}
+				, TOTAL_QTY = #{product.TOTAL_QTY}
+			WHERE
+				IN_SCHEDULE_CD = '${product_cd}'
+	</update>
+	
+	<!-- 입고 예정 상품 수정 -->
+	<update id="updateIncomingProduct">
+		 UPDATE in_schedule_per_product
+		 	SET
+		 		PRODUCT_CD = #{product.PRODUCT_CD}
+		 		, PRODUCT_NAME = #{product.PRODUCT_NAME}
+		 		, SIZE_DES = #{product.SIZE_DES}
+		 		, IN_SCHEDULE_QTY = #{product.IN_SCHEDULE_QTY}
+		 		, IN_PD_DATE = #{product.IN_PD_DATE}
+		 		, IN_PD_REMARKS = #{product.IN_PD_REMARKS}
+		 	WHERE 
+		 		IN_PD_SCHEDULE_CD = '${product_cd}'
+		 	AND PRODUCT_NAME = '${product_name}'
+	</update>
 </mapper>
