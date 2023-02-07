@@ -1,7 +1,5 @@
 package com.itwillbs.team1_final.controller;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -17,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.StockService;
-import com.itwillbs.team1_final.svc.WhService;
 import com.itwillbs.team1_final.vo.StockVO;
 import com.itwillbs.team1_final.vo.WhVO;
-import com.itwillbs.team1_final.vo.HrVO;
 import com.itwillbs.team1_final.vo.PageInfo;
 
 /**
@@ -30,7 +26,7 @@ import com.itwillbs.team1_final.vo.PageInfo;
 public class StockController {
 
 	@Autowired
-	StockService service;
+	StockService service; 
 	
 	static StockVO updateStock;
 	static StockVO stock;
@@ -145,9 +141,9 @@ public class StockController {
 
 		System.out.println("재고 상세 조회");
 
-		StockVO stock = service.getStockDetail(stockNo);
+		ArrayList<StockVO> stockList = service.getStockDetail(stockNo);
 
-		model.addAttribute("stock",stock);
+		model.addAttribute("stockList",stockList);
 
 		return "stock/stock_detail";
 	}
@@ -162,8 +158,6 @@ public class StockController {
 		String control_cd = updateStock.getSTOCK_CONTROL_TYPE_CD();
 
 		for(int i=0; i<productCount; i++) {
-
-
 			////일단 들어온 데이터 저장하기
 			stock = new StockVO();
 			stock.setSTOCK_CONTROL_TYPE_CD(updateStock.getSTOCK_CONTROL_TYPE_CD());

@@ -91,6 +91,16 @@ $(function() {
 	}
 	/////로그인 버튼 눌렀을때 이메일 기억 및 폼 전송
 	function loginSubmit() {
+		
+		if($("#EMP_EMAIL1").val()=='' || $("#EMP_EMAIL2").val()=='') {
+			alert("이메일을 입력하세요.");
+			return false;
+		}
+		if($("#EMP_PASS").val()=='') {
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}
+		
 		if($("#rememberEmailChk").prop("checked")) {
 			localStorage.setItem("email1", $("#EMP_EMAIL1").val());
 			localStorage.setItem("email2", $("#EMP_EMAIL2").val());
@@ -101,6 +111,11 @@ $(function() {
 		loginForm.submit();
 	}
 
+	 function searchEnter() {
+		if(window.event.keyCode == 13) {
+			loginSubmit();
+		}
+	}
 
 
 
@@ -120,8 +135,8 @@ $(function() {
 			<tr>
 				<td align="right" >E-mail</td>
 				<td align="left" >&nbsp;&nbsp;&nbsp;
-					<input type="text" id="EMP_EMAIL1" name="EMP_EMAIL1" style="width: 100px;"> @
-					<input type="text" id="EMP_EMAIL2" name="EMP_EMAIL2" style="width: 100px;">
+					<input type="text" id="EMP_EMAIL1" name="EMP_EMAIL1" required="required" onkeyup="searchEnter()" style="width: 100px;"> @
+					<input type="text" id="EMP_EMAIL2" name="EMP_EMAIL2" required="required" onkeyup="searchEnter()" style="width: 100px;">
 					<select onchange="emailSelect(this.value)" id="EMP_EMAIL2_SEL">
 						<option value="">직접 입력</option>
 						<option value="naver.com">naver.com</option>
@@ -133,7 +148,7 @@ $(function() {
 			<tr>
 				<td align="right" >비밀번호</td>
 				<td align="left" >&nbsp;&nbsp;&nbsp;
-					<input type="password" id="EMP_PASS" name="EMP_PASS" style="width: 200px;">
+					<input type="password" id="EMP_PASS" name="EMP_PASS" onkeyup="searchEnter()" style="width: 200px;">
 				</td>
 			</tr>
 			</table>
