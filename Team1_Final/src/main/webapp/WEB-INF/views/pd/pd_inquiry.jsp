@@ -7,16 +7,46 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <style type="text/css">
-table {
-	font-size: 20px;
+#title {
+	text-align: left;
+}
+table { 
+ 	margin: 0 auto;
+	border-collapse: collapse;
+	border-color: #b09f76;
+	text-align: center;
 	font-weight: bold;
+	border-radius: 10px;
+  	box-shadow: 0 0 0 2px #c9b584;
+ 	} 
+#td_top {
+	height: 50px;
+	font-weight: bold;
+	font-size: 20px;
+	background: #c9b584; 
+ 	color: #736643;
+}
+#b1 {
+	background-color: #fff5e6;
+	width: 120px;
+	height: 50px;
+	color: #575754;
+	border-radius: 20px;
+	border-color: transparent;
+	font-weight: bold;
+	font-size: 20px;
+}
+#b2 {
+	background-color: #fff5e6;
+	width: 120px;
+	height: 50px;
+	color: #575754;
+	border-radius: 20px;
+	border-color: transparent;
+	font-weight: bold; 
+	font-size: 20px;
 }
 
-#td_left {
-	text-align: left;
-	width: 200px;
-	
-}
 </style>
 <script type="text/javascript">
 
@@ -60,9 +90,10 @@ table {
 				// 테이블에 표시할 JSON 데이터 출력문 생성
 				// => 출력할 데이터는 board.xxx 형식으로 접근
 				let result = "<tr height='100'>"
+							+ "<td>" + "<input type='checkbox'>"+ "</td>"
 							+ "<td>" + product.PRODUCT_CD + "</td>"
 							+ "<td id='subject'>" 
-								+ "<a href='PdDetail?PRODUCT_CD=" + product.PRODUCT_CD + "'>"
+								+ "<a href='PdUpdate?PRODUCT_CD=" + product.PRODUCT_CD + "'>"
 								+ product.PRODUCT_NAME + "</a>" + "</td>"
 							+ "<td>" + product.PRODUCT_GROUP_BOTTOM_CD + "</td>"
 							+ "<td>" + product.SIZE_DES + "</td>"
@@ -93,36 +124,39 @@ table {
 			<jsp:include page="../inc/pd_left.jsp"></jsp:include>
 		</div>
 		<!-- 게시판 리스트 -->
-		<div align="left" style="margin-left: 100px; margin-top: 30px;">
+		<div align="left">
+		<h1 id="title"><b style="border-left: 10px solid">&nbsp;품목 조회</b></h1>
 		<section id="listForm">
-		<h1><b style="border-bottom: 10px solid">품목 조회</b></h1>
 		<section id="buttonArea">
 			<form>
 				<!-- 검색 타입 추가 -->
-				<select name="searchType" id="searchType">
+				<select name="searchType" id="searchType" style="height: 30px;">
 					<option value="PRODUCT_CD" selected="selected" >품목코드</option>
 <%-- 					<option value="PRODUCT_NAME" <c:if test="${param.searchType eq 'PRODUCT_NAME'}">selected</c:if>>품목명</option> --%>
 				</select>
-				<input type="text" name="keyword" id="keyword" value="${param.keyword }">
-				<input type="submit" value="검색">
-				&nbsp;&nbsp;
-				<input type="button" value="품목등록" onclick="location.href='PdRegist'" />
+				<input type="text" name="keyword" id="keyword" value="${param.keyword }" style="height: 30px;">
+				<input type="submit" value="검색" style="height: 30px;">
+				<input type="button" value="품목등록" id="b1"  style="margin-left: 1050px;" onclick="location.href='PdRegist'" />
+				&nbsp; | &nbsp;
+				<input type="button" value="품목삭제" id="b2">
 			</form>
 		</section>
-		<table border="1">
+		<br>
+		<table border="1" style="width: 1600px">
 			<tr>
-				<td>품목코드</td>
-				<td>품목명</td>
-				<td>품목그룹(소)</td>
-				<td>규격</td>
-				<td>단위</td>
-				<td>바코드</td>
-				<td>입고단가</td>
-				<td>출고단가</td>
-				<td>품목타입코드</td>
-				<td>구매거래처코드</td>
-				<td>대표이미지</td>
-				<td>적요</td>
+				<td id="td_top"><input type="checkbox"></td>
+				<td id="td_top" style="width: 80px">품목코드</td>
+				<td id="td_top" style="width: 150px">품목명</td>
+				<td id="td_top" style="width: 120px">품목그룹(소)</td>
+				<td id="td_top">규격</td>
+				<td id="td_top">단위</td>
+				<td id="td_top">바코드</td>
+				<td id="td_top">입고단가</td>
+				<td id="td_top">출고단가</td>
+				<td id="td_top" style="width: 120px">품목타입코드</td>
+				<td id="td_top" style="width: 130px">구매거래처코드</td>
+				<td id="td_top" style="width: 150px">대표이미지</td>
+				<td id="td_top">적요</td>
 			</tr>
 		</table>
 	</section>
