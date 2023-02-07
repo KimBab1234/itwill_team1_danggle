@@ -48,13 +48,22 @@ public class StockService {
 	public int putStockHistory(StockVO stock) {
 		return mapper.insertStockHistory(stock);
 	}
-	public int putStock(StockVO stock) {
+	public int inStock(StockVO stock) {
 		return mapper.insertStock(stock);
 	}
-	public int getNewStockCD() {
-		return mapper.selectNewStockCD();
+	public int getNewStockCD(int product_cd, int target_loc) {
+		///해당 위치에 같은 제품 있는지 확인
+		Integer isExistStock = mapper.isExistStock(product_cd, target_loc);
+		if(isExistStock==null) {
+			///없으면 max값으로 리턴
+			return mapper.selectNewStockCD();
+		} else {
+			return isExistStock;
+		}
 	}
-	
+	public int outStock(StockVO stock) {
+		return mapper.updateOutStock(stock);
+	}
 	
 	
 	
