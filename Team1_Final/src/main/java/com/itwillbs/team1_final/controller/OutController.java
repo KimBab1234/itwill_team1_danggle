@@ -29,12 +29,31 @@ public class OutController {
 	// ------------------ 출고 예정 Controller ------------------
 	// 출고예정 목록 창
 	@GetMapping(value = "/OutSchList")
-	public String OutList() {
+	public String outList() {
 		return "out/out_schedule_list";
 	}
 	
-	
-	
+	// 출고예정 목록 조회
+	@PostMapping(value = "/OutSchListJson")
+	@ResponseBody
+	public String searchOutList(String Keyword) {
+		
+		List<OutSchVo> outSchList = service.searchOutSchList(Keyword);
+		
+		JSONArray jsonAcc = new JSONArray();
+		
+		for(OutSchVo outSch : outSchList) {
+			JSONObject jsonObject = new JSONObject(outSch);
+			jsonAcc.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("searchOutSchList", jsonAcc.toString());
+		
+		return jsonObject.toString();
+		
+//		return "out/out_schedule_list";
+	}
 	
 	// 출고예정 등록 창
 	@GetMapping(value = "/OutRegist")

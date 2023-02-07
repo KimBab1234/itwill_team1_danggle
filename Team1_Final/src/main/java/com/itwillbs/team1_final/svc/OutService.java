@@ -53,7 +53,7 @@ public class OutService {
 		List<String> remarkList = outSch.getPD_REMARKS();
 		
 		int count = 0;
-		System.out.println("dateList.size() - " + dateList.size());
+		
 		for(int i = 0; i < dateList.size(); i++) {
 			OutPdVO product = new OutPdVO();
 			
@@ -70,6 +70,35 @@ public class OutService {
 			count += mapper.insertOutSchPd(product);
 		}
 		return count;
+	}
+
+	public List<OutSchVo> searchOutSchList(String keyword) {
+		List<OutSchVo> outSch = mapper.selectOutSch(keyword);
+		
+		String pdKeyword = "";
+		String searchType = "";
+		for(int i = 0; i < outSch.size(); i++) {
+			String sEmp_num = outSch.get(i).getEMP_NUM();
+			String sBusiness_no = outSch.get(i).getBUSINESS_NO();
+			
+			// 담당자 이름 조회
+			List<HrVO> hrInfo = mapper.selectEmp(sEmp_num);
+			String emp_name = hrInfo.get(1);
+			outSch.get(i).setEMP_NAME(emp_name);
+
+			// 품목 정보 조회
+			List<PdVO> pdInfo = mapper.selectPd(searchType, pdKeyword);
+			String product_name = pdInfo.get(1);
+			String size_des = pdInfo.get(2);
+			
+			outSch.get(i).setPRODUCT_NAME(product_name);
+			outSch.get(i).setSIZE_DES(size_des);
+			
+		}
+		
+		
+		
+		return outSch;
 	}
 	
 	
