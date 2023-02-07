@@ -43,8 +43,6 @@ public interface OutMapper {
 
 	List<OutPdVO> selectPdList(String product_cd);
 
-	List<PdVO> selectPdInfo(int sProduct_cd);
-
 	
 
 }
