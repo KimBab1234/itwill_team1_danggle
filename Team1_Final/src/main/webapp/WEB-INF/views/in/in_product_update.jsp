@@ -24,6 +24,7 @@
 	var date;
 	var pd_date;
 	
+	
 	// json으로 받아온 date 다시 date 형식으로 만들어주기
 	function changeDate(on_date){
 		var d = new Date(on_date),
@@ -57,10 +58,13 @@
 	
 	// 품목 검색
 	function funct(){
-		window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
+		window.open('SearchProductUpdate', 'searchPro_update', 'width=500, height=500, left=1000, top=400');
 	}
 	
 	$(function() {
+				
+		$("#in_product_cd").val(productCd);
+		$("#in_product_name").val(productName);
 		// 에이젝스로 데이터 가져오기
 		$.ajax({
 			
@@ -73,7 +77,8 @@
 	        dataType: 'json',
 	        success: function(result) {
 
-				console.log(result);       
+				console.log(result); 
+				
 				var type_cd = result.in_TYPE_CD;
 				$("#today").val(result.in_PD_SCHEDULE_CD);
 				
@@ -85,7 +90,6 @@
 
 				changeDate(result.in_DATE)
 				changePdDate(result.in_PD_DATE)
-				
 				
 				$("#emp_code").val(result.emp_NUM);
 				$("#emp_name").val(result.emp_NAME);
@@ -99,6 +103,7 @@
 				$("#pro_qty").val(result.in_SCHEDULE_QTY);
 				$("#pro_date").val(pd_date);
 				$("#pro_remarks").val(result.in_PD_REMARKS);
+				$("#total").val(result.in_SCHEDULE_QTY);
 				
 	        },
 	        error: function(a, b, c) {
@@ -114,25 +119,43 @@
 				$(this).prop('checked',true);
 			}
 		});
-		
-		
-		
-		$('#recoBtn2').click(function() {
-					
-			for(var i = 0; i < $(".in_date").length; i++){
-				if($(".in_date").eq(i).val() == ""){
-					$(".in_date").eq(i).val("1900-01-01");
-				}
-			}
-			
-		});
-		
+
 		
 		
 		
 	});
 	
-	
+	function updateProduct(){
+		
+		for(var i = 0; i < $(".in_date").length; i++){
+			if($(".in_date").eq(i).val() == ""){
+				$(".in_date").eq(i).val("1900-01-01");
+			}
+		}
+		// 입고 수정 에이젝스
+	    $.ajax({
+					
+	        type: "POST",
+	        url: "InProductUpdate",
+	        data: $('#inSc_regi').serialize(),
+	        success: function(result) {
+	            if (result != "0") {
+	                window.close();
+	                opener.location.reload();
+	            } else {
+	            	alert("입고 예정 수정 실패!");
+	            	window.close();	                
+	            }
+	        },
+	        error: function(a, b, c) {
+	            console.log(a, b, c);
+	        }
+					
+	    });
+		
+	    
+
+	}
 
 </script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
@@ -144,7 +167,11 @@
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
-					<td><input type="text" name="TODAY" id="today" readonly="readonly"></td>
+					<td>
+						<input type="hidden" name="in_product_cd" id="in_product_cd">
+						<input type="hidden" name="in_product_name" id="in_product_name">
+						<input type="text" name="TODAY" id="today" readonly="readonly">
+					</td>
 					<th>유형</th>
 					<td>
 						<div>
@@ -193,34 +220,9 @@
 					<td><input type="date" class="in_date" name="IN_PD_DATE" id="pro_date"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS" id="pro_remarks"></td>
 				</tr>
-				<tr class="indexCh" ondblclick="funct()"> 
-					<td><input type="text" class="product_cd" name="PRODUCT_CD"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES"></td>
-					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
-					<td><input type="date" class="in_date" name="IN_PD_DATE"></td>
-					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
-				</tr>
-				<tr class="indexCh" ondblclick="funct()">
-					<td><input type="text" class="product_cd" name="PRODUCT_CD"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES"></td>
-					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
-					<td><input type="date" class="in_date" name="IN_PD_DATE"></td>
-					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
-				</tr>
-				<tbody id="optionArea"></tbody>
-				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th><input type="number" id="total" name="TOTAL_QTY" readonly="readonly"></th>
-					<th></th>
-					<th></th>
-				</tr>
 			</table>
 			<div>
-				<input type="button" value="수정" id="recoBtn4">
+				<button type="button" id="recoBtn4" onclick="updateProduct()">수정</button>
 			</div>
 		</form>
 	</div>

@@ -29,9 +29,25 @@ public class InPdVO {
 	private String EMP_NAME;
 	private String CUST_NAME;
 	
+	private String in_product_cd;
+	
+	private int TOTAL_QTY;
 	
 	
 	
+	
+	public int getTOTAL_QTY() {
+		return TOTAL_QTY;
+	}
+	public void setTOTAL_QTY(int tOTAL_QTY) {
+		TOTAL_QTY = tOTAL_QTY;
+	}
+	public String getIn_product_cd() {
+		return in_product_cd;
+	}
+	public void setIn_product_cd(String in_product_cd) {
+		this.in_product_cd = in_product_cd;
+	}
 	public String getIN_TYPE_CD() {
 		return IN_TYPE_CD;
 	}
