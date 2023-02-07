@@ -33,7 +33,7 @@ public class StockService {
 		}
 		return mapper.selectStockListCount(search);
 	}
-	public StockVO getStockDetail(String stockNo) {
+	public ArrayList<StockVO> getStockDetail(String stockNo) {
 		return mapper.selectStockDetail(stockNo);
 	}
 

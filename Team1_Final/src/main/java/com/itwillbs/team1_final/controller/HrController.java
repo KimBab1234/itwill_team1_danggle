@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,15 +98,25 @@ public class HrController {
 		int insertCount = service.registEmp(newEmp);
 
 		if(insertCount>0) {
-			try {
 				MultipartFile mFile = newEmp.getRegistPHOTO();
-				mFile.transferTo(new File(saveDir, newEmp.getPHOTO()));
-
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				FTPClient ftp = new FTPClient();
+				
+				try {
+					ftp.setFileType(FTP.BINARY_FILE_TYPE);
+					ftp.setControlEncoding("UTF-8");
+					ftp.connect("iup.cdn1.cafe24.com",21);
+					ftp.setSoTimeout(1000);
+					ftp.login("itwillbs3", "itwillbs8030909");
+					ftp.storeFile("/www/profileImg/"+newEmp.getPHOTO(), mFile.getInputStream());
+					
+					if(ftp.getReplyCode() != 226) {
+						model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+						return "fail_back";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			
 			model.addAttribute("empNo",newEmp.getEMP_NUM());
 			return "redirect:/HrRegistEnd";
 		} else {
@@ -286,13 +298,13 @@ public class HrController {
 				model.addAttribute("msg", "비밀번호가 맞지 않습니다!");
 				return "fail_back";
 			}
-			
 			////신규 비밀번호를 입력했다면
 			if(!updateEmp.getEMP_PASS_NEW().equals("")) {
 				////신규 비밀번호 암호화해주기
 				updateEmp.setEMP_PASS_NEW(passwordEncoder.encode(updateEmp.getEMP_PASS_NEW()));
 			}
 		}
+		System.out.println("로그인 후 수정작업 ");
 		
 		///파일 올라와있으면 새 파일 올리고 기존 삭제
 		boolean isNewImg = false;
@@ -373,13 +385,6 @@ public class HrController {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		HrVO loginEmp = service.getLoginEmpInfo(emp.getEMP_EMAIL());
 
-		
-		System.out.println("====================================");
-		System.out.println(emp.getEMP_PASS());
-		System.out.println("====================================");
-		
-		
-		//아이디가 존재하지 않거나, 비밀번호가 맞지 않는 경우
 		if(loginEmp==null || !passwordEncoder.matches(emp.getEMP_PASS(), loginEmp.getEMP_PASS())) {
 			
 			model.addAttribute("msg", "로그인 실패!");

@@ -68,6 +68,18 @@ input.chk_top + label{
 <title>Insert title here</title>
 <script>
 	
+	////재고 조회 권한은 "3"
+	var priv ='${sessionScope.priv}';
+	if(priv=='') {
+		alert("로그인 후 이용하세요.")
+		location.href="./Login";
+	} else if(priv.charAt(3)!='1') {
+		alert("권한이 없습니다.");
+		history.back();
+	}
+	
+	
+	
 	var pageList = {};
 	
 	///처음 들어왔을때 기본값 1

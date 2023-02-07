@@ -49,34 +49,36 @@ option {
 			<th width="150">작업자명</th>
 			<th width="500">적요</th>
 		</tr>
-		<tr>
-			<td>${stock.STOCK_DATE}</td>
-			<td>${stock.STOCK_CONTROL_TYPE_NAME}</td>
-			<td>${stock.PRODUCT_NAME}</td>
-			<td>
-				<c:choose>
-					<c:when test="${stock.SOURCE_STOCK_CD==0 }">
-						-
-					</c:when>
-					<c:otherwise>
-						<a href="StockDetail?stockNo=${stock.SOURCE_STOCK_CD}">${stock.SOURCE_STOCK_CD}</a>
-					</c:otherwise>
-				</c:choose>
-			</td>
-			<td>
-				<c:choose>
-					<c:when test="${stock.TARGET_STOCK_CD==0 }">
-						-
-					</c:when>
-					<c:otherwise>
-						<a href="StockDetail?stockNo=${stock.TARGET_STOCK_CD}">${stock.TARGET_STOCK_CD}</a>
-					</c:otherwise>
-				</c:choose>
-			</td>
-			<td>${stock.QTY}</td>
-			<td>${stock.EMP_NAME}</td>
-			<td>${stock.REMARKS}</td>
-		</tr>
+		<c:forEach items="${stockList}" var="stock">
+			<tr>
+				<td>${stock.STOCK_DATE}</td>
+				<td>${stock.STOCK_CONTROL_TYPE_NAME}</td>
+				<td>${stock.PRODUCT_NAME}</td>
+				<td>
+					<c:choose>
+						<c:when test="${stock.SOURCE_STOCK_CD==null }">
+							-
+						</c:when>
+						<c:otherwise>
+							<a href="StockDetail?stockNo=${stock.SOURCE_STOCK_CD}">${stock.SOURCE_STOCK_CD}</a>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${stock.TARGET_STOCK_CD==null }">
+							-
+						</c:when>
+						<c:otherwise>
+							<a href="StockDetail?stockNo=${stock.TARGET_STOCK_CD}">${stock.TARGET_STOCK_CD}</a>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>${stock.QTY}</td>
+				<td>${stock.EMP_NAME}</td>
+				<td>${stock.REMARKS}</td>
+			</tr>
+		</c:forEach>
 		
 	
 	</table>

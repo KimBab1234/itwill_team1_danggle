@@ -30,6 +30,12 @@ input[type="button"]{
 <title>Insert title here</title>
 <script>
 	
+	var priv ='${sessionScope.priv}';
+	if(priv.charAt(4)!='1') {
+		alert("권한이 없습니다.");
+		
+	}
+	
 	var stock = opener.stock;
 	var selectIdx;
 	
@@ -49,11 +55,11 @@ input[type="button"]{
 						+'<td><input type="hidden" name="PRODUCT_CD_Arr" value="'+stock[i].PRODUCT_CD+'">'+stock[i].PRODUCT_NAME+'</td>'
 						+'<td>'+stock[i].WH_NAME+"-"+stock[i].WH_AREA+"-"+stock[i].WH_LOC_IN_AREA+'</td>'
 						+'<td>'+stock[i].STOCK_QTY+'</td>'
-						+'<td><input type="text" name="QTY_Arr" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, \'\');" onchange="qtyChange(this)" /></td>'
+						+'<td><input type="text" name="QTY_Arr" class="QTY_Arr" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, \'\');" onchange="qtyChange(this)" /></td>'
 						+'<td><input type="hidden" name="WH_LOC_IN_AREA_CD_Arr" class="TARGET_STOCK_CD_Arr" readOnly="readOnly" />'
 						+'<span class="searchLoc"></span><input type="button" class="hrFormBtn" style="height:35px" value="위치 검색" onclick="searchFormOpen('+j+')"/></td>'
-						+'<td><input type="text" name="MOVE_QTY_Arr" class="MOVE_QTY_Arr" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, \'\');" /></td>'
-						+'<td><input type="text" id="sum" readOnly="readOnly" /><input type="hidden" class="STOCK_DATE_Arr" name="STOCK_DATE_Arr" /></td>'
+						+'<td><input type="text" name="MOVE_QTY_Arr" class="MOVE_QTY_Arr" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, \'\');" onchange="qtyChange(this)" /></td>'
+						+'<td><input type="text" class="sum" readOnly="readOnly" /><input type="hidden" class="STOCK_DATE_Arr" name="STOCK_DATE_Arr" /></td>'
 						+'<td><input type="text" style="width:200" name="REMARKS_Arr" value="-" /></td>'
 						+'</tr>'
 				);
@@ -107,9 +113,11 @@ input[type="button"]{
 	}
 	
 	function qtyChange(selQty) {
+		var idx = $(selQty).parents("tr").index(); 
 		if(selQty.value=="") {
 			selQty.value=0;
 		}
+		$(".sum").eq(idx).val(Number($(".QTY_Arr").eq(idx).val())+Number($(".MOVE_QTY_Arr").eq(idx).val()));
 	}
 	
 </script>

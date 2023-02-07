@@ -107,6 +107,7 @@ function execDaumPostcode() {
 	var loginEmp = '${sessionScope.empNo}';
 	var isThisEmp = false;
 	var chkArr = [0,0,0,0,0];
+	
 	if(empNo==loginEmp) {
 		isThisEmp = true;
 	}
@@ -199,13 +200,11 @@ function execDaumPostcode() {
 			}
 			chkClick = true;
 			if(this.checked) {
-				chkArr[$(this).index()/2] = 1;
+				chkArr[$(".chk_top").index(this)] = 1;
 			} else {
-				chkArr[$(this).index()/2] = 0;
+				chkArr[$(".chk_top").index(this)] = 0;
 			}
 		});
-		
-		
 		
 		/////비밀번호 확인
 		var checkPasswdResult = false;
@@ -321,12 +320,12 @@ function execDaumPostcode() {
 			
 			///신규 등록 및 관리자가 수정할때엔 비밀번호 필요없음
 			if(isThisEmp) {
-				if(!checkPasswdResult) {
+				if($("#EMP_PASS_NEW1").val()!='' && !checkPasswdResult) {
 					alert("변경할 비밀번호가 안전하지 않습니다.");
 					return false;
 				}
 				
-				if(!checkPasswdSame) {
+				if($("#EMP_PASS_NEW1").val()!='' && !checkPasswdSame) {
 					alert("변경할 비밀번호가 일치하지 않습니다.");
 					return false;
 				}
@@ -340,7 +339,6 @@ function execDaumPostcode() {
 					privStr += i;
 				}
 				$("#PRIV_CD").val(privStr);
-				alert(privStr);
 			}
 			
 			////직전에 disable 된거 풀어주기
