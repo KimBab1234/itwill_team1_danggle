@@ -36,9 +36,12 @@ public class OutController {
 	// 출고예정 목록 조회
 	@PostMapping(value = "/OutSchListJson")
 	@ResponseBody
-	public String searchOutList(String Keyword) {
-		
-		List<OutSchVo> outSchList = service.searchOutSchList(Keyword);
+	public String searchOutList(String keyword) {
+		if(keyword == null) {
+			keyword = "";
+		}
+		System.out.println("진입 keyword - " + keyword);
+		List<OutSchVo> outSchList = service.searchOutSchList(keyword);
 		
 		JSONArray jsonAcc = new JSONArray();
 		

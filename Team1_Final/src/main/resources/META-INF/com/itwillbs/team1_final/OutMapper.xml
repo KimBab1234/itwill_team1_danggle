@@ -24,10 +24,10 @@
 	
 	<!-- 담당자 검색 -->
 	<select id="selectEmp" resultType="com.itwillbs.team1_final.vo.HrVO">
-	SELECT EMP_NUM, EMP_NAME
+	SELECT *
 		FROM emp_view
 		WHERE
-			EMP_NAME LIKE '%${keyword}%'
+			EMP_NUM LIKE '%${keyword}%'
 	</select>
 	
 	
@@ -95,23 +95,34 @@
 	</insert>
 	
 	
-	<!-- 출고 예정 조회 -->
+	<!-- 출고 예정 목록 조회 -->
 	<select id="selectOutSch" resultType="com.itwillbs.team1_final.vo.OutSchVo">
 		SELECT * FROM OUT_SCHEDULE
 			<if test='!keyword.equals("")'>
 			WHERE
 				<choose>
+					<when test='keyword.equals("0")'>
+						OUT_COMPLETE = "0"
+					</when>
 					<when test='keyword.equals("1")'>
 						OUT_COMPLETE = "1"
-					</when>
-					<when test='keyword.equals("2")'>
-						OUT_COMPLETE = "2"
 					</when>
 				</choose>
 		</if>
 	</select>
 	
 	
+	<!-- 출고 예정 목록 조회 - 출고 예정 품목 -->
+	<select id="selectPdInfo" resultType="String">
+		SELECT *
+			FROM OUT_SCHEDULE_CD = #{sOut_schesule_cd}
+	</select>
 	
+	
+	<select id="selectPdInfo">
+		SELECT *
+			FROM PRODUCT
+			WHERE PRODUCT_CD = #{sProduct_cd}
+	</select>
 
 </mapper>

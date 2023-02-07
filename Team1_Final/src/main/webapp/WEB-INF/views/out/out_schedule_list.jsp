@@ -104,7 +104,7 @@ button {
 		$.ajax({
 			url: "OutSchListJson",
 			type: "POST",
-			data : keyword : keyword,
+			data : keyword,
 			dataType: "json"
 		})
 		.done(function(response) {
@@ -117,13 +117,13 @@ button {
 							+ "<td><input type='checkbox'></td>"
 							+ "<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
 							+ "<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
-							+ "<td>" + outSchList[i].CUST_NAME + "</td>"
+							+ "<td>" + "</td>"
 							+ "<td>" + outSchList[i].EMP_NAME + "</td>"
 							+ "<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 							+ "<td>" + outSchList[i].OUT_DATE + "</td>"
 							+ "<td>" + outSchList[i].TOTAL_QTY + "</td>"
-							+ "<td onclick='openCom("+outSchList[i].OUT_SCHEDULE_CD+")'>" + outSchList[i].OUT_COMPLETE + "</td>"
-							+ "<td onclick='openWin("+outSchList[i].OUT_SCHEDULE_CD+")' class='td_color'>조회</td>"
+							+ "<td>" + outSchList[i].OUT_COMPLETE + "</td>"
+							+ "<td>조회</td>"
 							+ "</tr>";
 				$("#outListT").append(result);
 			}
@@ -136,17 +136,20 @@ button {
 	}
 	
 	$(function() {
-		let keyword = "";
-		
+		let keyword;
+
 		// 전체 / 진행중 / 완료
 		$("#outAll").click(function() {
 			keyword = "";
+			load_list(keyword);
 		});
 		$("#outPro").click(function() {
 			keyword = "0";
+			load_list(keyword);
 		});
 		$("#outCom").click(function() {
 			keyword = "1";
+			load_list(keyword);
 		});
 		
 		// 첫 목록 페이지
@@ -189,13 +192,13 @@ button {
 	<div align="center">
 		<ul class="nav nav-tabs" style="width: 755px;">
 			<li class="navli">
-				<a id="outAll">전체</a>
+				<a id="outAll" href="#">전체</a>
 			</li>
 			<li class="navli">
-				<a id="outPro">미완료</a>
+				<a id="outPro" href="#">미완료</a>
 			</li>
 			<li class="navli">
-				<a id="outCom">완료</a>
+				<a id="outCom" href="#">완료</a>
 			</li>
 		</ul><br>
 		<table id="outListT">
@@ -210,7 +213,6 @@ button {
 				<th width="400px">출고예정수량합계</th>
 				<th width="200px">종결여부</th>
 				<th width="200px">진행상태</th>
-				<th width="200px">인쇄</th>
 			</tr>
 		</table>
 	</div>
