@@ -1,21 +1,17 @@
 package com.itwillbs.team1_final.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.OutService;
@@ -36,6 +32,8 @@ public class OutController {
 	public String OutList() {
 		return "out/out_schedule_list";
 	}
+	
+	
 	
 	
 	// 출고예정 등록 창
@@ -66,16 +64,7 @@ public class OutController {
 		}
 		
 		int insertCount = service.registOutSchAndPd(outSch);
-		
 		return insertCount;
-		
-//		try {
-//			response.setCharacterEncoding("UTF-8");
-//			response.getWriter().print("성공");
-//			System.out.println("보냄");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		
 	}
 	// ----------------------------------------------------------
