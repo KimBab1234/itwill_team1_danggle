@@ -118,11 +118,11 @@
 			FROM OUT_SCHEDULE_CD = #{sOut_schesule_cd}
 	</select>
 	
-	
-	<select id="selectPdInfo">
-		SELECT *
-			FROM PRODUCT
-			WHERE PRODUCT_CD = #{sProduct_cd}
-	</select>
+<!-- 이름 바꿔주세요~! -->	
+<!-- 	<select id="selectPdInfo"> -->
+<!-- 		SELECT * -->
+<!-- 			FROM PRODUCT -->
+<!-- 			WHERE PRODUCT_CD = #{sProduct_cd} -->
+<!-- 	</select> -->
 
 </mapper>
