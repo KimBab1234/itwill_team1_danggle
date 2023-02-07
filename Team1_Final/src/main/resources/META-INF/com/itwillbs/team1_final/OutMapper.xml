@@ -24,7 +24,7 @@
 	
 	<!-- 담당자 검색 -->
 	<select id="selectEmp" resultType="com.itwillbs.team1_final.vo.HrVO">
-	SELECT *
+	SELECT EMP_NUM, EMP_NAME
 		FROM emp_view
 		WHERE
 			EMP_NAME LIKE '%${keyword}%'
@@ -95,6 +95,21 @@
 	</insert>
 	
 	
+	<!-- 출고 예정 조회 -->
+	<select id="selectOutSch" resultType="com.itwillbs.team1_final.vo.OutSchVo">
+		SELECT * FROM OUT_SCHEDULE
+			<if test='!keyword.equals("")'>
+			WHERE
+				<choose>
+					<when test='keyword.equals("1")'>
+						OUT_COMPLETE = "1"
+					</when>
+					<when test='keyword.equals("2")'>
+						OUT_COMPLETE = "2"
+					</when>
+				</choose>
+		</if>
+	</select>
 	
 	
 	

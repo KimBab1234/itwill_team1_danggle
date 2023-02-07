@@ -10,6 +10,7 @@ public class OutSchVo {
 	private String OUT_TYPE_NAME;
 	private String BUSINESS_NO;
 	private String EMP_NUM;
+	private String EMP_NAME;
 	private String OUT_COMPLETE;
 	private Date OUT_DATE;
 	private String REMARKS;
@@ -47,6 +48,12 @@ public class OutSchVo {
 	}
 	public void setEMP_NUM(String eMP_NUM) {
 		EMP_NUM = eMP_NUM;
+	}
+	public String getEMP_NAME() {
+		return EMP_NAME;
+	}
+	public void setEMP_NAME(String eMP_NAME) {
+		EMP_NAME = eMP_NAME;
 	}
 	public String getOUT_COMPLETE() {
 		return OUT_COMPLETE;
@@ -124,11 +131,11 @@ public class OutSchVo {
 	@Override
 	public String toString() {
 		return "OutSchVo [OUT_SCHEDULE_CD=" + OUT_SCHEDULE_CD + ", OUT_TYPE_NAME=" + OUT_TYPE_NAME + ", BUSINESS_NO="
-				+ BUSINESS_NO + ", EMP_NUM=" + EMP_NUM + ", OUT_COMPLETE=" + OUT_COMPLETE + ", OUT_DATE=" + OUT_DATE
-				+ ", REMARKS=" + REMARKS + ", TOTAL_QTY=" + TOTAL_QTY + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME="
-				+ PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", OUT_SCHEDULE_QTY=" + OUT_SCHEDULE_QTY + ", OUT_QTY="
-				+ OUT_QTY + ", PD_OUT_DATE=" + PD_OUT_DATE + ", PD_REMARKS=" + PD_REMARKS + ", STOCK_CD=" + STOCK_CD
-				+ "]";
+				+ BUSINESS_NO + ", EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", OUT_COMPLETE=" + OUT_COMPLETE
+				+ ", OUT_DATE=" + OUT_DATE + ", REMARKS=" + REMARKS + ", TOTAL_QTY=" + TOTAL_QTY + ", PRODUCT_CD="
+				+ PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", OUT_SCHEDULE_QTY="
+				+ OUT_SCHEDULE_QTY + ", OUT_QTY=" + OUT_QTY + ", PD_OUT_DATE=" + PD_OUT_DATE + ", PD_REMARKS="
+				+ PD_REMARKS + ", STOCK_CD=" + STOCK_CD + "]";
 	}
 	
 }

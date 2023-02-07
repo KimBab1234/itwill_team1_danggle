@@ -93,6 +93,91 @@ button {
 
 
 </style>
+
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+	var outSchList;
+	var i = 0;
+	var selectIdx;
+	
+	function load_list(keyword){
+		$.ajax({
+			url: "OutSchListJson",
+			type: "POST",
+			data : keyword : keyword,
+			dataType: "json"
+		})
+		.done(function(response) {
+			
+			outSchList =JSON.parse(response.searchOutSchList);			
+			$("#outListT").find("tr:gt(0)").remove();	
+			
+			for(var i = 0; i < outSchList.length; i++) {
+				let result = "<tr>"
+							+ "<td><input type='checkbox'></td>"
+							+ "<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
+							+ "<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
+							+ "<td>" + outSchList[i].CUST_NAME + "</td>"
+							+ "<td>" + outSchList[i].EMP_NAME + "</td>"
+							+ "<td>" + outSchList[i].PRODUCT_NAME + "</td>"
+							+ "<td>" + outSchList[i].OUT_DATE + "</td>"
+							+ "<td>" + outSchList[i].TOTAL_QTY + "</td>"
+							+ "<td onclick='openCom("+outSchList[i].OUT_SCHEDULE_CD+")'>" + outSchList[i].OUT_COMPLETE + "</td>"
+							+ "<td onclick='openWin("+outSchList[i].OUT_SCHEDULE_CD+")' class='td_color'>조회</td>"
+							+ "</tr>";
+				$("#outListT").append(result);
+			}
+			
+		})
+		.fail(function() {
+			$("#outListT").append("<h3>요청 실패!</h3>");
+		});
+		
+	}
+	
+	$(function() {
+		let keyword = "";
+		
+		// 전체 / 진행중 / 완료
+		$("#outAll").click(function() {
+			keyword = "";
+		});
+		$("#outPro").click(function() {
+			keyword = "0";
+		});
+		$("#outCom").click(function() {
+			keyword = "1";
+		});
+		
+		// 첫 목록 페이지
+		load_list(keyword);
+			
+		// 무한스크롤 기능 구현
+		$(window).scroll(function() {
+			let scrollTop = $(window).scrollTop();
+			let windowHeight = $(window).height();
+			let documentHeight = $(document).height();
+			
+			if(scrollTop + windowHeight + 1 >= documentHeight){
+				pageNum++;
+				load_list(keyword);
+			}
+			
+		});
+		
+	});
+		
+	function openWin(product_cd){
+		selectIdx = product_cd;
+		window.open('ScheduleProgress', 'schedule_progress', 'width=500, height=500, left=750, top=400');
+	}
+	
+	function openCom(product_cd){
+		selectIdx = product_cd;
+		window.open('ScheduleComplete', 'schedule_complete', 'width=500, height=500, left=750, top=400');
+	}
+	
+</script>
 </head>
 <body>
 	<header>
@@ -107,18 +192,18 @@ button {
 				<a id="outAll">전체</a>
 			</li>
 			<li class="navli">
-				<a id="outPro">진행중</a>
+				<a id="outPro">미완료</a>
 			</li>
 			<li class="navli">
 				<a id="outCom">완료</a>
 			</li>
 		</ul><br>
-		<table>
+		<table id="outListT">
 			<tr>
 				<th width="50px"><input type="checkbox"></th>
 				<th width="300px">출고예정번호</th>
 				<th width="300px">유형</th>
-				<th width="300px">보낸곳명</th>
+				<th width="300px">받는곳명</th>
 				<th width="300px">담당자명</th>
 				<th width="300px">품목명[규격]</th>
 				<th width="300px">납기일자</th>
@@ -127,7 +212,7 @@ button {
 				<th width="200px">진행상태</th>
 				<th width="200px">인쇄</th>
 			</tr>
-		</table><br>
+		</table>
 	</div>
 	<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
 	

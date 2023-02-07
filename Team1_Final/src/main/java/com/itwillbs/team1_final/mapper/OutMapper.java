@@ -34,4 +34,6 @@ public interface OutMapper {
 
 	int insertOutSchPd(OutPdVO product);
 
+	List<OutSchVo> selectOutSch(String keyword);
+
 }
