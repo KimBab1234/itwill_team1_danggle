@@ -13,18 +13,16 @@ public class InPdVO {
 	private int IN_SCHEDULE_QTY; // 입고예정수량
 	private int IN_QTY; // 입고수량 
 	
-//	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date IN_PD_DATE; // 납기일자
 	private String IN_PD_REMARKS; // 적요
 	private String IN_PD_COMPLETE; // 진행상태
-	private String STOCK_CD; // 재고번호
+
 	
 	private String IN_TYPE_CD;
 	private String BUSINESS_NO;
 	private String EMP_NUM;
 	private String REMARKS;
 	
-//	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date IN_DATE;
 	private String EMP_NAME;
 	private String CUST_NAME;
@@ -33,7 +31,52 @@ public class InPdVO {
 	
 	private int TOTAL_QTY;
 	
+	private String wh_loc_in_area; // 위치명
+	private String wh_name; // 창고 이름
+	private String wh_area; // 창고구역
+	private int stock_cd; // 재고번호
+	private int wh_loc_in_area_cd;
+	private int stock_qty;
 	
+	
+	
+	
+	public int getWh_loc_in_area_cd() {
+		return wh_loc_in_area_cd;
+	}
+	public void setWh_loc_in_area_cd(int wh_loc_in_area_cd) {
+		this.wh_loc_in_area_cd = wh_loc_in_area_cd;
+	}
+	public int getStock_qty() {
+		return stock_qty;
+	}
+	public void setStock_qty(int stock_qty) {
+		this.stock_qty = stock_qty;
+	}
+	public int getStock_cd() {
+		return stock_cd;
+	}
+	public void setStock_cd(int stock_cd) {
+		this.stock_cd = stock_cd;
+	}
+	public String getWh_loc_in_area() {
+		return wh_loc_in_area;
+	}
+	public void setWh_loc_in_area(String wh_loc_in_area) {
+		this.wh_loc_in_area = wh_loc_in_area;
+	}
+	public String getWh_name() {
+		return wh_name;
+	}
+	public void setWh_name(String wh_name) {
+		this.wh_name = wh_name;
+	}
+	public String getWh_area() {
+		return wh_area;
+	}
+	public void setWh_area(String wh_area) {
+		this.wh_area = wh_area;
+	}
 	
 	
 	public int getTOTAL_QTY() {
@@ -115,12 +158,7 @@ public class InPdVO {
 	public void setIN_PD_COMPLETE(String iN_PD_COMPLETE) {
 		IN_PD_COMPLETE = iN_PD_COMPLETE;
 	}
-	public String getSTOCK_CD() {
-		return STOCK_CD;
-	}
-	public void setSTOCK_CD(String sTOCK_CD) {
-		STOCK_CD = sTOCK_CD;
-	}
+
 	
 	public int getPRODUCT_CD() {
 		return PRODUCT_CD;
@@ -157,13 +195,12 @@ public class InPdVO {
 		return "InPdVO [IN_PD_SCHEDULE_CD=" + IN_PD_SCHEDULE_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME="
 				+ PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", IN_SCHEDULE_QTY=" + IN_SCHEDULE_QTY + ", IN_QTY="
 				+ IN_QTY + ", IN_PD_DATE=" + IN_PD_DATE + ", IN_PD_REMARKS=" + IN_PD_REMARKS + ", IN_PD_COMPLETE="
-				+ IN_PD_COMPLETE + ", STOCK_CD=" + STOCK_CD + ", IN_TYPE_CD=" + IN_TYPE_CD + ", BUSINESS_NO="
-				+ BUSINESS_NO + ", EMP_NUM=" + EMP_NUM + ", REMARKS=" + REMARKS + ", IN_DATE=" + IN_DATE + ", EMP_NAME="
-				+ EMP_NAME + ", CUST_NAME=" + CUST_NAME + ", toString()=" + super.toString() + "]";
+				+ IN_PD_COMPLETE + ", IN_TYPE_CD=" + IN_TYPE_CD + ", BUSINESS_NO=" + BUSINESS_NO + ", EMP_NUM="
+				+ EMP_NUM + ", REMARKS=" + REMARKS + ", IN_DATE=" + IN_DATE + ", EMP_NAME=" + EMP_NAME + ", CUST_NAME="
+				+ CUST_NAME + ", in_product_cd=" + in_product_cd + ", TOTAL_QTY=" + TOTAL_QTY + ", wh_loc_in_area="
+				+ wh_loc_in_area + ", wh_name=" + wh_name + ", wh_area=" + wh_area + ", stock_cd=" + stock_cd
+				+ ", wh_loc_in_area_cd=" + wh_loc_in_area_cd + ", stock_qty=" + stock_qty + "]";
 	}
-	
-	
-	
-	
+
 	
 }
