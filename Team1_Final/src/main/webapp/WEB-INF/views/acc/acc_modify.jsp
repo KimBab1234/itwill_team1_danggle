@@ -123,13 +123,13 @@ table {
 					<tr>
 						<td>거래처코드 &nbsp;</td>
 						<td colspan="4"><input type="radio" name="G_GUBUN" value="01"
-							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if>>사업자등록번호
+							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if> onclick="return(false);">사업자등록번호
 							<input type="radio" name="G_GUBUN" value="02"
-							<c:if test="${acc.g_GUBUN eq '02' }">checked</c:if>>해외사업자등록번호
+							<c:if test="${acc.g_GUBUN eq '02' }">checked</c:if> onclick="return(false);">해외사업자등록번호
 							<input type="radio" name="G_GUBUN" value="03"
-							<c:if test="${acc.g_GUBUN eq '03' }">checked</c:if>>주민등록번호
+							<c:if test="${acc.g_GUBUN eq '03' }">checked</c:if> onclick="return(false);">주민등록번호
 							<input type="radio" name="G_GUBUN" value="04"
-							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if>>외국인&nbsp;</td>
+							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if> onclick="return(false);">외국인&nbsp;</td>
 					</tr>
 					<tr>
 						<td>업태 &nbsp;</td>

@@ -88,6 +88,10 @@ table {
 			}
 		});
 	});
+	
+// 	$(function() {
+// 		$("input[type=radio]").attr('disables',true);
+// 	});
 </script>
 </head>
 <body>
@@ -120,13 +124,13 @@ table {
 					<tr>
 						<td>거래처코드 &nbsp;</td>
 						<td colspan="4"><input type="radio" name="G_GUBUN" value="01"
-							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if>>사업자등록번호
+							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if> onclick="return(false);">사업자등록번호
 							<input type="radio" name="G_GUBUN" value="02"
-							<c:if test="${acc.g_GUBUN eq '02' }">checked</c:if>>해외사업자등록번호
+							<c:if test="${acc.g_GUBUN eq '02' }">checked</c:if> onclick="return(false);">해외사업자등록번호
 							<input type="radio" name="G_GUBUN" value="03"
-							<c:if test="${acc.g_GUBUN eq '03' }">checked</c:if>>주민등록번호
+							<c:if test="${acc.g_GUBUN eq '03' }">checked</c:if> onclick="return(false);">주민등록번호
 							<input type="radio" name="G_GUBUN" value="04"
-							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if>>외국인&nbsp;</td>
+							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if> onclick="return(false);">외국인&nbsp;</td>
 					</tr>
 					<tr>
 						<td>업태 &nbsp;</td>
@@ -141,25 +145,25 @@ table {
 					<tr>
 						<td>대표전화번호 &nbsp;</td>
 						<td colspan="4"><input type="text" name="TEL1" id="TEL1"
-							size="7" maxlength="3" value="${acc.TEL1 }">-<input type="text" name="TEL2"
-							id="TEL2" size="7" maxlength="4" value="${acc.TEL2 }">-<input type="text"
-							name="TEL3" id="TEL3" size="7" maxlength="4" value="${acc.TEL3 }">
+							size="7" maxlength="3" value="${acc.TEL1 }" readonly="readonly">-<input type="text" name="TEL2"
+							id="TEL2" size="7" maxlength="4" value="${acc.TEL2 }" readonly="readonly">-<input type="text"
+							name="TEL3" id="TEL3" size="7" maxlength="4" value="${acc.TEL3 }" readonly="readonly">
 							</td>
 					</tr>
 					<tr>
 						<td>모바일</td>
 						<td colspan="4"><input type="text" name="MOBILE_NO1"
-							id="MOBILE_NO1" size="7" maxlength="3" value="${acc.MOBILE_NO1 }">-<input
+							id="MOBILE_NO1" size="7" maxlength="3" value="${acc.MOBILE_NO1 }" readonly="readonly">-<input
 							type="text" name="MOBILE_NO2" id="MOBILE_NO2" size="7"
-							maxlength="4" value="${acc.MOBILE_NO2 }">-<input type="text" name="MOBILE_NO3"
-							id="MOBILE_NO3" size="7" maxlength="4" value="${acc.MOBILE_NO3 }"></td>
+							maxlength="4" value="${acc.MOBILE_NO2 }" readonly="readonly">-<input type="text" name="MOBILE_NO3"
+							id="MOBILE_NO3" size="7" maxlength="4" value="${acc.MOBILE_NO3 }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>E-Mail</td>
 						<td colspan="4"><input type="text" name="EMAIL1" id="EMAIL1"
-							size="10" maxlength="20" value="${acc.EMAIL1 }">@<input type="text"
-							name="EMAIL2" id="EMAIL2" size="10" value="${acc.EMAIL2 }"> <select
-							name="selectDomain" id="domain">
+							size="10" maxlength="20" value="${acc.EMAIL1 }" readonly="readonly">@<input type="text"
+							name="EMAIL2" id="EMAIL2" size="10" value="${acc.EMAIL2 }" readonly="readonly"> <select
+							name="selectDomain" id="domain" disabled="disabled">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
@@ -195,7 +199,7 @@ table {
 					<tr>
 						<td>적요</td>
 						<td colspan="4"><textarea cols="50" rows="10" name="REMARKS"
-								id="REMARKS" >${acc.REMARKS }</textarea></td>
+								id="REMARKS" readonly="readonly">${acc.REMARKS }</textarea></td>
 					</tr>
 					<tr>
 						<td>담당자명</td>

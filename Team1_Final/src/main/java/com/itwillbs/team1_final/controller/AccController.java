@@ -202,7 +202,7 @@ public class AccController {
 		acc.setADDR1(acc.getADDR().split(",")[0]);
 		acc.setADDR2(acc.getADDR().split(",")[1]);
 
-		if(!acc.getBUSINESS_NO3().equals("")) {// 받아온 거래처코드가 주민번호가 아닐때
+		if(!acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {// 받아온 거래처코드가 주민번호가 아닐때
 			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
 			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
 			acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
