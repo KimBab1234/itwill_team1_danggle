@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 
 <style type="text/css">
 table {
-	font-size: 15px;
+	font-size: 30px;
 }
 </style>
 <script
@@ -87,6 +88,75 @@ table {
 			}
 		});
 	});
+	
+	
+	$(function() {
+		// 거래처코드 중복 체크
+		$("#BUSINESS_NO3").on("change",function(){
+// 		var business_no = $("#BUSINESS_NO1").val();+"-"+$("#BUSINESS_NO2").val()+"-"+$("#BUSINESS_NO3").val();
+			$.ajax({
+				type:"GET",
+				url: "accCheckBusinessNo",
+				data: {
+					"BUSINESS_NO1": $("#BUSINESS_NO1").val(),
+					"BUSINESS_NO2": $("#BUSINESS_NO2").val(),
+					"BUSINESS_NO3": $("#BUSINESS_NO3").val()
+				},
+				success: function(data) {
+					if(data == "true"){
+						$("#accResult").html("이미 존재하는 거래처").css("color", "red");
+					}else {
+						$("#accResult").html("등록 가능한 거래처").css("color", "blue");	
+					}	
+				}
+			});
+		});
+		
+		$("#BUSINESS_NO2").on("change",function(){
+//	 		var business_no = $("#BUSINESS_NO1").val();+"-"+$("#BUSINESS_NO2").val()+"-"+$("#BUSINESS_NO3").val();
+				$.ajax({
+					type:"GET",
+					url: "accCheckBusinessNo",
+					data: {
+						"BUSINESS_NO1": $("#BUSINESS_NO1").val(),
+						"BUSINESS_NO2": $("#BUSINESS_NO2").val(),
+						"BUSINESS_NO3": $("#BUSINESS_NO3").val()
+					},
+					success: function(data) {
+						if(data == "true"){
+							$("#accResult").html("이미 존재하는 거래처").css("color", "red");
+						}else {
+							$("#accResult").html("등록 가능한 거래처").css("color", "blue");	
+						}	
+					}
+				});
+			});
+
+
+		///주민번호, 사업자번호 등등 선택했을때 바꾸는 부분
+		$("input[type=radio][name=G_GUBUN]").on("click", function() {
+			if($(this).val()=="03") {
+				$("#busiArea").css("display","none");
+				$("#BUSINESS_NO1").prop("maxlength","6");
+				$("#BUSINESS_NO2").prop("maxlength","7");
+				$("#BUSINESS_NO2").prop("type","password");
+				$("#BUSINESS_NO1").prop("size","10");
+				$("#BUSINESS_NO2").prop("size","10");
+				$("#BUSINESS_NO1").val('');
+				$("#BUSINESS_NO2").val('');
+				$("#BUSINESS_NO3").val('');
+			} else {
+				$("#busiArea").css("display","inline-block");
+				$("#BUSINESS_NO1").prop("maxlength","3");
+				$("#BUSINESS_NO2").prop("maxlength","2");
+				$("#BUSINESS_NO2").prop("type","text");
+				$("#BUSINESS_NO1").val('');
+				$("#BUSINESS_NO2").val('');
+				$("#BUSINESS_NO3").val('');
+			}
+		});
+		
+	}); // ready 끝
 </script>
 </head>
 <body>
@@ -113,21 +183,25 @@ table {
 							id="BOSS_NAME" required="required"></td>
 					</tr>
 					<tr>
-						<td>거래처코드</td>
-						<td><input type="text" name="BUSINESS_NO1" id="BUSINESS_NO1"
-							required="required" size="7" maxlength="3">-<input
-							type="text" name="BUSINESS_NO2" id="BUSINESS_NO2"
-							required="required" size="7" maxlength="2">-<input
-							type="text" name="BUSINESS_NO3" id="BUSINESS_NO3"
-							required="required" maxlength="5"></td>
-					</tr>
-					<tr>
-						<td>거래처코드 &nbsp;</td>
+						<td>거래처코드구분 &nbsp;</td>
 						<td colspan="4"><input type="radio" name="G_GUBUN" value="01"
 							checked="checked">사업자등록번호 <input type="radio"
 							name="G_GUBUN" value="02">해외사업자등록번호 <input type="radio"
-							name="G_GUBUN" value="03">주민등록번호 <input type="radio"
+							name="G_GUBUN" value="03">주민등록번호
+							 <input type="radio"
 							name="G_GUBUN" value="04">외국인&nbsp;</td>
+					</tr>
+					<tr>
+						<td>거래처코드</td>
+						<td>
+						<input type="text" name="BUSINESS_NO1" id="BUSINESS_NO1"
+							required="required" size="7" maxlength="3">-<input
+							type="text" name="BUSINESS_NO2" id="BUSINESS_NO2"
+							required="required" size="7" maxlength="2"><span id="busiArea">-<input
+							type="text" name="BUSINESS_NO3" id="BUSINESS_NO3"
+							required="required" maxlength="5"></span>
+							<span id="accResult"><!-- 거래처코드 중복 확인 메세지 표시 --></span>
+							</td>
 					</tr>
 					<tr>
 						<td>업태 &nbsp;</td>
@@ -204,10 +278,10 @@ table {
 					</tr>
 					<tr>
 						<td>담당자 전화번호</td>
-						<td colspan="4"><input type="text" name="MAN_TEL1"
-							id="MAN_TEL1" size="7" maxlength="3">-<input type="text"
-							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4">-<input
-							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4"></td>
+						<td colspan="4"><input type="text" name="MAN_TEL1" id="MAN_TEL1"
+							size="7" maxlength="3">-<input type="text" name="MAN_TEL2"
+							id="MAN_TEL2" size="7" maxlength="4">-<input type="text"
+							name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4"></td>
 					</tr>
 					<tr>
 						<td>담당자 이메일</td>
@@ -221,8 +295,10 @@ table {
 								<option value="google.com">google.com</option>
 						</select></td>
 					</tr>
-					<tr>
-						<td colspan="5"><input type="submit" value="등록"></td>
+					<tr align="center">
+						<td colspan="5"><input type="submit" value="등록">
+						<input type="button" value="뒤로가기" onclick="location.href='AccList'">
+						</td>
 					</tr>
 				</table>
 			</form>

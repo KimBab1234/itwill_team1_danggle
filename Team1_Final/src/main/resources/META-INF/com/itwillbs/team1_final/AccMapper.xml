@@ -6,7 +6,7 @@
 <insert id="insertAcc">
 	INSERT INTO acc
 		VALUES (
-			CONCAT(#{BUSINESS_NO1},'-',#{BUSINESS_NO2},'-',#{BUSINESS_NO3})
+			#{BUSINESS_NO}
 			,#{CUST_NAME}
 			,#{BOSS_NAME}
 			,#{UPTAE}
@@ -65,12 +65,10 @@
 <!-- 거래처 목록 조회 -->
 	<select id="accList" resultType="com.itwillbs.team1_final.vo.AccVO">
 	SELECT * 
-			FROM acc -- 이후 작업 분기 일어남 
+			FROM acc 
 			 <if test="!keyword.equals('')">
 			 	WHERE
-<!-- 					2. 검색타입(searchType) 에 따른 WHERE 대상 변경 		 -->
-<!-- 					=> 조건이 복수개이므로 choose 태그 사용 -->
-					<choose>
+			 		<choose>
 						<when test="searchType.equals('BUSINESS_NO')">
 							BUSINESS_NO LIKE '%${keyword}%'
 						</when>
@@ -102,7 +100,7 @@
 	<!-- 거래처 전체 갯수 조회 -->
 	<select id="accListCount" resultType="int">
 		SELECT COUNT(*)
-			FROM acc -- 이후 작업 분기 일어남
+			FROM acc
 			<if test="!keyword.equals('')">
 				WHERE
 				<!-- 2. 검색타입(searchType) 에 따른 WHERE 대상 변경 -->
@@ -115,7 +113,7 @@
 							CUST_NAME LIKE '%${keyword}%'
 						</when>
 						<when test="searchType.equals('UPTAE')">
-							UPTAE LIKE '%${keyword}'
+							UPTAE LIKE '%${keyword}%'
 						</when>
 						<when test="searchType.equals('JONGMOK')">
 							JONGMOK LIKE '%${keyword}%'
@@ -151,31 +149,71 @@
 	<update id="accModify">
 		UPDATE acc
 			SET
-				CUST_NAME = #{CUST_NAME}
+				 CUST_NAME = #{CUST_NAME}
 				,BOSS_NAME = #{BOSS_NAME}
 				,UPTAE = #{UPTAE}
 				,JONGMOK = #{JONGMOK}
-				, <choose>
-					<when test='#{TEL1 == ""}'>
-						TEL = ''
+				,TEL =  
+				<choose>
+					<when test='TEL1.equals("")'>
+						''
 					</when>
 					<otherwise>
-						TEL = CONCAT(#{TEL1},'-',#{TEL2},'-',#{TEL3})
+						CONCAT(#{TEL1},'-',#{TEL2},'-',#{TEL3})
 					</otherwise>
 				</choose>
-				,EMAIL = CONCAT(#{EMAIL1},'@',#{EMAIL2})
+				,EMAIL = 
+				<choose>
+					<when test='EMAIL1.equals("")'>
+						''
+					</when>
+					<otherwise>
+						CONCAT(#{EMAIL1},'@',#{EMAIL2})
+					</otherwise>
+				</choose>
 				,POST_NO = #{POST_NO}
-				,ADDR = CONCAT(#{ADDR1},',',#{ADDR2})
+				,ADDR = 
+				<choose>
+					<when test='ADDR1.equals("")'>
+						''
+					</when>
+					<otherwise>
+						CONCAT(#{ADDR1},',',#{ADDR2})
+					</otherwise>
+				</choose>
 				,G_GUBUN = #{G_GUBUN}
 				,FAX = #{FAX}
-				,MOBILE_NO = CONCAT(#{MOBILE_NO1},'-',#{MOBILE_NO2},'-',#{MOBILE_NO3})
+				,MOBILE_NO = 
+				<choose>
+					<when test='MOBILE_NO1.equals("")'>
+						''
+					</when>
+					<otherwise>
+						CONCAT(#{MOBILE_NO1},'-',#{MOBILE_NO2},'-',#{MOBILE_NO3})
+					</otherwise>
+				</choose>
 				,MAN_NAME = #{MAN_NAME}
-				,MAN_TEL = CONCAT(#{MAN_TEL1},'-',#{MAN_TEL2},'-',#{MAN_TEL3})
-				,MAN_EMAIL = CONCAT(#{MAN_EMAIL1},'@',#{MAN_EMAIL2})
+				,MAN_EMAIL = 
+				<choose>
+					<when test='MAN_EMAIL1.equals("")'>
+						''
+					</when>
+					<otherwise>
+						CONCAT(#{MAN_EMAIL1},'@',#{MAN_EMAIL2})
+					</otherwise>
+				</choose>
+				,MAN_TEL = #{MAN_TEL}
 				,REMARKS = #{REMARKS}
-				WHERE BUSINESS_NO = #{BUSINESS_NO}
+					WHERE BUSINESS_NO = #{BUSINESS_NO}
 	</update>
 	
+	<!-- 거래처 코드명 중복 확인 -->
+	<select id="busiCount" resultType="int">
+		SELECT
+			COUNT(BUSINESS_NO)
+				FROM acc
+				WHERE BUSINESS_NO = #{BUSINESS_NO}
+	</select>
 </mapper>
 
 
