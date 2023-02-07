@@ -34,7 +34,7 @@ th{
 			$(".bookTable").find("tr:gt(0)").remove();
 	
 			for(var i = 0; i < proList.length; i++) {
-	
+
 				let result = "<tr>"
 							+ "<td><input type='checkbox'></td>"
 							+ "<td onclick='openUpdate("+i+")' class='td_color'>" +proList[i].IN_PD_SCHEDULE_CD + "</td>"

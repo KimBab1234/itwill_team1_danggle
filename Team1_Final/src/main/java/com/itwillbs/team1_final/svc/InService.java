@@ -71,8 +71,6 @@ public class InService {
 			product.setIN_PD_REMARKS(remarkArr.get(i));
 			
 			count += mapper.insertIncomingProduct(product);
-			
-			
 		}
 		
 		return count;
@@ -99,8 +97,6 @@ public class InService {
 					inList.get(i).setPRODUCT_NAME(product_size);
 				}
 			}
-			
-			
 		}
 		
 		for(int i = 0; i < inList.size(); i++) {
@@ -183,10 +179,18 @@ public class InService {
 		return inList;
 	}
 
-	public List<InVO> getProductDetail() {
+	public InPdVO getProductInfo(String product_cd, String product_name) {
+		InPdVO productInfo = mapper.selectProductInfo(product_cd, product_name);
 		
-		return mapper.selectProductDetail();
+		// 입고 예정 코드 다시 날짜(String)으로 바꿔주기
+		String pro_cd = productInfo.getIN_PD_SCHEDULE_CD();
+		productInfo.setIN_PD_SCHEDULE_CD(pro_cd.split("-")[0]);
+
+		return productInfo;
+		
 	}
+
+
 
 	
 

@@ -2,6 +2,8 @@ package com.itwillbs.team1_final.vo;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class InPdVO {
 	
 	private String IN_PD_SCHEDULE_CD; // 입고예정코드
@@ -10,17 +12,67 @@ public class InPdVO {
 	private String SIZE_DES; // 규격
 	private int IN_SCHEDULE_QTY; // 입고예정수량
 	private int IN_QTY; // 입고수량 
+	
+//	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date IN_PD_DATE; // 납기일자
 	private String IN_PD_REMARKS; // 적요
 	private String IN_PD_COMPLETE; // 진행상태
 	private String STOCK_CD; // 재고번호
-	private int NO_IN_QTY;
 	
-	public int getNO_IN_QTY() {
-		return NO_IN_QTY;
+	private String IN_TYPE_CD;
+	private String BUSINESS_NO;
+	private String EMP_NUM;
+	private String REMARKS;
+	
+//	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date IN_DATE;
+	private String EMP_NAME;
+	private String CUST_NAME;
+	
+	
+	
+	
+	public String getIN_TYPE_CD() {
+		return IN_TYPE_CD;
 	}
-	public void setNO_IN_QTY(int nO_IN_QTY) {
-		NO_IN_QTY = nO_IN_QTY;
+	public void setIN_TYPE_CD(String iN_TYPE_CD) {
+		IN_TYPE_CD = iN_TYPE_CD;
+	}
+	public String getBUSINESS_NO() {
+		return BUSINESS_NO;
+	}
+	public void setBUSINESS_NO(String bUSINESS_NO) {
+		BUSINESS_NO = bUSINESS_NO;
+	}
+	public String getEMP_NUM() {
+		return EMP_NUM;
+	}
+	public void setEMP_NUM(String eMP_NUM) {
+		EMP_NUM = eMP_NUM;
+	}
+	public String getREMARKS() {
+		return REMARKS;
+	}
+	public void setREMARKS(String rEMARKS) {
+		REMARKS = rEMARKS;
+	}
+	public Date getIN_DATE() {
+		return IN_DATE;
+	}
+	public void setIN_DATE(Date iN_DATE) {
+		IN_DATE = iN_DATE;
+	}
+	public String getEMP_NAME() {
+		return EMP_NAME;
+	}
+	public void setEMP_NAME(String eMP_NAME) {
+		EMP_NAME = eMP_NAME;
+	}
+	public String getCUST_NAME() {
+		return CUST_NAME;
+	}
+	public void setCUST_NAME(String cUST_NAME) {
+		CUST_NAME = cUST_NAME;
 	}
 	public String getIN_PD_SCHEDULE_CD() {
 		return IN_PD_SCHEDULE_CD;
@@ -89,9 +141,10 @@ public class InPdVO {
 		return "InPdVO [IN_PD_SCHEDULE_CD=" + IN_PD_SCHEDULE_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME="
 				+ PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", IN_SCHEDULE_QTY=" + IN_SCHEDULE_QTY + ", IN_QTY="
 				+ IN_QTY + ", IN_PD_DATE=" + IN_PD_DATE + ", IN_PD_REMARKS=" + IN_PD_REMARKS + ", IN_PD_COMPLETE="
-				+ IN_PD_COMPLETE + ", STOCK_CD=" + STOCK_CD + ", toString()=" + super.toString() + "]";
+				+ IN_PD_COMPLETE + ", STOCK_CD=" + STOCK_CD + ", IN_TYPE_CD=" + IN_TYPE_CD + ", BUSINESS_NO="
+				+ BUSINESS_NO + ", EMP_NUM=" + EMP_NUM + ", REMARKS=" + REMARKS + ", IN_DATE=" + IN_DATE + ", EMP_NAME="
+				+ EMP_NAME + ", CUST_NAME=" + CUST_NAME + ", toString()=" + super.toString() + "]";
 	}
-	
 	
 	
 	

@@ -128,6 +128,16 @@
 	<!-- 입고 처리 목록 -->
 	<select id="selectProgressList" resultType="com.itwillbs.team1_final.vo.InListVO">
 		SELECT *
-			FROM in_process_view
+			FROM in_product_info_view
+	</select>
+	
+	<!-- 입고 예정 수정 폼 -->
+	<select id="selectProductInfo" resultType="com.itwillbs.team1_final.vo.InPdVO">
+		SELECT *
+			FROM in_product_info_view
+			WHERE 
+				IN_PD_SCHEDULE_CD = '${product_cd}'
+			AND
+				PRODUCT_NAME = '${product_name}'
 	</select>
 </mapper>
