@@ -17,8 +17,9 @@
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 
-// 전체선택 버튼 누르면 전체 선택, 취소
+
 	$(function() {
+		// 전체선택 버튼 누르면 전체 선택, 취소
 	$("#accAllCheck").on("change", function() {
          if($("#accAllCheck").is(":checked")) {
             $(":checkbox").each(function(index, item) {
@@ -28,8 +29,37 @@
             $(":checkbox").prop("checked", false);
          }
       });
+
+		// 체크한 거래처만 삭제
+		$("#deleteAcc").on("click",function(){
+			
+			if(confirm("거래처를 지우시겠습니까?")){
+			let accListArr = new Array();
+			let accList = $("input[name='selectAccList']:checked");
+			
+			for(var i = 0; i < accList.length; i++){
+					if(accList[i].checked){
+						accListArr.push(accList[i].value);
+						alert("accListArr : "+ accListArr);
+					}		
+				}
+			
+			// 체크박스 선택없이 삭제 버튼 누를 때
+			if(accList.length == 0){
+				alert("선택된 거래처가 없습니다!");
+			} else {
+				$.ajax({
+					url : "deleteAccList",
+					type : 'POST',
+					
+				});
+			}
+			
+			}
+		});
 	});
 
+	
 	</script>
 </head>
 <body>
@@ -43,7 +73,7 @@
 	
 	<form action="AccList">
 		<h1>거래처 목록 리스트</h1>
-		<select name="accName" id="accName">
+		<select name="searchType" id="accName" >
 			<option id="BUSINESS_NO" value="BUSINESS_NO">거래처코드</option>
 			<option id="CUST_NAME" value="CUST_NAME">거래처명</option>
 			<option id="UPTAE" value="UPTAE">업태</option>
@@ -70,7 +100,7 @@
 				</tr>
 				<c:forEach var="acc" items="${acc }">
 				<tr>
-					<td><input type="checkbox" id="accCheck"></td>
+					<td><input type="checkbox" id="accCheck" name="selectAccList" value="${acc.BUSINESS_NO }"></td>
 					<td>${acc.CUST_NAME }</td>
 					<c:choose>
 					<c:when test="${empty param.pageNum }">
@@ -93,8 +123,9 @@
 			</table>
 			<br>
 			<div align="right">
-			<input type="button" name="modifyAcc" value="수정" onclick="location.href='AccModify'">&nbsp;
-			<input type="button" name="deleteAcc" value="삭제" onclick="location.href='AccDelete'">
+			<input type="button" name="deleteAcc" value="신규등록" onclick="location.href='AccRegist'">
+			<input type="button" name="modifyAcc"  value="수정" onclick="location.href='AccModify'">&nbsp;
+			<input type="button" name="deleteAcc" id="deleteAcc" value="삭제" onclick="location.href='AccDelete'">
 			</div>
 			<div align="center">
 					<section id="pageList">

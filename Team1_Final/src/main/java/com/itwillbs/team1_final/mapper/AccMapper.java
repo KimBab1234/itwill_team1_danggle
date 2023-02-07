@@ -24,4 +24,6 @@ public interface AccMapper {
 	int accListCount(@Param("searchType") String searchType,
 					 @Param("keyword") String keyword);
 
+	int busiCount(String BUSINESS_NO);
+
 }

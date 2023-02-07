@@ -88,6 +88,8 @@ table {
 			}
 		});
 	});
+	
+	
 </script>
 </head>
 <body>
@@ -106,12 +108,12 @@ table {
 					<tr>
 						<td>회사명 &nbsp;</td>
 						<td colspan="4"><input type="text" name="CUST_NAME"
-							id="CUST_NAME" readonly="readonly" value="${acc.CUST_NAME }"></td>
+							id="CUST_NAME" required="required" value="${acc.CUST_NAME }"></td>
 					</tr>
 					<tr>
 						<td>대표자명</td>
 						<td colspan="4"><input type="text" name="BOSS_NAME"
-							id="BOSS_NAME" readonly="readonly" value="${acc.BOSS_NAME}"></td>
+							id="BOSS_NAME" required="required" value="${acc.BOSS_NAME}"></td>
 					</tr>
 					<tr>
 						<td>거래처코드</td>
@@ -132,12 +134,12 @@ table {
 					<tr>
 						<td>업태 &nbsp;</td>
 						<td colspan="4"><input type="text" name="UPTAE" id="UPTAE"
-							readonly="readonly" value="${acc.UPTAE }"></td>
+							required="required" value="${acc.UPTAE }"></td>
 					</tr>
 					<tr>
 						<td>종목</td>
 						<td colspan="4"><input type="text" name="JONGMOK"
-							id="JONGMOK" readonly="readonly" value="${acc.JONGMOK }"></td>
+							id="JONGMOK" required="required" value="${acc.JONGMOK }"></td>
 					</tr>
 					<tr>
 						<td>대표전화번호 &nbsp;</td>
@@ -171,18 +173,18 @@ table {
 						<td>우편번호 &nbsp;</td>
 						<td colspan="3"><input type="text" name="POST_NO"
 							id="POST_NO" placeholder="우편번호" value="${acc.POST_NO }"
-							readonly="readonly" size="15" > <input type="button"
+							required="required" size="15" > <input type="button"
 							id="postbutton" onclick="execDaumPostcode()" value="찾기"></td>
 					</tr>
 					<tr>
 						<td>주소 &nbsp;</td>
 						<td colspan="4"><input type="text" name="ADDR1" id="ADDR1"
-							readonly="readonly" size="50px" readonly="readonly" value="${acc.ADDR1 }"></td>
+							required="required" size="50px" readonly="readonly" value="${acc.ADDR1 }"></td>
 					</tr>
 					<tr>
 						<td>상세주소</td>
 						<td colspan="4"><input type="text" name="ADDR2" id="ADDR2"
-							readonly="readonly" maxlength="20" value="${acc.ADDR2 }"></td>
+							required="required" maxlength="20" value="${acc.ADDR2 }"></td>
 					</tr>
 					<tr>
 						<td>홈페이지</td>
