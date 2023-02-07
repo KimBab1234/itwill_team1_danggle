@@ -38,5 +38,11 @@ public interface OutMapper {
 	// 출고 예정 목록 조회
 	List<OutSchVo> selectOutSch(String keyword);
 
+	OutSchVo selectOutPdName(String outSchCd);
+
+	int selectExtraPdCount(String outSchCd);
+
+
+
 
 }

@@ -45,12 +45,12 @@
 			var numberClass = $(".out_schedule_qty").length;
 			let sum = 0;
 			for(var i= 0; i < numberClass; i++){
-				sum += Number($("input[type=number][name=OUT_SCHEDULE_QTY]").eq(i).val());
+				sum += Number($("input[type=number][name=OUT_SCHEDULE_QTY_Arr]").eq(i).val());
 			}
 			$("input[type=number][name=TOTAL_QTY]").val(sum);
 		};
 		
-		$("input[type=number][name=OUT_SCHEDULE_QTY]").on("change", function() {
+		$("input[type=number][name=OUT_SCHEDULE_QTY_Arr]").on("change", function() {
 			$.total();
 		});
 		
@@ -59,17 +59,17 @@
 			$("#optionArea").append(
 					'<tr class="idx">' 
 					+ '<td>'
-					+ 	'<input type="text" class="product_cd" name="PRODUCT_CD" ondblclick="searchPd()">'
+					+ 	'<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">'
 					+ 	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
 				    + '</td>'
 					+ '<td>'
-					+	'<input type="text" class="product_name" name="PRODUCT_NAME" ondblclick="searchPd()">'
+					+	'<input type="text" class="product_name" name="PRODUCT_NAME_Arr" ondblclick="searchPd()">'
 					+	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
 					+ '</td>'
-					+ '<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>'
-					+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY"></td>'
-					+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE"></td>'
-					+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>'
+					+ '<td><input type="text" class="size_des" name="SIZE_DES_Arr" readonly="readonly"></td>'
+					+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr"></td>'
+					+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>'
+					+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>'
 				    + '</tr>'
 			);
 
@@ -220,17 +220,17 @@
 				</tr>
 				<tr class="idx">
 					<td>
-						<input type="text" class="product_cd" name="PRODUCT_CD" ondblclick="searchPd()">
+						<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
 					</td>
 					<td>
-						<input type="text" class="product_name" name="PRODUCT_NAME" ondblclick="searchPd()">
+						<input type="text" class="product_name" name="PRODUCT_NAME_Arr" ondblclick="searchPd()">
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
 					</td>
-					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
-					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
-					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE"></td>
-					<td><input type="text" class="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>
+					<td><input type="text" class="size_des" name="SIZE_DES_Arr" readonly="readonly"></td>
+					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
+					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
+					<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
 				</tr>
 				<tbody id="optionArea"></tbody>
 				<tr>

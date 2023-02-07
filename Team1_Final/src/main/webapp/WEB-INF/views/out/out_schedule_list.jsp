@@ -114,25 +114,29 @@ button {
 			$("#outListT").find("tr:gt(0)").remove();	
 			
 			for(var i = 0; i < outSchList.length; i++) {
-				let result = "<tr>"
-					+ "<td><input type='checkbox'></td>"
-					+ "<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
-					+ "<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
-					+ "<td>" + "</td>"
-					+ "<td>" + outSchList[i].EMP_NAME + "</td>"
-					+ "<td>" + outSchList[i].PRODUCT + "</td>"
-					+ "<td>" + outSchList[i].OUT_DATE + "</td>"
-					+ "<td>" + outSchList[i].TOTAL_QTY + "</td>";
+				let result =
+					  "<tr>"
+					+ "		<td><input type='checkbox'></td>"
+					+ "		<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
+					+ "		<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
+					+ "		<td></td>"
+					+ "		<td>" + outSchList[i].EMP_NAME + "</td>"
+					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
+					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
+					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
+					+ "		<td>" + outSchList[i].OUT_COMPLETE +"</td>"
+					+ "		<td>조회</td>";
+					+ "</tr>";
 					
-					if("${outSchList[i].OUT_COMPLETE eq 0 }" ) {
-						result += "<td>종결</td>";
-					} else {
-						result += "<td>취소</td>";
-					}
+					// 시도했으나 오류가 심함
+// 					if("${outSchList[i].OUT_COMPLETE }" == '0' ) {
+// 						result += "<td>종결</td>";
+// 					} else {
+// 						result += "<td>취소</td>";
+// 					}
 
-					result += "<td>조회</td>"
-							+ "</tr>";
-				console.log(result);
+// 					result += "<td>조회</td>"
+// 							+ "</tr>";
 				$("#outListT").append(result);
 			}
 		})
@@ -143,37 +147,37 @@ button {
 	}
 	
 	$(function() {
-		let keyword;
-
-		// 전체 / 진행중 / 완료
-		$("#outAll").click(function() {
-			keyword = "";
-			load_list(keyword);
-		});
-		$("#outPro").click(function() {
-			keyword = "0";
-			load_list(keyword);
-		});
-		$("#outCom").click(function() {
-			keyword = "1";
-			load_list(keyword);
-		});
-		
 		// 첫 목록 페이지
+		let keyword = "";
 		load_list(keyword);
+
+// 		// 전체 / 진행중 / 완료
+// 		$("#outAll").click(function() {
+// 			keyword = "";
+// 			load_list(keyword);
+// 		});
+// 		$("#outPro").click(function() {
+// 			keyword = "0";
+// 			load_list(keyword);
+// 		});
+// 		$("#outCom").click(function() {
+// 			keyword = "1";
+// 			load_list(keyword);
+// 		});
+		
 			
 		// 무한스크롤 기능 구현
-		$(window).scroll(function() {
-			let scrollTop = $(window).scrollTop();
-			let windowHeight = $(window).height();
-			let documentHeight = $(document).height();
+// 		$(window).scroll(function() {
+// 			let scrollTop = $(window).scrollTop();
+// 			let windowHeight = $(window).height();
+// 			let documentHeight = $(document).height();
 			
-			if(scrollTop + windowHeight + 1 >= documentHeight){
-				pageNum++;
-				load_list(keyword);
-			}
+// 			if(scrollTop + windowHeight + 1 >= documentHeight){
+// 				pageNum++;
+// 				load_list(keyword);
+// 			}
 			
-		});
+// 		});
 		
 	});
 		

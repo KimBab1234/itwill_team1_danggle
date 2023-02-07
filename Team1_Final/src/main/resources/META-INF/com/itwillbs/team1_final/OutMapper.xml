@@ -115,6 +115,22 @@
 	</select>
 	
 	
+	<!-- 출고 예정 목록 - 품목명 -->
+	<select id="selectOutPdName" resultType="com.itwillbs.team1_final.vo.OutSchVo">
+		SELECT *
+			FROM outSch_view
+			WHERE OUT_SCHEDULE_CD = #{outSchCd}
+		ORDER BY PRODUCT_NAME DESC
+		LIMIT 1
+	</select>
+	
+	
+	<!-- 출고 예정 목록 - 품목명 외 개수 조회 -->
+	<select id="selectExtraPdCount" resultType="int">
+		SELECT COUNT(PRODUCT_NAME)
+			FROM outSch_view
+			WHERE OUT_SCHEDULE_CD = #{outSchCd}
+	</select>
 	
 
 </mapper>

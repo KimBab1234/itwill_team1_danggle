@@ -23,9 +23,10 @@ public class OutSchVo {
 	private List<String> PRODUCT_NAME_Arr;
 	private List<String> SIZE_DES_Arr;
 	private List<Integer> OUT_SCHEDULE_QTY_Arr;
-	private int OUT_QTY_Arr;
 	private List<Date> PD_OUT_DATE_Arr;
 	private List<String> PD_REMARKS_Arr;
+	
+	private int OUT_QTY_Arr;
 	private String STOCK_CD_Arr;
 	
 	public String getOUT_SCHEDULE_CD() {

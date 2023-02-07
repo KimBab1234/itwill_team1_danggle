@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.OutService;
@@ -36,10 +37,9 @@ public class OutController {
 	// 출고예정 목록 조회
 	@PostMapping(value = "/OutSchListJson")
 	@ResponseBody
-	public String searchOutList(String keyword) {
-		if(keyword == null) {
-			keyword = "";
-		}
+	public String searchOutList(
+			@RequestParam(defaultValue = "") String keyword) {
+
 		System.out.println("진입 keyword - " + keyword);
 		List<OutSchVo> outSchList = service.searchOutSchList(keyword);
 		
@@ -54,8 +54,6 @@ public class OutController {
 		jsonObject.put("searchOutSchList", jsonAcc.toString());
 		
 		return jsonObject.toString();
-		
-//		return "out/out_schedule_list";
 	}
 	
 	// 출고예정 등록 창
@@ -71,7 +69,6 @@ public class OutController {
 			String OUT_TODAY,
 			OutSchVo outSch,
 			HttpServletResponse response) {
-		
 		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
 		int idx = 1;
 		String out_schedule_cd = "";

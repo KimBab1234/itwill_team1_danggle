@@ -40,7 +40,7 @@ public class OutService {
 		return mapper.selectToday(oUT_TODAY);
 	}
 
-	// 출고예정품목 등록
+	// 출고 관련 등록
 	public int registOutSchAndPd(OutSchVo outSch) {
 		// 출고 예정 등록
 		mapper.insertOutSch(outSch);
@@ -72,14 +72,44 @@ public class OutService {
 		return count;
 	}
 
+	// 출고 예정 품목 목록 조회
 	public List<OutSchVo> searchOutSchList(String keyword) {
 		
 		List<OutSchVo> outSch = mapper.selectOutSch(keyword);
 		
-		// 품목명[규격] 코카콜 500ml 외 1건
+		for(int i =0; i < outSch.size(); i++) {
+			// 유형
+			if(outSch.get(i).getOUT_TYPE_NAME().equals("1")) {
+				outSch.get(i).setOUT_TYPE_NAME("발주서");
+			} else {
+				outSch.get(i).setOUT_COMPLETE("구매");
+			}
+			
+			// 종결여부
+			if(outSch.get(i).getOUT_COMPLETE().equals("0")) {
+				outSch.get(i).setOUT_COMPLETE("종결");
+			} else {
+				outSch.get(i).setOUT_COMPLETE("취소");
+			}
+			
+			// 품목명[규격] ex)코카콜라 500ml 외 1건
+			String outSchCd = outSch.get(i).getOUT_SCHEDULE_CD();
+			
+			int extraPdCount = mapper.selectExtraPdCount(outSchCd);
+			if(extraPdCount > 1) {
+				OutSchVo pdInfo = mapper.selectOutPdName(outSchCd);
+				outSch.get(i).setPRODUCT_NAME(pdInfo.getPRODUCT_NAME() + "[" + pdInfo.getSIZE_DES() + "]" + " 외 " + (extraPdCount-1) + "건");
+			} else {
+				OutSchVo pdInfo = mapper.selectOutPdName(outSchCd);
+				outSch.get(i).setPRODUCT_NAME(pdInfo.getPRODUCT_NAME() + "[" + pdInfo.getSIZE_DES() + "]");
+			}
+			
+		}
+		
 		
 		return outSch;
 	}
+
 	
 	
 	
