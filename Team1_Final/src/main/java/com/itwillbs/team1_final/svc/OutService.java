@@ -87,16 +87,10 @@ public class OutService {
 
 			// 품목 정보 조회
 			String sOut_schedule_cd = outSch.get(i).getOUT_SCHEDULE_CD();
-			for(int j = 0; j < outSch.size(); j++) {
-				List<OutListInfoVO> outListInfo = mapper.selectoutListInfo(sOut_schedule_cd);
-				
-				outSch.get(i).setPRODUCT_NAME(outListInfo.get(j).getPRODUCT_NAME());
-				outSch.get(i).setSIZE_DES(outListInfo.get(j).getSIZE_DES());
-				
-			}
+			List<OutListInfoVO> outListInfo = mapper.selectoutListInfo(sOut_schedule_cd);
 			
 		}
-		return outSch;
+		return outListInfo;
 	}
 	
 	
