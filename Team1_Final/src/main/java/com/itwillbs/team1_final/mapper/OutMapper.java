@@ -18,7 +18,7 @@ public interface OutMapper {
 			@Param("searchType") String searchType,
 			@Param("keyword") String keyword);
 
-	// 담당자 검색
+	// 담당자 검색 ( + 출고 예정 목록 조회 - 담당자)
 	ArrayList<HrVO> selectEmp(String keyword);
 
 	// 품목 검색
@@ -32,8 +32,19 @@ public interface OutMapper {
 	// 출고 예정 등록
 	void insertOutSch(OutSchVo outSch);
 
+	// 출고 예정 품목 등록
 	int insertOutSchPd(OutPdVO product);
 
+	// 출고 예정 목록 조회
 	List<OutSchVo> selectOutSch(String keyword);
+	
+	// 출고 예정 목록 조회 - 출고 예정 품목
+	List<OutPdVO> selectOutSchPd(String sOut_schesule_cd);
+
+	List<OutPdVO> selectPdList(String product_cd);
+
+	List<PdVO> selectPdInfo(int sProduct_cd);
+
+	
 
 }
