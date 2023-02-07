@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.InService;
@@ -257,11 +258,33 @@ public class InController {
 	@GetMapping(value = "/ScheduleUpdate")
 	public String update(Model model, HttpSession session, InVO in) {
 		System.out.println("입고예정 수정");
-		
-		List<InVO> progress_list = service.getProductDetail();
-		
-		
+
 		return "in/in_product_update";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/UpdateProductInfo")
+	public InPdVO productInfo(HttpServletResponse response, String product_cd, String product_name) {
+		System.out.println("상품 수정 폼 에이젝스");
+
+		if(product_name.contains("[")) {
+			product_name = product_name.split("\\[")[0];
+		}
+		InPdVO ProductInfo = service.getProductInfo(product_cd, product_name);
+
+		
+//		
+//		for(InPdVO progress : ProgressList) {
+//		JSONObject jsonObject = new JSONObject(ProductInfo);
+//			jsonArray.put(jsonObject);
+//		}
+//		
+//		JSONObject jsonObject = new JSONObject();
+//		jsonObject.put("ProgressList", jsonArray.toString());
+//		
+//		return jsonObject.toString();
+		System.out.println("확인 해보자 : " + ProductInfo);
+		return ProductInfo;
 	}
 	
 }
