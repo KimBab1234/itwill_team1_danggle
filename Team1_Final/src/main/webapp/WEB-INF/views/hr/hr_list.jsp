@@ -53,10 +53,18 @@
 		
 		////재직 or 휴,퇴직 선택시 목록 변경
 		$(".choice").on("click", function() {
+		
+			if(workType==$(this).attr("id")){
+				return false;
+			}
+
 			workType = $(this).attr("id");
+			$(".choiceSelect").attr("class","choice");
+			$(this).attr("class","choiceSelect");
 			///pageNum은 일부러 null로주기
 			getPageList(null);
 		});
+		$("#1").attr("class","choiceSelect");
 		
 		getPageList(1);
 	});
@@ -85,7 +93,7 @@
 			success : function(response) {
 				emp = response.jsonEmp;
 				/// 테이블 초기화
-				$("tbody").empty();
+				$("table tbody").empty();
 				/// 데이터 뿌리기
 				if(emp.length==0) {
 					$("#searchNone").html("<h3>검색 결과가 없습니다.</h3>");
@@ -215,16 +223,18 @@ option {
 			</form>
 		</div>
 		<table border="1" class="regi_table" style="text-align: center; width: 1300px; font-size: 20px;">
-			<tr>
-				<th width="150">사진</th>
-				<th width="150">사번</th>
-				<th width="120">이름</th>
-				<th width="150">부서</th>
-				<th width="70">직급</th>
-				<th width="150">연락처</th>
-				<th width="250">E-MAIL</th>
-				<th width="200">버튼</th>
-			</tr>
+			<thead>
+				<tr>
+					<th width="150">사진</th>
+					<th width="150">사번</th>
+					<th width="120">이름</th>
+					<th width="150">부서</th>
+					<th width="70">직급</th>
+					<th width="150">연락처</th>
+					<th width="250">E-MAIL</th>
+					<th width="200">버튼</th>
+				</tr>
+			</thead>
 			<tbody>
 			
 			</tbody>

@@ -133,7 +133,7 @@ function execDaumPostcode() {
 			
 			$("#hrRegiTitle").text("| 사원 신규 등록");
 			$(".editMode").css("display","inline");
-			$("#hrFormSubmit").val("등록");
+			$("#hrFormSubmit").text("등록");
 			$(".hrImg").css("display","none");
 		} else {
 			
@@ -171,7 +171,7 @@ function execDaumPostcode() {
 				$("#hrRegiTitle").text("| 사원 정보 수정");
 				$(".editMode").css("display","inline");
 				$(".detailMode").css("display","none");
-				$("#hrFormSubmit").val("수정하기");
+				$("#hrFormSubmit").text("수정하기");
 				
 				/////사원 관리 권한은 2번
 				if(priv.charAt(2) != "1") {
@@ -180,6 +180,7 @@ function execDaumPostcode() {
 					////select는 readOnly가 없음!
 					$("select").prop("disabled", true);
 					$("form button").prop("disabled", true);
+					$(".formBtn").prop("disabled", false);
 					$(".thisEmp").prop("readOnly", false);
 					$(".thisEmp").css("background", "white");
 				}
@@ -191,7 +192,8 @@ function execDaumPostcode() {
 				$("#hrRegiTitle").text("| 사원 상세 정보");
 				$(".editMode").css("display","none");
 				$(".detailMode").css("display","inline");
-				$("#hrFormSubmit").val("수정");
+				$("#hrFormSubmit").text("수정");
+				$(".passTr").css("display","none");
 				
 			}
 			
@@ -339,6 +341,10 @@ function execDaumPostcode() {
 			
 			///신규 등록 및 관리자가 수정할때엔 비밀번호 필요없음
 			if(isThisEmp) {
+				if($("#EMP_PASS").val()==''){
+					alert("기존 비밀번호를 입력하세요.");
+					return false;
+				}
 				if($("#EMP_PASS_NEW1").val()!='' && !checkPasswdResult) {
 					alert("변경할 비밀번호가 안전하지 않습니다.");
 					return false;
@@ -406,20 +412,20 @@ function execDaumPostcode() {
 				</tr>
 				<!-- 당사자가 들어왔으면 비밀번호 변경 보이게 -->
 				<c:if test="${emp.EMP_NUM eq sessionScope.empNo}">
-					<tr>
+					<tr class="passTr">
 						<th align="right" width="150">기존 비밀번호</th>
 						<td align="left" >&nbsp;&nbsp;&nbsp;
 							<input type="password" class="thisEmp" id="EMP_PASS" name="EMP_PASS" >
 						</td>
 					</tr>
-					<tr>
+					<tr class="passTr">
 						<th align="right" width="150">신규 비밀번호</th>
 						<td align="left" >&nbsp;&nbsp;&nbsp;
 							<input type="password" class="thisEmp" id="EMP_PASS_NEW1" name="EMP_PASS_NEW" >
 							<span id="checkPasswdResult"></span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="passTr">
 						<th align="right" width="150">신규 비밀번호 확인</th>
 						<td align="left" >&nbsp;&nbsp;&nbsp;
 							<input type="password" class="thisEmp" id="EMP_PASS_NEW2" >
@@ -434,7 +440,7 @@ function execDaumPostcode() {
 					<span class="detailMode">${emp.DEPT_NAME}</span>
 					<div class="editMode">
 						<input type="text" name="DEPT_CD" id="DEPT_CD" readonly="readonly" style="width: 50px;" value="${emp.DEPT_CD}">
-						<input type="text" name="DEPT_NAME" id="DEPT_NAME" readonly="readonly" style="width: 80px;" value="${emp.DEPT_NAME}">
+						<input type="text" name="DEPT_NAME" id="DEPT_NAME" readonly="readonly" style="width: 100px;" value="${emp.DEPT_NAME}">
 						<button type="button" class="hrFormBtn" style="width: 90px; font-size: 16px; height: 30px;" onclick="window.open('DepartSearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">부서 선택</button>
 					</div>
 					</td>
@@ -457,8 +463,8 @@ function execDaumPostcode() {
 						<span class="detailMode">${emp.EMP_TEL}</span>
 						<div class="editMode">
 							<input type="text" class="thisEmp" id="EMP_TEL1" name="EMP_TEL1" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL1}"> -
-							<input type="text" class="thisEmp" id="EMP_TEL2" name="EMP_TEL2" style="width: 50px;"oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL2}"> -
-							<input type="text" class="thisEmp" id="EMP_TEL3" name="EMP_TEL3" style="width: 50px;"oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL3}">
+							<input type="text" class="thisEmp" id="EMP_TEL2" name="EMP_TEL2" style="width: 60px;"oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL2}"> -
+							<input type="text" class="thisEmp" id="EMP_TEL3" name="EMP_TEL3" style="width: 60px;"oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_TEL3}">
 						</div>
 					</td>
 				</tr>
@@ -468,8 +474,8 @@ function execDaumPostcode() {
 						<span class="detailMode">${emp.EMP_DTEL}</span>
 						<div class="editMode">
 							<input type="text" class="thisEmp" id="EMP_DTEL1" name="EMP_DTEL1" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL1}"> -
-							<input type="text" class="thisEmp" id="EMP_DTEL2" name="EMP_DTEL2" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL2}"> -
-							<input type="text" class="thisEmp" id="EMP_DTEL3" name="EMP_DTEL3" style="width: 50px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL3}">
+							<input type="text" class="thisEmp" id="EMP_DTEL2" name="EMP_DTEL2" style="width: 60px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL2}"> -
+							<input type="text" class="thisEmp" id="EMP_DTEL3" name="EMP_DTEL3" style="width: 60px;" oninput="this.value=this.value.replace(/[^0-9]/g, '');" value="${emp.EMP_DTEL3}">
 						</div>
 					</td>
 				</tr>
@@ -559,8 +565,8 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 			</table>
-		<input type="button" class="hrFormBtn" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 20px; ">
-		<input type="button" class="hrFormBtn" style="width: 200px; margin-top: 20px; font-size: 20px;" onclick="history.back()" value="돌아가기">
+		<button type="button" class="hrFormBtn formBtn" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 20px;"></button>
+		<button type="button" class="hrFormBtn formBtn" style="width: 200px; margin-top: 20px; font-size: 20px;" onclick="history.back()">돌아가기</button>
 		</div>
 		</form>
 		</div>

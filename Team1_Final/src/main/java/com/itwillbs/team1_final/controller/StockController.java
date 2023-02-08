@@ -1,5 +1,6 @@
 package com.itwillbs.team1_final.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -164,16 +165,16 @@ public class StockController {
 			stock.setPRODUCT_CD(updateStock.getPRODUCT_CD_Arr()[i]);
 			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
 			stock.setEMP_NUM(updateStock.getEMP_NUM());
-			stock.setSTOCK_DATE(updateStock.getSTOCK_DATE_Arr()[i]);
-			stock.setREMARKS(updateStock.getREMARKS_Arr()[i]);
 
 			boolean isSuccess = false;
 			if(control_cd.equals("0")) { 
+				stock.setREMARKS("-");
 				 inStock(0, i); /////입고
 			} else if(control_cd.equals("1")) {
 				outStock(1, i);  ///출고
 			} else if(control_cd.equals("2")) { /// 조정
 			
+				stock.setREMARKS(updateStock.getREMARKS_Arr()[i]);
 				isSuccess = true;
 				///재고 이동
 				if(updateStock.getMOVE_QTY_Arr()[i] > 0 ) {

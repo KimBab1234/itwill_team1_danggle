@@ -121,13 +121,9 @@ $(function() {
 </head>
 <body>
 <jsp:include page="../inc/top.jsp"></jsp:include>
-	<div style="display: flex;" align="center">
-		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
-			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
-		</div>
-		<!-- 여기서부터 본문-->
+	<div style="display: flex; width: 1800px;" align="center" >
 		<form name="loginForm"  action="LoginPro" method="post" >
-		<div align="center" style="width: 1300px;">
+		<div align="center" style="width: 1800px;">
 			<h1 align="left">로그인</h1>
 			<table class="regi_table" style="text-align: center; border: solid 1px; width: 600px;">
 			<tr>
@@ -159,7 +155,7 @@ $(function() {
 			</td>
 		</tr>
 		</table>
-		<button type="button" onclick="loginSubmit()" style="margin-top: 10px;">로그인</button>
+		<button type="button" class="hrFormBtn " onclick="loginSubmit()" style="margin-top: 10px;">로그인</button>
 		</form>
 	</div>
 				

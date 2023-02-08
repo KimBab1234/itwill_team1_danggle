@@ -1,8 +1,13 @@
 package com.itwillbs.team1_final.svc;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +17,7 @@ import com.itwillbs.team1_final.mapper.HrMapper;
 public class EmailService{
 
 	@Autowired
-	private MailSender mailSender;
+	private JavaMailSender mailSender;
 
 	@Autowired
 	private HrMapper mapper;
@@ -40,11 +45,18 @@ public class EmailService{
 
 		String email = mapper.selectEmpEmail(empNo);
 		
-		SimpleMailMessage smm = new SimpleMailMessage();
-		smm.setFrom("ljs930102@naver.com");
-		smm.setTo(email);
-		smm.setSubject("댕글댕글 신규 사원 등록 완료. 임시 비밀번호가 발급되었습니다.");
-		smm.setText("댕글댕글 신규 사원 등록 완료! \\n 임시 비밀번호가 발급되었습니다. \\n 로그인 후 비밀번호 변경을 해주세요. \\n 임시 비밀번호 :" + tempPasswd);
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			
+			helper.setFrom("ljs930102@naver.com");
+//			helper.setTo(email);
+			helper.setTo("iun05@naver.com");
+			helper.setSubject("댕글댕글 신규 사원 등록 완료. 임시 비밀번호가 발급되었습니다.");
+			helper.setText("<html><body>댕글댕글 신규 사원 등록 완료!<br>임시 비밀번호가 발급되었습니다.<br> 로그인 후 비밀번호 변경을 해주세요.<br>임시 비밀번호 :" + tempPasswd +"</body></html>");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 		
 		
 //		mapper.insertTempPass(email,tempEncodedPass);
@@ -52,7 +64,7 @@ public class EmailService{
 		/////프로젝트 하는동안은 1234로 고정
 		mapper.insertTempPass(email,"$2a$10$YYOpNkIbQ5FNhuyUIiUtv.4yXc9bBv7IDPMmcEQZJYACYOCqEE4IK");
 		
-		mailSender.send(smm);
+		mailSender.send(message);
 		
 	}
 
