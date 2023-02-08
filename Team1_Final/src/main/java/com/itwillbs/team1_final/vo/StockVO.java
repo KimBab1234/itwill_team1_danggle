@@ -17,6 +17,7 @@ public class StockVO {
 	private String STOCK_CONTROL_TYPE_CD;
 	private String STOCK_CONTROL_TYPE_NAME;
 	private String IN_PD_SCHEDULE_CD;
+	private Integer IN_SCHEDULE_QTY;
 	private Integer QTY;
 	private Integer MOVE_QTY;
 	private int STOCK_QTY;
@@ -36,8 +37,20 @@ public class StockVO {
 	private Integer[] WH_LOC_IN_AREA_CD_Arr;
 	private String[] IN_PD_SCHEDULE_CD_Arr;
 	private String SIZE_DES; 
+	private Integer[] IN_SCHEDULE_QTY_Arr;
 	
-	
+	public Integer getIN_SCHEDULE_QTY() {
+		return IN_SCHEDULE_QTY;
+	}
+	public void setIN_SCHEDULE_QTY(Integer iN_SCHEDULE_QTY) {
+		IN_SCHEDULE_QTY = iN_SCHEDULE_QTY;
+	}
+	public Integer[] getIN_SCHEDULE_QTY_Arr() {
+		return IN_SCHEDULE_QTY_Arr;
+	}
+	public void setIN_SCHEDULE_QTY_Arr(Integer[] iN_SCHEDULE_QTY_Arr) {
+		IN_SCHEDULE_QTY_Arr = iN_SCHEDULE_QTY_Arr;
+	}
 	public String getSIZE_DES() {
 		return SIZE_DES;
 	}
