@@ -54,8 +54,9 @@
 		}
 	
 		function departSelect(i) {
-
+			$(opener.document).find('#wh_loc'+opener.selectIdx).val(stocklist[i].WH_LOC_IN_AREA_CD);
 			$(opener.document).find('#stock'+opener.selectIdx).val(stocklist[i].wh_name + "_" + stocklist[i].wh_loc_in_area);
+			$(opener.document).find('#pro_cd'+opener.selectIdx).val(stocklist[i].PRODUCT_CD);
 			this.close();
 		}
 

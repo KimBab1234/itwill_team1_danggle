@@ -3,6 +3,7 @@ package com.itwillbs.team1_final.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ import com.itwillbs.team1_final.vo.InListVO;
 import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
+import com.itwillbs.team1_final.vo.StockVO;
 import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 @Controller
@@ -317,10 +319,43 @@ public class InController {
 	
 	@ResponseBody
 	@GetMapping(value = "/CreateStockCd")
-	public int create(HttpServletResponse response) {
+	public int create(HttpServletResponse response, @RequestParam("arrList[]") List<Integer> arrList) {
 		int stock_cd = service.createStockCD();
-		return stock_cd;
+
+		int count = 0;
+		List<Integer> maxList = new ArrayList<Integer>();
+		
+		for(int i = 0; i < arrList.size(); i++) {
+			if(arrList.get(i) == null) {
+				count++;
+			}
+		}
+		
+		if(count == arrList.size()) {
+			return stock_cd;
+		}else {
+			
+			for(int i = 0; i < arrList.size(); i++) {
+				if(arrList.get(i) != null) {
+					maxList.add(arrList.get(i));
+				}
+			}
+			
+			int max = Collections.max(maxList);
+
+			if(max > stock_cd) {
+				max += 1;
+			}else if(max == stock_cd){
+				max = stock_cd + 1;
+			}else if(max < stock_cd){
+				max = stock_cd;
+			}
+			
+			return max;
+			
+		}
 	}
+	
 	
 	@ResponseBody
 	@GetMapping(value = "/SearchStock")
@@ -367,6 +402,39 @@ public class InController {
 		return jsonObject.toString();
 	}
 	
+	@PostMapping(value = "/StockMovePro_test")
+	public String test(@ModelAttribute StockVO updateStock) {
+		StockController.updateStock = updateStock;
+		int updateCount = 0;
+		StockVO stock;
+		int productCount = updateStock.getPRODUCT_CD_Arr().length;
+		for(int i=0; i<productCount; i++) {
+			////일단 들어온 데이터 저장하기
+			stock = new StockVO();
+			stock.setSTOCK_CONTROL_TYPE_CD(updateStock.getSTOCK_CONTROL_TYPE_CD());
+			stock.setPRODUCT_CD(updateStock.getPRODUCT_CD_Arr()[i]);
+			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
+//			stock.setEMP_NUM((String)session.getAttribute("empNo"));
+			
+			///입고 전용
+			String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
+			String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
+			
+			if(in_arr != null ) {
+				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
+				
+				if(name_arr[i].contains("[")) {
+					stock.setPRODUCT_NAME(name_arr[i].split("\\[")[0]);
+				}else {
+					stock.setPRODUCT_NAME(name_arr[i]);
+				}
+			}
+			System.out.println("상품 이름 확인 : " +stock.getPRODUCT_NAME());
+			updateCount = service.updateQTY(stock);
+		}
+		
+		return "";
+	}
 	
 }
 

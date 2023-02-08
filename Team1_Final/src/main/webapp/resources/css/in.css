@@ -215,12 +215,13 @@
 	text-align: center;
 }
 
-#total {
+.total {
 	background: #c9b584;
 	border: none;
 	width: 80px;
 	font-weight: bold;
 	color: #575754;
+	text-align: center;
 }
 /* 테이블 기본 설정 */
 .regi_table {
@@ -400,61 +401,7 @@ select {
 	margin: 50px 50px 40px 50px;
 	font-weight: bold;
 }
-/* 파일 버튼 */
-label {
-    display: inline-block;
-    padding: 7px 20px;
-    color: #fff;
-    vertical-align: middle;
-    background-color: #736643;
-    cursor: pointer;
-    height: 32px;
-    margin: 3px 0px 0px 5px;
-    border-radius: 4px;
-}
 
-/* 파일 이름 뜨는 텍스트 박스 */
-.filebox .upload-name {
-    border: 1px solid #b09f76;
-	border-radius: 5px;
-	padding: 0.4rem 8px; 
-	margin: 5px 0px 5px 5px;
-	box-shadow: 0px 1px 7px #ededed inset;
-	width: 320px;
-	color: gray;
-	font-size: 12px;
-	font-weight: bold;
-}
-
-/* 기존 파일 인풋 박스 안보이게 처리 */
-.filebox input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-}
-
-/* textarea */
-textarea {
-	width: 420px;
-	height: 300px;
-	margin: auto;
-	border: 1px solid #b09f76;
-	border-radius: 5px;
-	padding: 10px 10px;
-	box-shadow: 0px 1px 7px #ededed inset;
-	resize: none;
-	font-size: 11px;
-	font-weight: bold;
-}
-
-/* textarea 마진 적용을 위한 div */
-#textDiv {
-	margin-left: 5px;
-
-}
 
 /* 옵션 추가 버튼 */
 .optionBtn{
@@ -612,28 +559,6 @@ textarea {
 	margin-top: 50px;
 }
 
-/* << >> 아이콘 */
-i {
-	color: #736643;
-	margin-left: 10px;
-	margin-right: 10px;
-}
-
-/* 현재 페이지 */
-.here {
-	display: inline;
-	margin-left: 5px;
-	margin-right: 5px;
-	color: #736643;
-}
-
-/* 현재 페이지 외 다른 페이지 */
-.notHere {
-	display: inline;
-	margin-left: 5px;
-	margin-right: 5px;
-	color: #b09f76;
-}
 
 /* <<< 추천 도서 목록 >>> */
 /* 추천 도서 등록 버튼 */
@@ -659,6 +584,20 @@ i {
     height: 35px;
     left: 780px;
 	top: -45px;
+    width: 120px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    border: none;
+    display: block;
+    margin-top: 10px;    
+}
+#recoBtn3 {
+	position: relative;
+	color: #fff;
+    background-color: #736643;
+    cursor: pointer;
+    height: 35px;
+    left: 980px;
     width: 120px;
     font-size: 0.75rem;
     border-radius: 4px;

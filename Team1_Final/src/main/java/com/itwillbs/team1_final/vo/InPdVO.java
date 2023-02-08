@@ -35,18 +35,20 @@ public class InPdVO {
 	private String wh_name; // 창고 이름
 	private String wh_area; // 창고구역
 	private int stock_cd; // 재고번호
-	private int wh_loc_in_area_cd;
 	private int stock_qty;
+	private int WH_LOC_IN_AREA_CD;
 	
 	
 	
 	
-	public int getWh_loc_in_area_cd() {
-		return wh_loc_in_area_cd;
+	
+	public int getWH_LOC_IN_AREA_CD() {
+		return WH_LOC_IN_AREA_CD;
 	}
-	public void setWh_loc_in_area_cd(int wh_loc_in_area_cd) {
-		this.wh_loc_in_area_cd = wh_loc_in_area_cd;
+	public void setWH_LOC_IN_AREA_CD(int wH_LOC_IN_AREA_CD) {
+		WH_LOC_IN_AREA_CD = wH_LOC_IN_AREA_CD;
 	}
+
 	public int getStock_qty() {
 		return stock_qty;
 	}
@@ -190,6 +192,7 @@ public class InPdVO {
 	public void setIN_QTY(int iN_QTY) {
 		IN_QTY = iN_QTY;
 	}
+	
 	@Override
 	public String toString() {
 		return "InPdVO [IN_PD_SCHEDULE_CD=" + IN_PD_SCHEDULE_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME="
@@ -199,8 +202,11 @@ public class InPdVO {
 				+ EMP_NUM + ", REMARKS=" + REMARKS + ", IN_DATE=" + IN_DATE + ", EMP_NAME=" + EMP_NAME + ", CUST_NAME="
 				+ CUST_NAME + ", in_product_cd=" + in_product_cd + ", TOTAL_QTY=" + TOTAL_QTY + ", wh_loc_in_area="
 				+ wh_loc_in_area + ", wh_name=" + wh_name + ", wh_area=" + wh_area + ", stock_cd=" + stock_cd
-				+ ", wh_loc_in_area_cd=" + wh_loc_in_area_cd + ", stock_qty=" + stock_qty + "]";
+				+ ", stock_qty=" + stock_qty + ", WH_LOC_IN_AREA_CD=" + WH_LOC_IN_AREA_CD + ", toString()="
+				+ super.toString() + "]";
 	}
+	
+	
 
 	
 }

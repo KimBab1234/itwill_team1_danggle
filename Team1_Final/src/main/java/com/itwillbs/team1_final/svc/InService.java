@@ -14,6 +14,7 @@ import com.itwillbs.team1_final.vo.InListVO;
 import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
+import com.itwillbs.team1_final.vo.StockVO;
 
 @Service
 public class InService {
@@ -221,7 +222,15 @@ public class InService {
 		return stockList;
 	}
 
+	
 
+	public int updateQTY(StockVO stock) {
+		mapper.updateQty(stock);
+//		if(stock.getMOVE_QTY() == stock.getqt)
+		return 0;
+	}
+
+	
 
 	
 
