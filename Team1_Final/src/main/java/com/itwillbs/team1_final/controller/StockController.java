@@ -165,6 +165,15 @@ public class StockController {
 			stock.setPRODUCT_CD(updateStock.getPRODUCT_CD_Arr()[i]);
 			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
 			stock.setEMP_NUM((String)session.getAttribute("empNo"));
+			
+			///입고 전용
+			String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
+			String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
+			
+			if(in_arr != null ) {
+				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
+				stock.setPRODUCT_NAME(name_arr[i]);
+			}
 
 			boolean isSuccess = false;
 			if(control_cd.equals("0")) { 
