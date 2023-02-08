@@ -51,9 +51,9 @@ public interface InMapper {
 
 	ArrayList<InPdVO> selectStock(String keyword); // 재고번호 검색 조회
 
-	int updateQty(@Param("schedule_cd") String[] schedule_cd, @Param("product_name") String[] product_name);
+	int updateQty(StockVO stock); // 입고 수량 수정
 
-	int updateQty(StockVO stock);
+	void updateComplete(StockVO stock);// 입고 완료 상태변경
 
 	
 

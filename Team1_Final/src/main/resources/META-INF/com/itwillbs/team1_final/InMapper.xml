@@ -193,4 +193,13 @@
 				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
 			AND PRODUCT_NAME = '${PRODUCT_NAME}'
 	</update>
+	
+	<update id="updateComplete">
+		UPDATE in_schedule_per_product
+			SET 
+				IN_PD_COMPLETE = 1
+			WHERE
+				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
+			AND PRODUCT_NAME = '${PRODUCT_NAME}'
+	</update>
 </mapper>
