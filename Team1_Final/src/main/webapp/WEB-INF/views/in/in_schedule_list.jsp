@@ -35,8 +35,8 @@
 							+ "<td>" + inList[i].PRODUCT_NAME + "</td>"
 							+ "<td>" + inList[i].IN_DATE + "</td>"
 							+ "<td>" + inList[i].TOTAL_QTY + "</td>"
-							+ "<td onclick='openCom("+inList[i].IN_SCHEDULE_CD+")'>" + inList[i].IN_COMPLETE + "</td>"
-							+ "<td onclick='openWin("+inList[i].IN_SCHEDULE_CD+")' class='td_color'>조회</td>"
+							+ "<td onclick='openCom("+i+")'>" + inList[i].IN_COMPLETE + "</td>"
+							+ "<td onclick='openWin("+i+")' class='td_color'>조회</td>"
 							+ "</tr>";
 							
 				$(".bookTable").append(result);

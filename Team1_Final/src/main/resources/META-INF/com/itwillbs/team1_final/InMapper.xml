@@ -202,4 +202,12 @@
 				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
 			AND PRODUCT_NAME = '${PRODUCT_NAME}'
 	</update>
+	
+	<select id="select_sched_qty" resultType="int">
+		SELECT IN_QTY
+			FROM in_schedule_per_product
+			WHERE
+				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
+			AND PRODUCT_NAME = '${PRODUCT_NAME}'
+	</select>
 </mapper>

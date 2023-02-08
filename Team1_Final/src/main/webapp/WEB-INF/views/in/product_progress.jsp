@@ -19,7 +19,7 @@
 	var proList;
 	var i = 0;
 	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
-	
+	alert(inList);
 	$(function() {		
 
 		$.ajax({

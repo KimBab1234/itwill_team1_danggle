@@ -226,7 +226,17 @@ public class InService {
 
 	public int updateQTY(StockVO stock) {
 		mapper.updateQty(stock);
-//		if(stock.getMOVE_QTY() == stock.getqt)
+		int qty = mapper.select_sched_qty(stock);
+		stock.setIN_QTY(qty);
+		System.out.println("입고 예정 수량 : " + stock.getIN_SCHEDULE_QTY());
+		System.out.println("입고 수량 : " + stock.getIN_QTY());
+		
+		if(stock.getIN_QTY().equals(stock.getIN_SCHEDULE_QTY())) {
+			System.out.println("둘이 같음");
+			mapper.updateComplete(stock);
+		}else {
+			System.out.println("다름");
+		}
 		return 0;
 	}
 

@@ -142,7 +142,7 @@
 <body>
 	<div style="width:1200px;">
 		<div class="title_regi">입고</div>
-		<form action="StockMovePro_test" method="post" style="width:900px;">
+		<form action="StockMovePro" method="post" style="width:900px;">
 			<table id="in_process_table" style="table-layout:fixed">
 				<tr>
 					<th width="115">입고예정번호</th>
