@@ -40,6 +40,15 @@
 	text-align: center;
 	
 }
+.box_st{
+	width: 600px;
+	height: 50px;
+	background: #c9b584;
+	text-align: center;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	margin-bottom: 20px;
+}
 .box_complete{
 	width: 450px;
 	height: 130px;
@@ -170,8 +179,26 @@
 	text-align: center;
 }
 
+.sch_cd {
+	width: 107px;
+	border: none;
+	margin: 10px 0px 10px 0px;
+	color: #575754;
+	font-weight: bold;
+	text-align: center;
+}
+
+.sch_name {
+	width: 192px;
+	border: none;
+	margin: 10px 0px 10px 0px;
+	color: #575754;
+	font-weight: bold;
+	text-align: center;
+}
+
 .sch_num {
-	width: 85px;
+	width: 123px;
 	border: none;
 	margin: 10px 0px 10px 0px;
 	color: #575754;
@@ -180,7 +207,7 @@
 }
 
 .stock {
-	width: 85px;
+	width: 204px;
 	border: none;
 	margin: 10px 0px 10px 0px;
 	color: #575754;
@@ -710,6 +737,34 @@ i {
 }
 
 .detail_table td {
+	border-style: solid;
+	border-width: 0.5px;
+ 	border-color: #b09f76;
+	padding: 5px 0px 5px 0px;
+ 	font-size: 13px;
+ 	font-weight: bold;
+}
+.detail_table_st {
+	margin: 0 auto;
+	border-collapse: collapse;
+/* 	border-style: solid; */
+	border-color: #b09f76;;
+	width: 600px;
+	margin-top: 30px;
+}
+
+.detail_table_st th {
+	border: 1px solid; 
+ 	background: #c9b584; 
+ 	text-align: center; 
+ 	border-color: #b09f76;
+ 	color: #736643;
+ 	font-size: 13px;
+ 	padding-bottom: 5px;
+ 	padding-top: 5px;
+}
+
+.detail_table_st td {
 	border-style: solid;
 	border-width: 0.5px;
  	border-color: #b09f76;

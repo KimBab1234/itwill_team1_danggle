@@ -16,6 +16,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -305,6 +306,65 @@ public class InController {
 		System.out.println("입고 처리");
 		
 		return "in/in_product_process";
+	}
+	
+	@GetMapping(value = "/SearchStockCd")
+	public String searchStock() {
+		System.out.println("재고 번호 검색");
+		
+		return "in/search_stock_cd";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/CreateStockCd")
+	public int create(HttpServletResponse response) {
+		int stock_cd = service.createStockCD();
+		return stock_cd;
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/SearchStock")
+	public String search_stock(HttpServletResponse response, String keyword) {
+		System.out.println("재고 번호 검색 에이젝스");
+		
+		ArrayList<InPdVO> stockList = service.getstockList(keyword);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(InPdVO stock : stockList) {
+			JSONObject jsonObject = new JSONObject(stock);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("stockList", jsonArray.toString());
+		
+		return jsonObject.toString();
+
+	}
+	
+	@GetMapping(value = "/SearchWh")
+	public String searchWh() {
+		System.out.println("창고 검색");
+		return "in/search_wh";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/SearchWhLoc")
+	public String whloc(HttpServletResponse response, String keyword) {
+		System.out.println("창고 검색 에이젝스");
+		
+		ArrayList<InPdVO> stockList = service.getstockList(keyword);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(InPdVO stock : stockList) {
+			JSONObject jsonObject = new JSONObject(stock);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("stockList", jsonArray.toString());
+		
+		return jsonObject.toString();
 	}
 	
 	

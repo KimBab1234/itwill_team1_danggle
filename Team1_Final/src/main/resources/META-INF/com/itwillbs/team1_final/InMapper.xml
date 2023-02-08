@@ -169,4 +169,17 @@
 		 		IN_PD_SCHEDULE_CD = '${product_cd}'
 		 	AND PRODUCT_NAME = '${product_name}'
 	</update>
+	
+	<!-- 재고번호 조회 -->
+	<select id="selectStockCd" resultType="int">
+		SELECT MAX(stock_cd)
+			FROM stock
+	</select>
+	
+	<select id="selectStock" resultType="com.itwillbs.team1_final.vo.InPdVO">
+		SELECT *
+			FROM stock_view
+			WHERE
+				stock_cd LIKE '%${keyword}%'
+	</select>
 </mapper>

@@ -46,6 +46,10 @@ public interface InMapper {
 
 	int updateIncomingProduct(@Param("product_cd") String product_cd, @Param("product_name") String product_name, @Param("product") InPdVO product);
 
+	int selectStockCd(); // 재고번호 조회
+
+	ArrayList<InPdVO> selectStock(String keyword); // 재고번호 검색 조회
+
 	
 
 }
