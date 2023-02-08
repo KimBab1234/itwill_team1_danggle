@@ -66,8 +66,8 @@
 			EMP_ADDR_DETAIL = #{EMP_ADDR_DETAIL},
 			HIRE_DATE = #{HIRE_DATE},
 			WORK_CD = #{WORK_CD},
-			<if test="EMP_PASS_NEW != null">
-				EMP_PASS = #{EMP_PASS_NEW},
+			<if test="EMP_PASS_NEW!=null and !EMP_PASS_NEW.equals('')">
+			EMP_PASS = #{EMP_PASS_NEW},
 			</if>
 			PRIV_CD = #{PRIV_CD},
 			PHOTO = #{PHOTO}

@@ -10,8 +10,10 @@ public interface AccMapper {
 
 	int insertAcc(AccVO acc);
 
-	List<AccVO> accList(@Param("searchType") String searchType,@Param("keyword") String keyword
-						,@Param("startRow") int startRow,@Param("int") int listLimit);
+	List<AccVO> accList(@Param("searchType") String searchType
+					   ,@Param("keyword") String keyword
+					   ,@Param("startRow") int startRow
+					   ,@Param("listLimit") int listLimit);
 
 	AccVO accView(String BUSINESS_NO);
 
@@ -19,6 +21,9 @@ public interface AccMapper {
 
 	int accModify(AccVO acc);
 
-	int accListCount(@Param("searchType") String searchType,@Param("keyword") String keyword);
+	int accListCount(@Param("searchType") String searchType,
+					 @Param("keyword") String keyword);
+
+	int busiCount(String BUSINESS_NO);
 
 }

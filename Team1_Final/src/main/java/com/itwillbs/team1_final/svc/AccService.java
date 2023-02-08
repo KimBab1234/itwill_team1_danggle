@@ -41,6 +41,10 @@ public class AccService {
 	public int getAccListCount(String searchType, String keyword) {
 		return mapper.accListCount(searchType, keyword);
 	}
+
+	public int busiCount(String BUSINESS_NO) {
+		return mapper.busiCount(BUSINESS_NO);
+	}
 	
 	
 }

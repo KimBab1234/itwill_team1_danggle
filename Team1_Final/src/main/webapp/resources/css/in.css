@@ -94,6 +94,38 @@
  	color : #575754;
 }
 
+#in_process_table{
+	margin: 0 auto;
+	border-collapse: collapse;
+	border-style: solid;
+	border-color: #b09f76;;
+	width: 1100px;
+
+}
+
+#in_process_table th {
+	border: 1px solid; 
+ 	background: #c9b584; 
+ 	text-align: center; 
+ 	border-color: #b09f76;
+ 	color: #736643;
+ 	font-size: 12px;
+ 	padding-top: 10px;
+ 	padding-bottom: 10px;
+
+}
+
+#in_process_table td {
+	border: solid;
+	border-width: 0.5px;
+ 	border-color: #b09f76;
+ 	padding: 4px;
+ 	font-weight: bold;
+ 	font-size: 13px;
+ 	color : #575754;
+ 	text-align: center;
+}
+
 .in_table input[type="date"] {
 	border: 1px solid #b09f76;
 	border-radius: 5px;
@@ -127,6 +159,33 @@
 	margin: 3px 0px 3px 0px;
 	color: #575754;
 	font-weight: bold;
+}
+
+.sch_qty {
+	width: 92px;
+	border: none;
+	margin: 10px 0px 10px 0px;
+	color: #575754;
+	font-weight: bold;
+	text-align: center;
+}
+
+.sch_num {
+	width: 85px;
+	border: none;
+	margin: 10px 0px 10px 0px;
+	color: #575754;
+	font-weight: bold;
+	text-align: center;
+}
+
+.stock {
+	width: 85px;
+	border: none;
+	margin: 10px 0px 10px 0px;
+	color: #575754;
+	font-weight: bold;
+	text-align: center;
 }
 
 #total {

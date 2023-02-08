@@ -105,8 +105,15 @@ function execDaumPostcode() {
 	/////처음 폼 들어왔을때 동작
 	var empNo = '${param.empNo}';
 	var loginEmp = '${sessionScope.empNo}';
+	
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		location.href="./Login";
+	}
+	
 	var isThisEmp = false;
 	var chkArr = [0,0,0,0,0];
+	
 	if(empNo==loginEmp) {
 		isThisEmp = true;
 	}
@@ -127,7 +134,7 @@ function execDaumPostcode() {
 			$("#hrRegiTitle").text("| 사원 신규 등록");
 			$(".editMode").css("display","inline");
 			$("#hrFormSubmit").val("등록");
-			$("img").css("display","none");
+			$(".hrImg").css("display","none");
 		} else {
 			
 			/// 수정이니까 DB에서 가져온값 그대로 넣어주기
@@ -199,13 +206,24 @@ function execDaumPostcode() {
 			}
 			chkClick = true;
 			if(this.checked) {
-				chkArr[$(this).index()/2] = 1;
+				var idx = $(".chk_top").index(this);
+				chkArr[idx] = 1;
+				if(idx==2 || idx==4) {
+					$(".chk_top").eq(idx-1).prop("checked", true);
+					chkArr[idx-1] = 1;
+				}
 			} else {
-				chkArr[$(this).index()/2] = 0;
+				var idx = $(".chk_top").index(this);
+				chkArr[idx] = 0;
+				if(idx==2 || idx==4) {
+					$(".chk_top").eq(idx-1).prop("checked", false);
+					chkArr[idx-1] = 0;
+				} else if(idx==1 || idx==3) {
+					$(".chk_top").eq(idx+1).prop("checked", false);
+					chkArr[idx-1] = 0;
+				}
 			}
 		});
-		
-		
 		
 		/////비밀번호 확인
 		var checkPasswdResult = false;
@@ -321,12 +339,12 @@ function execDaumPostcode() {
 			
 			///신규 등록 및 관리자가 수정할때엔 비밀번호 필요없음
 			if(isThisEmp) {
-				if(!checkPasswdResult) {
+				if($("#EMP_PASS_NEW1").val()!='' && !checkPasswdResult) {
 					alert("변경할 비밀번호가 안전하지 않습니다.");
 					return false;
 				}
 				
-				if(!checkPasswdSame) {
+				if($("#EMP_PASS_NEW1").val()!='' && !checkPasswdSame) {
 					alert("변경할 비밀번호가 일치하지 않습니다.");
 					return false;
 				}
@@ -340,7 +358,6 @@ function execDaumPostcode() {
 					privStr += i;
 				}
 				$("#PRIV_CD").val(privStr);
-				alert(privStr);
 			}
 			
 			////직전에 disable 된거 풀어주기
@@ -360,14 +377,15 @@ function execDaumPostcode() {
 
 </script>
 </head>
-<body style="border-left: solid 10px; border-color: #BDBDBD;">
+<body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
-	<div style="display: flex; margin-bottom:100px; ">
-		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
+	<div style="display: flex; margin-bottom:100px; margin-top: 0px;">
+		<div style="width: 300px; margin-right: 0px;">
 			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
-		<form name="hrForm" id="hrForm" action="HrRegistPro" method="post" enctype="multipart/form-data">
+		<div>
+		<form name="hrForm" id="hrForm" action="HrRegistPro" method="post" enctype="multipart/form-data" style="margin-top: 0px;">
 		<h1 id="hrRegiTitle"  style="width: 1300px;"></h1>
 		<div align="center" style="width: 1300px;">
 			<table class="regi_table" style="text-align: center; border: solid 1px; width: 600px;">
@@ -375,7 +393,7 @@ function execDaumPostcode() {
 					<th align="right" width="150">이름</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.EMP_NAME}</span>
-						<input type="text" class="editMode" id="EMP_NAME" name="EMP_NAME" required="required" value="${emp.EMP_NAME}" >
+						<input type="text" class="editMode" id="EMP_NAME" name="EMP_NAME" value="${emp.EMP_NAME}" >
 					</td>
 				</tr>
 				<c:if test="${param.empNo!=null}">
@@ -383,7 +401,7 @@ function execDaumPostcode() {
 					<th align="right" width="150">사번</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${param.empNo}</span>
-						<input type="text" class="editMode" id="EMP_NUM" name="EMP_NUM" required="required" value="${param.empNo}" >
+						<input type="text" class="editMode" id="EMP_NUM" name="EMP_NUM" value="${param.empNo}" >
 					</td>
 				</tr>
 				<!-- 당사자가 들어왔으면 비밀번호 변경 보이게 -->
@@ -417,7 +435,7 @@ function execDaumPostcode() {
 					<div class="editMode">
 						<input type="text" name="DEPT_CD" id="DEPT_CD" readonly="readonly" style="width: 50px;" value="${emp.DEPT_CD}">
 						<input type="text" name="DEPT_NAME" id="DEPT_NAME" readonly="readonly" style="width: 80px;" value="${emp.DEPT_NAME}">
-						<button type="button" onclick="window.open('DepartSearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">부서 선택</button>
+						<button type="button" class="hrFormBtn" style="width: 90px; font-size: 16px; height: 30px;" onclick="window.open('DepartSearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">부서 선택</button>
 					</div>
 					</td>
 				</tr>
@@ -477,7 +495,7 @@ function execDaumPostcode() {
 						<span class="detailMode">${emp.EMP_POST_NO}</span>
 						<div class="editMode">
 							<input type="text" id="EMP_POST_NO" name="EMP_POST_NO" style="width: 100px;" readonly="readonly" value="${emp.EMP_POST_NO}">
-							<button id="postbutton" onclick="execDaumPostcode()">우편번호 찾기</button>
+							<button id="postbutton" type="button" class="hrFormBtn" style="width: 130px; font-size: 16px; height: 30px;" onclick="execDaumPostcode()">우편번호 찾기</button>
 						</div>
 					</td>
 				</tr>
@@ -499,7 +517,7 @@ function execDaumPostcode() {
 					<th align="right" >입사일</th>
 					<td align="left" >&nbsp;&nbsp;&nbsp;
 						<span class="detailMode">${emp.HIRE_DATE}</span>
-						<input type="date" class="editMode" id="HIRE_DATE" name="HIRE_DATE" required="required" value="${emp.HIRE_DATE}">
+						<input type="date" class="editMode" id="HIRE_DATE" name="HIRE_DATE" value="${emp.HIRE_DATE}">
 					</td>
 				</tr>
 				<tr>
@@ -535,16 +553,17 @@ function execDaumPostcode() {
 				<tr>
 					<th align="right" >사진이미지</th>
 					<td align="left" style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;
-						<input type="file" class = "thisEmp" id="registPHOTO" name="registPHOTO" style="">
+						<input type="file" class="thisEmp filebox" id="registPHOTO" name="registPHOTO" style="font-size: 15px; font-weight: bold;">
 						<input type="hidden" name="PHOTO" value="${emp.PHOTO}" >
-						<span><img src="${pageContext.request.contextPath}/resources/img/${emp.PHOTO}" width="150"></span>
+						<span><img class="hrImg" src="${pageContext.request.contextPath}/resources/img/${emp.PHOTO}" width="150"></span>
 					</td>
 				</tr>
 			</table>
-		<input type="button" class="hrFormBtn" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;">
-		<input type="button" class="hrFormBtn" style="width: 200px; margin-top: 20px; font-size: 16px; font-weight: bold;" onclick="history.back()" value="돌아가기">
+		<input type="button" class="hrFormBtn" id="hrFormSubmit" style="width: 200px; margin-top: 20px; font-size: 20px; ">
+		<input type="button" class="hrFormBtn" style="width: 200px; margin-top: 20px; font-size: 20px;" onclick="history.back()" value="돌아가기">
 		</div>
 		</form>
+		</div>
 		<!-- 여기까지 본문-->
 	</div>
 </body>

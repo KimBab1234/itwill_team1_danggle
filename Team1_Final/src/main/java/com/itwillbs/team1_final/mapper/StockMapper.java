@@ -13,10 +13,13 @@ public interface StockMapper {
 
 	public int selectStockListCount(@Param("search") String search);
 	public ArrayList<StockVO> selectStockList(@Param("search") String search,@Param("startRow") int startRow,@Param("listLimit") int listLimit);
-	public StockVO selectStockDetail(String stockNo);
+	public ArrayList<StockVO> selectStockDetail(String stockNo);
 	public ArrayList<WhVO> selectWhList(@Param("search")String search,@Param("startRow") int startRow, @Param("listLimit")int listLimit);
 	public int insertStockHistory(StockVO stock);
 	public int insertStock(StockVO stock);
+	public Integer isExistStock(@Param("PRODUCT_CD")int product_cd, @Param("WH_LOC_IN_AREA_CD")int WH_LOC_IN_AREA_CD);
 	public int selectNewStockCD();
+	public int updateOutStock(StockVO stock);
+	
 	
 }

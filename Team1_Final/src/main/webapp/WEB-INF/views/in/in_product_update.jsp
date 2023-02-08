@@ -19,16 +19,98 @@
 <script type="text/javascript">
 	var proList;
 	var i = 0;
-	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
+	var productCd = opener.proList[opener.selectIdx].IN_PD_SCHEDULE_CD;
+	var productName = opener.proList[opener.selectIdx].PRODUCT_NAME;
+	var date;
+	var pd_date;
+	
+	
+	// json으로 받아온 date 다시 date 형식으로 만들어주기
+	function changeDate(on_date){
+		var d = new Date(on_date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+		
+	    date = year +"-" + month + "-" + day;
+    	return date;
+	}
+	
+	function changePdDate(on_date){
+		var d = new Date(on_date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+		
+	    pd_date = year +"-" + month + "-" + day;
+    	return pd_date;
+	}
 	
 	// 품목 검색
 	function funct(){
-		window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
+		window.open('SearchProductUpdate', 'searchPro_update', 'width=500, height=500, left=1000, top=400');
 	}
 	
 	$(function() {
-		
-		
+				
+		$("#in_product_cd").val(productCd);
+		$("#in_product_name").val(productName);
+		// 에이젝스로 데이터 가져오기
+		$.ajax({
+			
+	        type: "GET",
+	        url: "UpdateProductInfo",
+	        data: {
+	        	product_cd : productCd,
+				product_name : productName
+	        },
+	        dataType: 'json',
+	        success: function(result) {
+
+				console.log(result); 
+				
+				var type_cd = result.in_TYPE_CD;
+				$("#today").val(result.in_PD_SCHEDULE_CD);
+				
+				if(type_cd == "1"){
+					$("#type_1").prop('checked',true);
+				}else {
+					$("#type_2").prop('checked',false);
+				}
+
+				changeDate(result.in_DATE)
+				changePdDate(result.in_PD_DATE)
+				
+				$("#emp_code").val(result.emp_NUM);
+				$("#emp_name").val(result.emp_NAME);
+				$("#business_no").val(result.business_NO);
+				$("#business_name").val(result.cust_NAME);
+				$("#in_date").val(date);
+				$("#remarks").val(result.remarks);
+				$("#pro_cd").val(result.product_CD);
+				$("#pro_name").val(result.product_NAME);
+				$("#pro_size").val(result.size_DES);
+				$("#pro_qty").val(result.in_SCHEDULE_QTY);
+				$("#pro_date").val(pd_date);
+				$("#pro_remarks").val(result.in_PD_REMARKS);
+				$("#total").val(result.in_SCHEDULE_QTY);
+				
+	        },
+	        error: function(a, b, c) {
+	            console.log(a, b, c);
+	        }
+					
+	    });
 
 		// 발주서, 구매 중 체크박스 하나만 선택하게 하기
 		$("input[type=checkbox][name=in_type_cd]").click(function(){
@@ -37,25 +119,43 @@
 				$(this).prop('checked',true);
 			}
 		});
-		
-		
-		
-		$('#recoBtn2').click(function() {
-					
-			for(var i = 0; i < $(".in_date").length; i++){
-				if($(".in_date").eq(i).val() == ""){
-					$(".in_date").eq(i).val("1900-01-01");
-				}
-			}
-			
-		});
-		
+
 		
 		
 		
 	});
 	
-	
+	function updateProduct(){
+		
+		for(var i = 0; i < $(".in_date").length; i++){
+			if($(".in_date").eq(i).val() == ""){
+				$(".in_date").eq(i).val("1900-01-01");
+			}
+		}
+		// 입고 수정 에이젝스
+	    $.ajax({
+					
+	        type: "POST",
+	        url: "InProductUpdate",
+	        data: $('#inSc_regi').serialize(),
+	        success: function(result) {
+	            if (result != "0") {
+	                window.close();
+	                opener.location.reload();
+	            } else {
+	            	alert("입고 예정 수정 실패!");
+	            	window.close();	                
+	            }
+	        },
+	        error: function(a, b, c) {
+	            console.log(a, b, c);
+	        }
+					
+	    });
+		
+	    
+
+	}
 
 </script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
@@ -67,12 +167,16 @@
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
-					<td><input type="text" name="TODAY" id="today" readonly="readonly"></td>
+					<td>
+						<input type="hidden" name="in_product_cd" id="in_product_cd">
+						<input type="hidden" name="in_product_name" id="in_product_name">
+						<input type="text" name="TODAY" id="today" readonly="readonly">
+					</td>
 					<th>유형</th>
 					<td>
 						<div>
-							<input type="checkbox" value="1" class="recoCheck" name="IN_TYPE_CD"> 발주서
-							<input type="checkbox" value="2" class="recoCheck" name="IN_TYPE_CD"> 구매
+							<input type="checkbox" value="1" class="recoCheck" name="IN_TYPE_CD" id="type_1"> 발주서
+							<input type="checkbox" value="2" class="recoCheck" name="IN_TYPE_CD" id="type_2"> 구매
 						</div>
 					</td>
 				</tr>
@@ -92,9 +196,9 @@
 				</tr>
 				<tr>
 					<th>납기일자</th>
-					<td><input type="date" name="IN_DATE"></td>
+					<td><input type="date" id="in_date" name="IN_DATE"></td>
 					<th>비고</th>
-					<td><input type="text" class="note" name="REMARKS"></td>
+					<td><input type="text" class="note" id="remarks" name="REMARKS"></td>
 				</tr>
 			</table>
 			<br>
@@ -109,41 +213,16 @@
 				</tr>
 				<tr class="indexCh" ondblclick="funct()">
 					<td><input type="hidden" id="index">
-					<input type="text" class="product_cd" name="PRODUCT_CD"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES"></td>
-					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
-					<td><input type="date" class="in_date" name="IN_PD_DATE"></td>
-					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
-				</tr>
-				<tr class="indexCh" ondblclick="funct()"> 
-					<td><input type="text" class="product_cd" name="PRODUCT_CD"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES"></td>
-					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
-					<td><input type="date" class="in_date" name="IN_PD_DATE"></td>
-					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
-				</tr>
-				<tr class="indexCh" ondblclick="funct()">
-					<td><input type="text" class="product_cd" name="PRODUCT_CD"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES"></td>
-					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
-					<td><input type="date" class="in_date" name="IN_PD_DATE"></td>
-					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
-				</tr>
-				<tbody id="optionArea"></tbody>
-				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th><input type="number" id="total" name="TOTAL_QTY" readonly="readonly"></th>
-					<th></th>
-					<th></th>
+					<input type="text" class="product_cd" name="PRODUCT_CD" id="pro_cd"></td>
+					<td><input type="text" class="product_name" name="PRODUCT_NAME" id="pro_name"></td>
+					<td><input type="text" class="size_des" name="SIZE_DES" id="pro_size"></td>
+					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY" id="pro_qty"></td>
+					<td><input type="date" class="in_date" name="IN_PD_DATE" id="pro_date"></td>
+					<td><input type="text" class="remarks" name="IN_PD_REMARKS" id="pro_remarks"></td>
 				</tr>
 			</table>
 			<div>
-				<input type="button" value="수정" id="recoBtn4">
+				<button type="button" id="recoBtn4" onclick="updateProduct()">수정</button>
 			</div>
 		</form>
 	</div>
