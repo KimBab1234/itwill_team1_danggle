@@ -5,6 +5,30 @@
 <head>
 <meta charset="UTF-8">
 <title>위치 삭제</title>
+<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.hrFormBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 27px;
+	width: 55px;
+	border-radius: 4px;
+	font-size: 15px;
+}
+
+.Btn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 27px;
+	width: 100px;
+	border-radius: 4px;
+	font-size: 15px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -21,8 +45,8 @@
 				<table>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="삭제">&nbsp;&nbsp;
-							<input type="button" value="돌아가기" onclick="javascript:history.back()">
+							<input type="submit" class="hrFormBtn" value="삭제">&nbsp;&nbsp;
+							<input type="button" class="Btn" value="돌아가기" onclick="javascript:history.back()">
 						</td>
 					</tr>
 				</table>

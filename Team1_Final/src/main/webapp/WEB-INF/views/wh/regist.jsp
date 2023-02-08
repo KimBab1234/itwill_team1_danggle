@@ -78,6 +78,30 @@ function execDaumPostcode() {
 	<%-- 주소검색 팝업창 --%>
    }
 </script>
+<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.hrFormBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 27px;
+	width: 55px;
+	border-radius: 4px;
+	font-size: 15px;
+}
+
+.Btn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 27px;
+	width: 100px;
+	border-radius: 4px;
+	font-size: 15px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -171,8 +195,8 @@ function execDaumPostcode() {
 				</tr>
 				<tr>
 				<td colspan="2" align="center">
-					<input type="submit" value="창고등록">
-					<input type="button" value="취소" onclick="history.back()">
+					<input type="submit" class="Btn" value="창고등록">
+					<input type="button" class="hrFormBtn" value="취소" onclick="history.back()">
 				</td>
 			</tr>
 			</table>

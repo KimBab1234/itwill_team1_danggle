@@ -11,7 +11,30 @@
 <link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.hrFormBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 27px;
+	width: 55px;
+	border-radius: 4px;
+	font-size: 15px;
+}
 
+.Btn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 27px;
+	width: 100px;
+	border-radius: 4px;
+	font-size: 15px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -34,8 +57,8 @@
 				<tr>
 					
 				<td colspan="2" align="center">
-					<input type="submit" value="위치 등록">
-					<input type="button" value="취소" onclick="history.back()">
+					<input type="submit" class="Btn" value="위치 등록">
+					<input type="button" class="hrFormBtn" value="취소" onclick="history.back()">
 				</td>
 			</tr>
 			</table>
