@@ -49,6 +49,10 @@ public interface WhMapper {
 
 	int updateWhLocation(WhVO wh);
 
-	List<StockVO> selectStockList(StockVO stock);
+	List<StockVO> selectStockList(@Param("WH_CD")String WH_CD,
+								@Param("WH_AREA_CD")Integer WH_AREA_CD,
+								@Param("WH_LOC_IN_AREA_CD")Integer wh_LOC_IN_AREA_CD);
+
+			
 
 }

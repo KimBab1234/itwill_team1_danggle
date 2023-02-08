@@ -96,8 +96,8 @@ public class WhService {
 		return mapper.updateWhLocation(wh);
 	}
 
-	public List<StockVO> getStockList(StockVO stock) {
+	public List<StockVO> getStockList(String WH_CD,Integer WH_AREA_CD,Integer wh_LOC_IN_AREA_CD) {
 		// TODO Auto-generated method stub
-		return mapper.selectStockList(stock);
+		return mapper.selectStockList(WH_CD,WH_AREA_CD,wh_LOC_IN_AREA_CD);
 	}
 }

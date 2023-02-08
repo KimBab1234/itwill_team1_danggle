@@ -118,7 +118,9 @@ public class WhController {
 	@GetMapping(value="/WhDetail")
 	public String detail(Model model, @RequestParam String WH_CD) {
 		WhVO wh = service.getWh(WH_CD);
-		
+		List<StockVO> stockList = service.getStockList(WH_CD,null,null);
+
+		model.addAttribute("stockList", stockList);
 		model.addAttribute("wh", wh);
 		return "wh/view";
 	}
@@ -353,11 +355,23 @@ public class WhController {
 	
 	
 	@GetMapping(value="/StockViewList")
-	public String stockList(Model model,StockVO stock,
+	public String stockList(Model model,@RequestParam (defaultValue = "-1")String WH_CD,@RequestParam (defaultValue = "-1") Integer WH_AREA_CD,@RequestParam(defaultValue = "-1") Integer WH_LOC_IN_AREA_CD,
 				@RequestParam(defaultValue = "1") int pageNum){
 		
+		if(WH_AREA_CD == -1) {
+			WH_AREA_CD = null;
+			
 		
-		List<StockVO> stockList = service.getStockList(stock);
+		}
+		if(WH_LOC_IN_AREA_CD == -1) {
+			WH_LOC_IN_AREA_CD = null;
+		}
+		
+		if(WH_CD.equals("-1")) {
+			WH_CD = null;
+		}
+		
+		List<StockVO> stockList = service.getStockList(WH_CD,WH_AREA_CD,WH_LOC_IN_AREA_CD);
 
 	
 		
