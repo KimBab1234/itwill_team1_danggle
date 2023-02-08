@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.team1_final.mapper.WhMapper;
+import com.itwillbs.team1_final.vo.StockVO;
 import com.itwillbs.team1_final.vo.WhVO;
 
 
@@ -93,5 +94,10 @@ public class WhService {
 	public int modifyWhLocation(WhVO wh) {
 		// TODO Auto-generated method stub
 		return mapper.updateWhLocation(wh);
+	}
+
+	public List<StockVO> getStockList() {
+		// TODO Auto-generated method stub
+		return mapper.selectStockList();
 	}
 }
