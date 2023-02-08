@@ -49,6 +49,6 @@ public interface WhMapper {
 
 	int updateWhLocation(WhVO wh);
 
-	List<StockVO> selectStockList();
+	List<StockVO> selectStockList(StockVO stock);
 
 }

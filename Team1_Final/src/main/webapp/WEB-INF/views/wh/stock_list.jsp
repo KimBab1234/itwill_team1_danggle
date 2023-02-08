@@ -29,7 +29,7 @@
 			<h2 align="center">재고 목록</h2>
 			<table style="text-align: center; border: solid 1px; width: 600px; height: 400px;">
 		
-			<c:forEach items="${stockList }" var="stockList">
+			<c:forEach items="${stockList }" var="list">
 			<tr>
 				<th align="center" style="width: 200px;">재고번호</th><td>${stockList.STOCK_CD }</td>
 			</tr>

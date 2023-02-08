@@ -357,12 +357,10 @@ public class WhController {
 				@RequestParam(defaultValue = "1") int pageNum){
 		
 		
-		List<StockVO> stockList = service.getStockList();
+		List<StockVO> stockList = service.getStockList(stock);
 
-		////dummy데이터
-		stockList.add(0, new StockVO());
+	
 		
-		// 게시물 목록 객체와 페이징 정보 객치를 Model객체에 저장
 		model.addAttribute("stockList", stockList);
 		
 		
