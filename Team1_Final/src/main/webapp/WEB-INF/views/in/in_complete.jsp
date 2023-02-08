@@ -21,6 +21,7 @@
 	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
 	var complete = opener.inList[opener.selectIdx].IN_COMPLETE;
 	
+	
 	$(function() {		
 		if(complete == "종결"){
 			$(".box_complete").html("<br>선택한 전표를 종결 처리 하시겠습니까?<br><br>종결된 전표는 [완료] 탭에서 확인 가능합니다.<br>");

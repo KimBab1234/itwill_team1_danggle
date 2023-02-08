@@ -55,6 +55,8 @@ public interface InMapper {
 
 	void updateComplete(StockVO stock);// 입고 완료 상태변경
 
+	int select_sched_qty(StockVO stock);
+
 	
 
 }
