@@ -56,4 +56,9 @@ public class PdService {
 		return mapper.selectPd_group_top_Search(keyword);
 	}
 
+	// 품목 삭제
+	public int removeProduct(int product_CD) {
+		return mapper.deletePd(product_CD);
+	}
+
 }

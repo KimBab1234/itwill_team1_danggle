@@ -8,7 +8,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <%-- <link href="${pageContext.request.contextPath }/resources/css/pd.css" rel="stylesheet" type="text/css" /> --%>
 <style type="text/css">
-#title {
+#titleH1 {
+	margin-top: 20px;
 	text-align: left;
 }
 table { 
@@ -72,7 +73,7 @@ table {
 }
 </style>
 <script type="text/javascript">
-	function Barcode() {
+	function addBarcode() {
 
 		$.ajax({
 			type: "GET",
@@ -84,7 +85,7 @@ table {
 
 			 },
 			 error : function(){
-			    alert("에러")		
+			    alert("에러");	
 			 }
 		});
 	
@@ -98,8 +99,8 @@ table {
 			<jsp:include page="../inc/pd_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
-		<div style="margin-left: 300px;">
-		<h1 id="title"><b style="border-left: 10px solid">&nbsp;품목 등록</b></h1>
+		<div style="margin-left: 100px;">
+		<h1 id="titleH1"><b style="border-left: 10px solid">&nbsp;품목 등록</b></h1>
 		<form action="PdRegistPro" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
@@ -137,7 +138,7 @@ table {
 					<td id="td_left"><label for="BARCODE">바코드</label></td>
 					<td id="td_right">
 						<input type="text" name="BARCODE" id="BARCODE" required="required"> 
-						<button type="button" onclick="Barcode()"><b>바코드 생성</b></button>
+						<button type="button" onclick="addBarcode()"><b>바코드 생성</b></button>
 					</td>
 				</tr>
 				<tr>
@@ -177,8 +178,6 @@ table {
 					</td>
 				</tr>
 			</table>
-			<br>
-			<hr>
 			<br>
 			<div id="commandCell" align="center">
 				<input type="submit" value="등록" id="b1" style="height: 30px; width: 100px; font-weight: bold;">&nbsp;&nbsp;

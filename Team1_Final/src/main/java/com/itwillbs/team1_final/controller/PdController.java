@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,8 +50,9 @@ public class PdController {
 	public String pdRegistPro(@ModelAttribute PdVO product, Model model, HttpSession session) {
 		System.out.println(product);
 	
-		String uploadDir = "/resources/upload"; 
+		String uploadDir = "/resources/img"; 
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
+		System.out.println(saveDir);
 		
 		Path path = Paths.get(saveDir);
 		try {
@@ -87,7 +89,16 @@ public class PdController {
 		
 		// 등록 성공/실패에 따른 포워딩 작업 수행
 		if(insertCount > 0) { // 성공
-			
+			try {
+				mFile.transferTo(
+						new File(saveDir, originalFileName));
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return "redirect:/PdInquiry";
 		} else { // 실패
 			// "msg" 속성명으로 "글 쓰기 실패!" 메세지 전달 후 fail_back 포워딩
@@ -336,5 +347,54 @@ public class PdController {
 		return jsonStr.toString();
 	}
 
+	// ===============================================================================
+	//품목 삭제
+	@RequestMapping(value = "/Pd_deleteForm", method = RequestMethod.GET)
+	public String pd_delete(Model model) {
+		System.out.println("품목 삭제");
+		return "pd/pd_delete";
+	}
+	
+	@GetMapping(value = "/Pd_deletePro")
+	public String pd_deletePro(@RequestParam String deleteProdArr, 
+								Model model, HttpSession session) {
+		// Service 객체의 removeBoard() 메서드를 호출하여 게시물 삭제 작업 요청
+		// => 파라미터 : 글번호    리턴타입 : int(deleteCount)
+		
+		System.out.println("deleteProdArr : "+deleteProdArr);
+		String[] arr = deleteProdArr.split(",");
+		System.out.println(Arrays.toString(arr));
+		int deleteCount = 0;
+		for(int i=0; i<arr.length; i++) {
+			deleteCount += service.removeProduct(Integer.parseInt(arr[i]));
+		}
+		
+		
+		// 게시물 삭제 성공 시 해당 게시물의 파일도 삭제
+		if(deleteCount == arr.length) { // 삭제 성공
+			
+			String uploadDir = "/resources/upload"; // 가상의 업로드 경로(루트(webapp) 기준)
+			String saveDir = session.getServletContext().getRealPath(uploadDir);
+			
+			// --------------- java.nio 패키지(Files, Path, Paths) 객체 활용 -----------------
+			// 1. Paths.get() 메서드를 호출하여 대상 파일에 대한 Path 객체 얻어오기
+			Path path = Paths.get(saveDir);
+			// 2. Files 클래스의 deleteIfExists() 메서드를 호출하여 지정된 파일 삭제하기
+			try {
+				Files.deleteIfExists(path);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			// -------------------------------------------------------------------------------
+		
+			return "redirect:/PdInquiry";
+		} else { // 삭제 실패
+			model.addAttribute("msg", "품목 삭제 실패!");
+			return "fail_back";
+		}
+			
+	}
+	
+	
 	
 }
