@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.WhService;
 import com.itwillbs.team1_final.vo.PageInfo;
+import com.itwillbs.team1_final.vo.StockVO;
 import com.itwillbs.team1_final.vo.WhVO;
 
 @Controller
@@ -350,10 +351,22 @@ public class WhController {
 		
 	}
 	
-	@GetMapping(value = "/WhStockDetail")
-	public String WhStockDetail() {
+	
+	@GetMapping(value="/StockViewList")
+	public String stockList(Model model,StockVO stock,
+				@RequestParam(defaultValue = "1") int pageNum){
 		
-		return "wh/stock_view";
+		
+		List<StockVO> stockList = service.getStockList();
+
+		////dummy데이터
+		stockList.add(0, new StockVO());
+		
+		// 게시물 목록 객체와 페이징 정보 객치를 Model객체에 저장
+		model.addAttribute("stockList", stockList);
+		
+		
+		return "wh/stock_list";
 	}
 	
 	

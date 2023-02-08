@@ -29,29 +29,29 @@
 			<h2 align="center">재고 목록</h2>
 			<table style="text-align: center; border: solid 1px; width: 600px; height: 400px;">
 		
-			
+			<c:forEach items="${stockList }" var="stockList">
 			<tr>
-				<th align="center" style="width: 200px;">재고번호</th><td>${stockList.stock_cd }</td>
+				<th align="center" style="width: 200px;">재고번호</th><td>${stockList.STOCK_CD }</td>
 			</tr>
 			<tr>
-				<th align="center" style="width: 200px;">품목명</th><td>${stockList.product_name }</td> 
+				<th align="center" style="width: 200px;">품목명</th><td>${stockList.PRODUCT_NAME }</td> 
 			</tr>
 			<tr>
 				<th align="center" style="width: 200px;">규격</th><td>${stockList.SIZE_DES }</td> 
 			</tr>
 			<tr>
-				<th align="center" style="width: 200px;">수량</th><td>${stockList.stock_qty }</td> 
+				<th align="center" style="width: 200px;">수량</th><td>${stockList.STOCK_QTY }</td> 
 			</tr>
-			<tr>
-				<th align="center" style="width: 200px;">창고명</th><td>${stockList.wh_name }</td> 
-			</tr>
-			<tr>
-				<th align="center" style="width: 200px;">구역명</th><td>${stockList.wh_area}</td> 
-			</tr>
-			<tr>
-				<th align="center" style="width: 200px;">위치명</th><td>${stockList.wh_loc_in_area }</td> 
-			</tr>
-	
+<!-- 			<tr> -->
+<%-- 				<th align="center" style="width: 200px;">창고명</th><td>${stockList.WH_NAME }</td>  --%>
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<%-- 				<th align="center" style="width: 200px;">구역명</th><td>${stockList.WH_AREA}</td>  --%>
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<%-- 				<th align="center" style="width: 200px;">위치명</th><td>${stockList.WH_LOC_IN_AREA }</td>  --%>
+<!-- 			</tr> -->
+			</c:forEach>
 			</table>
 		</div>
 	</div>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.team1_final.vo.StockVO;
 import com.itwillbs.team1_final.vo.WhVO;
 
 public interface WhMapper {
@@ -47,5 +48,7 @@ public interface WhMapper {
 	int deleteWhLocation(String wh_LOC_IN_AREA_CD);
 
 	int updateWhLocation(WhVO wh);
+
+	List<StockVO> selectStockList();
 
 }
