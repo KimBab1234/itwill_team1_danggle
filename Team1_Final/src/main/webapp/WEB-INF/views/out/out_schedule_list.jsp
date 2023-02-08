@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,21 +114,31 @@ button {
 			$("#outListT").find("tr:gt(0)").remove();	
 			
 			for(var i = 0; i < outSchList.length; i++) {
-				let result = "<tr>"
-							+ "<td><input type='checkbox'></td>"
-							+ "<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
-							+ "<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
-							+ "<td>" + "</td>"
-							+ "<td>" + outSchList[i].EMP_NAME + "</td>"
-							+ "<td>" + outSchList[i].PRODUCT_NAME[0] + " 외 " + PRODUCT_NAME.size() + "건</td>"
-							+ "<td>" + outSchList[i].OUT_DATE + "</td>"
-							+ "<td>" + outSchList[i].TOTAL_QTY + "</td>"
-							+ "<td>" + outSchList[i].OUT_COMPLETE + "</td>"
-							+ "<td>조회</td>"
-							+ "</tr>";
+				let result =
+					  "<tr>"
+					+ "		<td><input type='checkbox'></td>"
+					+ "		<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
+					+ "		<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
+					+ "		<td></td>"
+					+ "		<td>" + outSchList[i].EMP_NAME + "</td>"
+					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
+					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
+					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
+					+ "		<td>" + outSchList[i].OUT_COMPLETE +"</td>"
+					+ "		<td>조회</td>";
+					+ "</tr>";
+					
+					// 시도했으나 오류가 심함
+// 					if("${outSchList[i].OUT_COMPLETE }" == '0' ) {
+// 						result += "<td>종결</td>";
+// 					} else {
+// 						result += "<td>취소</td>";
+// 					}
+
+// 					result += "<td>조회</td>"
+// 							+ "</tr>";
 				$("#outListT").append(result);
 			}
-			
 		})
 		.fail(function() {
 			$("#outListT").append("<h3>요청 실패!</h3>");
@@ -136,37 +147,37 @@ button {
 	}
 	
 	$(function() {
-		let keyword;
-
-		// 전체 / 진행중 / 완료
-		$("#outAll").click(function() {
-			keyword = "";
-			load_list(keyword);
-		});
-		$("#outPro").click(function() {
-			keyword = "0";
-			load_list(keyword);
-		});
-		$("#outCom").click(function() {
-			keyword = "1";
-			load_list(keyword);
-		});
-		
 		// 첫 목록 페이지
+		let keyword = "";
 		load_list(keyword);
+
+// 		// 전체 / 진행중 / 완료
+// 		$("#outAll").click(function() {
+// 			keyword = "";
+// 			load_list(keyword);
+// 		});
+// 		$("#outPro").click(function() {
+// 			keyword = "0";
+// 			load_list(keyword);
+// 		});
+// 		$("#outCom").click(function() {
+// 			keyword = "1";
+// 			load_list(keyword);
+// 		});
+		
 			
 		// 무한스크롤 기능 구현
-		$(window).scroll(function() {
-			let scrollTop = $(window).scrollTop();
-			let windowHeight = $(window).height();
-			let documentHeight = $(document).height();
+// 		$(window).scroll(function() {
+// 			let scrollTop = $(window).scrollTop();
+// 			let windowHeight = $(window).height();
+// 			let documentHeight = $(document).height();
 			
-			if(scrollTop + windowHeight + 1 >= documentHeight){
-				pageNum++;
-				load_list(keyword);
-			}
+// 			if(scrollTop + windowHeight + 1 >= documentHeight){
+// 				pageNum++;
+// 				load_list(keyword);
+// 			}
 			
-		});
+// 		});
 		
 	});
 		
