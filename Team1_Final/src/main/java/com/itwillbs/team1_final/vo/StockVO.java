@@ -16,6 +16,7 @@ public class StockVO {
 	private Integer TARGET_STOCK_CD;
 	private String STOCK_CONTROL_TYPE_CD;
 	private String STOCK_CONTROL_TYPE_NAME;
+	private String IN_PD_SCHEDULE_CD;
 	private Integer QTY;
 	private Integer MOVE_QTY;
 	private int STOCK_QTY;
@@ -23,6 +24,7 @@ public class StockVO {
 	private String EMP_NAME;
 	private Date STOCK_DATE;
 	private String REMARKS;
+	private String[] PRODUCT_NAME_Arr;
 	private Integer[] STOCK_CD_Arr;
 	private String[] STOCK_CONTROL_TYPE_CD_Arr;
 	private int[] PRODUCT_CD_Arr;
@@ -32,6 +34,7 @@ public class StockVO {
 	private Integer[] MOVE_QTY_Arr;
 	private String[] REMARKS_Arr;
 	private Integer[] WH_LOC_IN_AREA_CD_Arr;
+	private String[] IN_PD_SCHEDULE_CD_Arr;
 	
 	public String getWH_NAME() {
 		return WH_NAME;
@@ -227,6 +230,24 @@ public class StockVO {
 				+ Arrays.toString(QTY_Arr) + ", MOVE_QTY_Arr=" + Arrays.toString(MOVE_QTY_Arr) + ", REMARKS_Arr="
 				+ Arrays.toString(REMARKS_Arr) + ", WH_LOC_IN_AREA_CD_Arr=" + Arrays.toString(WH_LOC_IN_AREA_CD_Arr)
 				+ "]";
+	}
+	public String getIN_PD_SCHEDULE_CD() {
+		return IN_PD_SCHEDULE_CD;
+	}
+	public void setIN_PD_SCHEDULE_CD(String iN_PD_SCHEDULE_CD) {
+		IN_PD_SCHEDULE_CD = iN_PD_SCHEDULE_CD;
+	}
+	public String[] getPRODUCT_NAME_Arr() {
+		return PRODUCT_NAME_Arr;
+	}
+	public void setPRODUCT_NAME_Arr(String[] pRODUCT_NAME_Arr) {
+		PRODUCT_NAME_Arr = pRODUCT_NAME_Arr;
+	}
+	public String[] getIN_PD_SCHEDULE_CD_Arr() {
+		return IN_PD_SCHEDULE_CD_Arr;
+	}
+	public void setIN_PD_SCHEDULE_CD_Arr(String[] iN_PD_SCHEDULE_CD_Arr) {
+		IN_PD_SCHEDULE_CD_Arr = iN_PD_SCHEDULE_CD_Arr;
 	}
 	
 	
