@@ -142,7 +142,7 @@
 	
 	
 	<!-- 출고 예정 종결여부 변경 -->
-	<update id="updateCom">
+	<update id="outUpdateCom">
 		UPDATE out_schedule
 			<choose>
 				<when test="comStatus.equals('종결')">
@@ -154,5 +154,20 @@
 			</choose>
 			WHERE OUT_SCHEDULE_CD = #{outSchCd}
 	</update>
+	
+	
+	<!-- 출고 처리 목록 조회 - 조건 대입 컬럼 -->
+	<select id="selectOutProSch" resultType="com.itwillbs.team1_final.vo.OutSchVo">
+		SELECT
+			out_schedule_cd, out_type_name, cust_name, 
+			emp_name, pd_out_date, total_qty, out_qty, out_complete
+			FROM outSch_view
+		ORDER BY out_schedule_cd
+	</select>
+
+
+
+
+
 
 </mapper>

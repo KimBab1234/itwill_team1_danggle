@@ -227,19 +227,20 @@ public class OutController {
 	}
 	
 	@PostMapping(value = "/OutProList")
+	@ResponseBody
 	public String outProListPro() {
 		String keyword = "";
-		List<OutSchVo> outSchList = service.searchOutSchList(keyword);
+		List<OutSchVo> searchOutProList = service.searchOutProList(keyword);
 		
 		JSONArray jsonAcc = new JSONArray();
 		
-		for(OutSchVo outSch : outSchList) {
-			JSONObject jsonObject = new JSONObject(outSch);
+		for(OutSchVo outSchPro : searchOutProList) {
+			JSONObject jsonObject = new JSONObject(outSchPro);
 			jsonAcc.put(jsonObject);
 		}
 		
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("searchOutSchList", jsonAcc.toString());
+		jsonObject.put("searchOutProList", jsonAcc.toString());
 		
 		return jsonObject.toString();
 	}

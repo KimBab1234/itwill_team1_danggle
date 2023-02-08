@@ -106,18 +106,44 @@ public class OutService {
 			
 		}
 		
-		
 		return outSch;
 	}
 	
 	// 출고 예정 종결여부 변경
 	public int modifyCom(String outSchCd, String comStatus) {
-		return mapper.updateCom(outSchCd, comStatus);
+		return mapper.outUpdateCom(outSchCd, comStatus);
 	}
 	
-	// 
+	// 출고 예정 품목 개별 목록 조회
 	public List<OutPdVO> getProgress(String outSchCdList) {
 		return mapper.selectPdInfo(outSchCdList);
+	}
+
+	// 출고 처리 목록 조회
+	public List<OutSchVo> searchOutProList(String keyword) {
+		List<OutSchVo> outProSch = mapper.selectOutProSch(keyword);
+		
+		for(int i =0; i < outProSch.size(); i++) {
+			// 유형
+			if(outProSch.get(i).getOUT_TYPE_NAME().equals("1")) {
+				outProSch.get(i).setOUT_TYPE_NAME("발주서");
+			} else {
+				outProSch.get(i).setOUT_COMPLETE("구매");
+			}
+			
+			// 종결여부
+			if(outProSch.get(i).getOUT_COMPLETE().equals("0")) {
+				outProSch.get(i).setOUT_COMPLETE("종결");
+			} else {
+				outProSch.get(i).setOUT_COMPLETE("취소");
+			}
+			
+			// 품목명[규격] ex)코카콜라 [500ml]
+			
+			
+		}
+		System.out.println(outProSch);
+		return outProSch;
 	}
 
 

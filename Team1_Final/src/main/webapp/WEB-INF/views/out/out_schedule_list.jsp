@@ -8,16 +8,15 @@
 <title>Insert title here</title>
 <style type="text/css">
 #outTitle {
-	margin-left: 300px;
+	margin-left: 210px;
 }
 
 table{
-	margin: 0 auto;
-	margin-left: 300px;
+	margin-left: 250px;
+	margin-right: 50px;
 	border-collapse: collapse;
 	border-style: solid;
 	border-color: #b09f76;;
-	width: 1000px;
 }
 
 th{
@@ -48,18 +47,13 @@ button {
     font-size: 0.75rem;
     border-radius: 4px;
     border: none;
-    display: block;
-    margin-top: 10px;
-    margin-left: 300px;
+	margin-left: 500px;
 }
 
 .nav-tabs {
-    margin: -5px 0 0 -130px;
-    padding: 0 0 0 14px;
     list-style: none;
-    margin-left: 127px;
-    width: 1000px;
-    clear: both;
+    margin-top: -5px;
+    margin-left: 210px;
 }
 
 .navli {
@@ -67,33 +61,27 @@ button {
 }
 
 .nav-tabs>li>#outAll {
-    padding: 0;
     background-color: #c9b584;
     color: #736643;
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
-    display: block;
     padding: 4px 10px 5px 11px;
     border-style: solid;
  	border-color: #b09f76;
     border-radius: 10px 10px 0 0;
 }
 .nav-tabs>li>#outPro, .nav-tabs>li>#outCom {
-    padding: 0;
     background-color: #FFF;
     color: #736643;
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
-    display: block;
     padding: 4px 10px 5px 11px;
     border-style: solid;
  	border-color: #b09f76;
     border-radius: 10px 10px 0 0;
 }
-
-
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
@@ -146,9 +134,9 @@ button {
 			}
 			
 			// 종결 / 취소 색상변경
-			if($(".comColor").text() == "종결"){
+			if($(".comColor").text() == "종결") {
 				$(".comColor").css("color", "#005B9E");
-			} else {
+			} else if($(".comColor").text() == "취소") {
 				$(".comColor").css("color", "#FF8F32");
 			}
 			
@@ -198,8 +186,7 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td><a href='javascript:OutCom("+ i +")' class='comColor'>"
-					+ 			outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a href='javascript:OutCom("+ i +")' class='comColor'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
 					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
 					
@@ -207,9 +194,9 @@ button {
 			}
 			
 			// 종결 / 취소 색상변경
-			if($(".comColor").text() == "종결"){
+			if($(".comColor").text() == "종결") {
 				$(".comColor").css("color", "#005B9E");
-			} else {
+			} else if($(".comColor").text() == "취소") {
 				$(".comColor").css("color", "#FF8F32");
 			}
 			
@@ -277,9 +264,9 @@ button {
 	</header>
 	<jsp:include page="../inc/in_left.jsp"></jsp:include>
 	
-	<div align="center" style="width: 1200px;">
+	<div align="center" id="outListDiv">
 	<h3 id="outTitle">출고 예정</h3>
-		<ul class="nav nav-tabs" style="width: 755px;">
+		<ul class="nav-tabs">
 			<li class="navli">
 				<a id="outAll" href="#">전체</a>
 			</li>
@@ -289,21 +276,22 @@ button {
 			<li class="navli">
 				<a id="outCom" href="#">완료</a>
 			</li>
-		</ul><br>
+		</ul>
+		<br>
 		<table id="outListT">
 			<tr>
-				<th width="300px">출고예정번호</th>
+				<th width="250px">출고예정번호</th>
 				<th width="300px">유형</th>
-				<th width="300px">받는곳명</th>
-				<th width="300px">담당자명</th>
-				<th width="300px">품목명[규격]</th>
+				<th width="400px">받는곳명</th>
+				<th width="250px">담당자명</th>
+				<th width="500px">품목명[규격]</th>
 				<th width="300px">납기일자</th>
-				<th width="400px">출고예정수량합계</th>
-				<th width="200px">종결여부</th>
-				<th width="200px">진행상태</th>
+				<th width="200px">출고예정수량합계</th>
+				<th width="100px">종결여부</th>
+				<th width="100px">진행상태</th>
 			</tr>
-		</table>
-	<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
+		</table><br>
+		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
 	</div>
 	
 </body>
