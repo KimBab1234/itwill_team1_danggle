@@ -119,7 +119,7 @@ button {
 					+ "		<td><input type='checkbox'></td>"
 					+ "		<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
 					+ "		<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
-					+ "		<td></td>"
+					+ "		<td>" + outSchList[i].CUST_NAME + "</td>"
 					+ "		<td>" + outSchList[i].EMP_NAME + "</td>"
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
@@ -147,23 +147,65 @@ button {
 	}
 	
 	$(function() {
-		// 첫 목록 페이지
-		let keyword = "";
-		load_list(keyword);
+		
+		$.ajax({
+			url: "OutSchListJson",
+			type: "POST",
+			dataType: "json"
+		})
+		.done(function(response) {
+			
+			outSchList =JSON.parse(response.searchOutSchList);			
+			$("#outListT").find("tr:gt(0)").remove();	
+			
+			for(var i = 0; i < outSchList.length; i++) {
+				let result =
+					  "<tr>"
+					+ "		<td><input type='checkbox'></td>"
+					+ "		<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
+					+ "		<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
+					+ "		<td>" + outSchList[i].CUST_NAME + "</td>"
+					+ "		<td>" + outSchList[i].EMP_NAME + "</td>"
+					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
+					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
+					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
+					+ "		<td>" + outSchList[i].OUT_COMPLETE +"</td>"
+					+ "		<td>조회</td>";
+					+ "</tr>";
 
-// 		// 전체 / 진행중 / 완료
-// 		$("#outAll").click(function() {
-// 			keyword = "";
-// 			load_list(keyword);
-// 		});
-// 		$("#outPro").click(function() {
-// 			keyword = "0";
-// 			load_list(keyword);
-// 		});
-// 		$("#outCom").click(function() {
-// 			keyword = "1";
-// 			load_list(keyword);
-// 		});
+				$("#outListT").append(result);
+			}
+		})
+		.fail(function() {
+			$("#outListT").append("<h3>요청 실패!</h3>");
+		});
+
+		// 전체 / 진행중 / 완료
+		$("#outAll").click(function() {
+			keyword = "";
+			$("#outAll").css("background", "#c9b584").css("color", "#736643");
+			$("#outPro").css("background", "#fff").css("color", "#736643");
+			$("#outCom").css("background", "#fff").css("color", "#736643");
+			
+			load_list(keyword);
+		});
+		$("#outPro").click(function() {
+			keyword = "0";
+			$("#outAll").css("background", "#fff").css("color", "#736643");
+			$("#outPro").css("background", "#c9b584").css("color", "#736643");
+			$("#outCom").css("background", "#fff").css("color", "#736643");
+			
+			load_list(keyword);
+		});
+		$("#outCom").click(function() {
+			keyword = "1";
+			$("#outAll").css("background", "#fff").css("color", "#736643");
+			$("#outPro").css("background", "#fff").css("color", "#736643");
+			$("#outCom").css("background", "#c9b584").css("color", "#736643");
+			
+			load_list(keyword);
+		});
+		
 		
 			
 		// 무한스크롤 기능 구현
