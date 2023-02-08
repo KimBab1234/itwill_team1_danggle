@@ -21,7 +21,7 @@ public class EmailService{
 
 	@Autowired
 	private HrMapper mapper;
-	
+
 	public void sendEmail(String empNo) {
 
 		///임시비밀번호 6자리 생성
@@ -35,37 +35,49 @@ public class EmailService{
 			idx = (int) (charSet.length * Math.random());
 			tempPasswd += charSet[idx];
 		}
-		
-//		////임시비밀번호 암호화
-//		
+
+		//		////임시비밀번호 암호화
+		//		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String tempEncodedPass = passwordEncoder.encode(tempPasswd);
-		
+
 		// --------------------------------------------------------------------
 
 		String email = mapper.selectEmpEmail(empNo);
-		
+
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			
+
 			helper.setFrom("ljs930102@naver.com");
-//			helper.setTo(email);
+			//			helper.setTo(email);
 			helper.setTo("iun05@naver.com");
 			helper.setSubject("댕글댕글 신규 사원 등록 완료. 임시 비밀번호가 발급되었습니다.");
-			helper.setText("<html><body>댕글댕글 신규 사원 등록 완료!<br>임시 비밀번호가 발급되었습니다.<br> 로그인 후 비밀번호 변경을 해주세요.<br>임시 비밀번호 :" + tempPasswd +"</body></html>");
+
+			StringBuffer sb = new StringBuffer();
+			sb.append("<html><head>");
+			sb.append("<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>");
+			sb.append("<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap\" rel=\"stylesheet\">\r\n"
+					+ "<style> *{ font-family: 'Gowun Dodum', sans-serif; }</style></head>\r\n");
+			sb.append("<body><img src=\"http://itwillbs3.cdn1.cafe24.com/img/logo2.png\" style=\"width:250px; vertical-align: top;\"><br>");
+			sb.append("<h3>댕글댕글 신규 사원 등록 완료!</h3>");
+			sb.append("<h3>임시 비밀번호가 발급되었습니다.</h3>");
+			sb.append("<h3>로그인 후 비밀번호 변경을 해주세요.</h3>");
+			sb.append("<h2>임시 비밀번호 : " + tempPasswd + "</h2>");
+			sb.append("</body></html>");
+			helper.setText(sb.toString(), true);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		
-		
-//		mapper.insertTempPass(email,tempEncodedPass);
-		
+
+
+		//		mapper.insertTempPass(email,tempEncodedPass);
+
 		/////프로젝트 하는동안은 1234로 고정
 		mapper.insertTempPass(email,"$2a$10$YYOpNkIbQ5FNhuyUIiUtv.4yXc9bBv7IDPMmcEQZJYACYOCqEE4IK");
-		
+
 		mailSender.send(message);
-		
+
 	}
 
 }

@@ -98,25 +98,26 @@ public class HrController {
 		int insertCount = service.registEmp(newEmp);
 
 		if(insertCount>0) {
-				MultipartFile mFile = newEmp.getRegistPHOTO();
-				FTPClient ftp = new FTPClient();
-				
-				try {
-					ftp.connect("iup.cdn1.cafe24.com",21);
-					ftp.setFileType(FTP.BINARY_FILE_TYPE);
-					ftp.setControlEncoding("UTF-8");
-					ftp.setSoTimeout(1000);
-					ftp.login("itwillbs3", "itwillbs8030909");
-					ftp.storeFile("/www/profileImg/"+newEmp.getPHOTO(), mFile.getInputStream());
-					
-					if(ftp.getReplyCode() != 226) {
-						model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
-						return "fail_back";
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+			MultipartFile mFile = newEmp.getRegistPHOTO();
+			FTPClient ftp = new FTPClient();
+
+			try {
+				ftp.connect("iup.cdn1.cafe24.com",21);
+				ftp.setSoTimeout(1000);
+				ftp.login("itwillbs3", "itwillbs8030909");
+				ftp.changeWorkingDirectory("/www/profileImg");
+				ftp.setControlEncoding("UTF-8");
+				ftp.setFileType(FTP.BINARY_FILE_TYPE);
+				ftp.storeFile(newEmp.getPHOTO(), mFile.getInputStream());
+
+				if(ftp.getReplyCode() != 226) {
+					model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+					return "fail_back";
 				}
-			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 			model.addAttribute("empNo",newEmp.getEMP_NUM());
 			return "redirect:/HrRegistEnd";
 		} else {
@@ -138,7 +139,7 @@ public class HrController {
 	public String hrListForm() {
 		return "hr/hr_list";
 	}
-	
+
 	/////사원 조회
 	@ResponseBody
 	@RequestMapping(value = "/HrList", method = {RequestMethod.POST, RequestMethod.GET})
@@ -148,13 +149,13 @@ public class HrController {
 			, @RequestParam(defaultValue = "") String keyword
 			, @RequestParam(defaultValue = "") String workType
 			, Model model) {
-		
+
 		System.out.println("사원 조회");
-		
+
 		int listLimit = 5; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
 		ArrayList<HrVO> empList = service.getEmpList(workType, searchType, keyword, startRow, listLimit);
-		
+
 		JSONObject jsonStr = new JSONObject();
 		JSONArray arr = new JSONArray();
 
@@ -166,7 +167,7 @@ public class HrController {
 		jsonStr.put("jsonEmp", arr);
 		return jsonStr.toString();
 	}
-	
+
 	/////페이징처리
 	@ResponseBody
 	@RequestMapping(value = "/HrListPage", method = {RequestMethod.POST, RequestMethod.GET})
@@ -176,22 +177,22 @@ public class HrController {
 			, @RequestParam(defaultValue = "") String keyword
 			, @RequestParam(defaultValue = "1") String workType
 			, Model model) {
-		
+
 		System.out.println("사원 조회 목록 페이지처리");
-		
+
 		int listLimit = 5; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int listCount = service.getEmpListCount(searchType, keyword, workType);
 		int pageListLimit = 5;
 		int maxPage = listCount / listLimit + (listCount % listLimit == 0 ? 0 : 1); 
 		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
 		int endPage = startPage + pageListLimit - 1;
-		
+
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
-		
+
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
-		
+
 		JSONObject pageObj = new JSONObject(pageInfo);
 		JSONObject jsonPage = new JSONObject();
 		jsonPage.put("jsonPage", pageObj.toString());
@@ -285,10 +286,10 @@ public class HrController {
 		updateEmp.setEMP_DTEL(updateEmp.getEMP_DTEL1()+"-"+updateEmp.getEMP_DTEL2()+"-"+updateEmp.getEMP_DTEL3());
 		updateEmp.setEMP_TEL(updateEmp.getEMP_TEL1()+"-"+updateEmp.getEMP_TEL2()+"-"+updateEmp.getEMP_TEL3());
 		updateEmp.setEMP_EMAIL(updateEmp.getEMP_EMAIL1()+"@"+updateEmp.getEMP_EMAIL2());
-		
+
 		////만약 비밀번호가 넘어왔다면 (=관리자가 아니고 당사자라면)
 		if(updateEmp.getEMP_PASS() != null) {
-			
+
 			////비밀번호 확인해서 안 맞으면 돌려보내기
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			HrVO loginEmp = service.getLoginEmpInfo(updateEmp.getEMP_EMAIL());
@@ -305,7 +306,7 @@ public class HrController {
 			}
 		}
 		System.out.println("로그인 후 수정작업 ");
-		
+
 		///파일 올라와있으면 새 파일 올리고 기존 삭제
 		boolean isNewImg = false;
 		String uploadDir = "/resources/upload";
@@ -314,12 +315,6 @@ public class HrController {
 		if(updateEmp.getRegistPHOTO().getOriginalFilename().length() > 0) {
 
 			isNewImg = true;
-			File f = new File(saveDir);
-
-			//파일 저장경로가 여러단계 들어갈 경우 폴더 동시에 생성함
-			if(!f.exists()) {
-				f.mkdirs();
-			}
 
 			///업로드이름
 			String uuidString = UUID.randomUUID().toString();
@@ -333,29 +328,31 @@ public class HrController {
 
 			////새파일 올라와있으면
 			if(isNewImg) {
+				MultipartFile mFile = updateEmp.getRegistPHOTO();
+				FTPClient ftp = new FTPClient();
+
 				try {
-					////기존 파일 삭제
-					File f = new File(saveDir, beforeImg);
-					if(f.exists()) {
-						f.delete();
+					ftp.connect("iup.cdn1.cafe24.com",20);
+					ftp.login("itwillbs3", "itwillbs8030909");
+					ftp.changeWorkingDirectory("/www/profileImg");
+					ftp.setSoTimeout(1000);
+					ftp.setControlEncoding("euc-kr");
+					ftp.setFileType(FTP.BINARY_FILE_TYPE);
+					ftp.storeFile(new String(updateEmp.getPHOTO().getBytes("euc-kr"),"euc-kr"), mFile.getInputStream());
+
+					if(ftp.getReplyCode() != 226) {
+						model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+						return "fail_back";
 					}
-
-					////신규 파일 등록
-					MultipartFile mFile = updateEmp.getRegistPHOTO();
-					mFile.transferTo(new File(saveDir, updateEmp.getPHOTO()));
-
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-			return "redirect:/HrListForm";
 		} else {
 			model.addAttribute("msg", "사원 수정 실패!");
 			return "fail_back";
 		}
-
+		return "redirect:/HrListForm";
 	}
 
 	//////////AJAX 임시 비밀번호 발송
@@ -373,7 +370,7 @@ public class HrController {
 		System.out.println("로그인 폼");
 		return "hr/login";
 	}
-	
+
 	/////로그인작업
 	@RequestMapping(value = "/LoginPro", method = RequestMethod.POST)
 	public String loginPro(HrVO emp, Model model, HttpSession session) {
@@ -381,32 +378,32 @@ public class HrController {
 
 		///이메일 합쳐주기
 		emp.setEMP_EMAIL(emp.getEMP_EMAIL1()+"@"+emp.getEMP_EMAIL2());
-		
+
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		HrVO loginEmp = service.getLoginEmpInfo(emp.getEMP_EMAIL());
 
 		if(loginEmp==null || !passwordEncoder.matches(emp.getEMP_PASS(), loginEmp.getEMP_PASS())) {
-			
+
 			model.addAttribute("msg", "로그인 실패!");
 			return "fail_back";
-			
+
 		} else { //로그인 성공
-			
+
 			///권한 저장해주기
 			session.setAttribute("priv", loginEmp.getPRIV_CD());
 			session.setAttribute("empNo", loginEmp.getEMP_NUM());
 			session.setAttribute("empName", loginEmp.getEMP_NAME());
 			session.setAttribute("email", loginEmp.getEMP_EMAIL());
-			
+
 			///임시 비밀번호일 경우 바꾸라고 하기
 			if(emp.getEMP_PASS().length() < 8) {
 				session.setAttribute("needPassChange", "Y");
 			}
-			
+
 			return "redirect:/";
 		}
 	}
-	
+
 	/////로그아웃
 	@RequestMapping(value = "/Logout", method = RequestMethod.GET)
 	public String logout(Model model, HttpSession session) {
@@ -414,7 +411,7 @@ public class HrController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
+
 	////비밀번호 변경하러가기
 	@RequestMapping(value = "/MovePassChange", method = RequestMethod.GET)
 	public String movePassChange(Model model, HttpSession session) {
