@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>입고처리 진행상태</title>
+<title>출고처리 진행상태</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
@@ -16,31 +16,30 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	var pdList;
-	var i = 0;
-	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
+	var eachPdList;
+	var outSchCdList = opener.outSchList[opener.pIndex].OUT_SCHEDULE_CD;
 	
-	$(function() {		
+	$(function() {
 
 		$.ajax({
-			url: "ProductProgress",
-			type: "GET",
+			url: "OutEachPdPro",
+			type: "POST",
 			data: {
-				keyword: inList
+				outSchCdList: outSchCdList
 			},
 			dataType: "json"
 		})
 		.done(function(response) {
-			pdList =JSON.parse(response.ProgressList);
+			eachPdList =JSON.parse(response.pdList);
 						
 			$(".detail_table_progress").find("tr:gt(0)").remove();
 				
-				for(var i = 0; i < pdList.length; i++) {
+				for(var i = 0; i < eachPdList.length; i++) {
 					let result = "<tr>"
-								+ "<td>" + pdList[i].PRODUCT_CD + "</td>"
-								+ "<td>" + pdList[i].PRODUCT_NAME + "</td>"
-								+ "<td>" + pdList[i].IN_SCHEDULE_QTY + "</td>"
-								+ "<td>" + (pdList[i].IN_SCHEDULE_QTY - pdList[i].IN_QTY) + "</td>"
+								+ "<td>" + eachPdList[i].PRODUCT_CD + "</td>"
+								+ "<td>" + eachPdList[i].PRODUCT_NAME + "</td>"
+								+ "<td>" + eachPdList[i].OUT_SCHEDULE_QTY + "</td>"
+								+ "<td>" + (eachPdList[i].OUT_SCHEDULE_QTY - eachPdList[i].OUT_QTY) + "</td>"
 								+ "</tr>";
 								
 					$(".detail_table_progress").append(result);
@@ -50,29 +49,24 @@
 		.fail(function() {
 			$(".detail_table_progress").append("<h3>요청 실패!</h3>");
 		});
+		
 	});
-	
-
-
-	
-	
-	
 	
 </script>
 <link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<div style="width:500px;">
-		<div class="title_regi">입고처리 진행상태</div>
-		<table class="detail_table_progress">
-			<tr>
-				<th width="100">품목코드</th>
-				<th width="150">품목명</th>
-				<th width="100">입고예정수량</th>
-				<th width="100">미입고수량</th>
-			</tr>
-		</table>
-		<input type="button" onclick="window.close()" value="닫기" id="Listbtn">
-	</div>
+
+	<div class="title_regi">출고처리 진행상태</div>
+	<table class="detail_table_progress">
+		<tr>
+			<th width="100">품목코드</th>
+			<th width="150">품목명</th>
+			<th width="100">출고예정수량</th>
+			<th width="100">미출고수량</th>
+		</tr>
+	</table>
+	<input type="button" onclick="window.close()" value="닫기" id="Listbtn">
+
 </body>
 </html>

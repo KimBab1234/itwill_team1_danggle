@@ -109,6 +109,19 @@ public class OutService {
 		
 		return outSch;
 	}
+	
+	// 출고 예정 종결여부 변경
+	public int modifyCom(String outSchCd, String comStatus) {
+		return mapper.updateCom(outSchCd, comStatus);
+	}
+	
+	// 
+	public List<OutPdVO> getProgress(String outSchCdList) {
+		return mapper.selectPdInfo(outSchCdList);
+	}
+
+
+
 
 	
 	

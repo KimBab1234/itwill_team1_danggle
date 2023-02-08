@@ -57,6 +57,7 @@ button {
     margin: -5px 0 0 -130px;
     padding: 0 0 0 14px;
     list-style: none;
+    margin-left: 127px;
     width: 1000px;
     clear: both;
 }
@@ -97,10 +98,13 @@ button {
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+	var keyword;
 	var outSchList;
-	var i = 0;
-	var selectIdx;
+	var cIndex;
+	var pIndex;
 	
+	// -------------------- 출고 예정 목록 - 기능 목록 --------------------
+	// 출고 예정 목록 조회 기능
 	function load_list(keyword){
 		$.ajax({
 			url: "OutSchListJson",
@@ -124,11 +128,11 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td>" + outSchList[i].OUT_COMPLETE +"</td>"
-					+ "		<td>조회</td>";
+					+ "		<td><a href='javascript:OutCom("+ i +")'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
 					
-					// 시도했으나 오류가 심함
+					// 가능
 // 					if("${outSchList[i].OUT_COMPLETE }" == '0' ) {
 // 						result += "<td>종결</td>";
 // 					} else {
@@ -145,7 +149,23 @@ button {
 		});
 		
 	}
+
 	
+	// 종결 여부 변경
+	function OutCom(i){
+		cIndex = i;
+		window.open('OutCom', 'OutCom', 'width=500, height=300, left=600, top=400');
+	}
+	
+	// 출고 예정 품목 - 조회(개별품목)
+	function OutEachPd(i){
+		pIndex = i;
+		window.open('OutEachPd', 'OutEachPd', 'width=500, height=500, left=600, top=400');
+	}
+	// --------------------------------------------------------------------
+	
+	
+	// -------------------------- 페이지 로드 전 --------------------------
 	$(function() {
 		
 		$.ajax({
@@ -169,8 +189,8 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td>" + outSchList[i].OUT_COMPLETE +"</td>"
-					+ "		<td>조회</td>";
+					+ "		<td><a href='javascript:OutCom("+ i +")'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
 
 				$("#outListT").append(result);
@@ -180,7 +200,8 @@ button {
 			$("#outListT").append("<h3>요청 실패!</h3>");
 		});
 
-		// 전체 / 진행중 / 완료
+		// 페이지 리스트 구분 [ 전체 / 미완료 / 완료 ]
+		// 전체
 		$("#outAll").click(function() {
 			keyword = "";
 			$("#outAll").css("background", "#c9b584").css("color", "#736643");
@@ -189,6 +210,8 @@ button {
 			
 			load_list(keyword);
 		});
+		
+		// 미완료
 		$("#outPro").click(function() {
 			keyword = "0";
 			$("#outAll").css("background", "#fff").css("color", "#736643");
@@ -197,6 +220,8 @@ button {
 			
 			load_list(keyword);
 		});
+		
+		// 완료
 		$("#outCom").click(function() {
 			keyword = "1";
 			$("#outAll").css("background", "#fff").css("color", "#736643");
@@ -222,17 +247,7 @@ button {
 // 		});
 		
 	});
-		
-	function openWin(product_cd){
-		selectIdx = product_cd;
-		window.open('ScheduleProgress', 'schedule_progress', 'width=500, height=500, left=750, top=400');
-	}
-	
-	function openCom(product_cd){
-		selectIdx = product_cd;
-		window.open('ScheduleComplete', 'schedule_complete', 'width=500, height=500, left=750, top=400');
-	}
-	
+	// --------------------------------------------------------------------
 </script>
 </head>
 <body>
@@ -241,8 +256,8 @@ button {
 	</header>
 	<jsp:include page="../inc/in_left.jsp"></jsp:include>
 	
+	<div align="center" style="width: 1200px;">
 	<h3 id="outTitle">출고 예정</h3>
-	<div align="center">
 		<ul class="nav nav-tabs" style="width: 755px;">
 			<li class="navli">
 				<a id="outAll" href="#">전체</a>
@@ -268,8 +283,8 @@ button {
 				<th width="200px">진행상태</th>
 			</tr>
 		</table>
-	</div>
 	<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
+	</div>
 	
 </body>
 </html>
