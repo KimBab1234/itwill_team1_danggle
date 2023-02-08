@@ -11,6 +11,7 @@ import com.itwillbs.team1_final.vo.InListVO;
 import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
+import com.itwillbs.team1_final.vo.StockVO;
 
 public interface InMapper {
 
@@ -49,6 +50,10 @@ public interface InMapper {
 	int selectStockCd(); // 재고번호 조회
 
 	ArrayList<InPdVO> selectStock(String keyword); // 재고번호 검색 조회
+
+	int updateQty(@Param("schedule_cd") String[] schedule_cd, @Param("product_name") String[] product_name);
+
+	int updateQty(StockVO stock);
 
 	
 

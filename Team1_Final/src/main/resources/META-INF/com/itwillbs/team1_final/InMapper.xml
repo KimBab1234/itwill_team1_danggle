@@ -176,10 +176,21 @@
 			FROM stock
 	</select>
 	
+	<!-- 창고 검색 -->
 	<select id="selectStock" resultType="com.itwillbs.team1_final.vo.InPdVO">
 		SELECT *
 			FROM stock_view
 			WHERE
 				stock_cd LIKE '%${keyword}%'
 	</select>
+	
+	<!-- 입고 수량 수정 / 완료도 수정 -->
+	<update id="updateQty">
+		UPDATE in_schedule_per_product
+			SET 
+				IN_QTY = IN_QTY + #{MOVE_QTY}
+			WHERE
+				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
+			AND PRODUCT_NAME = '${PRODUCT_NAME}'
+	</update>
 </mapper>
