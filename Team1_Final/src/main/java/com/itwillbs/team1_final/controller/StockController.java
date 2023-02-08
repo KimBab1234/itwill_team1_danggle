@@ -169,9 +169,9 @@ public class StockController {
 			boolean isSuccess = false;
 			if(control_cd.equals("0")) { 
 				stock.setREMARKS("-");
-				 inStock(0, i); /////입고
+				isSuccess = inStock(0, i); /////입고
 			} else if(control_cd.equals("1")) {
-				outStock(1, i);  ///출고
+				isSuccess = outStock(1, i);  ///출고
 			} else if(control_cd.equals("2")) { /// 조정
 			
 				stock.setREMARKS(updateStock.getREMARKS_Arr()[i]);
