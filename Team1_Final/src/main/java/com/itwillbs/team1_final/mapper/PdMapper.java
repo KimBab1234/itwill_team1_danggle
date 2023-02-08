@@ -31,4 +31,7 @@ public interface PdMapper {
 	// 품목 그룹(대) 선택
 	ArrayList<PdVO> selectPd_group_top_Search(String keyword);
 
+	// 품목 삭제
+	int deletePd(int product_CD);
+
 }
