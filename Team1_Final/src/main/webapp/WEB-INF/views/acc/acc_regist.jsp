@@ -11,7 +11,7 @@
 
 <style type="text/css">
 table {
-	font-size: 30px;
+	font-size: 20px;
 }
 </style>
 <script
