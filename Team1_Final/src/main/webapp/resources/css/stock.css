@@ -367,16 +367,15 @@ textarea {
 
 
 /* 확인 취소 버튼 */
-#hrFormSubmit {
+.hrFormBtn {
 	background-color: #736643;
 	border: none;
 	cursor: pointer;
 	color: #fff;
-	height: 45px;
+	height: 35px;
 	width: 100px;
 	border-radius: 4px;
-	margin-top: 50px;
-	margin-right: 10px;
+	font-size: 20px;
 }
 
 
@@ -581,13 +580,12 @@ i {
  	font-weight: bold;
 }
 
-.detail_table input[type="text"]  {
-	border: none;
-	padding: 0.4rem 8px; 
-	margin: 4px 0px 4px 2px;
-	width: 350px;
-	color: #3d3d3d;
+input[type="text"]  {
+	border: 1px solid #b09f76;
+	border-radius: 5px;
+	box-shadow: 0px 1px 7px #ededed inset;
 	font-weight: bold;
+	font-size: 18px;
 }
 
 .detail_table textarea {

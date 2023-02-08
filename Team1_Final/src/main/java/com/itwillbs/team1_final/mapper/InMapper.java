@@ -40,4 +40,12 @@ public interface InMapper {
 
 	ArrayList<InListVO> selectProgressList(); // 입고 처리 목록
 
+	InPdVO selectProductInfo(@Param("product_cd") String product_cd, @Param("product_name") String product_name); // 입고 예정 상품 불러오기
+
+	void updateIncoming(@Param("product_cd") String product_cd, @Param("product") InPdVO product); // 입고 예정 수정
+
+	int updateIncomingProduct(@Param("product_cd") String product_cd, @Param("product_name") String product_name, @Param("product") InPdVO product);
+
+	
+
 }

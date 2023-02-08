@@ -33,7 +33,7 @@
 	
 	///처음 들어왔을때 기본값 1
 	var pageNum;
-	var pageListLimit = 2;
+	var pageListLimit = 5;
 	var startPage;
 	var endPage;
 	var maxPage;
@@ -41,6 +41,12 @@
 	var keyword = '';
 	var workType;
 
+	var loginEmp = '${sessionScope.empNo}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		location.href="./Login";
+	}
+	
 	$(function() {
 		
 		workType=1;
@@ -68,7 +74,7 @@
 		pageNum = toPageNum;
 		$.ajax({
 			url: 'HrList',
-			type: 'get',
+			type: 'post',
 			data: {
 				pageNum : toPageNum,
 				workType : workType,
@@ -164,6 +170,17 @@
 	function arrowClick(herePage){
 		getPageList(herePage);
 	};
+	
+	function searchHrList() {
+		searchType = $("#searchType").val();
+		if(searchType=='') {
+			alert("검색 유형을 선택하세요.");
+			return false;
+		} else {
+			keyword = $("#keyword").val();
+			alert(keyword);
+		}
+	}
 
 </script>
 <style>
@@ -184,15 +201,15 @@ option {
 		<h1 align="left" style="width: 1500px; text-align: left; margin-left: 100px;">| 사원 조회</h1>
 		<div style="display: flex; width: 1300px; text-align: right" align="right">
 			<div class="choice" id="1">재직</div><div class="choice" id="2">휴직</div><div class="choice" id="3">퇴직</div>
-			<form method="post" style="width: 1400px; margin-bottom:10px; text-align: right;">
-				<select name="searchType" style="text-align: center; font-weight: bold; width: 100px;">
+			<form method="post" onsubmit="return false;" style="width: 1400px; margin-bottom:10px; text-align: right;">
+				<select id="searchType" name="searchType" style="text-align: center; font-weight: bold; width: 100px; height: 35px;">
 					<option value="">검색 유형</option>
 					<option value="EMP_NUM">사번</option>
 					<option value="EMP_NAME">사원명</option>
 					<option value="DEPT_NAME">부서명</option>
 				</select>
-				<input type="text" name="keyword">
-				<button  class="hrFormBtn"  style="width: 100px; height:30px; font-size:18px;" >
+				<input type="text" name="keyword" id="keyword">
+				<button type="button" class="hrFormBtn" onclick="searchHrList()" style="width: 100px; height:30px; font-size:18px;" >
 					<i class="fa-solid fa-magnifying-glass" style="color: #fff; margin: 0;"></i>&nbsp;검색
 				</button>
 			</form>
@@ -213,7 +230,7 @@ option {
 			</tbody>
 		</table>
 		<div align="right" style="width: 1300px;">
-		<button type="button" class="hrFormBtn" style="width: 150px; height:30px;  font-size:18px; margin-top: 10px;" onclick="location.href='HrRegist'">신규 등록</button>
+		<button type="button" class="hrFormSpeBtn" style="width: 200px; height:40px;  font-size:20px; margin-top: 10px;" onclick="location.href='HrRegist'">신규 등록</button>
 		</div>
 		
 		<!-- 페이지 목록 부분 -->

@@ -1,7 +1,5 @@
 package com.itwillbs.team1_final.controller;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -17,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.team1_final.svc.StockService;
-import com.itwillbs.team1_final.svc.WhService;
 import com.itwillbs.team1_final.vo.StockVO;
 import com.itwillbs.team1_final.vo.WhVO;
-import com.itwillbs.team1_final.vo.HrVO;
 import com.itwillbs.team1_final.vo.PageInfo;
 
 /**
@@ -30,7 +26,10 @@ import com.itwillbs.team1_final.vo.PageInfo;
 public class StockController {
 
 	@Autowired
-	StockService service;
+	StockService service; 
+	
+	static StockVO updateStock;
+	static StockVO stock;
 
 	/////창고 조회 폼
 	@RequestMapping(value = "/WhSearchForm", method = RequestMethod.GET)
@@ -142,9 +141,9 @@ public class StockController {
 
 		System.out.println("재고 상세 조회");
 
-		StockVO stock = service.getStockDetail(stockNo);
+		ArrayList<StockVO> stockList = service.getStockDetail(stockNo);
 
-		model.addAttribute("stock",stock);
+		model.addAttribute("stockList",stockList);
 
 		return "stock/stock_detail";
 	}
@@ -154,32 +153,39 @@ public class StockController {
 	public String stockEditPro(StockVO updateStock, Model model, HttpSession session) {
 		System.out.println("재고 수정 작업");
 
-		int insertCount = 0;
-		int updateCount = 0;
+		StockController.updateStock = updateStock;
 		int productCount = updateStock.getPRODUCT_CD_Arr().length;
 		String control_cd = updateStock.getSTOCK_CONTROL_TYPE_CD();
 
 		for(int i=0; i<productCount; i++) {
-
-
 			////일단 들어온 데이터 저장하기
-			StockVO stock = new StockVO();
+			stock = new StockVO();
 			stock.setSTOCK_CONTROL_TYPE_CD(updateStock.getSTOCK_CONTROL_TYPE_CD());
 			stock.setPRODUCT_CD(updateStock.getPRODUCT_CD_Arr()[i]);
 			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
 			stock.setEMP_NUM(updateStock.getEMP_NUM());
 			stock.setSTOCK_DATE(updateStock.getSTOCK_DATE_Arr()[i]);
 			stock.setREMARKS(updateStock.getREMARKS_Arr()[i]);
-			System.out.println(stock);
+
 			boolean isSuccess = false;
-			if(control_cd.equals("0")) { /////입고
-				
-			} else if(control_cd.equals("1")) { ///출고
-			
-				
+			if(control_cd.equals("0")) { 
+				 inStock(0, i); /////입고
+			} else if(control_cd.equals("1")) {
+				outStock(1, i);  ///출고
 			} else if(control_cd.equals("2")) { /// 조정
 			
-				isSuccess = inStock(updateStock, stock, 2, i);
+				isSuccess = true;
+				///재고 이동
+				if(updateStock.getMOVE_QTY_Arr()[i] > 0 ) {
+					isSuccess = isSuccess && inStock(2, i);
+				}
+				///단순 조정
+				if(updateStock.getQTY_Arr()[i] > 0 ) {
+					
+					///단순 조정은 컬럼명 QTY_Arr
+					stock.setMOVE_QTY(updateStock.getQTY_Arr()[i]);
+					isSuccess = isSuccess && outStock(2, i);
+				}
 			
 			} /////여기까지 정보 입력 완료
 
@@ -190,57 +196,84 @@ public class StockController {
 			
 		} ////for문 작업 끝, 다음 품목으로
 
-		return ""; ////모두 성공했을때 어디로 갈지?
+		model.addAttribute("closePop", "true");
+		model.addAttribute("msg", "재고 조정 성공!");
+		return "fail_back";
 				
 	} /////재고조정 메서드 끝
 
 	
 	/////입고 처리 
-	public boolean inStock(StockVO updateStock, StockVO stock, int control, int i) {
+	public boolean inStock(int control, int i) {
 		
-
-		int target_stockNo = service.getNewStockCD();///일단 재고번호 max값 가져와주기
-		stock.setWH_LOC_IN_AREA_CD(updateStock.getWH_LOC_IN_AREA_CD_Arr()[i]); ///도착지는 지정한 위치
-		stock.setSTOCK_CD(target_stockNo); ///일단 저장해놓고 있으면 안쓰고 없으면 쓰기
+		System.out.println("입고 처리");
+		
+		int product_cd = updateStock.getPRODUCT_CD_Arr()[i];
+		int target_loc = updateStock.getWH_LOC_IN_AREA_CD_Arr()[i];
+		
+		///도착지에 같은 물건 있는지 확인해서 stockNo 받아오기
+		int newStockNo = service.getNewStockCD(product_cd, target_loc);
+		stock.setWH_LOC_IN_AREA_CD(target_loc); ///도착지는 지정한 위치
+		stock.setTARGET_STOCK_CD(newStockNo); ///도착지 stockNo는 조회해온걸로
 		if(control==0) {
+			stock.setSTOCK_CD(newStockNo);
 			stock.setSOURCE_STOCK_CD(null); ////입고는 출발지 없음
-		} else { ///조정은 출발지가 있음
-			stock.setSTOCK_CD(updateStock.getSTOCK_CD_Arr()[i]);
+		} else { 
+			stock.setSTOCK_CD(newStockNo); ///일단 받는쪽 먼저
+			stock.setSOURCE_STOCK_CD(updateStock.getSTOCK_CD_Arr()[i]); ///조정은 출발지=기존 STOCK_CD임
 		}
-		int insertCount = service.putStock(stock);
 		
-		/////모든 정보 입력 완료되면 P/F 판별하기
-		if(insertCount==0) {
+		///stock 재고 수정(update든 insert든 상관 안해도됨)
+		int updateCount = service.inStock(stock);
+		
+		/////완료되면 P/F 판별하기
+		if(updateCount==0) {
 			return false;
 		} else {
 			///성공했으면 history 남기기
-			if(control==2) {
-			}
 			if(service.putStockHistory(stock) == 0) {
 				return false;
 			}
+			///조정은 출고 작업해야함 (보내는쪽에서 재고 마이너스)
+			if(control==2) {
+				outStock(3, i);
+			}
+			
 		}
 		return true;
 	}
 	
 	/////출고 처리 
-	public int outStock(StockVO updateStock,  StockVO stock, int control, int i) {
+	public boolean outStock(int control, int i) {
 		
-		stock.setSTOCK_CD(updateStock.getSTOCK_CD_Arr()[i]);
-		stock.setSOURCE_STOCK_CD(updateStock.getSTOCK_CD_Arr()[i]);
-		stock.setMOVE_QTY((-1)*stock.getMOVE_QTY()); ///출고는 QTY 빼줘야함
+		System.out.println("출고 처리");
 		
-		if(control==1) {
-			stock.setTARGET_STOCK_CD(null); ///출고는 도착지 없음
-		} else { ///출고가 아니니까 이동 수정, 다른 점은 도착지가 있음
-			stock.setTARGET_STOCK_CD(null);
+		int updateCount = 0;
+		//재고 이동은 control 3으로 들어옴, STOCK_CD가 
+		if(control==3) {
+			stock.setSTOCK_CD(stock.getSOURCE_STOCK_CD());
+		} else {
+			////history를 위한 정보 저장 (출고, 단순 재고 조정)
+			stock.setTARGET_STOCK_CD(null); ///출고, 단순 조정은 도착지 없음
+			stock.setSOURCE_STOCK_CD(updateStock.getSTOCK_CD_Arr()[i]);
+			stock.setSTOCK_CD(updateStock.getSTOCK_CD_Arr()[i]);
 		}
-		
-//		updateCount = service.updateStock(stock);
-		
+		updateCount = service.outStock(stock);
 		
 		
-		return 0;
+		if(updateCount==0) {
+			return false;
+		} else {
+			//재고 이동은 control 3으로 들어옴, 이미 history 남겼으니까 필요없음 
+			if(control!=3) {
+				///성공했으면 history 남기기
+				if(service.putStockHistory(stock) == 0) {
+					return false;
+				}
+			}
+			
+		}
+		return true;
 	}
 	
 	

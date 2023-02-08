@@ -16,21 +16,28 @@
 	</select>
 	
 	<select id="selectStockDetail" resultType="stock">
-		SELECT * FROM sh_view WHERE STOCK_CD=#{stockNo};
+		SELECT * FROM sh_view WHERE SOURCE_STOCK_CD=#{stockNo} OR TARGET_STOCK_CD=#{stockNo};
 	</select>
 	
 	<select id="selectNewStockCD" resultType="int">
 		SELECT MAX(STOCK_CD) FROM STOCK
 	</select>
 	
+	<select id="isExistStock"  resultType="int">
+		SELECT STOCK_CD FROM stock WHERE PRODUCT_CD = #{PRODUCT_CD} AND WH_LOC_IN_AREA_CD = #{WH_LOC_IN_AREA_CD}
+	</select>
+	
 	<insert id="insertStock">
 		INSERT INTO stock VALUES (#{STOCK_CD}+1, #{PRODUCT_CD}, #{WH_LOC_IN_AREA_CD}, #{MOVE_QTY}) ON DUPLICATE KEY UPDATE STOCK_QTY =STOCK_QTY+#{MOVE_QTY};
 	</insert>
 	
+	<update id="updateOutStock">
+		UPDATE stock SET STOCK_QTY=STOCK_QTY-#{MOVE_QTY} WHERE STOCK_CD=#{STOCK_CD};
+	</update>
+	
 	<insert id="insertStockHistory">
 		INSERT INTO STOCK_HISTORY VALUES(
-			#{STOCK_CD}
-			,#{STOCK_CONTROL_TYPE_CD}
+			#{STOCK_CONTROL_TYPE_CD}
 			,#{PRODUCT_CD}
 			,#{SOURCE_STOCK_CD}
 			,#{TARGET_STOCK_CD}
