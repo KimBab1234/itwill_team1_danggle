@@ -24,7 +24,7 @@ function movePassChange() {
 }
 </script>
 <div align="center" style="width: auto; margin-top: 100px;">
-	<h1><i class="fa fa-solid fa-triangle-exclamation" style="color: #A50000;"></i>비밀번호 변경 필요!</h1>
+	<div style="font-size: 40px; font-weight: bold;"><i class="fa fa-solid fa-triangle-exclamation" style="color: #A50000;"></i><span>비밀번호 변경 필요!</span></div>
 	<h2>현재 임시 비밀번호를 사용하고 있습니다.</h2>
 	<h2>신규 비밀번호로 변경이 필요합니다.</h2>
 	<button type="button" class="hrFormBtn" style="width: 300px; font-size: 24px;"  onclick="movePassChange()">비밀번호 변경하러가기!</button>

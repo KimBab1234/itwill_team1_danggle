@@ -11,7 +11,7 @@ public class StockVO {
 	private String WH_NAME;
 	private String WH_AREA;
 	private String WH_LOC_IN_AREA;
-	private int WH_LOC_IN_AREA_CD;
+	private Integer WH_LOC_IN_AREA_CD;
 	private Integer SOURCE_STOCK_CD;
 	private Integer TARGET_STOCK_CD;
 	private String STOCK_CONTROL_TYPE_CD;
@@ -31,8 +31,7 @@ public class StockVO {
 	private Integer[] QTY_Arr;
 	private Integer[] MOVE_QTY_Arr;
 	private String[] REMARKS_Arr;
-	private int[] WH_LOC_IN_AREA_CD_Arr;
-	private Date[] STOCK_DATE_Arr;
+	private Integer[] WH_LOC_IN_AREA_CD_Arr;
 	
 	public String getWH_NAME() {
 		return WH_NAME;
@@ -187,43 +186,49 @@ public class StockVO {
 		REMARKS = rEMARKS;
 	}
 	
-	public int[] getWH_LOC_IN_AREA_CD_Arr() {
-		return WH_LOC_IN_AREA_CD_Arr;
-	}
-	public void setWH_LOC_IN_AREA_CD_Arr(int[] wH_LOC_IN_AREA_CD_Arr) {
-		WH_LOC_IN_AREA_CD_Arr = wH_LOC_IN_AREA_CD_Arr;
-	}
+	
 	public void setSTOCK_CD(Integer sTOCK_CD) {
 		STOCK_CD = sTOCK_CD;
 	}
 	
-	@Override
-	public String toString() {
-		return "StockVO [STOCK_CD=" + STOCK_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME
-				+ ", WH_NAME=" + WH_NAME + ", WH_AREA=" + WH_AREA + ", WH_LOC_IN_AREA=" + WH_LOC_IN_AREA
-				+ ", WH_LOC_IN_AREA_CD=" + WH_LOC_IN_AREA_CD + ", SOURCE_STOCK_CD=" + SOURCE_STOCK_CD
-				+ ", TARGET_STOCK_CD=" + TARGET_STOCK_CD + ", STOCK_CONTROL_TYPE_CD=" + STOCK_CONTROL_TYPE_CD
-				+ ", STOCK_CONTROL_TYPE_NAME=" + STOCK_CONTROL_TYPE_NAME + ", QTY=" + QTY + ", STOCK_QTY=" + STOCK_QTY
-				+ ", EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", STOCK_DATE=" + STOCK_DATE + ", REMARKS="
-				+ REMARKS + ", STOCK_CD_Arr=" + Arrays.toString(STOCK_CD_Arr) + ", STOCK_CONTROL_TYPE_CD_Arr="
-				+ Arrays.toString(STOCK_CONTROL_TYPE_CD_Arr) + ", PRODUCT_CD_Arr=" + Arrays.toString(PRODUCT_CD_Arr)
-				+ ", SOURCE_STOCK_CD_Arr=" + Arrays.toString(SOURCE_STOCK_CD_Arr) + ", TARGET_STOCK_CD_Arr="
-				+ Arrays.toString(TARGET_STOCK_CD_Arr) + ", QTY_Arr=" + Arrays.toString(QTY_Arr) + ", MOVE_QTY_Arr="
-				+ Arrays.toString(MOVE_QTY_Arr) + ", REMARKS_Arr=" + Arrays.toString(REMARKS_Arr)
-				+ ", WH_LOC_IN_AREA_CD_Arr=" + Arrays.toString(WH_LOC_IN_AREA_CD_Arr) + "]";
-	}
-	public Date[] getSTOCK_DATE_Arr() {
-		return STOCK_DATE_Arr;
-	}
-	public void setSTOCK_DATE_Arr(Date[] sTOCK_DATE_Arr) {
-		STOCK_DATE_Arr = sTOCK_DATE_Arr;
-	}
 	public int getMOVE_QTY() {
 		return MOVE_QTY;
 	}
 	public void setMOVE_QTY(int mOVE_QTY) {
 		MOVE_QTY = mOVE_QTY;
 	}
+	public Integer[] getWH_LOC_IN_AREA_CD_Arr() {
+		return WH_LOC_IN_AREA_CD_Arr;
+	}
+	public void setWH_LOC_IN_AREA_CD_Arr(Integer[] wH_LOC_IN_AREA_CD_Arr) {
+		WH_LOC_IN_AREA_CD_Arr = wH_LOC_IN_AREA_CD_Arr;
+	}
+	public void setWH_LOC_IN_AREA_CD(Integer wH_LOC_IN_AREA_CD) {
+		WH_LOC_IN_AREA_CD = wH_LOC_IN_AREA_CD;
+	}
+	public void setQTY(Integer qTY) {
+		QTY = qTY;
+	}
+	public void setMOVE_QTY(Integer mOVE_QTY) {
+		MOVE_QTY = mOVE_QTY;
+	}
+	@Override
+	public String toString() {
+		return "StockVO [STOCK_CD=" + STOCK_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME=" + PRODUCT_NAME
+				+ ", WH_NAME=" + WH_NAME + ", WH_AREA=" + WH_AREA + ", WH_LOC_IN_AREA=" + WH_LOC_IN_AREA
+				+ ", WH_LOC_IN_AREA_CD=" + WH_LOC_IN_AREA_CD + ", SOURCE_STOCK_CD=" + SOURCE_STOCK_CD
+				+ ", TARGET_STOCK_CD=" + TARGET_STOCK_CD + ", STOCK_CONTROL_TYPE_CD=" + STOCK_CONTROL_TYPE_CD
+				+ ", STOCK_CONTROL_TYPE_NAME=" + STOCK_CONTROL_TYPE_NAME + ", QTY=" + QTY + ", MOVE_QTY=" + MOVE_QTY
+				+ ", STOCK_QTY=" + STOCK_QTY + ", EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", STOCK_DATE="
+				+ STOCK_DATE + ", REMARKS=" + REMARKS + ", STOCK_CD_Arr=" + Arrays.toString(STOCK_CD_Arr)
+				+ ", STOCK_CONTROL_TYPE_CD_Arr=" + Arrays.toString(STOCK_CONTROL_TYPE_CD_Arr) + ", PRODUCT_CD_Arr="
+				+ Arrays.toString(PRODUCT_CD_Arr) + ", SOURCE_STOCK_CD_Arr=" + Arrays.toString(SOURCE_STOCK_CD_Arr)
+				+ ", TARGET_STOCK_CD_Arr=" + Arrays.toString(TARGET_STOCK_CD_Arr) + ", QTY_Arr="
+				+ Arrays.toString(QTY_Arr) + ", MOVE_QTY_Arr=" + Arrays.toString(MOVE_QTY_Arr) + ", REMARKS_Arr="
+				+ Arrays.toString(REMARKS_Arr) + ", WH_LOC_IN_AREA_CD_Arr=" + Arrays.toString(WH_LOC_IN_AREA_CD_Arr)
+				+ "]";
+	}
+	
 	
 	
 }

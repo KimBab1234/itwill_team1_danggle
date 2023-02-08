@@ -122,7 +122,7 @@ input.chk_top + label{
 				$("table tbody").empty();
 				/// 데이터 뿌리기
 				if(stock.length==0) {
-					$(".regi_table").append('<tr><td colspan="6" style="font-size: 20px;">검색 결과가 없습니다.</td></tr>');
+					$(".regi_table").append('<tr><td colspan="8" style="font-size: 20px;">검색 결과가 없습니다.</td></tr>');
 				} else {
 					for(var i=0; i<stock.length; i++) {
 						$(".regi_table").append('<tr>'

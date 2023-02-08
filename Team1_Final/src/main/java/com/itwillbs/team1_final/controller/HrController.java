@@ -102,9 +102,9 @@ public class HrController {
 				FTPClient ftp = new FTPClient();
 				
 				try {
+					ftp.connect("iup.cdn1.cafe24.com",21);
 					ftp.setFileType(FTP.BINARY_FILE_TYPE);
 					ftp.setControlEncoding("UTF-8");
-					ftp.connect("iup.cdn1.cafe24.com",21);
 					ftp.setSoTimeout(1000);
 					ftp.login("itwillbs3", "itwillbs8030909");
 					ftp.storeFile("/www/profileImg/"+newEmp.getPHOTO(), mFile.getInputStream());

@@ -43,7 +43,7 @@
 			,#{TARGET_STOCK_CD}
 			,#{MOVE_QTY}
 			,#{EMP_NUM}
-			,#{STOCK_DATE}
+			, now()
 			,#{REMARKS}
 		);
 	</insert>
