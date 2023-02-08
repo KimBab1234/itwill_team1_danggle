@@ -332,13 +332,13 @@ public class HrController {
 				FTPClient ftp = new FTPClient();
 
 				try {
-					ftp.connect("iup.cdn1.cafe24.com",20);
+					ftp.connect("iup.cdn1.cafe24.com",21);
 					ftp.login("itwillbs3", "itwillbs8030909");
 					ftp.changeWorkingDirectory("/www/profileImg");
 					ftp.setSoTimeout(1000);
 					ftp.setControlEncoding("euc-kr");
 					ftp.setFileType(FTP.BINARY_FILE_TYPE);
-					ftp.storeFile(new String(updateEmp.getPHOTO().getBytes("euc-kr"),"euc-kr"), mFile.getInputStream());
+					ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
 
 					if(ftp.getReplyCode() != 226) {
 						model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());

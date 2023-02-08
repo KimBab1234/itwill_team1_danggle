@@ -164,7 +164,7 @@ public class StockController {
 			stock.setSTOCK_CONTROL_TYPE_CD(updateStock.getSTOCK_CONTROL_TYPE_CD());
 			stock.setPRODUCT_CD(updateStock.getPRODUCT_CD_Arr()[i]);
 			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
-			stock.setEMP_NUM(updateStock.getEMP_NUM());
+			stock.setEMP_NUM((String)session.getAttribute("empNo"));
 
 			boolean isSuccess = false;
 			if(control_cd.equals("0")) { 
