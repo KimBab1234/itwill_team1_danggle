@@ -76,7 +76,7 @@
 			// 추가된 품목 수량 합계 계산
 			var inClass = $(".out_schedule_qty").length;
 
-			$("input[type=number][name=OUT_SCHEDULE_QTY]").on("change", function() {
+			$("input[type=number][name=OUT_SCHEDULE_QTY_Arr]").on("change", function() {
 				$.total();
 			});
 			

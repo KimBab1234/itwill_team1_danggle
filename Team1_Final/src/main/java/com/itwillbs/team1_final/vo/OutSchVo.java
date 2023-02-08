@@ -15,6 +15,7 @@ public class OutSchVo {
 	private Date OUT_DATE;
 	private String REMARKS;
 	private int TOTAL_QTY;
+	private String CUST_NAME;
 	
 	private String PRODUCT_NAME;
 	private String SIZE_DES;
@@ -83,6 +84,12 @@ public class OutSchVo {
 	public void setTOTAL_QTY(int tOTAL_QTY) {
 		TOTAL_QTY = tOTAL_QTY;
 	}
+	public String getCUST_NAME() {
+		return CUST_NAME;
+	}
+	public void setCUST_NAME(String cUST_NAME) {
+		CUST_NAME = cUST_NAME;
+	}
 	public String getPRODUCT_NAME() {
 		return PRODUCT_NAME;
 	}
@@ -119,12 +126,6 @@ public class OutSchVo {
 	public void setOUT_SCHEDULE_QTY_Arr(List<Integer> oUT_SCHEDULE_QTY_Arr) {
 		OUT_SCHEDULE_QTY_Arr = oUT_SCHEDULE_QTY_Arr;
 	}
-	public int getOUT_QTY_Arr() {
-		return OUT_QTY_Arr;
-	}
-	public void setOUT_QTY_Arr(int oUT_QTY_Arr) {
-		OUT_QTY_Arr = oUT_QTY_Arr;
-	}
 	public List<Date> getPD_OUT_DATE_Arr() {
 		return PD_OUT_DATE_Arr;
 	}
@@ -137,6 +138,12 @@ public class OutSchVo {
 	public void setPD_REMARKS_Arr(List<String> pD_REMARKS_Arr) {
 		PD_REMARKS_Arr = pD_REMARKS_Arr;
 	}
+	public int getOUT_QTY_Arr() {
+		return OUT_QTY_Arr;
+	}
+	public void setOUT_QTY_Arr(int oUT_QTY_Arr) {
+		OUT_QTY_Arr = oUT_QTY_Arr;
+	}
 	public String getSTOCK_CD_Arr() {
 		return STOCK_CD_Arr;
 	}
@@ -148,11 +155,12 @@ public class OutSchVo {
 	public String toString() {
 		return "OutSchVo [OUT_SCHEDULE_CD=" + OUT_SCHEDULE_CD + ", OUT_TYPE_NAME=" + OUT_TYPE_NAME + ", BUSINESS_NO="
 				+ BUSINESS_NO + ", EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", OUT_COMPLETE=" + OUT_COMPLETE
-				+ ", OUT_DATE=" + OUT_DATE + ", REMARKS=" + REMARKS + ", TOTAL_QTY=" + TOTAL_QTY + ", PRODUCT_NAME="
-				+ PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", PRODUCT_CD_Arr=" + PRODUCT_CD_Arr + ", PRODUCT_NAME_Arr="
-				+ PRODUCT_NAME_Arr + ", SIZE_DES_Arr=" + SIZE_DES_Arr + ", OUT_SCHEDULE_QTY_Arr=" + OUT_SCHEDULE_QTY_Arr
-				+ ", OUT_QTY_Arr=" + OUT_QTY_Arr + ", PD_OUT_DATE_Arr=" + PD_OUT_DATE_Arr + ", PD_REMARKS_Arr="
-				+ PD_REMARKS_Arr + ", STOCK_CD_Arr=" + STOCK_CD_Arr + "]";
+				+ ", OUT_DATE=" + OUT_DATE + ", REMARKS=" + REMARKS + ", TOTAL_QTY=" + TOTAL_QTY + ", CUST_NAME="
+				+ CUST_NAME + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", PRODUCT_CD_Arr="
+				+ PRODUCT_CD_Arr + ", PRODUCT_NAME_Arr=" + PRODUCT_NAME_Arr + ", SIZE_DES_Arr=" + SIZE_DES_Arr
+				+ ", OUT_SCHEDULE_QTY_Arr=" + OUT_SCHEDULE_QTY_Arr + ", PD_OUT_DATE_Arr=" + PD_OUT_DATE_Arr
+				+ ", PD_REMARKS_Arr=" + PD_REMARKS_Arr + ", OUT_QTY_Arr=" + OUT_QTY_Arr + ", STOCK_CD_Arr="
+				+ STOCK_CD_Arr + "]";
 	}
 	
 }

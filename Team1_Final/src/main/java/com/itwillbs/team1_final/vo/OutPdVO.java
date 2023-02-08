@@ -10,8 +10,8 @@ public class OutPdVO {
 	private String SIZE_DES;
 	private int OUT_SCHEDULE_QTY;
 	private int OUT_QTY;
-	private Date OUT_DATE;
-	private String REMARKS;
+	private Date PD_OUT_DATE;
+	private String PD_REMARKS;
 	private String OUT_COMPLETE;
 	private String STOCK_CD;
 	
@@ -52,16 +52,16 @@ public class OutPdVO {
 		OUT_QTY = oUT_QTY;
 	}
 	public Date getOUT_DATE() {
-		return OUT_DATE;
+		return PD_OUT_DATE;
 	}
 	public void setOUT_DATE(Date oUT_DATE) {
-		OUT_DATE = oUT_DATE;
+		PD_OUT_DATE = oUT_DATE;
 	}
 	public String getREMARKS() {
-		return REMARKS;
+		return PD_REMARKS;
 	}
 	public void setREMARKS(String rEMARKS) {
-		REMARKS = rEMARKS;
+		PD_REMARKS = rEMARKS;
 	}
 	public String getOUT_COMPLETE() {
 		return OUT_COMPLETE;
@@ -80,7 +80,7 @@ public class OutPdVO {
 	public String toString() {
 		return "OutPdVO [OUT_SCHEDULE_CD=" + OUT_SCHEDULE_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME="
 				+ PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", OUT_SCHEDULE_QTY=" + OUT_SCHEDULE_QTY + ", OUT_QTY="
-				+ OUT_QTY + ", OUT_DATE=" + OUT_DATE + ", REMARKS=" + REMARKS + ", OUT_COMPLETE=" + OUT_COMPLETE
+				+ OUT_QTY + ", OUT_DATE=" + PD_OUT_DATE + ", REMARKS=" + PD_REMARKS + ", OUT_COMPLETE=" + OUT_COMPLETE
 				+ ", STOCK_CD=" + STOCK_CD + "]";
 	}
 	
