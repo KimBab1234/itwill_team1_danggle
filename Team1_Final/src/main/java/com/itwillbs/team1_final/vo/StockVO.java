@@ -35,7 +35,15 @@ public class StockVO {
 	private String[] REMARKS_Arr;
 	private Integer[] WH_LOC_IN_AREA_CD_Arr;
 	private String[] IN_PD_SCHEDULE_CD_Arr;
+	private String SIZE_DES; 
 	
+	
+	public String getSIZE_DES() {
+		return SIZE_DES;
+	}
+	public void setSIZE_DES(String sIZE_DES) {
+		SIZE_DES = sIZE_DES;
+	}
 	public String getWH_NAME() {
 		return WH_NAME;
 	}
@@ -221,15 +229,17 @@ public class StockVO {
 				+ ", WH_NAME=" + WH_NAME + ", WH_AREA=" + WH_AREA + ", WH_LOC_IN_AREA=" + WH_LOC_IN_AREA
 				+ ", WH_LOC_IN_AREA_CD=" + WH_LOC_IN_AREA_CD + ", SOURCE_STOCK_CD=" + SOURCE_STOCK_CD
 				+ ", TARGET_STOCK_CD=" + TARGET_STOCK_CD + ", STOCK_CONTROL_TYPE_CD=" + STOCK_CONTROL_TYPE_CD
-				+ ", STOCK_CONTROL_TYPE_NAME=" + STOCK_CONTROL_TYPE_NAME + ", QTY=" + QTY + ", MOVE_QTY=" + MOVE_QTY
-				+ ", STOCK_QTY=" + STOCK_QTY + ", EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", STOCK_DATE="
-				+ STOCK_DATE + ", REMARKS=" + REMARKS + ", STOCK_CD_Arr=" + Arrays.toString(STOCK_CD_Arr)
-				+ ", STOCK_CONTROL_TYPE_CD_Arr=" + Arrays.toString(STOCK_CONTROL_TYPE_CD_Arr) + ", PRODUCT_CD_Arr="
-				+ Arrays.toString(PRODUCT_CD_Arr) + ", SOURCE_STOCK_CD_Arr=" + Arrays.toString(SOURCE_STOCK_CD_Arr)
-				+ ", TARGET_STOCK_CD_Arr=" + Arrays.toString(TARGET_STOCK_CD_Arr) + ", QTY_Arr="
-				+ Arrays.toString(QTY_Arr) + ", MOVE_QTY_Arr=" + Arrays.toString(MOVE_QTY_Arr) + ", REMARKS_Arr="
-				+ Arrays.toString(REMARKS_Arr) + ", WH_LOC_IN_AREA_CD_Arr=" + Arrays.toString(WH_LOC_IN_AREA_CD_Arr)
-				+ "]";
+				+ ", STOCK_CONTROL_TYPE_NAME=" + STOCK_CONTROL_TYPE_NAME + ", IN_PD_SCHEDULE_CD=" + IN_PD_SCHEDULE_CD
+				+ ", QTY=" + QTY + ", MOVE_QTY=" + MOVE_QTY + ", STOCK_QTY=" + STOCK_QTY + ", EMP_NUM=" + EMP_NUM
+				+ ", EMP_NAME=" + EMP_NAME + ", STOCK_DATE=" + STOCK_DATE + ", REMARKS=" + REMARKS
+				+ ", PRODUCT_NAME_Arr=" + Arrays.toString(PRODUCT_NAME_Arr) + ", STOCK_CD_Arr="
+				+ Arrays.toString(STOCK_CD_Arr) + ", STOCK_CONTROL_TYPE_CD_Arr="
+				+ Arrays.toString(STOCK_CONTROL_TYPE_CD_Arr) + ", PRODUCT_CD_Arr=" + Arrays.toString(PRODUCT_CD_Arr)
+				+ ", SOURCE_STOCK_CD_Arr=" + Arrays.toString(SOURCE_STOCK_CD_Arr) + ", TARGET_STOCK_CD_Arr="
+				+ Arrays.toString(TARGET_STOCK_CD_Arr) + ", QTY_Arr=" + Arrays.toString(QTY_Arr) + ", MOVE_QTY_Arr="
+				+ Arrays.toString(MOVE_QTY_Arr) + ", REMARKS_Arr=" + Arrays.toString(REMARKS_Arr)
+				+ ", WH_LOC_IN_AREA_CD_Arr=" + Arrays.toString(WH_LOC_IN_AREA_CD_Arr) + ", IN_PD_SCHEDULE_CD_Arr="
+				+ Arrays.toString(IN_PD_SCHEDULE_CD_Arr) + ", SIZE_DES=" + SIZE_DES + "]";
 	}
 	public String getIN_PD_SCHEDULE_CD() {
 		return IN_PD_SCHEDULE_CD;
