@@ -31,16 +31,16 @@
 		
 			<c:forEach items="${stockList }" var="list">
 			<tr>
-				<th align="center" style="width: 200px;">재고번호</th><td>${stockList.STOCK_CD }</td>
+				<th align="center" style="width: 200px;">재고번호</th><td>${list.STOCK_CD }</td>
 			</tr>
 			<tr>
-				<th align="center" style="width: 200px;">품목명</th><td>${stockList.PRODUCT_NAME }</td> 
+				<th align="center" style="width: 200px;">품목명</th><td>${list.PRODUCT_NAME }</td> 
 			</tr>
 			<tr>
-				<th align="center" style="width: 200px;">규격</th><td>${stockList.SIZE_DES }</td> 
+				<th align="center" style="width: 200px;">규격</th><td>${list.SIZE_DES }</td> 
 			</tr>
 			<tr>
-				<th align="center" style="width: 200px;">수량</th><td>${stockList.STOCK_QTY }</td> 
+				<th align="center" style="width: 200px;">수량</th><td>${list.STOCK_QTY }</td> 
 			</tr>
 <!-- 			<tr> -->
 <%-- 				<th align="center" style="width: 200px;">창고명</th><td>${stockList.WH_NAME }</td>  --%>

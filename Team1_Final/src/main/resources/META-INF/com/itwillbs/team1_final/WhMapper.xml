@@ -178,9 +178,9 @@
 	<select id="selectStockList" resultType="stock">
 		SELECT *FROM stock_view
 		<where> 
-		<if test="WH_NAME != null">AND WH_NAME = #{WH_NAME}</if>
-		<if test="WH_AREA != null">AND WH_AREA = #{WH_AREA}</if>
-		<if test="WH_LOC_IN_AREA != null">AND WH_LOC_IN_AREA = #{WH_LOC_IN_AREA}</if>
+		<if test="WH_CD != null">AND WH_CD = #{WH_CD}</if>
+		<if test="WH_AREA_CD != null">AND WH_AREA_CD = #{WH_AREA_CD}</if>
+		<if test="WH_LOC_IN_AREA_CD != null">AND WH_LOC_IN_AREA_CD = #{WH_LOC_IN_AREA_CD}</if>
 		</where>
 	</select>
 
