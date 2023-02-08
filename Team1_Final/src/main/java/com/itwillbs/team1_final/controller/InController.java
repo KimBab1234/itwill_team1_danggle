@@ -419,10 +419,10 @@ public class InController {
 			///입고 전용
 			String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
 			String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
-			
+			Integer[] qty_arr = updateStock.getIN_SCHEDULE_QTY_Arr();
 			if(in_arr != null ) {
 				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
-				
+				stock.setIN_SCHEDULE_QTY(qty_arr[i]);
 				if(name_arr[i].contains("[")) {
 					stock.setPRODUCT_NAME(name_arr[i].split("\\[")[0]);
 				}else {

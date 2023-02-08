@@ -89,10 +89,10 @@
 		};
 		
 		$.subtract = function(num) {
-			var a = $("#qty_sum"+num).val();
-			var b = $("#qty"+num).val();
+			var a = $("#mi_qty"+num).val();
+			var b = $("#qty_sum"+num).val();
 			
-			$("#mi_qty"+num).val(b-a);
+			$("#mi_qty"+num).val(a-b);
 			$.total_qty();
 		};
 		
@@ -105,7 +105,7 @@
 				let result = "<tr>"
 					+ "<td><input type='text' name='IN_PD_SCHEDULE_CD_Arr' class='sch_cd' value='" + proList[i].IN_PD_SCHEDULE_CD + "' readonly='readonly'></td>"
 					+ "<td><input type='hidden' name='PRODUCT_CD_Arr' id='pro_cd"+j+"'><input type='text' name='PRODUCT_NAME_Arr' class='sch_name' value='" + proList[i].PRODUCT_NAME + "' readonly='readonly'></td>"
-					+ "<td><input type='text' class='sch_qty' id='qty"+j+"' value='" + proList[i].IN_SCHEDULE_QTY + "' readonly='readonly'></td>"
+					+ "<td><input type='text' class='sch_qty' id='qty"+j+"' name='IN_SCHEDULE_QTY_Arr' value='" + proList[i].IN_SCHEDULE_QTY + "' readonly='readonly'></td>"
 					+ "<td><input type='hidden' name='WH_LOC_IN_AREA_CD_Arr' id='wh_loc"+j+"'><input type='text' id='mi_qty"+j+"' class='sch_qty mi_qty' value='" + (proList[i].IN_SCHEDULE_QTY - proList[i].IN_QTY) + "'></td>"
 					+ "<td><input type='text' name='MOVE_QTY_Arr' id='qty_sum"+j+"' class='sch_qty qty_sum' onchange='sum_qty("+j+")'></td>"
 					+ "<td><input type='text' name='STOCK_CD_Arr' id='sch_num"+j+"' class='sch_num' onclick='create_num("+j+")' readonly='readonly'><i class='fa-solid fa-magnifying-glass' onclick='search_num("+j+")'></i></td>"

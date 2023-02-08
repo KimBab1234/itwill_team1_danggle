@@ -10,6 +10,7 @@ public class StockVO {
 	private String PRODUCT_NAME;
 	private String WH_NAME;
 	private String WH_AREA;
+	private Integer IN_QTY;
 	private String WH_LOC_IN_AREA;
 	private Integer WH_LOC_IN_AREA_CD;
 	private Integer SOURCE_STOCK_CD;
@@ -39,6 +40,14 @@ public class StockVO {
 	private String SIZE_DES; 
 	private Integer[] IN_SCHEDULE_QTY_Arr;
 	
+	
+	
+	public Integer getIN_QTY() {
+		return IN_QTY;
+	}
+	public void setIN_QTY(Integer iN_QTY) {
+		IN_QTY = iN_QTY;
+	}
 	public Integer getIN_SCHEDULE_QTY() {
 		return IN_SCHEDULE_QTY;
 	}
