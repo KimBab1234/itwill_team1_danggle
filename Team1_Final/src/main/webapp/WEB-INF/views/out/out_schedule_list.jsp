@@ -109,7 +109,9 @@ button {
 		$.ajax({
 			url: "OutSchListJson",
 			type: "POST",
-			data : keyword,
+			data : {
+				"keyword" : keyword	
+			},
 			dataType: "json"
 		})
 		.done(function(response) {
@@ -120,7 +122,6 @@ button {
 			for(var i = 0; i < outSchList.length; i++) {
 				let result =
 					  "<tr>"
-					+ "		<td><input type='checkbox'></td>"
 					+ "		<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
 					+ "		<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
 					+ "		<td>" + outSchList[i].CUST_NAME + "</td>"
@@ -128,7 +129,7 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td><a href='javascript:OutCom("+ i +")'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a href='javascript:OutCom("+ i +")' class='comColor'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
 					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
 					
@@ -143,6 +144,14 @@ button {
 // 							+ "</tr>";
 				$("#outListT").append(result);
 			}
+			
+			// 종결 / 취소 색상변경
+			if($(".comColor").text() == "종결"){
+				$(".comColor").css("color", "#005B9E");
+			} else {
+				$(".comColor").css("color", "#FF8F32");
+			}
+			
 		})
 		.fail(function() {
 			$("#outListT").append("<h3>요청 실패!</h3>");
@@ -154,6 +163,7 @@ button {
 	// 종결 여부 변경
 	function OutCom(i){
 		cIndex = i;
+		
 		window.open('OutCom', 'OutCom', 'width=500, height=300, left=600, top=400');
 	}
 	
@@ -181,7 +191,6 @@ button {
 			for(var i = 0; i < outSchList.length; i++) {
 				let result =
 					  "<tr>"
-					+ "		<td><input type='checkbox'></td>"
 					+ "		<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
 					+ "		<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
 					+ "		<td>" + outSchList[i].CUST_NAME + "</td>"
@@ -189,12 +198,21 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td><a href='javascript:OutCom("+ i +")'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a href='javascript:OutCom("+ i +")' class='comColor'>"
+					+ 			outSchList[i].OUT_COMPLETE + "</a></td>"
 					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
-
+					
 				$("#outListT").append(result);
 			}
+			
+			// 종결 / 취소 색상변경
+			if($(".comColor").text() == "종결"){
+				$(".comColor").css("color", "#005B9E");
+			} else {
+				$(".comColor").css("color", "#FF8F32");
+			}
+			
 		})
 		.fail(function() {
 			$("#outListT").append("<h3>요청 실패!</h3>");
@@ -232,7 +250,10 @@ button {
 		});
 		
 		
-			
+		
+
+		
+		
 		// 무한스크롤 기능 구현
 // 		$(window).scroll(function() {
 // 			let scrollTop = $(window).scrollTop();
@@ -271,7 +292,6 @@ button {
 		</ul><br>
 		<table id="outListT">
 			<tr>
-				<th width="50px"><input type="checkbox"></th>
 				<th width="300px">출고예정번호</th>
 				<th width="300px">유형</th>
 				<th width="300px">받는곳명</th>

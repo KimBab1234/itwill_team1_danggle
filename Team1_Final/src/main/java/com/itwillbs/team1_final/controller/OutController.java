@@ -40,8 +40,6 @@ public class OutController {
 	@ResponseBody
 	public String searchOutList(
 			@RequestParam(defaultValue = "") String keyword) {
-		System.out.println("진입 keyword - " + keyword);
-
 		List<OutSchVo> outSchList = service.searchOutSchList(keyword);
 		
 		JSONArray jsonAcc = new JSONArray();
@@ -65,7 +63,7 @@ public class OutController {
 	}
 	
 	// 출고예정 등록
-	@PostMapping(value = "OutSchRegistPro")
+	@PostMapping(value = "/OutSchRegistPro")
 	@ResponseBody
 	public int schRegist(
 			String OUT_TODAY,
@@ -224,8 +222,26 @@ public class OutController {
 	// ------------------ 출고 처리 Controller ------------------
 	// 출고처리 목록 창
 	@GetMapping(value = "/OutProList")
-	public String schedule() {
+	public String outProList() {
 		return "out/out_process_list";
+	}
+	
+	@PostMapping(value = "/OutProList")
+	public String outProListPro() {
+		String keyword = "";
+		List<OutSchVo> outSchList = service.searchOutSchList(keyword);
+		
+		JSONArray jsonAcc = new JSONArray();
+		
+		for(OutSchVo outSch : outSchList) {
+			JSONObject jsonObject = new JSONObject(outSch);
+			jsonAcc.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("searchOutSchList", jsonAcc.toString());
+		
+		return jsonObject.toString();
 	}
 	// ----------------------------------------------------------
 	

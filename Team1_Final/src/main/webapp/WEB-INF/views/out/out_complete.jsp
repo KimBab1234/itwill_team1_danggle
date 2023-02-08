@@ -41,6 +41,7 @@
 	            if (result != "0") {
 	                window.close();
 	                opener.location.reload();
+	                opener.load_list(keyword);
 	            } else {
 	            	alert("종결 처리 변경 실패!");
 	            	window.close();	                
