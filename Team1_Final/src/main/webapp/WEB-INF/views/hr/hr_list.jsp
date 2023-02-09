@@ -48,9 +48,6 @@
 	if(loginEmp=='') {
 		alert("로그인 후 이용하세요.");
 		location.href="./Login";
-	} else if(priv.charAt(1) !='1') {
-		alert("권한이 없습니다.");
-		history.back();
 	}
 	////로그인 유무 및 권한 확인 끝
 	
