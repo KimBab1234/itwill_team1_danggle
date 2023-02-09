@@ -218,7 +218,7 @@ select {
 /* 파일 버튼 */
 label {
     display: inline-block;
-    color: #fff;
+    color: #736643;
     vertical-align: middle;
     cursor: pointer;
     height: 32px;
@@ -226,7 +226,7 @@ label {
 }
 
 /* 파일 이름 뜨는 텍스트 박스 */
-.filebox .upload-name {
+.filebox #registPHOTO {
     border: 1px solid #b09f76;
 	border-radius: 5px;
 	padding: 0.4rem 8px; 
