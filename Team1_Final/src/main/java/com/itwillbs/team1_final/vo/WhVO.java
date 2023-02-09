@@ -16,7 +16,7 @@ public class WhVO {
 	private String WH_AREA;
 	private int WH_AREA_CD;
 	private String WH_LOC_IN_AREA;
-	private String WH_LOC_IN_AREA_CD;
+	private int WH_LOC_IN_AREA_CD;
 	
 	public String getWH_CD() {
 		return WH_CD;
@@ -102,10 +102,10 @@ public class WhVO {
 	public void setWH_LOC_IN_AREA(String wH_LOC_IN_AREA) {
 		WH_LOC_IN_AREA = wH_LOC_IN_AREA;
 	}
-	public String getWH_LOC_IN_AREA_CD() {
+	public int getWH_LOC_IN_AREA_CD() {
 		return WH_LOC_IN_AREA_CD;
 	}
-	public void setWH_LOC_IN_AREA_CD(String wH_LOC_IN_AREA_CD) {
+	public void setWH_LOC_IN_AREA_CD(int wH_LOC_IN_AREA_CD) {
 		WH_LOC_IN_AREA_CD = wH_LOC_IN_AREA_CD;
 	}
 	@Override

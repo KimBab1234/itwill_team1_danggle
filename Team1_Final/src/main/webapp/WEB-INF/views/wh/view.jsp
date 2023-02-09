@@ -14,6 +14,19 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 
+////로그인 유무 및 권한 확인
+///기본등록(0), 사원조회(1), 사원관리(2), 재고조회(3), 재고관리(4)
+var loginEmp = '${sessionScope.empNo}';
+var priv = '${sessionScope.priv}';
+if(loginEmp=='') {
+   alert("로그인 후 이용하세요.");
+   location.href="./Login";
+} else if(priv.charAt(0) !='1') {
+   alert("권한이 없습니다.");
+   history.back();
+}
+////로그인 유무 및 권한 확인 끝
+
 $(function() {
 	var location = "${wh.WH_LOCATION }";
 	if(location == 1) {

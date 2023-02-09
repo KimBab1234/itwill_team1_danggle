@@ -9,6 +9,22 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script src="https://kit.fontawesome.com/5fad4a5f29.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+////로그인 유무 및 권한 확인
+///기본등록(0), 사원조회(1), 사원관리(2), 재고조회(3), 재고관리(4)
+var loginEmp = '${sessionScope.empNo}';
+var priv = '${sessionScope.priv}';
+if(loginEmp=='') {
+ alert("로그인 후 이용하세요.");
+ location.href="./Login";
+} else if(priv.charAt(0) !='1') {
+ alert("권한이 없습니다.");
+ history.back();
+}
+////로그인 유무 및 권한 확인 끝
+
+</script>
+
 <link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 	#listForm {
@@ -39,11 +55,7 @@
 		padding-left: 20px;
 	}
 	
-	#pageList {
-		width: 1024px;
-		text-align: center;
-		padding-right: 500px;
-	}
+	
 	
 	#emptyArea {
 		width: 1024px;
@@ -102,7 +114,6 @@
 
 		
 	<!-- 게시판 리스트 -->
-	<section id="listForm">
 	<div align="center" style="width: 1300px;">
 	<h2>창고 목록</h2>
 	<section id="buttonArea">
@@ -137,13 +148,13 @@
 				<c:if test="${whList.get(i-1).WH_CD != whList.get(i).WH_CD}">
 					<tr class="wh_td">
 						<td>
-						<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+						<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${param.pageNum}">
 						${whList.get(i).WH_CD}
 						</a>
 						</td>
 						<td id="name">
 						
-						<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+						<a href="WhDetail?WH_CD=${whList.get(i).WH_CD}&pageNum=${param.pageNum}">
 						${whList.get(i).WH_NAME}
 						</a>
 						</td>
@@ -160,8 +171,8 @@
 								<c:when test="${whList.get(i).WH_GUBUN eq 2 }">미사용</c:when>
 							</c:choose>
 						</td>
-					<td>창고 내부 구역 추가
-						<a href="WhAreaRegist?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+					<td>
+						<a href="WhAreaRegist?WH_CD=${whList.get(i).WH_CD}&pageNum=${param.pageNum}">
 						<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i>
 						</a>
 					</td>
@@ -172,33 +183,33 @@
 <!-- 					</td> -->
 					</tr>
 				</c:if>
-				<c:if test="${whList.get(i-1).WH_AREA_CD != whList.get(i).WH_AREA_CD}">
+				<c:if test="${whList.get(i).WH_AREA_CD != 0 && whList.get(i-1).WH_AREA_CD != whList.get(i).WH_AREA_CD}">
 					<tr style="text-align: left">
 						<td></td>
 						<td colspan="4"><i class="fa-solid fa-right-long"></i>
 						<a href="StockViewList?WH_CD=${whList.get(i).WH_CD}&WH_AREA_CD=${whList.get(i).WH_AREA_CD}&pageNum=${pageNum}">${whList.get(i).WH_AREA}</a>
 						<input type="button" class="Btn" value="구역 이름 수정" onclick="location.href='WhAreaModifyForm?WH_AREA_CD=${whList.get(i).WH_AREA_CD}&pageNum=${param.pageNum }'"></td>
 						<td></td>
-						<td class="wh_td"><!-- 위치추가 버튼 -->창고 구역 내 위치 추가
-						<a href="WhLocationRegist?WH_AREA_CD=${whList.get(i).WH_AREA_CD}&pageNum=${pageNum}">
+						<td class="wh_td"><!-- 위치추가 버튼 -->
+						<a href="WhLocationRegist?WH_AREA_CD=${whList.get(i).WH_AREA_CD}&pageNum=${param.pageNum}">
 						<i style='font-size:13px; color: #000080;' class='fas'>&#xf067;</i></a>
 						</td>
-						<td class="wh_td"><!-- 구역 삭제 버튼 -->창고 구역 삭제
-						<a href="WhAreaDeleteForm?WH_CD=${whList.get(i).WH_CD}&pageNum=${pageNum}">
+						<td class="wh_td"><!-- 구역 삭제 버튼 -->
+						<a href="WhAreaDeleteForm?WH_AREA_CD=${whList.get(i).WH_AREA_CD}&pageNum=${param.pageNum}">
 						<i style='font-size:13px; color: #000080;' class='fas'>&#xf068;</i>
 						</a>
 						</td>
 					</tr>
 				</c:if>
-				<c:if test="${whList.get(i-1).WH_LOC_IN_AREA_CD != whList.get(i).WH_LOC_IN_AREA_CD}">
+				<c:if test="${whList.get(i).WH_LOC_IN_AREA_CD != 0 && whList.get(i-1).WH_LOC_IN_AREA_CD != whList.get(i).WH_LOC_IN_AREA_CD}">
 					<tr align="left">
 						<td></td>
 						<td colspan="5"><i class="fa-solid fa-right-long"></i><i class="fa-solid fa-right-long"></i> 
 						<a href="StockViewList?WH_LOC_IN_AREA_CD=${whList.get(i).WH_LOC_IN_AREA_CD}&pageNum=${param.pageNum}">${whList.get(i).WH_LOC_IN_AREA}</a>
 						<input type="button" class="Btn" value="위치 이름 수정" onclick="location.href='WhLocationModifyForm?WH_LOC_IN_AREA_CD=${whList.get(i).WH_LOC_IN_AREA_CD}&pageNum=${param.pageNum }'"></td>
 						<td></td>
-						<td class="wh_td"><!--  위치 삭제 버튼 -->창고 구역 내 위치 삭제
-						<a href="WhLocationDelete?WH_AREA_CD=${whList.get(i).WH_AREA_CD}&WH_LOC_IN_AREA_CD=${whList.get(i).WH_LOC_IN_AREA_CD }&pageNum=${pageNum}">
+						<td class="wh_td"><!--  위치 삭제 버튼 -->
+						<a href="WhLocationDelete?WH_AREA_CD=${whList.get(i).WH_AREA_CD}&WH_LOC_IN_AREA_CD=${whList.get(i).WH_LOC_IN_AREA_CD }&pageNum=${param.pageNum}">
 						<i style='font-size:13px; color: #000080;' class='fas'>&#xf068;</i>
 						</a>
 						</td>
@@ -211,10 +222,8 @@
 	
 	</div>
 	</div>
-	</section>
 	</div>
-	<div align="center" style="width: 2100px;">
-	<section id="pageList">
+	<div  id="pageList" align="center" style="width: 2100px;">
 	
 	<c:choose>
 					<c:when test="${empty param.pageNum }">
@@ -229,9 +238,6 @@
 		=> 클릭 시 BoardList.bo 서블릿 주소 요청하면서 
 		   현재 페이지 번호(pageNum) - 1 값을 page 파라미터로 전달
 		-->
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
 		<c:choose>
 			<c:when test="${pageNum > 1}">
@@ -241,7 +247,7 @@
 				<input type="button" class="hrFormBtn" value="이전">
 			</c:otherwise>
 		</c:choose>
-		&nbsp;
+		&nbsp;&nbsp;&nbsp;
 			
 		<!-- 페이지 번호 목록은 시작 페이지(startPage)부터 끝 페이지(endPage) 까지 표시 -->
 		<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
@@ -254,6 +260,7 @@
 					<a href="WhList?pageNum=${i }">${i }</a>
 				</c:otherwise>
 			</c:choose>
+			&nbsp;
 		</c:forEach>
 		&nbsp;
 		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
@@ -265,7 +272,6 @@
 				<input type="button" class="hrFormBtn" value="다음">
 			</c:otherwise>
 		</c:choose>
-	</section>
 	</div>
 	
 </body>

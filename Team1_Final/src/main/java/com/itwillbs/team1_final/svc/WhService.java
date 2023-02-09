@@ -86,7 +86,7 @@ public class WhService {
 		return mapper.updateWhArea(wh);
 	}
 
-	public int removeWhLocation(String wh_LOC_IN_AREA_CD) {
+	public int removeWhLocation(int wh_LOC_IN_AREA_CD) {
 		// TODO Auto-generated method stub
 		return mapper.deleteWhLocation(wh_LOC_IN_AREA_CD);
 	}
