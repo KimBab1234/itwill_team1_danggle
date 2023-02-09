@@ -55,6 +55,10 @@ public interface OutMapper {
 	// 출고 처리 목록 조회
 	List<OutSchVo> selectOutProSch(String keyword);
 
+	OutSchVo selectOutUpdatePd(
+			@Param("pd_outSch_cd") String pd_outSch_cd,
+			@Param("product_name") String product_name);
+
 
 
 

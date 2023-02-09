@@ -128,9 +128,14 @@ public class OutService {
 			String pdName = outProSch.get(i).getPRODUCT_NAME();
 			String sizeD = outProSch.get(i).getSIZE_DES();
 			
-			outProSch.get(i).setPRODUCT_NAME(pdName + "[" + sizeD + "]");
+			outProSch.get(i).setSIZE_DES(pdName + "[" + sizeD + "]");
 		}
 		return outProSch;
+	}
+
+	// 출고처리 - 출고 예정 수정 품목 조회
+	public OutSchVo searchOutUpdatePd(String pd_outSch_cd, String product_name) {
+		return mapper.selectOutUpdatePd(pd_outSch_cd, product_name);
 	}
 
 
