@@ -273,18 +273,26 @@ public class OutController {
 	
 	// 출고 처리 품목 수정 창
 	@GetMapping(value = "/OutSchPdUpdate")
-	public String OutSchPdUpdate() {
+	public String OutSchPdUpdateWin() {
 		return "out/out_process_update";
 	}
 	
 	// 출고 처리 품목 수정 - 품목 데이터 조회
 	@PostMapping(value = "/OutSchPdUpdate")
 	@ResponseBody
-	public OutSchVo OutSchPdUpdatePro(String pd_outSch_cd, String product_name) {
+	public OutSchVo OutSchPdUpdate(String pd_outSch_cd, String product_name) {
 		OutSchVo searchOutProList = service.searchOutUpdatePd(pd_outSch_cd, product_name);
 
-		System.out.println("searchOutProList - " + searchOutProList);
 		return searchOutProList;
+	}
+	
+	@PostMapping(value = "/OutSchPdUpdatePro")
+	public int OutSchPdUpdate() {
+		int updateCount = 0;
+		
+//		 service.modifyProduct(product_cd, product_name, product);
+		
+		return updateCount;
 	}
 	
 	// ----------------------------------------------------------

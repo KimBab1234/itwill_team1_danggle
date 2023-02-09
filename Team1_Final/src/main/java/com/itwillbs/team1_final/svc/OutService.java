@@ -135,7 +135,13 @@ public class OutService {
 
 	// 출고처리 - 출고 예정 수정 품목 조회
 	public OutSchVo searchOutUpdatePd(String pd_outSch_cd, String product_name) {
-		return mapper.selectOutUpdatePd(pd_outSch_cd, product_name);
+		OutSchVo out = mapper.selectOutUpdatePd(pd_outSch_cd, product_name);
+		
+		// PD_OUT_SCHEDULE_CD 를 오늘일자만 추출
+		String pd_Sch_cd = out.getPD_OUT_SCHEDULE_CD();
+		out.setPD_OUT_SCHEDULE_CD(pd_Sch_cd.split("-")[0]);
+		
+		return out;
 	}
 
 
