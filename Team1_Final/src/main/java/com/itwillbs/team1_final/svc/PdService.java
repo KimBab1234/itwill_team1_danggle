@@ -61,4 +61,13 @@ public class PdService {
 		return mapper.deletePd(product_CD);
 	}
 
+	// 품목 수정 하기 전 품목 조회
+	public PdVO getProduct(int PRODUCT_CD) {
+		
+		PdVO product = mapper.selectPd(PRODUCT_CD);
+		product.setPRODUCT_IMAGE(product.getPRODUCT_IMAGE().split("_")[1]);
+		return product;
+		
+	}
+
 }

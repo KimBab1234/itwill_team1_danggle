@@ -34,4 +34,8 @@ public interface PdMapper {
 	// 품목 삭제
 	int deletePd(int product_CD);
 
+	// 품목 수정 전 품목 조회
+	PdVO selectPd(int PRODUCT_CD);
+
+
 }

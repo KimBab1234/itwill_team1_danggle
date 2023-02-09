@@ -84,4 +84,12 @@
 				product_cd= #{product_cd}
 	</delete>
 
+	<!-- 품목 수정 전 품목 조회 -->
+	<select id="selectPd" resultType="com.itwillbs.team1_final.vo.PdVO">
+		SELECT *
+			FROM product
+				WHERE
+				product_cd= #{product_cd}
+	</select>
+
 </mapper>
