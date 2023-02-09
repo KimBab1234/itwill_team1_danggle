@@ -130,6 +130,7 @@ public class OutController {
 	
 	
 	// ------------------ 정보 검색 Controller ------------------
+	// [ 출고 예정 ]
 	// 거래처 검색 창
 	@GetMapping(value = "/AccSearch")
 	public String searchAcc() {
@@ -214,6 +215,33 @@ public class OutController {
 		jsonObject.put("pdList", jsonArray.toString());
 		return jsonObject.toString();
 	}
+	
+	
+	// [ 출고 처리 ]
+	// 출고처리 - 품목 검색 창
+	@GetMapping(value = "/UpdatePdSearch")
+	public String SearchUpdatePro() {
+		return "out/out_pdSearch_update";
+	}
+		
+	// 출고처리 - 품목 검색 
+	@ResponseBody
+	@PostMapping(value = "/UpdatePdSearch")
+	public String searchUpdateProduct(String searchType, String keyword) {
+		
+		ArrayList<PdVO> pdList = service.getPdList(searchType, keyword);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(PdVO pd : pdList) {
+			
+			JSONObject jsonObject = new JSONObject(pd);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("pdList", jsonArray.toString());
+		return jsonObject.toString();
+	}
 	// ----------------------------------------------------------
 	
 	
@@ -224,6 +252,7 @@ public class OutController {
 		return "out/out_process_list";
 	}
 	
+	// 출고처리 목록 조회
 	@PostMapping(value = "/OutProList")
 	@ResponseBody
 	public String outProListPro() {
@@ -240,6 +269,50 @@ public class OutController {
 		jsonObject.put("searchOutProList", jsonAcc.toString());
 
 		return jsonObject.toString();
+	}
+	
+	// 출고 처리 품목 수정 창
+	@GetMapping(value = "/OutSchPdUpdate")
+	public String OutSchPdUpdateWin() {
+		return "out/out_process_update";
+	}
+	
+	// 출고 처리 품목 수정 - 품목 데이터 조회
+	@PostMapping(value = "/OutSchPdUpdate")
+	@ResponseBody
+	public OutSchVo OutSchPdUpdate(String pd_outSch_cd, String product_name) {
+		OutSchVo searchOutProList = service.searchOutUpdatePd(pd_outSch_cd, product_name);
+
+		return searchOutProList;
+	}
+	
+	// 출고 처리 품목 수정
+	@PostMapping(value = "/OutSchPdUpdatePro")
+	public int OutSchPdUpdate(String OUT_TODAY, OutSchVo outSchPd) {
+	
+		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
+		int idx = 1;
+		String out_schedule_cd = "";
+		
+		if(todayCount > 0) {
+			todayCount += 1;
+			out_schedule_cd = OUT_TODAY + "-" + todayCount;
+			
+			System.out.println(out_schedule_cd);
+			
+			outSchPd.setOUT_SCHEDULE_CD(out_schedule_cd);
+		} else {
+			out_schedule_cd = OUT_TODAY + "-" + idx;
+			
+			System.out.println(out_schedule_cd);
+			
+			outSchPd.setOUT_SCHEDULE_CD(out_schedule_cd);
+		}
+		
+//		int updateCount = service.modifyOutSchPd(outSchPd);
+		
+//		return updateCount;
+		return 0;
 	}
 	// ----------------------------------------------------------
 	

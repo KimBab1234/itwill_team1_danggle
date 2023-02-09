@@ -20,6 +20,7 @@ public class OutService {
 	@Autowired
 	OutMapper mapper;
 
+	// [ 출고 예정 ]
 	// 거래처 검색
 	public List<AccVO> searchAcc(String searchType, String keyword) {
 		return mapper.selectAcc(searchType, keyword);
@@ -119,6 +120,8 @@ public class OutService {
 		return mapper.selectPdInfo(outSchCdList);
 	}
 
+	
+	// [ 출고 처리 ]
 	// 출고 처리 목록 조회
 	public List<OutSchVo> searchOutProList(String keyword) {
 		List<OutSchVo> outProSch = mapper.selectOutProSch(keyword);
@@ -128,16 +131,25 @@ public class OutService {
 			String pdName = outProSch.get(i).getPRODUCT_NAME();
 			String sizeD = outProSch.get(i).getSIZE_DES();
 			
-			outProSch.get(i).setPRODUCT_NAME(pdName + "[" + sizeD + "]");
+			outProSch.get(i).setSIZE_DES(pdName + "[" + sizeD + "]");
 		}
 		return outProSch;
 	}
 
+	// 출고 예정 수정 품목 조회
+	public OutSchVo searchOutUpdatePd(String pd_outSch_cd, String product_name) {
+		OutSchVo out = mapper.selectOutUpdatePd(pd_outSch_cd, product_name);
+		
+		// PD_OUT_SCHEDULE_CD 를 오늘일자만 추출
+		String pd_Sch_cd = out.getPD_OUT_SCHEDULE_CD();
+		out.setPD_OUT_SCHEDULE_CD(pd_Sch_cd.split("-")[0]);
+		
+		return out;
+	}
 
-
-
-	
-	
-	
+	// 출고 예정 품목 수정
+	public int modifyOutSchPd(OutSchVo outSchPd) {
+		return mapper.updateOutSchPd(outSchPd);
+	}	
 	
 }

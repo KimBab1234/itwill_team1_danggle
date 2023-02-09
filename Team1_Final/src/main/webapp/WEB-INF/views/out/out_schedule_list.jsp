@@ -123,7 +123,7 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td><a href='javascript:OutCom("+ i +")' class='comColor'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a id='com" + i + "' href='javascript:OutCom("+ i +")' class='comColor'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
 					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
 					
@@ -137,13 +137,14 @@ button {
 // 					result += "<td>조회</td>"
 // 							+ "</tr>";
 				$("#outListT").append(result);
-			}
-			
-			// 종결 / 취소 색상변경
-			if($(".comColor").text() == "종결") {
-				$(".comColor").css("color", "#005B9E");
-			} else if($(".comColor").text() == "취소") {
-				$(".comColor").css("color", "#FF8F32");
+				
+				// 종결 / 취소 색상변경
+				if(outSchList[i].OUT_COMPLETE == "종결") {
+					$("#com" + i).css("color", "#005B9E");
+				} else if(outSchList[i].OUT_COMPLETE == "취소") {
+					$("#com" + i).css("color", "#FF8F32");
+				}
+				
 			}
 			
 		})
@@ -192,19 +193,21 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td><a href='javascript:OutCom("+ i +")' class='comColor'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a id='com" + i + "' href='javascript:OutCom("+ i +")' class='comColor'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
 					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
 					
 				$("#outListT").append(result);
+				
+				// 종결 / 취소 색상변경
+				if(outSchList[i].OUT_COMPLETE == "종결") {
+					$("#com" + i).css("color", "#005B9E");
+				} else if(outSchList[i].OUT_COMPLETE == "취소") {
+					$("#com" + i).css("color", "#FF8F32");
+				}
+				
 			}
 			
-			// 종결 / 취소 색상변경
-			if($(".comColor").text() == "종결") {
-				$(".comColor").css("color", "#005B9E");
-			} else if($(".comColor").text() == "취소") {
-				$(".comColor").css("color", "#FF8F32");
-			}
 			
 		})
 		.fail(function() {

@@ -87,7 +87,7 @@ button {
 							+ "<td><input type='checkbox' value='"+proList[i].PD_OUT_SCHEDULE_CD+"' class='check'></td>"
 							+ "<td><a href='javascript:outPdUpdate("+ i +")' class='comColor'>" + proList[i].PD_OUT_SCHEDULE_CD + "</a></td>"
 							+ "<td>" + proList[i].CUST_NAME + "</td>"
-							+ "<td>" + proList[i].PRODUCT_NAME + "</td>"
+							+ "<td>" + proList[i].SIZE_DES + "</td>"
 							+ "<td>" + proList[i].PD_OUT_DATE + "</td>"
 							+ "<td>" + proList[i].OUT_SCHEDULE_QTY + "</td>"
 							+ "<td>" + proList[i].OUT_QTY + "</td>"
@@ -107,11 +107,11 @@ button {
 	
 	function outPdUpdate(i){
 		index = i;
-		window.open('ScheduleUpdate', 'schedule_update', 'width=1000, height=700, left=600, top=400');
+		window.open('OutSchPdUpdate', 'OutSchPdUpdate', 'width=1250, height=600, left=200, top=300');
 	}
 	
 	function release(){
-		window.open('incomingProcess', 'incomingprocess', 'width=1200, height=400, left=600, top=400');
+		window.open('', '', 'width=1200, height=400, left=600, top=400');
 	}
 	
 </script>

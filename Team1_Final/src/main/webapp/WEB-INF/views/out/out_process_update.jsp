@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>출고 예정 입력</title>
+<title>출고 예정 수정</title>
 <!------------------------------- 아이콘 ----------------------------------->
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -17,6 +17,12 @@ pageEncoding="UTF-8"%>
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+	var proList;
+	var i = 0;
+	var productCd = opener.proList[opener.index].PD_OUT_SCHEDULE_CD;
+	var productName = opener.proList[opener.index].PRODUCT_NAME;
+	var date;
+	var pd_date;
 
 	// ----------------------------------- 검색창 -------------------------------------
 	function searchEmp(){
@@ -28,60 +34,32 @@ pageEncoding="UTF-8"%>
 	}
 	
 	function searchPd(){
-		window.open('PdSearch', 'searchPro', 'width=500, height=500, left=1000, top=400');
+		window.open('UpdatePdSearch', 'searchPro', 'width=500, height=500, left=1000, top=400');
 	}
 	// --------------------------------------------------------------------------------
 	
 	
-	// ------------------------------- 출고 예정 기능 ---------------------------------
+	// ---------------------------- 출고 예정 수정 기능 -------------------------------
+	// 데이터 형식 변경 (String -> Date) 
+	function changeDate(on_date){
+		var d = new Date(on_date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+		
+	    date = year +"-" + month + "-" + day;
+    	return date;
+	}
+	// --------------------------------------------------------------------------------
+	
+	
+	// -------------------------------- 페이지 로드 전 --------------------------------
 	$(function() {
-		// 오늘날짜 자동으로 기입
-		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
-		$("#out_today").val(today);
-		
-		// 품목 수량 합계 계산
-		let sum = 0;
-		$.total = function() {
-			var numberClass = $(".out_schedule_qty").length;
-			let sum = 0;
-			for(var i= 0; i < numberClass; i++){
-				sum += Number($("input[type=number][name=OUT_SCHEDULE_QTY_Arr]").eq(i).val());
-			}
-			$("input[type=number][name=TOTAL_QTY]").val(sum);
-		};
-		
-		$("input[type=number][name=OUT_SCHEDULE_QTY_Arr]").on("change", function() {
-			$.total();
-		});
-		
-		// 품목 추가
-		$("#recoBtn").on("click", function() {
-			$("#optionArea").append(
-					'<tr class="idx">' 
-					+ '<td>'
-					+ 	'<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">'
-					+ 	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
-				    + '</td>'
-					+ '<td>'
-					+	'<input type="text" class="product_name" name="PRODUCT_NAME_Arr" ondblclick="searchPd()">'
-					+	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
-					+ '</td>'
-					+ '<td><input type="text" class="size_des" name="SIZE_DES_Arr" readonly="readonly"></td>'
-					+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr"></td>'
-					+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>'
-					+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>'
-				    + '</tr>'
-			);
-
-			// 추가된 품목 수량 합계 계산
-			var inClass = $(".out_schedule_qty").length;
-
-			$("input[type=number][name=OUT_SCHEDULE_QTY_Arr]").on("change", function() {
-				$.total();
-			});
-			
-		});
-		
 		// 입력 Check
 		let empCheck = false;
 		let accCheck = false;
@@ -107,7 +85,7 @@ pageEncoding="UTF-8"%>
 			if(!$(".out_schedule_qty").val() == "0" || !$(".out_schedule_qty").val() == ""){
 				qtyCheck = true;
 			}
-			if(!$(".pd_out_date").val() == "" || !$(".pd_out_date").val() == "1900-01-01"){
+			if(!$(".pd_out_date").val() == ""){
 				outPdDateCheck = true;
 			}
 			
@@ -134,47 +112,89 @@ pageEncoding="UTF-8"%>
 			
 		});
 		
+		
+		// 수정할 출고 예정 품목 데이터 로드
+		$.ajax({
+			
+	        type: "POST",
+	        url: "OutSchPdUpdate",
+	        data: {
+	        	pd_outSch_cd : productCd,
+				product_name : productName
+	        },
+	        dataType: 'json',
+	        success: function(result) {
+	        	
+				console.log(result);
+				
+				$("#out_today").val(result.pd_OUT_SCHEDULE_CD);
+				
+				if(result.out_TYPE_NAME == "1"){
+					$("#type_1").prop('checked', true);
+				} else {
+					$("#type_2").prop('checked', true);
+				}
+				
+				// Date 타입으로 변경
+				changeDate(result.out_DATE);
+				
+				$("#emp_code").val(result.emp_NUM);
+				$("#emp_name").val(result.emp_NAME);
+				$("#acc_code").val(result.business_NO);
+				$("#acc_name").val(result.cust_NAME);
+				$("#OUT_DATE").val(date);
+				$("#REMARKS").val(result.remarks);
+				$(".product_cd").val(result.product_CD);
+				$(".product_name").val(result.product_NAME);
+				$(".size_des").val(result.size_DES);
+				$(".out_schedule_qty").val(result.out_SCHEDULE_QTY);
+				$(".pd_out_date").val(result.pd_OUT_DATE);
+				$(".pd_remarks").val(result.pd_REMARKS);
+				
+	        }
+					
+	    });
+		
 	});
 	// --------------------------------------------------------------------------------
 	
 	
-	// -------------------------------- 출고예정 등록 ---------------------------------
-	function registFunc(){
+	// -------------------------------- 출고예정 수정 ---------------------------------
+	function updateFunc(){
 		$("#submitBtn").click(function() {
 			
-			for(var i = 0; i < $(".pd_out_date").length; i++){
-				if($(".pd_out_date").eq(i).val() == ""){
-					$(".pd_out_date").eq(i).val("1900-01-01");
+			for(var i = 0; i < $(".out_date").length; i++){
+				if($(".out_date").eq(i).val() == ""){
+					$(".out_date").eq(i).val("1900-01-01");
 				}
 			}
-			$.ajax({
-				url: 'OutSchRegistPro',
-				type: 'POST',
-				data: $("#proRegi").serialize(),
-				dataType : 'json',
-				success : function(response) {
-					if (response != "0") {
+			
+		    $.ajax({
+		        type: "POST",
+		        url: "OutSchPdUpdatePro",
+		        data: $('#inSc_regi').serialize(),
+		        success: function(result) {
+		            if (result != "0") {
 		                window.close();
 		                opener.location.reload();
 		            } else {
-		            	alert("출고 예정 등록 실패!");
-		            	window.close();
+		            	alert("입고 예정 수정 실패!");
+		            	window.close();	                
 		            }
-				}
-			});
+		        }
+		    });
 			
 		});
 		
 	}
 	// --------------------------------------------------------------------------------
-
 	</script>
 
 </head>
 <body>
 	<div style="width:900px;">
-		<div class="title_regi">출고예정 입력</div>
-		<form action="javascript:registFunc()" method="post" id="proRegi" name="proRegi" style="width:600px;">
+		<div class="title_regi">출고예정 수정</div>
+		<form action="javascript:updateFunc()" method="post" id="proRegi" name="proRegi" style="width:600px;">
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
@@ -182,8 +202,8 @@ pageEncoding="UTF-8"%>
 					<th>유형</th>
 					<td>
 						<div>
-							<input type="radio" value="1" class="recoCheck" name="OUT_TYPE_NAME" checked="checked"> 발주서
-							<input type="radio" value="2" class="recoCheck" name="OUT_TYPE_NAME"> 구매
+							<input type="radio" value="1" class="recoCheck" id="type_1" name="OUT_TYPE_NAME" checked="checked"> 발주서
+							<input type="radio" value="2" class="recoCheck" id="type_2" name="OUT_TYPE_NAME"> 구매
 						</div>
 					</td>
 				</tr>
@@ -232,18 +252,8 @@ pageEncoding="UTF-8"%>
 					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
 					<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
 				</tr>
-				<tbody id="optionArea"></tbody>
-				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th><input type="number" id="total" name="TOTAL_QTY"></th>
-					<th></th>
-					<th></th>
-				</tr>
 			</table>
-			<input type="button" value="품목 추가" id="recoBtn">
-			<input type="submit" value="출고예정 입력" id="submitBtn">
+			<input type="submit" value="품목 수정" id="submitBtn">
 		</form>
 	</div>
 

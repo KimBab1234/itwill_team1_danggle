@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1_final.mapper.OutMapper">
-
+	<!-- [ 출고 예정 ] -->
 	<!-- 거래처 검색 -->
 	<select id="selectAcc" resultType="com.itwillbs.team1_final.vo.AccVO">
 		SELECT BUSINESS_NO, CUST_NAME
@@ -156,7 +156,8 @@
 	</update>
 	
 	
-	<!-- 출고 처리 목록 조회 - 조건 대입 컬럼 -->
+	<!-- [ 출고 처리 ] -->
+	<!-- 출고 처리 목록 조회 -->
 	<select id="selectOutProSch" resultType="com.itwillbs.team1_final.vo.OutSchVo">
 		SELECT
 			PD_OUT_SCHEDULE_CD, cust_name, product_name, size_des,
@@ -167,8 +168,30 @@
 	</select>
 
 
+	<!-- 출고 예정 품목 수정 데이터 조회 -->
+	<select id="selectOutUpdatePd" resultType="com.itwillbs.team1_final.vo.OutSchVo">
+		SELECT
+			PD_OUT_SCHEDULE_CD,
+			OUT_TYPE_NAME,
+			emp_num, emp_name,
+			BUSINESS_NO, cust_name,
+			OUT_DATE, REMARKS,
+			product_cd, product_name, size_des, OUT_SCHEDULE_QTY,
+			PD_OUT_DATE, pd_remarks
+		FROM outSch_view
+		WHERE
+			PD_OUT_SCHEDULE_CD = #{pd_outSch_cd}
+			AND PRODUCT_NAME = #{product_name}
+	</select>
 
 
-
+	<!-- 출고 예정 품목 수정 -->
+	<update id="updateOutSchPd">
+		UPDATE outSch_view
+			SET
+				PD_OUT_SCHEDULE_CD = #{outSchPd.PD_OUT_SCHEDULE_CD
+			
+	</update>
 
 </mapper>
+
