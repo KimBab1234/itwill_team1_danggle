@@ -389,6 +389,9 @@ public class PdController{
 			Model model, HttpSession session) {
 		
 		MultipartFile mFile = product.getFile();
+		
+		///삭제할 이미지명 미리 가져오기	
+		List<String> deleteImg = service.getImgList(product.getPRODUCT_CD()+"");
 
 		// MultipartFile 객체의 getOriginalFilename() 메서드를 통해 파일명 꺼내기
 		String originalFileName = mFile.getOriginalFilename();
@@ -402,10 +405,11 @@ public class PdController{
 
 			// 파일명을 결합하여 보관할 변수에 하나의 파일 문자열 결합
 			originalFileName = uuid + "_" + originalFileName;
+			product.setPRODUCT_IMAGE(originalFileName);
+		} else {
+			product.setPRODUCT_IMAGE(deleteImg.get(0));
+		}
 
-		} 
-
-		product.setPRODUCT_IMAGE(originalFileName);
 		// => 실제로는 UUID 를 결합한 파일명만 사용하여 원본파일명과 실제파일명 모두 처리 가능
 		// => 실제파일명에서 가장 먼저 만나는 "_" 기호를 기준으로 분리하면
 		//    두번째 배열 인덱스 데이터가 원본 파일명이 된다!
@@ -424,6 +428,7 @@ public class PdController{
 					///ftp로 파일 저장
 					ftp.storeFile(product.getPRODUCT_IMAGE(), mFile.getInputStream());
 					//원래 파일 삭제
+					ftp.deleteFile(deleteImg.get(0));
 					ftp.disconnect();
 				} catch (SocketException e) {
 					// TODO Auto-generated catch block

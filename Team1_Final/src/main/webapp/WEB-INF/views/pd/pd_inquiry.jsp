@@ -114,18 +114,18 @@ table {
 				// 테이블에 표시할 JSON 데이터 출력문 생성
 				// => 출력할 데이터는 board.xxx 형식으로 접근
 				let result = "<tr height='100'>"
-							+ "<td>" + "<input type='checkbox' value=" + product.PRODUCT_CD +"></td>"
+							+ "<td>" + "<input type='checkbox' class='chkList' value=" + product.PRODUCT_CD +"></td>"
 							+ "<td>" + product.PRODUCT_CD + "</td>"
 							+ "<td id='subject'>" 
 								+ "<a href='PdUpdate?PRODUCT_CD=" + product.PRODUCT_CD + "'>"
 								+ product.PRODUCT_NAME + "</a>" + "</td>"
-							+ "<td>" + product.PRODUCT_GROUP_BOTTOM_CD + "</td>"
+							+ "<td>" + product.PRODUCT_GROUP_BOTTOM_NAME + "</td>"
 							+ "<td>" + product.SIZE_DES + "</td>"
 							+ "<td>" + product.UNIT + "</td>"
 							+ "<td>" + product.BARCODE + "</td>"
 							+ "<td>" + product.IN_UNIT_PRICE + "</td>"
 							+ "<td>" + product.OUT_UNIT_PRICE + "</td>"
-							+ "<td>" + product.PRODUCT_TYPE_CD + "</td>"
+							+ "<td>" + product.PRODUCT_TYPE_NAME + "</td>"
 							+ "<td>" + product.BUSINESS_NO + "</td>"
 // 							+ "<td>" + product.PRODUCT_IMAGE + "</td>"
 							+ "<td>" + "<img width='100px' src='http://itwillbs3.cdn1.cafe24.com/profileImg/" + product.PRODUCT_IMAGE + "'></td>"
@@ -156,11 +156,19 @@ table {
 		}
 	}
 	
+	function allChkFunc(allChk) {
+		var allChk = $("#allChkBox").prop("checked");
+		for(var i=0; i < $(".chkList").length; i++) {
+			$(".chkList").eq(i).prop("checked",allChk);
+		}
+		
+	}
+	
 </script>
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
-	<div style="display: flex; width: 1900px;">
+	<div style="display: flex; width: 1900px; margin-bottom: 30px;">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
 			<jsp:include page="../inc/pd_left.jsp"></jsp:include>
 		</div>
@@ -181,13 +189,13 @@ table {
 				&nbsp; | &nbsp;
 				<input type="button" value="품목삭제" id="b2" onclick="deleteConfirm()">
 				&nbsp; | &nbsp;
-				<input type="button" value="품목 전체 삭제" id="b3" onclick="window.open('Pd_delete_totalForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">
+				<input type="button" value="품목 전체 삭제" id="b3">
 			</form>
 		</section>
 		<br>
 		<table border="1" style="width: 1600px">
 			<tr>
-				<td id="td_top"><input type="checkbox"></td>
+				<td id="td_top"><input type="checkbox" id="allChkBox" onclick="allChkFunc()"></td>
 				<td id="td_top" style="width: 80px">품목코드</td>
 				<td id="td_top" style="width: 150px">품목명</td>
 				<td id="td_top" style="width: 120px">품목그룹(소)</td>
