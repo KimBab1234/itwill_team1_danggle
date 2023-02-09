@@ -221,17 +221,6 @@ public class InService {
 	public ArrayList<InPdVO> getstockList(String keyword) { // 재고번호 조회
 		ArrayList<InPdVO> stockList = mapper.selectStock(keyword);
 		
-		for(int i = 0; i < stockList.size(); i++) {
-			stockList.get(i).setWh_name(stockList.get(i).getWh_name()+ "_" +stockList.get(i).getWh_area());
-		}
-		
-		for(int i = 0; i < stockList.size(); i++) {
-			if(!stockList.get(i).getSIZE_DES().equals("")) {
-				String product_size = stockList.get(i).getPRODUCT_NAME() + "[" + stockList.get(i).getSIZE_DES() + "]";
-				stockList.get(i).setPRODUCT_NAME(product_size);
-			}
-		}
-		
 		return stockList;
 	}
 

@@ -26,6 +26,8 @@
 	var sum = 0;
 	var total = 0;
 	var total_num = 0;
+	var isChecked = false;
+
 	
 	var loginEmp = '${sessionScope.empNo}';
 	var priv = '${sessionScope.priv}';
@@ -80,7 +82,7 @@
 		
 	$(function() {
 		
-		//================ 합계 구하는 함수 ====================
+		//================ 합계, 뺄셈 구하는 함수 ====================
 		$.total = function() {
 			var numberClass = $(".qty_sum").length;
 			total = 0;
@@ -107,16 +109,20 @@
 			$.total_qty();
 		};
 		
+		//================= 여기까지 ====================
+		
+			
+		
 		
 		
 		//========== 부모창에서 값 가져오기 ==============================================================
 		for(var i = 0; i < $(opener.document).find(".check").length; i++){
 			
 			if($(opener.document).find(".check").eq(i).prop("checked")){
-				alert(proList[i].PRODUCT_CD);
+				
 				let result = "<tr>"
 					+ "<td><input type='text' name='IN_PD_SCHEDULE_CD_Arr' class='sch_cd' value='" + proList[i].IN_PD_SCHEDULE_CD + "' readonly='readonly'></td>"
-					+ "<td><input type='text' value='" + proList[i].PRODUCT_CD + "' name='PRODUCT_CD_Arr' id='pro_cd"+j+"'><input type='text' name='PRODUCT_NAME_Arr' class='sch_name' value='" + proList[i].PRODUCT_NAME + "' readonly='readonly'></td>"
+					+ "<td><input type='hidden' value='" + proList[i].PRODUCT_CD + "' name='PRODUCT_CD_Arr' id='pro_cd"+j+"'><input type='text' name='PRODUCT_NAME_Arr' class='sch_name' value='" + proList[i].PRODUCT_NAME + "' readonly='readonly'></td>"
 					+ "<td><input type='text' class='sch_qty' id='qty"+j+"' name='IN_SCHEDULE_QTY_Arr' value='" + proList[i].IN_SCHEDULE_QTY + "' readonly='readonly'></td>"
 					+ "<td><input type='hidden'value='" + proList[i].WH_LOC_IN_AREA_CD + "' name='WH_LOC_IN_AREA_CD_Arr' id='wh_loc"+j+"'><input type='text' id='mi_qty"+j+"' class='sch_qty mi_qty' value='" + (proList[i].IN_SCHEDULE_QTY - proList[i].IN_QTY) + "'></td>"
 					+ "<td><input type='text' name='MOVE_QTY_Arr' id='qty_sum"+j+"' class='sch_qty qty_sum' onchange='sum_qty("+j+")'></td>"
@@ -136,10 +142,46 @@
 		$("#total_sch").val(sum);
 		
 		//======================================================================================================================
+			
+		$("#recoBtn3").on("click", function() {
+			for(var i = 0; i < $(".sch_cd").length; i++){
+				if($(".sch_num").eq(i).val() == ""){
+					alert("재고 번호를 선택해주세요");
+					isChecked = false;
+					
+				}
+				
+				if($(".stock").eq(i).val() == ""){
+					alert("창고 위치를 선택해주세요");
+					isChecked = false;
+					
+				}
+				
+				if($(".sch_num").eq(i).val() != "" && $(".stock").eq(i).val() != ""){
+					isChecked = true;
+				}
+				break;
+				
+				
+			}
+			
+				
+			if(isChecked == true){
+				in_process.action = "StockMovePro";
+				in_process.submit();
+			}
+			
+			
+		});
+		
 
 	});	
 		
 	function sum_qty(num){
+		if($("#qty_sum"+num).val() > $("#mi_qty"+num).val()){
+			alert("입고지시수량은 입고예정수량보다 클 수 없습니다");
+			$("#qty_sum"+num).val(0);
+		}
 		$.total();
 		$.subtract(num);
 	}
@@ -154,7 +196,7 @@
 <body>
 	<div style="width:1200px;">
 		<div class="title_regi">입고</div>
-		<form action="StockMovePro" method="post" style="width:900px;">
+		<form onsubmit="return false;" method="post" style="width:900px;" id="in_process">
 			<table id="in_process_table" style="table-layout:fixed">
 				<tr>
 					<th width="115">입고예정번호</th>
@@ -163,7 +205,7 @@
 					<th width="100">미입고수량</th>
 					<th width="100">입고지시수량</th>
 					<th width="155">재고번호</th>
-					<th width="230">위치</th>
+					<th width="230">창고 위치</th>
 				</tr>
 				<tbody id="optionArea"></tbody>
 				<tr>
@@ -175,7 +217,7 @@
 					<th></th>
 				</tr>	
 			</table>
-			<input type="submit" value="저장" id="recoBtn3">
+			<input type="button" value="저장" id="recoBtn3">
 		</form>
 	</div>
 

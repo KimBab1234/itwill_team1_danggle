@@ -179,9 +179,9 @@
 	<!-- 창고 검색 -->
 	<select id="selectStock" resultType="com.itwillbs.team1_final.vo.InPdVO">
 		SELECT *
-			FROM stock_view
+			FROM wh_view
 			WHERE
-				stock_cd LIKE '%${keyword}%'
+				wh_name LIKE '%${keyword}%'
 	</select>
 	
 	<!-- 입고 수량 수정 / 완료도 수정 -->

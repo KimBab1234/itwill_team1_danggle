@@ -123,10 +123,11 @@
 	    });
 
 		// 발주서, 구매 중 체크박스 하나만 선택하게 하기
-		$("input[type=checkbox][name=in_type_cd]").click(function(){
+		$("input[type=checkbox][name=IN_TYPE_CD]").click(function(){
 			if($(this).prop('checked')){
-				$("input[type=checkbox][name=in_type_cd]").prop('checked',false);
+				$("input[type=checkbox][name=IN_TYPE_CD]").prop('checked',false);
 				$(this).prop('checked',true);
+				
 			}
 		});
 
@@ -193,14 +194,14 @@
 				<tr>
 					<th>담당자</th>
 					<td>
-						<input type="text" class="emp_code" id="emp_code" name="EMP_NUM" placeholder="사원번호">
-						<input type="text" class="emp_name" id="emp_name" placeholder="사원명">
+						<input type="text" class="emp_code" id="emp_code" name="EMP_NUM" placeholder="사원번호" readonly="readonly">
+						<input type="text" class="emp_name" id="emp_name" placeholder="사원명" readonly="readonly">
 						<button id="Listbtn" type="button" onclick="window.open('SearchEMP', 'searchEmployee', 'width=500, height=500, left=750, top=400')">검색</button>
 					</td>
 					<th>거래처</th>
 					<td>
-						<input type="text" class="emp_code" id="business_no" name="BUSINESS_NO" placeholder="거래처 코드">
-						<input type="text" class="emp_name" id="business_name" placeholder="거래처명">
+						<input type="text" class="emp_code" id="business_no" name="BUSINESS_NO" placeholder="거래처 코드" readonly="readonly">
+						<input type="text" class="emp_name" id="business_name" placeholder="거래처명" readonly="readonly">
 						<button id="Listbtn" type="button" onclick="window.open('searchBusiness_no', 'SearchBUS', 'width=500, height=500, left=1000, top=400')">검색</button>
 					</td>
 				</tr>
@@ -223,9 +224,9 @@
 				</tr>
 				<tr class="indexCh" ondblclick="funct()">
 					<td><input type="hidden" id="index">
-					<input type="text" class="product_cd" name="PRODUCT_CD" id="pro_cd"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME" id="pro_name"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES" id="pro_size"></td>
+					<input type="text" class="product_cd" name="PRODUCT_CD" id="pro_cd" readonly="readonly"></td>
+					<td><input type="text" class="product_name" name="PRODUCT_NAME" id="pro_name" readonly="readonly"></td>
+					<td><input type="text" class="size_des" name="SIZE_DES" id="pro_size" readonly="readonly"></td>
 					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY" id="pro_qty"></td>
 					<td><input type="date" class="in_date" name="IN_PD_DATE" id="pro_date"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS" id="pro_remarks"></td>
