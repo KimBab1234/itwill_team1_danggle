@@ -48,4 +48,16 @@
 		);
 	</insert>
 	
+	
+	<!-- 출고 수량 수정 / 완료도 수정 -->
+	<update id="updateOutSchStock">
+		UPDATE out_schedule_per_product
+			SET 
+				OUT_QTY = OUT_QTY + #{MOVE_QTY}
+			WHERE
+				OUT_SCHEDULE_CD = '${OUT_SCHEDULE_CD}'
+			AND PRODUCT_CD = '${PRODUCT_CD}'
+	</update>
+	
+	
 </mapper>

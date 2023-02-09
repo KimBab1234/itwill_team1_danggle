@@ -20,6 +20,7 @@ public interface StockMapper {
 	public Integer isExistStock(@Param("PRODUCT_CD")int product_cd, @Param("WH_LOC_IN_AREA_CD")int WH_LOC_IN_AREA_CD);
 	public int selectNewStockCD();
 	public int updateOutStock(StockVO stock);
+	public int updateOutSchStock(StockVO stock);
 	
 	
 }

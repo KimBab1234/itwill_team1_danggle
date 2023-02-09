@@ -137,7 +137,7 @@ button {
 				<th width="300px">적요</th>
 			</tr>
 		</table>
-		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">출고</button>
+		<button type="button" onclick="window.open('OutConfirmList', 'OutConfirmList', 'width=1250, height=600, left=200, top=300')">출고</button>
 	</div>
 
 </body>

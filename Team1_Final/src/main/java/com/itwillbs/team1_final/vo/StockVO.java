@@ -18,7 +18,9 @@ public class StockVO {
 	private String STOCK_CONTROL_TYPE_CD;
 	private String STOCK_CONTROL_TYPE_NAME;
 	private String IN_PD_SCHEDULE_CD;
+	private String OUT_SCHEDULE_CD;
 	private Integer IN_SCHEDULE_QTY;
+	private Integer OUT_SCHEDULE_QTY;
 	private Integer QTY;
 	private Integer MOVE_QTY;
 	private int STOCK_QTY;
@@ -36,9 +38,12 @@ public class StockVO {
 	private Integer[] MOVE_QTY_Arr;
 	private String[] REMARKS_Arr;
 	private Integer[] WH_LOC_IN_AREA_CD_Arr;
+	private Integer[] WH_LOC_OUT_AREA_CD_Arr;
 	private String[] IN_PD_SCHEDULE_CD_Arr;
+	private String[] OUT_SCHEDULE_CD_Arr;
 	private String SIZE_DES; 
 	private Integer[] IN_SCHEDULE_QTY_Arr;
+	private Integer[] OUT_SCHEDULE_QTY_Arr;
 	
 	
 	
@@ -281,7 +286,37 @@ public class StockVO {
 	public void setIN_PD_SCHEDULE_CD_Arr(String[] iN_PD_SCHEDULE_CD_Arr) {
 		IN_PD_SCHEDULE_CD_Arr = iN_PD_SCHEDULE_CD_Arr;
 	}
-	
-	
+	public Integer[] getWH_LOC_OUT_AREA_CD_Arr() {
+		return WH_LOC_OUT_AREA_CD_Arr;
+	}
+	public void setWH_LOC_OUT_AREA_CD_Arr(Integer[] wH_LOC_OUT_AREA_CD_Arr) {
+		WH_LOC_OUT_AREA_CD_Arr = wH_LOC_OUT_AREA_CD_Arr;
+	}
+
+	public Integer[] getOUT_SCHEDULE_QTY_Arr() {
+		return OUT_SCHEDULE_QTY_Arr;
+	}
+	public void setOUT_SCHEDULE_QTY_Arr(Integer[] oUT_SCHEDULE_QTY_Arr) {
+		OUT_SCHEDULE_QTY_Arr = oUT_SCHEDULE_QTY_Arr;
+	}
+	public Integer getOUT_SCHEDULE_QTY() {
+		return OUT_SCHEDULE_QTY;
+	}
+	public void setOUT_SCHEDULE_QTY(Integer oUT_SCHEDULE_QTY) {
+		OUT_SCHEDULE_QTY = oUT_SCHEDULE_QTY;
+	}
+	public String getOUT_SCHEDULE_CD() {
+		return OUT_SCHEDULE_CD;
+	}
+	public void setOUT_SCHEDULE_CD(String oUT_SCHEDULE_CD) {
+		OUT_SCHEDULE_CD = oUT_SCHEDULE_CD;
+	}
+	public String[] getOUT_SCHEDULE_CD_Arr() {
+		return OUT_SCHEDULE_CD_Arr;
+	}
+	public void setOUT_SCHEDULE_CD_Arr(String[] oUT_SCHEDULE_CD_Arr) {
+		OUT_SCHEDULE_CD_Arr = oUT_SCHEDULE_CD_Arr;
+	}
+
 	
 }
