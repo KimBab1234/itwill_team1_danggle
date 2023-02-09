@@ -27,6 +27,7 @@
 	var total = 0;
 	var total_num = 0;
 	var isChecked = false;
+	var originMiArr = [];
 
 	
 	var loginEmp = '${sessionScope.empNo}';
@@ -104,8 +105,7 @@
 		$.subtract = function(num) {
 			var a = $("#mi_qty"+num).val();
 			var b = $("#qty_sum"+num).val();
-			
-			$("#mi_qty"+num).val(a-b);
+			$("#mi_qty"+num).val(originMiArr[num]-$("#qty_sum"+num).val());
 			$.total_qty();
 		};
 		
@@ -116,21 +116,22 @@
 		
 		
 		//========== 부모창에서 값 가져오기 ==============================================================
+		
 		for(var i = 0; i < $(opener.document).find(".check").length; i++){
 			
 			if($(opener.document).find(".check").eq(i).prop("checked")){
-				
 				let result = "<tr>"
 					+ "<td><input type='text' name='IN_PD_SCHEDULE_CD_Arr' class='sch_cd' value='" + proList[i].IN_PD_SCHEDULE_CD + "' readonly='readonly'></td>"
 					+ "<td><input type='hidden' value='" + proList[i].PRODUCT_CD + "' name='PRODUCT_CD_Arr' id='pro_cd"+j+"'><input type='text' name='PRODUCT_NAME_Arr' class='sch_name' value='" + proList[i].PRODUCT_NAME + "' readonly='readonly'></td>"
 					+ "<td><input type='text' class='sch_qty' id='qty"+j+"' name='IN_SCHEDULE_QTY_Arr' value='" + proList[i].IN_SCHEDULE_QTY + "' readonly='readonly'></td>"
-					+ "<td><input type='hidden'value='" + proList[i].WH_LOC_IN_AREA_CD + "' name='WH_LOC_IN_AREA_CD_Arr' id='wh_loc"+j+"'><input type='text' id='mi_qty"+j+"' class='sch_qty mi_qty' value='" + (proList[i].IN_SCHEDULE_QTY - proList[i].IN_QTY) + "'></td>"
+					+ "<td><input type='hidden'value='" + proList[i].WH_LOC_IN_AREA_CD + "' name='WH_LOC_IN_AREA_CD_Arr' id='wh_loc"+j+"'><input type='text' id='mi_qty"+j+"' class='sch_qty mi_qty' readonly='readonly' value='" + (proList[i].IN_SCHEDULE_QTY - proList[i].IN_QTY) + "'></td>"
 					+ "<td><input type='text' name='MOVE_QTY_Arr' id='qty_sum"+j+"' class='sch_qty qty_sum' onchange='sum_qty("+j+")'></td>"
 					+ "<td><input type='text' name='STOCK_CD_Arr' id='sch_num"+j+"' class='sch_num' onclick='create_num("+j+")' readonly='readonly'><i class='fa-solid fa-magnifying-glass' onclick='search_num("+j+")'></i></td>"
 					+ "<td><input type='text' id='stock"+j+"' readonly='readonly' class='stock'><i class='fa-solid fa-magnifying-glass' onclick='search_wh("+j+")'></i></td>"
 					+ "</tr>";
 					
 				$("#in_process_table").append(result);
+				originMiArr.push((proList[j].IN_SCHEDULE_QTY - proList[j].IN_QTY));
 				j++;
 				
 				sum += Number(proList[i].IN_SCHEDULE_QTY);
@@ -178,9 +179,11 @@
 	});	
 		
 	function sum_qty(num){
-		if($("#qty_sum"+num).val() > $("#mi_qty"+num).val()){
+		if(Number($("#qty_sum"+num).val()) > Number($("#mi_qty"+num).val())){
 			alert("입고지시수량은 입고예정수량보다 클 수 없습니다");
 			$("#qty_sum"+num).val(0);
+			$("#mi_qty"+num).val(originMiArr[num]);
+			return false;
 		}
 		$.total();
 		$.subtract(num);
