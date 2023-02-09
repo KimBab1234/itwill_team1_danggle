@@ -13,6 +13,66 @@
 table {
 	font-size: 20px;
 }
+input[type=text]{
+	width: 150px;
+	height: 30px;
+	font-size: 18px;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+  text-align: center;
+}
+#ADDR1{
+	width: 300px;
+}
+input[type=password]{
+	width: 150px;
+	height: 30px;
+	font-size: 18px;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+  text-align: center;
+}
+input[type=button]{
+	width: 70px;
+	height: 30px;
+	font-size: 13px;
+	font-weight : bold;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  text-align: center;
+}
+input[type=submit]{
+	width: 70px;
+	height: 30px;
+	font-size: 13px;
+	font-weight : bold;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  text-align: center;
+}
+textarea{
+	width: 550px;
+	height: 200px;
+	font-size: 18px;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+h2 {
+	font-size: 30px;
+}
 </style>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -112,27 +172,6 @@ table {
 			});
 		});
 		
-		$("#BUSINESS_NO2").on("change",function(){
-//	 		var business_no = $("#BUSINESS_NO1").val();+"-"+$("#BUSINESS_NO2").val()+"-"+$("#BUSINESS_NO3").val();
-				$.ajax({
-					type:"GET",
-					url: "accCheckBusinessNo",
-					data: {
-						"BUSINESS_NO1": $("#BUSINESS_NO1").val(),
-						"BUSINESS_NO2": $("#BUSINESS_NO2").val(),
-						"BUSINESS_NO3": $("#BUSINESS_NO3").val()
-					},
-					success: function(data) {
-						if(data == "true"){
-							$("#accResult").html("이미 존재하는 거래처").css("color", "red");
-						}else {
-							$("#accResult").html("등록 가능한 거래처").css("color", "blue");	
-						}	
-					}
-				});
-			});
-
-
 		///주민번호, 사업자번호 등등 선택했을때 바꾸는 부분
 		$("input[type=radio][name=G_GUBUN]").on("click", function() {
 			if($(this).val()=="03") {
@@ -142,14 +181,35 @@ table {
 				$("#BUSINESS_NO2").prop("type","password");
 				$("#BUSINESS_NO1").prop("size","10");
 				$("#BUSINESS_NO2").prop("size","10");
+				$("#BUSINESS_NO3").prop("required",false)
 				$("#BUSINESS_NO1").val('');
 				$("#BUSINESS_NO2").val('');
 				$("#BUSINESS_NO3").val('');
+				$("#BUSINESS_NO2").on("change",function(){
+//			 		var business_no = $("#BUSINESS_NO1").val();+"-"+$("#BUSINESS_NO2").val()+"-"+$("#BUSINESS_NO3").val();
+						$.ajax({
+							type:"GET",
+							url: "accCheckBusinessNo",
+							data: {
+								"BUSINESS_NO1": $("#BUSINESS_NO1").val(),
+								"BUSINESS_NO2": $("#BUSINESS_NO2").val(),
+								"BUSINESS_NO3": $("#BUSINESS_NO3").val()
+							},
+							success: function(data) {
+								if(data == "true"){
+									$("#accResult").html("이미 존재하는 거래처").css("color", "red");
+								}else {
+									$("#accResult").html("등록 가능한 거래처").css("color", "blue");	
+								}	
+							}
+						});
+					});
 			} else {
 				$("#busiArea").css("display","inline-block");
 				$("#BUSINESS_NO1").prop("maxlength","3");
 				$("#BUSINESS_NO2").prop("maxlength","2");
 				$("#BUSINESS_NO2").prop("type","text");
+				$("#BUSINESS_NO3").prop("required",true)
 				$("#BUSINESS_NO1").val('');
 				$("#BUSINESS_NO2").val('');
 				$("#BUSINESS_NO3").val('');
@@ -245,7 +305,7 @@ table {
 						<td colspan="3"><input type="text" name="POST_NO"
 							id="POST_NO" placeholder="우편번호" required="required"
 							readonly="readonly" size="15"> <input type="button"
-							id="postbutton" onclick="execDaumPostcode()" value="우편번호 찾기"></td>
+							id="postbutton" onclick="execDaumPostcode()" value="주소찾기"></td>
 					</tr>
 					<tr>
 						<td>주소 &nbsp;</td>
@@ -297,7 +357,7 @@ table {
 					</tr>
 					<tr align="center">
 						<td colspan="5"><input type="submit" value="등록">
-						<input type="button" value="뒤로가기" onclick="location.href='AccList'">
+						<input type="button" value="취소" onclick="location.href='AccList'">
 						</td>
 					</tr>
 				</table>

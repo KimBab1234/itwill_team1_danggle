@@ -8,16 +8,15 @@
 <title>Insert title here</title>
 <style type="text/css">
 #outTitle {
-	margin-left: 300px;
+	margin-left: 210px;
 }
 
 table{
-	margin: 0 auto;
-	margin-left: 300px;
+	margin-left: 250px;
+	margin-right: 50px;
 	border-collapse: collapse;
 	border-style: solid;
 	border-color: #b09f76;;
-	width: 1000px;
 }
 
 th{
@@ -29,6 +28,9 @@ th{
  	font-size: 15px;
  	padding-top: 10px;
  	padding-bottom: 10px;
+ 	overflow:hidden;
+ 	white-space:nowrap;
+ 	text-overflow:ellipsis;
 }
 
 td {
@@ -37,6 +39,9 @@ td {
  	border-color: #b09f76;
  	padding: 8px 0px 8px 4px;
  	font-size: 15px;
+ 	overflow:hidden;
+ 	white-space:nowrap;
+ 	text-overflow:ellipsis;
 }
 
 button {
@@ -48,17 +53,13 @@ button {
     font-size: 0.75rem;
     border-radius: 4px;
     border: none;
-    display: block;
-    margin-top: 10px;
-    margin-left: 300px;
+	margin-left: 500px;
 }
 
 .nav-tabs {
-    margin: -5px 0 0 -130px;
-    padding: 0 0 0 14px;
     list-style: none;
-    width: 1000px;
-    clear: both;
+    margin-top: -5px;
+    margin-left: 210px;
 }
 
 .navli {
@@ -66,46 +67,45 @@ button {
 }
 
 .nav-tabs>li>#outAll {
-    padding: 0;
     background-color: #c9b584;
     color: #736643;
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
-    display: block;
     padding: 4px 10px 5px 11px;
     border-style: solid;
  	border-color: #b09f76;
     border-radius: 10px 10px 0 0;
 }
 .nav-tabs>li>#outPro, .nav-tabs>li>#outCom {
-    padding: 0;
     background-color: #FFF;
     color: #736643;
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
-    display: block;
     padding: 4px 10px 5px 11px;
     border-style: solid;
  	border-color: #b09f76;
     border-radius: 10px 10px 0 0;
 }
-
-
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+	var keyword;
 	var outSchList;
-	var i = 0;
-	var selectIdx;
+	var cIndex;
+	var pIndex;
 	
+	// -------------------- 출고 예정 목록 - 기능 목록 --------------------
+	// 출고 예정 목록 조회 기능
 	function load_list(keyword){
 		$.ajax({
 			url: "OutSchListJson",
 			type: "POST",
-			data : keyword,
+			data : {
+				"keyword" : keyword	
+			},
 			dataType: "json"
 		})
 		.done(function(response) {
@@ -116,7 +116,6 @@ button {
 			for(var i = 0; i < outSchList.length; i++) {
 				let result =
 					  "<tr>"
-					+ "		<td><input type='checkbox'></td>"
 					+ "		<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
 					+ "		<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
 					+ "		<td>" + outSchList[i].CUST_NAME + "</td>"
@@ -124,11 +123,11 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td>" + outSchList[i].OUT_COMPLETE +"</td>"
-					+ "		<td>조회</td>";
+					+ "		<td><a href='javascript:OutCom("+ i +")' class='comColor'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
 					
-					// 시도했으나 오류가 심함
+					// 가능
 // 					if("${outSchList[i].OUT_COMPLETE }" == '0' ) {
 // 						result += "<td>종결</td>";
 // 					} else {
@@ -139,13 +138,38 @@ button {
 // 							+ "</tr>";
 				$("#outListT").append(result);
 			}
+			
+			// 종결 / 취소 색상변경
+			if($(".comColor").text() == "종결") {
+				$(".comColor").css("color", "#005B9E");
+			} else if($(".comColor").text() == "취소") {
+				$(".comColor").css("color", "#FF8F32");
+			}
+			
 		})
 		.fail(function() {
 			$("#outListT").append("<h3>요청 실패!</h3>");
 		});
 		
 	}
+
 	
+	// 종결 여부 변경
+	function OutCom(i){
+		cIndex = i;
+		
+		window.open('OutCom', 'OutCom', 'width=500, height=300, left=600, top=400');
+	}
+	
+	// 출고 예정 품목 - 조회(개별품목)
+	function OutEachPd(i){
+		pIndex = i;
+		window.open('OutEachPd', 'OutEachPd', 'width=500, height=500, left=600, top=400');
+	}
+	// --------------------------------------------------------------------
+	
+	
+	// -------------------------- 페이지 로드 전 --------------------------
 	$(function() {
 		
 		$.ajax({
@@ -161,7 +185,6 @@ button {
 			for(var i = 0; i < outSchList.length; i++) {
 				let result =
 					  "<tr>"
-					+ "		<td><input type='checkbox'></td>"
 					+ "		<td>" + outSchList[i].OUT_SCHEDULE_CD + "</td>"
 					+ "		<td>" + outSchList[i].OUT_TYPE_NAME + "</td>"
 					+ "		<td>" + outSchList[i].CUST_NAME + "</td>"
@@ -169,18 +192,27 @@ button {
 					+ "		<td>" + outSchList[i].PRODUCT_NAME + "</td>"
 					+ "		<td>" + outSchList[i].OUT_DATE + "</td>"
 					+ "		<td>" + outSchList[i].TOTAL_QTY + "</td>"
-					+ "		<td>" + outSchList[i].OUT_COMPLETE +"</td>"
-					+ "		<td>조회</td>";
+					+ "		<td><a href='javascript:OutCom("+ i +")' class='comColor'>" + outSchList[i].OUT_COMPLETE + "</a></td>"
+					+ "		<td><a href='javascript:OutEachPd("+ i +")'>조회</a></td>"
 					+ "</tr>";
-
+					
 				$("#outListT").append(result);
 			}
+			
+			// 종결 / 취소 색상변경
+			if($(".comColor").text() == "종결") {
+				$(".comColor").css("color", "#005B9E");
+			} else if($(".comColor").text() == "취소") {
+				$(".comColor").css("color", "#FF8F32");
+			}
+			
 		})
 		.fail(function() {
 			$("#outListT").append("<h3>요청 실패!</h3>");
 		});
 
-		// 전체 / 진행중 / 완료
+		// 페이지 리스트 구분 [ 전체 / 미완료 / 완료 ]
+		// 전체
 		$("#outAll").click(function() {
 			keyword = "";
 			$("#outAll").css("background", "#c9b584").css("color", "#736643");
@@ -189,6 +221,8 @@ button {
 			
 			load_list(keyword);
 		});
+		
+		// 미완료
 		$("#outPro").click(function() {
 			keyword = "0";
 			$("#outAll").css("background", "#fff").css("color", "#736643");
@@ -197,6 +231,8 @@ button {
 			
 			load_list(keyword);
 		});
+		
+		// 완료
 		$("#outCom").click(function() {
 			keyword = "1";
 			$("#outAll").css("background", "#fff").css("color", "#736643");
@@ -207,7 +243,10 @@ button {
 		});
 		
 		
-			
+		
+
+		
+		
 		// 무한스크롤 기능 구현
 // 		$(window).scroll(function() {
 // 			let scrollTop = $(window).scrollTop();
@@ -222,17 +261,7 @@ button {
 // 		});
 		
 	});
-		
-	function openWin(product_cd){
-		selectIdx = product_cd;
-		window.open('ScheduleProgress', 'schedule_progress', 'width=500, height=500, left=750, top=400');
-	}
-	
-	function openCom(product_cd){
-		selectIdx = product_cd;
-		window.open('ScheduleComplete', 'schedule_complete', 'width=500, height=500, left=750, top=400');
-	}
-	
+	// --------------------------------------------------------------------
 </script>
 </head>
 <body>
@@ -241,9 +270,9 @@ button {
 	</header>
 	<jsp:include page="../inc/in_left.jsp"></jsp:include>
 	
+	<div align="center" id="outListDiv">
 	<h3 id="outTitle">출고 예정</h3>
-	<div align="center">
-		<ul class="nav nav-tabs" style="width: 755px;">
+		<ul class="nav-tabs">
 			<li class="navli">
 				<a id="outAll" href="#">전체</a>
 			</li>
@@ -253,23 +282,23 @@ button {
 			<li class="navli">
 				<a id="outCom" href="#">완료</a>
 			</li>
-		</ul><br>
+		</ul>
+		<br>
 		<table id="outListT">
 			<tr>
-				<th width="50px"><input type="checkbox"></th>
-				<th width="300px">출고예정번호</th>
-				<th width="300px">유형</th>
-				<th width="300px">받는곳명</th>
-				<th width="300px">담당자명</th>
-				<th width="300px">품목명[규격]</th>
-				<th width="300px">납기일자</th>
-				<th width="400px">출고예정수량합계</th>
-				<th width="200px">종결여부</th>
-				<th width="200px">진행상태</th>
+				<th width="150px">출고예정번호</th>
+				<th width="100px">유형</th>
+				<th width="200px">받는곳명</th>
+				<th width="100px">담당자명</th>
+				<th width="500px">품목명[규격]</th>
+				<th width="100px">납기일자</th>
+				<th width="100px">출고예정수량합계</th>
+				<th width="50px">종결여부</th>
+				<th width="50px">진행상태</th>
 			</tr>
-		</table>
+		</table><br>
+		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
 	</div>
-	<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
 	
 </body>
 </html>

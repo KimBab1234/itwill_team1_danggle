@@ -561,7 +561,7 @@ function execDaumPostcode() {
 					<td align="left" style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;
 						<input type="file" class="thisEmp filebox" id="registPHOTO" name="registPHOTO" style="font-size: 15px; font-weight: bold;">
 						<input type="hidden" name="PHOTO" value="${emp.PHOTO}" >
-						<span><img class="hrImg" src="${pageContext.request.contextPath}/resources/img/${emp.PHOTO}" width="150"></span>
+						<span><img class="hrImg" src="http://itwillbs3.cdn1.cafe24.com/profileImg/${emp.PHOTO}" width="150"></span>
 					</td>
 				</tr>
 			</table>

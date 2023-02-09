@@ -11,7 +11,70 @@
 
 <style type="text/css">
 table {
-	font-size: 15px;
+	font-size: 20px;
+}
+input[type=text]{
+	width: 150px;
+	height: 30px;
+	font-size: 18px;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+  text-align: center;
+}
+#ADDR1{
+	width: 300px;
+}
+#URL_PATH{
+	width: 300px;
+}
+input[type=password]{
+	width: 150px;
+	height: 30px;
+	font-size: 18px;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+  text-align: center;
+}
+input[type=button]{
+	width: 70px;
+	height: 30px;
+	font-size: 13px;
+	font-weight : bold;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  text-align: center;
+}
+input[type=submit]{
+	width: 70px;
+	height: 30px;
+	font-size: 13px;
+	font-weight : bold;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  text-align: center;
+}
+textarea{
+	width: 550px;
+	height: 200px;
+	font-size: 18px;
+	 border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+h2 {
+	font-size: 30px;
 }
 </style>
 <script
@@ -117,7 +180,9 @@ table {
 					</tr>
 					<tr>
 						<td>거래처코드</td>
-						<td><input type="text" id="BUSINESS_NO" name="BUSINESS_NO" value="${acc.BUSINESS_NO}" size="20"
+						<td><input type="text" id="BUSINESS_NO1" name="BUSINESS_NO1" value="${acc.BUSINESS_NO1}" size="20"
+							readonly="readonly">-<input type="text" id="BUSINESS_NO2" name="BUSINESS_NO2" value="${acc.BUSINESS_NO2}" size="20"
+							readonly="readonly">-<input type="text" id="BUSINESS_NO3" name="BUSINESS_NO3" value="${acc.BUSINESS_NO3}" size="20"
 							readonly="readonly"></td>
 					</tr>
 					<tr>
@@ -179,17 +244,17 @@ table {
 					<tr>
 						<td>주소 &nbsp;</td>
 						<td colspan="4"><input type="text" name="ADDR1" id="ADDR1"
-							required="required" size="50px" readonly="readonly" value="${acc.ADDR1 }"></td>
+							required="required" size="50px" readonly="readonly" value="${acc.ADDR1 }" class="addr"></td>
 					</tr>
 					<tr>
 						<td>상세주소</td>
 						<td colspan="4"><input type="text" name="ADDR2" id="ADDR2"
-							required="required" maxlength="20" value="${acc.ADDR2 }"></td>
+							required="required" maxlength="20" value="${acc.ADDR2 }" class="addr"></td>
 					</tr>
 					<tr>
 						<td>홈페이지</td>
 						<td colspan="4"><input type="text" name="URL_PATH"
-							id="URL_PATH" value="${acc.URL_PATH }"></td>
+							id="URL_PATH" value="${acc.URL_PATH }" class="addr"></td>
 					</tr>
 					<tr>
 						<td>팩스</td>

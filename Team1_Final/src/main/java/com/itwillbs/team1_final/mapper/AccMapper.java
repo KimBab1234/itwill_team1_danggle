@@ -26,4 +26,6 @@ public interface AccMapper {
 
 	int busiCount(String BUSINESS_NO);
 
+	int deleteAccList(String acc);
+
 }

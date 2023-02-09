@@ -77,12 +77,12 @@ public class OutService {
 		
 		List<OutSchVo> outSch = mapper.selectOutSch(keyword);
 		
-		for(int i =0; i < outSch.size(); i++) {
+		for(int i = 0; i < outSch.size(); i++) {
 			// 유형
 			if(outSch.get(i).getOUT_TYPE_NAME().equals("1")) {
 				outSch.get(i).setOUT_TYPE_NAME("발주서");
 			} else {
-				outSch.get(i).setOUT_COMPLETE("구매");
+				outSch.get(i).setOUT_TYPE_NAME("구매");
 			}
 			
 			// 종결여부
@@ -106,9 +106,35 @@ public class OutService {
 			
 		}
 		
-		
 		return outSch;
 	}
+	
+	// 출고 예정 종결여부 변경
+	public int modifyCom(String outSchCd, String comStatus) {
+		return mapper.outUpdateCom(outSchCd, comStatus);
+	}
+	
+	// 출고 예정 품목 개별 목록 조회
+	public List<OutPdVO> getProgress(String outSchCdList) {
+		return mapper.selectPdInfo(outSchCdList);
+	}
+
+	// 출고 처리 목록 조회
+	public List<OutSchVo> searchOutProList(String keyword) {
+		List<OutSchVo> outProSch = mapper.selectOutProSch(keyword);
+		
+		for(int i =0; i < outProSch.size(); i++) {
+			// 품목명[규격] ex)코카콜라 [500ml]
+			String pdName = outProSch.get(i).getPRODUCT_NAME();
+			String sizeD = outProSch.get(i).getSIZE_DES();
+			
+			outProSch.get(i).setPRODUCT_NAME(pdName + "[" + sizeD + "]");
+		}
+		return outProSch;
+	}
+
+
+
 
 	
 	

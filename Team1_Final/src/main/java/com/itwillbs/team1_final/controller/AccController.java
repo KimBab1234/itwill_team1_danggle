@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class AccController {
 //		}
 		
 		// 거래처 코드 등록
-		if(acc.getBUSINESS_NO3().isEmpty()) {
+		if(acc.getBUSINESS_NO3().equals("")) {
 			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
 		} else {
 			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
@@ -139,9 +140,31 @@ public class AccController {
 	
 	// 거래처 리스트에서 체크박스에 체크한 거래처만 삭제하는 코드
 	@ResponseBody
-	@PostMapping("/deleteAccList")
-	public void deleteAcc() {
+	@PostMapping(value = "/deleteAccList")
+	public void deleteAcc(HttpServletResponse response,
+			@RequestParam(defaultValue = "") String searchType,
+			@RequestParam(defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "1") int pageNum,
+			String accList) {
 		
+		String[] accListArr  = accList.split(",");
+		
+		int deleteCount = 0;
+		for(String acc : accListArr) {
+			deleteCount += service.deleteAccList(acc);
+		}
+		try {
+			if(deleteCount == accListArr.length){
+				response.setContentType("text/html; charset=UTF-8");
+				response.getWriter().print("true");
+			} else {
+				response.setContentType("text/html; charset=UTF-8");
+				response.getWriter().print("false");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
 	}
 	
 	
@@ -157,10 +180,10 @@ public class AccController {
 		if(acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {// 받아온 거래처코드가 주민번호가 아닐때
 			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
 			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
+			acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
 		} else {// 받아온 거래처코드가 주민번호일때
 			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
 			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
-			acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
 		}
 		
 		if(!acc.getEMAIL().equals("") && acc.getEMAIL().contains("@")) {
@@ -202,13 +225,13 @@ public class AccController {
 		acc.setADDR1(acc.getADDR().split(",")[0]);
 		acc.setADDR2(acc.getADDR().split(",")[1]);
 
-		if(!acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {// 받아온 거래처코드가 주민번호가 아닐때
+		if(acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {// 받아온 거래처코드가 주민번호가 아닐때
 			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
 			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
-			acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
 		} else {// 받아온 거래처코드가 주민번호일때
 			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
 			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
+			acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
 		}
 
 		if(!acc.getEMAIL().equals("")) {
@@ -243,14 +266,19 @@ public class AccController {
 	@PostMapping("/AccModifyPro")
 	public String AccModifyPro(@ModelAttribute AccVO acc, Model model) {
 
+		// 거래처 코드 비교
+		if(acc.getBUSINESS_NO3().equals("")) {
+			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
+		} else {
+			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
+		}
+		
 		int accModifyCount = service.accModify(acc);
-
-
-
+		
 		if(accModifyCount > 0) {
 			return "redirect:/AccView?BUSINESS_NO="+ acc.getBUSINESS_NO();	
 		} else {
-			model.addAttribute("msg", "거래처삭제 실패!");
+			model.addAttribute("msg", "거래처 수정 실패!");
 			return "fail_back";
 		}
 	}
