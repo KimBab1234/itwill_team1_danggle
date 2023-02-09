@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,25 +30,15 @@ table {
 }
 #b1 {
 	background-color: #fff5e6;
-	width: 120px;
+	width: 150px;
 	height: 50px;
 	color: #575754;
 	border-radius: 20px;
 	border-color: transparent;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 25px;
 }
 #b2 {
-	background-color: #fff5e6;
-	width: 120px;
-	height: 50px;
-	color: #575754;
-	border-radius: 20px;
-	border-color: transparent;
-	font-weight: bold; 
-	font-size: 20px;
-}
-#b3 {
 	background-color: #fff5e6;
 	width: 150px;
 	height: 50px;
@@ -55,9 +46,8 @@ table {
 	border-radius: 20px;
 	border-color: transparent;
 	font-weight: bold; 
-	font-size: 20px;
+	font-size: 25px;
 }
-
 </style>
 <script type="text/javascript">
 
@@ -123,12 +113,12 @@ table {
 							+ "<td>" + product.SIZE_DES + "</td>"
 							+ "<td>" + product.UNIT + "</td>"
 							+ "<td>" + product.BARCODE + "</td>"
-							+ "<td>" + product.IN_UNIT_PRICE + "</td>"
-							+ "<td>" + product.OUT_UNIT_PRICE + "</td>"
+							+ "<td>" + product.IN_UNIT_PRICE + '원' + "</td>"
+							+ "<td>" + product.OUT_UNIT_PRICE + '원' +"</td>"
 							+ "<td>" + product.PRODUCT_TYPE_NAME + "</td>"
-							+ "<td>" + product.BUSINESS_NO + "</td>"
+							+ "<td>" + product.BUSINESS_NO + "<br>" + product.CUST_NAME + "</td>"
 // 							+ "<td>" + product.PRODUCT_IMAGE + "</td>"
-							+ "<td>" + "<img width='100px' src='http://itwillbs3.cdn1.cafe24.com/profileImg/" + product.PRODUCT_IMAGE + "'></td>"
+							+ "<td>" + "<img width='100px' height='150px' src='http://itwillbs3.cdn1.cafe24.com/profileImg/" + product.PRODUCT_IMAGE + "'></td>"
 							+ "<td>" + product.REMARKS + "</td>"
 							+ "</tr>";
 				
@@ -173,23 +163,29 @@ table {
 			<jsp:include page="../inc/pd_left.jsp"></jsp:include>
 		</div>
 		<!-- 게시판 리스트 -->
-		<div align="left" style="margin-right: 50px;">
+		<div align="left" style="margin-right: 30px;">
 		<h1 id="titleH1"><b style="border-left: 10px solid">&nbsp;품목 조회</b></h1>
 		<section id="listForm">
 		<section id="buttonArea">
 			<form>
 				<!-- 검색 타입 추가 -->
-				<select name="searchType" id="searchType" style="height: 30px;">
-					<option value="PRODUCT_CD" selected="selected" >품목코드</option>
-<%-- 					<option value="PRODUCT_NAME" <c:if test="${param.searchType eq 'PRODUCT_NAME'}">selected</c:if>>품목명</option> --%>
+				<select name="searchType" id="searchType" style="height: 40px; font-weight: bold; width: 115px;">
+					<c:choose>
+						<c:when test="${param.searchType eq 'PRODUCT_NAME'}">
+							<option value="PRODUCT_CD" style="font-weight: bold;">품목코드</option>
+							<option value="PRODUCT_NAME" selected="selected" style="font-weight: bold;">품목명</option>
+						</c:when>
+						<c:otherwise>
+							<option value="PRODUCT_CD" selected="selected" style="font-weight: bold;">품목코드</option>
+							<option value="PRODUCT_NAME" style="font-weight: bold;">품목명</option>
+						</c:otherwise>
+					</c:choose>
 				</select>
-				<input type="text" name="keyword" id="keyword" value="${param.keyword }" style="height: 30px;">
-				<input type="submit" value="검색" style="height: 30px;">
-				<input type="button" value="품목등록" id="b1"  style="margin-left: 860px;" onclick="location.href='PdRegist'" />
+				<input type="text" name="keyword" id="keyword" value="${param.keyword }" style="height: 40px; width: 265px; font-weight: bold;">
+				<input type="submit" value="검색" style="height: 40px; font-weight: bold; width: 92px;">
+				<input type="button" value="품목등록" id="b1"  style="margin-left: 770px;" onclick="location.href='PdRegist'" />
 				&nbsp; | &nbsp;
 				<input type="button" value="품목삭제" id="b2" onclick="deleteConfirm()">
-				&nbsp; | &nbsp;
-				<input type="button" value="품목 전체 삭제" id="b3">
 			</form>
 		</section>
 		<br>
@@ -204,9 +200,9 @@ table {
 				<td id="td_top">바코드</td>
 				<td id="td_top">입고단가</td>
 				<td id="td_top">출고단가</td>
-				<td id="td_top" style="width: 120px">품목타입코드</td>
-				<td id="td_top" style="width: 130px">구매거래처코드</td>
-				<td id="td_top" style="width: 150px">대표이미지</td>
+				<td id="td_top" style="width: 120px">품목타입</td>
+				<td id="td_top" style="width: 130px">구매거래처</td>
+				<td id="td_top" style="width: 150px; height: 60px;">대표이미지</td>
 				<td id="td_top">적요</td>
 			</tr>
 		</table>

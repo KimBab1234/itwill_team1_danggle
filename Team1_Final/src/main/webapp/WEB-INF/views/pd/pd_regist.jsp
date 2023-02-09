@@ -141,10 +141,10 @@ table {
 					<td id="td_left"><label for="UNIT">단위</label></td>
 					<td>
 						<select style="height: 30px; width: 350px; font-weight : bold; margin-left: 35px;" name="UNIT" required="required">
-							<option value="">=======================  단위  =======================</option>
-							<option value="SET">SET</option>
-							<option value="BOX">BOX</option>
-							<option value="EA">EA</option>
+							<option value="" style="font-weight: bold;">===============  단위 선택  ==============</option>
+							<option value="SET" style="font-weight: bold;">SET</option>
+							<option value="BOX" style="font-weight: bold;">BOX</option>
+							<option value="EA" style="font-weight: bold;">EA</option>
 						</select>
 					</td>
 				</tr>
