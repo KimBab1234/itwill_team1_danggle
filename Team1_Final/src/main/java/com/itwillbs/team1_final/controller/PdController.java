@@ -74,7 +74,7 @@ public class PdController {
 	//			System.out.println("업로드 될 파일명 : " + uuid + "_" + originalFileName);
 				
 				// 파일명을 결합하여 보관할 변수에 하나의 파일 문자열 결합
-				originalFileName += uuid + "_" + originalFileName + "/";
+				originalFileName += uuid + "_" + originalFileName;
 				
 			} 
 		
@@ -349,18 +349,12 @@ public class PdController {
 
 	// ===============================================================================
 	//품목 삭제
-	@RequestMapping(value = "/Pd_deleteForm", method = RequestMethod.GET)
-	public String pd_delete(Model model) {
-		System.out.println("품목 삭제");
-		return "pd/pd_delete";
-	}
-	
 	@GetMapping(value = "/Pd_deletePro")
 	public String pd_deletePro(@RequestParam String deleteProdArr, 
 								Model model, HttpSession session) {
 		// Service 객체의 removeBoard() 메서드를 호출하여 게시물 삭제 작업 요청
 		// => 파라미터 : 글번호    리턴타입 : int(deleteCount)
-		
+		System.out.println("품목 삭제");
 		System.out.println("deleteProdArr : "+deleteProdArr);
 		String[] arr = deleteProdArr.split(",");
 		System.out.println(Arrays.toString(arr));
@@ -373,7 +367,7 @@ public class PdController {
 		// 게시물 삭제 성공 시 해당 게시물의 파일도 삭제
 		if(deleteCount == arr.length) { // 삭제 성공
 			
-			String uploadDir = "/resources/upload"; // 가상의 업로드 경로(루트(webapp) 기준)
+			String uploadDir = "/resources/img"; // 가상의 업로드 경로(루트(webapp) 기준)
 			String saveDir = session.getServletContext().getRealPath(uploadDir);
 			
 			// --------------- java.nio 패키지(Files, Path, Paths) 객체 활용 -----------------
@@ -394,6 +388,20 @@ public class PdController {
 		}
 			
 	}
+	
+	// ===============================================================================
+	//품목 수정
+	//수정 전에 품목 조회 먼저
+	@GetMapping("/PdUpdate")
+	public String pd_update(@RequestParam int PRODUCT_CD, Model model, HttpSession session) {
+		
+		PdVO product = service.getProduct(PRODUCT_CD);
+		
+		model.addAttribute("product", product);
+		
+		return "pd/pd_update";
+	}
+	
 	
 	
 	
