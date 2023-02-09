@@ -1,7 +1,5 @@
 package com.itwillbs.team1_final.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,17 +10,12 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,8 +26,6 @@ import com.itwillbs.team1_final.vo.InListVO;
 import com.itwillbs.team1_final.vo.InPdVO;
 import com.itwillbs.team1_final.vo.InVO;
 import com.itwillbs.team1_final.vo.PdVO;
-import com.itwillbs.team1_final.vo.StockVO;
-import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 @Controller
 public class InController {
@@ -402,39 +393,39 @@ public class InController {
 		return jsonObject.toString();
 	}
 	
-	@PostMapping(value = "/StockMovePro_test")
-	public String test(@ModelAttribute StockVO updateStock) {
-		StockController.updateStock = updateStock;
-		int updateCount = 0;
-		StockVO stock;
-		int productCount = updateStock.getPRODUCT_CD_Arr().length;
-		for(int i=0; i<productCount; i++) {
-			////일단 들어온 데이터 저장하기
-			stock = new StockVO();
-			stock.setSTOCK_CONTROL_TYPE_CD(updateStock.getSTOCK_CONTROL_TYPE_CD());
-			stock.setPRODUCT_CD(updateStock.getPRODUCT_CD_Arr()[i]);
-			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
-//			stock.setEMP_NUM((String)session.getAttribute("empNo"));
-			
-			///입고 전용
-			String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
-			String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
-			Integer[] qty_arr = updateStock.getIN_SCHEDULE_QTY_Arr();
-			if(in_arr != null ) {
-				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
-				stock.setIN_SCHEDULE_QTY(qty_arr[i]);
-				if(name_arr[i].contains("[")) {
-					stock.setPRODUCT_NAME(name_arr[i].split("\\[")[0]);
-				}else {
-					stock.setPRODUCT_NAME(name_arr[i]);
-				}
-			}
-			System.out.println("상품 이름 확인 : " +stock.getPRODUCT_NAME());
-			updateCount = service.updateQTY(stock);
-		}
-		
-		return "";
-	}
+//	@PostMapping(value = "/StockMovePro_test")
+//	public String test(@ModelAttribute StockVO updateStock) {
+//		StockController.updateStock = updateStock;
+//		int updateCount = 0;
+//		StockVO stock;
+//		int productCount = updateStock.getPRODUCT_CD_Arr().length;
+//		for(int i=0; i<productCount; i++) {
+//			////일단 들어온 데이터 저장하기
+//			stock = new StockVO();
+//			stock.setSTOCK_CONTROL_TYPE_CD(updateStock.getSTOCK_CONTROL_TYPE_CD());
+//			stock.setPRODUCT_CD(updateStock.getPRODUCT_CD_Arr()[i]);
+//			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
+////			stock.setEMP_NUM((String)session.getAttribute("empNo"));
+//			
+//			///입고 전용
+//			String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
+//			String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
+//			Integer[] qty_arr = updateStock.getIN_SCHEDULE_QTY_Arr();
+//			if(in_arr != null ) {
+//				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
+//				stock.setIN_SCHEDULE_QTY(qty_arr[i]);
+//				if(name_arr[i].contains("[")) {
+//					stock.setPRODUCT_NAME(name_arr[i].split("\\[")[0]);
+//				}else {
+//					stock.setPRODUCT_NAME(name_arr[i]);
+//				}
+//			}
+//			System.out.println("상품 이름 확인 : " +stock.getPRODUCT_NAME());
+//			updateCount = service.updateQTY(stock);
+//		}
+//		
+//		return "";
+//	}
 	
 }
 
