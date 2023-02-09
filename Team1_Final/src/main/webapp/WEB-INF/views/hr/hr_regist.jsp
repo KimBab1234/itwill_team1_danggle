@@ -129,7 +129,7 @@ function execDaumPostcode() {
 	
 	var priv = '${sessionScope.priv}';
 	if(!isThisEmp && priv.charAt(2) !='1') {
-		alert("잘못된 접근입니다.");
+		alert("권한이 없습니다.");
 		history.back();
 	}
 	
@@ -433,8 +433,8 @@ function execDaumPostcode() {
 					<tr class="passTr">
 						<th align="right" width="150">신규 비밀번호</th>
 						<td align="left" >&nbsp;&nbsp;&nbsp;
-							<input type="password" class="thisEmp" id="EMP_PASS_NEW1" name="EMP_PASS_NEW" >
-							<span id="checkPasswdResult"></span>
+							<input type="password" class="thisEmp" id="EMP_PASS_NEW1" name="EMP_PASS_NEW" ><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="checkPasswdResult"></span>
 						</td>
 					</tr>
 					<tr class="passTr">
@@ -572,7 +572,7 @@ function execDaumPostcode() {
 					<th align="right" >사진이미지</th>
 					<td align="left" style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;
 						<input type="file" class="thisEmp filebox" id="registPHOTO" accept="image/*" name="registPHOTO" style="font-size: 15px; font-weight: bold;" onchange="selectFile(this.value)">
-						<input type="text" class="thisEmp" id="registPHOTOName" style="font-size: 15px; font-weight: bold;">
+						<input type="text" class="thisEmp" placeholder="변경할 이미지를 등록하세요." id="registPHOTOName" style="width:200px; font-size: 15px; font-weight: bold;">
 						<input type="hidden" name="PHOTO" value="${emp.PHOTO}" >
 						<label for="registPHOTO">파일찾기</label> 
 						<span><img class="hrImg" src="http://itwillbs3.cdn1.cafe24.com/profileImg/${emp.PHOTO}" width="150"></span>

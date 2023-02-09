@@ -272,6 +272,13 @@ public class HrController {
 		updateEmp.setEMP_TEL(updateEmp.getEMP_TEL1()+"-"+updateEmp.getEMP_TEL2()+"-"+updateEmp.getEMP_TEL3());
 		updateEmp.setEMP_EMAIL(updateEmp.getEMP_EMAIL1()+"@"+updateEmp.getEMP_EMAIL2());
 
+		if(updateEmp.getEMP_DTEL().equals("--")) {
+			updateEmp.setEMP_DTEL("");
+		}
+		if(updateEmp.getEMP_TEL().equals("--")) {
+			updateEmp.setEMP_TEL("");
+		}
+
 		////만약 비밀번호가 넘어왔다면 (=관리자가 아니고 당사자라면)
 		if(updateEmp.getEMP_PASS() != null) {
 
