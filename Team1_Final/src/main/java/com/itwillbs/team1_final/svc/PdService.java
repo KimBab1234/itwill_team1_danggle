@@ -64,13 +64,18 @@ public class PdService {
 	public PdVO getProduct(int PRODUCT_CD) {
 		
 		PdVO product = mapper.selectPd(PRODUCT_CD);
-		product.setPRODUCT_IMAGE(product.getPRODUCT_IMAGE().split("_")[1]);
 		return product;
 		
 	}
-
+	
+	// 품목 삭제 전 이미지 파일이름 얻어오기
 	public List<String> getImgList(String deleteProdArr) {
 		return mapper.selectImgList(deleteProdArr);
+	}
+
+	// 품목 수정
+	public int updatePd(PdVO product) {
+		return mapper.updatePd(product);
 	}
 
 }

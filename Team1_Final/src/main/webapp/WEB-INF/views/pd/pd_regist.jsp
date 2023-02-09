@@ -73,6 +73,20 @@ table {
 }
 </style>
 <script type="text/javascript">
+	
+	////로그인 유무 및 권한 확인
+	///기본등록(0), 사원조회(1), 사원관리(2), 재고조회(3), 재고관리(4)
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+	   alert("로그인 후 이용하세요.");
+	   location.href="./Login";
+	} else if(priv.charAt(0) !='1') {
+	   alert("권한이 없습니다.");
+	   history.back();
+	}
+	////로그인 유무 및 권한 확인 끝
+	
 	function addBarcode() {
 
 		$.ajax({
@@ -94,7 +108,7 @@ table {
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
-	<div style="display: flex;">
+	<div style="display: flex; width: 1900px;">
 		<div style="width: 500px; margin-top: 0px; margin-right: 0px;">
 			<jsp:include page="../inc/pd_left.jsp"></jsp:include>
 		</div>
@@ -186,6 +200,6 @@ table {
 			</div>
 		</form>
 		</div>
-	</div>
+		</div>
 </body>
 </html>

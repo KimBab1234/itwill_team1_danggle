@@ -72,20 +72,39 @@ table {
 	font-weight: bold;
 	font-size: 15px;
 }
-/* 기존 파일 인풋 박스 안보이게 처리 */
-.filebox input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-}
+ /* 기존 파일 인풋 박스 안보이게 처리 */
+ .filebox input[type="file"] { 
+     position: absolute; 
+     width: 0; 
+     height: 0; 
+     padding: 0; 
+     overflow: hidden; 
+     border: 0; 
+ }
 </style>
+<script type="text/javascript">
+
+	////로그인 유무 및 권한 확인
+	///기본등록(0), 사원조회(1), 사원관리(2), 재고조회(3), 재고관리(4)
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+	   alert("로그인 후 이용하세요.");
+	   location.href="./Login";
+	} else if(priv.charAt(0) !='1') {
+	   alert("권한이 없습니다.");
+	   history.back();
+	}
+	////로그인 유무 및 권한 확인 끝
+	
+	function selectFile(fileName) {
+		$("#img_name").val(fileName.substr(fileName.lastIndexOf("\\")+1));		
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
-	<div style="display: flex;">
+	<div style="display: flex; width: 1900px;">
 		<div style="width: 500px; margin-top: 0px; margin-right: 0px;">
 			<jsp:include page="../inc/pd_left.jsp"></jsp:include>
 		</div>
@@ -93,7 +112,7 @@ table {
 		<div style="margin-left: 100px;">
 		<h1 id="titleH1"><b style="border-left: 10px solid">&nbsp;품목 수정</b></h1>
 		<form action="PdUpdatePro" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="PRODCUT_CD" value="${param.PRODCUT_CD }" >
+			<input type="hidden" name="PRODUCT_CD" value="${product.PRODUCT_CD }" >
 			<table>
 				<tr>
 					<td id="td_left"><label for="PRODUCT_NAME">품목명</label></td>
@@ -103,9 +122,9 @@ table {
 					<td id="td_left"><label for="PRODUCT_GROUP_BOTTOM_CD">품목그룹</label><br>
 					</td>
 					<td>
-						<input type="text" name="PRODUCT_GROUP_TOP_CD" id="PRODUCT_GROUP_TOP_CD" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;margin-left:35px;">
-						<input type="text" name="PRODUCT_GROUP_BOTTOM_CD" id="PRODUCT_GROUP_BOTTOM_CD" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;">
-						<input type="text" name="PRODUCT_GROUP_BOTTOM_NAME" id="PRODUCT_GROUP_BOTTOM_NAME" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;">
+						<input type="text" name="PRODUCT_GROUP_TOP_CD" id="PRODUCT_GROUP_TOP_CD" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;margin-left:35px;" value="${product.PRODUCT_GROUP_TOP_CD }">
+						<input type="text" name="PRODUCT_GROUP_BOTTOM_CD" id="PRODUCT_GROUP_BOTTOM_CD" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;" value="${product.PRODUCT_GROUP_BOTTOM_CD}">
+						<input type="text" name="PRODUCT_GROUP_BOTTOM_NAME" id="PRODUCT_GROUP_BOTTOM_NAME" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;" value="${product.PRODUCT_GROUP_BOTTOM_NAME }">
 						<button type="button" onclick="window.open('Pd_group_bottom_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')"><b>품목그룹(소) 선택</b></button>
 					</td>
 				</tr>
@@ -141,16 +160,16 @@ table {
 				<tr>
 					<td id="td_left"><label for="PRODUCT_TYPE_CD">품목구분</label></td>
 					<td id="td_right">
-						<input type="text" name="PRODUCT_TYPE_CD" id="PRODUCT_TYPE_CD" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;margin-left: 35px;">
-						<input type="text" name="PRODUCT_TYPE_NAME" id="PRODUCT_TYPE_NAME" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;">
+						<input type="text" name="PRODUCT_TYPE_CD" id="PRODUCT_TYPE_CD" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;margin-left: 35px;"value="${product.PRODUCT_TYPE_CD }">
+						<input type="text" name="PRODUCT_TYPE_NAME" id="PRODUCT_TYPE_NAME" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;" value="${product.PRODUCT_TYPE_NAME }">
 						<button type="button" onclick="window.open('Pd_type_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')"><b>&nbsp;&nbsp;품목구분 선택</b></button>
 					</td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="BUSINESS_NO">구매거래처</label></td>
 					<td id="td_right">
-						<input type="text" name="BUSINESS_NO" id="BUSINESS_NO" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;margin-left: 35px;">
-						<input type="text" name="CUST_NAME" id="CUST_NAME" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;">
+						<input type="text" name="BUSINESS_NO" id="BUSINESS_NO" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;margin-left: 35px;" value="${product.BUSINESS_NO }">
+						<input type="text" name="CUST_NAME" id="CUST_NAME" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;" value="${product.CUST_NAME }">
 						<button type="button" onclick="window.open('Business_No_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')"><b>거래처목록 선택</b></button>
 					</td>
 				</tr>
@@ -159,20 +178,11 @@ table {
 					<td id="td_right">
 <!-- 						<input type="file" name="file" style="font-weight : bold ;"/> -->
 						<div class="filebox">
-							<c:choose>
-								<c:when test="">
-								
-								</c:when>
-								<c:otherwise>
-								
-								</c:otherwise>
-							</c:choose>
-		   					<input class="upload-name" placeholder="선택된 파일 없음" id="img_name" value="${product.PRODUCT_IMAGE }" style="margin-left: 35px;">
+		   					<input type="text" class="upload-name" placeholder="선택된 파일 없음" id="img_name" style="margin-left: 35px;">
 		    				<label for="img">파일찾기</label> 
-		   					<input type="file" required="required" name="file" id="img">
+		   					<input type="file" name="file" id="img" onchange="selectFile(this.value)">
+		   					<img width='100px' src='http://itwillbs3.cdn1.cafe24.com/profileImg/${product.PRODUCT_IMAGE }'>
 						</div>
-<!-- 						<br> -->
-<%-- 						(기존파일 : ${product.PRODUCT_IMAGE }) --%>
 					</td>
 				</tr>
 				<tr>

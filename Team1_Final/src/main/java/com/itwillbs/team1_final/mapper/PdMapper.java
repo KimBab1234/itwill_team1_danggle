@@ -37,8 +37,12 @@ public interface PdMapper {
 	// 품목 수정 전 품목 조회
 	PdVO selectPd(int PRODUCT_CD);
 	
-	//품목 삭제 전 이미지 파일이름 얻어오기
+	// 품목 삭제 전 이미지 파일이름 얻어오기
 	List<String> selectImgList(String deleteProdArr);
+
+	// 품목 수정
+	int updatePd(PdVO product);
+
 
 
 }

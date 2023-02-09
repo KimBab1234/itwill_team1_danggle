@@ -1,7 +1,11 @@
 package com.itwillbs.team1_final.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -61,7 +65,7 @@ public class PdController{
 			//			System.out.println("업로드 될 파일명 : " + uuid + "_" + originalFileName);
 
 			// 파일명을 결합하여 보관할 변수에 하나의 파일 문자열 결합
-			originalFileName += uuid + "_" + originalFileName;
+			originalFileName = uuid + "_" + originalFileName;
 
 		} 
 
@@ -76,11 +80,15 @@ public class PdController{
 
 		// 등록 성공/실패에 따른 포워딩 작업 수행
 		if(insertCount > 0) { // 성공
+			
+			if(!originalFileName.equals("")) {
+				///ftp 연결 및 로그인
+				ftp = HrController.ftpControl(new FTPClient());
+				///ftp로 파일 저장
+				ftp.storeFile(product.getPRODUCT_IMAGE(), mFile.getInputStream());
+				ftp.disconnect();
+			}
 
-			///ftp 연결 및 로그인
-			ftp = HrController.ftpControl(new FTPClient());
-			///ftp로 파일 저장
-			ftp.storeFile(product.getPRODUCT_IMAGE(), mFile.getInputStream());
 
 			return "redirect:/PdInquiry";
 		} else { // 실패
@@ -350,7 +358,6 @@ public class PdController{
 			ftp.deleteFile(deleteImg.get(i));
 		}
 
-
 		// 게시물 삭제 성공 시 해당 게시물의 파일도 삭제
 		if(deleteCount == arr.length) { // 삭제 성공
 			ftp.disconnect();
@@ -368,6 +375,7 @@ public class PdController{
 	@GetMapping("/PdUpdate")
 	public String pd_update(@RequestParam int PRODUCT_CD, Model model, HttpSession session) {
 
+		System.out.println("여기1");
 		PdVO product = service.getProduct(PRODUCT_CD);
 
 		model.addAttribute("product", product);
@@ -375,7 +383,65 @@ public class PdController{
 		return "pd/pd_update";
 	}
 
+	@PostMapping(value = "/PdUpdatePro")
+	public String pd_updatePro(
+			@ModelAttribute PdVO product, 
+			Model model, HttpSession session) {
+		
+		MultipartFile mFile = product.getFile();
 
+		// MultipartFile 객체의 getOriginalFilename() 메서드를 통해 파일명 꺼내기
+		String originalFileName = mFile.getOriginalFilename();
+		// 가져온 파일이 있을 경우에만 중복 방지 대책 수행하기
+		if(!originalFileName.equals("")) {
+			// 파일명 중복 방지 대책
+			// 시스템에서 랜덤ID 값을 추출하여 파일명 앞에 붙이기("랜덤ID값_파일명" 형식)
+			// => 랜덤ID 값 추출은 UUID 클래스 활용(범용 고유 식별자)
+			String uuid = UUID.randomUUID().toString();
+			//			System.out.println("업로드 될 파일명 : " + uuid + "_" + originalFileName);
+
+			// 파일명을 결합하여 보관할 변수에 하나의 파일 문자열 결합
+			originalFileName = uuid + "_" + originalFileName;
+
+		} 
+
+		product.setPRODUCT_IMAGE(originalFileName);
+		// => 실제로는 UUID 를 결합한 파일명만 사용하여 원본파일명과 실제파일명 모두 처리 가능
+		// => 실제파일명에서 가장 먼저 만나는 "_" 기호를 기준으로 분리하면
+		//    두번째 배열 인덱스 데이터가 원본 파일명이 된다!
+		// --------------------------------------------------------------------
+		// Service - modifyBoard() 메서드 호출하여 수정 작업 요청
+		// => 파라미터 : BoardVO 객체, 리턴타입 : int(updateCount)
+		int updateCount = service.updatePd(product);
+
+		// 등록 성공/실패에 따른 포워딩 작업 수행
+		if(updateCount > 0) { // 성공
+			
+			if(!originalFileName.equals("")) {
+				try {
+					///ftp 연결 및 로그인
+					ftp = HrController.ftpControl(new FTPClient());
+					///ftp로 파일 저장
+					ftp.storeFile(product.getPRODUCT_IMAGE(), mFile.getInputStream());
+					//원래 파일 삭제
+					ftp.disconnect();
+				} catch (SocketException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			return "redirect:/PdInquiry";
+		} else {
+			model.addAttribute("msg", "게시물 수정 실패!");
+			return "fail_back";
+		}
+
+
+	}
 
 
 }
