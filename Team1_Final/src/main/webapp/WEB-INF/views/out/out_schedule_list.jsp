@@ -28,6 +28,9 @@ th{
  	font-size: 15px;
  	padding-top: 10px;
  	padding-bottom: 10px;
+ 	overflow:hidden;
+ 	white-space:nowrap;
+ 	text-overflow:ellipsis;
 }
 
 td {
@@ -36,6 +39,9 @@ td {
  	border-color: #b09f76;
  	padding: 8px 0px 8px 4px;
  	font-size: 15px;
+ 	overflow:hidden;
+ 	white-space:nowrap;
+ 	text-overflow:ellipsis;
 }
 
 button {
@@ -280,15 +286,15 @@ button {
 		<br>
 		<table id="outListT">
 			<tr>
-				<th width="250px">출고예정번호</th>
-				<th width="300px">유형</th>
-				<th width="400px">받는곳명</th>
-				<th width="250px">담당자명</th>
+				<th width="150px">출고예정번호</th>
+				<th width="100px">유형</th>
+				<th width="200px">받는곳명</th>
+				<th width="100px">담당자명</th>
 				<th width="500px">품목명[규격]</th>
-				<th width="300px">납기일자</th>
-				<th width="200px">출고예정수량합계</th>
-				<th width="100px">종결여부</th>
-				<th width="100px">진행상태</th>
+				<th width="100px">납기일자</th>
+				<th width="100px">출고예정수량합계</th>
+				<th width="50px">종결여부</th>
+				<th width="50px">진행상태</th>
 			</tr>
 		</table><br>
 		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>

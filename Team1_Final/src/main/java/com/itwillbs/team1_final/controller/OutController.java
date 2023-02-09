@@ -41,7 +41,6 @@ public class OutController {
 	public String searchOutList(
 			@RequestParam(defaultValue = "") String keyword) {
 		List<OutSchVo> outSchList = service.searchOutSchList(keyword);
-		
 		JSONArray jsonAcc = new JSONArray();
 		
 		for(OutSchVo outSch : outSchList) {
@@ -51,7 +50,6 @@ public class OutController {
 		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("searchOutSchList", jsonAcc.toString());
-		
 		return jsonObject.toString();
 	}
 	
@@ -231,7 +229,6 @@ public class OutController {
 	public String outProListPro() {
 		String keyword = "";
 		List<OutSchVo> searchOutProList = service.searchOutProList(keyword);
-		
 		JSONArray jsonAcc = new JSONArray();
 		
 		for(OutSchVo outSchPro : searchOutProList) {
@@ -241,7 +238,7 @@ public class OutController {
 		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("searchOutProList", jsonAcc.toString());
-		
+
 		return jsonObject.toString();
 	}
 	// ----------------------------------------------------------
