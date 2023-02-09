@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.team1_final.svc.InService;
 import com.itwillbs.team1_final.svc.StockService;
 import com.itwillbs.team1_final.vo.StockVO;
 import com.itwillbs.team1_final.vo.WhVO;
@@ -28,6 +29,8 @@ public class StockController {
 
 	@Autowired
 	StockService service; 
+	@Autowired
+	InService service2; 
 	
 	static StockVO updateStock;
 	static StockVO stock;
@@ -168,19 +171,29 @@ public class StockController {
 			
 			///입고 전용
 			String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
-			String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
-			
 			if(in_arr != null ) {
+				String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
+				Integer[] qty_arr = updateStock.getIN_SCHEDULE_QTY_Arr();
 				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
-				stock.setPRODUCT_NAME(name_arr[i]);
+				stock.setIN_SCHEDULE_QTY(qty_arr[i]);
+				if(name_arr[i].contains("[")) {
+					stock.setPRODUCT_NAME(name_arr[i].split("\\[")[0]);
+				}else {
+					stock.setPRODUCT_NAME(name_arr[i]);
+				}
 			}
 
 			boolean isSuccess = false;
 			if(control_cd.equals("0")) { 
+				
 				stock.setREMARKS("-");
 				isSuccess = inStock(0, i); /////입고
+				isSuccess = isSuccess && service2.updateQTY(stock);
+				
 			} else if(control_cd.equals("1")) {
+				
 				isSuccess = outStock(1, i);  ///출고
+				
 			} else if(control_cd.equals("2")) { /// 조정
 			
 				stock.setREMARKS(updateStock.getREMARKS_Arr()[i]);

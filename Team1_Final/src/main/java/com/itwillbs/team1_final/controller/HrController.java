@@ -2,6 +2,8 @@ package com.itwillbs.team1_final.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -276,7 +278,7 @@ public class HrController {
 
 	/////사원 수정
 	@RequestMapping(value = "/HrEditPro", method = RequestMethod.POST)
-	public String hrEditPro(HrVO updateEmp, Model model, HttpSession session) {
+	public String hrEditPro(HrVO updateEmp, Model model, HttpSession session) throws IOException {
 		System.out.println("사원 수정 작업");
 
 		///삭제할 파일 미리 저장해놓기
@@ -309,8 +311,13 @@ public class HrController {
 
 		///파일 올라와있으면 새 파일 올리고 기존 삭제
 		boolean isNewImg = false;
-		String uploadDir = "/resources/upload";
-		String saveDir = session.getServletContext().getRealPath(uploadDir);
+		FTPClient ftp = new FTPClient();
+		ftp.setControlEncoding("UTF-8");
+		ftp.connect("iup.cdn1.cafe24.com",21);
+		ftp.login("itwillbs3", "itwillbs8030909");
+		ftp.changeWorkingDirectory("/www/profileImg");
+		ftp.setSoTimeout(1000);
+		ftp.setFileType(FTP.BINARY_FILE_TYPE);
 
 		if(updateEmp.getRegistPHOTO().getOriginalFilename().length() > 0) {
 
@@ -328,25 +335,20 @@ public class HrController {
 
 			////새파일 올라와있으면
 			if(isNewImg) {
+				
+				///옛날 파일 삭제
+				ftp.deleteFile(beforeImg);
+
+				///새 파일 등록
 				MultipartFile mFile = updateEmp.getRegistPHOTO();
-				FTPClient ftp = new FTPClient();
-
-				try {
-					ftp.connect("iup.cdn1.cafe24.com",21);
-					ftp.login("itwillbs3", "itwillbs8030909");
-					ftp.changeWorkingDirectory("/www/profileImg");
-					ftp.setSoTimeout(1000);
-					ftp.setControlEncoding("euc-kr");
-					ftp.setFileType(FTP.BINARY_FILE_TYPE);
-					ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
-
-					if(ftp.getReplyCode() != 226) {
-						model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
-						return "fail_back";
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+				ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
+				
+				if(ftp.getReplyCode() != 226) {
+					ftp.disconnect();
+					model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+					return "fail_back";
 				}
+
 			}
 		} else {
 			model.addAttribute("msg", "사원 수정 실패!");

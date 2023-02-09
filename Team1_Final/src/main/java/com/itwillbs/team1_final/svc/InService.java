@@ -224,8 +224,12 @@ public class InService {
 
 	
 
-	public int updateQTY(StockVO stock) {
-		mapper.updateQty(stock);
+	public boolean updateQTY(StockVO stock) {
+		boolean isSuccess=false;
+		int updateCount = mapper.updateQty(stock);
+		if(updateCount>0) {
+			isSuccess=true;
+		}
 		int qty = mapper.select_sched_qty(stock);
 		stock.setIN_QTY(qty);
 		System.out.println("입고 예정 수량 : " + stock.getIN_SCHEDULE_QTY());
@@ -237,7 +241,7 @@ public class InService {
 		}else {
 			System.out.println("다름");
 		}
-		return 0;
+		return isSuccess;
 	}
 
 	
