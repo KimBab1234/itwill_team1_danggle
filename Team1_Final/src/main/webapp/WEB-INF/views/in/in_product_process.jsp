@@ -27,6 +27,17 @@
 	var total = 0;
 	var total_num = 0;
 	
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		window.close();
+		opener.location.href  = './Login';
+	} else if(priv.charAt(4) !='1') {
+		alert("권한이 없습니다.");
+		window.close();
+	}
+	
 	// 재고번호 검색
 	function search_num(num){ 
 		selectIndex = num;
@@ -102,9 +113,10 @@
 		for(var i = 0; i < $(opener.document).find(".check").length; i++){
 			
 			if($(opener.document).find(".check").eq(i).prop("checked")){
+				alert(proList[i].PRODUCT_CD);
 				let result = "<tr>"
 					+ "<td><input type='text' name='IN_PD_SCHEDULE_CD_Arr' class='sch_cd' value='" + proList[i].IN_PD_SCHEDULE_CD + "' readonly='readonly'></td>"
-					+ "<td><input type='hidden' name='PRODUCT_CD_Arr' id='pro_cd"+j+"' value='" + proList[i].PRODUCT_CD + "'><input type='text' name='PRODUCT_NAME_Arr' class='sch_name' value='" + proList[i].PRODUCT_NAME + "' readonly='readonly'></td>"
+					+ "<td><input type='text' value='" + proList[i].PRODUCT_CD + "' name='PRODUCT_CD_Arr' id='pro_cd"+j+"'><input type='text' name='PRODUCT_NAME_Arr' class='sch_name' value='" + proList[i].PRODUCT_NAME + "' readonly='readonly'></td>"
 					+ "<td><input type='text' class='sch_qty' id='qty"+j+"' name='IN_SCHEDULE_QTY_Arr' value='" + proList[i].IN_SCHEDULE_QTY + "' readonly='readonly'></td>"
 					+ "<td><input type='hidden'value='" + proList[i].WH_LOC_IN_AREA_CD + "' name='WH_LOC_IN_AREA_CD_Arr' id='wh_loc"+j+"'><input type='text' id='mi_qty"+j+"' class='sch_qty mi_qty' value='" + (proList[i].IN_SCHEDULE_QTY - proList[i].IN_QTY) + "'></td>"
 					+ "<td><input type='text' name='MOVE_QTY_Arr' id='qty_sum"+j+"' class='sch_qty qty_sum' onchange='sum_qty("+j+")'></td>"

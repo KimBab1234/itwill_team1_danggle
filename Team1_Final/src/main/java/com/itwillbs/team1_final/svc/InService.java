@@ -150,7 +150,20 @@ public class InService {
 	
 	// 입고처리 진행상태
 	public ArrayList<InPdVO> getProgress(String keyword) {
-		return mapper.selectProductProgress(keyword);
+		ArrayList<InPdVO> pdList = mapper.selectProductProgress(keyword);
+		
+		for(int i = 0; i < pdList.size(); i++) {
+			if(pdList.get(i).getIN_PD_COMPLETE().equals("0")) {
+				String status = "처리중";
+				pdList.get(i).setIN_PD_COMPLETE(status);
+			}else if(pdList.get(i).getIN_PD_COMPLETE().equals("1")) {
+				String status = "완료";
+				pdList.get(i).setIN_PD_COMPLETE(status);
+			}
+			
+		}
+		
+		return pdList;
 	}
 	
 	// 입고 예정 수정 폼
@@ -242,6 +255,18 @@ public class InService {
 			System.out.println("다름");
 		}
 		return isSuccess;
+	}
+
+	public ArrayList<InListVO> getProcessIngList(String keyword) {
+		ArrayList<InListVO> inList = mapper.selectProgressIngList(keyword);
+		
+		for(int i = 0; i < inList.size(); i++) {
+			if(!inList.get(i).getSIZE_DES().equals("")) {
+				String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+				inList.get(i).setPRODUCT_NAME(product_size);
+			}
+		}
+		return inList;
 	}
 
 	

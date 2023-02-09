@@ -61,7 +61,6 @@
 			$(opener.document).find('#wh_loc'+opener.selectIndex).val(stocklist[i].WH_LOC_IN_AREA_CD);
 			$(opener.document).find('#stock'+opener.selectIndex).val(stocklist[i].wh_name + "_" + stocklist[i].wh_loc_in_area);
 			$(opener.document).find('#sch_num'+opener.selectIndex).val(stocklist[i].stock_cd);
-			$(opener.document).find('#pro_cd'+opener.selectIndex).val(stocklist[i].PRODUCT_CD);
 			this.close();
 		}
 

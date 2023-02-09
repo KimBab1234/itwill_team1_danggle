@@ -19,7 +19,17 @@
 	var pdList;
 	var i = 0;
 	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
-	alert(inList);
+	
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+	    location.href="./Login";
+	} else if(priv.charAt(3) !='1') {
+		alert("권한이 없습니다.");
+		history.back();
+	}
+
 	$(function() {		
 
 		$.ajax({
@@ -41,6 +51,7 @@
 								+ "<td>" + pdList[i].PRODUCT_NAME + "</td>"
 								+ "<td>" + pdList[i].IN_SCHEDULE_QTY + "</td>"
 								+ "<td>" + (pdList[i].IN_SCHEDULE_QTY - pdList[i].IN_QTY) + "</td>"
+								+ "<td>" + pdList[i].IN_PD_COMPLETE + "</td>"
 								+ "</tr>";
 								
 					$(".detail_table_progress").append(result);
@@ -66,13 +77,14 @@
 		<div class="title_regi">입고처리 진행상태</div>
 		<table class="detail_table_progress">
 			<tr>
-				<th width="100">품목코드</th>
+				<th width="90">품목코드</th>
 				<th width="150">품목명</th>
-				<th width="100">입고예정수량</th>
-				<th width="100">미입고수량</th>
+				<th width="90">입고예정수량</th>
+				<th width="90">미입고수량</th>
+				<th width="100">종결 여부</th>
 			</tr>
 		</table>
-		<input type="button" onclick="window.close()" value="닫기" id="Listbtn">
+		<input type="button" onclick="window.close()" value="닫기" id="Listbtn7">
 	</div>
 </body>
 </html>

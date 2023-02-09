@@ -20,11 +20,21 @@ public class InListVO {
 	private int IN_SCHEDULE_QTY; // 입고 예정 수량
 	private int IN_QTY; // 입고 수량
 	private String IN_PD_REMARKS; // 적요
+	private int PRODUCT_CD;
+	
+	
+	
+	
+	
+	
+	public int getPRODUCT_CD() {
+		return PRODUCT_CD;
+	}
 
-	
-	
-	
-	
+	public void setPRODUCT_CD(int pRODUCT_CD) {
+		PRODUCT_CD = pRODUCT_CD;
+	}
+
 	public String getIN_PD_SCHEDULE_CD() {
 		return IN_PD_SCHEDULE_CD;
 	}

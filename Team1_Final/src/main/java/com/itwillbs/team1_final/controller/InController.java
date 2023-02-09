@@ -393,39 +393,25 @@ public class InController {
 		return jsonObject.toString();
 	}
 	
-//	@PostMapping(value = "/StockMovePro_test")
-//	public String test(@ModelAttribute StockVO updateStock) {
-//		StockController.updateStock = updateStock;
-//		int updateCount = 0;
-//		StockVO stock;
-//		int productCount = updateStock.getPRODUCT_CD_Arr().length;
-//		for(int i=0; i<productCount; i++) {
-//			////일단 들어온 데이터 저장하기
-//			stock = new StockVO();
-//			stock.setSTOCK_CONTROL_TYPE_CD(updateStock.getSTOCK_CONTROL_TYPE_CD());
-//			stock.setPRODUCT_CD(updateStock.getPRODUCT_CD_Arr()[i]);
-//			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
-////			stock.setEMP_NUM((String)session.getAttribute("empNo"));
-//			
-//			///입고 전용
-//			String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
-//			String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
-//			Integer[] qty_arr = updateStock.getIN_SCHEDULE_QTY_Arr();
-//			if(in_arr != null ) {
-//				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
-//				stock.setIN_SCHEDULE_QTY(qty_arr[i]);
-//				if(name_arr[i].contains("[")) {
-//					stock.setPRODUCT_NAME(name_arr[i].split("\\[")[0]);
-//				}else {
-//					stock.setPRODUCT_NAME(name_arr[i]);
-//				}
-//			}
-//			System.out.println("상품 이름 확인 : " +stock.getPRODUCT_NAME());
-//			updateCount = service.updateQTY(stock);
-//		}
-//		
-//		return "";
-//	}
+	@ResponseBody
+	@GetMapping(value = "/in_process_list_status")
+	public String in_process_ing(HttpServletResponse response, String keyword) {
+		System.out.println("입고 처리 목록 에이젝스 - 전체 / 입고 예정 / 입고 완료");
+
+		ArrayList<InListVO> in_scList = service.getProcessIngList(keyword);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(InListVO in : in_scList) {
+			JSONObject jsonObject = new JSONObject(in);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("in_scList", jsonArray.toString());
+		
+		return jsonObject.toString();
+		
+	}
 	
 }
 
