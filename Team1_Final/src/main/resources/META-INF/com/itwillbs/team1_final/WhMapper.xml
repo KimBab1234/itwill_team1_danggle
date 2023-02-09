@@ -23,8 +23,9 @@
 			</choose>		
 		</if>
 		ORDER BY
-			WH_CD,
-			WH_NAME
+			WH_CD DESC,
+			WH_AREA_CD,
+			WH_LOC_IN_AREA_CD
 		LIMIT 
 			#{startRow}
 			, #{listLimit}
@@ -32,7 +33,7 @@
 	
 	<select id="selectWhListCount" resultType="int">
 		SELECT COUNT(*)
-			FROM wh
+			FROM wh_view
 			
 			<if test="!keyword.equals('')">
 				WHERE

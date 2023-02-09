@@ -43,7 +43,7 @@ public class WhController {
 		
 		int listCount = service.getWhListCount(searchType,keyword);
 		
-		int pageListLimit = 10; // 한 페이지에서 표시할 페이지 목록을 3개로 제한
+		int pageListLimit = 10; 
 		
 		// 3. 전체 페이지 목록 수 계산
 		int maxPage = listCount / listLimit 
@@ -74,11 +74,6 @@ public class WhController {
 	
 	@GetMapping(value="/WhRegistForm")
 	public String regist(HttpSession session, Model model) {
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg", "로그인 필수");
-			return "fail_back";
-		}
 		
 		return "wh/regist";
 		
@@ -88,7 +83,6 @@ public class WhController {
 	@PostMapping(value ="/codeCheck")
 	public void codeCheck(String WH_CD, HttpServletResponse response) {
 		
-		System.out.println("창고코드 : " + WH_CD);
 		if(WH_CD != null) {
 			int count = service.codeCheck(WH_CD);
 			try {
@@ -105,11 +99,6 @@ public class WhController {
 	
 	@PostMapping(value="/WhRegistPro")
 	public String registPro(@ModelAttribute WhVO wh, Model model, HttpSession session) {
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg","로그인 필수!");
-			return "fail_back";
-		}
 		
 		int inserCount = service.registWh(wh);
 		return "redirect:/WhList";
@@ -147,11 +136,6 @@ public class WhController {
 	
 	@GetMapping(value="/WhModifyForm")
 	public String modify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam String WH_CD) {
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg","로그인 필수!");
-			return "fail_back";
-		}
 		wh = service.getWh(WH_CD);
 		
 		model.addAttribute("wh", wh);
@@ -164,7 +148,6 @@ public class WhController {
 	public String modifyPro(@ModelAttribute WhVO wh,
 							Model model, HttpSession session) {
 		
-		System.out.println(wh);
 		int modifyCount = service.modifyWh(wh);
 		if(modifyCount > 0) {
 			
@@ -182,11 +165,7 @@ public class WhController {
 	public String WhAreaRegist(Model model, HttpSession session, WhVO wh,@RequestParam String WH_CD) {
 //								,@RequestParam String WH_AREA,@RequestParam int WH_AREA_CD) {
 		
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg", "로그인 필수");
-			return "fail_back";
-		}
+		
 		//select 하는 거 만들기 
 //		List<WhVO> WhAreaList = service.selectWhArea(WH_CD);
 		
@@ -194,17 +173,12 @@ public class WhController {
 	}
 	
 	@PostMapping(value = "/WhAreaRegistPro")
-	public String WhAreaRegistPro(@ModelAttribute WhVO wh, Model model, HttpSession session) {
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg", "로그인 필수");
-			return "fail_back";
-		}	
-//		System.out.println(wh);
+	public String WhAreaRegistPro(@ModelAttribute WhVO wh, Model model, HttpSession session,@RequestParam(defaultValue = "1")int pageNum) {
+		
 		int insertCount = service.registWhArea(wh);
 		
 		
-		return "redirect:/WhList";
+		return "redirect:/WhList?pageNum="+pageNum;
 	}
 	
 	@GetMapping(value="/WhAreaDetail")
@@ -224,6 +198,7 @@ public class WhController {
 	@PostMapping(value="/WhAreaDeletePro")
 	public String WhAreadeletePro(@ModelAttribute WhVO wh,@RequestParam(defaultValue = "1")int pageNum,
 								Model model, HttpSession session) {
+		System.out.println("구역코드"+wh.getWH_AREA_CD());
 		int deleteCount = service.removeWhArea(wh.getWH_AREA_CD());
 		if(deleteCount > 0) {
 			
@@ -237,12 +212,7 @@ public class WhController {
 	
 	@GetMapping(value="/WhAreaModifyForm")
 	public String WhAreaModify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_AREA_CD) {
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg","로그인 필수!");
-			return "fail_back";
-		}
-//		wh = service.getWh(WH_CD);
+		
 		
 		model.addAttribute("wh", wh);
 		
@@ -274,11 +244,7 @@ public class WhController {
 	@GetMapping(value = "/WhLocationRegist")
 	public String WhLocationRegist(Model model, HttpSession session, WhVO wh, @RequestParam int WH_AREA_CD) {
 //									@RequestParam String WH_LOC_IN_AREA,@RequestParam String WH_LOC_IN_AREA_CD) {
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg", "로그인 필수");
-			return "fail_back";
-		}
+		
 		
 //		List<WhVO> WhLocationList =service.getWhLocationList(WH_AREA_CD);
 //		System.out.println("구역코드" +WH_AREA_CD);
@@ -286,18 +252,13 @@ public class WhController {
 	}
 	
 	@PostMapping(value = "/WhLocationRegistPro")
-	public String WhLocationRegistPro(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_AREA_CD) {
+	public String WhLocationRegistPro(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_AREA_CD,@RequestParam(defaultValue = "1")int pageNum) {
 		
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg", "로그인 필수");
-			return "fail_back";
-		}
-		System.out.println("구역코드:" + WH_AREA_CD);
+		
 		
 		int insertCount = service.registWhLocation(wh);
 		
-		return "redirect:/WhList";
+		return "redirect:/WhList?pageNum="+pageNum;
 	}
 	
 	@GetMapping(value = "/WhLocationDelete")
@@ -323,12 +284,6 @@ public class WhController {
 	@GetMapping(value="/WhLocationModifyForm")
 	public String WhLocationModify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_LOC_IN_AREA_CD
 									) {
-		String sId = (String)session.getAttribute("sId");
-		if(sId == null || sId.equals("")) {
-			model.addAttribute("msg","로그인 필수!");
-			return "fail_back";
-		}
-//		wh = service.getWh(WH_CD);
 		
 		model.addAttribute("wh", wh);
 		
