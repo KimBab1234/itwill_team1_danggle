@@ -172,7 +172,7 @@
 	
 	<!-- 재고번호 조회 -->
 	<select id="selectStockCd" resultType="int">
-		SELECT MAX(stock_cd)
+		SELECT ifnull(MAX(stock_cd),0)
 			FROM stock
 	</select>
 	

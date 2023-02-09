@@ -20,7 +20,7 @@
 	</select>
 	
 	<select id="selectNewStockCD" resultType="int">
-		SELECT MAX(STOCK_CD) FROM STOCK
+		SELECT ifnull(MAX(STOCK_CD),0) FROM STOCK
 	</select>
 	
 	<select id="isExistStock"  resultType="int">
