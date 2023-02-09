@@ -3,7 +3,6 @@ package com.itwillbs.team1_final.svc;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,6 +67,10 @@ public class PdService {
 		product.setPRODUCT_IMAGE(product.getPRODUCT_IMAGE().split("_")[1]);
 		return product;
 		
+	}
+
+	public List<String> getImgList(String deleteProdArr) {
+		return mapper.selectImgList(deleteProdArr);
 	}
 
 }

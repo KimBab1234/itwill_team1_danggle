@@ -91,5 +91,12 @@
 				WHERE
 				product_cd= #{product_cd}
 	</select>
+	
+	<select id="selectImgList" resultType="string">
+		SELECT PRODUCT_IMAGE
+			FROM product
+			WHERE product_cd
+			IN (${deleteProdArr});
+	</select>
 
 </mapper>
