@@ -19,6 +19,9 @@
 	color:#513e30;
 	font-family: 'Gowun Dodum', sans-serif;
 }
+ul {
+z-index: 1001;
+}
 </style>
 <!-- 폰트 변경 끝  -->
 <style>
@@ -70,7 +73,7 @@ a:visited {
 
 h1 {
 	text-align: center;
-	margin-top: 150px;
+	margin-top: 70px;
 }
 
 /* Navigation Styles */
@@ -105,7 +108,7 @@ nav ul li ul {
 	border-bottom: 5px solid #fae37d; <%-- #2ba0db --%>
 	display: none;
 	position: absolute;
-	width: 250px;
+	width: 180px;
 }
 
 nav ul li ul li {
@@ -151,8 +154,9 @@ nav .fa.fa-angle-down {
 		</c:choose>
 	</h3>
 	<hr style="margin: 0px;">
+	<div align="center">
 	<nav>
-		<div class="container">
+		<div class="container" style="width: 1300px;">
 			<ul>
 				<li><a href="./">Home</a></li>
 				<li><a href="#">회사 연혁</a></li>
@@ -180,21 +184,6 @@ nav .fa.fa-angle-down {
 						<li><a href="WhList">창고 조회</a></li>
 					</ul>
 				</li>
-				<li><a href="#">발주 요청<i class='fa fa-angle-down'></i></a>
-					<ul>
-						<li><a href="#">발주 요청 관리</a></li>
-						<li><a href="#">발주 요청 조회</a></li>
-						<li><a href="#">발주 요청 현황</a></li>
-					</ul>
-				</li>
-				<li><a href="#">구매<i class='fa fa-angle-down'></i></a>
-					<ul>
-						<li><a href="#">구매 입력</a></li>
-						<li><a href="#">구매 조회</a></li>
-						<li><a href="#">구매 현황</a></li>
-					</ul>
-				</li>
-				
 				<li><a href="#">입출고 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
 						<li><a href="WhList">창고 관리</a></li>
@@ -205,10 +194,10 @@ nav .fa.fa-angle-down {
 						<li><a href="StockListForm">재고 관리</a></li>
 					</ul>
 				</li>
-				<li><a href="#">건의사항</a></li>
 			</ul>
 		</div>
 	</nav>
+	</div>
 
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script>
