@@ -27,6 +27,9 @@ input[type=text]{
 #ADDR1{
 	width: 300px;
 }
+#URL_PATH{
+	width: 300px;
+}
 input[type=password]{
 	width: 150px;
 	height: 30px;

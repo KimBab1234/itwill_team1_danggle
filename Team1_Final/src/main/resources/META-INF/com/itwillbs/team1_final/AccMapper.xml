@@ -146,6 +146,7 @@
 				WHERE BUSINESS_NO = #{BUSINESS_NO}
 	</delete>
 	
+	<!-- 거래처 수정 -->
 	<update id="accModify">
 		UPDATE acc
 			SET
@@ -202,7 +203,15 @@
 						CONCAT(#{MAN_EMAIL1},'@',#{MAN_EMAIL2})
 					</otherwise>
 				</choose>
-				,MAN_TEL = #{MAN_TEL}
+				,MAN_TEL =
+				<choose>
+					<when test='MAN_TEL1.equals("")'>
+						''
+					</when>
+					<otherwise>
+						CONCAT(#{MAN_TEL1},'-',#{MAN_TEL2},'-',#{MAN_TEL3})
+					</otherwise>
+				</choose>
 				,REMARKS = #{REMARKS}
 					WHERE BUSINESS_NO = #{BUSINESS_NO}
 	</update>
@@ -214,7 +223,20 @@
 				FROM acc
 				WHERE BUSINESS_NO = #{BUSINESS_NO}
 	</select>
+
+	<!-- 체크된 거래처 리스트 삭제 -->
+	<delete id="deleteAccList">
+		DELETE FROM acc WHERE BUSINESS_NO = #{acc}
+	</delete>
 </mapper>
+
+
+
+
+
+
+
+
 
 
 

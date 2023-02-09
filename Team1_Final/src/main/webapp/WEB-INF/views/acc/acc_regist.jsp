@@ -24,6 +24,9 @@ input[type=text]{
   background-color: rgb(233, 233, 233);
   text-align: center;
 }
+#ADDR1{
+	width: 300px;
+}
 input[type=password]{
 	width: 150px;
 	height: 30px;
