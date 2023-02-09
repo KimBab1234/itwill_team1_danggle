@@ -24,6 +24,16 @@
 	var date;
 	var pd_date;
 	
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		window.close();
+		opener.location.href  = './Login';
+	} else if(priv.charAt(4) !='1') {
+		alert("권한이 없습니다.");
+		window.close();
+	}
 	
 	// json으로 받아온 date 다시 date 형식으로 만들어주기
 	function changeDate(on_date){

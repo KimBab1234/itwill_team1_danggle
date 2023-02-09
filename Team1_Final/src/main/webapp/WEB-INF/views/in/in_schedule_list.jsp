@@ -11,6 +11,7 @@
 	var inList;
 	var i = 0;	
 	var selectIdx;
+
 	
 	var loginEmp = '${sessionScope.empNo}';
 	var priv = '${sessionScope.priv}';
@@ -38,7 +39,6 @@
 			$(".bookTable").find("tr:gt(0)").remove();	
 			for(var i = 0; i < inList.length; i++) {
 				let result = "<tr>"
-							+ "<td><input type='checkbox'></td>"
 							+ "<td>" + inList[i].IN_SCHEDULE_CD + "</td>"
 							+ "<td>" + inList[i].IN_TYPE_NAME + "</td>"
 							+ "<td>" + inList[i].CUST_NAME + "</td>"
@@ -46,11 +46,17 @@
 							+ "<td>" + inList[i].PRODUCT_NAME + "</td>"
 							+ "<td>" + inList[i].IN_DATE + "</td>"
 							+ "<td>" + inList[i].TOTAL_QTY + "</td>"
-							+ "<td onclick='openCom("+i+")'>" + inList[i].IN_COMPLETE + "</td>"
+							+ "<td id='tdColor"+i+"' onclick='openCom("+i+")'>" + inList[i].IN_COMPLETE + "</td>"
 							+ "<td onclick='openWin("+i+")' class='td_color'>조회</td>"
 							+ "</tr>";
 							
 				$(".bookTable").append(result);
+				
+				if(inList[i].IN_COMPLETE == '종결'){
+					$("#tdColor"+i).css("color", "#176105");
+				}else if(inList[i].IN_COMPLETE == '취소'){
+					$("#tdColor"+i).css("color", "#c45c00");
+				}
 			}
 			
 		})
@@ -61,6 +67,8 @@
 	}
 	
 	$(function() {
+		
+		
 		
 		$("#all_sc").css("background", "#c9b584").css("color", "#736643");
 		
@@ -76,7 +84,6 @@
 			for(var i = 0; i < inList.length; i++) {
 
 				let result = "<tr>"
-							+ "<td><input type='checkbox'></td>"
 							+ "<td>" +inList[i].IN_SCHEDULE_CD + "</td>"
 							+ "<td>" + inList[i].IN_TYPE_NAME + "</td>"
 							+ "<td>" + inList[i].CUST_NAME + "</td>"
@@ -84,11 +91,18 @@
 							+ "<td>" + inList[i].PRODUCT_NAME + "</td>"
 							+ "<td>" + inList[i].IN_DATE + "</td>"
 							+ "<td>" + inList[i].TOTAL_QTY + "</td>"
-							+ "<td onclick='openCom("+i+")'>" + inList[i].IN_COMPLETE + "</td>"
+							+ "<td id='tdColor"+i+"' onclick='openCom("+i+")'>" + inList[i].IN_COMPLETE + "</td>"
 							+ "<td onclick='openWin("+i+")' class='td_color'>조회</td>"
 							+ "</tr>";
+				
 							
 				$(".bookTable").append(result);
+				
+				if(inList[i].IN_COMPLETE == '종결'){
+					$("#tdColor"+i).css("color", "#176105");
+				}else if(inList[i].IN_COMPLETE == '취소'){
+					$("#tdColor"+i).css("color", "#c45c00");
+				}
 			}
 			
 		})
@@ -126,7 +140,7 @@
 		
 	function openWin(product_cd){
 		selectIdx = product_cd;
-		window.open('ScheduleProgress', 'schedule_progress', 'width=500, height=500, left=750, top=400');
+		window.open('ScheduleProgress', 'schedule_progress', 'width=540, height=500, left=750, top=400');
 	}
 	
 	function openCom(product_cd){
@@ -152,16 +166,12 @@
 		<div class="choice_in" id="all_sc">전체</div><div class="choice_in" id="sc_ing">진행중</div><div class="choice_in" id="sc_com">완료</div>
 		<table class="bookTable">
 			<tr>
-				<th width="40">
-					<input type="checkbox">
-					<input type="hidden" id="keyword" name="keyword">
-				</th>
-				<th width="120">입고예정번호</th>
-				<th width="75">유형</th>
+				<th width="120"><input type="hidden" id="keyword" name="keyword">입고예정번호</th>
+				<th width="85">유형</th>
 				<th width="105">보낸곳명</th>
-				<th width="80">담당자명</th>
-				<th width="220">품목명[규격]</th>
-				<th width="100">납기일자</th>
+				<th width="90">담당자명</th>
+				<th width="230">품목명[규격]</th>
+				<th width="110">납기일자</th>
 				<th width="130">입고예정수량합계</th>
 				<th width="65">종결여부</th>
 				<th width="65">진행상태</th>

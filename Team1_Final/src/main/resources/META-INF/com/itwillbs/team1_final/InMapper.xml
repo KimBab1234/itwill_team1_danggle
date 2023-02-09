@@ -194,6 +194,7 @@
 			AND PRODUCT_NAME = '${PRODUCT_NAME}'
 	</update>
 	
+	<!-- 입고 품목 종결 / 취소 상태 변경 -->
 	<update id="updateComplete">
 		UPDATE in_schedule_per_product
 			SET 
@@ -203,11 +204,20 @@
 			AND PRODUCT_NAME = '${PRODUCT_NAME}'
 	</update>
 	
+	<!-- 입고 수량 조회 -->
 	<select id="select_sched_qty" resultType="int">
 		SELECT IN_QTY
 			FROM in_schedule_per_product
 			WHERE
 				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
 			AND PRODUCT_NAME = '${PRODUCT_NAME}'
+	</select>
+	
+	<!-- 처리 목록 키워드 에이젝스 -->
+	<select id="selectProgressIngList" resultType="com.itwillbs.team1_final.vo.InListVO">
+		SELECT *
+			FROM in_product_info_view
+			WHERE
+				IN_PD_COMPLETE LIKE '%${keyword}%'
 	</select>
 </mapper>

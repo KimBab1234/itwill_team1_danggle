@@ -10,6 +10,7 @@
 	var proList;
 	var i = 0;	
 	var selectIdx;
+	var in_scList;
 
 	var loginEmp = '${sessionScope.empNo}';
 	var priv = '${sessionScope.priv}';
@@ -21,8 +22,46 @@
 		history.back();
 	}
 	
+	function sc_status(){
+		$.ajax({
+			url: "in_process_list_status",
+			type: "GET",
+			data : {
+				keyword : $("#keyword").val()
+			},
+			dataType: "json"
+		})
+		.done(function(response) {
+			pro_ing_List =JSON.parse(response.in_scList);			
+			$(".bookTable").find("tr:gt(0)").remove();
+	
+			for(var i = 0; i < proList.length; i++) {
+
+				let result = "<tr>"
+							+ "<td><input type='checkbox' value='"+pro_ing_List[i].IN_PD_SCHEDULE_CD+"' class='check'></td>"
+							+ "<td onclick='openUpdate("+i+")' class='td_color'>" +pro_ing_List[i].IN_PD_SCHEDULE_CD + "</td>"
+							+ "<td>" + pro_ing_List[i].CUST_NAME + "</td>"
+							+ "<td>" + pro_ing_List[i].PRODUCT_NAME + "</td>"
+							+ "<td>" + pro_ing_List[i].IN_PD_DATE + "</td>"
+							+ "<td>" + pro_ing_List[i].IN_SCHEDULE_QTY + "</td>"
+							+ "<td>" + pro_ing_List[i].IN_QTY + "</td>"
+							+ "<td>" + (pro_ing_List[i].IN_SCHEDULE_QTY - pro_ing_List[i].IN_QTY) + "</td>"
+							+ "<td>" + pro_ing_List[i].IN_PD_REMARKS + "</td>"
+							+ "</tr>";
+							
+				$(".bookTable").append(result);
+			}
+			
+		})
+		.fail(function() {
+			$(".bookTable").append("<h3>요청 실패!</h3>");
+		});
+		
+	}
+	
 	$(function() {
 		
+		$("#all_sc").css("background", "#c9b584").css("color", "#736643");
 		
 		$.ajax({
 			url: "in_process_list",
@@ -55,6 +94,29 @@
 			$(".bookTable").append("<h3>요청 실패!</h3>");
 		});
 		
+		$("#sc_ing").on("click", function() {
+			$("#sc_ing").css("background", "#c9b584").css("color", "#736643");
+			$("#all_sc").css("background", "#736643").css("color", "#c9b584");
+			$("#sc_com").css("background", "#736643").css("color", "#c9b584");
+			$("#keyword").val("0");
+			sc_status()
+		});
+		
+		$("#all_sc").on("click", function() {
+			$("#all_sc").css("background", "#c9b584").css("color", "#736643");
+			$("#sc_ing").css("background", "#736643").css("color", "#c9b584");
+			$("#sc_com").css("background", "#736643").css("color", "#c9b584");
+			$("#keyword").val("");
+			sc_status()
+		});
+		
+		$("#sc_com").on("click", function() {
+			$("#sc_com").css("background", "#c9b584").css("color", "#736643");
+			$("#sc_ing").css("background", "#736643").css("color", "#c9b584");
+			$("#all_sc").css("background", "#736643").css("color", "#c9b584");
+			$("#keyword").val("1");
+			sc_status()
+		});
 		
 	});
 	
@@ -78,6 +140,7 @@
 	<jsp:include page="../inc/in_left.jsp"></jsp:include>
 	<div style="width:1900px;">
 		<h3 id="h4">입고 처리</h3>
+		<div class="choice_in" id="all_sc">전체</div><div class="choice_in" id="sc_ing">입고예정</div><div class="choice_in" id="sc_com">입고완료</div>
 		<table class="bookTable">
 			<tr>
 				<th width="40">

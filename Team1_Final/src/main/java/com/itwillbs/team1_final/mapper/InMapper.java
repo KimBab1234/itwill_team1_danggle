@@ -53,9 +53,11 @@ public interface InMapper {
 
 	int updateQty(StockVO stock); // 입고 수량 수정
 
-	void updateComplete(StockVO stock);// 입고 완료 상태변경
+	void updateComplete(StockVO stock); // 입고 완료 상태변경
 
-	int select_sched_qty(StockVO stock);
+	int select_sched_qty(StockVO stock);  // 입고 수량 조회
+
+	ArrayList<InListVO> selectProgressIngList(String keyword); // 입고 처리 키워드 목록 조회
 
 	
 
