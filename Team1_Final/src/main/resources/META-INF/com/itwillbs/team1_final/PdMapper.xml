@@ -87,11 +87,12 @@
 	<!-- 품목 수정 전 품목 조회 -->
 	<select id="selectPd" resultType="com.itwillbs.team1_final.vo.PdVO">
 		SELECT *
-			FROM product
+			FROM product_view
 				WHERE
 				product_cd= #{product_cd}
 	</select>
 	
+	<!-- 품목 삭제 전 이미지 파일이름 얻어오기 -->
 	<select id="selectImgList" resultType="string">
 		SELECT PRODUCT_IMAGE
 			FROM product
@@ -99,4 +100,20 @@
 			IN (${deleteProdArr});
 	</select>
 
+	<!-- 품목 수정 -->
+	<update id="updatePd">
+		UPDATE product
+			SET
+				PRODUCT_GROUP_BOTTOM_CD = #{PRODUCT_GROUP_BOTTOM_CD}
+				, SIZE_DES = #{SIZE_DES}
+				, UNIT = #{UNIT}
+				, IN_UNIT_PRICE = #{IN_UNIT_PRICE}
+				, OUT_UNIT_PRICE = #{OUT_UNIT_PRICE}
+				, PRODUCT_TYPE_CD = #{PRODUCT_TYPE_CD}
+				, PRODUCT_IMAGE = #{PRODUCT_IMAGE}
+				, REMARKS = #{REMARKS}
+			WHERE
+				PRODUCT_CD= #{PRODUCT_CD}
+	</update>
+	
 </mapper>
