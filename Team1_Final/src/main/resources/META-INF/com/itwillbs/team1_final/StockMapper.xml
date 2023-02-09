@@ -28,7 +28,7 @@
 	</select>
 	
 	<insert id="insertStock">
-		INSERT INTO stock VALUES (#{STOCK_CD}+1, #{PRODUCT_CD}, #{WH_LOC_IN_AREA_CD}, #{MOVE_QTY}) ON DUPLICATE KEY UPDATE STOCK_QTY =STOCK_QTY+#{MOVE_QTY};
+		INSERT INTO stock VALUES (#{STOCK_CD}, #{PRODUCT_CD}, #{WH_LOC_IN_AREA_CD}, #{MOVE_QTY}) ON DUPLICATE KEY UPDATE STOCK_QTY =STOCK_QTY+#{MOVE_QTY};
 	</insert>
 	
 	<update id="updateOutStock">

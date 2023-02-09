@@ -247,6 +247,10 @@ public class StockController {
 		int newStockNo = service.getNewStockCD(product_cd, target_loc);
 		stock.setWH_LOC_IN_AREA_CD(target_loc); ///도착지는 지정한 위치
 		stock.setTARGET_STOCK_CD(newStockNo); ///도착지 stockNo는 조회해온걸로
+		
+		System.out.println("==============");
+		System.out.println(newStockNo);
+		
 		if(control==0) {
 			stock.setSTOCK_CD(newStockNo);
 			stock.setSOURCE_STOCK_CD(null); ////입고는 출발지 없음
