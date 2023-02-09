@@ -135,8 +135,7 @@
 			<br>
 			<div align="right">
 				<input type="button" name="AccRegist" value="신규등록"
-					onclick="location.href='AccRegist'"> <input type="button"
-					name="modifyAcc" value="수정" onclick="location.href='AccModify'">&nbsp;
+					onclick="location.href='AccRegist'">&nbsp;
 				<input type="button" name="deleteAcc" id="deleteAcc" value="삭제"
 					onclick="deleteAcc">
 			</div>

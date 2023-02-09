@@ -1,12 +1,7 @@
 package com.itwillbs.team1_final.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,17 +45,23 @@ public class AccController {
 		
 		// 거래처 코드 등록
 		if(acc.getBUSINESS_NO3().equals("")) {
-			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
-		} else {
 			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
+		} else {
+			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
 		}
 		
+		// 담당자 번호 등록
+		if(acc.getMAN_TEL1().equals("")) {
+			acc.setMAN_TEL("");
+		} else {
+			acc.setMAN_TEL(acc.getMAN_TEL1()+"-"+acc.getMAN_TEL2()+"-"+acc.getMAN_TEL3());
+		}
 		
 		int insertCount = service.insertAcc(acc);
 
 		if(insertCount > 0) {
 
-			return "redirect:/";
+			return "redirect:AccList";
 		} else {
 			model.addAttribute("msg", "거래처 등록 실패!");
 			return "fail_back";
@@ -176,14 +177,17 @@ public class AccController {
 		// 주소 분리해서 넣어주기
 		acc.setADDR1(acc.getADDR().split(",")[0]);
 		acc.setADDR2(acc.getADDR().split(",")[1]);
-
-		if(acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {// 받아온 거래처코드가 주민번호가 아닐때
-			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
-			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
-			acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
-		} else {// 받아온 거래처코드가 주민번호일때
-			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
-			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
+		
+		// 주민번호일 경우와 나머지 경우 나눠서 뿌리기
+		if(!acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {
+			String[] parts = acc.getBUSINESS_NO().split("-");
+			if (parts.length >= 2) {
+				acc.setBUSINESS_NO1(parts[0]);
+				acc.setBUSINESS_NO2(parts[1]);
+				if (parts.length >= 3) {
+					acc.setBUSINESS_NO3(parts[2]);
+				}
+			}
 		}
 		
 		if(!acc.getEMAIL().equals("") && acc.getEMAIL().contains("@")) {
@@ -218,20 +222,23 @@ public class AccController {
 
 	// 거래처 수정 폼 요청
 	@GetMapping("/AccModify")
-	public String accModify(@ModelAttribute AccVO acc, Model model,@RequestParam String BUSINESS_NO ) {
+	public String accModify(@ModelAttribute AccVO acc, Model model,@RequestParam String BUSINESS_NO) {
 
 		acc = service.accDetail(BUSINESS_NO);
 		// 주소 분리해서 넣어주기
 		acc.setADDR1(acc.getADDR().split(",")[0]);
 		acc.setADDR2(acc.getADDR().split(",")[1]);
-
-		if(acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {// 받아온 거래처코드가 주민번호가 아닐때
-			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
-			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
-		} else {// 받아온 거래처코드가 주민번호일때
-			acc.setBUSINESS_NO1(acc.getBUSINESS_NO().split("-")[0]);
-			acc.setBUSINESS_NO2(acc.getBUSINESS_NO().split("-")[1]);
-			acc.setBUSINESS_NO3(acc.getBUSINESS_NO().split("-")[2]);
+		
+		// 거래처코드 분류!
+		if(!acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {
+			String[] parts = acc.getBUSINESS_NO().split("-");
+			if (parts.length >= 2) {
+				acc.setBUSINESS_NO1(parts[0]);
+				acc.setBUSINESS_NO2(parts[1]);
+				if (parts.length >= 3) {
+					acc.setBUSINESS_NO3(parts[2]);
+				}
+			}
 		}
 
 		if(!acc.getEMAIL().equals("")) {
@@ -266,7 +273,7 @@ public class AccController {
 	@PostMapping("/AccModifyPro")
 	public String AccModifyPro(@ModelAttribute AccVO acc, Model model) {
 
-		// 거래처 코드 비교
+		// WHERE 절에 넘길 거래처 코드
 		if(acc.getBUSINESS_NO3().equals("")) {
 			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
 		} else {
@@ -286,13 +293,19 @@ public class AccController {
 	// 거래처 삭제
 	@GetMapping("/AccDeletePro")
 	public String accDelete(@ModelAttribute AccVO acc, Model model) {
-
+		
+		// WHERE 절에 넘길 거래처 코드
+		if(acc.getBUSINESS_NO3().equals("")) {
+			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
+		} else {
+			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
+		}
+		
 		int deleteCount = service.accDelete(acc);
-
 		if(deleteCount > 0) {
 			return "redirect:/AccList";	
 		} else {
-			model.addAttribute("msg", "거래처삭제 실패!");
+			model.addAttribute("msg", "거래처 삭제 실패!");
 			return "fail_back";
 		}
 	}
