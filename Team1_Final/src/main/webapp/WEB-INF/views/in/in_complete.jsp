@@ -21,6 +21,16 @@
 	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
 	var complete = opener.inList[opener.selectIdx].IN_COMPLETE;
 	
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		window.close();
+		opener.location.href  = './Login';
+	} else if(priv.charAt(4) !='1') {
+		alert("권한이 없습니다.");
+		window.close();
+	}
 	
 	$(function() {		
 		if(complete == "종결"){

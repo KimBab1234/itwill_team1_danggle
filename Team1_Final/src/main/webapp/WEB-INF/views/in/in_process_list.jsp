@@ -5,22 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
-<style type="text/css">
-table{
-	border: 1px solid;
-}
-
-th{
-	border-left: 1px solid;
-}
-</style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	var proList;
 	var i = 0;	
 	var selectIdx;
 
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+	    location.href="./Login";
+	} else if(priv.charAt(3) !='1') {
+		alert("권한이 없습니다.");
+		history.back();
+	}
+	
 	$(function() {
 		
 		

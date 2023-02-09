@@ -17,26 +17,47 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+	var isChecked = false;
 	
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		window.close();
+		opener.location.href  = './Login';
+	} else if(priv.charAt(4) !='1') {
+		alert("권한이 없습니다.");
+		window.close();
+	}
 	
-	
+		
 	function funct(){
 		window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
 	}
 	
 	$(function() {
 		
+		// 납기일 오늘 이전 날짜로는 선택 못하도록 하기
+		var now_utc = Date.now() ;
+		var timeOff = new Date().getTimezoneOffset()*60000; 
+		var todayDate = new Date(now_utc-timeOff).toISOString().split("T")[0];
+		$("#in_date_all").attr("min", todayDate);
+		$(".in_date").attr("min", todayDate);
+		
 		// 오늘날짜 자동으로 기입
 		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
 		$("#today").val(today);
 
+		// 발주서, 구매 중 체크박스 하나만 선택하게 하기
 		$("input[type=checkbox][name=IN_TYPE_CD]").click(function(){
-		 // 발주서, 구매 중 체크박스 하나만 선택하게 하기
 			if($(this).prop('checked')){
 				$("input[type=checkbox][name=IN_TYPE_CD]").prop('checked',false);
 				$(this).prop('checked',true);
+				
 			}
 		});
+		
+		
 		
 		//====================== 여기서부터 <tr>생성 & 합계 계산 =====================================
 		let sum = 0;
@@ -75,34 +96,95 @@
 			
 		});
 		
+		//======================== 여기까지 ===========================================
+			
+			
 		$('#recoBtn2').click(function() {
-					
-			for(var i = 0; i < $(".in_date").length; i++){
-				if($(".in_date").eq(i).val() == ""){
-					$(".in_date").eq(i).val("1900-01-01");
+			
+			// 입고 유형 필수 선택
+			if($(".recoCheck").is(":checked") == false){
+				alert("입고 유형을 선택해주세요");
+				isChecked = false;
+			}
+			
+			// 품목 하나 이상 등록 필수!
+			var count = 0;
+			for(var i = 0; i < $(".product_cd").length; i++){
+				if($(".product_cd").val() == ""){
+					count++;
 				}
 			}
 			
-		    $.ajax({
-						
-		        type: "POST",
-		        url: "IncomingRegiPro",
-		        data: $('#inSc_regi').serialize(),
-		        dataType: 'json',
-		        success: function(result) {
-		            if (result != "0") {
-		                window.close();
-		                opener.location.reload();
-		            } else {
-		            	alert("입고 예정 등록 실패!");
-		            	window.close();	                
-		            }
-		        },
-		        error: function(a, b, c) {
-		            console.log(a, b, c);
-		        }
-						
-		    });
+			if(count == $(".product_cd").length){
+				alert("품목은 하나 이상 등록되어야 합니다");
+				isChecked = false;
+			}
+			
+			if($("#emp_code").val() == ""){
+				alert("담당자 입력은 필수 항목입니다");
+				isChecked = false;
+			}
+			
+			if($("#business_no").val() == ""){
+				alert("거래처를 입력해주세요");
+				isChecked = false;
+			}
+			
+			if($("#in_date_all").val() == ""){
+				alert("납기일자 입력은 필수 항목입니다");
+				isChecked = false;
+			}
+			
+			for(var i = 0; i < $(".product_cd").length; i++){
+				if($(".product_cd").eq(i).val() != "" && $(".in_schedule_qty").eq(i).val() == ""){
+					alert("품목 수량을 입력해주세요");
+					isChecked = false;
+				}
+				
+				if($(".product_cd").eq(i).val() != "" && $(".in_date").eq(i).val() == ""){
+					alert("품목 납기일자 입력은 필수 항목입니다");
+					isChecked = false;
+				}
+				
+				if($(".product_cd").eq(i).val() != "" && $(".in_date").eq(i).val() != ""){
+					isChecked = true;
+				}
+				
+			}
+			
+			
+			
+			if(isChecked == true){ // required 체크 후 에이젝스로 insert
+				
+				// 날짜 선택 안된 경우 강제로 1900년도 날짜 입력
+				for(var i = 0; i < $(".in_date").length; i++){
+					if($(".in_date").eq(i).val() == ""){
+						$(".in_date").eq(i).val("1900-01-01");
+					}
+				}
+				
+			    $.ajax({
+							
+			        type: "POST",
+			        url: "IncomingRegiPro",
+			        data: $('#inSc_regi').serialize(),
+			        dataType: 'json',
+			        success: function(result) {
+			            if (result != "0") {
+			                window.close();
+			                opener.location.reload();
+			            } else {
+			            	alert("입고 예정 등록 실패!");
+			            	window.close();	                
+			            }
+			        },
+			        error: function(a, b, c) {
+			            console.log(a, b, c);
+			        }
+							
+			    });
+				
+			}
 		});
 	});
 	
@@ -130,20 +212,20 @@
 				<tr>
 					<th>담당자</th>
 					<td>
-						<input type="text" class="emp_code" id="emp_code" name="EMP_NUM" placeholder="사원번호">
-						<input type="text" class="emp_name" id="emp_name" placeholder="사원명">
+						<input type="text" class="emp_code" id="emp_code" name="EMP_NUM" placeholder="사원번호" required="required" readonly="readonly">
+						<input type="text" class="emp_name" id="emp_name" placeholder="사원명" readonly="readonly">
 						<button id="Listbtn" type="button" onclick="window.open('SearchEMP', 'searchEmployee', 'width=500, height=500, left=750, top=400')">검색</button>
 					</td>
 					<th>거래처</th>
 					<td>
-						<input type="text" class="emp_code" id="business_no" name="BUSINESS_NO" placeholder="거래처 코드">
-						<input type="text" class="emp_name" id="business_name" placeholder="거래처명">
+						<input type="text" class="emp_code" id="business_no" name="BUSINESS_NO" placeholder="거래처 코드" required="required" readonly="readonly">
+						<input type="text" class="emp_name" id="business_name" placeholder="거래처명" readonly="readonly">
 						<button id="Listbtn" type="button" onclick="window.open('searchBusiness_no', 'SearchBUS', 'width=500, height=500, left=1000, top=400')">검색</button>
 					</td>
 				</tr>
 				<tr>
 					<th>납기일자</th>
-					<td><input type="date" name="IN_DATE"></td>
+					<td><input type="date" name="IN_DATE" id="in_date_all" required="required"></td>
 					<th>비고</th>
 					<td><input type="text" class="note" name="REMARKS"></td>
 				</tr>
@@ -160,27 +242,27 @@
 				</tr>
 				<tr class="indexCh" ondblclick="funct()">
 					<td><input type="hidden" id="index">
-					<input type="text" class="product_cd" name="PRODUCT_CD"></td>
+					<input type="text" id="product_cd1" class="product_cd" name="PRODUCT_CD"></td>
 					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
 					<td><input type="text" class="size_des" name="SIZE_DES"></td>
-					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
-					<td><input type="date" class="in_date" name="IN_PD_DATE"></td>
+					<td><input type="number" id="qty1" required="required" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
+					<td><input type="date" id="sch_date1" required="required" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
 				</tr>
 				<tr class="indexCh" ondblclick="funct()"> 
-					<td><input type="text" class="product_cd" name="PRODUCT_CD"></td>
+					<td><input type="text" id="product_cd2" class="product_cd" name="PRODUCT_CD"></td>
 					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
 					<td><input type="text" class="size_des" name="SIZE_DES"></td>
-					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
-					<td><input type="date" class="in_date" name="IN_PD_DATE"></td>
+					<td><input type="number" id="qty2" class="in_schedule_qty" name="IN_SCHEDULE_QTY" required="required"></td>
+					<td><input type="date" id="sch_date2" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
 				</tr>
 				<tr class="indexCh" ondblclick="funct()">
-					<td><input type="text" class="product_cd" name="PRODUCT_CD"></td>
+					<td><input type="text" id="product_cd3" class="product_cd" name="PRODUCT_CD"></td>
 					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
 					<td><input type="text" class="size_des" name="SIZE_DES"></td>
-					<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
-					<td><input type="date" class="in_date" name="IN_PD_DATE"></td>
+					<td><input type="number" id="qty3" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
+					<td><input type="date" id="sch_date3" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
 				</tr>
 				<tbody id="optionArea"></tbody>
@@ -188,7 +270,7 @@
 					<th></th>
 					<th></th>
 					<th></th>
-					<th><input type="number" id="total" name="TOTAL_QTY" readonly="readonly"></th>
+					<th><input type="number" class="total" name="TOTAL_QTY" readonly="readonly"></th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -199,6 +281,5 @@
 			</div>
 		</form>
 	</div>
-
 </body>
 </html>
