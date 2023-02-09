@@ -13,6 +13,7 @@ import com.itwillbs.team1_final.vo.PdVO;
 
 public interface OutMapper {
 
+	// [ 출고 예정 ]
 	// 거래처 검색
 	List<AccVO> selectAcc(
 			@Param("searchType") String searchType,
@@ -51,17 +52,18 @@ public interface OutMapper {
 	
 	// 출고 예정 품목 개별 목록 조회
 	List<OutPdVO> selectPdInfo(String outSchCdList);
+	
 
+	// [ 출고 처리 ]
 	// 출고 처리 목록 조회
 	List<OutSchVo> selectOutProSch(String keyword);
 
+	// 출고 예정 수정 품목 조회
 	OutSchVo selectOutUpdatePd(
 			@Param("pd_outSch_cd") String pd_outSch_cd,
 			@Param("product_name") String product_name);
 
-
-
-
-
+	// 출고 예정 품목 수정
+	int updateOutSchPd(OutSchVo outSchPd);
 
 }

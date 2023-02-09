@@ -24,10 +24,6 @@ pageEncoding="UTF-8"%>
 	var date;
 	var pd_date;
 
-// 	alert(opener.index);
-// 	alert("PD_OUT_SCHEDULE_CD : " + opener.proList[opener.index].PD_OUT_SCHEDULE_CD + "\n"
-// 			+ "PRODUCT_NAME : " + opener.proList[opener.index].PRODUCT_NAME);
-	
 	// ----------------------------------- 검색창 -------------------------------------
 	function searchEmp(){
 		window.open('EmpSearch', 'searchEmp', 'width=500, height=500, left=600, top=400')
@@ -130,16 +126,16 @@ pageEncoding="UTF-8"%>
 	        success: function(result) {
 	        	
 				console.log(result);
-// 				alert(result.out_TYPE_NAME);
 				
 				$("#out_today").val(result.pd_OUT_SCHEDULE_CD);
 				
 				if(result.out_TYPE_NAME == "1"){
 					$("#type_1").prop('checked', true);
 				} else {
-					$("#type_2").prop('checked', false);
+					$("#type_2").prop('checked', true);
 				}
-
+				
+				// Date 타입으로 변경
 				changeDate(result.out_DATE);
 				
 				$("#emp_code").val(result.emp_NUM);
@@ -172,11 +168,10 @@ pageEncoding="UTF-8"%>
 					$(".out_date").eq(i).val("1900-01-01");
 				}
 			}
-			// 입고 수정 에이젝스
+			
 		    $.ajax({
-						
 		        type: "POST",
-		        url: "InProductUpdate",
+		        url: "OutSchPdUpdatePro",
 		        data: $('#inSc_regi').serialize(),
 		        success: function(result) {
 		            if (result != "0") {
@@ -187,14 +182,13 @@ pageEncoding="UTF-8"%>
 		            	window.close();	                
 		            }
 		        }
-						
 		    });
 			
 		});
 		
 	}
 	// --------------------------------------------------------------------------------
-</script>
+	</script>
 
 </head>
 <body>

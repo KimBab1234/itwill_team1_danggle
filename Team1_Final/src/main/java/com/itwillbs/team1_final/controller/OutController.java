@@ -286,15 +286,34 @@ public class OutController {
 		return searchOutProList;
 	}
 	
+	// 출고 처리 품목 수정
 	@PostMapping(value = "/OutSchPdUpdatePro")
-	public int OutSchPdUpdate() {
-		int updateCount = 0;
-		
-//		 service.modifyProduct(product_cd, product_name, product);
-		
-		return updateCount;
-	}
+	public int OutSchPdUpdate(String OUT_TODAY, OutSchVo outSchPd) {
 	
+		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
+		int idx = 1;
+		String out_schedule_cd = "";
+		
+		if(todayCount > 0) {
+			todayCount += 1;
+			out_schedule_cd = OUT_TODAY + "-" + todayCount;
+			
+			System.out.println(out_schedule_cd);
+			
+			outSchPd.setOUT_SCHEDULE_CD(out_schedule_cd);
+		} else {
+			out_schedule_cd = OUT_TODAY + "-" + idx;
+			
+			System.out.println(out_schedule_cd);
+			
+			outSchPd.setOUT_SCHEDULE_CD(out_schedule_cd);
+		}
+		
+//		int updateCount = service.modifyOutSchPd(outSchPd);
+		
+//		return updateCount;
+		return 0;
+	}
 	// ----------------------------------------------------------
 	
 }
