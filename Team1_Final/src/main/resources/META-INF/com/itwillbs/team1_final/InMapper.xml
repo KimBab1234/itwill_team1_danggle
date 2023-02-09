@@ -182,6 +182,8 @@
 			FROM wh_view
 			WHERE
 				wh_name LIKE '%${keyword}%'
+			OR wh_area LIKE '%${keyword}%'
+			OR wh_loc_in_area LIKE '%${keyword}%'
 	</select>
 	
 	<!-- 입고 수량 수정 / 완료도 수정 -->
