@@ -38,7 +38,7 @@
 			for(var i = 0; i < proList.length; i++) {
 
 				let result = "<tr>"
-							+ "<td><input type='checkbox' value='"+pro_ing_List[i].IN_PD_SCHEDULE_CD+"' class='check'></td>"
+							+ "<td><input type='checkbox' value='"+pro_ing_List[i].IN_PD_SCHEDULE_CD+"' class='check process_ck'></td>"
 							+ "<td onclick='openUpdate("+i+")' class='td_color'>" +pro_ing_List[i].IN_PD_SCHEDULE_CD + "</td>"
 							+ "<td>" + pro_ing_List[i].CUST_NAME + "</td>"
 							+ "<td>" + pro_ing_List[i].PRODUCT_NAME + "</td>"
@@ -75,7 +75,7 @@
 			for(var i = 0; i < proList.length; i++) {
 
 				let result = "<tr>"
-							+ "<td><input type='checkbox' value='"+proList[i].IN_PD_SCHEDULE_CD+"' class='check'></td>"
+							+ "<td><input type='checkbox' value='"+proList[i].IN_PD_SCHEDULE_CD+"' class='check process_ck'></td>"
 							+ "<td onclick='openUpdate("+i+")' class='td_color'>" +proList[i].IN_PD_SCHEDULE_CD + "</td>"
 							+ "<td>" + proList[i].CUST_NAME + "</td>"
 							+ "<td>" + proList[i].PRODUCT_NAME + "</td>"
@@ -127,7 +127,13 @@
 	
 	function incoming(){
 		
+		if ($(".process_ck").is(":checked")==false) {
+			alert("품목은 하나 이상 선택되어야 합니다");
+			return false;
+		}
+		
 		window.open('incomingProcess', 'incomingprocess', 'width=1200, height=400, left=500, top=100');
+		
 		
 	}
 </script>
@@ -144,7 +150,6 @@
 		<table class="bookTable">
 			<tr>
 				<th width="40">
-					<input type="checkbox">
 					<input type="hidden" id="keyword" name="keyword">
 				</th>
 				<th width="120">입고예정번호</th>

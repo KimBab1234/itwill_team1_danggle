@@ -78,9 +78,9 @@
 		$("#recoBtn").on("click", function() {
 			$("#optionArea").append(
 					'<tr class="indexCh" ondblclick="funct()">' 
-					+'<td><input type="text" class="product_cd" name="PRODUCT_CD"></td>'
-					+ '<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>'
-					+ '<td><input type="text" class="size_des" name="SIZE_DES"></td>'
+					+'<td><input type="text" class="product_cd" name="PRODUCT_CD" readonly="readonly"></td>'
+					+ '<td><input type="text" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>'
+					+ '<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>'
 					+ '<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>'
 					+ '<td><input type="date" class="in_date" name="IN_PD_DATE"></td>'
 					+ '<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>'
@@ -149,7 +149,7 @@
 				if($(".product_cd").eq(i).val() != "" && $(".in_date").eq(i).val() != ""){
 					isChecked = true;
 				}
-				
+				break; 
 			}
 			
 			
@@ -242,25 +242,25 @@
 				</tr>
 				<tr class="indexCh" ondblclick="funct()">
 					<td><input type="hidden" id="index">
-					<input type="text" id="product_cd1" class="product_cd" name="PRODUCT_CD"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES"></td>
+					<input type="text" id="product_cd1" class="product_cd" name="PRODUCT_CD" readonly="readonly"></td>
+					<td><input type="text" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
+					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
 					<td><input type="number" id="qty1" required="required" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
 					<td><input type="date" id="sch_date1" required="required" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
 				</tr>
 				<tr class="indexCh" ondblclick="funct()"> 
-					<td><input type="text" id="product_cd2" class="product_cd" name="PRODUCT_CD"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES"></td>
+					<td><input type="text" id="product_cd2" class="product_cd" name="PRODUCT_CD" readonly="readonly"></td>
+					<td><input type="text" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
+					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
 					<td><input type="number" id="qty2" class="in_schedule_qty" name="IN_SCHEDULE_QTY" required="required"></td>
 					<td><input type="date" id="sch_date2" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
 				</tr>
 				<tr class="indexCh" ondblclick="funct()">
-					<td><input type="text" id="product_cd3" class="product_cd" name="PRODUCT_CD"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES"></td>
+					<td><input type="text" id="product_cd3" class="product_cd" name="PRODUCT_CD" readonly="readonly"></td>
+					<td><input type="text" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
+					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
 					<td><input type="number" id="qty3" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
 					<td><input type="date" id="sch_date3" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
