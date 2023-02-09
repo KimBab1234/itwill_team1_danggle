@@ -161,7 +161,7 @@
 		SELECT
 			PD_OUT_SCHEDULE_CD, cust_name, product_name, size_des,
 			pd_out_date, OUT_SCHEDULE_QTY, out_qty, pd_out_complete, pd_remarks,
-			product_cd
+			product_cd,stock_cd
 			FROM outSch_view
 		ORDER BY PD_OUT_SCHEDULE_CD;
 	</select>

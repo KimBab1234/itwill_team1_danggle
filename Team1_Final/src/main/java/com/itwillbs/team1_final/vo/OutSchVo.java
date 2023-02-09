@@ -28,6 +28,8 @@ public class OutSchVo {
 	private List<Integer> OUT_SCHEDULE_QTY_Arr;
 	private List<Date> PD_OUT_DATE_Arr;
 	private List<String> PD_REMARKS_Arr;
+	private List<Integer> STOCK_CD_Arr;
+	
 	
 	// 출고 처리
 	private String PD_OUT_SCHEDULE_CD;
@@ -37,6 +39,7 @@ public class OutSchVo {
 	private String PD_REMARKS;
 	private String OUT_SCHEDULE_QTY;
 	private String OUT_QTY;
+	private Integer STOCK_CD;
 	
 	
 	public String getOUT_SCHEDULE_CD() {
@@ -201,6 +204,18 @@ public class OutSchVo {
 				+ ", PD_REMARKS_Arr=" + PD_REMARKS_Arr + ", PD_OUT_SCHEDULE_CD=" + PD_OUT_SCHEDULE_CD + ", PRODUCT_CD="
 				+ PRODUCT_CD + ", PD_OUT_DATE=" + PD_OUT_DATE + ", PD_OUT_COMPLETE=" + PD_OUT_COMPLETE + ", PD_REMARKS="
 				+ PD_REMARKS + ", OUT_SCHEDULE_QTY=" + OUT_SCHEDULE_QTY + ", OUT_QTY=" + OUT_QTY + "]";
+	}
+	public List<Integer> getSTOCK_CD_Arr() {
+		return STOCK_CD_Arr;
+	}
+	public void setSTOCK_CD_Arr(List<Integer> sTOCK_CD_Arr) {
+		STOCK_CD_Arr = sTOCK_CD_Arr;
+	}
+	public Integer getSTOCK_CD() {
+		return STOCK_CD;
+	}
+	public void setSTOCK_CD(Integer sTOCK_CD) {
+		STOCK_CD = sTOCK_CD;
 	}
 	
 }

@@ -64,6 +64,15 @@ public class StockService {
 	public int outStock(StockVO stock) {
 		return mapper.updateOutStock(stock);
 	}
+	public boolean updateQTY(StockVO stock) {
+		System.out.println("================");
+		System.out.println(stock.getPRODUCT_CD()+"-"+stock.getMOVE_QTY()+"-"+stock.getOUT_SCHEDULE_QTY());
+		if(mapper.updateOutSchStock(stock)>0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	
 	
