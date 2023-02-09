@@ -25,6 +25,83 @@ $(function() {
 });
 
 </script>
+
+<link href="css/default.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#listForm {
+		width: 1024px;
+		max-height: 610px;
+	}
+	
+	h2 {
+		text-align: center;
+	}
+	
+	table {
+		width: 1024px;
+	}
+	
+	#tr_top {
+		background: #b09f76;
+		text-align: center;
+	}
+	
+	.wh_td {
+		text-align: center;
+	
+	}
+	
+	#subject {
+		text-align: left;
+		padding-left: 20px;
+	}
+	
+	#pageList {
+		width: 1024px;
+		text-align: center;
+		padding-right: 500px;
+	}
+	
+	#emptyArea {
+		width: 1024px;
+		text-align: center;
+	}
+	
+	#buttonArea {
+		width: 1024px;
+		text-align: right;
+		margin-top: 10px;
+	}
+	
+	a {
+		text-decoration: none;
+	}
+</style>
+	<link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.hrFormBtn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 27px;
+	width: 55px;
+	border-radius: 4px;
+	font-size: 15px;
+}
+
+.Btn {
+	background-color: #736643;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	height: 27px;
+	width: 100px;
+	border-radius: 4px;
+	font-size: 15px;
+}
+
+</style>
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -85,33 +162,42 @@ $(function() {
 			<tr>
 				<th align="right" style="width: 200px;">적요</th><td>${wh.REMARKS }</td>
 			</tr>
-			
+
 			</table>
-			<input type="button" value="수정" onclick="location.href='WhModifyForm?WH_CD=${param.WH_CD}&pageNum=${param.pageNum }'">
-			<input type="button" value="삭제" onclick="location.href='WhDeleteForm?WH_CD=${param.WH_CD}&pageNum=${param.pageNum }'">
-			<input type="button" value="목록" onclick="location.href='WhList?pageNum=${param.pageNum}'">
+			<br>
+			<input type="button" class="hrFormBtn" value="수정" onclick="location.href='WhModifyForm?WH_CD=${param.WH_CD}&pageNum=${param.pageNum }'">&nbsp;
+			<input type="button" class="hrFormBtn" value="삭제" onclick="location.href='WhDeleteForm?WH_CD=${param.WH_CD}&pageNum=${param.pageNum }'">&nbsp;
+			<input type="button" class="hrFormBtn" value="목록" onclick="location.href='WhList?pageNum=${param.pageNum}'">
 		</div>
-			<div align="center" style="width: 1300px;">
-			<h2 align="center">재고 목록</h2>
-			<table style="text-align: center; border: solid 1px; width: 600px; height: 400px;">
+			<section id="listForm">
+	<div align="center" style="width: 1000px;">
 		
+			<h2 align="center">재고 목록</h2>
+			<table style="text-align: center; border: solid 1px; width: 600px; height: 170px;">
+			<tr id="tr_top">
+			<td>재고번호</td>
+			<td width="150px">품목명</td>
+			<td>규격</td>
+			<td>수량</td>
+			<td>구역명</td>
+			<td>위치명</td>
+			
+		</tr>
 			<c:forEach items="${stockList }" var="list">
 			<tr>
-				<th align="center" style="width: 200px;">재고번호</th><td>${list.STOCK_CD }</td>
+				<td>${list.STOCK_CD }</td>
+				<td>${list.PRODUCT_NAME }</td> 
+				<td>${list.SIZE_DES }</td> 
+				<td>${list.STOCK_QTY }</td> 
+				<td>${list.WH_AREA}(${list.WH_NAME})</td>
+				<td>${list.WH_LOC_IN_AREA }</td>
 			</tr>
-			<tr>
-				<th align="center" style="width: 200px;">품목명</th><td>${list.PRODUCT_NAME }</td> 
-			</tr>
-			<tr>
-				<th align="center" style="width: 200px;">규격</th><td>${list.SIZE_DES }</td> 
-			</tr>
-			<tr>
-				<th align="center" style="width: 200px;">수량</th><td>${list.STOCK_QTY }</td> 
-			</tr>
-			
 			</c:forEach>
 			</table>
+			</div>
+			</section>
 		</div>
-	</div>
+		
+	
 </body>
 </html>

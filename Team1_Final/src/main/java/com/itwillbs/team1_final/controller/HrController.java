@@ -1,7 +1,7 @@
 package com.itwillbs.team1_final.controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,11 +54,11 @@ public class HrController {
 
 	/////사원 등록 Pro
 	@RequestMapping(value = "/HrRegistPro", method = RequestMethod.POST)
-	public String hrRegistPro(HrVO newEmp, HttpSession session, Model model) {
+	public String hrRegistPro(HrVO newEmp, HttpSession session, Model model) throws SocketException, IOException {
 		System.out.println("신규 사원 등록");
 
 		////이메일, 전화번호, 주소 합치기
-		newEmp.setEMP_DTEL(newEmp.getEMP_TEL1()+"-"+newEmp.getEMP_TEL2()+"-"+newEmp.getEMP_TEL3());
+		newEmp.setEMP_DTEL(newEmp.getEMP_DTEL1()+"-"+newEmp.getEMP_DTEL2()+"-"+newEmp.getEMP_DTEL3());
 		newEmp.setEMP_TEL(newEmp.getEMP_TEL1()+"-"+newEmp.getEMP_TEL2()+"-"+newEmp.getEMP_TEL3());
 		newEmp.setEMP_EMAIL(newEmp.getEMP_EMAIL1()+"@"+newEmp.getEMP_EMAIL2());
 
@@ -69,19 +69,10 @@ public class HrController {
 			newEmp.setEMP_TEL("");
 		}
 
-		String uploadDir = "/resources/img";
-		String saveDir = session.getServletContext().getRealPath(uploadDir);
-
-		File f = new File(saveDir);
-
-		//파일 저장경로가 여러단계 들어갈 경우 폴더 동시에 생성함
-		if(!f.exists()) {
-			f.mkdirs();
-		}
-
+		
 		///업로드이름
 		String uuidString = UUID.randomUUID().toString();
-		newEmp.setPHOTO(uuidString+"_"+newEmp.getRegistPHOTO().getOriginalFilename()+"/");
+		newEmp.setPHOTO(uuidString+"_"+newEmp.getRegistPHOTO().getOriginalFilename());
 
 		///사번 생성
 		int idxNum = service.getEmpIdx();
@@ -99,15 +90,9 @@ public class HrController {
 
 		if(insertCount>0) {
 			MultipartFile mFile = newEmp.getRegistPHOTO();
-			FTPClient ftp = new FTPClient();
+			FTPClient ftp = ftpControl(new FTPClient());
 
 			try {
-				ftp.connect("iup.cdn1.cafe24.com",21);
-				ftp.setSoTimeout(1000);
-				ftp.login("itwillbs3", "itwillbs8030909");
-				ftp.changeWorkingDirectory("/www/profileImg");
-				ftp.setControlEncoding("UTF-8");
-				ftp.setFileType(FTP.BINARY_FILE_TYPE);
 				ftp.storeFile(newEmp.getPHOTO(), mFile.getInputStream());
 
 				if(ftp.getReplyCode() != 226) {
@@ -276,7 +261,7 @@ public class HrController {
 
 	/////사원 수정
 	@RequestMapping(value = "/HrEditPro", method = RequestMethod.POST)
-	public String hrEditPro(HrVO updateEmp, Model model, HttpSession session) {
+	public String hrEditPro(HrVO updateEmp, Model model, HttpSession session) throws IOException {
 		System.out.println("사원 수정 작업");
 
 		///삭제할 파일 미리 저장해놓기
@@ -309,13 +294,9 @@ public class HrController {
 
 		///파일 올라와있으면 새 파일 올리고 기존 삭제
 		boolean isNewImg = false;
-		String uploadDir = "/resources/upload";
-		String saveDir = session.getServletContext().getRealPath(uploadDir);
 
 		if(updateEmp.getRegistPHOTO().getOriginalFilename().length() > 0) {
-
 			isNewImg = true;
-
 			///업로드이름
 			String uuidString = UUID.randomUUID().toString();
 			updateEmp.setPHOTO(uuidString+"_"+updateEmp.getRegistPHOTO().getOriginalFilename());
@@ -328,25 +309,21 @@ public class HrController {
 
 			////새파일 올라와있으면
 			if(isNewImg) {
+				
+				FTPClient ftp = ftpControl(new FTPClient());
+				///옛날 파일 삭제
+				ftp.deleteFile(beforeImg);
+
+				///새 파일 등록
 				MultipartFile mFile = updateEmp.getRegistPHOTO();
-				FTPClient ftp = new FTPClient();
-
-				try {
-					ftp.connect("iup.cdn1.cafe24.com",21);
-					ftp.login("itwillbs3", "itwillbs8030909");
-					ftp.changeWorkingDirectory("/www/profileImg");
-					ftp.setSoTimeout(1000);
-					ftp.setControlEncoding("euc-kr");
-					ftp.setFileType(FTP.BINARY_FILE_TYPE);
-					ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
-
-					if(ftp.getReplyCode() != 226) {
-						model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
-						return "fail_back";
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+				ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
+				
+				if(ftp.getReplyCode() != 226) {
+					ftp.disconnect();
+					model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+					return "fail_back";
 				}
+
 			}
 		} else {
 			model.addAttribute("msg", "사원 수정 실패!");
@@ -419,6 +396,15 @@ public class HrController {
 		return "hr/needPassChange";
 	}
 
+	static public FTPClient ftpControl(FTPClient ftp) throws SocketException, IOException {
+		ftp.setControlEncoding("UTF-8");
+		ftp.connect("iup.cdn1.cafe24.com",21);
+		ftp.login("itwillbs3", "itwillbs8030909");
+		ftp.changeWorkingDirectory("/www/profileImg");
+		ftp.setSoTimeout(1000);
+		ftp.setFileType(FTP.BINARY_FILE_TYPE);
+		return ftp;
+	}
 
 
 }

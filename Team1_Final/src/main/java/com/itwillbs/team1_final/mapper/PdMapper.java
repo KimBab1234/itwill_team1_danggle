@@ -31,4 +31,14 @@ public interface PdMapper {
 	// 품목 그룹(대) 선택
 	ArrayList<PdVO> selectPd_group_top_Search(String keyword);
 
+	// 품목 삭제
+	int deletePd(int product_CD);
+
+	// 품목 수정 전 품목 조회
+	PdVO selectPd(int PRODUCT_CD);
+	
+	//품목 삭제 전 이미지 파일이름 얻어오기
+	List<String> selectImgList(String deleteProdArr);
+
+
 }

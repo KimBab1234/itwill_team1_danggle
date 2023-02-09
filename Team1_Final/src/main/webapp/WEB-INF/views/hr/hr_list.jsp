@@ -107,7 +107,7 @@
 					$("#searchNone").html("<h3>검색 결과가 없습니다.</h3>");
 				} else {
 					for(var i=0; i<emp.length; i++) {
-						$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td width="150"><img src="${pageContext.request.contextPath}/resources/img/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;"></td>'
+						$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td width="150"><img src="http://itwillbs3.cdn1.cafe24.com/profileImg/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;"></td>'
 								+'<td width="150">'+emp[i].EMP_NUM+'</td>'
 								+'<td width="120">'+emp[i].EMP_NAME+'</td>'
 								+'<td width="150">'+emp[i].DEPT_NAME+'</td>'

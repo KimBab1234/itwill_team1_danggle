@@ -15,6 +15,10 @@
 	font-family: 'Gowun Dodum', sans-serif;
 	font-weight: bold;
 }
+tr {
+	height: 40px;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwillbs.team1_final.svc.OutService;
 import com.itwillbs.team1_final.vo.AccVO;
 import com.itwillbs.team1_final.vo.HrVO;
+import com.itwillbs.team1_final.vo.OutPdVO;
 import com.itwillbs.team1_final.vo.OutSchVo;
 import com.itwillbs.team1_final.vo.PdVO;
 
@@ -39,10 +40,7 @@ public class OutController {
 	@ResponseBody
 	public String searchOutList(
 			@RequestParam(defaultValue = "") String keyword) {
-
-		System.out.println("진입 keyword - " + keyword);
 		List<OutSchVo> outSchList = service.searchOutSchList(keyword);
-		
 		JSONArray jsonAcc = new JSONArray();
 		
 		for(OutSchVo outSch : outSchList) {
@@ -52,9 +50,9 @@ public class OutController {
 		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("searchOutSchList", jsonAcc.toString());
-		
 		return jsonObject.toString();
 	}
+	
 	
 	// 출고예정 등록 창
 	@GetMapping(value = "/OutRegist")
@@ -63,7 +61,7 @@ public class OutController {
 	}
 	
 	// 출고예정 등록
-	@PostMapping(value = "OutSchRegistPro")
+	@PostMapping(value = "/OutSchRegistPro")
 	@ResponseBody
 	public int schRegist(
 			String OUT_TODAY,
@@ -85,6 +83,48 @@ public class OutController {
 		int insertCount = service.registOutSchAndPd(outSch);
 		return insertCount;
 		
+	}
+	// ----------------------------------------------------------
+	
+	
+	// --------------- 출고 예정 품목 Controller ----------------
+	// 출고 예정 품목 개별 목록 조회 창
+	@GetMapping(value = "/OutEachPd")
+	public String outEachPd() {
+		return "out/out_one_of_each_pd";
+	}
+	
+	// 출고 예정 품목 개별 목록 조회
+	@PostMapping(value = "/OutEachPdPro")
+	@ResponseBody
+	public String outEachPdPro(String outSchCdList) {
+		List<OutPdVO> ProgressList = service.getProgress(outSchCdList);
+		JSONArray jsonArray = new JSONArray();
+		
+		for(OutPdVO progress : ProgressList) {
+			JSONObject jsonObject = new JSONObject(progress);
+			jsonArray.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("pdList", jsonArray.toString());
+		
+		return jsonObject.toString();
+	}
+	
+	
+	// 출고 예정 종결여부 변경 창
+	@GetMapping(value = "/OutCom")
+	public String outCom() {
+		return "out/out_complete";
+	}
+	
+	// 출고 예정 종결여부 변경
+	@PostMapping(value = "/OutComPro")
+	@ResponseBody
+	public int outComPro(String outSchCd, String comStatus) {
+		int updateCount = service.modifyCom(outSchCd, comStatus);
+		return updateCount;
 	}
 	// ----------------------------------------------------------
 	
@@ -180,8 +220,26 @@ public class OutController {
 	// ------------------ 출고 처리 Controller ------------------
 	// 출고처리 목록 창
 	@GetMapping(value = "/OutProList")
-	public String schedule() {
+	public String outProList() {
 		return "out/out_process_list";
+	}
+	
+	@PostMapping(value = "/OutProList")
+	@ResponseBody
+	public String outProListPro() {
+		String keyword = "";
+		List<OutSchVo> searchOutProList = service.searchOutProList(keyword);
+		JSONArray jsonAcc = new JSONArray();
+		
+		for(OutSchVo outSchPro : searchOutProList) {
+			JSONObject jsonObject = new JSONObject(outSchPro);
+			jsonAcc.put(jsonObject);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("searchOutProList", jsonAcc.toString());
+
+		return jsonObject.toString();
 	}
 	// ----------------------------------------------------------
 	

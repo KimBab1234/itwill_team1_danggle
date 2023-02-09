@@ -6,6 +6,7 @@ import java.util.List;
 
 public class OutSchVo {
 
+	// 출고 예정
 	private String OUT_SCHEDULE_CD;
 	private String OUT_TYPE_NAME;
 	private String BUSINESS_NO;
@@ -20,6 +21,7 @@ public class OutSchVo {
 	private String PRODUCT_NAME;
 	private String SIZE_DES;
 	
+	// 출고 예정 품목
 	private List<Integer> PRODUCT_CD_Arr;
 	private List<String> PRODUCT_NAME_Arr;
 	private List<String> SIZE_DES_Arr;
@@ -27,8 +29,15 @@ public class OutSchVo {
 	private List<Date> PD_OUT_DATE_Arr;
 	private List<String> PD_REMARKS_Arr;
 	
-	private int OUT_QTY_Arr;
-	private String STOCK_CD_Arr;
+	// 출고 처리
+	private String PD_OUT_SCHEDULE_CD;
+	private String PRODUCT_CD;
+	private String PD_OUT_DATE;
+	private String PD_OUT_COMPLETE;
+	private String PD_REMARKS;
+	private String OUT_SCHEDULE_QTY;
+	private String OUT_QTY;
+	
 	
 	public String getOUT_SCHEDULE_CD() {
 		return OUT_SCHEDULE_CD;
@@ -138,17 +147,47 @@ public class OutSchVo {
 	public void setPD_REMARKS_Arr(List<String> pD_REMARKS_Arr) {
 		PD_REMARKS_Arr = pD_REMARKS_Arr;
 	}
-	public int getOUT_QTY_Arr() {
-		return OUT_QTY_Arr;
+	public String getPD_OUT_SCHEDULE_CD() {
+		return PD_OUT_SCHEDULE_CD;
 	}
-	public void setOUT_QTY_Arr(int oUT_QTY_Arr) {
-		OUT_QTY_Arr = oUT_QTY_Arr;
+	public void setPD_OUT_SCHEDULE_CD(String pD_OUT_SCHEDULE_CD) {
+		PD_OUT_SCHEDULE_CD = pD_OUT_SCHEDULE_CD;
 	}
-	public String getSTOCK_CD_Arr() {
-		return STOCK_CD_Arr;
+	public String getPRODUCT_CD() {
+		return PRODUCT_CD;
 	}
-	public void setSTOCK_CD_Arr(String sTOCK_CD_Arr) {
-		STOCK_CD_Arr = sTOCK_CD_Arr;
+	public void setPRODUCT_CD(String pRODUCT_CD) {
+		PRODUCT_CD = pRODUCT_CD;
+	}
+	public String getPD_OUT_DATE() {
+		return PD_OUT_DATE;
+	}
+	public void setPD_OUT_DATE(String pD_OUT_DATE) {
+		PD_OUT_DATE = pD_OUT_DATE;
+	}
+	public String getPD_OUT_COMPLETE() {
+		return PD_OUT_COMPLETE;
+	}
+	public void setPD_OUT_COMPLETE(String pD_OUT_COMPLETE) {
+		PD_OUT_COMPLETE = pD_OUT_COMPLETE;
+	}
+	public String getPD_REMARKS() {
+		return PD_REMARKS;
+	}
+	public void setPD_REMARKS(String pD_REMARKS) {
+		PD_REMARKS = pD_REMARKS;
+	}
+	public String getOUT_SCHEDULE_QTY() {
+		return OUT_SCHEDULE_QTY;
+	}
+	public void setOUT_SCHEDULE_QTY(String oUT_SCHEDULE_QTY) {
+		OUT_SCHEDULE_QTY = oUT_SCHEDULE_QTY;
+	}
+	public String getOUT_QTY() {
+		return OUT_QTY;
+	}
+	public void setOUT_QTY(String oUT_QTY) {
+		OUT_QTY = oUT_QTY;
 	}
 	
 	@Override
@@ -159,8 +198,9 @@ public class OutSchVo {
 				+ CUST_NAME + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", PRODUCT_CD_Arr="
 				+ PRODUCT_CD_Arr + ", PRODUCT_NAME_Arr=" + PRODUCT_NAME_Arr + ", SIZE_DES_Arr=" + SIZE_DES_Arr
 				+ ", OUT_SCHEDULE_QTY_Arr=" + OUT_SCHEDULE_QTY_Arr + ", PD_OUT_DATE_Arr=" + PD_OUT_DATE_Arr
-				+ ", PD_REMARKS_Arr=" + PD_REMARKS_Arr + ", OUT_QTY_Arr=" + OUT_QTY_Arr + ", STOCK_CD_Arr="
-				+ STOCK_CD_Arr + "]";
+				+ ", PD_REMARKS_Arr=" + PD_REMARKS_Arr + ", PD_OUT_SCHEDULE_CD=" + PD_OUT_SCHEDULE_CD + ", PRODUCT_CD="
+				+ PRODUCT_CD + ", PD_OUT_DATE=" + PD_OUT_DATE + ", PD_OUT_COMPLETE=" + PD_OUT_COMPLETE + ", PD_REMARKS="
+				+ PD_REMARKS + ", OUT_SCHEDULE_QTY=" + OUT_SCHEDULE_QTY + ", OUT_QTY=" + OUT_QTY + "]";
 	}
 	
 }

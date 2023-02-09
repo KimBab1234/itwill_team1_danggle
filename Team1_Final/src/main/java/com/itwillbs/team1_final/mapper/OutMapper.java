@@ -38,9 +38,24 @@ public interface OutMapper {
 	// 출고 예정 목록 조회
 	List<OutSchVo> selectOutSch(String keyword);
 
+	// 출고 예정 목록 조회 - 품목명
 	OutSchVo selectOutPdName(String outSchCd);
 
+	// 출고 예정 목록 조회 - 품목개수
 	int selectExtraPdCount(String outSchCd);
+
+	// 종결처리 
+	int outUpdateCom(
+			@Param("outSchCd") String outSchCd,
+			@Param("comStatus") String comStatus);
+	
+	// 출고 예정 품목 개별 목록 조회
+	List<OutPdVO> selectPdInfo(String outSchCdList);
+
+	// 출고 처리 목록 조회
+	List<OutSchVo> selectOutProSch(String keyword);
+
+
 
 
 

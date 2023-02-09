@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <style type="text/css">
-#title {
+#titleH1 {
+	margin-top: 20px;
 	text-align: left;
 }
 table { 
@@ -39,6 +40,16 @@ table {
 #b2 {
 	background-color: #fff5e6;
 	width: 120px;
+	height: 50px;
+	color: #575754;
+	border-radius: 20px;
+	border-color: transparent;
+	font-weight: bold; 
+	font-size: 20px;
+}
+#b3 {
+	background-color: #fff5e6;
+	width: 150px;
 	height: 50px;
 	color: #575754;
 	border-radius: 20px;
@@ -90,7 +101,7 @@ table {
 				// 테이블에 표시할 JSON 데이터 출력문 생성
 				// => 출력할 데이터는 board.xxx 형식으로 접근
 				let result = "<tr height='100'>"
-							+ "<td>" + "<input type='checkbox'>"+ "</td>"
+							+ "<td>" + "<input type='checkbox' value=" + product.PRODUCT_CD +"></td>"
 							+ "<td>" + product.PRODUCT_CD + "</td>"
 							+ "<td id='subject'>" 
 								+ "<a href='PdUpdate?PRODUCT_CD=" + product.PRODUCT_CD + "'>"
@@ -103,7 +114,8 @@ table {
 							+ "<td>" + product.OUT_UNIT_PRICE + "</td>"
 							+ "<td>" + product.PRODUCT_TYPE_CD + "</td>"
 							+ "<td>" + product.BUSINESS_NO + "</td>"
-							+ "<td>" + product.PRODUCT_IMAGE + "</td>"
+// 							+ "<td>" + product.PRODUCT_IMAGE + "</td>"
+							+ "<td>" + "<img width='100px' src='${pageContext.request.contextPath}/resources/img/" + product.PRODUCT_IMAGE + "'></td>"
 							+ "<td>" + product.REMARKS + "</td>"
 							+ "</tr>";
 				
@@ -115,6 +127,22 @@ table {
 			$("#listForm > table").append("<h3>요청 실패!</h3>");
 		});
 	}
+	
+	function deleteConfirm() {
+		var deleteProdArr ="";
+		if(confirm("삭제하시겠습니까?")) {
+			var len = $("input[type=checkbox]").length;
+			for(var i=1;  i<len; i++) {
+				var chk = $("input[type=checkbox]").eq(i).prop("checked");
+				var product_cd = $("input[type=checkbox]").eq(i).val();
+				if(chk) {
+					deleteProdArr += product_cd+",";
+				}
+			}
+			location.href='Pd_deletePro?deleteProdArr='+deleteProdArr;
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -124,8 +152,8 @@ table {
 			<jsp:include page="../inc/pd_left.jsp"></jsp:include>
 		</div>
 		<!-- 게시판 리스트 -->
-		<div align="left">
-		<h1 id="title"><b style="border-left: 10px solid">&nbsp;품목 조회</b></h1>
+		<div align="left" style="margin-right: 50px;">
+		<h1 id="titleH1"><b style="border-left: 10px solid">&nbsp;품목 조회</b></h1>
 		<section id="listForm">
 		<section id="buttonArea">
 			<form>
@@ -136,9 +164,11 @@ table {
 				</select>
 				<input type="text" name="keyword" id="keyword" value="${param.keyword }" style="height: 30px;">
 				<input type="submit" value="검색" style="height: 30px;">
-				<input type="button" value="품목등록" id="b1"  style="margin-left: 1050px;" onclick="location.href='PdRegist'" />
+				<input type="button" value="품목등록" id="b1"  style="margin-left: 860px;" onclick="location.href='PdRegist'" />
 				&nbsp; | &nbsp;
-				<input type="button" value="품목삭제" id="b2">
+				<input type="button" value="품목삭제" id="b2" onclick="deleteConfirm()">
+				&nbsp; | &nbsp;
+				<input type="button" value="품목 전체 삭제" id="b3" onclick="window.open('Pd_delete_totalForm', 'searchPopup', 'width=500, height=500, left=600, top=400')">
 			</form>
 		</section>
 		<br>

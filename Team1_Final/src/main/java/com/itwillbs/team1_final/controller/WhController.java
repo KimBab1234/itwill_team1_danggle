@@ -74,11 +74,11 @@ public class WhController {
 	
 	@GetMapping(value="/WhRegistForm")
 	public String regist(HttpSession session, Model model) {
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg", "로그인 필수");
-//			return "fail_back";
-//		}
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg", "로그인 필수");
+			return "fail_back";
+		}
 		
 		return "wh/regist";
 		
@@ -105,11 +105,11 @@ public class WhController {
 	
 	@PostMapping(value="/WhRegistPro")
 	public String registPro(@ModelAttribute WhVO wh, Model model, HttpSession session) {
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg","로그인 필수!");
-//			return "fail_back";
-//		}
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg","로그인 필수!");
+			return "fail_back";
+		}
 		
 		int inserCount = service.registWh(wh);
 		return "redirect:/WhList";
@@ -147,11 +147,11 @@ public class WhController {
 	
 	@GetMapping(value="/WhModifyForm")
 	public String modify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam String WH_CD) {
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg","로그인 필수!");
-//			return "fail_back";
-//		}
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg","로그인 필수!");
+			return "fail_back";
+		}
 		wh = service.getWh(WH_CD);
 		
 		model.addAttribute("wh", wh);
@@ -182,11 +182,11 @@ public class WhController {
 	public String WhAreaRegist(Model model, HttpSession session, WhVO wh,@RequestParam String WH_CD) {
 //								,@RequestParam String WH_AREA,@RequestParam int WH_AREA_CD) {
 		
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg", "로그인 필수");
-//			return "fail_back";
-//		}
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg", "로그인 필수");
+			return "fail_back";
+		}
 		//select 하는 거 만들기 
 //		List<WhVO> WhAreaList = service.selectWhArea(WH_CD);
 		
@@ -195,11 +195,11 @@ public class WhController {
 	
 	@PostMapping(value = "/WhAreaRegistPro")
 	public String WhAreaRegistPro(@ModelAttribute WhVO wh, Model model, HttpSession session) {
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg", "로그인 필수");
-//			return "fail_back";
-//		}	
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg", "로그인 필수");
+			return "fail_back";
+		}	
 //		System.out.println(wh);
 		int insertCount = service.registWhArea(wh);
 		
@@ -237,11 +237,11 @@ public class WhController {
 	
 	@GetMapping(value="/WhAreaModifyForm")
 	public String WhAreaModify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_AREA_CD) {
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg","로그인 필수!");
-//			return "fail_back";
-//		}
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg","로그인 필수!");
+			return "fail_back";
+		}
 //		wh = service.getWh(WH_CD);
 		
 		model.addAttribute("wh", wh);
@@ -274,11 +274,11 @@ public class WhController {
 	@GetMapping(value = "/WhLocationRegist")
 	public String WhLocationRegist(Model model, HttpSession session, WhVO wh, @RequestParam int WH_AREA_CD) {
 //									@RequestParam String WH_LOC_IN_AREA,@RequestParam String WH_LOC_IN_AREA_CD) {
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg", "로그인 필수");
-//			return "fail_back";
-//		}
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg", "로그인 필수");
+			return "fail_back";
+		}
 		
 //		List<WhVO> WhLocationList =service.getWhLocationList(WH_AREA_CD);
 //		System.out.println("구역코드" +WH_AREA_CD);
@@ -288,11 +288,11 @@ public class WhController {
 	@PostMapping(value = "/WhLocationRegistPro")
 	public String WhLocationRegistPro(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_AREA_CD) {
 		
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg", "로그인 필수");
-//			return "fail_back";
-//		}
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg", "로그인 필수");
+			return "fail_back";
+		}
 		System.out.println("구역코드:" + WH_AREA_CD);
 		
 		int insertCount = service.registWhLocation(wh);
@@ -323,11 +323,11 @@ public class WhController {
 	@GetMapping(value="/WhLocationModifyForm")
 	public String WhLocationModify(@ModelAttribute WhVO wh, Model model, HttpSession session, @RequestParam int WH_LOC_IN_AREA_CD
 									) {
-//		String sId = (String)session.getAttribute("sId");
-//		if(sId == null || sId.equals("")) {
-//			model.addAttribute("msg","로그인 필수!");
-//			return "fail_back";
-//		}
+		String sId = (String)session.getAttribute("sId");
+		if(sId == null || sId.equals("")) {
+			model.addAttribute("msg","로그인 필수!");
+			return "fail_back";
+		}
 //		wh = service.getWh(WH_CD);
 		
 		model.addAttribute("wh", wh);

@@ -25,7 +25,6 @@
 	<!-- 품목 그룹(소) 선택 -->
 	<select id="selectPd_group_bottom_Search" resultType="com.itwillbs.team1_final.vo.PdVO">
 		SELECT PRODUCT_GROUP_TOP_CD,PRODUCT_GROUP_BOTTOM_CD,PRODUCT_GROUP_BOTTOM_NAME FROM product_bottom WHERE PRODUCT_GROUP_BOTTOM_NAME LIKE '%${keyword}%';
-<!-- 		SELECT * FROM product_view WHERE PRODUCT_GROUP_BOTTOM_NAME LIKE '%${keyword}%'; -->
 	</select>
 	
 	<!-- 품목 구분 선택 -->
@@ -57,7 +56,7 @@
 	<!-- 품목 목록 조회 -->
 	<select id="selectPdList" resultType="com.itwillbs.team1_final.vo.PdVO">
 		SELECT *
-			FROM product
+			FROM product_view
 			
 			<if test="!keyword.equals('')">
 			WHERE
@@ -75,8 +74,29 @@
 		LIMIT 
 			#{startRow}
 			, #{listLimit}
-		
 	</select>
 
+	<!-- 품목 삭제 -->
+	<delete id="deletePd">
+		DELETE
+		FROM product
+			WHERE
+				product_cd= #{product_cd}
+	</delete>
+
+	<!-- 품목 수정 전 품목 조회 -->
+	<select id="selectPd" resultType="com.itwillbs.team1_final.vo.PdVO">
+		SELECT *
+			FROM product
+				WHERE
+				product_cd= #{product_cd}
+	</select>
+	
+	<select id="selectImgList" resultType="string">
+		SELECT PRODUCT_IMAGE
+			FROM product
+			WHERE product_cd
+			IN (${deleteProdArr});
+	</select>
 
 </mapper>
