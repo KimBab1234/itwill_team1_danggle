@@ -56,7 +56,7 @@ public class StockService {
 		Integer isExistStock = mapper.isExistStock(product_cd, target_loc);
 		if(isExistStock==null) {
 			///없으면 max값으로 리턴
-			return mapper.selectNewStockCD();
+			return mapper.selectNewStockCD()+1;
 		} else {
 			return isExistStock;
 		}
@@ -65,8 +65,6 @@ public class StockService {
 		return mapper.updateOutStock(stock);
 	}
 	public boolean updateQTY(StockVO stock) {
-		System.out.println("================");
-		System.out.println(stock.getPRODUCT_CD()+"-"+stock.getMOVE_QTY()+"-"+stock.getOUT_SCHEDULE_QTY());
 		if(mapper.updateOutSchStock(stock)>0) {
 			return true;
 		} else {
