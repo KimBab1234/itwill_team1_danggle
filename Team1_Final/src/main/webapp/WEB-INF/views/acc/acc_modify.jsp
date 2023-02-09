@@ -27,6 +27,9 @@ input[type=text]{
 #ADDR1{
 	width: 300px;
 }
+#ADD2{
+	width: 300px;
+}
 #URL_PATH{
 	width: 300px;
 }
@@ -152,7 +155,11 @@ h2 {
 		});
 	});
 	
-	
+	$(function() {
+		$("#jumin").prop("checked", function(){
+				$("#busiArea").css("display","none");
+		});
+	});
 </script>
 </head>
 <body>
@@ -182,8 +189,9 @@ h2 {
 						<td>거래처코드</td>
 						<td><input type="text" id="BUSINESS_NO1" name="BUSINESS_NO1" value="${acc.BUSINESS_NO1}" size="20"
 							readonly="readonly">-<input type="text" id="BUSINESS_NO2" name="BUSINESS_NO2" value="${acc.BUSINESS_NO2}" size="20"
-							readonly="readonly">-<input type="text" id="BUSINESS_NO3" name="BUSINESS_NO3" value="${acc.BUSINESS_NO3}" size="20"
-							readonly="readonly"></td>
+							readonly="readonly"><span
+							id="busiArea">-<input type="text" id="BUSINESS_NO3" name="BUSINESS_NO3" value="${acc.BUSINESS_NO3}" size="20"
+							readonly="readonly"></span></td>
 					</tr>
 					<tr>
 						<td>거래처코드 &nbsp;</td>
@@ -191,7 +199,7 @@ h2 {
 							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if> onclick="return(false);">사업자등록번호
 							<input type="radio" name="G_GUBUN" value="02"
 							<c:if test="${acc.g_GUBUN eq '02' }">checked</c:if> onclick="return(false);">해외사업자등록번호
-							<input type="radio" name="G_GUBUN" value="03"
+							<input type="radio" name="G_GUBUN" value="03" id="jumin"
 							<c:if test="${acc.g_GUBUN eq '03' }">checked</c:if> onclick="return(false);">주민등록번호
 							<input type="radio" name="G_GUBUN" value="04"
 							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if> onclick="return(false);">외국인&nbsp;</td>

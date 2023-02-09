@@ -27,6 +27,9 @@ input[type=text]{
 #ADDR1{
 	width: 300px;
 }
+#ADD2{
+	width: 300px;
+}
 input[type=password]{
 	width: 150px;
 	height: 30px;
@@ -148,6 +151,9 @@ h2 {
 			}
 		});
 	});
+	
+	
+	
 </script>
 </head>
 <body>
@@ -176,8 +182,9 @@ h2 {
 						<td>거래처코드</td>
 						<td><input type="text" id="BUSINESS_NO1" name="BUSINESS_NO1" value="${acc.BUSINESS_NO1}" size="20"
 							readonly="readonly">-<input type="text" id="BUSINESS_NO2" name="BUSINESS_NO2" value="${acc.BUSINESS_NO2}" size="20"
-							readonly="readonly">-<input type="text" id="BUSINESS_NO3" name="BUSINESS_NO3" value="${acc.BUSINESS_NO3}" size="20"
-							readonly="readonly"></td>
+							readonly="readonly"><span
+							id="busiArea">-<input type="text" id="BUSINESS_NO3" name="BUSINESS_NO3" value="${acc.BUSINESS_NO3}" size="20"
+							readonly="readonly"></span></td>
 					</tr>
 					<tr>
 						<td>거래처코드 &nbsp;</td>
@@ -185,7 +192,7 @@ h2 {
 							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if>>사업자등록번호
 							<input type="radio" name="G_GUBUN" value="02" onclick="return(false);"
 							<c:if test="${acc.g_GUBUN eq '02' }">checked</c:if>>해외사업자등록번호
-							<input type="radio" name="G_GUBUN" value="03" onclick="return(false);"
+							<input type="radio" name="G_GUBUN" value="03" onclick="return(false);" id="jumin"
 							<c:if test="${acc.g_GUBUN eq '03' }">checked</c:if>>주민등록번호
 							<input type="radio" name="G_GUBUN" value="04" onclick="return(false);"
 							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if>>외국인&nbsp;</td>
@@ -220,7 +227,7 @@ h2 {
 						<td>E-Mail</td>
 						<td colspan="4"><input type="text" name="EMAIL1" id="EMAIL1"
 							size="10" maxlength="20" value="${acc.EMAIL1 }" readonly="readonly">@<input type="text"
-							name="EMAIL2" id="EMAIL2" size="10" value="${acc.EMAIL2 }" readonly="readonly"> <select
+							name="EMAIL2" id="EMAIL2" size="10" value="${acc.EMAIL2 }" > <select
 							name="selectDomain" id="domain">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
@@ -275,7 +282,7 @@ h2 {
 						<td>담당자 이메일</td>
 						<td colspan="4"><input type="text" name="MAN_EMAIL1"
 							id="MAN_EMAIL1" size="10" value="${acc.MAN_EMAIL1 }">@<input type="text"
-							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10" value="${acc.MAN_EMAIL2 }"> <select
+							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10" value="${acc.MAN_EMAIL2 }"><select
 							name="selectDomain" id="domain2" >
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
@@ -287,7 +294,6 @@ h2 {
 						<td colspan="5" align="right"><input type="button" value="삭제" onclick="location.href='AccDeletePro?BUSINESS_NO=${acc.BUSINESS_NO}'">
 						<input type="button" value="수정" onclick="location.href='AccModify?BUSINESS_NO=${acc.BUSINESS_NO}'">
 						<input type="button" value="뒤로가기" onclick="location.href='AccList'"></td>
-					
 					</tr>
 				</table>
 		</div>

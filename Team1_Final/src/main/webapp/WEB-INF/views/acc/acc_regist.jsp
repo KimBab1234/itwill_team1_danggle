@@ -13,63 +13,88 @@
 table {
 	font-size: 20px;
 }
-input[type=text]{
+
+input[type=text] {
 	width: 150px;
 	height: 30px;
 	font-size: 18px;
-	 border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
-  text-align: center;
+	border: 0;
+	border-radius: 15px;
+	outline: none;
+	padding-left: 10px;
+	background-color: rgb(233, 233, 233);
+	text-align: center;
 }
-#ADDR1{
+
+select {
+	width: 150px;
+	height: 35px;
+	background-size: 20px;
+	padding: 5px 30px 5px 10px;
+	border-radius: 4px;
+	outline: 0 none;
+	font-size: 15px;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+#ADDR1 {
 	width: 300px;
 }
-input[type=password]{
+
+#ADD2 {
+	width: 300px;
+}
+
+input[type=password] {
 	width: 150px;
 	height: 30px;
 	font-size: 18px;
-	 border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
-  text-align: center;
+	border: 0;
+	border-radius: 15px;
+	outline: none;
+	padding-left: 10px;
+	background-color: rgb(233, 233, 233);
+	text-align: center;
 }
-input[type=button]{
+
+input[type=button] {
 	width: 70px;
 	height: 30px;
 	font-size: 13px;
-	font-weight : bold;
-	 border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  text-align: center;
+	font-weight: bold;
+	border: 0;
+	border-radius: 15px;
+	outline: none;
+	padding-left: 10px;
+	text-align: center;
 }
-input[type=submit]{
+
+input[type=submit] {
 	width: 70px;
 	height: 30px;
 	font-size: 13px;
-	font-weight : bold;
-	 border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  text-align: center;
+	font-weight: bold;
+	border: 0;
+	border-radius: 15px;
+	outline: none;
+	padding-left: 10px;
+	text-align: center;
 }
-textarea{
+
+textarea {
 	width: 550px;
 	height: 200px;
 	font-size: 18px;
-	 border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
+	border: 0;
+	border-radius: 15px;
+	outline: none;
+	padding-left: 10px;
+	background-color: rgb(233, 233, 233);
 }
+
 h2 {
 	font-size: 30px;
 }
@@ -247,21 +272,20 @@ h2 {
 						<td colspan="4"><input type="radio" name="G_GUBUN" value="01"
 							checked="checked">사업자등록번호 <input type="radio"
 							name="G_GUBUN" value="02">해외사업자등록번호 <input type="radio"
-							name="G_GUBUN" value="03">주민등록번호
-							 <input type="radio"
+							name="G_GUBUN" value="03">주민등록번호 <input type="radio"
 							name="G_GUBUN" value="04">외국인&nbsp;</td>
 					</tr>
 					<tr>
 						<td>거래처코드</td>
-						<td>
-						<input type="text" name="BUSINESS_NO1" id="BUSINESS_NO1"
+						<td><input type="text" name="BUSINESS_NO1" id="BUSINESS_NO1"
 							required="required" size="7" maxlength="3">-<input
 							type="text" name="BUSINESS_NO2" id="BUSINESS_NO2"
-							required="required" size="7" maxlength="2"><span id="busiArea">-<input
-							type="text" name="BUSINESS_NO3" id="BUSINESS_NO3"
-							required="required" maxlength="5"></span>
-							<span id="accResult"><!-- 거래처코드 중복 확인 메세지 표시 --></span>
-							</td>
+							required="required" size="7" maxlength="2"><span
+							id="busiArea">-<input type="text" name="BUSINESS_NO3"
+								id="BUSINESS_NO3" required="required" maxlength="5"></span> <span
+							id="accResult">
+								<!-- 거래처코드 중복 확인 메세지 표시 -->
+						</span></td>
 					</tr>
 					<tr>
 						<td>업태 &nbsp;</td>
@@ -338,10 +362,10 @@ h2 {
 					</tr>
 					<tr>
 						<td>담당자 전화번호</td>
-						<td colspan="4"><input type="text" name="MAN_TEL1" id="MAN_TEL1"
-							size="7" maxlength="3">-<input type="text" name="MAN_TEL2"
-							id="MAN_TEL2" size="7" maxlength="4">-<input type="text"
-							name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4"></td>
+						<td colspan="4"><input type="text" name="MAN_TEL1"
+							id="MAN_TEL1" size="7" maxlength="3">-<input type="text"
+							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4">-<input
+							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4"></td>
 					</tr>
 					<tr>
 						<td>담당자 이메일</td>
@@ -355,12 +379,9 @@ h2 {
 								<option value="google.com">google.com</option>
 						</select></td>
 					</tr>
-					<tr align="center">
-						<td colspan="5"><input type="submit" value="등록">
-						<input type="button" value="취소" onclick="location.href='AccList'">
-						</td>
-					</tr>
 				</table>
+				<br> <input type="submit" value="등록"> <input
+					type="button" value="취소" onclick="location.href='AccList'">
 			</form>
 		</div>
 

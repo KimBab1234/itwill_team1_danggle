@@ -42,14 +42,7 @@
 			</choose>
 			,#{URL_PATH}
 			,#{MAN_NAME}
-			, <choose>
-				<when test='MAN_TEL == ""'>
-					''
-				</when>
-				<otherwise>
-					CONCAT(#{MAN_TEL1},'-',#{MAN_TEL2},'-',#{MAN_TEL3})
-				</otherwise>
-			</choose>
+			, #{MAN_TEL}
 			, <choose>
 				<when test='MAN_EMAIL1 == ""'>
 					''
