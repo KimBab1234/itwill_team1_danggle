@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>댕글댕글 - ERP</title>
 <script>
 
 	var needPassChange = '${sessionScope.needPassChange}'
