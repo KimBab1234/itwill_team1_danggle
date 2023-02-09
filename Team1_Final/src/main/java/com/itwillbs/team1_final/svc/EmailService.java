@@ -4,8 +4,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,8 +48,7 @@ public class EmailService{
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
 			helper.setFrom("ljs930102@naver.com");
-			//			helper.setTo(email);
-			helper.setTo("iun05@naver.com");
+			helper.setTo(email);
 			helper.setSubject("댕글댕글 신규 사원 등록 완료. 임시 비밀번호가 발급되었습니다.");
 
 			StringBuffer sb = new StringBuffer();
@@ -70,11 +67,7 @@ public class EmailService{
 			e.printStackTrace();
 		}
 
-
-		//		mapper.insertTempPass(email,tempEncodedPass);
-
-		/////프로젝트 하는동안은 1234로 고정
-		mapper.insertTempPass(email,"$2a$10$YYOpNkIbQ5FNhuyUIiUtv.4yXc9bBv7IDPMmcEQZJYACYOCqEE4IK");
+		mapper.insertTempPass(email,tempEncodedPass);
 
 		mailSender.send(message);
 

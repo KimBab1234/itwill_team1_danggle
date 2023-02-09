@@ -131,7 +131,7 @@
 					+ "</tr>";
 					
 				$("#in_process_table").append(result);
-				originMiArr.push((proList[j].IN_SCHEDULE_QTY - proList[j].IN_QTY));
+				originMiArr.push((proList[i].IN_SCHEDULE_QTY));
 				j++;
 				
 				sum += Number(proList[i].IN_SCHEDULE_QTY);

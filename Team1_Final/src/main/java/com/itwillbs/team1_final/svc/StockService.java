@@ -33,8 +33,16 @@ public class StockService {
 		}
 		return mapper.selectStockListCount(search);
 	}
-	public ArrayList<StockVO> getStockDetail(String stockNo) {
-		return mapper.selectStockDetail(stockNo);
+	public ArrayList<StockVO> getStockDetail(String stockNo, int type, int startRow, int listLimit) {
+		String sql="";
+		if(type==0) {
+			sql="WHERE SOURCE_STOCK_CD="+stockNo+" OR TARGET_STOCK_CD="+stockNo;
+		} else if(type==1) {
+			sql="WHERE TARGET_STOCK_CD="+stockNo;
+		} else if(type==2) {
+			sql="WHERE SOURCE_STOCK_CD="+stockNo;
+		}
+		return mapper.selectStockDetail(sql, startRow, listLimit);
 	}
 
 	public ArrayList<WhVO> getWhList(String searchType, String keyword, int startRow, int listLimit) {
