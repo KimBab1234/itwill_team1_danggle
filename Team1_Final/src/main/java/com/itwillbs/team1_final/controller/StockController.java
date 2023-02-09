@@ -140,18 +140,34 @@ public class StockController {
 		return jsonPage.toString();
 	}
 
+	/////재고 상세 조회 폼
+	@RequestMapping(value = "/StockDetail", method = RequestMethod.GET)
+	public String stockDetail() {
+		System.out.println("재고 상세조회 폼");
+		return "stock/stock_detail";
+	}
 
 	/////재고 상세 조회 = 재고 이력 조회
-	@RequestMapping(value = "/StockDetail", method = RequestMethod.GET)
-	public String stockDetail(String stockNo, Model model) {
+	@ResponseBody
+	@RequestMapping(value = "/StockDetailPro", method = {RequestMethod.POST, RequestMethod.GET})
+	public String stockDetailPro(@RequestParam String stockNo, @RequestParam(defaultValue = "0") int type, @RequestParam(defaultValue = "1") int pageNum) {
 
 		System.out.println("재고 상세 조회");
+		
+		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
+		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
+		ArrayList<StockVO> stockList = service.getStockDetail(stockNo, type, startRow, listLimit);
 
-		ArrayList<StockVO> stockList = service.getStockDetail(stockNo);
+		JSONObject jsonStr = new JSONObject();
+		JSONArray arr = new JSONArray();
 
-		model.addAttribute("stockList",stockList);
+		for(StockVO bean : stockList) {
+			JSONObject stock = new JSONObject(bean);
+			arr.put(stock);
+		}
 
-		return "stock/stock_detail";
+		jsonStr.put("jsonStock", arr);
+		return jsonStr.toString();
 	}
 
 	/////재고 수정
@@ -245,12 +261,9 @@ public class StockController {
 		
 		///도착지에 같은 물건 있는지 확인해서 stockNo 받아오기
 		int newStockNo = service.getNewStockCD(product_cd, target_loc);
+		
 		stock.setWH_LOC_IN_AREA_CD(target_loc); ///도착지는 지정한 위치
 		stock.setTARGET_STOCK_CD(newStockNo); ///도착지 stockNo는 조회해온걸로
-		
-		System.out.println("==============");
-		System.out.println(newStockNo);
-		
 		if(control==0) {
 			stock.setSTOCK_CD(newStockNo);
 			stock.setSOURCE_STOCK_CD(null); ////입고는 출발지 없음

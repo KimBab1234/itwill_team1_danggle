@@ -17,6 +17,8 @@
 </head>
 <body>
 	<jsp:include page="inc/top.jsp"></jsp:include>
-		<h1 align="center" style="text-align: center;">메인페이지</h1>
+	<div style="width: 1800px; min-height: 1300px;">
+		<h1 align="center" style="width: 1800px; text-align: center;">메인페이지</h1>
+	</div>
 </body>
 </html>

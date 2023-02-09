@@ -22,10 +22,97 @@
 <style>
 
 </style>
-<title>Insert title here</title>
+<title>재고 이력</title>
 <script>
+
+var type;
+var pageNum;
+var stockNo = '${param.stockNo}';
+var stock;
+var input=0;
+var output=0;
+var delta=0;
+var len;
+
+$(function() {
+	
+	////전체 입고 출고 선택시 목록 변경
+	$(".choice").on("click", function() {
+	
+		if(type==$(this).attr("id")){
+			return false;
+		}
+		type = $(this).attr("id");
+		$(".choiceSelect").attr("class","choice");
+		$(this).attr("class","choiceSelect");
+		///pageNum은 일부러 null로주기
+		getList(null);
+	});
+	
+	$("#0").attr("class","choiceSelect");
+	getList(1);
 	
 	
+});
+	
+function getList(toPageNum) {
+
+	///같은 페이지 들어오면 아무일 없음
+	if(pageNum == toPageNum) {
+		return false;
+	}
+	////새로운 페이지로 바꿔주기
+	if(toPageNum==null) {
+		toPageNum = 1;
+	}
+	pageNum = toPageNum;
+	$.ajax({
+		url: 'StockDetailPro',
+		type: 'post',
+		data: {
+			pageNum : toPageNum,
+			type : type,
+			stockNo: stockNo
+		},
+		dataType : 'json',
+		success : function(response) {
+			stock = response.jsonStock;
+			/// 테이블 초기화
+			$("table tbody").empty();
+			len = stock.length;
+			/// 데이터 뿌리기
+			if(stock.length==0) {
+				$(".regi_table").append('<tr><td colspan="8">해당 기록이 없습니다.</td></tr>');
+			}
+			for(var i=0; i<stock.length; i++) {
+				var str = "";
+				str += '<tr><td>'+stock[i].STOCK_DATE+'</td>'
+				+'<td>'+stock[i].STOCK_CONTROL_TYPE_NAME+'</td>'
+				+'<td>'+stock[i].PRODUCT_NAME+'</td>';
+				
+				if(stock[i].SOURCE_STOCK_CD!=undefined) {
+					str += '<td><a href="StockDetail?stockNo='+stock[i].SOURCE_STOCK_CD+'">'+stock[i].SOURCE_STOCK_CD+'</a></td>';
+				} else {
+					str += '<td>-</td>';
+				}
+				if(stock[i].TARGET_STOCK_CD!=undefined) {
+					str += '<td><a href="StockDetail?stockNo='+stock[i].TARGET_STOCK_CD+'">'+stock[i].TARGET_STOCK_CD+'</a></td>';
+				}else {
+					str += '<td>-</td>';
+				}
+				str += '<td>'+stock[i].QTY+'</td>'
+				+'<td>'+stock[i].EMP_NAME+'</td>'
+				+'<td>'+stock[i].REMARKS+'</td></tr>';
+				
+				$(".regi_table").append(str);
+				
+			}
+		}
+	});
+	
+	
+	
+}
 
 </script>
 <style>
@@ -37,49 +124,28 @@ option {
 </head>
 <body>
 	
-	<h1 align="left" style="width: 1250px; text-align: left; margin-left: 20px;">| 재고 이력 </h1>
+	<div style="display: flex; width: 1250px; margin-left: 20px;">
+		<h1 align="left" style="text-align: left; width:600px;">| 재고 이력 </h1>
+	</div>
+	<div style="width: 1250px;  margin-left: 20px;">
+		<div class="choice" id="0">전체</div><div class="choice" id="1">입고</div><div class="choice" id="2">출고</div>
+	</div>
 	<table border="1" class="regi_table" style="text-align: center; margin-left: 20px; width: 1250px; font-size: 20px;">
-		<tr>
-			<th width="200">작업일자</th>
-			<th width="150">작업구분</th>
-			<th width="400">품목명[규격]</th>
-			<th width="250">보내는 재고번호</th>
-			<th width="250">받는 재고번호</th>
-			<th width="150">수량</th>
-			<th width="150">작업자명</th>
-			<th width="500">적요</th>
-		</tr>
-		<c:forEach items="${stockList}" var="stock">
+		<thead>
 			<tr>
-				<td>${stock.STOCK_DATE}</td>
-				<td>${stock.STOCK_CONTROL_TYPE_NAME}</td>
-				<td>${stock.PRODUCT_NAME}</td>
-				<td>
-					<c:choose>
-						<c:when test="${stock.SOURCE_STOCK_CD==null }">
-							-
-						</c:when>
-						<c:otherwise>
-							<a href="StockDetail?stockNo=${stock.SOURCE_STOCK_CD}">${stock.SOURCE_STOCK_CD}</a>
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>
-					<c:choose>
-						<c:when test="${stock.TARGET_STOCK_CD==null }">
-							-
-						</c:when>
-						<c:otherwise>
-							<a href="StockDetail?stockNo=${stock.TARGET_STOCK_CD}">${stock.TARGET_STOCK_CD}</a>
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>${stock.QTY}</td>
-				<td>${stock.EMP_NAME}</td>
-				<td>${stock.REMARKS}</td>
+				<th width="300">작업일자</th>
+				<th width="150">작업구분</th>
+				<th width="300">품목명[규격]</th>
+				<th width="100">보낸 번호</th>
+				<th width="100">받는 번호</th>
+				<th width="70">수량</th>
+				<th width="150">작업자명</th>
+				<th width="200">적요</th>
 			</tr>
-		</c:forEach>
+		</thead>
+		<tbody>
 		
+		</tbody>
 	
 	</table>
 

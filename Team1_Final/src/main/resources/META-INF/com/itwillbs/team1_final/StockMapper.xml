@@ -8,7 +8,7 @@
 	</select>
 	
 	<select id="selectStockList" resultType="stock">
-		SELECT * FROM stock_view ${search} LIMIT #{startRow},#{listLimit};
+		SELECT * FROM stock_view ${search} ORDER BY STOCK_CD DESC LIMIT #{startRow},#{listLimit};
 	</select>
 	
 	<select id="selectWhList" resultType="com.itwillbs.team1_final.vo.WhVO">
@@ -16,7 +16,7 @@
 	</select>
 	
 	<select id="selectStockDetail" resultType="stock">
-		SELECT * FROM sh_view WHERE SOURCE_STOCK_CD=#{stockNo} OR TARGET_STOCK_CD=#{stockNo};
+		SELECT * FROM sh_view ${sql} ORDER BY STOCK_DATE DESC LIMIT #{startRow},#{listLimit};
 	</select>
 	
 	<select id="selectNewStockCD" resultType="int">
