@@ -45,7 +45,7 @@ public interface WhMapper {
 
 	int updateWhArea(WhVO wh);
 
-	int deleteWhLocation(String wh_LOC_IN_AREA_CD);
+	int deleteWhLocation(int wh_LOC_IN_AREA_CD);
 
 	int updateWhLocation(WhVO wh);
 

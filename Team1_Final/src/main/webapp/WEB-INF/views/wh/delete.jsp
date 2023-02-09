@@ -6,6 +6,22 @@
 
 <meta charset="UTF-8">
 <title>창고 삭제</title>
+<script type="text/javascript">
+////로그인 유무 및 권한 확인
+///기본등록(0), 사원조회(1), 사원관리(2), 재고조회(3), 재고관리(4)
+var loginEmp = '${sessionScope.empNo}';
+var priv = '${sessionScope.priv}';
+if(loginEmp=='') {
+ alert("로그인 후 이용하세요.");
+ location.href="./Login";
+} else if(priv.charAt(0) !='1') {
+ alert("권한이 없습니다.");
+ history.back();
+}
+////로그인 유무 및 권한 확인 끝
+
+</script>
+
 <link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 .hrFormBtn {

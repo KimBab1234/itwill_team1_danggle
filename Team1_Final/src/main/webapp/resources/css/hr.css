@@ -359,9 +359,6 @@ label {
 
 /* 페이지 영역 */
 #pageList { 
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	margin-top: 50px;
 }
 

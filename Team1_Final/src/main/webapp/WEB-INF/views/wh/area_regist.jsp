@@ -11,6 +11,22 @@
 <link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+////로그인 유무 및 권한 확인
+///기본등록(0), 사원조회(1), 사원관리(2), 재고조회(3), 재고관리(4)
+var loginEmp = '${sessionScope.empNo}';
+var priv = '${sessionScope.priv}';
+if(loginEmp=='') {
+ alert("로그인 후 이용하세요.");
+ location.href="./Login";
+} else if(priv.charAt(0) !='1') {
+ alert("권한이 없습니다.");
+ history.back();
+}
+////로그인 유무 및 권한 확인 끝
+
+</script>
+
 <link href="${pageContext.request.contextPath }/resources/css/hr.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 .hrFormBtn {
@@ -47,6 +63,7 @@
 			<h2 align="center">내부 구역 등록</h2>
 			<form action="WhAreaRegistPro" method="post">
 			<input type="hidden" name="WH_CD" value="${param.WH_CD}">
+			<input type="hidden" name="pageNum" value="${param.pageNum}">
 			<table style="text-align: center; border: solid 1px; width: 500px; height: 150px;">
 				<tr>
 					<td align="right" style="width: 200px;">구역명</td> 
