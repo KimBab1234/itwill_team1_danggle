@@ -17,10 +17,10 @@ table {
  	margin: 0 auto;
 	border-collapse: collapse;
 	border-color: #b09f76;
-	text-align: center;
 	font-weight: bold;
 	border-radius: 10px;
   	box-shadow: 0 0 0 2px #c9b584;
+  	width: 670px;
  	} 
 
 #td_left {
@@ -30,7 +30,7 @@ table {
 	background: #c9b584; 
  	color: #736643;
  	width: 250px;
-	
+	text-align: center;
 }
 #b1 {
 	background-color: #fff5e6;
@@ -82,25 +82,6 @@ table {
     border: 0;
 }
 </style>
-<script type="text/javascript">
-	function addBarcode() {
-
-		$.ajax({
-			type: "GET",
-			url: "Barcode",
-			dataType: "json",
-				
-			 success : function(data){
-			 	$("#BARCODE").val(data);
-
-			 },
-			 error : function(){
-			    alert("에러");	
-			 }
-		});
-	
-	}
-</script>
 </head>
 <body>
 	<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -116,26 +97,26 @@ table {
 			<table>
 				<tr>
 					<td id="td_left"><label for="PRODUCT_NAME">품목명</label></td>
-					<td><input type="text" style="height: 30px; width: 410px; font-weight : bold ;" name="PRODUCT_NAME" readonly="readonly" value="${product.PRODUCT_NAME }"></td>
+					<td><input type="text" style="height: 30px; width: 350px; font-weight : bold ;margin-left:35px;" name="PRODUCT_NAME" readonly="readonly" value="${product.PRODUCT_NAME }"></td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="PRODUCT_GROUP_BOTTOM_CD">품목그룹</label><br>
 					</td>
 					<td>
-						<input type="text" name="PRODUCT_GROUP_TOP_CD" id="PRODUCT_GROUP_TOP_CD" readonly="readonly" required="required" style="height: 30px; width: 100px; font-weight : bold ;">
-						<input type="text" name="PRODUCT_GROUP_BOTTOM_CD" id="PRODUCT_GROUP_BOTTOM_CD" readonly="readonly" required="required" style="height: 30px; width: 100px; font-weight : bold ;">
-						<input type="text" name="PRODUCT_GROUP_BOTTOM_NAME" id="PRODUCT_GROUP_BOTTOM_NAME" readonly="readonly" required="required" style="height: 30px; width: 100px; font-weight : bold ;">
+						<input type="text" name="PRODUCT_GROUP_TOP_CD" id="PRODUCT_GROUP_TOP_CD" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;margin-left:35px;">
+						<input type="text" name="PRODUCT_GROUP_BOTTOM_CD" id="PRODUCT_GROUP_BOTTOM_CD" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;">
+						<input type="text" name="PRODUCT_GROUP_BOTTOM_NAME" id="PRODUCT_GROUP_BOTTOM_NAME" readonly="readonly" required="required" style="height: 30px; width: 70px; font-weight : bold ;">
 						<button type="button" onclick="window.open('Pd_group_bottom_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')"><b>품목그룹(소) 선택</b></button>
 					</td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="SIZE_DES">규격</label></td>
-					<td id="td_right"><input type="text" style="height: 30px; width: 430px; font-weight : bold ;" name="SIZE_DES" value="${product.SIZE_DES }"></td>
+					<td id="td_right"><input type="text" style="height: 30px; width: 350px; font-weight : bold ;margin-left: 35px;" name="SIZE_DES" value="${product.SIZE_DES }"></td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="UNIT">단위</label></td>
 					<td>
-						<select style="height: 30px; width: 430px; font-weight : bold ;" name="UNIT" required="required" >
+						<select style="height: 30px; width: 350px; font-weight : bold ;margin-left: 35px;" name="UNIT" required="required" >
 							<option value="">=======================  단위  =======================</option>
 							<option value="SET" ${product.UNIT == 'SET' ? 'selected="selected"' : '' }>SET</option>
 							<option value="BOX" ${product.UNIT == 'BOX' ? 'selected="selected"' : '' }>BOX</option>
@@ -146,30 +127,30 @@ table {
 				<tr>
 					<td id="td_left"><label for="BARCODE">바코드</label></td>
 					<td>
-						<input type="text" style="font-weight : bold ;" name="BARCODE" id="BARCODE" readonly="readonly" value="${product.BARCODE }">바코드 수정 불가
+						<input type="text" style="font-weight : bold ;margin-left: 35px; width: 230px;" name="BARCODE" id="BARCODE" readonly="readonly" value="${product.BARCODE }">&nbsp;바코드 수정 불가
 					</td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="IN_UNIT_PRICE">입고단가</label></td>
-					<td id="td_right"><input type="text" style="height: 30px; width: 430px; font-weight : bold ;" name="IN_UNIT_PRICE" required="required" value="${product.IN_UNIT_PRICE }"></td>
+					<td id="td_right"><input type="text" style="height: 30px; width: 350px; font-weight : bold ;margin-left: 35px;" name="IN_UNIT_PRICE" required="required" value="${product.IN_UNIT_PRICE }"></td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="OUT_UNIT_PRICE">출고단가</label></td>
-					<td id="td_right"><input type="text" style="height: 30px; width: 430px; font-weight : bold ;" name="OUT_UNIT_PRICE" required="required" value="${product.OUT_UNIT_PRICE }"></td>
+					<td id="td_right"><input type="text" style="height: 30px; width: 350px; font-weight : bold ;margin-left: 35px;" name="OUT_UNIT_PRICE" required="required" value="${product.OUT_UNIT_PRICE }"></td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="PRODUCT_TYPE_CD">품목구분</label></td>
 					<td id="td_right">
-						<input type="text" name="PRODUCT_TYPE_CD" id="PRODUCT_TYPE_CD" readonly="readonly" required="required" style="height: 30px; width: 105px; font-weight : bold ;">
-						<input type="text" name="PRODUCT_TYPE_NAME" id="PRODUCT_TYPE_NAME" readonly="readonly" required="required" style="height: 30px; width: 105px; font-weight : bold ;">
-						<button type="button" onclick="window.open('Pd_type_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')"><b>품목구분 선택</b></button>
+						<input type="text" name="PRODUCT_TYPE_CD" id="PRODUCT_TYPE_CD" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;margin-left: 35px;">
+						<input type="text" name="PRODUCT_TYPE_NAME" id="PRODUCT_TYPE_NAME" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;">
+						<button type="button" onclick="window.open('Pd_type_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')"><b>&nbsp;&nbsp;품목구분 선택</b></button>
 					</td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="BUSINESS_NO">구매거래처</label></td>
 					<td id="td_right">
-						<input type="text" name="BUSINESS_NO" id="BUSINESS_NO" readonly="readonly" required="required" style="height: 30px; width: 105px; font-weight : bold ;">
-						<input type="text" name="CUST_NAME" id="CUST_NAME" readonly="readonly" required="required" style="height: 30px; width: 105px; font-weight : bold ;">
+						<input type="text" name="BUSINESS_NO" id="BUSINESS_NO" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;margin-left: 35px;">
+						<input type="text" name="CUST_NAME" id="CUST_NAME" readonly="readonly" required="required" style="height: 30px; width: 120px; font-weight : bold ;">
 						<button type="button" onclick="window.open('Business_No_SearchForm', 'searchPopup', 'width=500, height=500, left=600, top=400')"><b>거래처목록 선택</b></button>
 					</td>
 				</tr>
@@ -186,7 +167,7 @@ table {
 								
 								</c:otherwise>
 							</c:choose>
-		   					<input class="upload-name" placeholder="선택된 파일 없음" id="img_name" value="${product.PRODUCT_IMAGE }">
+		   					<input class="upload-name" placeholder="선택된 파일 없음" id="img_name" value="${product.PRODUCT_IMAGE }" style="margin-left: 35px;">
 		    				<label for="img">파일찾기</label> 
 		   					<input type="file" required="required" name="file" id="img">
 						</div>
@@ -197,7 +178,7 @@ table {
 				<tr>
 					<td id="td_left"><label for="REMARKS">적요</label></td>
 					<td id="td_right">
-						<textarea rows="3" cols="65" name="REMARKS"  style="font-weight : bold ;" placeholder="${product.REMARKS }"></textarea>
+						<textarea rows="3" cols="55" name="REMARKS"  style="font-weight : bold ;margin-left: 35px;">${product.REMARKS }</textarea>
 					</td>
 				</tr>
 			</table>
