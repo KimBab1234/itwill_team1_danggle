@@ -12,6 +12,17 @@
 	var i = 0;	
 	var selectIdx;
 	
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+	    location.href="./Login";
+	} else if(priv.charAt(3) !='1') {
+		alert("권한이 없습니다.");
+		history.back();
+	}
+	
+	
 	
 	function sc_status(){
 		$.ajax({
