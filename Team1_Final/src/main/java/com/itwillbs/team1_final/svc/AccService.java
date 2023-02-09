@@ -45,6 +45,10 @@ public class AccService {
 	public int busiCount(String BUSINESS_NO) {
 		return mapper.busiCount(BUSINESS_NO);
 	}
+
+	public int deleteAccList(String acc) {
+		return mapper.deleteAccList(acc);
+	}
 	
 	
 }

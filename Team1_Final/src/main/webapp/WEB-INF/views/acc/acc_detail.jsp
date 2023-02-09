@@ -146,10 +146,6 @@ h2 {
 			}
 		});
 	});
-	
-// 	$(function() {
-// 		$("input[type=radio]").attr('disables',true);
-// 	});
 </script>
 </head>
 <body>
@@ -259,7 +255,7 @@ h2 {
 					<tr>
 						<td>적요</td>
 						<td colspan="4"><textarea cols="50" rows="10" name="REMARKS"
-								id="REMARKS" readonly="readonly">${acc.REMARKS }</textarea></td>
+								id="REMARKS" >${acc.REMARKS }</textarea></td>
 					</tr>
 					<tr>
 						<td>담당자명</td>
