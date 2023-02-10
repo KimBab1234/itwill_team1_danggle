@@ -176,11 +176,11 @@ pageEncoding="UTF-8"%>
 				}
 			}
 			
-// 			for(var i = 0; i < $(".stock_cd").length; i++){
-// 				if($(".stock_cd").eq(i).val() == "재고번호"){
-// 					Number($(".stock_cd").eq(i).val());
-// 				}
-// 			}
+			for(var i = 0; i < $(".stock_cd").length; i++){
+				if($(".stock_cd").eq(i).val() == "재고번호"){
+					Number($(".stock_cd").eq(i).val());
+				}
+			}
 			
 			$.ajax({
 				url: 'OutSchRegistPro',

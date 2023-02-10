@@ -13,7 +13,7 @@ public class OutPdVO {
 	private Date PD_OUT_DATE;
 	private String PD_REMARKS;
 	private String OUT_COMPLETE;
-	private String STOCK_CD;
+	private int STOCK_CD;
 	private String STOCK_QTY;
 	private String WH_NAME;
 	private String WH_AREA;
@@ -74,10 +74,10 @@ public class OutPdVO {
 	public void setOUT_COMPLETE(String oUT_COMPLETE) {
 		OUT_COMPLETE = oUT_COMPLETE;
 	}
-	public String getSTOCK_CD() {
+	public int getSTOCK_CD() {
 		return STOCK_CD;
 	}
-	public void setSTOCK_CD(String sTOCK_CD) {
+	public void setSTOCK_CD(int sTOCK_CD) {
 		STOCK_CD = sTOCK_CD;
 	}
 	public String getSTOCK_QTY() {

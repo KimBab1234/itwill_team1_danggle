@@ -150,6 +150,12 @@ public class OutSchVo {
 	public void setPD_REMARKS_Arr(List<String> pD_REMARKS_Arr) {
 		PD_REMARKS_Arr = pD_REMARKS_Arr;
 	}
+	public List<Integer> getSTOCK_CD_Arr() {
+		return STOCK_CD_Arr;
+	}
+	public void setSTOCK_CD_Arr(List<Integer> sTOCK_CD_Arr) {
+		STOCK_CD_Arr = sTOCK_CD_Arr;
+	}
 	public String getPD_OUT_SCHEDULE_CD() {
 		return PD_OUT_SCHEDULE_CD;
 	}
@@ -192,6 +198,12 @@ public class OutSchVo {
 	public void setOUT_QTY(String oUT_QTY) {
 		OUT_QTY = oUT_QTY;
 	}
+	public Integer getSTOCK_CD() {
+		return STOCK_CD;
+	}
+	public void setSTOCK_CD(Integer sTOCK_CD) {
+		STOCK_CD = sTOCK_CD;
+	}
 	
 	@Override
 	public String toString() {
@@ -201,21 +213,10 @@ public class OutSchVo {
 				+ CUST_NAME + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", PRODUCT_CD_Arr="
 				+ PRODUCT_CD_Arr + ", PRODUCT_NAME_Arr=" + PRODUCT_NAME_Arr + ", SIZE_DES_Arr=" + SIZE_DES_Arr
 				+ ", OUT_SCHEDULE_QTY_Arr=" + OUT_SCHEDULE_QTY_Arr + ", PD_OUT_DATE_Arr=" + PD_OUT_DATE_Arr
-				+ ", PD_REMARKS_Arr=" + PD_REMARKS_Arr + ", PD_OUT_SCHEDULE_CD=" + PD_OUT_SCHEDULE_CD + ", PRODUCT_CD="
-				+ PRODUCT_CD + ", PD_OUT_DATE=" + PD_OUT_DATE + ", PD_OUT_COMPLETE=" + PD_OUT_COMPLETE + ", PD_REMARKS="
-				+ PD_REMARKS + ", OUT_SCHEDULE_QTY=" + OUT_SCHEDULE_QTY + ", OUT_QTY=" + OUT_QTY + "]";
-	}
-	public List<Integer> getSTOCK_CD_Arr() {
-		return STOCK_CD_Arr;
-	}
-	public void setSTOCK_CD_Arr(List<Integer> sTOCK_CD_Arr) {
-		STOCK_CD_Arr = sTOCK_CD_Arr;
-	}
-	public Integer getSTOCK_CD() {
-		return STOCK_CD;
-	}
-	public void setSTOCK_CD(Integer sTOCK_CD) {
-		STOCK_CD = sTOCK_CD;
+				+ ", PD_REMARKS_Arr=" + PD_REMARKS_Arr + ", STOCK_CD_Arr=" + STOCK_CD_Arr + ", PD_OUT_SCHEDULE_CD="
+				+ PD_OUT_SCHEDULE_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PD_OUT_DATE=" + PD_OUT_DATE
+				+ ", PD_OUT_COMPLETE=" + PD_OUT_COMPLETE + ", PD_REMARKS=" + PD_REMARKS + ", OUT_SCHEDULE_QTY="
+				+ OUT_SCHEDULE_QTY + ", OUT_QTY=" + OUT_QTY + ", STOCK_CD=" + STOCK_CD + "]";
 	}
 	
 }

@@ -20,7 +20,9 @@ public class StockService {
 	public ArrayList<StockVO> getStockList(String searchType, String keyword, int startRow, int listLimit) {
 
 		String search = "";
-		if(searchType!=null && !searchType.equals("") ) {
+		if(searchType.equals("OUT_PRODUCT_CD")) {
+			search = "WHERE PRODUCT_CD LIKE " + keyword;
+		} else if(searchType!=null && !searchType.equals("") && !searchType.equals("OUT_PRODUCT_CD")) {
 			search = "WHERE " + searchType + " LIKE '%" + keyword + "%'";
 		}
 		return mapper.selectStockList(search,startRow,listLimit);
