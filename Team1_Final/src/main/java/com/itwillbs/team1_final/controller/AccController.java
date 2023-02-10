@@ -311,6 +311,20 @@ public class AccController {
 				} else {
 					acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
 				}
+				
+				// uptae 분리
+				if(acc.getUPTAE().split(",").length==2) {
+					acc.setUPTAE(acc.getUPTAE().split(",")[0]+" / "+ acc.getUPTAE().split(",")[1]);
+				} else if(acc.getUPTAE().split(",").length==3){
+					acc.setUPTAE(acc.getUPTAE().split(",")[0]+" / "+ acc.getUPTAE().split(",")[1]+" / "+acc.getUPTAE().split(",")[2]);
+				}
+				
+				// jongmok 분리
+				if(acc.getJONGMOK().split(",").length==2) {
+					acc.setJONGMOK(acc.getJONGMOK().split(",")[0]+" / "+ acc.getJONGMOK().split(",")[1]);
+				} else if(acc.getJONGMOK().split(",").length==3){
+					acc.setJONGMOK(acc.getJONGMOK().split(",")[0]+" / "+ acc.getJONGMOK().split(",")[1]+" / "+acc.getJONGMOK().split(",")[2]);
+				}
 		
 		int accModifyCount = service.accModify(acc);
 		
