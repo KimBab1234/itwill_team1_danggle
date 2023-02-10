@@ -32,6 +32,7 @@ pageEncoding="UTF-8"%>
 	}
 	
 	function searchStock(){
+		let sIndex = $
 		window.open('StockSearch', 'StockSearch', 'width=1000, height=600, left=600, top=400');
 	}
 	// --------------------------------------------------------------------------------
@@ -39,6 +40,22 @@ pageEncoding="UTF-8"%>
 	
 	// ------------------------------- 출고 예정 기능 ---------------------------------
 	$(function() {
+		$(document).on("click", "input[name=STOCK_CD_Arr]", function() {
+			let index = $(this).closest("tr").index();
+			let index = $(this).closest("tr").css("background", "#000");
+// 			let index = $(this).closest(".product_cd").index();
+// 			let index = $(this).siblings("tr").index();
+// 			let index = $(this).find("tr").index();
+
+			let product_cd = $("input[name=PRODUCT_CD_Arr]").eq(index).val();
+// 			let product_cd = tr.find("td:eq(0)").val();
+			
+			alert("index : " + index + ", product_cd : "+ product_cd);
+			
+// 			searchStock(product_cd);
+		});
+		
+		
 		// 오늘날짜 자동으로 기입
 		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
 		$("#out_today").val(today);
@@ -74,7 +91,8 @@ pageEncoding="UTF-8"%>
 					+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr"></td>'
 					+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>'
 					+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>'
-					+ '<td><a class="stock_cd" onclick="searchStock()">재고번호</a><td>'
+					+ '<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>'
+// 					+ '<td><a class="stock_cd" onclick="searchStock()">재고번호</a><td>'
 				    + '</tr>'
 			);
 
@@ -214,7 +232,7 @@ pageEncoding="UTF-8"%>
 				</tr>
 			</table>
 			<br>
-			<table class="out_table">
+			<table class="out_table" id="optionArea">
 				<tr>
 					<th width="100">품목코드</th>
 					<th width="250">품목명</th>
@@ -225,6 +243,7 @@ pageEncoding="UTF-8"%>
 					<th width="200">출고처리</th>
 				</tr>
 				<tr class="idx">
+<!-- 				<tr> -->
 					<td>
 						<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
@@ -237,10 +256,10 @@ pageEncoding="UTF-8"%>
 					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
 					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
 					<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
-					<td><input type="text" class="stock_cd" name="SROCK_CD_Arr" onclick="searchStock()" readonly="readonly" value="재고번호"></td>
 <!-- 					<td><a class="stock_cd" onclick="searchStock()" >재고번호</a><td> -->
+<!-- 					<td><input type="text" class="stock_cd" name="SROCK_CD_Arr" onclick="searchStock()" readonly="readonly" value="재고번호"></td> -->
+					<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>
 				</tr>
-				<tbody id="optionArea"></tbody>
 				<tr>
 					<th></th>
 					<th></th>

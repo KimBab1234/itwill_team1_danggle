@@ -5,7 +5,6 @@
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	var pdList;
-	var i = 0;
 	
 	function searchFunc() {
 		$.ajax({

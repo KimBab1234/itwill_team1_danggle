@@ -72,6 +72,7 @@
 				
 			}
 		});
+		
 	});
 	
 	function getStockList(toPageNum) {
