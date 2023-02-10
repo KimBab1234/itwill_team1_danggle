@@ -17,6 +17,21 @@ pageEncoding="UTF-8"%>
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+	
+	//---------------------------- 권한 판단 -----------------------------
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		window.close();
+		history.back();
+		opener.location.href  = './Login';
+	} else if(priv.charAt(4) !='1') {
+		alert("권한이 없습니다.");
+		window.close();
+	}
+	// --------------------------------------------------------------------
+
 
 	// ----------------------------------- 검색창 -------------------------------------
 	function searchEmp(){
