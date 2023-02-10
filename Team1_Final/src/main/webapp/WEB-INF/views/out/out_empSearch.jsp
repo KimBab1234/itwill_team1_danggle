@@ -58,7 +58,7 @@
 		this.close();
 	}
 </script>
-<link href="${pageContext.request.contextPath }/resources/css/in.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath }/resources/css/out.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div style="width:1200px;">
