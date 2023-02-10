@@ -67,21 +67,22 @@ public class OutController {
 			String OUT_TODAY,
 			OutSchVo outSch,
 			HttpServletResponse response) {
-		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
-		int idx = 1;
-		String out_schedule_cd = "";
-		
-		if(todayCount > 0) {
-			todayCount += 1;
-			out_schedule_cd = OUT_TODAY + "-" + todayCount;
-			outSch.setOUT_SCHEDULE_CD(out_schedule_cd);
-		} else {
-			out_schedule_cd = OUT_TODAY + "-" + idx;
-			outSch.setOUT_SCHEDULE_CD(out_schedule_cd);
-		}
-		
-		int insertCount = service.registOutSchAndPd(outSch);
-		return insertCount;
+//		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
+//		int idx = 1;
+//		String out_schedule_cd = "";
+//		
+//		if(todayCount > 0) {
+//			todayCount += 1;
+//			out_schedule_cd = OUT_TODAY + "-" + todayCount;
+//			outSch.setOUT_SCHEDULE_CD(out_schedule_cd);
+//		} else {
+//			out_schedule_cd = OUT_TODAY + "-" + idx;
+//			outSch.setOUT_SCHEDULE_CD(out_schedule_cd);
+//		}
+//		
+//		int insertCount = service.registOutSchAndPd(outSch);
+//		return insertCount;
+		return 0;
 		
 	}
 	// ----------------------------------------------------------
@@ -216,9 +217,11 @@ public class OutController {
 		return jsonObject.toString();
 	}
 	
+	
+	// 재고 검색 창
 	@GetMapping(value = "/StockSearch")
 	public String searchStock() {
-		return "out/temp111";
+		return "out/out_stockSearch";
 	}
 	
 	

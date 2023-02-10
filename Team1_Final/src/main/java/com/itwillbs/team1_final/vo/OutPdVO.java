@@ -14,6 +14,11 @@ public class OutPdVO {
 	private String PD_REMARKS;
 	private String OUT_COMPLETE;
 	private String STOCK_CD;
+	private String STOCK_QTY;
+	private String WH_NAME;
+	private String WH_AREA;
+	private String WH_LOC_IN_AREA;
+	
 	
 	public String getOUT_SCHEDULE_CD() {
 		return OUT_SCHEDULE_CD;
@@ -51,17 +56,17 @@ public class OutPdVO {
 	public void setOUT_QTY(int oUT_QTY) {
 		OUT_QTY = oUT_QTY;
 	}
-	public Date getOUT_DATE() {
+	public Date getPD_OUT_DATE() {
 		return PD_OUT_DATE;
 	}
-	public void setOUT_DATE(Date oUT_DATE) {
-		PD_OUT_DATE = oUT_DATE;
+	public void setPD_OUT_DATE(Date pD_OUT_DATE) {
+		PD_OUT_DATE = pD_OUT_DATE;
 	}
-	public String getREMARKS() {
+	public String getPD_REMARKS() {
 		return PD_REMARKS;
 	}
-	public void setREMARKS(String rEMARKS) {
-		PD_REMARKS = rEMARKS;
+	public void setPD_REMARKS(String pD_REMARKS) {
+		PD_REMARKS = pD_REMARKS;
 	}
 	public String getOUT_COMPLETE() {
 		return OUT_COMPLETE;
@@ -75,13 +80,38 @@ public class OutPdVO {
 	public void setSTOCK_CD(String sTOCK_CD) {
 		STOCK_CD = sTOCK_CD;
 	}
+	public String getSTOCK_QTY() {
+		return STOCK_QTY;
+	}
+	public void setSTOCK_QTY(String sTOCK_QTY) {
+		STOCK_QTY = sTOCK_QTY;
+	}
+	public String getWH_NAME() {
+		return WH_NAME;
+	}
+	public void setWH_NAME(String wH_NAME) {
+		WH_NAME = wH_NAME;
+	}
+	public String getWH_AREA() {
+		return WH_AREA;
+	}
+	public void setWH_AREA(String wH_AREA) {
+		WH_AREA = wH_AREA;
+	}
+	public String getWH_LOC_IN_AREA() {
+		return WH_LOC_IN_AREA;
+	}
+	public void setWH_LOC_IN_AREA(String wH_LOC_IN_AREA) {
+		WH_LOC_IN_AREA = wH_LOC_IN_AREA;
+	}
 	
 	@Override
 	public String toString() {
 		return "OutPdVO [OUT_SCHEDULE_CD=" + OUT_SCHEDULE_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PRODUCT_NAME="
 				+ PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", OUT_SCHEDULE_QTY=" + OUT_SCHEDULE_QTY + ", OUT_QTY="
-				+ OUT_QTY + ", OUT_DATE=" + PD_OUT_DATE + ", REMARKS=" + PD_REMARKS + ", OUT_COMPLETE=" + OUT_COMPLETE
-				+ ", STOCK_CD=" + STOCK_CD + "]";
+				+ OUT_QTY + ", PD_OUT_DATE=" + PD_OUT_DATE + ", PD_REMARKS=" + PD_REMARKS + ", OUT_COMPLETE="
+				+ OUT_COMPLETE + ", STOCK_CD=" + STOCK_CD + ", STOCK_QTY=" + STOCK_QTY + ", WH_NAME=" + WH_NAME
+				+ ", WH_AREA=" + WH_AREA + ", WH_LOC_IN_AREA=" + WH_LOC_IN_AREA + "]";
 	}
 	
 }
