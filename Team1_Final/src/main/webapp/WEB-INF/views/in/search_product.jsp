@@ -55,22 +55,14 @@
 		
 		
 	}
-	
-		var j = 0;
-		function departSelect(i) {
-			
-			for(var j = 0; j < $(opener.document).find(".indexCh").length; j++){
-				if($(opener.document).find('.product_cd').eq(j).val() == ''){
-					$(opener.document).find('.product_cd').eq(j).val(proList[i].PRODUCT_CD);
-					$(opener.document).find('.product_name').eq(j).val(proList[i].PRODUCT_NAME);
-					$(opener.document).find('.size_des').eq(j).val(proList[i].SIZE_DES);
-					break;
-				}
-			}
-			
-			this.close();
-		}
+
 		
+	function departSelect(i) {
+		$(opener.document).find('#product_cd'+opener.selectIdx).val(proList[i].PRODUCT_CD);
+		$(opener.document).find('#product_name'+opener.selectIdx).val(proList[i].PRODUCT_NAME);
+		$(opener.document).find('#size_des'+opener.selectIdx).val(proList[i].SIZE_DES);
+		this.close();
+	}
 	
 	
 	

@@ -18,6 +18,18 @@
 <script src="https://kit.fontawesome.com/4eef210fa3.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		location.href = './Login';
+	} else if(priv.charAt(4) !='1') {
+		alert("권한이 없습니다.");
+		history.back();
+		window.close();
+	}
+	
+	
 	var i = 0;
 	var j = 0;
 	var selectIndex;
@@ -30,16 +42,7 @@
 	var originMiArr = [];
 
 	
-	var loginEmp = '${sessionScope.empNo}';
-	var priv = '${sessionScope.priv}';
-	if(loginEmp=='') {
-		alert("로그인 후 이용하세요.");
-		window.close();
-		opener.location.href  = './Login';
-	} else if(priv.charAt(4) !='1') {
-		alert("권한이 없습니다.");
-		window.close();
-	}
+	
 	
 	// 재고번호 검색
 	function search_num(num){ 
