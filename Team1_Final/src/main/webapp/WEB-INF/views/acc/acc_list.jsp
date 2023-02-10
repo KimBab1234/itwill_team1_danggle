@@ -12,11 +12,60 @@
 	max-height: 610px;
 	margin: auto;
 }
+table { 
+ 	margin: 0 auto;
+	border-collapse: collapse;
+	border-color: #b09f76;
+	text-align: center;
+	font-weight: bold;
+	border-radius: 10px;
+  	box-shadow: 0 0 0 2px #c9b584;
+ 	} 
+#td_top {
+	height: 50px;
+	font-weight: bold;
+	font-size: 20px;
+	background: #c9b584; 
+ 	color: #736643;
+}
+#b1 {
+	background-color: #fff5e6;
+	width: 150px;
+	height: 50px;
+	color: #575754;
+	border-radius: 20px;
+	border-color: transparent;
+	font-weight: bold;
+	font-size: 25px;
+}
+#b2 {
+	background-color: #fff5e6;
+	width: 150px;
+	height: 50px;
+	color: #575754;
+	border-radius: 20px;
+	border-color: transparent;
+	font-weight: bold; 
+	font-size: 25px;
+}
 </style>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		// 로그인 유무 및 권한 확인
+	    // 기본등록(0), 사원조회(1), 사원관리(2), 재고조회(3), 재고관리(4)
+	   var loginEmp = '${sessionScope.empNo}';
+	   var priv = '${sessionScope.priv}';
+	   if(loginEmp=='') {
+	      alert("로그인 후 이용하세요.");
+	      location.href="./Login";
+	   } else if(priv.charAt(0) !='1') {
+	      alert("권한이 없습니다.");
+	      history.back();
+	   }
+	   // 로그인 유무 및 권한 확인 끝
+		
 		// 전체선택 버튼 누르면 전체 선택, 취소
 		$("#accAllCheck").on("change", function() {
 			if ($("#accAllCheck").is(":checked")) {
@@ -68,7 +117,9 @@
 				}
 			}
 		});
-		
+	
+		   
+		   
 	}); // ready() 끝
 </script>
 </head>
@@ -95,22 +146,22 @@
 				value="${param.keyword }"> <input type="submit" value="검색">
 			<br>
 			<table border="1" id="listform">
-				<tr align="center">
-					<td width="80">
-					<input type="checkbox" id="accAllCheck"></td>
-					<td width="200" id="">회사명</td>
-					<td width="200">사업자번호</td>
-					<td width="80" id="g_gubun">분류코드</td>
-					<td width="80" id="boss_name">대표명</td>
-					<td width="200" id="uptae">업태</td>
-					<td width="200" id="jongmok">종목</td>
-					<td width="450">주소</td>
-					<td width="80">담당자</td>
-					<td width="150">담당자이메일</td>
+				<tr align="center" height="50">
+					<td width="80"  id="td_top">전체선택<br>
+					<input type="checkbox" id="accAllCheck" ></td>
+					<td width="200" id="td_top">회사명</td>
+					<td width="200"  id="td_top">사업자번호</td>
+					<td width="80"  id="td_top">분류코드</td>
+					<td width="80"  id="td_top">대표명</td>
+					<td width="200" id="td_top">업태</td>
+					<td width="200" id="td_top">종목</td>
+					<td width="450"  id="td_top">주소</td>
+					<td width="80"  id="td_top">담당자</td>
+					<td width="150"  id="td_top">담당자이메일</td>
 				</tr>
 				<c:forEach var="acc" items="${acc }">
 					<tr>
-						<td align="center"><input type="checkbox" id="accCheck" name="selectAccList"
+						<td align="center" ><input type="checkbox" id="accCheck" name="selectAccList"
 							value="${acc.BUSINESS_NO }"></td>
 						<td align="center">${acc.CUST_NAME }</td>
 						<c:choose>
@@ -126,7 +177,7 @@
 						<td align="center">${acc.BOSS_NAME }</td>
 						<td align="center">${acc.UPTAE }</td>
 						<td align="center">${acc.JONGMOK }</td>
-						<td>${acc.ADDR }</td>
+						<td align="center">${acc.ADDR }</td>
 						<td align="center">${acc.MAN_NAME }</td>
 						<td align="center">${acc.MAN_EMAIL }</td>
 					</tr>

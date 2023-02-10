@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.team1_final.mapper.AccMapper;
 import com.itwillbs.team1_final.vo.AccVO;
+import com.itwillbs.team1_final.vo.PdVO;
 
 @Service
 public class AccService {
@@ -48,6 +49,10 @@ public class AccService {
 
 	public int deleteAccList(String acc) {
 		return mapper.deleteAccList(acc);
+	}
+
+	public List<PdVO> getProductName(String busi_no) {
+		return mapper.getProductName(busi_no);
 	}
 	
 	

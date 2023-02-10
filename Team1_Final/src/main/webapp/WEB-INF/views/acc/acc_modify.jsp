@@ -10,6 +10,19 @@
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <style type="text/css">
+select {
+	width: 150px;
+	height: 35px;
+	background-size: 20px;
+	padding: 5px 30px 5px 10px;
+	border-radius: 4px;
+	outline: 0 none;
+	font-size: 15px;
+}
+
+select::-ms-expand {
+	display: none;
+}
 table {
 	font-size: 20px;
 }
@@ -112,7 +125,6 @@ h2 {
 						extraAddr += (extraAddr !== '' ? ', '
 								+ data.buildingName : data.buildingName);
 					}
-
 				}
 				// 우편번호와 주소 정보를 해당 필드에 넣는다.
 				document.getElementById('POST_NO').value = data.zonecode;
@@ -155,10 +167,43 @@ h2 {
 		});
 	});
 	
+	// 주민등록번호에 체크되어있을때 BUSINESS_NO1, BUSINESS_NO2만 나오는 부분 
 	$(function() {
-		$("#jumin").prop("checked", function(){
+		$("input[type=radio][name=G_GUBUN]").prop("checked", function(){
+			if ('${acc.g_GUBUN}' == "03") {
 				$("#busiArea").css("display","none");
+				$("#BUSINESS_NO3").prop("required",false);
+			}
 		});
+		
+		// 업태 분리
+		$(function() {
+		  var upParts = '${acc.UPTAE}'.split("/");
+		  var upCount = upParts.length;
+		  for(var i = 0; i < upCount; i++){
+		    $("#upup").after("<input type='text' name='UPTAE' class='UPTAE' required='required' value='" + upParts[i] + "'>");
+		  }
+		});
+		
+		// 종목 분리
+		$(function() {
+		  var joParts = '${acc.JONGMOK}'.split("/");
+		  var joCount = joParts.length;
+		  for(var i = 0; i < joCount; i++){
+		    $("#jojo").after("<input type='text' name='JONGMOK' class='JONGMOK' required='required' value='" + joParts[i] + "'>");
+		  }
+		});
+	});
+	
+	$(function() {
+		// 업태 추가
+		$("#up").on("click", function(){
+				$("#upupup").prepend("<td><input type='text' name='UPTAE' id='UPTAE'required='required'></td>");
+		});
+		// 종목 추가
+		$("#jong").on("click", function(){
+				$("#jojo").after("<input type='text' name='JONGMOK' id='JONGMOK' required='required'>");
+		});			
 	});
 </script>
 </head>
@@ -194,7 +239,7 @@ h2 {
 							readonly="readonly"></span></td>
 					</tr>
 					<tr>
-						<td>거래처코드 &nbsp;</td>
+						<td>거래처구분 &nbsp;</td>
 						<td colspan="4"><input type="radio" name="G_GUBUN" value="01"
 							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if> onclick="return(false);">사업자등록번호
 							<input type="radio" name="G_GUBUN" value="02"
@@ -205,14 +250,12 @@ h2 {
 							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if> onclick="return(false);">외국인&nbsp;</td>
 					</tr>
 					<tr>
-						<td>업태 &nbsp;</td>
-						<td colspan="4"><input type="text" name="UPTAE" id="UPTAE"
-							required="required" value="${acc.UPTAE }"></td>
+						<td id="upup">업태 &nbsp;</td>
+						<td id="upupup"><input type="button" id="up" value="추가" ></td>
 					</tr>
 					<tr>
-						<td>종목</td>
-						<td colspan="4"><input type="text" name="JONGMOK"
-							id="JONGMOK" required="required" value="${acc.JONGMOK }"></td>
+						<td id="jojo">종목 &nbsp;</td>
+						<td colspan="4"><input type="button" id="jong" value="추가"></td>
 					</tr>
 					<tr>
 						<td>대표전화번호 &nbsp;</td>
@@ -300,7 +343,7 @@ h2 {
 					<tr>
 						<td colspan="5" align="right"><input type="button" value="삭제" onclick="location.href='AccDeletePro?BUSINESS_NO=${acc.BUSINESS_NO}'">
 						<input type="submit" value="수정">
-						<input type="button" value="뒤로가기" onclick="location.href='AccList'"></td>
+						<input type="button" value="뒤로가기" onclick="location.href='AccView?BUSINESS_NO=${acc.BUSINESS_NO}'"></td>
 					
 					</tr>
 				</table>

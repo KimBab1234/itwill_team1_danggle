@@ -36,6 +36,8 @@ public class AccVO {
 	private String MAN_EMAIL1;
 	private String MAN_EMAIL2;
 	private String REMARKS;
+	// 주요 품목 포함
+	private String PRODUCT_NAME;
 	
 	public String getBUSINESS_NO() {
 		return BUSINESS_NO;
@@ -280,6 +282,12 @@ public class AccVO {
 	public void setREMARKS(String rEMARKS) {
 		REMARKS = rEMARKS;
 	}
+	public String getPRODUCT_NAME() {
+		return PRODUCT_NAME;
+	}
+	public void setPRODUCT_NAME(String pRODUCT_NAME) {
+		PRODUCT_NAME = pRODUCT_NAME;
+	}
 	@Override
 	public String toString() {
 		return "AccVO [BUSINESS_NO=" + BUSINESS_NO + ", BUSINESS_NO1=" + BUSINESS_NO1 + ", BUSINESS_NO2=" + BUSINESS_NO2
@@ -291,6 +299,6 @@ public class AccVO {
 				+ MOBILE_NO2 + ", MOBILE_NO3=" + MOBILE_NO3 + ", URL_PATH=" + URL_PATH + ", MAN_NAME=" + MAN_NAME
 				+ ", MAN_TEL=" + MAN_TEL + ", MAN_TEL1=" + MAN_TEL1 + ", MAN_TEL2=" + MAN_TEL2 + ", MAN_TEL3="
 				+ MAN_TEL3 + ", MAN_EMAIL=" + MAN_EMAIL + ", MAN_EMAIL1=" + MAN_EMAIL1 + ", MAN_EMAIL2=" + MAN_EMAIL2
-				+ ", REMARKS=" + REMARKS + "]";
+				+ ", REMARKS=" + REMARKS + ", PRODUCT_NAME=" + PRODUCT_NAME + "]";
 	}
 }
