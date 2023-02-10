@@ -31,7 +31,8 @@ pageEncoding="UTF-8"%>
 		window.open('PdSearch', 'searchPro', 'width=500, height=500, left=600, top=400');
 	}
 	
-	function searchStock(){
+	function searchStock(product_cd){
+		pdcd = product_cd;
 		window.open('StockSearch', 'StockSearch', 'width=1000, height=600, left=600, top=400');
 	}
 	// --------------------------------------------------------------------------------
@@ -39,6 +40,7 @@ pageEncoding="UTF-8"%>
 	
 	// ------------------------------- 출고 예정 기능 ---------------------------------
 	$(function() {
+		
 		// 오늘날짜 자동으로 기입
 		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
 		$("#out_today").val(today);
@@ -74,7 +76,7 @@ pageEncoding="UTF-8"%>
 					+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr"></td>'
 					+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>'
 					+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>'
-					+ '<td><a class="stock_cd" onclick="searchStock()">재고번호</a><td>'
+					+ '<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>'
 				    + '</tr>'
 			);
 
@@ -87,6 +89,20 @@ pageEncoding="UTF-8"%>
 			
 		});
 		
+		
+		// 재고 선택
+		$(document).on("click", "input[name=STOCK_CD_Arr]", function() {
+			
+			if(!$(".product_cd").val() == "" && !$(".product_name").val() == "") {
+				let index = $(this).closest("tr").index();
+				let product_cd = $("input[name=PRODUCT_CD_Arr]").eq((index-1)).val();
+				searchStock(product_cd);
+			} else {
+				alert("품목정보를 먼저 선택해주세요!");
+			}
+			
+		});
+		
 		// 입력 Check
 		let empCheck = false;
 		let accCheck = false;
@@ -94,9 +110,11 @@ pageEncoding="UTF-8"%>
 		let pdCheck = false;
 		let qtyCheck = false;
 		let outPdDateCheck = false;
+// 		let stockCheck = false;
 		
-		$("#proRegi").submit(function() {
 	
+		$("#proRegi").submit(function() {
+			
 			if(!$("#emp_code").val() == "" && !$("#emp_name").val() == "") {
 				empCheck = true;
 			}
@@ -115,6 +133,9 @@ pageEncoding="UTF-8"%>
 			if(!$(".pd_out_date").val() == "" || !$(".pd_out_date").val() == "1900-01-01"){
 				outPdDateCheck = true;
 			}
+// 			if(!$(".stock_cd").val() == "재고번호"){
+// 				stockCheck = true;
+// 			}
 			
 			
 			if(!empCheck){
@@ -129,11 +150,14 @@ pageEncoding="UTF-8"%>
 			} else if(!pdCheck) {
 				alert("품목 정보를 검색해주세요!");
 				return false;
-			} else if(!qtyCheck){
-				alert("품목 수량을 입력해주세요!");
-				return false;
 			} else if(!outPdDateCheck){
 				alert("개별 품목 납기일자를 입력해주세요!");
+				return false;
+// 			} else if(!stockCheck){
+// 				alert("출고할 품목의 재고를 선택해주세요!");
+// 				return false;
+			} else if(!qtyCheck){
+				alert("품목 수량을 입력해주세요!");
 				return false;
 			}
 			
@@ -146,12 +170,18 @@ pageEncoding="UTF-8"%>
 	// -------------------------------- 출고예정 등록 ---------------------------------
 	function registFunc(){
 		$("#submitBtn").click(function() {
-			
 			for(var i = 0; i < $(".pd_out_date").length; i++){
 				if($(".pd_out_date").eq(i).val() == ""){
 					$(".pd_out_date").eq(i).val("1900-01-01");
 				}
 			}
+			
+// 			for(var i = 0; i < $(".stock_cd").length; i++){
+// 				if($(".stock_cd").eq(i).val() == "재고번호"){
+// 					Number($(".stock_cd").eq(i).val());
+// 				}
+// 			}
+			
 			$.ajax({
 				url: 'OutSchRegistPro',
 				type: 'POST',
@@ -215,6 +245,7 @@ pageEncoding="UTF-8"%>
 			</table>
 			<br>
 			<table class="out_table">
+				<tbody id="optionArea">
 				<tr>
 					<th width="100">품목코드</th>
 					<th width="250">품목명</th>
@@ -225,6 +256,7 @@ pageEncoding="UTF-8"%>
 					<th width="200">출고처리</th>
 				</tr>
 				<tr class="idx">
+<!-- 				<tr> -->
 					<td>
 						<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
@@ -237,10 +269,10 @@ pageEncoding="UTF-8"%>
 					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
 					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
 					<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
-					<td><input type="text" class="stock_cd" name="SROCK_CD_Arr" onclick="searchStock()" readonly="readonly" value="재고번호"></td>
-<!-- 					<td><a class="stock_cd" onclick="searchStock()" >재고번호</a><td> -->
+					<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>
 				</tr>
-				<tbody id="optionArea"></tbody>
+				</tbody>
+				<tfoot>
 				<tr>
 					<th></th>
 					<th></th>
@@ -250,6 +282,7 @@ pageEncoding="UTF-8"%>
 					<th></th>
 					<th></th>
 				</tr>
+				</tfoot>
 			</table>
 			<input type="button" value="품목 추가" id="recoBtn">
 			<input type="submit" value="출고예정 입력" id="submitBtn">

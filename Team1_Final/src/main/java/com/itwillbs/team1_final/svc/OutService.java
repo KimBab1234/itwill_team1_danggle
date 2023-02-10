@@ -65,8 +65,8 @@ public class OutService {
 			product.setPRODUCT_CD(codeList.get(i));
 			product.setOUT_SCHEDULE_CD(out_schedule_cd);
 			product.setOUT_SCHEDULE_QTY(qtyList.get(i));
-			product.setOUT_DATE(dateList.get(i));
-			product.setREMARKS(remarkList.get(i));
+			product.setPD_OUT_DATE(dateList.get(i));
+			product.setPD_REMARKS(remarkList.get(i));
 			
 			count += mapper.insertOutSchPd(product);
 		}
