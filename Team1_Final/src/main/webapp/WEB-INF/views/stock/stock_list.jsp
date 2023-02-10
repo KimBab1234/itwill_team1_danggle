@@ -218,7 +218,7 @@ input.chk_top + label{
 	};
 	
 	function showStockDetail(idx) {
-		 window.open('StockDetail?stockNo='+stock[idx].STOCK_CD, 'searchPopup', 'width=1300, height=600, left=300, top=200');
+		 window.open('StockDetail?stockNo='+stock[idx].STOCK_CD, 'searchPopup', 'width=1300, height=700, left=300, top=200');
 	}
 	
 	function showStockMoveList() {
@@ -259,6 +259,7 @@ option {
 				<select name="searchType" id="searchType" style="text-align: center; font-weight: bold; width: 100px; height: 35px;">
 					<option value="">검색 유형</option>
 					<option value="PRODUCT_CD">품목코드</option>
+					<option value="STOCK_CD">재고번호</option>
 					<option value="PRODUCT_NAME">품목명</option>
 					<option value="WH_AREA">구역명</option>
 					<option value="WH_LOC_IN_AREA">위치명</option>

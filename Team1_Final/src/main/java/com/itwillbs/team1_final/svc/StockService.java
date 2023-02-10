@@ -22,7 +22,9 @@ public class StockService {
 		String search = "";
 		if(searchType.equals("OUT_PRODUCT_CD")) {
 			search = "WHERE PRODUCT_CD LIKE " + keyword;
-		} else if(searchType!=null && !searchType.equals("") && !searchType.equals("OUT_PRODUCT_CD")) {
+		} else if(searchType.equals("STOCK_CD") || searchType.equals("PRODUCT_CD")) {
+			search = "WHERE " + searchType + "=" + keyword;
+		}else if(searchType!=null && !searchType.equals("")) {
 			search = "WHERE " + searchType + " LIKE '%" + keyword + "%'";
 		}
 		return mapper.selectStockList(search,startRow,listLimit);
@@ -30,7 +32,11 @@ public class StockService {
 	public int getStockListCount(String searchType, String keyword) {
 
 		String search = "";
-		if(searchType!=null && !searchType.equals("") ) {
+		if(searchType.equals("OUT_PRODUCT_CD")) {
+			search = "WHERE PRODUCT_CD LIKE " + keyword;
+		} else if(searchType.equals("STOCK_CD") || searchType.equals("PRODUCT_CD")) {
+			search = "WHERE " + searchType + "=" + keyword;
+		}else if(searchType!=null && !searchType.equals("")) {
 			search = "WHERE " + searchType + " LIKE '%" + keyword + "%'";
 		}
 		return mapper.selectStockListCount(search);
