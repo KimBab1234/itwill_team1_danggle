@@ -61,7 +61,7 @@ input[type="button"]{
 						+'<span class="searchLoc"></span><input type="button" class="hrFormBtn" style="height:35px" value="위치 검색" onclick="searchFormOpen('+j+')"/></td>'
 						+'<td><input type="text" name="MOVE_QTY_Arr" class="MOVE_QTY_Arr" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, \'\');" onchange="qtyChange(this)" /></td>'
 						+'<td><input type="text" class="sum" readOnly="readOnly" /></td>'
-						+'<td><input type="text" style="width:200" name="REMARKS_Arr" value="-" onchange="qtyChange(this)" /></td>'
+						+'<td><input type="text" style="width:200px; size:10px;" name="REMARKS_Arr" value="-" onchange="qtyChange(this)" /></td>'
 						+'</tr>'
 				);
 				j++;

@@ -65,7 +65,7 @@ input.chk_top + label{
    } 
 
 </style>
-<title>Insert title here</title>
+<title>재고 목록</title>
 <script>
 	
 	////재고 조회 권한은 "3"
@@ -79,10 +79,8 @@ input.chk_top + label{
 	}
 	
 	
-	
-	var pageList = {};
-	
 	///처음 들어왔을때 기본값 1
+	var pageList = {};
 	var pageNum;
 	var pageListLimit = 10;
 	var startPage;
@@ -90,6 +88,7 @@ input.chk_top + label{
 	var maxPage;
 	var	searchType = '';
 	var keyword = '';
+	var stock;
 
 	$(function() {
 		getPageList(1);
@@ -127,7 +126,7 @@ input.chk_top + label{
 					for(var i=0; i<stock.length; i++) {
 						$(".regi_table").append('<tr>'
 								+'<td width="50"><input type="checkbox" class="chk_top" id="chk_top'+i+'" /><label for="chk_top'+i+'" /></td>'
-								+'<td width="150"><a href="javascript:showStockDetail(' + stock[i].STOCK_CD + ')">' + stock[i].STOCK_CD + '</a></td>'
+								+'<td width="150"><a href="javascript:showStockDetail(' + i + ')">' + stock[i].STOCK_CD + '</a></td>'
 								+'<td width="120">'+stock[i].PRODUCT_CD+'</td>'
 								+'<td width="400">'+stock[i].PRODUCT_NAME+'</td>'
 								+'<td width="250">'+stock[i].WH_NAME +'</td>'
@@ -218,8 +217,8 @@ input.chk_top + label{
 		getPageList(herePage);
 	};
 	
-	function showStockDetail(stockNo) {
-		 window.open('StockDetail?stockNo='+stockNo, 'searchPopup', 'width=1300, height=700, left=300, top=200');
+	function showStockDetail(idx) {
+		 window.open('StockDetail?stockNo='+stock[idx].STOCK_CD, 'searchPopup', 'width=1300, height=600, left=300, top=200');
 	}
 	
 	function showStockMoveList() {
@@ -250,7 +249,7 @@ option {
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<div style="width: 1800px; display: flex; min-height: 1300px;"  align="center">
 		<div style="width: 300px; margin-top: 0px; margin-right: 0px;">
-			<jsp:include page="../inc/hr_left.jsp"></jsp:include>
+			<jsp:include page="../inc/wms_left.jsp"></jsp:include>
 		</div>
 		<!-- 여기서부터 본문-->
 		<div style="width: 1500px;"  align="center" >
@@ -264,7 +263,7 @@ option {
 					<option value="WH_AREA">구역명</option>
 					<option value="WH_LOC_IN_AREA">위치명</option>
 				</select>
-				<input type="text" name="keyword" id="keyword" onkeyup="searchEnter()" style="height: 35px;">
+				<input type="text" name="keyword" id="keyword" onkeyup="searchEnter()" style="height: 35px; font-weight: bold;">
 				<button  class="hrFormBtn"  style="width: 100px; height:30px; font-size:18px;" onclick="searchList()">
 					<i class="fa-solid fa-magnifying-glass" style="color: #fff; margin: 0;"></i>&nbsp;검색
 				</button>

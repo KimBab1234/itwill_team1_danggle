@@ -143,7 +143,7 @@
 	<header>
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
-	<jsp:include page="../inc/in_left.jsp"></jsp:include>
+	<jsp:include page="../inc/wms_left.jsp"></jsp:include>
 	<div style="width:1900px;">
 		<h3 id="h4">입고 처리</h3>
 		<div class="choice_in" id="all_sc">전체</div><div class="choice_in" id="sc_ing">입고예정</div><div class="choice_in" id="sc_com">입고완료</div>

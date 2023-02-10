@@ -38,7 +38,7 @@ public class HrService {
 
 		String search = "WHERE WORK_CD="+workType;
 		if(searchType!=null && !searchType.equals("") ) {
-			search = " " + searchType + " LIKE '%" + keyword + "%'";
+			search += " AND " + searchType + " LIKE '%" + keyword + "%'";
 		}
 
 		return mapper.selectEmpList(search,startRow,listLimit);
@@ -47,7 +47,7 @@ public class HrService {
 
 		String search = "WHERE WORK_CD="+workType;
 		if(searchType!=null && !searchType.equals("") ) {
-			search = " " + searchType + " LIKE '%" + keyword + "%'";
+			search += " AND " + searchType + " LIKE '%" + keyword + "%'";
 		}
 
 		return mapper.selectEmpListCount(search);

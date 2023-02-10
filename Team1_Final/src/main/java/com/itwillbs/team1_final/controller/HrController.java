@@ -371,7 +371,12 @@ public class HrController {
 			model.addAttribute("msg", "로그인 실패!");
 			return "fail_back";
 
-		} else { //로그인 성공
+		} else if(!loginEmp.getWORK_CD().equals("1")){ ///재직이 아니면
+		
+			model.addAttribute("msg", "휴퇴직 중인 사원은 로그인이 불가합니다.");
+			return "fail_back";
+			
+		}	else { //로그인 성공
 
 			///권한 저장해주기
 			session.setAttribute("priv", loginEmp.getPRIV_CD());

@@ -79,7 +79,7 @@
 	</update>
 
 	<select id="selectEmpPassPriv" resultType="hr">
-		SELECT EMP_NUM, EMP_NAME, EMP_PASS, PRIV_CD from hr WHERE EMP_EMAIL=#{EMP_EMAIL};
+		SELECT EMP_NUM, EMP_NAME, EMP_PASS, PRIV_CD, WORK_CD from hr WHERE EMP_EMAIL=#{EMP_EMAIL};
 	</select>
 
 	

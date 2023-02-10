@@ -79,6 +79,10 @@ public class StockService {
 			return false;
 		}
 	}
+	public String getLocationName(String stockNo) {
+		return mapper.selectLocationName(stockNo);
+	}
+	
 	
 	
 	
