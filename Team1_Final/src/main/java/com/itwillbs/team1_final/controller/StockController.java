@@ -217,6 +217,7 @@ public class StockController {
 				Integer[] qty_arr = updateStock.getOUT_SCHEDULE_QTY_Arr();
 				stock.setOUT_SCHEDULE_CD(out_arr[i]);
 				stock.setOUT_SCHEDULE_QTY(qty_arr[i]);
+				stock.setREMARKS("-");
 				isSuccess = outStock(1, i);  ///출고
 				isSuccess = isSuccess && service.updateQTY(stock);
 				

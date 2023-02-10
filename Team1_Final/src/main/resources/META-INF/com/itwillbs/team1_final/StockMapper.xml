@@ -60,7 +60,7 @@
 				OUT_QTY = OUT_QTY + #{MOVE_QTY}
 			WHERE
 				OUT_SCHEDULE_CD = '${OUT_SCHEDULE_CD}'
-			AND PRODUCT_CD = '${PRODUCT_CD}'
+			AND STOCK_CD = '${STOCK_CD}'
 	</update>
 	
 	
