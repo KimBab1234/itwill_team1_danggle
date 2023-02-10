@@ -95,8 +95,8 @@
 				value="${param.keyword }"> <input type="submit" value="검색">
 			<br>
 			<table border="1" id="listform">
-				<tr align="center" height="50">
-					<td width="80">전체선택<br>
+				<tr align="center">
+					<td width="80">
 					<input type="checkbox" id="accAllCheck"></td>
 					<td width="200" id="">회사명</td>
 					<td width="200">사업자번호</td>
@@ -110,9 +110,9 @@
 				</tr>
 				<c:forEach var="acc" items="${acc }">
 					<tr>
-						<td><input type="checkbox" id="accCheck" name="selectAccList"
+						<td align="center"><input type="checkbox" id="accCheck" name="selectAccList"
 							value="${acc.BUSINESS_NO }"></td>
-						<td>${acc.CUST_NAME }</td>
+						<td align="center">${acc.CUST_NAME }</td>
 						<c:choose>
 							<c:when test="${empty param.pageNum }">
 								<c:set var="pageNum" value="1" />
@@ -121,14 +121,14 @@
 								<c:set var="pageNum" value="${param.pageNum }" />
 							</c:otherwise>
 						</c:choose>
-						<td><a href="AccView?BUSINESS_NO=${acc.BUSINESS_NO }">${acc.BUSINESS_NO }</a></td>
-						<td>${acc.g_GUBUN }</td>
-						<td>${acc.CUST_NAME }</td>
-						<td>${acc.UPTAE }</td>
-						<td>${acc.JONGMOK }</td>
+						<td align="center"><a href="AccView?BUSINESS_NO=${acc.BUSINESS_NO }">${acc.BUSINESS_NO }</a></td>
+						<td align="center">${acc.g_GUBUN }</td>
+						<td align="center">${acc.BOSS_NAME }</td>
+						<td align="center">${acc.UPTAE }</td>
+						<td align="center">${acc.JONGMOK }</td>
 						<td>${acc.ADDR }</td>
-						<td>${acc.MAN_NAME }</td>
-						<td>${acc.MAN_EMAIL }</td>
+						<td align="center">${acc.MAN_NAME }</td>
+						<td align="center">${acc.MAN_EMAIL }</td>
 					</tr>
 				</c:forEach>
 			</table>
