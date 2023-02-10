@@ -170,12 +170,18 @@ pageEncoding="UTF-8"%>
 	// -------------------------------- 출고예정 등록 ---------------------------------
 	function registFunc(){
 		$("#submitBtn").click(function() {
-			
 			for(var i = 0; i < $(".pd_out_date").length; i++){
 				if($(".pd_out_date").eq(i).val() == ""){
 					$(".pd_out_date").eq(i).val("1900-01-01");
 				}
 			}
+			
+// 			for(var i = 0; i < $(".stock_cd").length; i++){
+// 				if($(".stock_cd").eq(i).val() == "재고번호"){
+// 					Number($(".stock_cd").eq(i).val());
+// 				}
+// 			}
+			
 			$.ajax({
 				url: 'OutSchRegistPro',
 				type: 'POST',

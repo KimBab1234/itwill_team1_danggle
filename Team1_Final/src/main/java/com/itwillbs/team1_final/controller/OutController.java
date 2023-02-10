@@ -67,6 +67,7 @@ public class OutController {
 			String OUT_TODAY,
 			OutSchVo outSch,
 			HttpServletResponse response) {
+		System.out.println(outSch);
 //		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
 //		int idx = 1;
 //		String out_schedule_cd = "";
