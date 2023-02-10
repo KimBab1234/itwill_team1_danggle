@@ -61,8 +61,7 @@
 // 		alert(i);
 // 		alert(stock[i].STOCK_CD);
 		for(var j = 0; j < $(opener.document).find(".idx").length; j++){
-			if($(opener.document).find('.stock_cd').eq(j).val() == '재고번호'
-					|| $(opener.document).find('.stock_cd').eq(j).val() != stock[i].STOCK_CD){
+			if($(opener.document).find('.stock_cd').eq(j).val() == "재고번호"){
 				$(opener.document).find('.stock_cd').eq(j).val(stock[i].STOCK_CD);
 				break;
 			}

@@ -52,6 +52,7 @@ public class OutService {
 		List<Integer> qtyList = outSch.getOUT_SCHEDULE_QTY_Arr();
 		List<Date> dateList = outSch.getPD_OUT_DATE_Arr();
 		List<String> remarkList = outSch.getPD_REMARKS_Arr();
+		List<Integer> stockList = outSch.getSTOCK_CD_Arr();
 		
 		int count = 0;
 		
@@ -67,6 +68,7 @@ public class OutService {
 			product.setOUT_SCHEDULE_QTY(qtyList.get(i));
 			product.setPD_OUT_DATE(dateList.get(i));
 			product.setPD_REMARKS(remarkList.get(i));
+			product.setSTOCK_CD(stockList.get(i));
 			
 			count += mapper.insertOutSchPd(product);
 		}

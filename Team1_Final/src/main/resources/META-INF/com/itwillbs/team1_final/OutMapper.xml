@@ -87,9 +87,9 @@
 				, #{OUT_SCHEDULE_CD}
 				, #{OUT_SCHEDULE_QTY}
 				, 0
-				, #{OUT_DATE}
+				, #{PD_OUT_DATE}
 				, #{PD_REMARKS}
-				, null
+				, #{STOCK_CD}
 				, 0
 			)
 	</insert>
