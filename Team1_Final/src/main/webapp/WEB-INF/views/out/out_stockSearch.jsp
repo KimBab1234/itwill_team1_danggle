@@ -21,7 +21,7 @@
 			url: 'StockList',
 			type: 'POST',
 			data: {
-				searchType : "PRODUCT_CD",
+				searchType : "OUT_PRODUCT_CD",
 				keyword : opener.pdcd
 			},
 			dataType : 'json',
