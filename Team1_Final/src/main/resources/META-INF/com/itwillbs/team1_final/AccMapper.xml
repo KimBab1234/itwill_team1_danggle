@@ -85,9 +85,9 @@
 						</when>
 					</choose>
 			 </if>
-<!-- 			 LIMIT  -->
-<!-- 			#{startRow} -->
-<!-- 			, #{listLimit} -->
+			 LIMIT 
+			#{startRow}
+			, #{listLimit}
 	</select>
 	
 	<!-- 거래처 전체 갯수 조회 -->
@@ -221,6 +221,13 @@
 	<delete id="deleteAccList">
 		DELETE FROM acc WHERE BUSINESS_NO = #{acc}
 	</delete>
+
+	<!-- 물품 이름 찾기... -->	
+	<select id="getProductName" resultType="com.itwillbs.team1_final.vo.PdVO">
+		SELECT PRODUCT_NAME
+			FROM product
+			WHERE BUSINESS_NO = #{busi_no}
+	</select>
 </mapper>
 
 
