@@ -9,7 +9,7 @@
 	position: absolute;
 	height: 100%;
 /* 	border-right:solid 1px; border-color: #BDBDBD; */
-	z-index: -1;
+	z-index: 10;
 }
 
 .menuH3:hover{

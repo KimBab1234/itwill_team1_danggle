@@ -9,7 +9,7 @@
 	position: absolute;
 	height: 100%;
 	border-right:solid 1px; border-color: #BDBDBD;
-	z-index: -1;
+	z-index: 10;
 }
 
 .menuH3:hover{
@@ -33,10 +33,9 @@
 <body>
 	<div id="verticalNav" align="center" style="width: 200px; margin-top: 0px;">
 		<div style="margin-left: 20px; margin-right: 0px; ">
-			<h2>기본 등록</h2>
-			<h3 class="menuH3"><a href="#">거래처 등록</a></h3>
+			<h2>창고 관리</h2>
 			<h3 class="menuH3"><a href="WhRegistForm">창고 등록</a></h3>
-			<h3 class="menuH3"><a href="#">품목 등록</a></h3>
+			<h3 class="menuH3"><a href="WhList">창고 조회</a></h3>
 		</div>
 	</div>
 </body>

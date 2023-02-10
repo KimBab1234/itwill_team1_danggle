@@ -66,6 +66,12 @@
 			workType = $(this).attr("id");
 			$(".choiceSelect").attr("class","choice");
 			$(this).attr("class","choiceSelect");
+			
+			searchType = '';
+			keyword = '';
+			$("#keyword").val("");
+			$("#searchType").val('').prop("selected",true);
+			
 			///pageNum은 일부러 null로주기
 			getPageList(null);
 		});
@@ -101,7 +107,7 @@
 				$("table tbody").empty();
 				/// 데이터 뿌리기
 				if(emp.length==0) {
-					$("#searchNone").html("<h3>검색 결과가 없습니다.</h3>");
+					$(".regi_table").append("<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>");
 				} else {
 					for(var i=0; i<emp.length; i++) {
 						$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td width="150"><img src="http://itwillbs3.cdn1.cafe24.com/profileImg/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;"></td>'
@@ -191,9 +197,15 @@
 			return false;
 		} else {
 			keyword = $("#keyword").val();
-			alert(keyword);
+			getPageList(null);
 		}
 	}
+	
+	 function searchEnter() {
+			if(window.event.keyCode == 13) {
+				searchHrList();
+			}
+		}
 
 </script>
 <style>
@@ -221,7 +233,7 @@ option {
 					<option value="EMP_NAME">사원명</option>
 					<option value="DEPT_NAME">부서명</option>
 				</select>
-				<input type="text" name="keyword" id="keyword">
+				<input type="text" name="keyword" id="keyword" style="height: 35px; font-weight: bold;" onkeyup="searchEnter()">
 				<button type="button" class="hrFormBtn" onclick="searchHrList()" style="width: 100px; height:30px; font-size:18px;" >
 					<i class="fa-solid fa-magnifying-glass" style="color: #fff; margin: 0;"></i>&nbsp;검색
 				</button>

@@ -20,7 +20,7 @@
 	font-family: 'Gowun Dodum', sans-serif;
 }
 ul {
-z-index: 1001;
+z-index: 900;
 }
 </style>
 <!-- 폰트 변경 끝  -->

@@ -142,7 +142,7 @@ public class StockController {
 
 	/////재고 상세 조회 폼
 	@RequestMapping(value = "/StockDetail", method = RequestMethod.GET)
-	public String stockDetail() {
+	public String stockDetail(String stockNo, Model model) {
 		System.out.println("재고 상세조회 폼");
 		return "stock/stock_detail";
 	}
@@ -154,9 +154,10 @@ public class StockController {
 
 		System.out.println("재고 상세 조회");
 		
-		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
+		int listLimit = 5; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
 		ArrayList<StockVO> stockList = service.getStockDetail(stockNo, type, startRow, listLimit);
+		String thisLocation = service.getLocationName(stockNo);
 
 		JSONObject jsonStr = new JSONObject();
 		JSONArray arr = new JSONArray();
@@ -166,7 +167,9 @@ public class StockController {
 			arr.put(stock);
 		}
 
+		
 		jsonStr.put("jsonStock", arr);
+		jsonStr.put("jsonThisLoc", thisLocation);
 		return jsonStr.toString();
 	}
 
@@ -187,10 +190,12 @@ public class StockController {
 			stock.setMOVE_QTY(updateStock.getMOVE_QTY_Arr()[i]);
 			stock.setEMP_NUM((String)session.getAttribute("empNo"));
 			
-			///입고 전용
-			String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
-			String[] out_arr = updateStock.getOUT_SCHEDULE_CD_Arr();
-			if(in_arr != null ) {
+			boolean isSuccess = false;
+			
+			//////입고//////
+			if(control_cd.equals("0")) { 
+				
+				String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
 				String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
 				Integer[] qty_arr = updateStock.getIN_SCHEDULE_QTY_Arr();
 				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
@@ -200,22 +205,18 @@ public class StockController {
 				}else {
 					stock.setPRODUCT_NAME(name_arr[i]);
 				}
-			}
-			if(out_arr != null ) {
+				
+				stock.setREMARKS("-");
+				isSuccess = inStock(0, i); 
+				isSuccess = isSuccess && service2.updateQTY(stock);
+				
+				//////출고//////
+			} else if(control_cd.equals("1")) {
+				
+				String[] out_arr = updateStock.getOUT_SCHEDULE_CD_Arr();
 				Integer[] qty_arr = updateStock.getOUT_SCHEDULE_QTY_Arr();
 				stock.setOUT_SCHEDULE_CD(out_arr[i]);
 				stock.setOUT_SCHEDULE_QTY(qty_arr[i]);
-			}
-
-			boolean isSuccess = false;
-			if(control_cd.equals("0")) { 
-				
-				stock.setREMARKS("-");
-				isSuccess = inStock(0, i); /////입고
-				isSuccess = isSuccess && service2.updateQTY(stock);
-				
-			} else if(control_cd.equals("1")) {
-				
 				isSuccess = outStock(1, i);  ///출고
 				isSuccess = isSuccess && service.updateQTY(stock);
 				

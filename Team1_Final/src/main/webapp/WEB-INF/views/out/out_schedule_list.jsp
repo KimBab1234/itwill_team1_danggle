@@ -271,7 +271,7 @@ button {
 	<header>
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
-	<jsp:include page="../inc/in_left.jsp"></jsp:include>
+	<jsp:include page="../inc/wms_left.jsp"></jsp:include>
 	
 	<div align="center" id="outListDiv">
 	<h3 id="outTitle">출고 예정</h3>

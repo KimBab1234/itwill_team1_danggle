@@ -21,6 +21,7 @@ public interface StockMapper {
 	public int selectNewStockCD();
 	public int updateOutStock(StockVO stock);
 	public int updateOutSchStock(StockVO stock);
+	public String selectLocationName(String stockNo);
 	
 	
 }
