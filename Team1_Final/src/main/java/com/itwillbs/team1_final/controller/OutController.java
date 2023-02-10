@@ -216,6 +216,11 @@ public class OutController {
 		return jsonObject.toString();
 	}
 	
+	@GetMapping(value = "/StockSearch")
+	public String searchStock() {
+		return "out/temp111";
+	}
+	
 	
 	// [ 출고 처리 ]
 	// 출고처리 - 품목 검색 창

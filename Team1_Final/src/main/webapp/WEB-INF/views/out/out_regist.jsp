@@ -28,7 +28,11 @@ pageEncoding="UTF-8"%>
 	}
 	
 	function searchPd(){
-		window.open('PdSearch', 'searchPro', 'width=500, height=500, left=1000, top=400');
+		window.open('PdSearch', 'searchPro', 'width=500, height=500, left=600, top=400');
+	}
+	
+	function searchStock(){
+		window.open('StockSearch', 'StockSearch', 'width=1000, height=600, left=600, top=400');
 	}
 	// --------------------------------------------------------------------------------
 	
@@ -70,6 +74,7 @@ pageEncoding="UTF-8"%>
 					+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr"></td>'
 					+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>'
 					+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>'
+					+ '<td><a class="stock_cd" onclick="searchStock()">재고번호</a><td>'
 				    + '</tr>'
 			);
 
@@ -172,7 +177,7 @@ pageEncoding="UTF-8"%>
 
 </head>
 <body>
-	<div style="width:900px;">
+	<div>
 		<div class="title_regi">출고예정 입력</div>
 		<form action="javascript:registFunc()" method="post" id="proRegi" name="proRegi" style="width:600px;">
 			<table class="regi_table">
@@ -217,6 +222,7 @@ pageEncoding="UTF-8"%>
 					<th width="100">수량</th>
 					<th width="150">납기일자</th>
 					<th width="200">적요</th>
+					<th width="200">출고처리</th>
 				</tr>
 				<tr class="idx">
 					<td>
@@ -231,6 +237,8 @@ pageEncoding="UTF-8"%>
 					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
 					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
 					<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
+					<td><input type="text" class="stock_cd" name="SROCK_CD_Arr" onclick="searchStock()" readonly="readonly" value="재고번호"></td>
+<!-- 					<td><a class="stock_cd" onclick="searchStock()" >재고번호</a><td> -->
 				</tr>
 				<tbody id="optionArea"></tbody>
 				<tr>
@@ -238,6 +246,7 @@ pageEncoding="UTF-8"%>
 					<th></th>
 					<th></th>
 					<th><input type="number" id="total" name="TOTAL_QTY"></th>
+					<th></th>
 					<th></th>
 					<th></th>
 				</tr>

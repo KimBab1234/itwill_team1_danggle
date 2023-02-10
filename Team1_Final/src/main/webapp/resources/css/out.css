@@ -29,7 +29,7 @@
 	border-collapse: collapse;
 	border-style: solid;
 	border-color: #b09f76;;
-	width: 1000px;
+	width: 1100px;
 }
 
 .out_table th {
@@ -70,13 +70,20 @@
 	border: none;
 }
 
-.size_des {
+.size_des{
 	width: 80px;
 	border: none;
 	margin: 3px 0px 3px 0px;
 	color: #575754;
 }
 
+.stock_cd {
+	width: 80px;
+	border: none;
+	margin: 3px 0px 3px 0px;
+	color: #575754;
+	text-align: center;
+}
 
 .remarks, .pd_remarks {
 	width: 180px;
