@@ -75,6 +75,10 @@ tr {
 			$(opener.document).find('.searchLoc').eq(opener.selectIdx).text("");
 			$(opener.document).find('.TARGET_STOCK_CD_Arr').eq(opener.selectIdx).val("");
 		} else {
+			if(wh[i].WH_LOC_IN_AREA_CD == opener.source_loc_arr[opener.selectIdx]) {
+				alert("현재 위치와 이동시킬 위치가 같습니다.");
+				return false;
+			}
 			$(opener.document).find('.searchLoc').eq(opener.selectIdx).text(wh[i].WH_NAME + "-" + wh[i].WH_AREA + "-" + wh[i].WH_LOC_IN_AREA);
 			$(opener.document).find('.TARGET_STOCK_CD_Arr').eq(opener.selectIdx).val(wh[i].WH_LOC_IN_AREA_CD);
 		}

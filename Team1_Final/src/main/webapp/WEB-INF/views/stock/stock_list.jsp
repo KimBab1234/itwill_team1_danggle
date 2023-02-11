@@ -261,6 +261,7 @@ option {
 					<option value="PRODUCT_CD">품목코드</option>
 					<option value="STOCK_CD">재고번호</option>
 					<option value="PRODUCT_NAME">품목명</option>
+					<option value="WH_NAME">창고명</option>
 					<option value="WH_AREA">구역명</option>
 					<option value="WH_LOC_IN_AREA">위치명</option>
 				</select>
