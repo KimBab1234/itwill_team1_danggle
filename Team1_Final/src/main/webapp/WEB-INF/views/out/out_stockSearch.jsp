@@ -9,11 +9,36 @@
 <script src="https://kit.fontawesome.com/5fad4a5f29.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <title>출고 예정 재고 조회</title>
+<style type="text/css">
+	#sendStock {
+		color: #fff;
+	    background-color: #736643;
+	    border-color: #fff;
+	    border-radius: 4px;
+	    margin-left: 3px;
+	    padding: 3px 5px;;
+	}
+</style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script>	
 	var	searchType = '';
 	var keyword = '';
 	var updateStr = opener.updateStr;
+	
+	//---------------------------- 권한 판단 -----------------------------
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		window.close();
+		history.back();
+		opener.location.href  = './Login';
+	} else if(priv.charAt(1) !='1') {
+		alert("권한이 없습니다.");
+		window.close();
+	}
+	// --------------------------------------------------------------------
+
 	
 	$(function() {
 // 		alert(opener.pdcd);
@@ -35,7 +60,7 @@
 					$(".regi_table").append('<tr><td colspan="8" style="font-size: 20px;">검색 결과가 없습니다.</td></tr>');
 				} else {
 					for(var i = 0; i < stock.length; i++) {
-						$(".regi_table").append('<tr id="sendStock" onclick="selectstock('+ i +', '+ stock[i].STOCK_CD +')">'
+						$(".regi_table").append('<tr>'
 								+'<td width="150"><a href="javascript:showStockDetail(' + stock[i].STOCK_CD + ')">' + stock[i].STOCK_CD + '</a></td>'
 								+'<td width="120">'+stock[i].PRODUCT_CD+'</td>'
 								+'<td width="400">'+stock[i].PRODUCT_NAME+'</td>'
@@ -43,6 +68,7 @@
 								+'<td width="250">'+stock[i].WH_AREA +'</td>'
 								+'<td width="250">'+stock[i].WH_LOC_IN_AREA+'</td>'
 								+'<td width="150">'+stock[i].STOCK_QTY+'</td>'
+								+'<td><input type="button" id="sendStock" value="선택" onclick="selectstock('+ i +', '+ stock[i].STOCK_CD +')"></td>'
 								+'</tr>');
 					}
 				}
@@ -101,6 +127,7 @@ option {
 			<th width="250">구역명</th>
 			<th width="250">위치명</th>
 			<th width="150">재고수량</th>
+			<th></th>
 		</tr>
 		</thead>
 		<tbody>

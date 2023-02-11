@@ -7,6 +7,21 @@
 	var acc;
 	var i = 0;
 	
+	//---------------------------- 권한 판단 -----------------------------
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+		window.close();
+		history.back();
+		opener.location.href  = './Login';
+	} else if(priv.charAt(1) !='1') {
+		alert("권한이 없습니다.");
+		window.close();
+	}
+	// --------------------------------------------------------------------
+
+	
 	function searchFunc() {
 		$.ajax({
 			url: 'AccSearchPro',
