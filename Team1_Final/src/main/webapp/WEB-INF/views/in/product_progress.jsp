@@ -16,10 +16,6 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	var pdList;
-	var i = 0;
-	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
-	
 	var loginEmp = '${sessionScope.empNo}';
 	var priv = '${sessionScope.priv}';
 	if(loginEmp=='') {
@@ -29,6 +25,13 @@
 		alert("권한이 없습니다.");
 		history.back();
 	}
+	
+	
+	var pdList;
+	var i = 0;
+	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
+	
+	
 
 	$(function() {		
 
