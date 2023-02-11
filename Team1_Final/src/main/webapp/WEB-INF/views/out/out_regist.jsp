@@ -75,25 +75,33 @@ pageEncoding="UTF-8"%>
 			$.total();
 		});
 		
-		// 품목 추가
+		// 품목 추가 - 추가 행 개수 제한
 		$("#recoBtn").on("click", function() {
-			$("#optionArea").append(
-					'<tr class="idx">' 
-					+ '<td>'
-					+ 	'<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">'
-					+ 	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
-				    + '</td>'
-					+ '<td>'
-					+	'<input type="text" class="product_name" name="PRODUCT_NAME_Arr" ondblclick="searchPd()">'
-					+	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
-					+ '</td>'
-					+ '<td><input type="text" class="size_des" name="SIZE_DES_Arr" readonly="readonly"></td>'
-					+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr"></td>'
-					+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>'
-					+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>'
-					+ '<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>'
-				    + '</tr>'
-			);
+			var trCount = $(".out_table tr").length;
+			alert(trCount);
+			if(trCount < 7){
+				$("#optionArea").append(
+						'<tr class="idx">' 
+						+ '<td>'
+						+ 	'<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">'
+						+ 	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
+					    + '</td>'
+						+ '<td>'
+						+	'<input type="text" class="product_name" name="PRODUCT_NAME_Arr" ondblclick="searchPd()">'
+						+	'<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>'
+						+ '</td>'
+						+ '<td><input type="text" class="size_des" name="SIZE_DES_Arr" readonly="readonly"></td>'
+						+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr"></td>'
+						+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>'
+						+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>'
+						+ '<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>'
+						+ '<td><input type="text" id="Listbtn" value="취소" name="dtl_del" readonly="readonly"></td>'
+					    + '</tr>'
+				);
+			} else {
+				alert("최대 5개까지만 등록 가능합니다!")
+				return false;
+			}
 
 			// 추가된 품목 수량 합계 계산
 			var inClass = $(".out_schedule_qty").length;
@@ -102,6 +110,13 @@ pageEncoding="UTF-8"%>
 				$.total();
 			});
 			
+		});
+		
+		
+		// 품목입력 행 삭제
+		$(document).on('click', "[name='dtl_del']", function(){
+			var tr = $(this).parent().parent();
+			tr.remove();
 		});
 		
 		
@@ -261,45 +276,49 @@ pageEncoding="UTF-8"%>
 			<br>
 			<table class="out_table">
 				<tbody id="optionArea">
-				<tr>
-					<th width="100">품목코드</th>
-					<th width="250">품목명</th>
-					<th width="100">규격</th>
-					<th width="100">수량</th>
-					<th width="150">납기일자</th>
-					<th width="200">적요</th>
-					<th width="200">출고처리</th>
-				</tr>
-				<tr class="idx">
-<!-- 				<tr> -->
-					<td>
-						<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">
-						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
-					</td>
-					<td>
-						<input type="text" class="product_name" name="PRODUCT_NAME_Arr" ondblclick="searchPd()">
-						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
-					</td>
-					<td><input type="text" class="size_des" name="SIZE_DES_Arr" readonly="readonly"></td>
-					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
-					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
-					<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
-					<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>
-				</tr>
+					<tr>
+						<th width="100">품목코드</th>
+						<th width="250">품목명</th>
+						<th width="100">규격</th>
+						<th width="100">수량</th>
+						<th width="150">납기일자</th>
+						<th width="200">적요</th>
+						<th width="200">출고처리</th>
+						<th width="50">취소</th>
+					</tr>
+					<tr class="idx">
+	<!-- 				<tr> -->
+						<td>
+							<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">
+							<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
+						</td>
+						<td>
+							<input type="text" class="product_name" name="PRODUCT_NAME_Arr" ondblclick="searchPd()">
+							<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
+						</td>
+						<td><input type="text" class="size_des" name="SIZE_DES_Arr" readonly="readonly"></td>
+						<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
+						<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
+						<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
+						<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>
+						<td><input type="text" id="removeTr" readonly="readonly"></td>
+					</tr>
 				</tbody>
 				<tfoot>
-				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th><input type="number" id="total" name="TOTAL_QTY"></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th><input type="number" id="total" name="TOTAL_QTY"></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
 				</tfoot>
 			</table>
 			<input type="button" value="품목 추가" id="recoBtn">
+<!-- 			<input type="button" value="품목 취소" id="recoBtn2"><br> -->
 			<input type="submit" value="출고예정 입력" id="submitBtn">
 		</form>
 	</div>

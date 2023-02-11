@@ -313,7 +313,7 @@ button {
 				<th width="50px">진행상태</th>
 			</tr>
 		</table><br>
-		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
+		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1150, height=600, left=200, top=300')">등록</button>
 	</div>
 	
 </body>

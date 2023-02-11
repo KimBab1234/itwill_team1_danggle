@@ -61,9 +61,18 @@ public interface OutMapper {
 	// 출고 예정 수정 품목 조회
 	OutSchVo selectOutUpdatePd(
 			@Param("pd_outSch_cd") String pd_outSch_cd,
-			@Param("product_name") String product_name);
+			@Param("product_name") String product_name,
+			@Param("stock_cd") String stock_cd);
 
+	// 출고 예정 수정
+	void updateOutSch(OutSchVo outSchPd);
+	
 	// 출고 예정 품목 수정
-	int updateOutSchPd(OutSchVo outSchPd);
+	int updateOutSchPd(
+			@Param("pdcd") String pdcd,
+			@Param("stcd") String stcd,
+			@Param("pdqty") int pdqty,
+			@Param("outSchPd") OutSchVo outSchPd);
+
 
 }

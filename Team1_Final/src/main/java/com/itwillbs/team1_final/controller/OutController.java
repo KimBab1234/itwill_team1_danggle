@@ -66,8 +66,7 @@ public class OutController {
 	@ResponseBody
 	public int schRegist(
 			@RequestParam(value = "OUT_TODAY") String OUT_TODAY,
-			@ModelAttribute OutSchVo outSch,
-			HttpServletResponse response) {
+			@ModelAttribute OutSchVo outSch) {
 		System.out.println(outSch);
 		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
 		int idx = 1;
@@ -289,40 +288,35 @@ public class OutController {
 	// 출고 처리 품목 수정 - 품목 데이터 조회
 	@PostMapping(value = "/OutSchPdUpdate")
 	@ResponseBody
-	public OutSchVo OutSchPdUpdate(String pd_outSch_cd, String product_name) {
-		OutSchVo searchOutProList = service.searchOutUpdatePd(pd_outSch_cd, product_name);
+	public OutSchVo OutSchPdUpdate(
+			String pd_outSch_cd,
+			String product_name,
+			String stock_cd) {
+		OutSchVo searchOutProList = service.searchOutUpdatePd(pd_outSch_cd, product_name, stock_cd);
 
 		return searchOutProList;
 	}
 	
 	// 출고 처리 품목 수정
 	@PostMapping(value = "/OutSchPdUpdatePro")
-	public int OutSchPdUpdate(String OUT_TODAY, OutSchVo outSchPd) {
-	
-		int todayCount = service.searchToday(OUT_TODAY); // 입고예정코드 조회
-		int idx = 1;
-		String out_schedule_cd = "";
+	@ResponseBody
+	public int OutSchPdUpdate(
+			@RequestParam("outSch_cd") String outSch_cd,
+			@RequestParam("pdcd") String pdcd,
+			@RequestParam("stcd") String stcd,
+			@RequestParam("pdqty") int pdqty,
+			@ModelAttribute OutSchVo outSchPd) {
+		outSchPd.setOUT_SCHEDULE_CD(outSch_cd);
+		System.out.println("out_schedule_cd - " + outSch_cd + ", " + pdcd + ", " + stcd + ", " + pdqty);
+		System.out.println(outSchPd);
 		
-		if(todayCount > 0) {
-			todayCount += 1;
-			out_schedule_cd = OUT_TODAY + "-" + todayCount;
-			
-			System.out.println(out_schedule_cd);
-			
-			outSchPd.setOUT_SCHEDULE_CD(out_schedule_cd);
-		} else {
-			out_schedule_cd = OUT_TODAY + "-" + idx;
-			
-			System.out.println(out_schedule_cd);
-			
-			outSchPd.setOUT_SCHEDULE_CD(out_schedule_cd);
-		}
+		outSchPd.setOUT_SCHEDULE_CD(outSch_cd);
 		
-//		int updateCount = service.modifyOutSchPd(outSchPd);
+		int updateCount = service.modifyOutSchPd(pdcd, stcd, pdqty, outSchPd);
 		
-//		return updateCount;
-		return 0;
+		return updateCount;
 	}
 	// ----------------------------------------------------------
+	
 	
 }

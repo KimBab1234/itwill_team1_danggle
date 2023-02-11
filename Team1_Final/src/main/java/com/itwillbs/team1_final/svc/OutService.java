@@ -139,19 +139,17 @@ public class OutService {
 	}
 
 	// 출고 예정 수정 품목 조회
-	public OutSchVo searchOutUpdatePd(String pd_outSch_cd, String product_name) {
-		OutSchVo out = mapper.selectOutUpdatePd(pd_outSch_cd, product_name);
-		
-		// PD_OUT_SCHEDULE_CD 를 오늘일자만 추출
-		String pd_Sch_cd = out.getPD_OUT_SCHEDULE_CD();
-		out.setPD_OUT_SCHEDULE_CD(pd_Sch_cd.split("-")[0]);
+	public OutSchVo searchOutUpdatePd(String pd_outSch_cd, String product_name, String stock_cd) {
+		OutSchVo out = mapper.selectOutUpdatePd(pd_outSch_cd, product_name, stock_cd);
 		
 		return out;
 	}
 
 	// 출고 예정 품목 수정
-	public int modifyOutSchPd(OutSchVo outSchPd) {
-		return mapper.updateOutSchPd(outSchPd);
+	public int modifyOutSchPd(String pdcd, String stcd, int pdqty, OutSchVo outSchPd) {
+		mapper.updateOutSch(outSchPd);
+		
+		return mapper.updateOutSchPd(pdcd, stcd, pdqty, outSchPd);
 	}	
 	
 }

@@ -34,7 +34,7 @@
 					$(".regi_table").append('<tr><td colspan="8" style="font-size: 20px;">검색 결과가 없습니다.</td></tr>');
 				} else {
 					for(var i = 0; i < stock.length; i++) {
-						$(".regi_table").append('<tr id="sendStock" onclick="selectstock('+ i +')">'
+						$(".regi_table").append('<tr id="sendStock" onclick="selectstock('+ i +', '+ stock[i].STOCK_CD +')">'
 								+'<td width="150"><a href="javascript:showStockDetail(' + stock[i].STOCK_CD + ')">' + stock[i].STOCK_CD + '</a></td>'
 								+'<td width="120">'+stock[i].PRODUCT_CD+'</td>'
 								+'<td width="400">'+stock[i].PRODUCT_NAME+'</td>'
@@ -57,11 +57,12 @@
 	}
 	
 	// 재고 선택
-	function selectstock(i) {
+	function selectstock(i, stock_cd) {
 // 		alert(i);
 // 		alert(stock[i].STOCK_CD);
 		for(var j = 0; j < $(opener.document).find(".idx").length; j++){
-			if($(opener.document).find('.stock_cd').eq(j).val() == "재고번호"){
+			if($(opener.document).find('.stock_cd').eq(j).val() == "재고번호"
+					|| $(opener.document).find('.stock_cd').eq(j).val() != stock_cd){
 				$(opener.document).find('.stock_cd').eq(j).val(stock[i].STOCK_CD);
 				break;
 			}

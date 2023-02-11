@@ -21,6 +21,7 @@ pageEncoding="UTF-8"%>
 	var i = 0;
 	var productCd = opener.proList[opener.index].PD_OUT_SCHEDULE_CD;
 	var productName = opener.proList[opener.index].PRODUCT_NAME;
+	var stockCD = opener.proList[opener.index].STOCK_CD;
 	var date;
 	var pd_date;
 
@@ -35,6 +36,11 @@ pageEncoding="UTF-8"%>
 	
 	function searchPd(){
 		window.open('UpdatePdSearch', 'searchPro', 'width=500, height=500, left=1000, top=400');
+	}
+	
+	function searchStock(product_cd){
+		pdcd = product_cd;
+		window.open('StockSearch', 'StockSearch', 'width=1000, height=600, left=600, top=400');
 	}
 	// --------------------------------------------------------------------------------
 	
@@ -67,6 +73,19 @@ pageEncoding="UTF-8"%>
 		let pdCheck = false;
 		let qtyCheck = false;
 		let outPdDateCheck = false;
+		
+		// 재고 선택
+		$(document).on("click", "input[name=STOCK_CD]", function() {
+			
+			if(!$(".product_cd").val() == "" && !$(".product_name").val() == "") {
+				let index = $(this).closest("tr").index();
+				let product_cd = $("input[name=PRODUCT_CD]").eq((index-1)).val();
+				searchStock(product_cd);
+			} else {
+				alert("품목정보를 먼저 선택해주세요!");
+			}
+			
+		});
 		
 		$("#proRegi").submit(function() {
 	
@@ -120,14 +139,23 @@ pageEncoding="UTF-8"%>
 	        url: "OutSchPdUpdate",
 	        data: {
 	        	pd_outSch_cd : productCd,
-				product_name : productName
+				product_name : productName,
+				stock_cd : stockCD
 	        },
 	        dataType: 'json',
 	        success: function(result) {
 	        	
 				console.log(result);
 				
-				$("#out_today").val(result.pd_OUT_SCHEDULE_CD);
+				// 오늘일자 분리
+				$("#out_today").val(result.pd_OUT_SCHEDULE_CD.split("-")[0]);
+				
+				// 수정 조건 판별 데이터 전송
+				$("#cd_idx").val(result.pd_OUT_SCHEDULE_CD);
+				$("#cd_pd").val(result.product_CD);
+				$("#cd_st").val(result.stock_CD);
+				$("#pd_qty").val(Number(result.out_SCHEDULE_QTY));
+				
 				
 				if(result.out_TYPE_NAME == "1"){
 					$("#type_1").prop('checked', true);
@@ -150,7 +178,7 @@ pageEncoding="UTF-8"%>
 				$(".out_schedule_qty").val(result.out_SCHEDULE_QTY);
 				$(".pd_out_date").val(result.pd_OUT_DATE);
 				$(".pd_remarks").val(result.pd_REMARKS);
-				
+				$(".stock_cd").val(result.stock_CD);
 	        }
 					
 	    });
@@ -172,7 +200,7 @@ pageEncoding="UTF-8"%>
 		    $.ajax({
 		        type: "POST",
 		        url: "OutSchPdUpdatePro",
-		        data: $('#inSc_regi').serialize(),
+		        data: $('#proRegi').serialize(),
 		        success: function(result) {
 		            if (result != "0") {
 		                window.close();
@@ -195,6 +223,10 @@ pageEncoding="UTF-8"%>
 	<div style="width:900px;">
 		<div class="title_regi">출고예정 수정</div>
 		<form action="javascript:updateFunc()" method="post" id="proRegi" name="proRegi" style="width:600px;">
+			<input type="hidden" id="cd_idx" name="outSch_cd">
+			<input type="hidden" id="cd_pd" name="pdcd">
+			<input type="hidden" id="cd_st" name="stcd">
+			<input type="hidden" id="pd_qty" name="pdqty">
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>
@@ -217,7 +249,7 @@ pageEncoding="UTF-8"%>
 					<th>거래처</th>
 					<td>
 						<input type="text" class="code" id="acc_code" name="BUSINESS_NO" placeholder="거래처 코드" ondblclick="searchAcc()">
-						<input type="text" class="name" id="acc_name" name="BUSINESS_NAME" placeholder="거래처명" ondblclick="searchAcc()">
+						<input type="text" class="name" id="acc_name" name="CUST_NAME" placeholder="거래처명" ondblclick="searchAcc()">
 						<button id="Listbtn" type="button" onclick="searchAcc()">검색</button>
 					</td>
 				</tr>
@@ -237,20 +269,22 @@ pageEncoding="UTF-8"%>
 					<th width="100">수량</th>
 					<th width="150">납기일자</th>
 					<th width="200">적요</th>
+					<th width="200">출고처리</th>
 				</tr>
 				<tr class="idx">
 					<td>
-						<input type="text" class="product_cd" name="PRODUCT_CD_Arr" ondblclick="searchPd()">
+						<input type="text" class="product_cd" name="PRODUCT_CD" ondblclick="searchPd()">
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
 					</td>
 					<td>
-						<input type="text" class="product_name" name="PRODUCT_NAME_Arr" ondblclick="searchPd()">
+						<input type="text" class="product_name" name="PRODUCT_NAME" ondblclick="searchPd()">
 						<a id="searchBtn" onclick="searchPd()"><i style="font-size:10px" class="fa">&#xf002;</i></a>
 					</td>
-					<td><input type="text" class="size_des" name="SIZE_DES_Arr" readonly="readonly"></td>
-					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
-					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
-					<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
+					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
+					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
+					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE"></td>
+					<td><input type="text" class="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>
+					<td><input type="text" class="stock_cd" name="STOCK_CD" readonly="readonly" >
 				</tr>
 			</table>
 			<input type="submit" value="품목 수정" id="submitBtn">
