@@ -120,15 +120,16 @@ pageEncoding="UTF-8"%>
 		});
 		
 		
-		// 재고 선택
+		// 재고 선택 - 품목 정보 행 추가 시 조건 전체 적용
 		$(document).on("click", "input[name=STOCK_CD_Arr]", function() {
-			
-			if(!$(".product_cd").val() == "" && !$(".product_name").val() == "") {
-				let index = $(this).closest("tr").index();
-				let product_cd = $("input[name=PRODUCT_CD_Arr]").eq((index-1)).val();
-				searchStock(product_cd);
-			} else {
-				alert("품목정보를 먼저 선택해주세요!");
+			for(var i = 0; i < $(".product_cd").length; i++){
+				if(!$(".product_cd").eq(i).val() == "" && !$(".product_name").eq(i).val() == "") {
+					let index = $(this).closest("tr").index();
+					let product_cd = $("input[name=PRODUCT_CD_Arr]").eq((index-1)).val();
+					searchStock(product_cd);
+				} else {
+					alert("품목정보를 먼저 선택해주세요!");
+				}
 			}
 			
 		});
@@ -140,7 +141,7 @@ pageEncoding="UTF-8"%>
 		let pdCheck = false;
 		let qtyCheck = false;
 		let outPdDateCheck = false;
-// 		let stockCheck = false;
+		let stockCheck = false;
 		
 	
 		$("#proRegi").submit(function() {
@@ -154,18 +155,31 @@ pageEncoding="UTF-8"%>
 			if(!$("#OUT_DATE").val() == "") {
 				outDateCheck = true;
 			}
-			if(!$(".product_cd").val() == "" && !$(".product_name").val() == "") {
-				pdCheck = true;
+			
+			// 품목 정보 행 추가 시 조건 전체 적용
+			for(var i = 0; i < $(".product_cd").length; i++){
+				if(!$(".product_cd").eq(i).val() == "" && !$(".product_name").eq(i).val() == "") {
+					pdCheck = true;
+				} else {
+					pdCheck = false;
+				}
+				if($(".stock_cd").eq(i).val() != "재고번호" && $(".stock_cd").eq(i).val() != ""){
+					stockCheck = true;
+				} else {
+					stockCheck = false;
+				}
+				if(!$(".out_schedule_qty").eq(i).val() == "0" || !$(".out_schedule_qty").eq(i).val() == ""){
+					qtyCheck = true;
+				} else {
+					qtyCheck = false;
+				}
+				if($(".pd_out_date").eq(i).val() != "" && $(".pd_out_date").eq(i).val() != "1900-01-01"){
+					outPdDateCheck = true;
+				} else {
+					outPdDateCheck = false;
+				}
 			}
-			if(!$(".out_schedule_qty").val() == "0" || !$(".out_schedule_qty").val() == ""){
-				qtyCheck = true;
-			}
-			if(!$(".pd_out_date").val() == "" || !$(".pd_out_date").val() == "1900-01-01"){
-				outPdDateCheck = true;
-			}
-// 			if(!$(".stock_cd").val() == "재고번호"){
-// 				stockCheck = true;
-// 			}
+			
 			
 			
 			if(!empCheck){
@@ -183,9 +197,9 @@ pageEncoding="UTF-8"%>
 			} else if(!outPdDateCheck){
 				alert("개별 품목 납기일자를 입력해주세요!");
 				return false;
-// 			} else if(!stockCheck){
-// 				alert("출고할 품목의 재고를 선택해주세요!");
-// 				return false;
+			} else if(!stockCheck){
+				alert("출고할 품목의 재고를 선택해주세요!");
+				return false;
 			} else if(!qtyCheck){
 				alert("품목 수량을 입력해주세요!");
 				return false;
