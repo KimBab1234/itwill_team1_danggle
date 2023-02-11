@@ -44,7 +44,7 @@ input.chk_top:checked + label:before{
   
 
 </style>
-<title>Insert title here</title>
+<title>로그인</title>
 <script>
 
 ///localStorage에 저장된 email 가져오기

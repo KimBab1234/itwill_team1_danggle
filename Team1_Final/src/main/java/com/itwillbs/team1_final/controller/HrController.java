@@ -71,11 +71,17 @@ public class HrController {
 
 		
 		///업로드이름
-		String uuidString = UUID.randomUUID().toString();
-		newEmp.setPHOTO(uuidString+"_"+newEmp.getRegistPHOTO().getOriginalFilename());
+		String uploadFile = newEmp.getRegistPHOTO().getOriginalFilename();
+		boolean isNewImg = false;
+		
+		if(uploadFile.length() > 0) {
+			isNewImg = true;
+			String uuidString = UUID.randomUUID().toString();
+			newEmp.setPHOTO(uuidString+"_"+uploadFile);
+		}
 
 		///사번 생성
-		int idxNum = service.getEmpIdx();
+		int idxNum = service.getEmpIdx()+1;
 		String idx = Integer.toString(idxNum);
 		while(idx.length()<3) {
 			idx = "0" + idx;
@@ -83,24 +89,26 @@ public class HrController {
 
 		String nowYear = new SimpleDateFormat("yy").format(new Date());
 
-		newEmp.setEMP_NUM(newEmp.getDEPT_CD()+nowYear+idx);
-		System.out.println(newEmp.getEMP_NUM());
+		newEmp.setEMP_NUM( newEmp.getDEPT_CD()+nowYear+idx);
 
 		int insertCount = service.registEmp(newEmp);
 
 		if(insertCount>0) {
-			MultipartFile mFile = newEmp.getRegistPHOTO();
-			FTPClient ftp = ftpControl(new FTPClient());
-
-			try {
-				ftp.storeFile(newEmp.getPHOTO(), mFile.getInputStream());
-
-				if(ftp.getReplyCode() != 226) {
-					model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
-					return "fail_back";
+			
+			if(isNewImg) {
+				MultipartFile mFile = newEmp.getRegistPHOTO();
+				FTPClient ftp = ftpControl(new FTPClient());
+				
+				try {
+					ftp.storeFile(newEmp.getPHOTO(), mFile.getInputStream());
+					
+					if(ftp.getReplyCode() != 226) {
+						model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+						return "fail_back";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 
 			model.addAttribute("empNo",newEmp.getEMP_NUM());
@@ -284,7 +292,7 @@ public class HrController {
 
 			////비밀번호 확인해서 안 맞으면 돌려보내기
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			HrVO loginEmp = service.getLoginEmpInfo(updateEmp.getEMP_EMAIL());
+			HrVO loginEmp = service.getLoginEmpInfo("EMP_NUM",updateEmp.getEMP_NUM());
 
 			//아이디가 존재하지 않거나, 비밀번호가 맞지 않는 경우
 			if(loginEmp==null || !passwordEncoder.matches(updateEmp.getEMP_PASS(), loginEmp.getEMP_PASS())) {
@@ -296,7 +304,13 @@ public class HrController {
 				////신규 비밀번호 암호화해주기
 				updateEmp.setEMP_PASS_NEW(passwordEncoder.encode(updateEmp.getEMP_PASS_NEW()));
 			}
+		} else {  ////만약 관리자가 수정한거라면 사번확인
+			if(updateEmp.getNewEMP_NUM().equals("")) { ///새 사번이 비어있다면
+				////신규 비밀번호 암호화해주기
+				updateEmp.setNewEMP_NUM(updateEmp.getEMP_NUM()); //기존 사번으로 덮어쓰기
+			}
 		}
+		
 		System.out.println("로그인 후 수정작업 ");
 
 		///파일 올라와있으면 새 파일 올리고 기존 삭제
@@ -364,7 +378,7 @@ public class HrController {
 		emp.setEMP_EMAIL(emp.getEMP_EMAIL1()+"@"+emp.getEMP_EMAIL2());
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		HrVO loginEmp = service.getLoginEmpInfo(emp.getEMP_EMAIL());
+		HrVO loginEmp = service.getLoginEmpInfo("EMP_EMAIL",emp.getEMP_EMAIL());
 
 		if(loginEmp==null || !passwordEncoder.matches(emp.getEMP_PASS(), loginEmp.getEMP_PASS())) {
 

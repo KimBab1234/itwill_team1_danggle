@@ -34,6 +34,17 @@ var output=0;
 var delta=0;
 var len;
 
+////재고 조회 권한은 "3"
+var priv ='${sessionScope.priv}';
+if(priv=='') {
+	alert("로그인 후 이용하세요.")
+	location.href="./Login";
+} else if(priv.charAt(3)!='1') {
+	alert("권한이 없습니다.");
+	history.back();
+}
+
+
 $(function() {
 	
 	////전체 입고 출고 선택시 목록 변경
