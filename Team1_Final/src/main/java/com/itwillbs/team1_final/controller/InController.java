@@ -354,7 +354,7 @@ public class InController {
 	public String search_stock(HttpServletResponse response, String keyword) {
 		System.out.println("재고 번호 검색 에이젝스");
 		
-		ArrayList<InPdVO> stockList = service.getstockList(keyword);
+		ArrayList<InPdVO> stockList = service.getstockNumList(keyword);
 		JSONArray jsonArray = new JSONArray();
 		
 		for(InPdVO stock : stockList) {

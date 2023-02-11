@@ -84,7 +84,7 @@
 				<th width="150">품목명</th>
 				<th width="90">입고예정수량</th>
 				<th width="90">미입고수량</th>
-				<th width="100">종결 여부</th>
+				<th width="100">진행 상태</th>
 			</tr>
 		</table>
 		<input type="button" onclick="window.close()" value="닫기" id="Listbtn7">

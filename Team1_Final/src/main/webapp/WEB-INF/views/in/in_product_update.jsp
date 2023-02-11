@@ -156,6 +156,7 @@
 	        url: "InProductUpdate",
 	        data: $('#inSc_regi').serialize(),
 	        success: function(result) {
+
 	            if (result != "0") {
 	                window.close();
 	                opener.location.reload();
