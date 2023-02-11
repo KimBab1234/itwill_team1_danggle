@@ -1,5 +1,6 @@
 package com.itwillbs.team1_final.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -196,16 +197,12 @@ public class StockController {
 			if(control_cd.equals("0")) { 
 				
 				String[] in_arr = updateStock.getIN_PD_SCHEDULE_CD_Arr();
-				String[] name_arr = updateStock.getPRODUCT_NAME_Arr();
+				Date[] pd_date_arr = updateStock.getIN_PD_DATE_Arr();
 				Integer[] qty_arr = updateStock.getIN_SCHEDULE_QTY_Arr();
+				
 				stock.setIN_PD_SCHEDULE_CD(in_arr[i]);
 				stock.setIN_SCHEDULE_QTY(qty_arr[i]);
-				if(name_arr[i].contains("[")) {
-					stock.setPRODUCT_NAME(name_arr[i].split("\\[")[0]);
-				}else {
-					stock.setPRODUCT_NAME(name_arr[i]);
-				}
-				
+				stock.setIN_PD_DATE(pd_date_arr[i]);
 				stock.setREMARKS("-");
 				isSuccess = inStock(0, i); 
 				isSuccess = isSuccess && service2.updateQTY(stock);

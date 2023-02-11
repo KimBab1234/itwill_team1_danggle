@@ -193,7 +193,8 @@
 				IN_QTY = IN_QTY + #{MOVE_QTY}
 			WHERE
 				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
-			AND PRODUCT_NAME = '${PRODUCT_NAME}'
+			AND PRODUCT_CD = '${PRODUCT_CD}'
+			AND IN_PD_DATE = '${IN_PD_DATE}'
 	</update>
 	
 	<!-- 입고 품목 종결 / 취소 상태 변경 -->
@@ -203,7 +204,8 @@
 				IN_PD_COMPLETE = 1
 			WHERE
 				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
-			AND PRODUCT_NAME = '${PRODUCT_NAME}'
+			AND PRODUCT_CD = '${PRODUCT_CD}'
+			AND IN_PD_DATE = '${IN_PD_DATE}'
 	</update>
 	
 	<!-- 입고 수량 조회 -->
@@ -212,7 +214,8 @@
 			FROM in_schedule_per_product
 			WHERE
 				IN_PD_SCHEDULE_CD = '${IN_PD_SCHEDULE_CD}'
-			AND PRODUCT_NAME = '${PRODUCT_NAME}'
+			AND PRODUCT_CD = '${PRODUCT_CD}'
+			AND IN_PD_DATE = '${IN_PD_DATE}'
 	</select>
 	
 	<!-- 처리 목록 키워드 에이젝스 -->
