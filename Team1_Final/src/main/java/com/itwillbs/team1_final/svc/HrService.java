@@ -2,6 +2,7 @@ package com.itwillbs.team1_final.svc;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,8 +65,8 @@ public class HrService {
 		return mapper.insertTempPass(email, Pass);
 	}
 
-	public HrVO getLoginEmpInfo(String email) {
-		return mapper.selectEmpPassPriv(email);
+	public HrVO getLoginEmpInfo(String loginType, String loginData) {
+		return mapper.selectEmpPassPriv(loginType, loginData );
 	}
 	
 	

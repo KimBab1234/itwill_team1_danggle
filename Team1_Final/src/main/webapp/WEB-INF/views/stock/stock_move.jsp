@@ -27,14 +27,19 @@ input[type="button"]{
 <style>
 
 </style>
-<title>Insert title here</title>
+<title>재고 조정</title>
 <script>
 	
-	var priv ='${sessionScope.priv}';
-	if(priv.charAt(4)!='1') {
-		alert("권한이 없습니다.");
-		
-	}
+////재고 관리 권한은 "4"
+var priv ='${sessionScope.priv}';
+if(priv=='') {
+	alert("로그인 후 이용하세요.")
+	location.href="./Login";
+} else if(priv.charAt(4)!='1') {
+	alert("권한이 없습니다.");
+	history.back();
+}
+
 	
 	var stock = opener.stock;
 	var selectIdx;

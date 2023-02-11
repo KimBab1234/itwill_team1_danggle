@@ -47,6 +47,8 @@
 	function departSelect(i) {
 		$(opener.document).find('#DEPT_CD').val(depart[i].DEPT_CD);
 		$(opener.document).find('#DEPT_NAME').val(depart[i].DEPT_NAME);
+		var originEmpNo = $(opener.document).find('#EMP_NUM').val();
+		$(opener.document).find('#newEMP_NUM').val(depart[i].DEPT_CD+originEmpNo.substr(2));
 		this.close();
 	}
 

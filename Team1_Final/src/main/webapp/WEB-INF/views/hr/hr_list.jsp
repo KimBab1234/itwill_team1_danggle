@@ -26,7 +26,7 @@
 }
 
 </style>
-<title>Insert title here</title>
+<title>사원 목록</title>
 <script>
 	
 	var pageList = {};
@@ -110,10 +110,22 @@
 					$(".regi_table").append("<tr><td colspan='8'>검색 결과가 없습니다.</td></tr>");
 				} else {
 					for(var i=0; i<emp.length; i++) {
-						$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td width="150"><img src="http://itwillbs3.cdn1.cafe24.com/profileImg/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;"></td>'
+						var img;
+						if(emp[i].PHOTO!=''){
+							img = '<img src="http://itwillbs3.cdn1.cafe24.com/profileImg/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;">';
+						} else {
+							img = "사진 없음";
+						}
+						var deptName;
+						if(emp[i].DEPT_NAME!=undefined){
+							deptName = emp[i].DEPT_NAME;
+						} else {
+							deptName = "-";
+						}
+						$(".regi_table").append('<tr class="empListAdd" style="height:100px; width:150"><td width="150">'+img+'</td>'
 								+'<td width="150">'+emp[i].EMP_NUM+'</td>'
 								+'<td width="120">'+emp[i].EMP_NAME+'</td>'
-								+'<td width="150">'+emp[i].DEPT_NAME+'</td>'
+								+'<td width="150">'+deptName+'</td>'
 								+'<td width="70">'+emp[i].GRADE_NAME+'</td>'
 								+'<td width="150">'+emp[i].EMP_TEL+'</td>'
 								+'<td width="250">'+emp[i].EMP_EMAIL+'</td>'

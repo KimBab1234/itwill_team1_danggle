@@ -9,6 +9,7 @@ public class HrVO {
 
 	private int idx;
 	private String EMP_NUM;
+	private String newEMP_NUM;
 	private String EMP_NAME;
 	private String DEPT_CD;
 	private String DEPT_NAME;
@@ -227,6 +228,12 @@ public class HrVO {
 	}
 	public void setPRIV_CD_Arr(boolean[] pRIV_CD_Arr) {
 		PRIV_CD_Arr = pRIV_CD_Arr;
+	}
+	public String getNewEMP_NUM() {
+		return newEMP_NUM;
+	}
+	public void setNewEMP_NUM(String newEMP_NUM) {
+		this.newEMP_NUM = newEMP_NUM;
 	}
 	
 	@Override

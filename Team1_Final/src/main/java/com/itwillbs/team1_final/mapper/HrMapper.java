@@ -20,6 +20,6 @@ public interface HrMapper {
 	public HrVO selectEmpDetail(String empNo);
 	public int updateEmp(HrVO newEmp);
 	public int insertTempPass(@Param("email") String email, @Param("pass") String pass);
-	public HrVO selectEmpPassPriv(String email);
+	public HrVO selectEmpPassPriv(@Param("loginType") String loginType, @Param("loginData") String loginData);
 	
 }
