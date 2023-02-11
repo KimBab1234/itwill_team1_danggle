@@ -12,7 +12,7 @@
 	
 	<insert id="insertEmp">
 		INSERT INTO hr VALUES (
-		null,
+		#{idx},
 		#{EMP_NUM},
 		#{EMP_NAME},
 		#{DEPT_CD},

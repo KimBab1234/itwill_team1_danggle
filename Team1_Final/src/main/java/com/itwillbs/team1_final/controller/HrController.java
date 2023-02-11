@@ -89,6 +89,7 @@ public class HrController {
 
 		String nowYear = new SimpleDateFormat("yy").format(new Date());
 
+		newEmp.setIdx(idxNum);
 		newEmp.setEMP_NUM( newEmp.getDEPT_CD()+nowYear+idx);
 
 		int insertCount = service.registEmp(newEmp);

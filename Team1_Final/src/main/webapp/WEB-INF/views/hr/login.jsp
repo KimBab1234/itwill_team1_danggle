@@ -53,28 +53,30 @@ var email2 = localStorage.getItem("email2");
 
 $(function() {
 	
-	if(email1 != null) {
-		$("#EMP_EMAIL1").val(email1);
-		$("#EMP_EMAIL2").val(email2);
-		$("#rememberEmailChk").prop("checked",true);
-		///email select 
-		for(var i=1; i<$("#EMP_EMAIL2_SEL").children().length; i++){
-			var opt = $("#EMP_EMAIL2_SEL option").eq(i).val();
-			if(email2 == opt) {
-				$("#EMP_EMAIL2_SEL option").eq(i).prop("selected", true);
-				$("#EMP_EMAIL2").prop("readOnly",true);
-				$("#EMP_EMAIL2").css("background","lightgray");
-				break;
-			} else {
-				$("#EMP_EMAIL2_SEL option").eq(0).prop("selected", true);
+		loadEmail();
+});
+	
+	function loadEmail() {
+		if(email1 != null) {
+			$("#EMP_EMAIL1").val(email1);
+			$("#EMP_EMAIL2").val(email2);
+			$("#rememberEmailChk").prop("checked",true);
+			///email select 
+			for(var i=1; i<$("#EMP_EMAIL2_SEL").children().length; i++){
+				var opt = $("#EMP_EMAIL2_SEL option").eq(i).val();
+				if(email2 == opt) {
+					$("#EMP_EMAIL2_SEL option").eq(i).prop("selected", true);
+					$("#EMP_EMAIL2").prop("readOnly",true);
+					$("#EMP_EMAIL2").css("background","lightgray");
+					break;
+				} else {
+					$("#EMP_EMAIL2_SEL option").eq(0).prop("selected", true);
+				}
+				
 			}
-			
 		}
 	}
-	
-	
-	
-});
+
 	function emailSelect(domain){
 		if(domain=='') {
 			$("#EMP_EMAIL2").val(domain);

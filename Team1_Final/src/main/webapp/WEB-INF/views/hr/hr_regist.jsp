@@ -208,7 +208,7 @@ function execDaumPostcode() {
 				$("#hrFormSubmit").text("수정");
 				$(".passTr").css("display","none");
 				$(".newEmpNoTr").css("display","none");
-				
+				$(".chk_top").prop("disabled",true);
 			}
 			
 		}
@@ -420,19 +420,6 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 				<c:if test="${param.empNo!=null}">
-				<tr>
-					<th align="right" width="150">사번</th>
-					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<span class="detailMode">${param.empNo}</span>
-						<input type="text" class="editMode" id="EMP_NUM" readonly="readonly" name="EMP_NUM" value="${param.empNo}" ><br>
-					</td>
-				</tr>
-				<tr class="newEmpNoTr">
-					<th align="right" width="150">변경할 사번</th>
-					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<input type="text" class="editMode" id="newEMP_NUM" name="newEMP_NUM"  >
-					</td>
-				</tr>
 				<!-- 당사자가 들어왔으면 비밀번호 변경 보이게 -->
 				<c:if test="${emp.EMP_NUM eq sessionScope.empNo}">
 					<tr class="passTr">
@@ -456,6 +443,19 @@ function execDaumPostcode() {
 						</td>
 					</tr>
 				</c:if>
+				<tr>
+					<th align="right" width="150">사번</th>
+					<td align="left" >&nbsp;&nbsp;&nbsp;
+						<span class="detailMode">${param.empNo}</span>
+						<input type="text" class="editMode" id="EMP_NUM" readonly="readonly" name="EMP_NUM" value="${param.empNo}" ><br>
+					</td>
+				</tr>
+				<tr class="newEmpNoTr">
+					<th align="right" width="150">변경할 사번</th>
+					<td align="left" >&nbsp;&nbsp;&nbsp;
+						<input type="text" class="editMode" id="newEMP_NUM" name="newEMP_NUM"  >
+					</td>
+				</tr>
 				</c:if>
 				<tr>
 					<th align="right" >부서</th>
@@ -582,18 +582,22 @@ function execDaumPostcode() {
 				<tr>
 					<th align="right" >사진이미지</th>
 					<td align="left" style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;
+						<span class="editMode">
 						<input type="file" class="thisEmp filebox" id="registPHOTO" accept="image/*" name="registPHOTO" style="font-size: 15px; font-weight: bold;" onchange="selectFile(this.value)">
 						<label for="registPHOTO">파일찾기</label> 
 						<input type="text" class="thisEmp" placeholder="변경할 이미지를 등록하세요." id="registPHOTOName" style="width:200px; font-size: 15px; font-weight: bold;">
 						<input type="hidden" name="PHOTO" value="${emp.PHOTO}" >
-						<span><c:choose>
-							<c:when test="${emp.PHOTO.length() >0}">
-								<img class="hrImg" src="http://itwillbs3.cdn1.cafe24.com/profileImg/${emp.PHOTO}" width="150">
-							</c:when>
-							<c:otherwise>
-								사진 없음
-							</c:otherwise>
-						</c:choose></span>
+						</span>
+						<c:if test="${param.empNo!=null}">
+							<span><c:choose>
+								<c:when test="${emp.PHOTO.length() >0}">
+									<img class="hrImg" src="http://itwillbs3.cdn1.cafe24.com/profileImg/${emp.PHOTO}" width="150">
+								</c:when>
+								<c:otherwise>
+									사진 없음
+								</c:otherwise>
+							</c:choose></span>
+						</c:if>
 					</td>
 				</tr>
 			</table>
