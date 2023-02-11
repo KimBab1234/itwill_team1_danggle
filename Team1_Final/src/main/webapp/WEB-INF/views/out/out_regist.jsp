@@ -78,7 +78,7 @@ pageEncoding="UTF-8"%>
 		// 품목 추가 - 추가 행 개수 제한
 		$("#recoBtn").on("click", function() {
 			var trCount = $(".out_table tr").length;
-			alert(trCount);
+			
 			if(trCount < 7){
 				$("#optionArea").append(
 						'<tr class="idx">' 

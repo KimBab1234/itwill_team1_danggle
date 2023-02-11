@@ -65,13 +65,19 @@ public interface OutMapper {
 			@Param("stock_cd") String stock_cd);
 
 	// 출고 예정 수정
-	void updateOutSch(OutSchVo outSchPd);
+	void updateOutSch(
+			@Param("pdcd") String pdcd,
+			@Param("stcd") String stcd,
+			@Param("pdqty") int pdqty,
+			@Param("tqty") int tqty,
+			@Param("outSchPd") OutSchVo outSchPd);
 	
 	// 출고 예정 품목 수정
 	int updateOutSchPd(
 			@Param("pdcd") String pdcd,
 			@Param("stcd") String stcd,
 			@Param("pdqty") int pdqty,
+			@Param("tqty") int tqty,
 			@Param("outSchPd") OutSchVo outSchPd);
 
 

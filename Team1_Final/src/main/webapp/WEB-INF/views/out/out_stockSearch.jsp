@@ -13,6 +13,7 @@
 <script>	
 	var	searchType = '';
 	var keyword = '';
+	var updateStr = opener.updateStr;
 	
 	$(function() {
 // 		alert(opener.pdcd);
@@ -58,14 +59,23 @@
 	
 	// 재고 선택
 	function selectstock(i, stock_cd) {
-// 		alert(i);
-// 		alert(stock[i].STOCK_CD);
+		
 		for(var j = 0; j < $(opener.document).find(".idx").length; j++){
-			if($(opener.document).find('.stock_cd').eq(j).val() == "재고번호"
-					|| $(opener.document).find('.stock_cd').eq(j).val() != stock_cd){
-				$(opener.document).find('.stock_cd').eq(j).val(stock[i].STOCK_CD);
-				break;
+			var val = $(opener.document).find('.stock_cd').eq(j).val();
+		
+			if(updateStr == "up"){
+				if(val != stock_cd){
+					$(opener.document).find('.stock_cd').eq(j).val(stock[i].STOCK_CD);
+					break;
+				}
+			} else {
+				if(val == "재고번호"){
+					$(opener.document).find('.stock_cd').eq(j).val(stock[i].STOCK_CD);
+					break;
+				}				
+							
 			}
+			
 		}
 		this.close();
 	}

@@ -305,14 +305,19 @@ public class OutController {
 			@RequestParam("pdcd") String pdcd,
 			@RequestParam("stcd") String stcd,
 			@RequestParam("pdqty") int pdqty,
+			@RequestParam("tqty") int tqty,
 			@ModelAttribute OutSchVo outSchPd) {
 		outSchPd.setOUT_SCHEDULE_CD(outSch_cd);
-		System.out.println("out_schedule_cd - " + outSch_cd + ", " + pdcd + ", " + stcd + ", " + pdqty);
-		System.out.println(outSchPd);
+//		System.out.println("out - " + outSch_cd
+//				+ ", pscd : " + pdcd 
+//				+ ", stcd :" + stcd
+//				+ ", pdqty : " + pdqty
+//				+ ", tqty : " + tqty);
+//		System.out.println(outSchPd);
 		
 		outSchPd.setOUT_SCHEDULE_CD(outSch_cd);
 		
-		int updateCount = service.modifyOutSchPd(pdcd, stcd, pdqty, outSchPd);
+		int updateCount = service.modifyOutSchPd(pdcd, stcd, pdqty, tqty, outSchPd);
 		
 		return updateCount;
 	}
