@@ -178,7 +178,7 @@ button {
 	// 출고 예정 품목 - 조회(개별품목)
 	function OutEachPd(i){
 		pIndex = i;
-		window.open('OutEachPd', 'OutEachPd', 'width=500, height=500, left=600, top=400');
+		window.open('OutEachPd', 'OutEachPd', 'width=510, height=500, left=600, top=400');
 	}
 	// --------------------------------------------------------------------
 	
@@ -313,7 +313,7 @@ button {
 				<th width="50px">진행상태</th>
 			</tr>
 		</table><br>
-		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1150, height=600, left=200, top=300')">등록</button>
+		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1220, height=600, left=200, top=300')">등록</button>
 	</div>
 	
 </body>

@@ -142,6 +142,12 @@
 	});	
 		
 	function sum_qty(num){
+		if(Number($("#qty_sum"+num).val()) > Number($("#mi_qty"+num).val())){
+			alert("출고지시수량은 출고예정수량보다 클 수 없습니다");
+			$("#qty_sum"+num).val(0);
+			$("#mi_qty"+num).val(originMiArr[num]);
+			return false;
+		}
 		$.total();
 		$.subtract(num);
 	}

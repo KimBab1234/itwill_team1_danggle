@@ -124,7 +124,11 @@ button {
 	}
 	
 	function release(){
-		window.open('', '', 'width=1200, height=400, left=600, top=400');
+		if ($(".check").is(":checked") == false) {
+			alert("출고 처리할 항목을 선택해주세요!");
+			return false;
+		}
+		window.open('OutConfirmList', 'OutConfirmList', 'width=1250, height=600, left=200, top=300');
 	}
 	
 </script>
@@ -150,7 +154,7 @@ button {
 				<th width="300px">적요</th>
 			</tr>
 		</table>
-		<button type="button" onclick="window.open('OutConfirmList', 'OutConfirmList', 'width=1250, height=600, left=200, top=300')">출고</button>
+		<button type="button" onclick="release()">출고</button>
 	</div>
 
 </body>
