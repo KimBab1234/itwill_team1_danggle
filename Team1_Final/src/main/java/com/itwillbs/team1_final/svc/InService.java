@@ -193,8 +193,8 @@ public class InService {
 		return inList;
 	}
 
-	public InPdVO getProductInfo(String product_cd, String product_name) {
-		InPdVO productInfo = mapper.selectProductInfo(product_cd, product_name);
+	public InPdVO getProductInfo(String product_cd, String product_name, Date IN_PD_DATE) {
+		InPdVO productInfo = mapper.selectProductInfo(product_cd, product_name, IN_PD_DATE);
 		
 		// 입고 예정 코드 다시 날짜(String)으로 바꿔주기
 		String pro_cd = productInfo.getIN_PD_SCHEDULE_CD();

@@ -137,8 +137,8 @@
 			FROM in_product_info_view
 			WHERE 
 				IN_PD_SCHEDULE_CD = '${product_cd}'
-			AND
-				PRODUCT_NAME = '${product_name}'
+			AND PRODUCT_NAME = '${product_name}'
+			AND IN_PD_DATE = '${IN_PD_DATE}'
 	</select>
 	
 	<!-- 입고 예정 수정 -->
