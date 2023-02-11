@@ -97,6 +97,19 @@ button {
 	var cIndex;
 	var pIndex;
 	
+	// ---------------------------- 권한 판단 -----------------------------
+	var loginEmp = '${sessionScope.empNo}';
+	var priv = '${sessionScope.priv}';
+	if(loginEmp=='') {
+		alert("로그인 후 이용하세요.");
+	    location.href="./Login";
+	} else if(priv.charAt(3) !='1') {
+		alert("권한이 없습니다.");
+		history.back();
+	}
+	// --------------------------------------------------------------------
+	
+	
 	// -------------------- 출고 예정 목록 - 기능 목록 --------------------
 	// 출고 예정 목록 조회 기능
 	function load_list(keyword){
@@ -300,7 +313,7 @@ button {
 				<th width="50px">진행상태</th>
 			</tr>
 		</table><br>
-		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1250, height=600, left=200, top=300')">등록</button>
+		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1150, height=600, left=200, top=300')">등록</button>
 	</div>
 	
 </body>

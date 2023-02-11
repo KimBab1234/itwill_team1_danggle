@@ -25,11 +25,11 @@
 }
 
 .out_table{
-	margin: 0 auto;
 	border-collapse: collapse;
 	border-style: solid;
 	border-color: #b09f76;;
 	width: 1100px;
+	
 }
 
 .out_table th {
@@ -75,6 +75,12 @@
 	border: none;
 	margin: 3px 0px 3px 0px;
 	color: #575754;
+}
+
+#removeTr {
+	width: 60px;
+	border: none;
+	
 }
 
 .stock_cd {
@@ -309,6 +315,7 @@ label {
     font-size: 0.71rem;
     border-radius: 4px;
     border: none;
+    text-align: center;
 }
 
 #searchBtn {
@@ -319,7 +326,7 @@ label {
     padding: 3px 5px;;
 }
 
-#recoBtn, #submitBtn {
+#recoBtn, #recoBtn2, #submitBtn {
 	position: relative;
 	left: 880px;
 	color: #fff;
@@ -330,7 +337,7 @@ label {
     font-size: 0.75rem;
     border-radius: 4px;
     border: none;
-    display: block;
+    display: inline;
     margin-top: 10px;
 }
 

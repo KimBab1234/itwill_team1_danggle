@@ -20,6 +20,7 @@ public class OutSchVo {
 	
 	private String PRODUCT_NAME;
 	private String SIZE_DES;
+	private int STOCK_QTY;
 	
 	// 출고 예정 품목
 	private List<Integer> PRODUCT_CD_Arr;
@@ -113,6 +114,12 @@ public class OutSchVo {
 	}
 	public void setSIZE_DES(String sIZE_DES) {
 		SIZE_DES = sIZE_DES;
+	}
+	public int getSTOCK_QTY() {
+		return STOCK_QTY;
+	}
+	public void setSTOCK_QTY(int sTOCK_QTY) {
+		STOCK_QTY = sTOCK_QTY;
 	}
 	public List<Integer> getPRODUCT_CD_Arr() {
 		return PRODUCT_CD_Arr;
@@ -210,13 +217,13 @@ public class OutSchVo {
 		return "OutSchVo [OUT_SCHEDULE_CD=" + OUT_SCHEDULE_CD + ", OUT_TYPE_NAME=" + OUT_TYPE_NAME + ", BUSINESS_NO="
 				+ BUSINESS_NO + ", EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", OUT_COMPLETE=" + OUT_COMPLETE
 				+ ", OUT_DATE=" + OUT_DATE + ", REMARKS=" + REMARKS + ", TOTAL_QTY=" + TOTAL_QTY + ", CUST_NAME="
-				+ CUST_NAME + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", PRODUCT_CD_Arr="
-				+ PRODUCT_CD_Arr + ", PRODUCT_NAME_Arr=" + PRODUCT_NAME_Arr + ", SIZE_DES_Arr=" + SIZE_DES_Arr
-				+ ", OUT_SCHEDULE_QTY_Arr=" + OUT_SCHEDULE_QTY_Arr + ", PD_OUT_DATE_Arr=" + PD_OUT_DATE_Arr
-				+ ", PD_REMARKS_Arr=" + PD_REMARKS_Arr + ", STOCK_CD_Arr=" + STOCK_CD_Arr + ", PD_OUT_SCHEDULE_CD="
-				+ PD_OUT_SCHEDULE_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PD_OUT_DATE=" + PD_OUT_DATE
-				+ ", PD_OUT_COMPLETE=" + PD_OUT_COMPLETE + ", PD_REMARKS=" + PD_REMARKS + ", OUT_SCHEDULE_QTY="
-				+ OUT_SCHEDULE_QTY + ", OUT_QTY=" + OUT_QTY + ", STOCK_CD=" + STOCK_CD + "]";
+				+ CUST_NAME + ", PRODUCT_NAME=" + PRODUCT_NAME + ", SIZE_DES=" + SIZE_DES + ", STOCK_QTY=" + STOCK_QTY
+				+ ", PRODUCT_CD_Arr=" + PRODUCT_CD_Arr + ", PRODUCT_NAME_Arr=" + PRODUCT_NAME_Arr + ", SIZE_DES_Arr="
+				+ SIZE_DES_Arr + ", OUT_SCHEDULE_QTY_Arr=" + OUT_SCHEDULE_QTY_Arr + ", PD_OUT_DATE_Arr="
+				+ PD_OUT_DATE_Arr + ", PD_REMARKS_Arr=" + PD_REMARKS_Arr + ", STOCK_CD_Arr=" + STOCK_CD_Arr
+				+ ", PD_OUT_SCHEDULE_CD=" + PD_OUT_SCHEDULE_CD + ", PRODUCT_CD=" + PRODUCT_CD + ", PD_OUT_DATE="
+				+ PD_OUT_DATE + ", PD_OUT_COMPLETE=" + PD_OUT_COMPLETE + ", PD_REMARKS=" + PD_REMARKS
+				+ ", OUT_SCHEDULE_QTY=" + OUT_SCHEDULE_QTY + ", OUT_QTY=" + OUT_QTY + ", STOCK_CD=" + STOCK_CD + "]";
 	}
 	
 }
