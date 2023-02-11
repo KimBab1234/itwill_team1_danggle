@@ -178,7 +178,7 @@
 			OUT_DATE, REMARKS,
 			product_cd, product_name, size_des, OUT_SCHEDULE_QTY,
 			PD_OUT_DATE, pd_remarks,
-			STOCK_CD
+			STOCK_CD, TOTAL_QTY
 		FROM outSch_view
 		WHERE
 			PD_OUT_SCHEDULE_CD = #{pd_outSch_cd}
@@ -191,14 +191,14 @@
 	<update id="updateOutSch">
 		UPDATE OUT_SCHEDULE
 			SET
-				out_type_name = #{outSchPd.out_type_name}
-				, EMP_NUM = #{outSchPd.emp_num}
-				, business_no = #{outSchPd.business_no}
-				, out_date = #{outSchPd.out_date}
-				, remarks = #{outSchPd.remarks}
-				, TOTAL_QTY = (TOTAL_QTY - #{pdqty} + #{outSchPd.OUT_SCHEDULE_QTY})
+				out_type_name = #{outSchPd.OUT_TYPE_NAME}
+				, EMP_NUM = #{outSchPd.EMP_NUM}
+				, business_no = #{outSchPd.BUSINESS_NO}
+				, out_date = #{outSchPd.OUT_DATE}
+				, remarks = #{outSchPd.REMARKS}
+				, TOTAL_QTY = #{tqty} - #{pdqty} + #{outSchPd.OUT_SCHEDULE_QTY}
 			WHERE
-				PD_OUT_SCHEDULE_CD = #{outSchPd.OUT_SCHEDULE_CD}
+				OUT_SCHEDULE_CD = #{outSchPd.OUT_SCHEDULE_CD}
 	</update>
 
 
@@ -207,13 +207,12 @@
 		UPDATE OUT_SCHEDULE_PER_PRODUCT
 			SET
 				PRODUCT_CD = #{outSchPd.PRODUCT_CD}
-				, PD_OUT_SCHEDULE_CD = #{outSchPd.OUT_SCHEDULE_CD}
 				, OUT_SCHEDULE_QTY = #{outSchPd.OUT_SCHEDULE_QTY}
 				, OUT_DATE = #{outSchPd.PD_OUT_DATE}
 				, STOCK_CD = #{outSchPd.STOCK_CD}
 			WHERE
-				PD_OUT_SCHEDULE_CD = #{outSchPd.OUT_SCHEDULE_CD}
-				AND PRODUCT_CD = #{outSchPd.pdcd}
+				OUT_SCHEDULE_CD = #{outSchPd.OUT_SCHEDULE_CD}
+				AND PRODUCT_CD = #{pdcd}
 				AND STOCK_CD = #{stcd}
 	</update>
 

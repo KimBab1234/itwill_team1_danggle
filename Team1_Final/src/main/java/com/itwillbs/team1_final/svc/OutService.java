@@ -146,10 +146,9 @@ public class OutService {
 	}
 
 	// 출고 예정 품목 수정
-	public int modifyOutSchPd(String pdcd, String stcd, int pdqty, OutSchVo outSchPd) {
-		mapper.updateOutSch(outSchPd);
-		
-		return mapper.updateOutSchPd(pdcd, stcd, pdqty, outSchPd);
+	public int modifyOutSchPd(String pdcd, String stcd, int pdqty, int tqty, OutSchVo outSchPd) {
+		mapper.updateOutSch(pdcd, stcd, pdqty, tqty, outSchPd);
+		return mapper.updateOutSchPd(pdcd, stcd, pdqty, tqty, outSchPd);
 	}	
 	
 }

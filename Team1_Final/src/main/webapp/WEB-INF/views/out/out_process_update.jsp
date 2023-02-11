@@ -40,6 +40,7 @@ pageEncoding="UTF-8"%>
 	
 	function searchStock(product_cd){
 		pdcd = product_cd;
+		updateStr = "up";
 		window.open('StockSearch', 'StockSearch', 'width=1000, height=600, left=600, top=400');
 	}
 	// --------------------------------------------------------------------------------
@@ -155,7 +156,7 @@ pageEncoding="UTF-8"%>
 				$("#cd_pd").val(result.product_CD);
 				$("#cd_st").val(result.stock_CD);
 				$("#pd_qty").val(Number(result.out_SCHEDULE_QTY));
-				
+				$("#t_qty").val(Number(result.total_QTY));
 				
 				if(result.out_TYPE_NAME == "1"){
 					$("#type_1").prop('checked', true);
@@ -227,6 +228,7 @@ pageEncoding="UTF-8"%>
 			<input type="hidden" id="cd_pd" name="pdcd">
 			<input type="hidden" id="cd_st" name="stcd">
 			<input type="hidden" id="pd_qty" name="pdqty">
+			<input type="hidden" id="t_qty" name="tqty">
 			<table class="regi_table">
 				<tr>
 					<th>일자</th>

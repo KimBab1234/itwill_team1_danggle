@@ -38,7 +38,7 @@ public class OutSchVo {
 	private String PD_OUT_DATE;
 	private String PD_OUT_COMPLETE;
 	private String PD_REMARKS;
-	private String OUT_SCHEDULE_QTY;
+	private int OUT_SCHEDULE_QTY;
 	private String OUT_QTY;
 	private Integer STOCK_CD;
 	
@@ -193,10 +193,10 @@ public class OutSchVo {
 	public void setPD_REMARKS(String pD_REMARKS) {
 		PD_REMARKS = pD_REMARKS;
 	}
-	public String getOUT_SCHEDULE_QTY() {
+	public int getOUT_SCHEDULE_QTY() {
 		return OUT_SCHEDULE_QTY;
 	}
-	public void setOUT_SCHEDULE_QTY(String oUT_SCHEDULE_QTY) {
+	public void setOUT_SCHEDULE_QTY(int oUT_SCHEDULE_QTY) {
 		OUT_SCHEDULE_QTY = oUT_SCHEDULE_QTY;
 	}
 	public String getOUT_QTY() {
