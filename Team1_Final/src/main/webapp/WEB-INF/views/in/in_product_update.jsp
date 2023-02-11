@@ -34,6 +34,7 @@
 	var i = 0;
 	var productCd = opener.proList[opener.selectIdx].IN_PD_SCHEDULE_CD;
 	var productName = opener.proList[opener.selectIdx].PRODUCT_NAME;
+	var IN_PD_DATE = opener.proList[opener.selectIdx].IN_PD_DATE;
 	var date;
 	var pd_date;
 	
@@ -86,6 +87,7 @@
 	        url: "UpdateProductInfo",
 	        data: {
 	        	product_cd : productCd,
+	        	IN_PD_DATE : IN_PD_DATE,
 				product_name : productName
 	        },
 	        dataType: 'json',

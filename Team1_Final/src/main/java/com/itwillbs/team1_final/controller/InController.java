@@ -1,5 +1,6 @@
 package com.itwillbs.team1_final.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -266,13 +267,13 @@ public class InController {
 	
 	@ResponseBody
 	@GetMapping(value = "/UpdateProductInfo")
-	public InPdVO productInfo(HttpServletResponse response, String product_cd, String product_name) {
+	public InPdVO productInfo(HttpServletResponse response, String product_cd, String product_name, Date IN_PD_DATE) {
 		System.out.println("상품 수정 폼 에이젝스");
 
 		if(product_name.contains("[")) {
 			product_name = product_name.split("\\[")[0];
 		}
-		InPdVO ProductInfo = service.getProductInfo(product_cd, product_name);
+		InPdVO ProductInfo = service.getProductInfo(product_cd, product_name, IN_PD_DATE);
 
 		return ProductInfo;
 	}
