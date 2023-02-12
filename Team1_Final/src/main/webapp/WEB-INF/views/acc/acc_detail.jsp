@@ -163,7 +163,8 @@ h2 {
 			$("input[type=radio][name=G_GUBUN]").prop("checked", function(){
 				if ('${acc.g_GUBUN}' == "03") {
 					$("#busiArea").css("display","none");
-					$("#BUSINESS_NO3").prop("required",false);
+					$("#BUSINESS_NO3").prop("readonly",true);
+					$("#BUSINESS_NO2").prop("type","password");
 				}
 			});
 		});
