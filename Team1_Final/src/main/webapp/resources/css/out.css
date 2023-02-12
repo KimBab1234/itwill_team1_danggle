@@ -16,6 +16,28 @@
 	border-top-right-radius: 9px;
 }
 
+#sTitle {
+	display: inline-block;
+	height: 30px;
+	width: 136px;
+	text-align: center;
+	background-color: #c9b584;
+	position: relative;
+	padding-top: 7px;
+	font-size: 13.5px;
+	color: #736643;
+	font-weight: bold;
+	margin-right: 324px;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+}
+
+#searchType {
+	height: 25px;
+	width: 80px;
+	border-color: #b09f76;
+}
+
 .box{
 	width: 450px;
 	height: 50px;
@@ -367,7 +389,7 @@ select {
 
 #recoBtn, #recoBtn2, #submitBtn {
 	position: relative;
-	left: 880px;
+	left: 950px;
 	color: #fff;
     background-color: #736643;
     cursor: pointer;

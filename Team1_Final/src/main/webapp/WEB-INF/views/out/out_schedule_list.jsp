@@ -13,10 +13,10 @@
 
 table{
 	margin-left: 250px;
-	margin-right: 50px;
+	margin-right: 80px;
 	border-collapse: collapse;
 	border-style: solid;
-	border-color: #b09f76;;
+	border-color: #b09f76;
 }
 
 th{
@@ -53,13 +53,13 @@ button {
     font-size: 0.75rem;
     border-radius: 4px;
     border: none;
-	margin-left: 500px;
+	margin-left: 1100px;
 }
 
 .nav-tabs {
     list-style: none;
-    margin-top: -5px;
     margin-left: 210px;
+    margin-bottom: 22px;
 }
 
 .navli {
