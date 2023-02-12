@@ -13,10 +13,10 @@
 
 table{
 	margin-left: 250px;
-	margin-right: 50px;
+	margin-right: 80px;
 	border-collapse: collapse;
 	border-style: solid;
-	border-color: #b09f76;;
+	border-color: #b09f76;
 }
 
 th{
@@ -44,14 +44,6 @@ td {
  	text-overflow:ellipsis;
 }
 
-input{
-	text-align: center;
-}
-
-td > a {
-	color: "blue";
-}
-
 button {
 	color: #fff;
     background-color: #736643;
@@ -61,7 +53,8 @@ button {
     font-size: 0.75rem;
     border-radius: 4px;
     border: none;
-	margin-left: 500px;
+	margin-left: 1100px;
+	margin-top: 10px;
 }
 </style>
 
