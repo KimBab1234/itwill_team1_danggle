@@ -26,6 +26,8 @@
 	var sum = 0;
 	var total = 0;
 	var total_num = 0;
+	let checkQTY = false;
+	var originMiArr = [];
 	
 	//---------------------------- 권한 판단 -----------------------------
 	var loginEmp = '${sessionScope.empNo}';
@@ -106,6 +108,7 @@
 		$.subtract = function(num) {
 			var a = $("#mi_qty"+num).val();
 			var b = $("#qty_sum"+num).val();
+			$("#mi_qty"+num).val(originMiArr[num]-$("#qty_sum"+num).val());
 			
 			$("#mi_qty"+num).val(a-b);
 			$.total_qty();
@@ -127,6 +130,7 @@
 					+ "</tr>";
 					
 				$("#in_process_table").append(result);
+				originMiArr.push((proList[i].OUT_SCHEDULE_QTY));
 				j++;
 				
 				sum += Number(proList[i].OUT_SCHEDULE_QTY);
@@ -139,6 +143,38 @@
 		
 		//======================================================================================================================
 
+		// 재고수량 제한
+// 		$("#recoBtn3").on("click", function() {
+// 			for(var i = 0; i < $(".sch_cd").length; i++){
+				
+// 				if($(".qty_sum").eq(i).val() == "" || $(".qty_sum").eq(i).val() == 0){
+// 					alert("재고수량을 확인해주세요!");
+// 					checkQTY = false;
+// 				}
+// 				break;
+				
+// 			}
+			
+// 		});
+		
+		$("#outProCom").submit(function() {
+			for(var i = 0; i < $(".sch_cd").length; i++){
+				if($(".qty_sum").eq(i).val() == "" || $(".qty_sum").eq(i).val() == "0"){
+					checkQTY = false;
+				} else {
+					checkQTY = true;
+				}
+			}
+			
+			if(!checkQTY){
+				alert("재고수량을 확인해주세요!");
+				checkQTY = false;
+				return false;
+			}
+			
+		});
+		
+		
 	});	
 		
 	function sum_qty(num){
@@ -146,12 +182,12 @@
 			alert("출고지시수량은 출고예정수량보다 클 수 없습니다");
 			$("#qty_sum"+num).val(0);
 			$("#mi_qty"+num).val(originMiArr[num]);
+			checkQTY = false;
 			return false;
 		}
 		$.total();
 		$.subtract(num);
 	}
-	
 	
 	
 	
@@ -162,7 +198,7 @@
 <body>
 	<div style="width:1200px;">
 		<div class="title_regi">출고 처리</div>
-		<form action="StockMovePro" method="post" style="width:900px;">
+		<form action="StockMovePro" method="post" id="outProCom" style="width:900px;">
 			<table id="in_process_table" style="table-layout:fixed">
 				<tr>
 					<th width="115">출고예정번호</th>

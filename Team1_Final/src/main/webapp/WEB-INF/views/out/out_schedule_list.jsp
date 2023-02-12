@@ -171,7 +171,6 @@ button {
 	// 종결 여부 변경
 	function OutCom(i){
 		cIndex = i;
-		
 		window.open('OutCom', 'OutCom', 'width=500, height=300, left=600, top=400');
 	}
 	
