@@ -73,7 +73,7 @@
 			for(var i= 0; i < numberClass; i++){
 				sum += Number($("input[type=number][name=IN_SCHEDULE_QTY]").eq(i).val());
 			}
-			$("input[type=number][name=TOTAL_QTY]").val(sum);
+			$(".total").val(sum);
 		};
 		
 		$("input[type=number][name=IN_SCHEDULE_QTY]").on("change", function() {
@@ -175,7 +175,8 @@
 			        data: $('#inSc_regi').serialize(),
 			        dataType: 'json',
 			        success: function(result) {
-			            if (result != "0") {
+			           
+			        	if (result != "0") {
 			                window.close();
 			                opener.location.reload();
 			            } else {
@@ -275,7 +276,7 @@
 					<th></th>
 					<th></th>
 					<th></th>
-					<th><input type="number" class="total" name="TOTAL_QTY" readonly="readonly"></th>
+					<th><input type="number" class="total" readonly="readonly"></th>
 					<th></th>
 					<th></th>
 				</tr>

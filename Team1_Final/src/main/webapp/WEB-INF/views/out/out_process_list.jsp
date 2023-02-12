@@ -13,10 +13,10 @@
 
 table{
 	margin-left: 250px;
-	margin-right: 50px;
+	margin-right: 80px;
 	border-collapse: collapse;
 	border-style: solid;
-	border-color: #b09f76;;
+	border-color: #b09f76;
 }
 
 th{
@@ -44,14 +44,6 @@ td {
  	text-overflow:ellipsis;
 }
 
-input{
-	text-align: center;
-}
-
-td > a {
-	color: "blue";
-}
-
 button {
 	color: #fff;
     background-color: #736643;
@@ -61,7 +53,8 @@ button {
     font-size: 0.75rem;
     border-radius: 4px;
     border: none;
-	margin-left: 500px;
+	margin-left: 1100px;
+	margin-top: 10px;
 }
 </style>
 
@@ -124,7 +117,11 @@ button {
 	}
 	
 	function release(){
-		window.open('', '', 'width=1200, height=400, left=600, top=400');
+		if ($(".check").is(":checked") == false) {
+			alert("출고 처리할 항목을 선택해주세요!");
+			return false;
+		}
+		window.open('OutConfirmList', 'OutConfirmList', 'width=1250, height=600, left=200, top=300');
 	}
 	
 </script>
@@ -150,7 +147,7 @@ button {
 				<th width="300px">적요</th>
 			</tr>
 		</table>
-		<button type="button" onclick="window.open('OutConfirmList', 'OutConfirmList', 'width=1250, height=600, left=200, top=300')">출고</button>
+		<button type="button" onclick="release()">출고</button>
 	</div>
 
 </body>

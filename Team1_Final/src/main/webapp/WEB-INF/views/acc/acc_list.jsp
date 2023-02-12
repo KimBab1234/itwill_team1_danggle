@@ -135,13 +135,13 @@ table {
 		<form action="AccList">
 			<h1>거래처 목록 리스트</h1>
 			<select name="searchType" id="accName">
-				<option id="BUSINESS_NO" value="BUSINESS_NO">거래처코드</option>
-				<option id="CUST_NAME" value="CUST_NAME">거래처명</option>
-				<option id="UPTAE" value="UPTAE">업태</option>
-				<option id="JONGMOK" value="JONGMOK">종목</option>
-				<option id="G_GUBUN" value="G_GUBUN">거래처구분</option>
-				<option id="BOSS_NAME" value="BOSS_NAME">대표명</option>
-				<option id="MAN_NAME" value="MAN_NAME">담당자명</option>
+				<option id="BUSINESS_NO" value="BUSINESS_NO" <c:if test="${param.searchType eq 'BUSINESS_NO'}">selected</c:if>>거래처코드</option>
+				<option id="CUST_NAME" value="CUST_NAME" <c:if test="${param.searchType eq 'CUST_NAME'}">selected</c:if>>거래처명</option>
+				<option id="UPTAE" value="UPTAE" <c:if test="${param.searchType eq 'UPTAE'}">selected</c:if>>업태</option>
+				<option id="JONGMOK" value="JONGMOK" <c:if test="${param.searchType eq 'JONGMOK'}">selected</c:if>>종목</option>
+				<option id="G_GUBUN" value="G_GUBUN" <c:if test="${param.searchType eq 'G_GUBUN'}">selected</c:if>>거래처구분</option>
+				<option id="BOSS_NAME" value="BOSS_NAME" <c:if test="${param.searchType eq 'BOSS_NAME'}">selected</c:if>>대표명</option>
+				<option id="MAN_NAME" value="MAN_NAME" <c:if test="${param.searchType eq 'MAN_NAME'}">selected</c:if>>담당자명</option>
 			</select> <input type="text" name="keyword" id="keyword"
 				value="${param.keyword }"> <input type="submit" value="검색">
 			<br>

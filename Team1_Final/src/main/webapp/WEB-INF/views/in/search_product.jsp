@@ -58,12 +58,28 @@
 
 		
 	function departSelect(i) {
+		var count = 0;
+		for(var j = 0; j < $(opener.document).find('.product_cd').length; j++){
+			if($(opener.document).find('#product_cd'+j).val() == proList[i].PRODUCT_CD){
+				count++;
+			}
+		}
+		
+		if(count == 0){
+			insertProduct(i)
+		}else {
+			alert("이미 선택된 품목입니다");
+			
+		}
+		
+	}
+	
+	function insertProduct(i){
 		$(opener.document).find('#product_cd'+opener.selectIdx).val(proList[i].PRODUCT_CD);
 		$(opener.document).find('#product_name'+opener.selectIdx).val(proList[i].PRODUCT_NAME);
 		$(opener.document).find('#size_des'+opener.selectIdx).val(proList[i].SIZE_DES);
 		this.close();
 	}
-	
 	
 	
 </script>

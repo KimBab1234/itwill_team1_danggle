@@ -13,10 +13,10 @@
 
 table{
 	margin-left: 250px;
-	margin-right: 50px;
+	margin-right: 80px;
 	border-collapse: collapse;
 	border-style: solid;
-	border-color: #b09f76;;
+	border-color: #b09f76;
 }
 
 th{
@@ -53,13 +53,13 @@ button {
     font-size: 0.75rem;
     border-radius: 4px;
     border: none;
-	margin-left: 500px;
+	margin-left: 1100px;
 }
 
 .nav-tabs {
     list-style: none;
-    margin-top: -5px;
     margin-left: 210px;
+    margin-bottom: 22px;
 }
 
 .navli {
@@ -171,14 +171,13 @@ button {
 	// 종결 여부 변경
 	function OutCom(i){
 		cIndex = i;
-		
 		window.open('OutCom', 'OutCom', 'width=500, height=300, left=600, top=400');
 	}
 	
 	// 출고 예정 품목 - 조회(개별품목)
 	function OutEachPd(i){
 		pIndex = i;
-		window.open('OutEachPd', 'OutEachPd', 'width=500, height=500, left=600, top=400');
+		window.open('OutEachPd', 'OutEachPd', 'width=510, height=500, left=600, top=400');
 	}
 	// --------------------------------------------------------------------
 	
@@ -284,37 +283,42 @@ button {
 	<header>
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
-	<jsp:include page="../inc/wms_left.jsp"></jsp:include>
-	
-	<div align="center" id="outListDiv">
-	<h3 id="outTitle">출고 예정</h3>
-		<ul class="nav-tabs">
-			<li class="navli">
-				<a id="outAll" href="#">전체</a>
-			</li>
-			<li class="navli">
-				<a id="outPro" href="#">미완료</a>
-			</li>
-			<li class="navli">
-				<a id="outCom" href="#">완료</a>
-			</li>
-		</ul>
-		<br>
-		<table id="outListT">
-			<tr>
-				<th width="150px">출고예정번호</th>
-				<th width="100px">유형</th>
-				<th width="200px">받는곳명</th>
-				<th width="100px">담당자명</th>
-				<th width="500px">품목명[규격]</th>
-				<th width="100px">납기일자</th>
-				<th width="100px">출고예정수량합계</th>
-				<th width="50px">종결여부</th>
-				<th width="50px">진행상태</th>
-			</tr>
-		</table><br>
-		<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1150, height=600, left=200, top=300')">등록</button>
+	<div style="display:flex; width: 1800px;">
+		<div style="width: 300px;">
+			<jsp:include page="../inc/wms_left.jsp"></jsp:include>
+		</div>
+		<div style="width: 1500px;">
+			<h1 style="text-align: center; width: 1200px; margin-top: 20px; margin-bottom: 20px;">출고 예정</h1>
+			<div style="width: 1200px;">
+				<ul class="nav-tabs" style="width: 1200px; margin: 0;">
+					<li class="navli">
+						<a id="outAll" href="#">전체</a>
+					</li>
+					<li class="navli">
+						<a id="outPro" href="#">미완료</a>
+					</li>
+					<li class="navli">
+						<a id="outCom" href="#">완료</a>
+					</li>
+				</ul>
+			</div>
+			<div align="center" style="width: 1200px;">
+				<table id="outListT" style="width: 1200px; margin: 0; margin-left: 40px; margin-top: 30px;">
+					<tr>
+						<th width="150px">출고예정번호</th>
+						<th width="100px">유형</th>
+						<th width="200px">받는곳명</th>
+						<th width="100px">담당자명</th>
+						<th width="500px">품목명[규격]</th>
+						<th width="100px">납기일자</th>
+						<th width="100px">출고예정수량합계</th>
+						<th width="50px">종결여부</th>
+						<th width="50px">진행상태</th>
+					</tr>
+				</table><br>
+				<button type="button" onclick="window.open('OutRegist', 'OutRegist', 'width=1220, height=600, left=200, top=300')">등록</button>
+			</div>
+		</div>
 	</div>
-	
 </body>
 </html>

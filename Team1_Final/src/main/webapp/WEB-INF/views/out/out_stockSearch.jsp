@@ -85,18 +85,19 @@
 	
 	// 재고 선택
 	function selectstock(i, stock_cd) {
-		
 		for(var j = 0; j < $(opener.document).find(".idx").length; j++){
 			var val = $(opener.document).find('.stock_cd').eq(j).val();
 		
 			if(updateStr == "up"){
 				if(val != stock_cd){
 					$(opener.document).find('.stock_cd').eq(j).val(stock[i].STOCK_CD);
+					$(opener.document).find('.stock_qty').eq(j).val(stock[i].STOCK_QTY);
 					break;
 				}
 			} else {
-				if(val == "재고번호"){
+				if(val == "재고검색"){
 					$(opener.document).find('.stock_cd').eq(j).val(stock[i].STOCK_CD);
+					$(opener.document).find('.stock_qty').eq(j).val(stock[i].STOCK_QTY);
 					break;
 				}				
 							
