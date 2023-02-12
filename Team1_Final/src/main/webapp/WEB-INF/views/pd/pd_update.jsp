@@ -110,13 +110,13 @@ table {
 		</div>
 		<!-- 여기서부터 본문-->
 		<div style="margin-left: 100px;">
-		<h1 id="titleH1"><b style="border-left: 10px solid">&nbsp;품목 수정</b></h1>
+		<h1 id="titleH1"><b style="border-left: 10px solid">&nbsp;품목 수정 (상세 정보 조회)</b></h1>
 		<form action="PdUpdatePro" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="PRODUCT_CD" value="${product.PRODUCT_CD }" >
 			<table>
 				<tr>
 					<td id="td_left"><label for="PRODUCT_NAME">품목명</label></td>
-					<td><input type="text" style="height: 30px; width: 350px; font-weight : bold ;margin-left:35px;" name="PRODUCT_NAME" readonly="readonly" value="${product.PRODUCT_NAME }"></td>
+					<td><input type="text" style="height: 30px; width: 230px; font-weight : bold ;margin-left:35px;" name="PRODUCT_NAME" readonly="readonly" value="${product.PRODUCT_NAME }">&nbsp;품목명 수정 불가</td>
 				</tr>
 				<tr>
 					<td id="td_left"><label for="PRODUCT_GROUP_BOTTOM_CD">품목그룹</label><br>
