@@ -281,23 +281,24 @@ public class PdController{
 		return "pd/pd_group_bottom_regist";
 	}
 
-	@RequestMapping(value = "/Pd_group_bottom_registPro", method = RequestMethod.POST)
-	public String pd_group_bottom_RegistPro(@ModelAttribute PdVO product, Model model, HttpSession session) {
-
+	@ResponseBody
+	@PostMapping(value = "/Pd_group_bottom_registPro")
+	public int pd_group_bottom_RegistPro(@ModelAttribute PdVO product, Model model, HttpSession session) {
+		System.out.println("확인쓰");
 		// --------------------------------------------------------------------
 		// Service 객체의 registBoard() 메서드를 호출하여 게시물 등록 작업 요청
 		// => 파라미터 : BoardVO 객체    리턴타입 : int(insertCount)
 		int insertCount = service.registPd_group_bottom(product);
 
 		// 등록 성공/실패에 따른 포워딩 작업 수행
-		if(insertCount > 0) { // 성공
-
-			return "redirect:/PdRegist";
-		} else { // 실패
-			// "msg" 속성명으로 "글 쓰기 실패!" 메세지 전달 후 fail_back 포워딩
-			model.addAttribute("msg", "품목 그룹 등록 실패!");
-			return "fail_back";
-		}
+//		if(insertCount > 0) { // 성공
+//			System.out.println("확인쓰2");
+			return insertCount;
+//		} else { // 실패
+//			// "msg" 속성명으로 "글 쓰기 실패!" 메세지 전달 후 fail_back 포워딩
+//			model.addAttribute("msg", "품목 그룹 등록 실패!");
+//			return "fail_back";
+//		}
 	}
 
 	// ===============================================================================
@@ -375,7 +376,7 @@ public class PdController{
 	@GetMapping("/PdUpdate")
 	public String pd_update(@RequestParam int PRODUCT_CD, Model model, HttpSession session) {
 
-		System.out.println("여기1");
+//		System.out.println("여기1");
 		PdVO product = service.getProduct(PRODUCT_CD);
 
 		model.addAttribute("product", product);

@@ -16,10 +16,6 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	var pdList;
-	var i = 0;
-	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
-	
 	var loginEmp = '${sessionScope.empNo}';
 	var priv = '${sessionScope.priv}';
 	if(loginEmp=='') {
@@ -29,6 +25,13 @@
 		alert("권한이 없습니다.");
 		history.back();
 	}
+	
+	
+	var pdList;
+	var i = 0;
+	var inList = opener.inList[opener.selectIdx].IN_SCHEDULE_CD;
+	
+	
 
 	$(function() {		
 
@@ -81,7 +84,7 @@
 				<th width="150">품목명</th>
 				<th width="90">입고예정수량</th>
 				<th width="90">미입고수량</th>
-				<th width="100">종결 여부</th>
+				<th width="100">진행 상태</th>
 			</tr>
 		</table>
 		<input type="button" onclick="window.close()" value="닫기" id="Listbtn7">

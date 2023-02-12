@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
@@ -140,6 +140,7 @@ function execDaumPostcode() {
 			$("#WORK_CD1").prop("selected", true);
 			$("#WORK_CD").prop("disabled", true);
 			
+			$("title").text("사원 신규 등록");
 			$("#hrRegiTitle").text("| 사원 신규 등록");
 			$(".editMode").css("display","inline");
 			$("#hrFormSubmit").text("등록");
@@ -177,6 +178,7 @@ function execDaumPostcode() {
 			
 			////수정이면 editMode 활성화시키기
 			if(nowPage=='HrEdit') {
+				$("title").text("사원 정보 수정");
 				$("#hrRegiTitle").text("| 사원 정보 수정");
 				$(".editMode").css("display","inline");
 				$(".detailMode").css("display","none");
@@ -192,18 +194,21 @@ function execDaumPostcode() {
 					$(".formBtn").prop("disabled", false);
 					$(".thisEmp").prop("readOnly", false);
 					$(".thisEmp").css("background", "white");
+					$(".newEmpNoTr").css("display","none");
 				}
 				
 				
 				
 				
 			} else if(nowPage=='HrDetail') {
+				$("title").text("사원 상세 정보");
 				$("#hrRegiTitle").text("| 사원 상세 정보");
 				$(".editMode").css("display","none");
 				$(".detailMode").css("display","inline");
 				$("#hrFormSubmit").text("수정");
 				$(".passTr").css("display","none");
-				
+				$(".newEmpNoTr").css("display","none");
+				$(".chk_top").prop("disabled",true);
 			}
 			
 		}
@@ -415,13 +420,6 @@ function execDaumPostcode() {
 					</td>
 				</tr>
 				<c:if test="${param.empNo!=null}">
-				<tr>
-					<th align="right" width="150">사번</th>
-					<td align="left" >&nbsp;&nbsp;&nbsp;
-						<span class="detailMode">${param.empNo}</span>
-						<input type="text" class="editMode" id="EMP_NUM" name="EMP_NUM" value="${param.empNo}" >
-					</td>
-				</tr>
 				<!-- 당사자가 들어왔으면 비밀번호 변경 보이게 -->
 				<c:if test="${emp.EMP_NUM eq sessionScope.empNo}">
 					<tr class="passTr">
@@ -445,6 +443,19 @@ function execDaumPostcode() {
 						</td>
 					</tr>
 				</c:if>
+				<tr>
+					<th align="right" width="150">사번</th>
+					<td align="left" >&nbsp;&nbsp;&nbsp;
+						<span class="detailMode">${param.empNo}</span>
+						<input type="text" class="editMode" id="EMP_NUM" readonly="readonly" name="EMP_NUM" value="${param.empNo}" ><br>
+					</td>
+				</tr>
+				<tr class="newEmpNoTr">
+					<th align="right" width="150">변경할 사번</th>
+					<td align="left" >&nbsp;&nbsp;&nbsp;
+						<input type="text" class="editMode" id="newEMP_NUM" name="newEMP_NUM"  >
+					</td>
+				</tr>
 				</c:if>
 				<tr>
 					<th align="right" >부서</th>
@@ -571,11 +582,22 @@ function execDaumPostcode() {
 				<tr>
 					<th align="right" >사진이미지</th>
 					<td align="left" style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;
+						<span class="editMode">
 						<input type="file" class="thisEmp filebox" id="registPHOTO" accept="image/*" name="registPHOTO" style="font-size: 15px; font-weight: bold;" onchange="selectFile(this.value)">
+						<label for="registPHOTO">파일찾기</label> 
 						<input type="text" class="thisEmp" placeholder="변경할 이미지를 등록하세요." id="registPHOTOName" style="width:200px; font-size: 15px; font-weight: bold;">
 						<input type="hidden" name="PHOTO" value="${emp.PHOTO}" >
-						<label for="registPHOTO">파일찾기</label> 
-						<span><img class="hrImg" src="http://itwillbs3.cdn1.cafe24.com/profileImg/${emp.PHOTO}" width="150"></span>
+						</span>
+						<c:if test="${param.empNo!=null}">
+							<span><c:choose>
+								<c:when test="${emp.PHOTO.length() >0}">
+									<img class="hrImg" src="http://itwillbs3.cdn1.cafe24.com/profileImg/${emp.PHOTO}" width="150">
+								</c:when>
+								<c:otherwise>
+									사진 없음
+								</c:otherwise>
+							</c:choose></span>
+						</c:if>
 					</td>
 				</tr>
 			</table>

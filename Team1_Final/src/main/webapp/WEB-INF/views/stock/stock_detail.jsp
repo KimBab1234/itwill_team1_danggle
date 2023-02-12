@@ -34,6 +34,17 @@ var output=0;
 var delta=0;
 var len;
 
+////재고 조회 권한은 "3"
+var priv ='${sessionScope.priv}';
+if(priv=='') {
+	alert("로그인 후 이용하세요.")
+	location.href="./Login";
+} else if(priv.charAt(3)!='1') {
+	alert("권한이 없습니다.");
+	history.back();
+}
+
+
 $(function() {
 	
 	////전체 입고 출고 선택시 목록 변경
@@ -51,6 +62,7 @@ $(function() {
 	
 	$("#0").attr("class","choiceSelect");
 	getList(1);
+	
 	
 	
 });
@@ -77,16 +89,25 @@ function getList(toPageNum) {
 		dataType : 'json',
 		success : function(response) {
 			stock = response.jsonStock;
-			/// 테이블 초기화
-			$("table tbody").empty();
+			thisLoc = response.jsonThisLoc;
+			$("#thisLocName").text(thisLoc);
+			
 			len = stock.length;
-			/// 데이터 뿌리기
-			if(stock.length==0) {
-				$(".regi_table").append('<tr><td colspan="8">해당 기록이 없습니다.</td></tr>');
+			///페이지가 1보다 크면 초기화 안함
+			if(pageNum==1) {
+				/// 테이블 초기화
+				$("table tbody").empty();
+				/// 데이터 뿌리기
+				if(stock.length==0) {
+					$(".regi_table").append('<tr><td colspan="8">해당 기록이 없습니다.</td></tr>');
+					return false;
+				}
+				
 			}
+			
 			for(var i=0; i<stock.length; i++) {
 				var str = "";
-				str += '<tr><td>'+stock[i].STOCK_DATE+'</td>'
+				str += '<tr height="100px;"><td>'+stock[i].STOCK_DATE+'</td>'
 				+'<td>'+stock[i].STOCK_CONTROL_TYPE_NAME+'</td>'
 				+'<td>'+stock[i].PRODUCT_NAME+'</td>';
 				
@@ -109,10 +130,18 @@ function getList(toPageNum) {
 			}
 		}
 	});
-	
-	
-	
 }
+
+
+$(window).scroll(function() {
+	let scrollTop = $(window).scrollTop();
+	let windowHeigtht = $(window).height();
+	let documentHeight = $(document).height();
+	if(scrollTop + windowHeigtht + 1 >= documentHeight) {
+		getList(pageNum+1);
+	}
+	
+});
 
 </script>
 <style>
@@ -127,13 +156,14 @@ option {
 	<div style="display: flex; width: 1250px; margin-left: 20px;">
 		<h1 align="left" style="text-align: left; width:600px;">| 재고 이력 </h1>
 	</div>
-	<div style="width: 1250px;  margin-left: 20px;">
+	<div style="width: 1250px; display: flex; margin-left: 20px;">
 		<div class="choice" id="0">전체</div><div class="choice" id="1">입고</div><div class="choice" id="2">출고</div>
+		<h1 style="text-align:right; margin: 0">&nbsp;&nbsp;&nbsp;재고 위치 : <span id="thisLocName"></span></h1>
 	</div>
 	<table border="1" class="regi_table" style="text-align: center; margin-left: 20px; width: 1250px; font-size: 20px;">
 		<thead>
 			<tr>
-				<th width="300">작업일자</th>
+				<th width="150">작업일자</th>
 				<th width="150">작업구분</th>
 				<th width="300">품목명[규격]</th>
 				<th width="100">보낸 번호</th>

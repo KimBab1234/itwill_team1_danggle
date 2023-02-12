@@ -17,23 +17,28 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
-	var proList;
-	var i = 0;
-	var productCd = opener.proList[opener.selectIdx].IN_PD_SCHEDULE_CD;
-	var productName = opener.proList[opener.selectIdx].PRODUCT_NAME;
-	var date;
-	var pd_date;
 	
 	var loginEmp = '${sessionScope.empNo}';
 	var priv = '${sessionScope.priv}';
 	if(loginEmp=='') {
 		alert("로그인 후 이용하세요.");
-		window.close();
-		opener.location.href  = './Login';
+		location.href = './Login';
+
 	} else if(priv.charAt(4) !='1') {
 		alert("권한이 없습니다.");
+		history.back();
 		window.close();
 	}
+	
+	var proList;
+	var i = 0;
+	var productCd = opener.proList[opener.selectIdx].IN_PD_SCHEDULE_CD;
+	var productName = opener.proList[opener.selectIdx].PRODUCT_NAME;
+	var IN_PD_DATE = opener.proList[opener.selectIdx].IN_PD_DATE;
+	var date;
+	var pd_date;
+	
+	
 	
 	// json으로 받아온 date 다시 date 형식으로 만들어주기
 	function changeDate(on_date){
@@ -82,6 +87,7 @@
 	        url: "UpdateProductInfo",
 	        data: {
 	        	product_cd : productCd,
+	        	IN_PD_DATE : IN_PD_DATE,
 				product_name : productName
 	        },
 	        dataType: 'json',
@@ -150,6 +156,7 @@
 	        url: "InProductUpdate",
 	        data: $('#inSc_regi').serialize(),
 	        success: function(result) {
+
 	            if (result != "0") {
 	                window.close();
 	                opener.location.reload();

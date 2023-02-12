@@ -176,6 +176,19 @@ h2 {
 	
 	
 	$(function() {
+	   // 로그인 유무 및 권한 확인
+	   // 기본등록(0), 사원조회(1), 사원관리(2), 재고조회(3), 재고관리(4)
+	   var loginEmp = '${sessionScope.empNo}';
+	   var priv = '${sessionScope.priv}';
+	   if(loginEmp=='') {
+	      alert("로그인 후 이용하세요.");
+	      location.href="./Login";
+	   } else if(priv.charAt(0) !='1') {
+	      alert("권한이 없습니다.");
+	      history.back();
+	   }
+	    // 로그인 유무 및 권한 확인 끝
+		
 		// 거래처코드 중복 체크
 		$("#BUSINESS_NO3").on("change",function(){
 // 		var business_no = $("#BUSINESS_NO1").val();+"-"+$("#BUSINESS_NO2").val()+"-"+$("#BUSINESS_NO3").val();
@@ -206,7 +219,7 @@ h2 {
 				$("#BUSINESS_NO2").prop("type","password");
 				$("#BUSINESS_NO1").prop("size","10");
 				$("#BUSINESS_NO2").prop("size","10");
-				$("#BUSINESS_NO3").prop("required",false)
+				$("#BUSINESS_NO3").prop("required",false);
 				$("#BUSINESS_NO1").val('');
 				$("#BUSINESS_NO2").val('');
 				$("#BUSINESS_NO3").val('');
@@ -240,8 +253,16 @@ h2 {
 				$("#BUSINESS_NO3").val('');
 			}
 		});
-		
-	}); // ready 끝
+		// 업태 추가
+		$("#up").on("click", function(){
+				$("#UPTAE").after("<input type='text' name='UPTAE' id='UPTAE'required='required'>");
+		});
+		// 종목 추가
+		$("#jong").on("click", function(){
+			$("#JONGMOK").after("<input type='text' name='JONGMOK' id='JONGMOK' required='required'>");
+		});
+	});// ready 끝
+
 </script>
 </head>
 <body>
@@ -290,12 +311,12 @@ h2 {
 					<tr>
 						<td>업태 &nbsp;</td>
 						<td colspan="4"><input type="text" name="UPTAE" id="UPTAE"
-							required="required"></td>
+							required="required"><input type="button" id="up" value="추가" ></td>
 					</tr>
 					<tr>
 						<td>종목</td>
 						<td colspan="4"><input type="text" name="JONGMOK"
-							id="JONGMOK" required="required"></td>
+							id="JONGMOK" required="required"><input type="button" id="jong" value="추가"></td>
 					</tr>
 					<tr>
 						<td>대표전화번호 &nbsp;</td>

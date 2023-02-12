@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.team1_final.vo.AccVO;
+import com.itwillbs.team1_final.vo.PdVO;
 
 public interface AccMapper {
 
@@ -27,5 +28,7 @@ public interface AccMapper {
 	int busiCount(String BUSINESS_NO);
 
 	int deleteAccList(String acc);
+
+	List<PdVO> getProductName(String busi_no);
 
 }

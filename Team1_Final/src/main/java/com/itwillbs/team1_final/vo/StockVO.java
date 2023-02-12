@@ -20,6 +20,7 @@ public class StockVO {
 	private String IN_PD_SCHEDULE_CD;
 	private String OUT_SCHEDULE_CD;
 	private Integer IN_SCHEDULE_QTY;
+	private Date IN_PD_DATE;
 	private Integer OUT_SCHEDULE_QTY;
 	private Integer QTY;
 	private Integer MOVE_QTY;
@@ -31,7 +32,21 @@ public class StockVO {
 	private String[] PRODUCT_NAME_Arr;
 	private Integer[] STOCK_CD_Arr;
 	private String[] STOCK_CONTROL_TYPE_CD_Arr;
+	
+	public Date getIN_PD_DATE() {
+		return IN_PD_DATE;
+	}
+	public void setIN_PD_DATE(Date iN_PD_DATE) {
+		IN_PD_DATE = iN_PD_DATE;
+	}
+	public Date[] getIN_PD_DATE_Arr() {
+		return IN_PD_DATE_Arr;
+	}
+	public void setIN_PD_DATE_Arr(Date[] iN_PD_DATE_Arr) {
+		IN_PD_DATE_Arr = iN_PD_DATE_Arr;
+	}
 	private int[] PRODUCT_CD_Arr;
+	private Date[] IN_PD_DATE_Arr;
 	private Integer[] SOURCE_STOCK_CD_Arr;
 	private Integer[] TARGET_STOCK_CD_Arr;
 	private Integer[] QTY_Arr;

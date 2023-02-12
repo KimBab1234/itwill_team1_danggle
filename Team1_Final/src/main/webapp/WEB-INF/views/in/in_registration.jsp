@@ -23,15 +23,20 @@
 	var priv = '${sessionScope.priv}';
 	if(loginEmp=='') {
 		alert("로그인 후 이용하세요.");
-		window.close();
-		opener.location.href  = './Login';
+		location.href = './Login';
+		
 	} else if(priv.charAt(4) !='1') {
 		alert("권한이 없습니다.");
+		history.back();
 		window.close();
 	}
 	
-		
-	function funct(){
+	var n = 4;
+	var selectIdx;
+	
+	
+	function funct(num){
+		selectIdx = num;
 		window.open('SearchProduct', 'searchPro', 'width=500, height=500, left=1000, top=400');
 	}
 	
@@ -77,16 +82,16 @@
 		
 		$("#recoBtn").on("click", function() {
 			$("#optionArea").append(
-					'<tr class="indexCh" ondblclick="funct()">' 
-					+'<td><input type="text" class="product_cd" name="PRODUCT_CD" readonly="readonly"></td>'
-					+ '<td><input type="text" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>'
-					+ '<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>'
+					'<tr class="indexCh" ondblclick="funct('+n+')">' 
+					+'<td><input type="text" class="product_cd" id="product_cd'+n+'" name="PRODUCT_CD" readonly="readonly"></td>'
+					+ '<td><input type="text" id="product_name'+n+'" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>'
+					+ '<td><input type="text" id="size_des'+n+'" class="size_des" name="SIZE_DES" readonly="readonly"></td>'
 					+ '<td><input type="number" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>'
 					+ '<td><input type="date" class="in_date" name="IN_PD_DATE"></td>'
 					+ '<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>'
 				    + '</tr>'
 			);
-			
+			n++;
 			var inClass = $(".in_schedule_qty").length;
 
 			$("input[type=number][name=IN_SCHEDULE_QTY]").on("change", function() {
@@ -170,7 +175,8 @@
 			        data: $('#inSc_regi').serialize(),
 			        dataType: 'json',
 			        success: function(result) {
-			            if (result != "0") {
+			           
+			        	if (result != "0") {
 			                window.close();
 			                opener.location.reload();
 			            } else {
@@ -240,27 +246,27 @@
 					<th width="150">납기일자</th>
 					<th width="200">적요</th>
 				</tr>
-				<tr class="indexCh" ondblclick="funct()">
+				<tr class="indexCh" ondblclick="funct(1)">
 					<td><input type="hidden" id="index">
 					<input type="text" id="product_cd1" class="product_cd" name="PRODUCT_CD" readonly="readonly"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
+					<td><input type="text" id="product_name1" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
+					<td><input type="text" id="size_des1" class="size_des" name="SIZE_DES" readonly="readonly"></td>
 					<td><input type="number" id="qty1" required="required" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
 					<td><input type="date" id="sch_date1" required="required" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
 				</tr>
-				<tr class="indexCh" ondblclick="funct()"> 
+				<tr class="indexCh" ondblclick="funct(2)"> 
 					<td><input type="text" id="product_cd2" class="product_cd" name="PRODUCT_CD" readonly="readonly"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
+					<td><input type="text" id="product_name2" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
+					<td><input type="text" id="size_des2" class="size_des" name="SIZE_DES" readonly="readonly"></td>
 					<td><input type="number" id="qty2" class="in_schedule_qty" name="IN_SCHEDULE_QTY" required="required"></td>
 					<td><input type="date" id="sch_date2" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
 				</tr>
-				<tr class="indexCh" ondblclick="funct()">
+				<tr class="indexCh" ondblclick="funct(3)">
 					<td><input type="text" id="product_cd3" class="product_cd" name="PRODUCT_CD" readonly="readonly"></td>
-					<td><input type="text" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
-					<td><input type="text" class="size_des" name="SIZE_DES" readonly="readonly"></td>
+					<td><input type="text" id="product_name3" class="product_name" name="PRODUCT_NAME" readonly="readonly"></td>
+					<td><input type="text" id="size_des3" class="size_des" name="SIZE_DES" readonly="readonly"></td>
 					<td><input type="number" id="qty3" class="in_schedule_qty" name="IN_SCHEDULE_QTY"></td>
 					<td><input type="date" id="sch_date3" class="in_date" name="IN_PD_DATE"></td>
 					<td><input type="text" class="remarks" name="IN_PD_REMARKS"></td>
