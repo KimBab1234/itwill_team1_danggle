@@ -355,17 +355,25 @@ public class PdController{
 
 		int deleteCount = 0;
 		///ftp 연결 및 로그인
-		ftp = HrController.ftpControl(new FTPClient());
+//		ftp = HrController.ftpControl(new FTPClient());
 
 		for(int i=0; i<arr.length; i++) {
 			deleteCount += service.removeProduct(Integer.parseInt(arr[i]));
 			///ftp 파일 삭제
-			ftp.deleteFile(deleteImg.get(i));
+//			ftp.deleteFile(deleteImg.get(i));
+			String uploadDir = "/resources/img";
+			String saveDir = session.getServletContext().getRealPath(uploadDir);
+			
+			Path path = Paths.get(saveDir+"/"+deleteImg.get(i));
+			try {
+				Files.deleteIfExists(path);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 		// 게시물 삭제 성공 시 해당 게시물의 파일도 삭제
 		if(deleteCount == arr.length) { // 삭제 성공
-			ftp.disconnect();
 			return "redirect:/PdInquiry";
 		} else { // 삭제 실패
 			model.addAttribute("msg", "품목 삭제 실패!");
