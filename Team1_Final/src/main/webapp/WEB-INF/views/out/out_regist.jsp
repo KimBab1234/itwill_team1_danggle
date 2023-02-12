@@ -55,7 +55,6 @@ pageEncoding="UTF-8"%>
 	
 	// ------------------------------- 출고 예정 기능 ---------------------------------
 	$(function() {
-		
 		// 오늘날짜 자동으로 기입
 		var today = new Date().toISOString().substring(0,10).replace(/-/g,'');
 		$("#out_today").val(today);
@@ -94,7 +93,8 @@ pageEncoding="UTF-8"%>
 						+ '<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr"></td>'
 						+ '<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>'
 						+ '<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>'
-						+ '<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>'
+						+ '<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고검색"></td>'
+						+ '<td><input type="text" class="stock_qty" name="STOCK_QTY_Arr" value="재고수량" readonly="readonly"></td>'
 						+ '<td><input type="text" id="Listbtn" value="취소" name="dtl_del" readonly="readonly"></td>'
 					    + '</tr>'
 				);
@@ -117,12 +117,14 @@ pageEncoding="UTF-8"%>
 		$(document).on('click', "[name='dtl_del']", function(){
 			var tr = $(this).parent().parent();
 			tr.remove();
+			
 		});
 		
 		
 		// 재고 선택 - 품목 정보 행 추가 시 조건 전체 적용
-		$(document).on("click", "input[name=STOCK_CD_Arr]", function() {
+		$(document).on("click", "input[name=STOCK_CD_Arr], input[name=STOCK_QTY_Arr]", function() {
 			for(var i = 0; i < $(".product_cd").length; i++){
+				// 재고선택 전, 품목 선택 조건
 				if(!$(".product_cd").eq(i).val() == "" && !$(".product_name").eq(i).val() == "") {
 					let index = $(this).closest("tr").index();
 					let product_cd = $("input[name=PRODUCT_CD_Arr]").eq((index-1)).val();
@@ -134,6 +136,7 @@ pageEncoding="UTF-8"%>
 			
 		});
 		
+		
 		// 입력 Check
 		let empCheck = false;
 		let accCheck = false;
@@ -142,8 +145,39 @@ pageEncoding="UTF-8"%>
 		let qtyCheck = false;
 		let outPdDateCheck = false;
 		let stockCheck = false;
+		let checkQty = false;
 		
-	
+		
+		// 최대 수량 제한
+		$(document).on("change", "input[name=OUT_SCHEDULE_QTY_Arr]", function() {
+			for(var i = 0; i < $(".product_cd").length; i++){
+				if(Number($(".out_schedule_qty").eq(i).val()) > Number($(".stock_qty").eq(i).val())){
+					alert("재고수량을 확인해주세요!");
+					$(".out_schedule_qty").eq(i).val(0);
+					checkQty = false;
+					return false;
+				} else {
+					// 품목 수량 합계 계산
+					let sum = 0;
+					$.total = function() {
+						var numberClass = $(".out_schedule_qty").length;
+						let sum = 0;
+						for(var i= 0; i < numberClass; i++){
+							sum += Number($("input[type=number][name=OUT_SCHEDULE_QTY_Arr]").eq(i).val());
+						}
+						$("input[type=number][name=TOTAL_QTY]").val(sum);
+					};
+					
+					$("input[type=number][name=OUT_SCHEDULE_QTY_Arr]").on("change", function() {
+						$.total();
+					});
+				}
+			}
+			
+		});
+		
+		
+		// 조건 여부 알림창
 		$("#proRegi").submit(function() {
 			
 			if(!$("#emp_code").val() == "" && !$("#emp_name").val() == "") {
@@ -163,7 +197,7 @@ pageEncoding="UTF-8"%>
 				} else {
 					pdCheck = false;
 				}
-				if($(".stock_cd").eq(i).val() != "재고번호" && $(".stock_cd").eq(i).val() != ""){
+				if($(".stock_cd").eq(i).val() != "재고검색" && $(".stock_cd").eq(i).val() != ""){
 					stockCheck = true;
 				} else {
 					stockCheck = false;
@@ -178,8 +212,13 @@ pageEncoding="UTF-8"%>
 				} else {
 					outPdDateCheck = false;
 				}
+				if(Number($(".out_schedule_qty").eq(i).val()) > Number($(".stock_qty").eq(i).val())
+						|| Number($(".out_schedule_qty").eq(i).val()) == 0){
+					checkQty = false;
+				} else {
+					checkQty = true;
+				}
 			}
-			
 			
 			
 			if(!empCheck){
@@ -203,6 +242,10 @@ pageEncoding="UTF-8"%>
 			} else if(!qtyCheck){
 				alert("품목 수량을 입력해주세요!");
 				return false;
+			} else if(!checkQty){
+				checkQty = false;
+				alert("재고수량을 확인하세요!");
+				return false;
 			}
 			
 		});
@@ -221,7 +264,7 @@ pageEncoding="UTF-8"%>
 			}
 			
 			for(var i = 0; i < $(".stock_cd").length; i++){
-				if($(".stock_cd").eq(i).val() == "재고번호"){
+				if($(".stock_cd").eq(i).val() == "재고검색"){
 					Number($(".stock_cd").eq(i).val());
 				}
 			}
@@ -291,14 +334,15 @@ pageEncoding="UTF-8"%>
 			<table class="out_table">
 				<tbody id="optionArea">
 					<tr>
-						<th width="100">품목코드</th>
-						<th width="250">품목명</th>
-						<th width="100">규격</th>
+						<th width="150">품목코드</th>
+						<th width="150">품목명</th>
+						<th width="200">규격</th>
 						<th width="100">수량</th>
 						<th width="150">납기일자</th>
 						<th width="200">적요</th>
-						<th width="200">출고처리</th>
-						<th width="50">취소</th>
+						<th width="80">재고번호</th>
+						<th width="60">재고수량</th>
+						<th width="40">취소</th>
 					</tr>
 					<tr class="idx">
 	<!-- 				<tr> -->
@@ -314,8 +358,9 @@ pageEncoding="UTF-8"%>
 						<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY_Arr" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
 						<td><input type="date" class="pd_out_date" name="PD_OUT_DATE_Arr"></td>
 						<td><input type="text" class="pd_remarks" name="PD_REMARKS_Arr" readonly="readonly"></td>
-						<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고번호"></td>
-						<td><input type="text" id="removeTr" readonly="readonly"></td>
+						<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly" value="재고검색"></td>
+						<td><input type="text" class="stock_qty" name="STOCK_QTY_Arr" value="재고수량" readonly="readonly"></td>
+						<td><input type="text" id="Listbtn" value="취소" name="dtl_del" readonly="readonly"></td>
 					</tr>
 				</tbody>
 				<tfoot>
@@ -324,6 +369,7 @@ pageEncoding="UTF-8"%>
 						<th></th>
 						<th></th>
 						<th><input type="number" id="total" name="TOTAL_QTY"></th>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>

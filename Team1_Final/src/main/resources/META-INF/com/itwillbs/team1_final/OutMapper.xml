@@ -162,7 +162,7 @@
 		SELECT
 			PD_OUT_SCHEDULE_CD, cust_name, product_name, size_des,
 			pd_out_date, OUT_SCHEDULE_QTY, out_qty, pd_out_complete, pd_remarks,
-			product_cd,stock_cd
+			product_cd, STOCK_CD
 			FROM outSch_view
 		ORDER BY PD_OUT_SCHEDULE_CD;
 	</select>
@@ -178,7 +178,7 @@
 			OUT_DATE, REMARKS,
 			product_cd, product_name, size_des, OUT_SCHEDULE_QTY,
 			PD_OUT_DATE, pd_remarks,
-			STOCK_CD, TOTAL_QTY
+			STOCK_CD, STOCK_QTY, TOTAL_QTY
 		FROM outSch_view
 		WHERE
 			PD_OUT_SCHEDULE_CD = #{pd_outSch_cd}

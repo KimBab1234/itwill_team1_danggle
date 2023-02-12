@@ -89,6 +89,7 @@ pageEncoding="UTF-8"%>
 		let pdCheck = false;
 		let qtyCheck = false;
 		let outPdDateCheck = false;
+		let checkQty = false;
 		
 		// 재고 선택
 		$(document).on("click", "input[name=STOCK_CD]", function() {
@@ -102,6 +103,18 @@ pageEncoding="UTF-8"%>
 			}
 			
 		});
+		
+		$(document).on("change", "input[name=OUT_SCHEDULE_QTY_Arr]", function() {
+			
+			if(Number($(".out_schedule_qty").eq(i).val()) > Number($(".stock_qty").eq(i).val())){
+				alert("재고수량을 확인해주세요!");
+				$(".out_schedule_qty").eq(i).val(0);
+				checkQty = false;
+				return false;
+			} 
+			
+		});
+		
 		
 		$("#proRegi").submit(function() {
 	
@@ -123,6 +136,12 @@ pageEncoding="UTF-8"%>
 			if(!$(".pd_out_date").val() == ""){
 				outPdDateCheck = true;
 			}
+			if(Number($(".out_schedule_qty").eq(i).val()) > Number($(".stock_qty").eq(i).val())
+					|| Number($(".out_schedule_qty").eq(i).val()) == 0){
+				checkQty = false;
+			} else {
+				checkQty = true;
+			}
 			
 			
 			if(!empCheck){
@@ -142,6 +161,10 @@ pageEncoding="UTF-8"%>
 				return false;
 			} else if(!outPdDateCheck){
 				alert("개별 품목 납기일자를 입력해주세요!");
+				return false;
+			} else if(!checkQty){
+				checkQty = false;
+				alert("재고수량을 확인하세요!");
 				return false;
 			}
 			
@@ -195,6 +218,7 @@ pageEncoding="UTF-8"%>
 				$(".pd_out_date").val(result.pd_OUT_DATE);
 				$(".pd_remarks").val(result.pd_REMARKS);
 				$(".stock_cd").val(result.stock_CD);
+				$(".stock_qty").val(result.stock_QTY);
 	        }
 					
 	    });
@@ -236,7 +260,7 @@ pageEncoding="UTF-8"%>
 
 </head>
 <body>
-	<div style="width:900px;">
+	<div>
 		<div class="title_regi">출고예정 수정</div>
 		<form action="javascript:updateFunc()" method="post" id="proRegi" name="proRegi" style="width:600px;">
 			<input type="hidden" id="cd_idx" name="outSch_cd">
@@ -280,13 +304,14 @@ pageEncoding="UTF-8"%>
 			<br>
 			<table class="out_table">
 				<tr>
-					<th width="100">품목코드</th>
-					<th width="250">품목명</th>
-					<th width="100">규격</th>
+					<th width="150">품목코드</th>
+					<th width="150">품목명</th>
+					<th width="200">규격</th>
 					<th width="100">수량</th>
 					<th width="150">납기일자</th>
 					<th width="200">적요</th>
-					<th width="200">출고처리</th>
+					<th width="80">재고번호</th>
+					<th width="60">재고수량</th>
 				</tr>
 				<tr class="idx">
 					<td>
@@ -301,7 +326,8 @@ pageEncoding="UTF-8"%>
 					<td><input type="number" class="out_schedule_qty" name="OUT_SCHEDULE_QTY" oninput="this.value=this.value.replace(/[^0-9]/g, '');"></td>
 					<td><input type="date" class="pd_out_date" name="PD_OUT_DATE"></td>
 					<td><input type="text" class="pd_remarks" name="PD_REMARKS" readonly="readonly"></td>
-					<td><input type="text" class="stock_cd" name="STOCK_CD" readonly="readonly" >
+					<td><input type="text" class="stock_cd" name="STOCK_CD_Arr" readonly="readonly"></td>
+					<td><input type="text" class="stock_qty" name="STOCK_QTY_Arr" readonly="readonly"></td>
 				</tr>
 			</table>
 			<input type="submit" value="품목 수정" id="submitBtn">
