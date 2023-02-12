@@ -45,7 +45,6 @@
 				, #{EMP_NUM}
 				, #{IN_DATE}
 				, #{REMARKS}
-				, #{TOTAL_QTY}
 				, 0
 			)
 	</insert>
