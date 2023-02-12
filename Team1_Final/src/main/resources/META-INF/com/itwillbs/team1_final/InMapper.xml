@@ -225,4 +225,13 @@
 			WHERE
 				IN_PD_COMPLETE LIKE '%${keyword}%'
 	</select>
+	
+	<select id="selectStockView" resultType="com.itwillbs.team1_final.vo.InPdVO">
+		SELECT *
+			FROM stock_view
+			WHERE
+				stock_cd LIKE '%${keyword}%'
+				OR product_name LIKE '%${keyword}%'
+			ORDER BY stock_cd ASC
+	</select>
 </mapper>

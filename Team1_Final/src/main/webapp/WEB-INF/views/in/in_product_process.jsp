@@ -136,7 +136,7 @@
 					+ "</tr>";
 					
 				$("#in_process_table").append(result);
-				originMiArr.push((proList[i].IN_SCHEDULE_QTY));
+				originMiArr.push((proList[i].IN_SCHEDULE_QTY - proList[i].IN_QTY));
 				j++;
 				
 				sum += Number(proList[i].IN_SCHEDULE_QTY);
@@ -184,8 +184,10 @@
 	});	
 		
 	function sum_qty(num){
+		$("#mi_qty"+num).val(originMiArr[num]);
+		
 		if(Number($("#qty_sum"+num).val()) > Number($("#mi_qty"+num).val())){
-			alert("입고지시수량은 입고예정수량보다 클 수 없습니다");
+			alert("입고지시수량은 미입고수량보다 클 수 없습니다");
 			$("#qty_sum"+num).val(0);
 			$("#mi_qty"+num).val(originMiArr[num]);
 			return false;

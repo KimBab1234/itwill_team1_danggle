@@ -175,7 +175,8 @@
 			        data: $('#inSc_regi').serialize(),
 			        dataType: 'json',
 			        success: function(result) {
-			            if (result != "0") {
+			           
+			        	if (result != "0") {
 			                window.close();
 			                opener.location.reload();
 			            } else {
