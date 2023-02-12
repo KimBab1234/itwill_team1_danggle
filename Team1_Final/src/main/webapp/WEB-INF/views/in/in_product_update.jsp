@@ -93,7 +93,7 @@
 	        dataType: 'json',
 	        success: function(result) {
 
-				console.log(result); 
+				
 				
 				var type_cd = result.in_TYPE_CD;
 				$("#today").val(result.in_PD_SCHEDULE_CD);
@@ -119,7 +119,7 @@
 				$("#pro_qty").val(result.in_SCHEDULE_QTY);
 				$("#pro_date").val(pd_date);
 				$("#pro_remarks").val(result.in_PD_REMARKS);
-				$("#total").val(result.in_SCHEDULE_QTY);
+				
 				
 	        },
 	        error: function(a, b, c) {
