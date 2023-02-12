@@ -1,7 +1,11 @@
 package com.itwillbs.team1_final.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,6 +82,7 @@ public class HrController {
 			isNewImg = true;
 			String uuidString = UUID.randomUUID().toString();
 			newEmp.setPHOTO(uuidString+"_"+uploadFile);
+			MultipartFile mFile = newEmp.getRegistPHOTO();
 		}
 
 		///사번 생성
@@ -89,6 +94,8 @@ public class HrController {
 
 		String nowYear = new SimpleDateFormat("yy").format(new Date());
 
+		String uploadDir = "/resources/img"; 
+		String saveDir = session.getServletContext().getRealPath(uploadDir);
 		newEmp.setIdx(idxNum);
 		newEmp.setEMP_NUM( newEmp.getDEPT_CD()+nowYear+idx);
 
@@ -98,15 +105,10 @@ public class HrController {
 			
 			if(isNewImg) {
 				MultipartFile mFile = newEmp.getRegistPHOTO();
-				FTPClient ftp = ftpControl(new FTPClient());
+//				FTPClient ftp = ftpControl(new FTPClient());
 				
 				try {
-					ftp.storeFile(newEmp.getPHOTO(), mFile.getInputStream());
-					
-					if(ftp.getReplyCode() != 226) {
-						model.addAttribute("msg", "FTP 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
-						return "fail_back";
-					}
+					mFile.transferTo(new File(saveDir, newEmp.getPHOTO()));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -332,19 +334,37 @@ public class HrController {
 			////새파일 올라와있으면
 			if(isNewImg) {
 				
-				FTPClient ftp = ftpControl(new FTPClient());
-				///옛날 파일 삭제
-				ftp.deleteFile(beforeImg);
-
-				///새 파일 등록
 				MultipartFile mFile = updateEmp.getRegistPHOTO();
-				ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
+				String uploadDir = "/resources/img";
+				String saveDir = session.getServletContext().getRealPath(uploadDir);
 				
-				if(ftp.getReplyCode() != 226) {
-					ftp.disconnect();
-					model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
-					return "fail_back";
+				try {
+					mFile.transferTo(new File(saveDir, updateEmp.getPHOTO()));
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
+				
+				
+				Path path = Paths.get(saveDir+"/"+beforeImg);
+				try {
+					Files.deleteIfExists(path);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+//				// -------------------------------------------------------------------------------
+////				FTPClient ftp = ftpControl(new FTPClient());
+//				///옛날 파일 삭제
+//				ftp.deleteFile(beforeImg);
+//
+//				///새 파일 등록
+//				MultipartFile mFile = updateEmp.getRegistPHOTO();
+//				ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
+//				
+//				if(ftp.getReplyCode() != 226) {
+//					ftp.disconnect();
+//					model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+//					return "fail_back";
+//				}
 
 			}
 		} else {
