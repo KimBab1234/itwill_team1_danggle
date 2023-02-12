@@ -12,7 +12,7 @@
 	
 	<insert id="insertEmp">
 		INSERT INTO hr VALUES (
-		null,
+		#{idx},
 		#{EMP_NUM},
 		#{EMP_NAME},
 		#{DEPT_CD},
@@ -54,7 +54,7 @@
 	<update id="updateEmp">
 		UPDATE hr 
 		SET
-			EMP_NUM = #{EMP_NUM},
+			EMP_NUM = #{newEMP_NUM},
 			EMP_NAME = #{EMP_NAME},
 			DEPT_CD = #{DEPT_CD},
 			GRADE_CD = #{GRADE_CD},
@@ -79,7 +79,7 @@
 	</update>
 
 	<select id="selectEmpPassPriv" resultType="hr">
-		SELECT EMP_NUM, EMP_NAME, EMP_PASS, PRIV_CD from hr WHERE EMP_EMAIL=#{EMP_EMAIL};
+		SELECT EMP_NUM, EMP_NAME, EMP_PASS, PRIV_CD, WORK_CD from hr WHERE ${loginType} = #{loginData};
 	</select>
 
 	

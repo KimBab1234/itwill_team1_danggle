@@ -193,8 +193,8 @@ public class InService {
 		return inList;
 	}
 
-	public InPdVO getProductInfo(String product_cd, String product_name) {
-		InPdVO productInfo = mapper.selectProductInfo(product_cd, product_name);
+	public InPdVO getProductInfo(String product_cd, String product_name, Date IN_PD_DATE) {
+		InPdVO productInfo = mapper.selectProductInfo(product_cd, product_name, IN_PD_DATE);
 		
 		// 입고 예정 코드 다시 날짜(String)으로 바꿔주기
 		String pro_cd = productInfo.getIN_PD_SCHEDULE_CD();
@@ -218,7 +218,7 @@ public class InService {
 		return stock_cd;
 	}
 
-	public ArrayList<InPdVO> getstockList(String keyword) { // 재고번호 조회
+	public ArrayList<InPdVO> getstockList(String keyword) { // 창고 조회
 		ArrayList<InPdVO> stockList = mapper.selectStock(keyword);
 		
 		return stockList;
@@ -234,15 +234,11 @@ public class InService {
 		}
 		int qty = mapper.select_sched_qty(stock);
 		stock.setIN_QTY(qty);
-		System.out.println("입고 예정 수량 : " + stock.getIN_SCHEDULE_QTY());
-		System.out.println("입고 수량 : " + stock.getIN_QTY());
 		
 		if(stock.getIN_QTY().equals(stock.getIN_SCHEDULE_QTY())) {
-			System.out.println("둘이 같음");
 			mapper.updateComplete(stock);
-		}else {
-			System.out.println("다름");
 		}
+		
 		return isSuccess;
 	}
 
@@ -255,6 +251,20 @@ public class InService {
 				inList.get(i).setPRODUCT_NAME(product_size);
 			}
 		}
+		return inList;
+	}
+
+	public ArrayList<InPdVO> getstockNumList(String keyword) { // 재고 번호 목록 조회
+		
+		ArrayList<InPdVO> inList = mapper.selectStockView(keyword);
+		
+		for(int i = 0; i < inList.size(); i++) {
+			if(!inList.get(i).getSIZE_DES().equals("")) {
+				String product_size = inList.get(i).getPRODUCT_NAME() + "[" + inList.get(i).getSIZE_DES() + "]";
+				inList.get(i).setPRODUCT_NAME(product_size);
+			}
+		}
+		
 		return inList;
 	}
 

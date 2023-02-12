@@ -11,6 +11,10 @@
 		SELECT * FROM stock_view ${search} ORDER BY STOCK_CD DESC LIMIT #{startRow},#{listLimit};
 	</select>
 	
+	<select id="selectLocationName" resultType="string">
+		SELECT CONCAT(WH_NAME,"/",WH_AREA,"/",WH_LOC_IN_AREA) FROM stock_view WHERE STOCK_CD=#{stockNo};
+	</select>
+	
 	<select id="selectWhList" resultType="com.itwillbs.team1_final.vo.WhVO">
 		SELECT * FROM wh_view ${search} LIMIT #{startRow},#{listLimit};
 	</select>
@@ -56,7 +60,7 @@
 				OUT_QTY = OUT_QTY + #{MOVE_QTY}
 			WHERE
 				OUT_SCHEDULE_CD = '${OUT_SCHEDULE_CD}'
-			AND PRODUCT_CD = '${PRODUCT_CD}'
+			AND STOCK_CD = '${STOCK_CD}'
 	</update>
 	
 	

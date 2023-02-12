@@ -1,5 +1,6 @@
 package com.itwillbs.team1_final.mapper;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public interface InMapper {
 
 	ArrayList<InListVO> selectProgressList(); // 입고 처리 목록
 
-	InPdVO selectProductInfo(@Param("product_cd") String product_cd, @Param("product_name") String product_name); // 입고 예정 상품 불러오기
+	InPdVO selectProductInfo(@Param("product_cd") String product_cd, @Param("product_name") String product_name, @Param("IN_PD_DATE") Date IN_PD_DATE); // 입고 예정 상품 불러오기
 
 	void updateIncoming(@Param("product_cd") String product_cd, @Param("product") InPdVO product); // 입고 예정 수정
 
@@ -49,7 +50,7 @@ public interface InMapper {
 
 	int selectStockCd(); // 재고번호 조회
 
-	ArrayList<InPdVO> selectStock(String keyword); // 재고번호 검색 조회
+	ArrayList<InPdVO> selectStock(String keyword); // 창고 검색 조회
 
 	int updateQty(StockVO stock); // 입고 수량 수정
 
@@ -58,6 +59,8 @@ public interface InMapper {
 	int select_sched_qty(StockVO stock);  // 입고 수량 조회
 
 	ArrayList<InListVO> selectProgressIngList(String keyword); // 입고 처리 키워드 목록 조회
+
+	ArrayList<InPdVO> selectStockView(String keyword);
 
 	
 

@@ -10,6 +10,7 @@
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <style type="text/css">
+
 table {
 	font-size: 20px;
 }
@@ -28,6 +29,12 @@ input[type=text]{
 	width: 300px;
 }
 #ADD2{
+	width: 300px;
+}
+#UPTAE{
+	width: 300px;
+}
+#JONGMOK{
 	width: 300px;
 }
 input[type=password]{
@@ -152,8 +159,33 @@ h2 {
 		});
 	});
 	
-	
-	
+		$(function() {
+			$("input[type=radio][name=G_GUBUN]").prop("checked", function(){
+				if ('${acc.g_GUBUN}' == "03") {
+					$("#busiArea").css("display","none");
+					$("#BUSINESS_NO3").prop("readonly",true);
+					$("#BUSINESS_NO2").prop("type","password");
+				}
+			});
+		});
+		
+		// 업태 분리
+		$(function() {
+		  var upParts = '${acc.UPTAE}'.split("/");
+		  var upCount = upParts.length;
+		  for(var i = 0; i < upCount; i++){
+		    $("#upup").after("<input type='text' name='UPTAE' class='UPTAE' readonly='readonly' value='" + upParts[i] + "'>");
+		  }
+		});
+		
+		// 종목 분리
+		$(function() {
+		  var joParts = '${acc.JONGMOK}'.split("/");
+		  var joCount = joParts.length;
+		  for(var i = 0; i < joCount; i++){
+		    $("#jojo").after("<input type='text' name='UPTAE' class='UPTAE' readonly='readonly' value='" + joParts[i] + "'>");
+		  }
+		});
 </script>
 </head>
 <body>
@@ -187,7 +219,7 @@ h2 {
 							readonly="readonly"></span></td>
 					</tr>
 					<tr>
-						<td>거래처코드 &nbsp;</td>
+						<td>거래처구분 &nbsp;</td>
 						<td colspan="4"><input type="radio" name="G_GUBUN" value="01" onclick="return(false);"
 							<c:if test="${acc.g_GUBUN eq '01' }">checked</c:if>>사업자등록번호
 							<input type="radio" name="G_GUBUN" value="02" onclick="return(false);"
@@ -198,14 +230,12 @@ h2 {
 							<c:if test="${acc.g_GUBUN eq '04' }">checked</c:if>>외국인&nbsp;</td>
 					</tr>
 					<tr>
-						<td>업태 &nbsp;</td>
-						<td colspan="4"><input type="text" name="UPTAE" id="UPTAE"
-							readonly="readonly" value="${acc.UPTAE }"></td>
+						<td id="upup">업태 &nbsp;</td>
+						<td colspan="4"></td>
 					</tr>
 					<tr>
-						<td>종목</td>
-						<td colspan="4"><input type="text" name="JONGMOK"
-							id="JONGMOK" readonly="readonly" value="${acc.JONGMOK }"></td>
+						<td id="jojo">종목 &nbsp;</td>
+						<td colspan="4"></td>
 					</tr>
 					<tr>
 						<td>대표전화번호 &nbsp;</td>
@@ -250,39 +280,39 @@ h2 {
 					<tr>
 						<td>상세주소</td>
 						<td colspan="4"><input type="text" name="ADDR2" id="ADDR2"
-							readonly="readonly" maxlength="20" value="${acc.ADDR2 }"></td>
+							readonly="readonly" maxlength="20" value="${acc.ADDR2 }" ></td>
 					</tr>
 					<tr>
 						<td>홈페이지</td>
 						<td colspan="4"><input type="text" name="URL_PATH"
-							id="URL_PATH" value="${acc.URL_PATH }"></td>
+							id="URL_PATH" value="${acc.URL_PATH }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>팩스</td>
-						<td colspan="4"><input type="text" name="FAX" id="FAX" value="${acc.FAX }"></td>
+						<td colspan="4"><input type="text" name="FAX" id="FAX" value="${acc.FAX }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>적요</td>
 						<td colspan="4"><textarea cols="50" rows="10" name="REMARKS"
-								id="REMARKS" >${acc.REMARKS }</textarea></td>
+								id="REMARKS" readonly="readonly">${acc.REMARKS }</textarea></td>
 					</tr>
 					<tr>
 						<td>담당자명</td>
 						<td colspan="4"><input type="text" name="MAN_NAME"
-							id="MAN_NAME" value="${acc.MAN_NAME }"></td>
+							id="MAN_NAME" value="${acc.MAN_NAME }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>담당자 전화번호</td>
 						<td colspan="4"><input type="text" name="MAN_TEL1"
-							id="MAN_TEL1" size="7" maxlength="3" value="${acc.MAN_TEL1 }">-<input type="text"
-							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4" value="${acc.MAN_TEL2 }">-<input
-							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4" value="${acc.MAN_TEL3 }"></td>
+							id="MAN_TEL1" size="7" maxlength="3" value="${acc.MAN_TEL1 }" readonly="readonly">-<input type="text"
+							name="MAN_TEL2" id="MAN_TEL2" size="7" maxlength="4" value="${acc.MAN_TEL2 }" readonly="readonly">-<input
+							type="text" name="MAN_TEL3" id="MAN_TEL3" size="7" maxlength="4" value="${acc.MAN_TEL3 }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>담당자 이메일</td>
 						<td colspan="4"><input type="text" name="MAN_EMAIL1"
-							id="MAN_EMAIL1" size="10" value="${acc.MAN_EMAIL1 }">@<input type="text"
-							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10" value="${acc.MAN_EMAIL2 }"><select
+							id="MAN_EMAIL1" size="10" value="${acc.MAN_EMAIL1 }" readonly="readonly">@<input type="text"
+							name="MAN_EMAIL2" id="MAN_EMAIL2" size="10" value="${acc.MAN_EMAIL2 }" readonly="readonly"><select
 							name="selectDomain" id="domain2" >
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>

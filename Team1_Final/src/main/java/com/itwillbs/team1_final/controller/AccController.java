@@ -36,19 +36,27 @@ public class AccController {
 	@PostMapping(value = "/accregistPro")
 	public String accRegistPro(@ModelAttribute AccVO acc, Model model) {
 		
-		// 거래처 번호 
-//		if(!acc.getMAN_TEL1().equals("")) {
-//			acc.setMAN_TEL(acc.getMAN_TEL1()+"-"+acc.getMAN_TEL2()+"-"+acc.getMAN_TEL3());
-//		} else {
-//			acc.setMAN_TEL("");
-//		}
-		
 		// 거래처 코드 등록
 		if(acc.getBUSINESS_NO3().equals("")) {
 			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
 		} else {
 			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
 		}
+		
+		// uptae 분리
+		if(acc.getUPTAE().split(",").length==2) {
+			acc.setUPTAE(acc.getUPTAE().split(",")[0]+" / "+ acc.getUPTAE().split(",")[1]);
+		} else if(acc.getUPTAE().split(",").length==3){
+			acc.setUPTAE(acc.getUPTAE().split(",")[0]+" / "+ acc.getUPTAE().split(",")[1]+" / "+acc.getUPTAE().split(",")[2]);
+		}
+		
+		// jongmok 분리
+		if(acc.getJONGMOK().split(",").length==2) {
+			acc.setJONGMOK(acc.getJONGMOK().split(",")[0]+" / "+ acc.getJONGMOK().split(",")[1]);
+		} else if(acc.getJONGMOK().split(",").length==3){
+			acc.setJONGMOK(acc.getJONGMOK().split(",")[0]+" / "+ acc.getJONGMOK().split(",")[1]+" / "+acc.getJONGMOK().split(",")[2]);
+		}
+		
 		
 		// 담당자 번호 등록
 		if(acc.getMAN_TEL1().equals("")) {
@@ -109,9 +117,16 @@ public class AccController {
 
 		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
-		System.out.println(keyword);
-		System.out.println(searchType);
 		List<AccVO> acc = service.getAccList(searchType, keyword, startRow, listLimit);
+//		String busi_no = "";
+//		List<PdVO> product = service.getProductName(busi_no);
+//		busi_no = acc1.getBUSINESS_NO();
+//
+//		for(int i = 0; i < acc.size(); i++) {
+//			
+//			
+//		}
+		
 		// -------------------- 페이징 처리 ------------------------------
 		int listCount = service.getAccListCount(searchType, keyword);
 		int pageListLimit = 10; // 한 페이지에서 표시할 페이지 목록을 3개로 제한
@@ -130,12 +145,15 @@ public class AccController {
 			endPage = maxPage;
 		}
 
+		
+		
 		// PageInfo 객체 생성 후 페이징 처리 정보 저장
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 		// ---------------------------------------------------------------------------
 		// 게시물 목록 객체(boardList) 와 페이징 정보 객체(pageInfo)를 Model 객체에 저장
 		model.addAttribute("acc", acc);
 		model.addAttribute("pageInfo", pageInfo);
+		
 		return "acc/acc_list";
 	}
 	
@@ -190,6 +208,20 @@ public class AccController {
 			}
 		}
 		
+//		// uptae 분리
+//		if(acc.getUPTAE().split(",").length==2) {
+//			acc.setUPTAE(acc.getUPTAE().split(",")[0]+" / "+ acc.getUPTAE().split(",")[1]);
+//		} else if(acc.getUPTAE().split(",").length==3){
+//			acc.setUPTAE(acc.getUPTAE().split(",")[0]+" / "+ acc.getUPTAE().split(",")[1]+" / "+acc.getUPTAE().split(",")[2]);
+//		}
+//		
+//		// jongmok 분리
+//		if(acc.getJONGMOK().split(",").length==2) {
+//			acc.setJONGMOK(acc.getJONGMOK().split(",")[0]+" / "+ acc.getJONGMOK().split(",")[1]);
+//		} else if(acc.getUPTAE().split(",").length==3){
+//			acc.setJONGMOK(acc.getJONGMOK().split(",")[0]+" / "+ acc.getJONGMOK().split(",")[1]+" / "+acc.getJONGMOK().split(",")[2]);
+//		}
+		
 		if(!acc.getEMAIL().equals("") && acc.getEMAIL().contains("@")) {
 			acc.setEMAIL1(acc.getEMAIL().split("@")[0]);
 			acc.setEMAIL2(acc.getEMAIL().split("@")[1]);
@@ -229,7 +261,7 @@ public class AccController {
 		acc.setADDR1(acc.getADDR().split(",")[0]);
 		acc.setADDR2(acc.getADDR().split(",")[1]);
 		
-		// 거래처코드 분류!
+		// 주민번호일 경우와 나머지 경우 나눠서 뿌리기
 		if(!acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {
 			String[] parts = acc.getBUSINESS_NO().split("-");
 			if (parts.length >= 2) {
@@ -273,12 +305,26 @@ public class AccController {
 	@PostMapping("/AccModifyPro")
 	public String AccModifyPro(@ModelAttribute AccVO acc, Model model) {
 
-		// WHERE 절에 넘길 거래처 코드
-		if(acc.getBUSINESS_NO3().equals("")) {
-			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
-		} else {
-			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
-		}
+		// 거래처 코드 등록
+				if(acc.getBUSINESS_NO3().equals("")) {
+					acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
+				} else {
+					acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
+				}
+				
+				// uptae 분리
+				if(acc.getUPTAE().split(",").length==2) {
+					acc.setUPTAE(acc.getUPTAE().split(",")[0]+" / "+ acc.getUPTAE().split(",")[1]);
+				} else if(acc.getUPTAE().split(",").length==3){
+					acc.setUPTAE(acc.getUPTAE().split(",")[0]+" / "+ acc.getUPTAE().split(",")[1]+" / "+acc.getUPTAE().split(",")[2]);
+				}
+				
+				// jongmok 분리
+				if(acc.getJONGMOK().split(",").length==2) {
+					acc.setJONGMOK(acc.getJONGMOK().split(",")[0]+" / "+ acc.getJONGMOK().split(",")[1]);
+				} else if(acc.getJONGMOK().split(",").length==3){
+					acc.setJONGMOK(acc.getJONGMOK().split(",")[0]+" / "+ acc.getJONGMOK().split(",")[1]+" / "+acc.getJONGMOK().split(",")[2]);
+				}
 		
 		int accModifyCount = service.accModify(acc);
 		
@@ -294,12 +340,17 @@ public class AccController {
 	@GetMapping("/AccDeletePro")
 	public String accDelete(@ModelAttribute AccVO acc, Model model) {
 		
-		// WHERE 절에 넘길 거래처 코드
-		if(acc.getBUSINESS_NO3().equals("")) {
-			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2());
-		} else {
-			acc.setBUSINESS_NO(acc.getBUSINESS_NO1()+"-"+acc.getBUSINESS_NO2()+"-"+acc.getBUSINESS_NO3());
-		}
+		// 거래처코드 분류!
+				if(!acc.getBUSINESS_NO().equals("") && acc.getBUSINESS_NO().contains("-")) {
+					String[] parts = acc.getBUSINESS_NO().split("-");
+					if (parts.length == 2) {
+						acc.setBUSINESS_NO1(parts[0]);
+						acc.setBUSINESS_NO2(parts[1]);
+						if (parts.length == 3) {
+							acc.setBUSINESS_NO3(parts[2]);
+						}
+					}
+				}
 		
 		int deleteCount = service.accDelete(acc);
 		if(deleteCount > 0) {

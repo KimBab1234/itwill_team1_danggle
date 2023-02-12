@@ -27,18 +27,24 @@ input[type="button"]{
 <style>
 
 </style>
-<title>Insert title here</title>
+<title>재고 조정</title>
 <script>
 	
-	var priv ='${sessionScope.priv}';
-	if(priv.charAt(4)!='1') {
-		alert("권한이 없습니다.");
-		
-	}
+////재고 관리 권한은 "4"
+var priv ='${sessionScope.priv}';
+if(priv=='') {
+	alert("로그인 후 이용하세요.")
+	location.href="./Login";
+} else if(priv.charAt(4)!='1') {
+	alert("권한이 없습니다.");
+	history.back();
+}
+
 	
 	var stock = opener.stock;
 	var selectIdx;
 	var isGreaterSum = false;
+	var source_loc_arr = [];
 	
 	$(function() {
 		setList();
@@ -50,6 +56,7 @@ input[type="button"]{
 	function setList() {
 		for(var i=0; i < $(opener.document).find(".chk_top").length; i++) {
 			if($(opener.document).find(".chk_top").eq(i).prop("checked")) {
+				source_loc_arr.push(stock[i].WH_LOC_IN_AREA_CD);
 				$("tbody").append (
 						'<tr class="empListAdd">'
 						+'<td><input type="hidden" class="STOCK_CD_Arr" name="STOCK_CD_Arr" value="'+stock[i].STOCK_CD+'"/>'+stock[i].STOCK_CD+'</td>'
@@ -61,7 +68,7 @@ input[type="button"]{
 						+'<span class="searchLoc"></span><input type="button" class="hrFormBtn" style="height:35px" value="위치 검색" onclick="searchFormOpen('+j+')"/></td>'
 						+'<td><input type="text" name="MOVE_QTY_Arr" class="MOVE_QTY_Arr" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, \'\');" onchange="qtyChange(this)" /></td>'
 						+'<td><input type="text" class="sum" readOnly="readOnly" /></td>'
-						+'<td><input type="text" style="width:200" name="REMARKS_Arr" value="-" onchange="qtyChange(this)" /></td>'
+						+'<td><input type="text" style="width:200px; size:10px;" name="REMARKS_Arr" value="-" onchange="qtyChange(this)" /></td>'
 						+'</tr>'
 				);
 				j++;
@@ -83,26 +90,27 @@ input[type="button"]{
 		for(var i=0; i < j; i++) {
 			var move_qty = $(".MOVE_QTY_Arr").eq(i).val();
 			var target_loc = $(".TARGET_STOCK_CD_Arr").eq(i).val();
-			var source_loc = $(".SOURCE_STOCK_CD_Arr").eq(i).val();
+			var source_loc = source_loc_arr[i];
 			var move_stockNo = $(".STOCK_CD_Arr").eq(i).val();
-			if( move_qty != 0 && target_loc=="") {
+
+			if( move_qty == "0" && target_loc=="" && $(".QTY_Arr").eq(i).val()=="0") {
+				alert("재고번호 " + move_stockNo +"번 : 데이터를 입력하세요.");
+				return false;
+			}
+			if( move_qty != "0" && target_loc=="") {
 				alert("재고번호 " + move_stockNo +"번 : 이동할 위치를 선택해주세요.");
 				return false;
 			}
-			if( move_qty == 0 && target_loc!="") {
+			if( move_qty == "0" && target_loc!="") {
 				alert("재고번호 " + move_stockNo +"번 : 이동시킬 수량을 입력하세요.");
 				return false;
 			}
-			if(source_loc==target_loc) {
-				alert("재고번호 " + move_stockNo +"번 : 현재 위치와 이동시킬 위치가 같습니다.");
-				return false;
-			}
+	
 			if(isGreaterSum) {
 				alert("조정하려는 수량이 기존 수량을 초과했습니다.");
 				return false;
 			}
 			if($(".REMARKS_Arr").eq(i).val()=='') {
-				alert("--");
 				$(".REMARKS_Arr").eq(i).val("-");
 			}
 		}
@@ -120,13 +128,17 @@ input[type="button"]{
 			}
 		}
 		var sumQty = Number($(".QTY_Arr").eq(idx).val())+Number($(".MOVE_QTY_Arr").eq(idx).val());
-		$(".sum").eq(idx).val(sumQty);
 		if(sumQty > Number($(".stock_qty").eq(idx).text())) {
 			alert("조정하려는 수량이 기존 수량을 초과했습니다.");
+			$(selQty).val(0);
+			$(".sum").eq(idx).val(Number($(".QTY_Arr").eq(idx).val())+Number($(".MOVE_QTY_Arr").eq(idx).val()));
+			selQty.focus();
 			isGreaterSum = true;
+			return false;
 		} else {
 			isGreaterSum = false;
 		}
+		$(".sum").eq(idx).val(sumQty);
 	}
 	
 </script>

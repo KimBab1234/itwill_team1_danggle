@@ -20,7 +20,7 @@
 	font-family: 'Gowun Dodum', sans-serif;
 }
 ul {
-z-index: 1001;
+z-index: 900;
 }
 </style>
 <!-- 폰트 변경 끝  -->
@@ -186,7 +186,6 @@ nav .fa.fa-angle-down {
 				</li>
 				<li><a href="#">입출고 관리<i class='fa fa-angle-down'></i></a>
 					<ul>
-						<li><a href="WhList">창고 관리</a></li>
 						<li><a href="IN_Schedule">입고 예정</a></li>
 						<li><a href="IN_Process">입고 처리</a></li>
 						<li><a href="OutSchList">출고 예정</a></li>

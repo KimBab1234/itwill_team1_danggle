@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style type="text/css">
+*{
+	color:#513e30;
+	font-family: 'Gowun Dodum', sans-serif;
+<!-- 폰트 변경 끝  -->
+}
+</style>
 <script>
 
 	var pd_group_bottom;
@@ -44,7 +54,7 @@
 
 </script>
 <div align="center" style="width: auto;">
-	<h1>품목 그룹 검색</h1>
+	<h1 id="titleH1"><b style="border-left: 10px solid">&nbsp;품목 그룹 검색</b></h1>
 	<form action="javascript:searchFunc()">
 	
 	<input type="text" name="keyword" id ="keyword" onsubmit="searchFunc()">
@@ -53,14 +63,14 @@
 	<hr>
 	<div align="center" id="searchNone">
 	</div>
-	<div align="center" style="display: flex;" >
-		<div id="PRODUCT_GROUP_TOP_CD" style="width: 200px;">
+	<div align="center" style="display: flex;">
+		<div id="PRODUCT_GROUP_TOP_CD" style="width: 100px; margin-left: 130px;">
 		</div>
-		&nbsp;&nbsp;
-		<div id="PRODUCT_GROUP_BOTTOM_CD" style="width: 200px;">
+		&nbsp;
+		<div id="PRODUCT_GROUP_BOTTOM_CD" style="width: 100px;">
 		</div>
-		&nbsp;&nbsp;
-		<div id="PRODUCT_GROUP_BOTTOM_NAME" style="width: 300px;">
+		&nbsp;
+		<div id="PRODUCT_GROUP_BOTTOM_NAME" style="width: 150px;">
 		</div>
 	</div>
 </div>
