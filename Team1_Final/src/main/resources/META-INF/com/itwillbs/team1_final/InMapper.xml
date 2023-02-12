@@ -91,7 +91,7 @@
 	
 	<!-- 입고 예정 수정 조회 -->
 	<select id="selectInProduct" resultType="com.itwillbs.team1_final.vo.InVO">
-		 SELECT ins.IN_SCHEDULE_CD, ins.IN_TYPE_CD, ins.BUSINESS_NO, ins.EMP_NUM, ins.IN_DATE, ins.REMARKS, ins.TOTAL_QTY, h.EMP_NAME, ac.CUST_NAME
+		 SELECT ins.IN_SCHEDULE_CD, ins.IN_TYPE_CD, ins.BUSINESS_NO, ins.EMP_NUM, ins.IN_DATE, ins.REMARKS, h.EMP_NAME, ac.CUST_NAME
 		 	FROM  in_schedule AS ins
 		 	JOIN hr AS h
 		 		ON ins.EMP_NUM = h.EMP_NUM
@@ -149,7 +149,6 @@
 				, EMP_NUM = #{product.EMP_NUM}
 				, IN_DATE = #{product.IN_DATE}
 				, REMARKS = #{product.REMARKS}
-				, TOTAL_QTY = #{product.TOTAL_QTY}
 			WHERE
 				IN_SCHEDULE_CD = '${product_cd}'
 	</update>
