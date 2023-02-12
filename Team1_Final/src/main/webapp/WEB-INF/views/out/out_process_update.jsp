@@ -92,7 +92,7 @@ pageEncoding="UTF-8"%>
 		let checkQty = false;
 		
 		// 재고 선택
-		$(document).on("click", "input[name=STOCK_CD]", function() {
+		$(document).on("click", "input[name=STOCK_CD_Arr]", function() {
 			
 			if(!$(".product_cd").val() == "" && !$(".product_name").val() == "") {
 				let index = $(this).closest("tr").index();
