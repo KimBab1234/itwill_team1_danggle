@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.team1.mapper.ReviewMapper">
+
+<!-- 	<select id="insertReview" resultType="order"> -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectReviewList" resultType="orderProd"> -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectReviewListCount" resultType="order"> -->
+<!-- 	</select> -->
+
+<!-- 	<update id="updateReadCount"> -->
+
+<!-- 	</update> -->
+
+<!-- 	<select id="isReviewWriter" resultType="order"> -->
+<!-- 	</select> -->
+
+<!-- 	<delete id="deleteReview"> -->
+
+<!-- 	</delete> -->
+
+<!-- 	<update id="updateReview"> -->
+
+<!-- 	</update> -->
+<!-- 	 주문 내역 저장 -->
+<!-- 	<insert id="insertReviewLike" parameterType="order"> -->
+
+<!-- 	</insert> -->
+
+<!-- 	<select id="selectProduct" resultType="order"> -->
+
+<!-- 	</select> -->
+
+
+
+
+</mapper>
