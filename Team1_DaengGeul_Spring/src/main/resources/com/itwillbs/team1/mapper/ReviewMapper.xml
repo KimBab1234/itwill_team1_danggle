@@ -2,37 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1.mapper.ReviewMapper">
 
-<!-- 	<select id="insertReview" resultType="order"> -->
-<!-- 	</select> -->
+	<select id="insertReview" resultType="int">
+	</select>
 
-<!-- 	<select id="selectReviewList" resultType="orderProd"> -->
-<!-- 	</select> -->
+	<select id="selectReviewList" resultType="com.itwillbs.team1.vo.ReviewBean">
+	</select>
 
-<!-- 	<select id="selectReviewListCount" resultType="order"> -->
-<!-- 	</select> -->
+	<select id="selectReviewListCount" resultType="int">
+	</select>
+	
+	<select id="selectReview" resultType="com.itwillbs.team1.vo.ReviewBean">
+		
+	</select>
 
-<!-- 	<update id="updateReadCount"> -->
+	<update id="updateReadCount">
+		UPDATE review SET review_readcount=review_readcount+1 WHERE review_idx=#{review_idx}
+	</update>
 
-<!-- 	</update> -->
+	<select id="isReviewWriter" resultType="com.itwillbs.team1.vo.ReviewBean">
+		SELECT * FROM review WHERE review_idx=? AND review_passwd=?
+	</select>
 
-<!-- 	<select id="isReviewWriter" resultType="order"> -->
-<!-- 	</select> -->
+	<delete id="deleteReview">
+		DELETE FROM review WHERE review_idx=#{review_idx};
+	</delete>
 
-<!-- 	<delete id="deleteReview"> -->
+	<update id="updateReview">
+		UPDATE review SET
+				review_subject = #{review_subject}
+				, review_content = #{review_content}
+				, review_score = #{review_score}
+			WHERE
+				  review_idx = #{review_idx}
+				  AND
+				  review_passwd = #{review_passwd};
+	</update>
 
-<!-- 	</delete> -->
 
-<!-- 	<update id="updateReview"> -->
+	<insert id="insertReviewLike">
+		INSERT INTO review_like VALUES(#{review_idx} , #{member_id} );
+	</insert>
+	
+	<delete id="deleteReviewLike">
+		DELETE FROM review_like WHERE review_idx=#{review_idx} AND member_id=#{member_id};
+	</delete>
 
-<!-- 	</update> -->
-<!-- 	 주문 내역 저장 -->
-<!-- 	<insert id="insertReviewLike" parameterType="order"> -->
+	<update id="updateReviewLike">
+		update review set review_like_count =
+			( select count(*) from review_like where review_idx = #{review_idx}) 
+			where review_idx = #{review_idx};
+	</update>
 
-<!-- 	</insert> -->
-
-<!-- 	<select id="selectProduct" resultType="order"> -->
-
-<!-- 	</select> -->
 
 
 
