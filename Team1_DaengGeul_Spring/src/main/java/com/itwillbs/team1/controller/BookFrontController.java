@@ -2,6 +2,7 @@ package com.itwillbs.team1.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +61,9 @@ public class BookFrontController extends HttpServlet {
 	@Autowired
 	ProductService service;
 	
+	static FTPClient ftp;
+	static FTPClient ftp2;
+	
 	@GetMapping(value = "/ProductRegiForm.ad")
 	public String ProductRegistration(Model model, HttpSession session) {
 		System.out.println("상품 등록 폼 페이지");
@@ -74,17 +80,6 @@ public class BookFrontController extends HttpServlet {
 	@PostMapping(value = "/ProductRegiPro.ad")
 	public String registrationPro(Model model, HttpSession session, @ModelAttribute ProductBean product) {
 		System.out.println("상품 등록 처리");
-		
-		String uploadDir = "/resources/upload"; // 가상 업로드 경로
-		String saveDir = session.getServletContext().getRealPath(uploadDir);
-//		System.out.println("실제 업로드 경로 : " + saveDir);
-		
-		Path path = Paths.get(saveDir);
-		try {
-			Files.createDirectories(path);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 		
 		MultipartFile[] mFiles = product.getFiles();
 		
@@ -103,7 +98,6 @@ public class BookFrontController extends HttpServlet {
 		}
 		
 		String[] arrFile = originalFileNames.split("/");
-//		System.out.println("배열 길이 확인 : " + arrFile.length);
 		
 		if(arrFile.length == 1) { 
 			product.setImg(arrFile[0]);
@@ -120,16 +114,42 @@ public class BookFrontController extends HttpServlet {
 				if(arrFile.length == 1) { // 대표 이미지만 등록할 경우 사진 저장
 					MultipartFile mFile1 = product.getFiles()[0];
 					
+					ftp = ftpControl(new FTPClient(), "product"); //썸네일
+					
 					if(!mFile1.getOriginalFilename().equals("")) {
-						mFile1.transferTo(new File(saveDir, product.getImg()));
+						ftp.storeFile(product.getImg(), mFile1.getInputStream());
+//						
+						if(ftp.getReplyCode() != 226) {
+							ftp.disconnect();
+							model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+							return "fail_back";
+						}
 					}
 				}else { // 대표 이미지 + 상세이미지 등록할 경우 사진 저장
 					MultipartFile mFile1 = product.getFiles()[0];
 					MultipartFile mFile2 = product.getFiles()[1];
+					ftp = ftpControl(new FTPClient(), "product"); //썸네일
 					
 					if(!mFile1.getOriginalFilename().equals("") && !mFile2.getOriginalFilename().equals("")) {
-						mFile1.transferTo(new File(saveDir, product.getImg()));
-						mFile2.transferTo(new File(saveDir, product.getDetail_img()));
+//						mFile1.transferTo(new File(saveDir, product.getImg()));
+//						mFile2.transferTo(new File(saveDir, product.getDetail_img()));
+						
+						ftp.storeFile(product.getImg(), mFile1.getInputStream());
+						if(ftp.getReplyCode() != 226) {
+							ftp.disconnect();
+							model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+							return "fail_back";
+						}
+						ftp.disconnect();
+						ftp = ftpControl(new FTPClient(), "product_detail"); //썸네일
+						ftp.storeFile(product.getDetail_img(), mFile1.getInputStream());
+						ftp.disconnect();
+						if(ftp.getReplyCode() != 226) {
+							ftp.disconnect();
+							model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+							return "fail_back";
+						}
+						
 					}
 				}
 				
@@ -243,7 +263,7 @@ public class BookFrontController extends HttpServlet {
 	
 	@GetMapping(value = "//ProductDelete.ad")
 	public String deleteProduct(HttpSession session, Model model, @RequestParam String product_idx, @RequestParam(defaultValue = "1") int pageNum,
-			@ModelAttribute ProductBean product) {
+			@ModelAttribute ProductBean product) throws IOException {
 		System.out.println("상품 삭제");
 		String sId = (String)session.getAttribute("sId");
 		if(sId == null || sId.equals("") || !sId.equals("admin")) {
@@ -252,33 +272,23 @@ public class BookFrontController extends HttpServlet {
 		}
 		
 		ProductBean fileName = service.selectFileName(product.getProduct_idx());
-//		System.out.println("파일이름 확인 : " + fileName);
 		
 		int deleteCount = service.removeProduct(product_idx);
 		
 		if(deleteCount > 0) {
-			String uploadDir = "/resources/upload";
-			String saveDir = session.getServletContext().getRealPath(uploadDir);
-			
 			String img = fileName.getImg(); // 대표이미지는 무조건 삭제
-			Path path = Paths.get(saveDir + "/" + img);
+			ftp = ftpControl(new FTPClient(), "product"); ////썸네일 경로
+			ftp.deleteFile(img);
+			ftp.disconnect();
 			
 			if(!fileName.getDetail_img().equals("")) { // 상세이미지는 있을 때만 삭제
 				String detail_img = fileName.getDetail_img();
-				Path path2 = Paths.get(saveDir + "/" + detail_img);
-				
-				try {
-					Files.deleteIfExists(path2);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				ftp = ftpControl(new FTPClient(), "product_detail"); ////상세이미지 경로
+				ftp.deleteFile(detail_img);
+				ftp.disconnect();
 			}
 			
-			try {
-				Files.deleteIfExists(path);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			
 			
 			if(product_idx.substring(0, 1).equals("B")) {
 				return "redirect:/ProductList.ad?pageNum"+pageNum;	
@@ -371,6 +381,16 @@ public class BookFrontController extends HttpServlet {
 		}
 		
 		
+	}
+
+	static public FTPClient ftpControl(FTPClient ftp, String dir) throws SocketException, IOException {
+		ftp.setControlEncoding("UTF-8");
+		ftp.connect("iup.cdn1.cafe24.com",21);
+		ftp.login("itwillbs3", "itwillbs8030909");
+		ftp.changeWorkingDirectory("/www/img/" + dir);
+		ftp.setSoTimeout(1000);
+		ftp.setFileType(FTP.BINARY_FILE_TYPE);
+		return ftp;
 	}
 
 }
