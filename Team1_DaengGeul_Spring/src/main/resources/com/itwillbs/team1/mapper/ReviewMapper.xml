@@ -2,8 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1.mapper.ReviewMapper">
 
-	<select id="insertReview" resultType="int">
-	</select>
+	<insert id="insertReview" >
+		<selectKey keyProperty="review_idx" resultType="int" order="BEFORE">
+			SELECT MAX(review_idx) FROM review
+		</selectKey>
+		INSERT INTO review VALUES(
+				#{review_idx}
+				,#{product_idx}
+				,#{member_id}
+				,#{Review_subject}
+				,#{Review_passwd}
+				,#{Review_score}
+				,#{Review_content}
+				,#{Review_readcount}
+				,now()
+				,#{Order_idx}
+				,0)
+	</insert>
 
 	<select id="selectReviewList" resultType="com.itwillbs.team1.vo.ReviewBean">
 	</select>
