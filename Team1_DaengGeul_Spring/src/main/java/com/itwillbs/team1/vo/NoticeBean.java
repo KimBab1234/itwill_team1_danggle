@@ -1,6 +1,9 @@
 package com.itwillbs.team1.vo;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class NoticeBean {
 
@@ -11,6 +14,14 @@ public class NoticeBean {
 	private String notice_real_file;
 	private Timestamp notice_date;
 	private int notice_readcount;
+	private MultipartFile[] files;
+	
+	public MultipartFile[] getFiles() {
+		return files;
+	}
+	public void setFiles(MultipartFile[] files) {
+		this.files = files;
+	}
 	
 	public int getNotice_idx() {
 		return notice_idx;
@@ -58,7 +69,10 @@ public class NoticeBean {
 	public String toString() {
 		return "NoticeBean [notice_idx=" + notice_idx + ", notice_subject=" + notice_subject + ", notice_content="
 				+ notice_content + ", notice_file=" + notice_file + ", notice_real_file=" + notice_real_file
-				+ ", notice_date=" + notice_date + ", notice_readcount=" + notice_readcount + "]";
+				+ ", notice_date=" + notice_date + ", notice_readcount=" + notice_readcount + ", files="
+				+ Arrays.toString(files) + "]";
 	}
+	
+	
 	
 }
