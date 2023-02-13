@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,75 +26,89 @@ import com.itwillbs.team1.action.ReviewModifyFormAction;
 import com.itwillbs.team1.action.ReviewModifyProAction;
 import com.itwillbs.team1.action.ReviewWriteFormAction;
 import com.itwillbs.team1.action.ReviewWriteProAction;
+import com.itwillbs.team1.svc.ProductService;
+import com.itwillbs.team1.svc.ReviewService;
 import com.itwillbs.team1.vo.ActionForward;
+import com.itwillbs.team1.vo.ProductBean;
 import com.itwillbs.team1.vo.ReviewBean;
 
 @Controller
 public class ReviewFrontController {
+
+	@Autowired
+	ReviewService service;
+	
+	@Autowired
+	ProductService service2;
 	
 	// ===============================================================================
 	// 리뷰쓰기 폼
-	@GetMapping(value = "ReviewWriteForm.re" )
-	public String review_write() {
+	@GetMapping(value = "ReviewWriteForm" )
+	public String review_write(String product_idx, Model model){
 		System.out.println("리뷰쓰기 폼");
+
+		ProductBean product = service2.getProduct(product_idx);
+
+		model.addAttribute("product", product);
+
 		return "review/review_write";
 	}
-	
-	@PostMapping(value = "ReviewWritePro.re")
-	public String review_writePro(@ModelAttribute ReviewBean review, Model model, HttpSession session) {
-		System.out.println("리뷰쓰기 작업");
-		
-		return "";
-	}
-	
-	if(command.equals("/ReviewWriteForm.re")) {
-		System.out.println("리뷰쓰기 폼");
-		action= new ReviewWriteFormAction();
-		forward = action.execute(request, response);	
-	
-	}else if(command.equals("/ReviewWritePro.re")) {
-		System.out.println("리뷰쓰기 작업");
-		action= new ReviewWriteProAction();
-		forward = action.execute(request, response);
-		
-	}else if(command.equals("/ReviewList.re")) {
-		System.out.println("리뷰 목록 작업");
-		action = new ReviewListAction();
-		forward = action.execute(request, response);
-		
-	}else if(command.equals("/ReviewDetail.re")) {
-		System.out.println("리뷰 디테일 작업");
-		action = new ReviewDetailAction();
-		forward = action.execute(request, response);
-		
-	}else if(command.equals("/ReviewDeleteForm.re")) {
-		System.out.println("리뷰 삭제 폼 작업");
-		forward = new ActionForward();
-		forward.setPath("review/review_delete.jsp");
-		forward.setRedirect(false);
-		
-	}else if(command.equals("/ReviewDeletePro.re")) {
-		System.out.println("리뷰 삭제 프로 작업");
-		action = new ReviewDeleteProAction();
-		forward = action.execute(request, response);
-		
-	} else if(command.equals("/ReviewModifyForm.re")) {
-		System.out.println("리뷰 수정 폼 작업");
-		action = new ReviewModifyFormAction();
-		forward = action.execute(request, response);
-		
-	} else if(command.equals("/ReviewModifyPro.re")) {
-		System.out.println("리뷰 수정 프로 작업");
-		action = new ReviewModifyProAction();
-		forward = action.execute(request, response);
-		
-	} else if(command.equals("/ReviewLikeUpdate.re")) {
-		System.out.println("리뷰 좋아요 작업");
-		action = new ReviewLikeUpdateAction();
-		forward = action.execute(request, response);
-	}	
-	
 
-	
+//	@PostMapping(value = "ReviewWritePro.re")
+//	public String review_writePro(@ModelAttribute ReviewBean review, Model model, HttpSession session) {
+//		System.out.println("리뷰쓰기 작업");
+//
+//		return "";
+//	}
+//
+//	if(command.equals("/ReviewWriteForm.re")) {
+//		System.out.println("리뷰쓰기 폼");
+//		action= new ReviewWriteFormAction();
+//		forward = action.execute(request, response);	
+//
+//	}else if(command.equals("/ReviewWritePro.re")) {
+//		System.out.println("리뷰쓰기 작업");
+//		action= new ReviewWriteProAction();
+//		forward = action.execute(request, response);
+//
+//	}else if(command.equals("/ReviewList.re")) {
+//		System.out.println("리뷰 목록 작업");
+//		action = new ReviewListAction();
+//		forward = action.execute(request, response);
+//
+//	}else if(command.equals("/ReviewDetail.re")) {
+//		System.out.println("리뷰 디테일 작업");
+//		action = new ReviewDetailAction();
+//		forward = action.execute(request, response);
+//
+//	}else if(command.equals("/ReviewDeleteForm.re")) {
+//		System.out.println("리뷰 삭제 폼 작업");
+//		forward = new ActionForward();
+//		forward.setPath("review/review_delete.jsp");
+//		forward.setRedirect(false);
+//
+//	}else if(command.equals("/ReviewDeletePro.re")) {
+//		System.out.println("리뷰 삭제 프로 작업");
+//		action = new ReviewDeleteProAction();
+//		forward = action.execute(request, response);
+//
+//	} else if(command.equals("/ReviewModifyForm.re")) {
+//		System.out.println("리뷰 수정 폼 작업");
+//		action = new ReviewModifyFormAction();
+//		forward = action.execute(request, response);
+//
+//	} else if(command.equals("/ReviewModifyPro.re")) {
+//		System.out.println("리뷰 수정 프로 작업");
+//		action = new ReviewModifyProAction();
+//		forward = action.execute(request, response);
+//
+//	} else if(command.equals("/ReviewLikeUpdate.re")) {
+//		System.out.println("리뷰 좋아요 작업");
+//		action = new ReviewLikeUpdateAction();
+//		forward = action.execute(request, response);
+//	}	
+
+
+
 
 }

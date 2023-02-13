@@ -33,7 +33,6 @@ public interface ReviewMapper {
 	public int updateReview(ReviewBean review);
 	// 리뷰 좋아요 누른 아이디 , 글번호 추가 
 	public int insertReviewLike(int review_idx, String member_id, String review_like_done);
-	// 상품 이미지 및 이름 조회
-	public ReviewBean selectProduct(String product_idx);
+	
 
 }
