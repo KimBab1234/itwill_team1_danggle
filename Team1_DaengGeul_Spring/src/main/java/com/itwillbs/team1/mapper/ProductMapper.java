@@ -51,6 +51,7 @@ public interface ProductMapper {
 	public int updateBook(ProductBean book);  // 책 수정
 
 	public int updateGoods(ProductBean goods);  // 굿즈 수정
+
 	
 	public ProductBean selectBookFileName(String product_idx); // 책 이미지 파일 조회
 
@@ -59,8 +60,16 @@ public interface ProductMapper {
 	public int deleteBook(String product_idx);
 
 	public int deleteGoods(String product_idx);
-
-
+	
+	//============== 굿즈 옵션 수정 =====================
+	public void insertUpdateGoodsOpt(ProductOptBean optBean); 
+	
+	public int deleteGoodsOpt(@Param("product_idx") String product_idx, @Param("max")int max);
+	
+	public int selectMaxOpt(String product_idx);
+	
+	//===================================================
+	
 	
 	//================추천 도서 등록=============
 	public int recommendBook(ProductBean book);  
@@ -91,6 +100,14 @@ public interface ProductMapper {
 	
 	//=====================주문한 상품 정보 가져오기=====================
 	public ArrayList<ProductBean> selectOrderProductList(String order_list);
+
+	
+
+	
+
+	
+
+	
 
 
 

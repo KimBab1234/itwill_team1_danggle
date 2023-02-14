@@ -18,12 +18,17 @@
 
 	$(function() {
 		
+		$("#test").on("click", function() {
+			alert($("#editForm").serialize());
+		});
+		
 		if(productType == "goods"){
 			
 			$("#writer").prop("required", false);
 			$("#publisher").prop("required", false);
 			$("#date").prop("required", false);
 		}
+		
 	    $('.dropdown-toggle', this).trigger('click').blur();
 		
 	    var optionIndex = 0;
@@ -113,12 +118,12 @@
 	</div>
 	<div style="width : 1200px;">
 	<h4 id="h4">상품 수정</h4><br>
-	<form action="ProductEditPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
+	<form action="ProductEditPro.ad" method="post" id="editForm" enctype="multipart/form-data" name="proRegi">
+	
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
  		<input type="hidden" name="product_idx" value="${product.product_idx }">
  		<input type="hidden" name="old_img" value="${product.img }">
  		<input type="hidden" name="old_detail_img" value="${product.detail_img }">
- 		<input type="hidden" name="pageNum" value="${param.pageNum}">
 		<table class="regi_table">
 			<tr>
 				<th>상품명</th>
@@ -150,14 +155,13 @@
 				<tr>
 					<th>책 정보</th>
 					<td>
-						<div class="bookArea">작가명 : <input type="text" required="required" id="writer" name="book_writer" class="book_div" value="${product.writer}"></div>
-						<div class="bookArea">출판사 : <input type="text" required="required" id="publisher" name="book_publisher" class="book_div" value="${product.publisher }"></div>
-						<div class="bookArea">출판일 : <input type="date" required="required" id="date" name="book_date" value="${product.date }"></div>
+						<div class="bookArea">작가명 : <input type="text" required="required" id="writer" name="writer" class="book_div" value="${product.writer}"></div>
+						<div class="bookArea">출판사 : <input type="text" required="required" id="publisher" name="publisher" class="book_div" value="${product.publisher }"></div>
+						<div class="bookArea">출판일 : <input type="date" required="required" id="date" name="date" value="${product.date }"></div>
 					</td>
 				</tr>
 			</c:if>
 			<c:if test="${productType eq 'goods'}">
-				
 				<tr>
 					<th>옵션</th>
 					<td>
@@ -199,7 +203,7 @@
 				<div class="filebox">
    					<input class="upload-name" value="현재 이미지 : ${product.img }" id="img_name">
     				<label for="img">파일찾기</label> 
-   					<input type="file"name="img" id="img">
+   					<input type="file"name="files" id="img">
 				</div>
 				</td>
 			</tr>
@@ -209,7 +213,7 @@
 					<div class="filebox">
    						<input class="upload-name" value="현재 이미지 : ${product.detail_img }" id="detail_img_name">
     					<label for="detail_img">파일찾기</label> 
-   						<input type="file" id="detail_img" name="detail_img">
+   						<input type="file" id="detail_img" name="files">
 					</div>
 
 					<hr>
@@ -221,6 +225,7 @@
 		</table> 
 		<br>
 		<div align="center">
+			<button id="test" type="button">확인용</button>
 			<input type="submit" id="okBtn" value="수정">
 			<c:choose>
 				<c:when test="${productType eq 'book'}">

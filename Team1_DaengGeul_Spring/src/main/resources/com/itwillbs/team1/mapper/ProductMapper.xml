@@ -193,4 +193,56 @@
 			FROM recommend_book
 			WHERE product_idx = #{product_idx}
 	</delete>
+	
+	<!-- 책 수정 -->
+	<update id="updateBook">
+		UPDATE book
+			SET
+				name = #{name}
+				, genre = #{genre}
+				, writer = #{writer}
+				, publisher = #{publisher}
+				, price = #{price}
+				, date = #{date}
+				, detail = #{detail}
+				, discount = #{discount}
+				, quantity =#{quantity}
+			WHERE product_idx = #{product_idx}
+	</update>
+	
+	<update id="updateGoods">
+		UPDATE goods
+			SET
+				name = #{name}
+				, price = #{price}
+				, quantity = #{quantity}
+				, detail = #{detail}
+				, discount = #{discount}
+			WHERE product_idx = #{product_idx}
+	</update>
+	
+	<insert id="insertUpdateGoodsOpt">
+		INSERT
+			INTO goods_options
+			VALUES (
+				#{goodsOpt_idx}
+				, #{option_name}
+				, #{option_quantity}
+				, #{optNum}
+			)
+	</insert>
+	
+	<select id="selectMaxOpt" resultType="int">
+		SELECT MAX(count)
+			FROM goods_options
+			WHERE goodsOpt_idx = #{product_idx}
+	</select>
+	
+	<delete id="deleteGoodsOpt">
+		DELETE
+			FROM goods_options
+			WHERE goodsOpt_idx = #{product_idx}
+			AND count &lt; #{max}
+	</delete>
+	
 </mapper>

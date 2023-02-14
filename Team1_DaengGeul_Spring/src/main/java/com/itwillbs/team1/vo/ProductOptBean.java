@@ -37,12 +37,17 @@ public class ProductOptBean {
 		this.option_quantity = option_quantity;
 	}
 	
+	
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		return "ProductOptBean [goodsOpt_idx=" + goodsOpt_idx + ", option_name=" + option_name + ", option_quantity="
 				+ option_quantity + ", optNum=" + optNum + ", toString()=" + super.toString() + "]";
 	}
-	
+
 	
 	
 	

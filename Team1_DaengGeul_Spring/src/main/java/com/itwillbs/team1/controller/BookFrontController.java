@@ -39,12 +39,6 @@ import com.itwillbs.team1.action.NoticeListAction;
 import com.itwillbs.team1.action.NoticeModifyFormAction;
 import com.itwillbs.team1.action.NoticeModifyProAction;
 import com.itwillbs.team1.action.NoticeWriteProAction;
-import com.itwillbs.team1.action.ProductDeleteAction;
-import com.itwillbs.team1.action.ProductEditAction;
-import com.itwillbs.team1.action.ProductEditDetailAction;
-import com.itwillbs.team1.action.ProductEditListAction;
-import com.itwillbs.team1.action.ProductEditProAction;
-import com.itwillbs.team1.action.ProductRegiProAction;
 import com.itwillbs.team1.action.RecommendBookAction;
 import com.itwillbs.team1.action.RecommendBookDeleteAction;
 import com.itwillbs.team1.action.RecommendBookListAction;
@@ -391,6 +385,44 @@ public class BookFrontController extends HttpServlet {
 		ftp.setSoTimeout(1000);
 		ftp.setFileType(FTP.BINARY_FILE_TYPE);
 		return ftp;
+		
 	}
+	
+	@PostMapping(value = "/ProductEditPro.ad")
+	public String editPro(Model model, HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum, @ModelAttribute ProductBean product) {
+		System.out.println("상품 수정 처리");
+			
+		String product_idx = request.getParameter("product_idx");
+		System.out.println("상품 번호 확인 : " + product_idx);
+		
+		int updateCount = 0;
+		
+		if(product_idx.substring(0, 1).equals("B")) {
+			updateCount = service.updateBook(product);
+		}else {
+			updateCount = service.updateGoods(product);
+		}
+			
+		if(updateCount > 0) {
+			
+			if(product_idx.substring(0, 1).equals("B")) {
+				return "redirect:/ProductList.ad?pageNum="+pageNum;
+			}else {
+				return "redirect:/ProductList.ad?product=G";
+			}
+			
+			
+		}else{
+			model.addAttribute("msg", "상품 수정 실패!");
+			return "fail_back";
+		}
+	
+		
+		
+		
+	}
+
+	
+	
 
 }
