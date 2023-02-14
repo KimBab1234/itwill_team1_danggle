@@ -21,6 +21,8 @@
 	</insert>
 
 	<select id="selectReviewList" resultType="com.itwillbs.team1.vo.ReviewBean">
+		SELECT *
+			FROM review
 	</select>
 
 	<select id="selectReviewListCount" resultType="int">
