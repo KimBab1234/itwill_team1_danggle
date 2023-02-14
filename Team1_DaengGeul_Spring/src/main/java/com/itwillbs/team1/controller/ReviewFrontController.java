@@ -54,13 +54,24 @@ public class ReviewFrontController {
 		return "review/review_write";
 	}
 
-//	@PostMapping(value = "ReviewWritePro.re")
-//	public String review_writePro(@ModelAttribute ReviewBean review, Model model, HttpSession session) {
-//		System.out.println("리뷰쓰기 작업");
-//
-//		return "";
-//	}
-//
+	@PostMapping(value = "ReviewWritePro.re")
+	public String review_writePro(@ModelAttribute ReviewBean review, Model model, HttpSession session) {
+		System.out.println("리뷰쓰기 작업");
+		
+		int insertCount = service.registReview(review);
+		System.out.println("리뷰 제목 : " + review.getReview_subject());
+		// 등록 성공/실패에 따른 포워딩 작업 수행
+		if(insertCount > 0) { // 성공
+
+			return "redirect:ReviewList.re";
+		} else { // 실패
+			// "msg" 속성명으로 "글 쓰기 실패!" 메세지 전달 후 fail_back 포워딩
+			model.addAttribute("msg", "리뷰 등록 실패!");
+			return "fail_back";
+		}
+		
+	}
+	
 //	if(command.equals("/ReviewWriteForm.re")) {
 //		System.out.println("리뷰쓰기 폼");
 //		action= new ReviewWriteFormAction();

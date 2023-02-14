@@ -43,7 +43,7 @@ public class ReviewService {
 	}
 
 
-	public boolean registReview(ReviewBean review) {
+	public int registReview(ReviewBean review) {
 		System.out.println("ReviewWriteProService - registReview()");
 
 		int insertCount = mapper.insertReview(review);
@@ -52,11 +52,11 @@ public class ReviewService {
 			updateCount = mapper2.updateMemberPoint(review.getMember_id(), 500);
 		}
 		if(updateCount>0) {
-			return true;
-		} else {
-			return false;
-		}
+			
+		} 
+		return updateCount;
 	}
+
 	
 	
 	
