@@ -80,13 +80,17 @@ public class PdController{
 
 		// 등록 성공/실패에 따른 포워딩 작업 수행
 		if(insertCount > 0) { // 성공
-			
+
 			if(!originalFileName.equals("")) {
-				///ftp 연결 및 로그인
-				ftp = HrController.ftpControl(new FTPClient());
-				///ftp로 파일 저장
-				ftp.storeFile(product.getPRODUCT_IMAGE(), mFile.getInputStream());
-				ftp.disconnect();
+				mFile = product.getFile();
+				String uploadDir = "/resources/img";
+				String saveDir = session.getServletContext().getRealPath(uploadDir);
+
+				try {
+					mFile.transferTo(new File(saveDir, product.getPRODUCT_IMAGE()));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}			
 			}
 
 
@@ -291,14 +295,14 @@ public class PdController{
 		int insertCount = service.registPd_group_bottom(product);
 
 		// 등록 성공/실패에 따른 포워딩 작업 수행
-//		if(insertCount > 0) { // 성공
-//			System.out.println("확인쓰2");
-			return insertCount;
-//		} else { // 실패
-//			// "msg" 속성명으로 "글 쓰기 실패!" 메세지 전달 후 fail_back 포워딩
-//			model.addAttribute("msg", "품목 그룹 등록 실패!");
-//			return "fail_back";
-//		}
+		//		if(insertCount > 0) { // 성공
+		//			System.out.println("확인쓰2");
+		return insertCount;
+		//		} else { // 실패
+		//			// "msg" 속성명으로 "글 쓰기 실패!" 메세지 전달 후 fail_back 포워딩
+		//			model.addAttribute("msg", "품목 그룹 등록 실패!");
+		//			return "fail_back";
+		//		}
 	}
 
 	// ===============================================================================
@@ -340,28 +344,36 @@ public class PdController{
 	@GetMapping(value = "/Pd_deletePro")
 	public String pd_deletePro(@RequestParam String deleteProdArr, 
 			Model model, HttpSession session) throws SocketException, IOException {
-		
+
 		System.out.println("품목 삭제");
 		System.out.println("deleteProdArr : "+deleteProdArr);
-		
+
 		///삭제할 이미지명 가져오기
 		List<String> deleteImg = service.getImgList(deleteProdArr.substring(0,deleteProdArr.length()-1));
-		
+
 		String[] arr = deleteProdArr.split(",");
-		
+
 		int deleteCount = 0;
 		///ftp 연결 및 로그인
-		ftp = HrController.ftpControl(new FTPClient());
-		
+//		ftp = HrController.ftpControl(new FTPClient());
+
 		for(int i=0; i<arr.length; i++) {
 			deleteCount += service.removeProduct(Integer.parseInt(arr[i]));
 			///ftp 파일 삭제
-			ftp.deleteFile(deleteImg.get(i));
+//			ftp.deleteFile(deleteImg.get(i));
+			String uploadDir = "/resources/img";
+			String saveDir = session.getServletContext().getRealPath(uploadDir);
+			
+			Path path = Paths.get(saveDir+"/"+deleteImg.get(i));
+			try {
+				Files.deleteIfExists(path);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 		// 게시물 삭제 성공 시 해당 게시물의 파일도 삭제
 		if(deleteCount == arr.length) { // 삭제 성공
-			ftp.disconnect();
 			return "redirect:/PdInquiry";
 		} else { // 삭제 실패
 			model.addAttribute("msg", "품목 삭제 실패!");
@@ -376,7 +388,7 @@ public class PdController{
 	@GetMapping("/PdUpdate")
 	public String pd_update(@RequestParam int PRODUCT_CD, Model model, HttpSession session) {
 
-//		System.out.println("여기1");
+		//		System.out.println("여기1");
 		PdVO product = service.getProduct(PRODUCT_CD);
 
 		model.addAttribute("product", product);
@@ -388,9 +400,9 @@ public class PdController{
 	public String pd_updatePro(
 			@ModelAttribute PdVO product, 
 			Model model, HttpSession session) {
-		
+
 		MultipartFile mFile = product.getFile();
-		
+
 		///삭제할 이미지명 미리 가져오기	
 		List<String> deleteImg = service.getImgList(product.getPRODUCT_CD()+"");
 
@@ -421,22 +433,24 @@ public class PdController{
 
 		// 등록 성공/실패에 따른 포워딩 작업 수행
 		if(updateCount > 0) { // 성공
-			
+
 			if(!originalFileName.equals("")) {
+				mFile = product.getFile();
+				String uploadDir = "/resources/img";
+				String saveDir = session.getServletContext().getRealPath(uploadDir);
+
 				try {
-					///ftp 연결 및 로그인
-					ftp = HrController.ftpControl(new FTPClient());
-					///ftp로 파일 저장
-					ftp.storeFile(product.getPRODUCT_IMAGE(), mFile.getInputStream());
-					//원래 파일 삭제
-					ftp.deleteFile(deleteImg.get(0));
-					ftp.disconnect();
-				} catch (SocketException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					mFile.transferTo(new File(saveDir, product.getPRODUCT_IMAGE()));
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+
+
+				Path path = Paths.get(saveDir+"/"+deleteImg);
+				try {
+					Files.deleteIfExists(path);
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
 

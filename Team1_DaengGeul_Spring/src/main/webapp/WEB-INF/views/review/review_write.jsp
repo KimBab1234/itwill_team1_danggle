@@ -8,7 +8,7 @@
 <!-- <link href="review/css/review_write.css" rel="stylesheet" type="text/css"> -->
 <script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script>
-var name = '${review.product_name }';
+var name = '${product.name }';
 
 if(name=='') {
 	alert("죄송합니다. 해당 상품은 현재 판매되지 않는 상품으로 리뷰 쓰기가 불가합니다.");
@@ -147,8 +147,8 @@ if(name=='') {
 		<br>
 		<table>
 			<tr>
-				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${review.product_img }" width="170"></td>
-				<td><b style="font-size: 25px">${review.product_name }</b></td>
+				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${product.img }" width="170"></td>
+				<td><b style="font-size: 25px">${product.name }</b></td>
 			</tr>
 		</table>
 		<br>

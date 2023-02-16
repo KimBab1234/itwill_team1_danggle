@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwillbs.team1.mapper.ReviewMapper">
+
+	<insert id="insertReview" >
+		<selectKey keyProperty="review_idx" resultType="int" order="BEFORE">
+			SELECT MAX(review_idx) FROM review
+		</selectKey>
+		INSERT INTO review VALUES(
+				#{review_idx} + 1
+				,#{product_idx}
+				,#{member_id}
+				,#{review_subject}
+				,#{review_passwd}
+				,#{review_score}
+				,#{review_content}
+				,#{review_readcount}
+				,now()
+				,#{order_idx}
+				,0)
+	</insert>
+
+	<select id="selectReviewList" resultType="com.itwillbs.team1.vo.ReviewBean">
+		SELECT *
+			FROM review
+	</select>
+
+	<select id="selectReviewListCount" resultType="int">
+	</select>
+	
+	<select id="selectReview" resultType="com.itwillbs.team1.vo.ReviewBean">
+		
+	</select>
+
+	<update id="updateReadCount">
+		UPDATE review SET review_readcount=review_readcount+1 WHERE review_idx=#{review_idx}
+	</update>
+
+	<select id="isReviewWriter" resultType="com.itwillbs.team1.vo.ReviewBean">
+		SELECT * FROM review WHERE review_idx=? AND review_passwd=?
+	</select>
+
+	<delete id="deleteReview">
+		DELETE FROM review WHERE review_idx=#{review_idx};
+	</delete>
+
+	<update id="updateReview">
+		UPDATE review SET
+				review_subject = #{review_subject}
+				, review_content = #{review_content}
+				, review_score = #{review_score}
+			WHERE
+				  review_idx = #{review_idx}
+				  AND
+				  review_passwd = #{review_passwd};
+	</update>
+
+
+	<insert id="insertReviewLike">
+		INSERT INTO review_like VALUES(#{review_idx} , #{member_id} );
+	</insert>
+	
+	<delete id="deleteReviewLike">
+		DELETE FROM review_like WHERE review_idx=#{review_idx} AND member_id=#{member_id};
+	</delete>
+
+	<update id="updateReviewLike">
+		update review set review_like_count =
+			( select count(*) from review_like where review_idx = #{review_idx}) 
+			where review_idx = #{review_idx};
+	</update>
+
+
+
+
+
+</mapper>

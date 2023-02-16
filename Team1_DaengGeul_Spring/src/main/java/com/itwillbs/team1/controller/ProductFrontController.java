@@ -32,9 +32,6 @@ public class ProductFrontController {
 	public String ProductDetail(@RequestParam String product_idx, Model model, HttpSession session) {
 		System.out.println("책 or 굿즈 상세페이지");
 
-		////로그인 컨버전 완료될때까지 임시로 session에 hong111 저장
-		session.setAttribute("sId", "hong111");
-		
 		ProductBean product = service.getProduct(product_idx); //상품 정보 가져오기
 		
 		String recentImg = product.getImg();
@@ -64,22 +61,22 @@ public class ProductFrontController {
 		///최근 본 상품 목록 추가 끝
 
 
-//		////리뷰 목록 가져오기
-//		int listLimit = 10, pageListLimit=10; // 한 페이지에서 표시할 게시물 목록 10개 제한
-//		int pageNum = 1;
-//		ReviewListService rlService = new ReviewListService();
-//		int listCount = rlService.getReviewdListCount("", "", product_idx);
-//		int maxPage = listCount / listLimit + (listCount % listLimit == 0 ? 0 : 1);
-//		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
-//		int endPage = startPage + pageListLimit - 1 ;
-//		if(endPage > maxPage){
-//			endPage = maxPage;
-//		}
-//		List<ReviewBean> reviewList = rlService.getReviewList("", "", product_idx, 0, 0);
-//		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
-//		
-//		model.addAttribute("reviewList", reviewList);
-//		model.addAttribute("pageInfo", pageInfo);
+		////리뷰 목록 가져오기
+		int listLimit = 10, pageListLimit=10; // 한 페이지에서 표시할 게시물 목록 10개 제한
+		int pageNum = 1;
+		ReviewListService rlService = new ReviewListService();
+		int listCount = rlService.getReviewdListCount("", "", product_idx);
+		int maxPage = listCount / listLimit + (listCount % listLimit == 0 ? 0 : 1);
+		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		int endPage = startPage + pageListLimit - 1 ;
+		if(endPage > maxPage){
+			endPage = maxPage;
+		}
+		List<ReviewBean> reviewList = rlService.getReviewList("", "", product_idx, 0, 0);
+		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
+		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("pageInfo", pageInfo);
 
 		return "order/product_detail";
 	}

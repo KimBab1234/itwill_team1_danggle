@@ -413,56 +413,7 @@ public class ReviewDAO {
 		}
 		return review_like_count; 
 	}
-	
-	// 상품 이미지 및 이름 조회
-	public ReviewBean selectProduct(String product_idx) {
-		ReviewBean review = null;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs =null;
-		try {
-			if(product_idx.charAt(0) == 'B') {
-				String sql = "SELECT book_img, book_name FROM book WHERE book_idx=?";
-				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setString(1, product_idx);
-				
-				rs = pstmt.executeQuery(); 
-				if(rs.next()) { 
-					review = new ReviewBean(); 
-					
-					review.setProduct_img(rs.getString("book_img"));
-					review.setProduct_name(rs.getString("book_name"));
-//					System.out.println(review);
-					
-				}
-			}else {
-				String sql = "SELECT goods_img, goods_name FROM goods WHERE goods_idx=?";
-				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setString(1, product_idx);
-				
-				rs = pstmt.executeQuery(); 
-				if(rs.next()) { 
-					review = new ReviewBean(); 
-					
-					review.setProduct_img(rs.getString("goods_img"));
-					review.setProduct_name(rs.getString("goods_name"));
-//					System.out.println(review);
-					
-				}
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("ReviewBean- selectProduct()");
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-		}
-		
-		return review;
-	}
+
 
 	
 }

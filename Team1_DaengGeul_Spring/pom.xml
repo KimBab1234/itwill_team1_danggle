@@ -176,7 +176,13 @@
 		    <artifactId>spring-tx</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>			
-				
+		
+		<!-- ftp 업로드 -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.3</version>
+		</dependency>		
 				
 		<!-- AspectJ -->
 		<dependency>

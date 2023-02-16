@@ -93,7 +93,7 @@
 										<td>리뷰 작성 완료</td>
 									</c:when>
 									<c:otherwise>
-										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_list.get(0).idx}&order_idx=${order.order_idx}'">리뷰쓰러가기</button></td>
+										<td><button type="button" onclick="location.href='ReviewWriteForm?product_idx=${order.order_prod_list.get(0).idx}&order_idx=${order.order_idx}'">리뷰쓰러가기</button></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -116,7 +116,7 @@
 										<td>리뷰 작성 완료</td>
 									</c:when>
 									<c:otherwise>
-										<td><button type="button" onclick="location.href='ReviewWriteForm.re?product_idx=${order.order_prod_list.get(i).idx}&order_idx=${order.order_idx}'">리뷰쓰러가기</button></td>
+										<td><button type="button" onclick="location.href='ReviewWriteForm?product_idx=${order.order_prod_list.get(i).idx}&order_idx=${order.order_idx}'">리뷰쓰러가기</button></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
