@@ -58,7 +58,7 @@
 	</div>
 	
 	<section>
-		<form action="MemberDeletePro.me" name="deleteForm" method="post">
+		<form action="MemberDeletePro" name="deleteForm" method="post">
 			<input type="hidden" name="id" value="${param.id }">
 			<table>
 				<tr>

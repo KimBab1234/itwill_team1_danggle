@@ -49,12 +49,12 @@ a:active {
             <div class="menuLink" style="margin-bottom:6px;"><a href='ProductRegiForm.ad' style="color: #736643;">신규 상품 등록</a></div>
             <div class="menuLink" style="margin-bottom:6px;"><a href='ProductList.ad'>상품 정보 관리</a></div>
             <div class="menuLink" style="margin-bottom:6px;"><a href='RecommendBookList.ad'>추천 도서 관리</a></div>
-            <div class="menuLink" style="margin-bottom:6px;"><a href='MemberList.me'>회원 정보 관리</a></div>
+            <div class="menuLink" style="margin-bottom:6px;"><a href='MemberList'>회원 정보 관리</a></div>
 		</c:when>
 		<%-- 일반사용자 --%>
 		<c:otherwise>
 			<br>
-            <div class="menuLink"><a  href='MemberInfo.me?id=${sessionScope.sId}'>회원정보수정</a></div>
+            <div class="menuLink"><a  href='MemberInfo?id=${sessionScope.sId}'>회원정보수정</a></div>
             <div class="menuLink"><a  href='OrderList'>주문내역</a></div>
             <div class="menuLink"><a  href="ReviewList.re">내가 쓴 리뷰</a></div>
             <div class="menuLink"><a  href="QnaList.cu">내 문의글</a></div>

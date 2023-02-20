@@ -56,7 +56,7 @@
 	
 	<div align="center">
 		<input type="button" value="홈으로" onclick="location.href='./'">
-		<input type="button" value="로그인" onclick="location.href='MemberLoginForm.me'">
+		<input type="button" value="로그인" onclick="location.href='MemberLoginForm'">
 	</div>
 	
 	<div class="clear"></div>

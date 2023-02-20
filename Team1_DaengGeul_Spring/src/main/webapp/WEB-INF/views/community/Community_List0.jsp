@@ -150,7 +150,7 @@ a {
 							onclick="location.href='CommunityWrite0.co'">
 					</c:when>
 					<c:otherwise>
-						<a href="MemberLoginForm.me">로그인이 필요합니다</a>
+						<a href="MemberLoginForm">로그인이 필요합니다</a>
 					</c:otherwise>
 				</c:choose>
 			</form>

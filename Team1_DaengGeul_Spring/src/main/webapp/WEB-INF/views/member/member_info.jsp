@@ -30,7 +30,7 @@
 		// -------------------- 회원탈퇴 확인 알림창 --------------------
 		$("#btnDelete").on("click", function() {
 		  	if(confirm("정말 회원탈퇴를 하시겠습니까?")) {
-		  		location.href = "MemberDeleteForm.me?id=" + $('#id').val();
+		  		location.href = "MemberDeleteForm?id=" + $('#id').val();
 		  	}
 		});
 		// ---------------------------------------------------------------
@@ -146,7 +146,7 @@
 			if(email1 != "" && email2 != ""){
 
 				$.ajax({
-					url: "MemberCheckEmail.me",
+					url: "MemberCheckEmail",
 					data: {
 						email1: email1,
 						email2: email2
@@ -192,7 +192,7 @@
 			if(email1 != "" && email2 != ""){
 
 				$.ajax({
-					url: "MemberCheckEmail.me",
+					url: "MemberCheckEmail",
 					data: {
 						email1: email1,
 						email2: email2
@@ -260,7 +260,7 @@
 					});
 					
 					$.ajax({
-						url: "MemberSendCertPro.me",
+						url: "MemberSendCertPro",
 						type : 'POST',
 						data: {
 							id: id,
@@ -306,7 +306,7 @@
 					} else {
 						
 						$.ajax({
-							url: "MemberCheckCertPro.me",
+							url: "MemberCheckCertPro",
 							data: {
 								id: id,
 								certNum: certNum
@@ -431,7 +431,7 @@ function execDaumPostcode() {
 	<article>
 	
 		<!---------------------------------- 마이페이지 영역 ----------------------------------->
-	  	<form action="MemberUpdatePro.me" method="post" id="updateForm" name="updateForm">
+	  	<form action="MemberUpdatePro" method="post" id="updateForm" name="updateForm">
 		<!-- 화면 커버 -->
 		<div class="join-cover">
 	

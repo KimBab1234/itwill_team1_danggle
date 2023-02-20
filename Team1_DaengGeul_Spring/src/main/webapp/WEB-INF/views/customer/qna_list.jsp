@@ -15,7 +15,7 @@ $(function() {
 
     if(id=='') {
        alert("로그인 후 이용하세요.");
-       location.href='MemberLoginForm.me';
+       location.href='MemberLoginForm';
     }   
 });
 </script>

@@ -52,7 +52,7 @@
 			} else {
 				
 				$.ajax({
-					url: "MemberCheckId.me",
+					url: "MemberCheckId",
 					data: {
 						id: $("#id").val()
 					},
@@ -213,7 +213,7 @@
 			if(email1 != "" && email2 != ""){
 
 				$.ajax({
-					url: "MemberCheckEmail.me",
+					url: "MemberCheckEmail",
 					data: {
 						email1: email1,
 						email2: email2
@@ -256,7 +256,7 @@
 			if(email1 != "" && email2 != ""){
 
 				$.ajax({
-					url: "MemberCheckEmail.me",
+					url: "MemberCheckEmail",
 					data: {
 						email1: email1,
 						email2: email2
@@ -318,7 +318,7 @@
 							});
 							
 							$.ajax({
-								url: "MemberSendCertPro.me",
+								url: "MemberSendCertPro",
 								type : 'POST',
 								data: {
 									id: id,
@@ -372,7 +372,7 @@
 					} else {
 						
 						$.ajax({
-							url: "MemberCheckCertPro.me",
+							url: "MemberCheckCertPro",
 							data: {
 								id: id,
 								certNum: certNum
@@ -483,7 +483,7 @@ function execDaumPostcode() {
 	
 	<div class="clear"></div>
 	
-	<form action="MemberJoinPro.me" method="post" id="joinForm" name="joinForm">
+	<form action="MemberJoinPro" method="post" id="joinForm" name="joinForm">
 		
 		<!-- 화면 커버 -->
 		<div class="join-cover">

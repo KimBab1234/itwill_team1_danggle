@@ -47,9 +47,9 @@
 					<td>${member.member_postcode }</td>
 					<td>${member.member_join_date }</td>
 					<td>
-						<input type="button" value="상세정보" id="btnInfo"  onclick="location.href='MemberInfo.me?id=${member.member_id}'">
+						<input type="button" value="상세정보" id="btnInfo"  onclick="location.href='MemberInfo?id=${member.member_id}'">
 						<!-- 주문내역 서블릿 수정 필요! -->
-						<input type="button" value="주문내역" id="btnOrder" onclick="location.href='MemberInfo.me?id=${member.member_id}'">
+						<input type="button" value="주문내역" id="btnOrder" onclick="location.href='MemberInfo?id=${member.member_id}'">
 					</td>
 				</tr>
 			</c:forEach>
@@ -57,7 +57,7 @@
 		
 		<!-------------------------- 회원명 검색버튼 --------------------------->
 		<section id="buttonArea">
-			<form action="AdminMain.me">
+			<form action="AdminMain">
 				<%-- 관리자만 검색 (관리자만 페이지 볼 수 있지만 JSTL 사용법 쫌 더 익숙해지길 바라며!!)--%>
 				<c:if test="${!empty sessionScope.sId && sessionScope.sId eq 'admin'}">
 					<select name="searchType">
@@ -77,7 +77,7 @@
 			<c:choose>
 				<c:when test="${pageNum > 1}">
 					<input type="button" value="이전" id="btnPre" 
-						onclick="location.href='AdminMain.me?pageNum=${pageNum - 1}&searchType=${searchType }&keyword=${keyword }'">
+						onclick="location.href='AdminMain?pageNum=${pageNum - 1}&searchType=${searchType }&keyword=${keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="이전" id="btnPre" >
@@ -91,7 +91,7 @@
 						${i }
 					</c:when>
 					<c:otherwise>
-						<a href="AdminMain.me?pageNum=${i }&searchType=${searchType }&keyword=${keyword }">${i }</a>
+						<a href="AdminMain?pageNum=${i }&searchType=${searchType }&keyword=${keyword }">${i }</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -100,7 +100,7 @@
 			<c:choose>
 				<c:when test="${pageNum < memberPageInfo.maxPage}">
 					<input type="button" id="btnNext" value="다음"
-						onclick="location.href='AdminMain.me?pageNum=${pageNum + 1 }&searchType=${searchType }&keyword=${keyword }'">
+						onclick="location.href='AdminMain?pageNum=${pageNum + 1 }&searchType=${searchType }&keyword=${keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" id="btnNext" value="다음">

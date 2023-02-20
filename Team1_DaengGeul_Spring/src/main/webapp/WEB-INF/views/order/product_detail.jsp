@@ -80,7 +80,7 @@ $(function() {
 		let product_name = '${product.name}'; // 추후 $("#product.product_name" ).val() 로 변경
 		if(id=='') {
 			alert("로그인 후 이용하세요.");
-			location.href='MemberLoginForm.me';
+			location.href='MemberLoginForm';
 		} else {
 			if(confirm(product_name + " 상품을 찜하시겠습니까?")){
 				$.ajax({
@@ -108,7 +108,7 @@ $(function() {
 	$("#cartAddBtn").on("click", function() {
 		if(id=='') {
 			alert("로그인 후 이용하세요.");
-			location.href='MemberLoginForm.me';
+			location.href='MemberLoginForm';
 		} else {
 			var product_idx = '${product.product_idx}'+ "_opt_" +$('#opt').val();
 			var optionVal = $('#opt').val();
