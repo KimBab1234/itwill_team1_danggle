@@ -18,7 +18,7 @@ public interface ReviewMapper {
 	// 리뷰 쓰기
 	public int insertReview(ReviewBean review);
 	// 리뷰 목록 
-	public List<ReviewBean> selectReviewList(String keyword, String id, String product_idx,int startRow, int listLimit);  
+	public List<ReviewBean> selectReviewList(String keyword, String member_id, String product_idx,int startRow, int listLimit);  
 	// 리뷰 리스트 수
 	public int selectReviewListCount(String keyword, String id, String product_idx); 
 	//리뷰 조회
@@ -33,6 +33,8 @@ public interface ReviewMapper {
 	public int updateReview(ReviewBean review);
 	// 리뷰 좋아요 누른 아이디 , 글번호 추가 
 	public int insertReviewLike(int review_idx, String member_id, String review_like_done);
+	
+//	public List<ReviewBean> selectReviewList(String searchType, String keyword, int startRow, int listLimit);
 	
 
 }

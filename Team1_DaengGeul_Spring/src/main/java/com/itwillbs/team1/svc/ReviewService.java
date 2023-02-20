@@ -2,7 +2,9 @@ package com.itwillbs.team1.svc;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.transaction.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +44,8 @@ public class ReviewService {
 		return isDeleteSuccess;
 	}
 
-
-	public boolean registReview(ReviewBean review) {
+	// 리뷰 등록
+	public int registReview(ReviewBean review) {
 		System.out.println("ReviewWriteProService - registReview()");
 
 		int insertCount = mapper.insertReview(review);
@@ -52,11 +54,24 @@ public class ReviewService {
 			updateCount = mapper2.updateMemberPoint(review.getMember_id(), 500);
 		}
 		if(updateCount>0) {
-			return true;
-		} else {
-			return false;
-		}
+			
+		} 
+		return updateCount;
 	}
+
+	// 리뷰 목록
+	public List<ReviewBean> listReview(@Param("member_id") String member_id, @Param("product_idx")String product_idx, @Param("keyword")String keyword, @Param("startRow")int startRow,
+			@Param("listLimit")int listLimit) {
+		return mapper.selectReviewList(keyword, member_id, product_idx, startRow, listLimit);
+	}
+
+	// 리뷰 갯수
+	public int reviewListCount(String searchType) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 	
 	
 	
