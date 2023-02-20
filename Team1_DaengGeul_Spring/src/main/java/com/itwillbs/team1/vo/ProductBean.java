@@ -90,6 +90,8 @@ public class ProductBean {
 	public void setOption_qauntity(List<Integer> option_qauntity) {
 		this.option_qauntity = option_qauntity;
 	}
+	
+	
 	public int getRank() {
 		return rank;
 	}
