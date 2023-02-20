@@ -43,7 +43,7 @@
 				if(confirm("로그아웃 하시겠습니까?")){
 					var id = '${sessionScope.sId}';
 					localStorage.removeItem(id);
-					location.href = "MemberLogoutPro.me";
+					location.href = "MemberLogoutPro";
 				}
 			});
 			
@@ -111,7 +111,7 @@
 			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
 			                                    <a class="dropdown-item" href='ProductList.ad'>상품 정보 관리</a>
 			                                    <a class="dropdown-item" href='RecommendBookList.ad'>추천 도서 관리</a>
-			                                    <a class="dropdown-item" href='AdminMain.me'>회원 정보 관리</a>
+			                                    <a class="dropdown-item" href='AdminMain'>회원 정보 관리</a>
 			                                    </div>
 			                                </div>
 										</c:when>
@@ -123,7 +123,7 @@
 			                               		</button>
 <!-- 				                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"></a> -->
 				                                <div class="dropdown-menu rounded-0 m-0">
-				                                   <a class="dropdown-item" href='MemberInfo.me?id=${sessionScope.sId}'>회원정보</a>
+				                                   <a class="dropdown-item" href='MemberInfo?id=${sessionScope.sId}'>회원정보</a>
 				                                   <a class="dropdown-item" href='OrderList'>주문내역</a>
 				                                   <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
 				                                   <a class="dropdown-item" href="QnaList.cu">내 문의글</a>
@@ -140,8 +140,8 @@
 								
 								<%-- 로그아웃 상태 --%>
 								<c:otherwise>
-									<a href="MemberLoginForm.me" class="nav-item nav-link">로그인</a>
-									<a href="MemberJoinForm.me" class="nav-item nav-link">회원가입</a>
+									<a href="MemberLoginForm" class="nav-item nav-link">로그인</a>
+									<a href="MemberJoinForm" class="nav-item nav-link">회원가입</a>
 								</c:otherwise>
 							</c:choose>
                 		</div>

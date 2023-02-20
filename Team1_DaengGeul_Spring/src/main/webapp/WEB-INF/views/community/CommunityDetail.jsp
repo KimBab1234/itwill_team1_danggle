@@ -196,7 +196,7 @@ table td {
 					<input type="hidden" name="member_id" value="${sessionScope.sId }">
 				</c:when>
 				<c:otherwise>
-					<td><a href="MemberLoginForm.me">로그인이 필요합니다</a></td>
+					<td><a href="MemberLoginForm">로그인이 필요합니다</a></td>
 				</c:otherwise>
 			</c:choose>
 			<tr>
