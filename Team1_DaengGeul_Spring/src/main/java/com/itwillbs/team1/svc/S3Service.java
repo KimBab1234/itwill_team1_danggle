@@ -42,21 +42,21 @@ public class S3Service {
 				.build();
 	}
 
-	public void upload(MultipartFile file, String fileName) throws IOException {
+	public void upload(MultipartFile file, String fileName, String path) throws IOException {
 		
 		if(s3Client==null) {
 			setS3Client();
 		}
-		s3Client.putObject(new PutObjectRequest(bucket, "profileImg/"+fileName, file.getInputStream(), null)
+		s3Client.putObject(new PutObjectRequest(bucket, "img/"+path+"/"+fileName, file.getInputStream(), null)
 				.withCannedAcl(CannedAccessControlList.PublicRead));
 		
 	}
 	
-	public void delete(String deleteFileName) {
+	public void delete(String deleteFileName, String path) {
 		if(s3Client==null) {
 			setS3Client();
 		}
-		s3Client.deleteObject(bucket, deleteFileName);
+		s3Client.deleteObject(bucket, "img/"+path+"/"+deleteFileName);
 	}
 	
 }
