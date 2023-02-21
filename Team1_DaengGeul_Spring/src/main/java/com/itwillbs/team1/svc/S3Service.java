@@ -1,4 +1,4 @@
-package com.itwillbs.team1_final.svc;
+package com.itwillbs.team1.svc;
 
 import java.io.IOException;
 
@@ -16,11 +16,11 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Service
-@PropertySource("classpath:awsS3.properties")
+@PropertySource("classpath:awsS31.properties")
 public class S3Service {
 
 	private AmazonS3 s3Client;
-
+	
 	@Value("${cloud.aws.credentials.accessKey}")
 	private String accessKey;
 
@@ -58,5 +58,5 @@ public class S3Service {
 		}
 		s3Client.deleteObject(bucket, deleteFileName);
 	}
-
+	
 }

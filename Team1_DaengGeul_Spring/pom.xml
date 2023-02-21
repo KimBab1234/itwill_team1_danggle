@@ -120,7 +120,14 @@
 		<dependency>
 		    <groupId>com.sun.mail</groupId>
 		    <artifactId>javax.mail</artifactId>
-		    <version>1.4.7</version>
+		    <version>1.6.2</version>
+		</dependency>
+		
+		<!-- 자바 메일 보내기 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
@@ -176,14 +183,31 @@
 		    <artifactId>spring-tx</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>			
+				
+		<!-- 스프링 ajax -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.14.1</version>
+		</dependency>
 		
 		<!-- ftp 업로드 -->
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
 			<version>3.3</version>
-		</dependency>		
-				
+		</dependency>
+		
+		<!-- AWS 연동  -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-aws -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-aws</artifactId>
+		    <version>2.2.6.RELEASE</version>
+		</dependency>
+		
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
