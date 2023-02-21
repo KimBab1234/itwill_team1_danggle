@@ -45,14 +45,14 @@ public class MemberController {
 
 	// ======================== 회원가입 Controller ==========================
 	// 회원가입 창
-	@GetMapping(value = "/MemberJoinForm.me")
+	@GetMapping(value = "/MemberJoinForm")
 	public String join() {
 		return "member/member_join_form";
 	}
 	
 	
 	// 회원등록
-	@PostMapping(value = "/MemberJoinPro.me")
+	@PostMapping(value = "/MemberJoinPro")
 	public String joinPro(@ModelAttribute MemberVO member, Model model,
 						RedirectAttributes redirect) {
 		// 비밀번호 암호화
@@ -80,7 +80,7 @@ public class MemberController {
 	
 	
 	// 아이디 중복확인
-	@GetMapping(value = "/MemberCheckId.me")
+	@GetMapping(value = "/MemberCheckId")
 	@ResponseBody
 	public String checkId(String id) {
 		int existCount = service.checkId(id);
@@ -94,7 +94,7 @@ public class MemberController {
 	
 	
 	// 이메일 중복확인
-	@GetMapping(value = "/MemberCheckEmail.me")
+	@GetMapping(value = "/MemberCheckEmail")
 	@ResponseBody
 	public String checkEmail(@ModelAttribute MemberVO member, String email1, String email2) {
 		String email = email1 + "@" + email2;
@@ -116,7 +116,7 @@ public class MemberController {
 	
 	
 	// 회원가입 축하메일 전송
-	@PostMapping(value = "/MemberJoinResult.me")
+	@PostMapping(value = "/MemberJoinResult")
 	public void joinSuccess(String name, String email1, String email2) {
 		try {
 			String sender = "ths8190@gmail.com";
@@ -164,7 +164,7 @@ public class MemberController {
 	
 	// ======================= 이메일 인증 Controller ========================
 	// Email 인증번호 보내기
-	@PostMapping(value = "/MemberSendCertPro.me")
+	@PostMapping(value = "/MemberSendCertPro")
 	@ResponseBody
 	public String sendCert(String id, String type, String email1, String email2,
 							@ModelAttribute AuthVO auth) {
@@ -315,7 +315,7 @@ public class MemberController {
 	
 	
 	// Email 인증
-	@GetMapping(value = "/MemberCheckCertPro.me")
+	@GetMapping(value = "/MemberCheckCertPro")
 	@ResponseBody
 	public String checkSert(String id, String certNum) {
 		String selectedCertNum = service.checkCertNum(id);
@@ -337,14 +337,15 @@ public class MemberController {
 	
 	// ===================== 로그인/로그아웃 Controller ======================
 	// 로그인 창
-	@GetMapping(value = "/MemberLoginForm.me")
+	@GetMapping(value = "/MemberLoginForm")
 	public String login() {
+		System.out.println("로그인폼");
 		return "member/member_login_form";
 	}
 	
 	
 	// 로그인
-	@PostMapping(value = "/MemberLoginPro.me")
+	@PostMapping(value = "/MemberLoginPro")
 	public String loginPro(@ModelAttribute MemberVO member, Model model, HttpSession session){
 		BCryptPasswordEncoder passwdEncoder = new BCryptPasswordEncoder();
 		String passwd = service.getPasswd(member.getMember_id());
@@ -366,7 +367,7 @@ public class MemberController {
 	
 	
 	// 로그아웃
-	@GetMapping(value = "/MemberLogoutPro.me")
+	@GetMapping(value = "/MemberLogoutPro")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
@@ -376,7 +377,7 @@ public class MemberController {
 	
 	// ========= 일반사용자(회원정보)/관리자(회원목록) Controller ============
 	// 마이페이지
-	@GetMapping(value = "/MemberInfo.me")
+	@GetMapping(value = "/MemberInfo")
 	public String memberInfo(String id, HttpSession session, Model model) {
 		String sId = (String)session.getAttribute("sId");
 		
@@ -403,7 +404,7 @@ public class MemberController {
 	
 	
 	// 관리자 페이지
-	@GetMapping(value = "/AdminMain.me")
+	@GetMapping(value = "/AdminMain")
 	public String adminMain(HttpSession session, Model model,
 				@RequestParam(defaultValue = "") String searchType,
 				@RequestParam(defaultValue = "") String keyword,
@@ -460,7 +461,7 @@ public class MemberController {
 	
 	
 	// ========================= 회원수정 Controller =========================
-	@PostMapping(value = "/MemberUpdatePro.me")
+	@PostMapping(value = "/MemberUpdatePro")
 	public String updateMember(@ModelAttribute MemberVO member,
 							String newPasswd, String newPasswd2,
 							Model model) {
@@ -485,7 +486,7 @@ public class MemberController {
 		int updateCount = service.modifyMemberInfo(member, newPasswd);
 		
 		if(updateCount > 0) {
-			return "redirect:/MemberInfo.me?id=" + member.getMember_id().toLowerCase();
+			return "redirect:/MemberInfo?id=" + member.getMember_id().toLowerCase();
 		} else {
 			model.addAttribute("msg", "가입 실패!");
 			return "fail_back";
@@ -497,7 +498,7 @@ public class MemberController {
 	
 	// ========================= 회원탈퇴 Controller =========================
 	// 회원탈퇴 창
-	@GetMapping(value = "MemberDeleteForm.me")
+	@GetMapping(value = "MemberDeleteForm")
 	public String deleteFrom(String id, HttpSession session, Model model) {
 		String sId = (String)session.getAttribute("sId");
 		
@@ -514,7 +515,7 @@ public class MemberController {
 			}
 			
 			if(sId.equals("admin")) {
-				return "redirect:/MemberDeletePro.me?id=" + id;
+				return "redirect:/MemberDeletePro?id=" + id;
 			} else {
 				return "member/member_delete";		
 			}
@@ -524,7 +525,7 @@ public class MemberController {
 	
 	
 	// 회원탈퇴
-	@RequestMapping(value = "/MemberDeletePro.me",
+	@RequestMapping(value = "/MemberDeletePro",
 			method = {RequestMethod.GET, RequestMethod.POST})
 	public String deletePro(HttpSession session, String id, String passwd, Model model) {
 		String sId = (String)session.getAttribute("sId");
@@ -544,7 +545,7 @@ public class MemberController {
 		// 삭제 성공/실패에 따른 포워딩 작업 수행
 		if(deleteCount > 0) {
 			if(sId.equals("admin")) {
-				return "redirect:/AdminMain.me";
+				return "redirect:/AdminMain";
 			} else {
 				session.invalidate();
 				return "member/member_delete_result";
@@ -560,12 +561,12 @@ public class MemberController {
 	
 	// ================= 회원 아이디/비밀번호 찾기 Controller ================
 	// 아이디 찾기
-	@GetMapping(value = "MemberInfoSearchForm.me")
+	@GetMapping(value = "MemberInfoSearchForm")
 	public String search() {
 		return "member/member_info_search_form";
 	}
 	
-	@PostMapping(value = "MemberSearchId.me")
+	@PostMapping(value = "MemberSearchId")
 	@ResponseBody
 	public String searchId(@ModelAttribute MemberVO member) {
 		String findId = service.searchId(member);
@@ -586,7 +587,7 @@ public class MemberController {
 	
 	
 	// 비밀번호 찾기
-	@PostMapping(value = "MemberSearchPasswd.me")
+	@PostMapping(value = "MemberSearchPasswd")
 	public String searchPasswd(String id, Model model) {
 		model.addAttribute("id", id);
 		return "member/member_search_passwd_result";

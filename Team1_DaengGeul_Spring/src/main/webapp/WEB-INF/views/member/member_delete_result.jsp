@@ -39,7 +39,7 @@
 	
 	<div align="center">
 		<input type="button" value="홈으로" onclick="location.href='./'">
-		<input type="button" value="회원가입" onclick="location.href='MemberJoinForm.me'">
+		<input type="button" value="회원가입" onclick="location.href='MemberJoinForm'">
 	</div>
 	
 	<div class="clear"></div>

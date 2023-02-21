@@ -43,7 +43,7 @@
 			} else {
 				
 		  		$.ajax({
-					url : "MemberSearchId.me",
+					url : "MemberSearchId",
 					type : 'POST',
 					data: {
 						member_email1: email1,
@@ -77,7 +77,7 @@
 			} else {
 				$("#searchPasswdResult").html("인증번호가 전송되었습니다").css("color", "#c9b584");
 				$.ajax({
-					url : "MemberSendCertPro.me",
+					url : "MemberSendCertPro",
 					type : 'POST',
 					data: {
 						id: id,
@@ -108,7 +108,7 @@
 				} else {
 					
 					$.ajax({
-						url: "MemberCheckCertPro.me",
+						url: "MemberCheckCertPro",
 						data: {
 							id: id,
 							certNum: certNum
@@ -161,7 +161,7 @@
 	
 	<div class="clear"></div>
 	
-	<form action="MemberSearchId.me" method="post" id="MemberSearchId" name="joinForm">
+	<form action="MemberSearchId" method="post" id="MemberSearchId" name="joinForm">
 		
 		<!-- 화면 커버 -->
 		<div class="join-cover">
@@ -200,7 +200,7 @@
 	
 	<div class="clear"></div>
 	
-	<form action="MemberSearchPasswd.me" method="post" id="MemberSearchPasswd" name="joinForm">
+	<form action="MemberSearchPasswd" method="post" id="MemberSearchPasswd" name="joinForm">
 		
 		<!-- 화면 커버 -->
 		<div class="join-cover">

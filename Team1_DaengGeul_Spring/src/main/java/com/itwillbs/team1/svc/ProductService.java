@@ -123,6 +123,39 @@ public class ProductService {
 		return mapper.selectGoods(product_idx);
 	}
 	
+	public int updateGoods(ProductBean product) {
+		int updateCount = 0;
+		
+		System.out.println("굿즈 수정 서비스 페이지");
+		if(product.getOption_name() != null) { 
+			System.out.println("옵션 있음");
+			
+			mapper.updateGoods(product);
+			int max = mapper.selectMaxOpt(product.getProduct_idx());
+			max +=1;
+			List<String> OptNameArr = product.getOption_name();
+			List<Integer> OptQauArr = product.getOption_qauntity();
+			
+			for(int i = 0; i < product.getOption_name().size(); i++) {
+				ProductOptBean optBean = new ProductOptBean();
+				optBean.setOption_name(OptNameArr.get(i));
+				optBean.setOption_quantity(OptQauArr.get(i).toString());
+				optBean.setGoodsOpt_idx(product.getProduct_idx());
+				optBean.setOptNum(max);
+				mapper.insertUpdateGoodsOpt(optBean);
+			}
+			
+			updateCount = mapper.deleteGoodsOpt(product.getProduct_idx(), max);
+			
+
+		}else {
+			updateCount = mapper.updateGoods(product);
+			
+		}
+		return updateCount;
+	}
+
+	
 	///////////////// 경민+지선 /////////////////
 	
 	////////상품 1개 가져오기
@@ -210,6 +243,9 @@ public class ProductService {
 	
 		return mapper.selectProductList(sql);
 	}
+
+	
+	
 
 	
 

@@ -82,7 +82,6 @@ public class HrController {
 			isNewImg = true;
 			String uuidString = UUID.randomUUID().toString();
 			newEmp.setPHOTO(uuidString+"_"+uploadFile);
-			MultipartFile mFile = newEmp.getRegistPHOTO();
 		}
 
 		///사번 생성
@@ -93,9 +92,6 @@ public class HrController {
 		}
 
 		String nowYear = new SimpleDateFormat("yy").format(new Date());
-
-		String uploadDir = "/resources/img"; 
-		String saveDir = session.getServletContext().getRealPath(uploadDir);
 		newEmp.setIdx(idxNum);
 		newEmp.setEMP_NUM( newEmp.getDEPT_CD()+nowYear+idx);
 
@@ -105,13 +101,9 @@ public class HrController {
 			
 			if(isNewImg) {
 				MultipartFile mFile = newEmp.getRegistPHOTO();
-//				FTPClient ftp = ftpControl(new FTPClient());
+				FTPClient ftp = ftpControl(new FTPClient());
 				
-				try {
-					mFile.transferTo(new File(saveDir, newEmp.getPHOTO()));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				ftp.storeFile(newEmp.getPHOTO(), mFile.getInputStream());
 			}
 
 			model.addAttribute("empNo",newEmp.getEMP_NUM());
@@ -307,12 +299,13 @@ public class HrController {
 				////신규 비밀번호 암호화해주기
 				updateEmp.setEMP_PASS_NEW(passwordEncoder.encode(updateEmp.getEMP_PASS_NEW()));
 			}
-		} else {  ////만약 관리자가 수정한거라면 사번확인
-			if(updateEmp.getNewEMP_NUM().equals("")) { ///새 사번이 비어있다면
-				////신규 비밀번호 암호화해주기
-				updateEmp.setNewEMP_NUM(updateEmp.getEMP_NUM()); //기존 사번으로 덮어쓰기
-			}
 		}
+		
+		if(updateEmp.getNewEMP_NUM().equals("")) { ///새 사번이 비어있다면
+			////신규 비밀번호 암호화해주기
+			updateEmp.setNewEMP_NUM(updateEmp.getEMP_NUM()); //기존 사번으로 덮어쓰기
+		}
+		
 		
 		System.out.println("로그인 후 수정작업 ");
 
@@ -334,37 +327,20 @@ public class HrController {
 			////새파일 올라와있으면
 			if(isNewImg) {
 				
+				FTPClient ftp = ftpControl(new FTPClient());
+
+				///옛날 파일 삭제
+				ftp.deleteFile(beforeImg);
+
+				///새 파일 등록
 				MultipartFile mFile = updateEmp.getRegistPHOTO();
-				String uploadDir = "/resources/img";
-				String saveDir = session.getServletContext().getRealPath(uploadDir);
+				ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
 				
-				try {
-					mFile.transferTo(new File(saveDir, updateEmp.getPHOTO()));
-				} catch (IOException e) {
-					e.printStackTrace();
+				if(ftp.getReplyCode() != 226) {
+					ftp.disconnect();
+					model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
+					return "fail_back";
 				}
-				
-				
-				Path path = Paths.get(saveDir+"/"+beforeImg);
-				try {
-					Files.deleteIfExists(path);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-//				// -------------------------------------------------------------------------------
-////				FTPClient ftp = ftpControl(new FTPClient());
-//				///옛날 파일 삭제
-//				ftp.deleteFile(beforeImg);
-//
-//				///새 파일 등록
-//				MultipartFile mFile = updateEmp.getRegistPHOTO();
-//				ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
-//				
-//				if(ftp.getReplyCode() != 226) {
-//					ftp.disconnect();
-//					model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
-//					return "fail_back";
-//				}
 
 			}
 		} else {

@@ -112,8 +112,7 @@
 					for(var i=0; i<emp.length; i++) {
 						var img;
 						if(emp[i].PHOTO!=''){
-// 							img = '<img src="http://itwillbs3.cdn1.cafe24.com/profileImg/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;">';
-							img = '<img src="${pageContext.request.contextPath }/resources/img/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;">';
+							img = '<img src="http://itwillbs3.cdn1.cafe24.com/profileImg/'+emp[i].PHOTO+'" style="width: 120px; height: 120px; object-fit: cover;">';
 						} else {
 							img = "사진 없음";
 						}
