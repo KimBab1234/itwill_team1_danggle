@@ -27,8 +27,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.model.PutObjectResult;
 import com.itwillbs.team1_final.svc.EmailService;
 import com.itwillbs.team1_final.svc.HrService;
+import com.itwillbs.team1_final.svc.S3Service;
 import com.itwillbs.team1_final.vo.HrVO;
 import com.itwillbs.team1_final.vo.PageInfo;
 
@@ -43,6 +45,9 @@ public class HrController {
 
 	@Autowired
 	private EmailService mailService;
+
+	@Autowired
+	private S3Service S3Service;
 
 	/////사원 등록 폼
 	@RequestMapping(value = "/HrRegist", method = RequestMethod.GET)
@@ -73,11 +78,11 @@ public class HrController {
 			newEmp.setEMP_TEL("");
 		}
 
-		
+
 		///업로드이름
 		String uploadFile = newEmp.getRegistPHOTO().getOriginalFilename();
 		boolean isNewImg = false;
-		
+
 		if(uploadFile.length() > 0) {
 			isNewImg = true;
 			String uuidString = UUID.randomUUID().toString();
@@ -98,12 +103,9 @@ public class HrController {
 		int insertCount = service.registEmp(newEmp);
 
 		if(insertCount>0) {
-			
+
 			if(isNewImg) {
-				MultipartFile mFile = newEmp.getRegistPHOTO();
-				FTPClient ftp = ftpControl(new FTPClient());
-				
-				ftp.storeFile(newEmp.getPHOTO(), mFile.getInputStream());
+				S3Service.upload(newEmp.getRegistPHOTO(), newEmp.getPHOTO());
 			}
 
 			model.addAttribute("empNo",newEmp.getEMP_NUM());
@@ -300,13 +302,13 @@ public class HrController {
 				updateEmp.setEMP_PASS_NEW(passwordEncoder.encode(updateEmp.getEMP_PASS_NEW()));
 			}
 		}
-		
+
 		if(updateEmp.getNewEMP_NUM().equals("")) { ///새 사번이 비어있다면
 			////신규 비밀번호 암호화해주기
 			updateEmp.setNewEMP_NUM(updateEmp.getEMP_NUM()); //기존 사번으로 덮어쓰기
 		}
-		
-		
+
+
 		System.out.println("로그인 후 수정작업 ");
 
 		///파일 올라와있으면 새 파일 올리고 기존 삭제
@@ -326,23 +328,12 @@ public class HrController {
 
 			////새파일 올라와있으면
 			if(isNewImg) {
-				
-				FTPClient ftp = ftpControl(new FTPClient());
-
 				///옛날 파일 삭제
-				ftp.deleteFile(beforeImg);
-
+				S3Service.delete(beforeImg);
 				///새 파일 등록
-				MultipartFile mFile = updateEmp.getRegistPHOTO();
-				ftp.storeFile(updateEmp.getPHOTO(), mFile.getInputStream());
-				
-				if(ftp.getReplyCode() != 226) {
-					ftp.disconnect();
-					model.addAttribute("msg", "파일 등록 실패! 에러 코드 : " + ftp.getReplyCode() + " 에러 내용 : " + ftp.getReplyString());
-					return "fail_back";
-				}
-
+				S3Service.upload(updateEmp.getRegistPHOTO(), updateEmp.getPHOTO());
 			}
+			
 		} else {
 			model.addAttribute("msg", "사원 수정 실패!");
 			return "fail_back";
@@ -383,10 +374,10 @@ public class HrController {
 			return "fail_back";
 
 		} else if(!loginEmp.getWORK_CD().equals("1")){ ///재직이 아니면
-		
+
 			model.addAttribute("msg", "휴퇴직 중인 사원은 로그인이 불가합니다.");
 			return "fail_back";
-			
+
 		}	else { //로그인 성공
 
 			///권한 저장해주기
@@ -419,15 +410,6 @@ public class HrController {
 		return "hr/needPassChange";
 	}
 
-	static public FTPClient ftpControl(FTPClient ftp) throws SocketException, IOException {
-		ftp.setControlEncoding("UTF-8");
-		ftp.connect("iup.cdn1.cafe24.com",21);
-		ftp.login("itwillbs3", "itwillbs8030909");
-		ftp.changeWorkingDirectory("/www/profileImg");
-		ftp.setSoTimeout(1000);
-		ftp.setFileType(FTP.BINARY_FILE_TYPE);
-		return ftp;
-	}
 
 
 }
