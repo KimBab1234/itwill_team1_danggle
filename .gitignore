@@ -2,6 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,java
 
 log4j.xml
+awsS3.properties
+awsS31.properties
 
 lecture
 target
