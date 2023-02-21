@@ -289,7 +289,7 @@ function countModify(sign) {
 	                       </p>
 	                       <div align="center">
 	                       		<c:if test="${not empty product.detail_img}">
-			                       <img src="http://itwillbs3.cdn1.cafe24.com/img/product_detail/${product.detail_img}" style="width: 800px;">
+			                       <img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product_detail/${product.detail_img}" style="width: 800px;">
 	                       		</c:if>
 	                       </div>
 	                    </div>

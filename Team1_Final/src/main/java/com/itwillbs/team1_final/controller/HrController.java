@@ -1,11 +1,7 @@
 package com.itwillbs.team1_final.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,8 +9,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.itwillbs.team1_final.svc.EmailService;
 import com.itwillbs.team1_final.svc.HrService;
 import com.itwillbs.team1_final.svc.S3Service;

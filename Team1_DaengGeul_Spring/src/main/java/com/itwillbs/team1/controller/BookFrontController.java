@@ -1,18 +1,11 @@
 package com.itwillbs.team1.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,21 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.itwillbs.team1.action.Action;
-import com.itwillbs.team1.action.NoticeDeleteProAction;
-import com.itwillbs.team1.action.NoticeDetailAction;
-import com.itwillbs.team1.action.NoticeListAction;
-import com.itwillbs.team1.action.NoticeModifyFormAction;
-import com.itwillbs.team1.action.NoticeModifyProAction;
-import com.itwillbs.team1.action.NoticeWriteProAction;
-import com.itwillbs.team1.action.RecommendBookAction;
-import com.itwillbs.team1.action.RecommendBookDeleteAction;
-import com.itwillbs.team1.action.RecommendBookListAction;
 import com.itwillbs.team1.svc.ProductService;
-import com.itwillbs.team1.vo.ActionForward;
 import com.itwillbs.team1.vo.PageInfo;
 import com.itwillbs.team1.vo.ProductBean;
-import com.itwillbs.team1.vo.ProductOptBean;
+import com.itwillbs.team1.svc.S3Service;
 
 
 @Controller
@@ -55,8 +37,9 @@ public class BookFrontController extends HttpServlet {
 	@Autowired
 	ProductService service;
 	
-	static FTPClient ftp;
-	static FTPClient ftp2;
+	@Autowired
+	private S3Service s3Service;
+	
 	
 	@GetMapping(value = "/ProductRegiForm.ad")
 	public String ProductRegistration(Model model, HttpSession session) {
