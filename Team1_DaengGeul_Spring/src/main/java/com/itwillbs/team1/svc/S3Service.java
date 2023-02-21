@@ -16,7 +16,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Service
-@PropertySource("classpath:awsS31.properties")
+@PropertySource("classpath:awsS3.properties")
 public class S3Service {
 
 	private AmazonS3 s3Client;
