@@ -591,7 +591,7 @@ function execDaumPostcode() {
 						<c:if test="${param.empNo!=null}">
 							<span><c:choose>
 								<c:when test="${emp.PHOTO.length() >0}">
-									<img class="hrImg" src="${pageContext.request.contextPath }/resources/img/${emp.PHOTO}" width="150">
+									<img class="hrImg" src="http://itwillbs3.cdn1.cafe24.com/profileImg/${emp.PHOTO}" width="150">
 								</c:when>
 								<c:otherwise>
 									사진 없음
