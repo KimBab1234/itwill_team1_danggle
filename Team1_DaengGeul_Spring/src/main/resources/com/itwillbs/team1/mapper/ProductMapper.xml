@@ -206,7 +206,9 @@
 				, date = #{date}
 				, detail = #{detail}
 				, discount = #{discount}
-				, quantity =#{quantity}
+				, quantity = #{quantity}
+				, img = #{img}
+				, detail_img = #{detail_img}
 			WHERE product_idx = #{product_idx}
 	</update>
 	
@@ -218,6 +220,8 @@
 				, quantity = #{quantity}
 				, detail = #{detail}
 				, discount = #{discount}
+				, img = #{img}
+				, detail_img = #{detail_img}
 			WHERE product_idx = #{product_idx}
 	</update>
 	

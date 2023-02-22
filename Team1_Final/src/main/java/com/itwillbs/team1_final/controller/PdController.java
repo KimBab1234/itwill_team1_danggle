@@ -1,11 +1,7 @@
 package com.itwillbs.team1_final.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +9,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.team1_final.svc.PdService;
+import com.itwillbs.team1_final.svc.S3Service;
 import com.itwillbs.team1_final.vo.PdVO;
 
 
@@ -39,7 +35,8 @@ public class PdController{
 	@Autowired
 	private PdService service;
 
-	static FTPClient ftp;
+	@Autowired
+	private S3Service s3Service;
 
 	// ===============================================================================
 	// 품목 등록
@@ -82,15 +79,7 @@ public class PdController{
 		if(insertCount > 0) { // 성공
 
 			if(!originalFileName.equals("")) {
-				mFile = product.getFile();
-				String uploadDir = "/resources/img";
-				String saveDir = session.getServletContext().getRealPath(uploadDir);
-
-				try {
-					mFile.transferTo(new File(saveDir, product.getPRODUCT_IMAGE()));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}			
+				s3Service.upload(mFile, product.getPRODUCT_IMAGE());
 			}
 
 
@@ -354,22 +343,10 @@ public class PdController{
 		String[] arr = deleteProdArr.split(",");
 
 		int deleteCount = 0;
-		///ftp 연결 및 로그인
-//		ftp = HrController.ftpControl(new FTPClient());
 
 		for(int i=0; i<arr.length; i++) {
 			deleteCount += service.removeProduct(Integer.parseInt(arr[i]));
-			///ftp 파일 삭제
-//			ftp.deleteFile(deleteImg.get(i));
-			String uploadDir = "/resources/img";
-			String saveDir = session.getServletContext().getRealPath(uploadDir);
-			
-			Path path = Paths.get(saveDir+"/"+deleteImg.get(i));
-			try {
-				Files.deleteIfExists(path);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			s3Service.delete(deleteImg.get(i));
 		}
 
 		// 게시물 삭제 성공 시 해당 게시물의 파일도 삭제
@@ -399,7 +376,7 @@ public class PdController{
 	@PostMapping(value = "/PdUpdatePro")
 	public String pd_updatePro(
 			@ModelAttribute PdVO product, 
-			Model model, HttpSession session) {
+			Model model, HttpSession session) throws IOException {
 
 		MultipartFile mFile = product.getFile();
 
@@ -435,23 +412,9 @@ public class PdController{
 		if(updateCount > 0) { // 성공
 
 			if(!originalFileName.equals("")) {
-				mFile = product.getFile();
-				String uploadDir = "/resources/img";
-				String saveDir = session.getServletContext().getRealPath(uploadDir);
-
-				try {
-					mFile.transferTo(new File(saveDir, product.getPRODUCT_IMAGE()));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-
-				Path path = Paths.get(saveDir+"/"+deleteImg);
-				try {
-					Files.deleteIfExists(path);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				s3Service.upload(mFile, product.getPRODUCT_IMAGE());
+				s3Service.delete(deleteImg.get(0));
+				
 			}
 
 			return "redirect:/PdInquiry";
