@@ -124,12 +124,12 @@ $(function() {
 		<br>
 		<table>
 			<tr>
-				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${review1.product_img }" width="170" style="margin-right: 60px"></td>
-				<td><b style="font-size: 25px">${review1.product_name }</b></td>
+				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${product.img }" width="170" style="margin-right: 60px"></td>
+				<td><b style="font-size: 25px">${product.name }</b></td>
 			</tr>
 		</table>
 		<br>
-		<form action="ReviewModifyPro.re" name="reviewForm"id="myform" method="post" action="./save" >
+		<form action="ReviewModifyPro" name="reviewForm"id="myform" method="post" action="./save" >
 		<!-- 글번호, 페이지번호 / 글 수정 작업 동작 흐름-->
 			<!-- 입력받지 않은 글번호는 hidden으로 넘겨야함 -->
 			<input type="hidden" name="review_idx" value="${param.review_idx }">

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itwillbs.team1.mapper.ReviewMapper">
 
+	<!-- 리뷰 쓰기 -->
 	<insert id="insertReview" >
 		<selectKey keyProperty="review_idx" resultType="int" order="BEFORE">
 			SELECT MAX(review_idx) FROM review
@@ -20,30 +21,67 @@
 				,0)
 	</insert>
 
+	<!-- 리뷰 목록 -->
 	<select id="selectReviewList" resultType="com.itwillbs.team1.vo.ReviewBean">
-		SELECT *
-			FROM review
+		SELECT * 
+			FROM review 
+				WHERE member_id = #{member_id}
+					<if test="!keyword.equals('')">
+						AND review_subject LIKE '%${keyword}%' 
+					</if>
+				ORDER BY 
+					review_date DESC 
+				LIMIT 
+					#{startRow}
+					, #{listLimit}
 	</select>
 
+	<!-- 리뷰 리스트 수 -->
 	<select id="selectReviewListCount" resultType="int">
+		SELECT COUNT(*)
+			FROM review -- 이후 작업 분기 일어남
+				WHERE member_id = #{member_id}
+					<if test="!keyword.equals('')">
+						AND review_subject LIKE '%${keyword}%' 
+					</if>
 	</select>
 	
+	<!-- 리뷰 조회 -->
 	<select id="selectReview" resultType="com.itwillbs.team1.vo.ReviewBean">
-		
+		SELECT *
+			FROM review
+			WHERE
+				review_idx = #{review_idx}
 	</select>
 
-	<update id="updateReadCount">
+	<!-- 리뷰 조회수 증가 -->
+	<update id="updateReadcount">
 		UPDATE review SET review_readcount=review_readcount+1 WHERE review_idx=#{review_idx}
 	</update>
 
-	<select id="isReviewWriter" resultType="com.itwillbs.team1.vo.ReviewBean">
-		SELECT * FROM review WHERE review_idx=? AND review_passwd=?
+	<!-- 리뷰 조회후 좋아요 조회 -->
+	<select id="selectreviewLike" resultType="boolean">
+		
+		SELECT
+    		EXISTS
+				(SELECT 1
+					FROM review_like
+					WHERE
+						review_idx = #{review_idx}
+						AND  member_id = #{member_id})
+	</select>
+	
+	<!-- 리뷰 비밀번호 일치여부 판별 -->
+	<select id="selectReviewWriter" resultType="com.itwillbs.team1.vo.ReviewBean">
+		SELECT * FROM review WHERE review_idx=#{review_idx} AND review_passwd=#{review_passwd}
 	</select>
 
+	<!-- 리뷰 삭제 -->
 	<delete id="deleteReview">
-		DELETE FROM review WHERE review_idx=#{review_idx};
+		DELETE FROM review WHERE review_idx=#{review_idx}
 	</delete>
 
+	<!-- 리뷰 수정 -->
 	<update id="updateReview">
 		UPDATE review SET
 				review_subject = #{review_subject}
@@ -55,22 +93,29 @@
 				  review_passwd = #{review_passwd};
 	</update>
 
-
+	<!-- 리뷰 좋아요 추가 -->
 	<insert id="insertReviewLike">
 		INSERT INTO review_like VALUES(#{review_idx} , #{member_id} );
 	</insert>
 	
+	<!-- 리뷰 좋아요 삭제 -->
 	<delete id="deleteReviewLike">
 		DELETE FROM review_like WHERE review_idx=#{review_idx} AND member_id=#{member_id};
 	</delete>
 
+	<!-- 리뷰 좋아요 업데이트 -->
 	<update id="updateReviewLike">
 		update review set review_like_count =
 			( select count(*) from review_like where review_idx = #{review_idx}) 
 			where review_idx = #{review_idx};
 	</update>
 
-
+	<!-- 리뷰 좋아요 갯수 조회 -->
+	<select id="getReviewLikeCount" resultType="INTEGER">
+		SELECT review_like_count 
+			FROM review 
+				WHERE review_idx=#{review_idx}
+	</select>
 
 
 
