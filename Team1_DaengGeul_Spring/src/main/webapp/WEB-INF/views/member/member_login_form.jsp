@@ -43,7 +43,7 @@
 
 				<div class="row header">
 					로그인
-					<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="40" height="50">
+					<img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/daram.png" width="40" height="50">
 				</div>
 
 				<div class="row">

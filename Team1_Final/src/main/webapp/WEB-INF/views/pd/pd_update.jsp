@@ -181,7 +181,7 @@ table {
 		   					<input type="text" class="upload-name" placeholder="선택된 파일 없음" id="img_name" style="margin-left: 35px;">
 		    				<label for="img">파일찾기</label> 
 		   					<input type="file" name="file" id="img" onchange="selectFile(this.value)">
-		   					<img width='100px' src='${pageContext.request.contextPath }/resources/img/${product.PRODUCT_IMAGE }'>
+		   					<img width='100px' src='https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/profileImg/${product.PRODUCT_IMAGE }'>
 						</div>
 					</td>
 				</tr>

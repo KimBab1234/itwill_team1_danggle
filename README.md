@@ -1,1 +1,3 @@
-# itwill_team1_danggle
+# 220823 ~ 230214 ITWILL TEAM1
+1차 프로젝트 : 도서판매사이트 "댕글댕글"
+2차 프로젝트 : ERP
