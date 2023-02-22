@@ -15,7 +15,7 @@
 		<property name="username" value="team1"></property>
 		<property name="password" value="220823team1"></property>
 		<property name="connectionTimeout" value="60000"></property>
-		<property name="maxLifetime" value="30000"></property>
+		<property name="maxLifetime" value="180000"></property>
 	</bean>
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close" >
