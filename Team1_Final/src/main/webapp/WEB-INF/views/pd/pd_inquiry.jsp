@@ -118,8 +118,7 @@ table {
 							+ "<td>" + product.PRODUCT_TYPE_CD + '|' + product.PRODUCT_TYPE_NAME + "</td>"
 							+ "<td>" + product.BUSINESS_NO + "<br>" + product.CUST_NAME + "</td>"
 // 							+ "<td>" + product.PRODUCT_IMAGE + "</td>"
-// 							+ "<td>" + "<img width='100px' height='150px' src='http://itwillbs3.cdn1.cafe24.com/profileImg/" + product.PRODUCT_IMAGE + "'></td>"
-							+ "<td>" + "<img width='100px' height='150px' src='${pageContext.request.contextPath }/resources/img/" + product.PRODUCT_IMAGE + "'></td>"
+							+ "<td>" + "<img width='100px' height='150px' src='https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/profileImg/" + product.PRODUCT_IMAGE + "'></td>"
 							+ "<td>" + product.REMARKS + "</td>"
 							+ "</tr>";
 				

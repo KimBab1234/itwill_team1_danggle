@@ -34,6 +34,7 @@ public class S3Service {
 	private String region;
 
 	public void setS3Client() {
+		System.out.println(this.accessKey+" "+this.secretKey);
 		AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
 
 		s3Client = AmazonS3ClientBuilder.standard()

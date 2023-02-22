@@ -328,24 +328,41 @@ public class BookFrontController {
 
 	}
 
-	static public FTPClient ftpControl(FTPClient ftp, String dir) throws SocketException, IOException {
-		ftp.setControlEncoding("UTF-8");
-		ftp.connect("iup.cdn1.cafe24.com",21);
-		ftp.login("itwillbs3", "itwillbs8030909");
-		ftp.changeWorkingDirectory("/www/img/" + dir);
-		ftp.setSoTimeout(1000);
-		ftp.setFileType(FTP.BINARY_FILE_TYPE);
-		return ftp;
-
-	}
-
 	@PostMapping(value = "/ProductEditPro.ad")
-	public String editPro(Model model, HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum, @ModelAttribute ProductBean product) {
+	public String editPro(Model model, HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum, @ModelAttribute ProductBean product) throws IOException {
 		System.out.println("상품 수정 처리");
 
 		String product_idx = request.getParameter("product_idx");
 		System.out.println("상품 번호 확인 : " + product_idx);
 
+		ProductBean fileName = service.selectFileName(product.getProduct_idx());
+		
+		MultipartFile[] mFiles = product.getFiles();
+
+		String originalFileNames = "";
+
+		for(MultipartFile mFile : mFiles) {
+			String originalFileName = mFile.getOriginalFilename();
+			if(!originalFileName.equals("")) {
+				String uuid = UUID.randomUUID().toString();
+				originalFileNames += uuid + "_" + originalFileName + "/";
+
+			}else {
+				originalFileNames += "/";
+			}
+		}
+
+		String[] arrFile = originalFileNames.split("/");
+
+		if(arrFile.length == 1) { 
+			product.setImg(arrFile[0]);
+			product.setDetail_img("");
+		}else {
+			product.setImg(arrFile[0]);
+			product.setDetail_img(arrFile[1]);
+		}
+
+		
 		int updateCount = 0;
 
 		if(product_idx.substring(0, 1).equals("B")) {
@@ -355,6 +372,29 @@ public class BookFrontController {
 		}
 
 		if(updateCount > 0) {
+			
+			if(arrFile.length == 1) { // 대표 이미지만 등록할 경우 사진 저장
+				MultipartFile mFile1 = product.getFiles()[0];
+
+				if(!mFile1.getOriginalFilename().equals("")) {
+					s3Service.upload(mFile1, product.getImg(), "product"); ///썸네일 이미지 저장
+					s3Service.delete(fileName.getImg(), "product");
+				}
+			}else { // 대표 이미지 + 상세이미지 등록할 경우 사진 저장
+				MultipartFile mFile1 = product.getFiles()[0];
+				MultipartFile mFile2 = product.getFiles()[1];
+
+				if(!mFile1.getOriginalFilename().equals("") && !mFile2.getOriginalFilename().equals("")) {
+
+					s3Service.upload(mFile1, product.getImg(), "product"); ///썸네일 이미지 저장
+					s3Service.upload(mFile2, product.getDetail_img(), "product_detail"); ///상세 이미지 저장
+					
+					///썸네일 + 상세이미지 삭제
+					s3Service.delete(fileName.getImg(), "product");
+					s3Service.delete(fileName.getDetail_img(), "product_detail");
+
+				}
+			}
 
 			if(product_idx.substring(0, 1).equals("B")) {
 				return "redirect:/ProductList.ad?pageNum="+pageNum;
