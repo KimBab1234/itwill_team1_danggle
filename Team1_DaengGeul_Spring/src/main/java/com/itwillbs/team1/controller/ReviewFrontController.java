@@ -14,9 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.team1.svc.OrderService;
 import com.itwillbs.team1.svc.ProductService;
 import com.itwillbs.team1.svc.ReviewService;
 import com.itwillbs.team1.vo.PageInfo;
@@ -31,6 +34,9 @@ public class ReviewFrontController {
 	
 	@Autowired
 	ProductService service2;
+	
+	@Autowired
+	OrderService service3;
 	
 	// ===============================================================================
 	// 리뷰쓰기 폼
@@ -53,6 +59,9 @@ public class ReviewFrontController {
 		System.out.println("리뷰 제목 : " + review.getReview_subject());
 		// 등록 성공/실패에 따른 포워딩 작업 수행
 		if(insertCount > 0) { // 성공
+			
+			session.setAttribute("point", (int)session.getAttribute("point")+500);	
+			
 			return "redirect:ReviewList";
 		} else { // 실패
 			// "msg" 속성명으로 "글 쓰기 실패!" 메세지 전달 후 fail_back 포워딩
@@ -64,7 +73,7 @@ public class ReviewFrontController {
 	
 	// ===============================================================================
 	// 리뷰 목록
-	@GetMapping(value = "/ReviewList")
+	@RequestMapping(value = "/ReviewList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String review_list(HttpSession session, 
 								@RequestParam(defaultValue = "") String product_idx,
 								@RequestParam(defaultValue = "") String member_id,
@@ -116,22 +125,26 @@ public class ReviewFrontController {
 			model.addAttribute("reviewList", reviewList);
 			model.addAttribute("pageInfo", pageInfo);
 		
-		return "review/review_list";
+			if(!product_idx.equals("")) {
+				return "review/review_list_detail";
+			} else {
+				return "review/review_list";
+			}
 	}
 	
 	// ===============================================================================
 	// 리뷰 조회
-	@GetMapping(value = "/ReviewDetail")
+	@RequestMapping(value = "/ReviewDetail", method = {RequestMethod.GET, RequestMethod.POST})
 	public String review_detail(@RequestParam int review_idx,
 								@RequestParam(defaultValue = "") String product_idx,
 								@RequestParam(defaultValue = "") String member_id,
+								@RequestParam(defaultValue = "N") String mine,
 								HttpSession session, HttpServletRequest request,
 								Model model) {
 		System.out.println("리뷰 조회");
 		// 상세정보 조회에 필요한 글번호 가져오기
 		review_idx= Integer.parseInt(request.getParameter("review_idx"));
 		member_id = (String)session.getAttribute("sId");
-		product_idx = request.getParameter("product_idx");
 		
 		ReviewBean review =  service.getReview(review_idx, member_id);
 		
@@ -155,7 +168,11 @@ public class ReviewFrontController {
 		model.addAttribute("review", review);
 		model.addAttribute("product", product);
 		
-		return "review/review_view";
+		if(mine.equals("Y")) { //내가 쓴 리뷰에서 넘어온거면
+			return "review/review_view";
+		} else {
+			return "review/review_view_detail";
+		}
 	}
 	
 	// ===============================================================================

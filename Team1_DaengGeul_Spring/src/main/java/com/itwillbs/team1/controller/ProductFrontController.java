@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.team1.svc.ProductService;
-import com.itwillbs.team1.svc.ReviewListService;
 import com.itwillbs.team1.svc.ReviewService;
 import com.itwillbs.team1.vo.PageInfo;
 import com.itwillbs.team1.vo.ProductBean;
@@ -26,9 +25,6 @@ public class ProductFrontController {
 	////연결된 클래스의 객체를 필요할때마다 자동으로 객체 생성해서 주입해줌
 	@Autowired
 	private ProductService service;
-	
-	@Autowired
-	private ReviewService service2;
 	
 	@GetMapping(value = "/ProductDetail")
 	public String ProductDetail(@RequestParam String product_idx, Model model, HttpSession session) {
@@ -61,25 +57,7 @@ public class ProductFrontController {
 		recentImgList.add(recentImg);
 		recentIdxList.add(product_idx);
 		///최근 본 상품 목록 추가 끝
-
-
-//		////리뷰 목록 가져오기
-//		int listLimit = 10, pageListLimit=10; // 한 페이지에서 표시할 게시물 목록 10개 제한
-//		int pageNum = 1;
-//		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
-////		int listCount = service2.reviewListCount("");
-//		int maxPage = listCount / listLimit + (listCount % listLimit == 0 ? 0 : 1);
-//		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
-//		int endPage = startPage + pageListLimit - 1 ;
-//		if(endPage > maxPage){
-//			endPage = maxPage;
-//		}
-//		List<ReviewBean> reviewList = service2.listReview("", product_idx, "", startRow, listLimit);
-//		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
-//		
-//		model.addAttribute("reviewList", reviewList);
-//		model.addAttribute("pageInfo", pageInfo);
-
+		
 		return "order/product_detail";
 	}
 

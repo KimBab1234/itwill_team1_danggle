@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.team1.java_mail.GoogleMailAuthenticator;
 import com.itwillbs.team1.svc.MemberService;
+import com.itwillbs.team1.svc.OrderService;
 import com.itwillbs.team1.svc.WishService;
 import com.itwillbs.team1.vo.AuthVO;
 import com.itwillbs.team1.vo.MemberPageInfo;
@@ -42,6 +43,9 @@ public class MemberController {
 	private MemberService service;
 	@Autowired
 	private WishService service2;	
+	@Autowired
+	private OrderService service3;	
+	
 
 	// ======================== 회원가입 Controller ==========================
 	// 회원가입 창
@@ -357,7 +361,10 @@ public class MemberController {
 			String keyword = "";
 			String searchType = "";
 			
-			int wishlistCount = service2.getWishlistCount(member.getMember_id(), searchType, keyword);
+			String id = member.getMember_id();
+			int wishlistCount = service2.getWishlistCount(id, searchType, keyword);
+			int point = service3.getMemberPoint(id);
+			session.setAttribute("point", point);	
 			session.setAttribute("wishlistCount", wishlistCount);	
 			session.setAttribute("sId", member.getMember_id());
 			return "redirect:/";

@@ -38,7 +38,7 @@
 				,#{opt}	
 				,#{cnt}	
 				,#{price}
-				,'결제완료'111
+				,'결제완료'
 				,#{name}	
 			);
 	</insert>
@@ -48,6 +48,12 @@
 		UPDATE member SET member_point=member_point+${point} where member_id=#{id};
 	</update>
 	
+	<!-- 포인트 조회 -->
+	<select id="selectMemberPoint" resultType="int">
+		SELECT member_point
+			FROM member
+			WHERE member_id = #{id}
+	</select>
 	
 	
 </mapper>

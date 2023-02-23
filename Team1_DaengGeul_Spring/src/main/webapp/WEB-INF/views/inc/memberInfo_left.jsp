@@ -3,12 +3,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-<%
-// 	String id = (String)session.getAttribute("sId");
-// 	MemberPointService service = new MemberPointService();
-// // 	int point = service.getMemberPoint(id);
-// 	int point=999999;
-%>
 <style>
 a:link {
   color : #736643;
@@ -37,7 +31,7 @@ a:active {
 		관리자페이지<br>	
 	</c:when>
 	<c:otherwise>
-		${sessionScope.sId}님<br><span style ="font-size: 20px;">현재 적립금 : 9999원</span>	
+		${sessionScope.sId}님<br><span style ="font-size: 20px;">현재 적립금 : ${sessionScope.point}원</span>	
 	</c:otherwise>
 </c:choose>
 </div>
@@ -56,7 +50,7 @@ a:active {
 			<br>
             <div class="menuLink"><a  href='MemberInfo?id=${sessionScope.sId}'>회원정보수정</a></div>
             <div class="menuLink"><a  href='OrderList'>주문내역</a></div>
-            <div class="menuLink"><a  href="ReviewList.re">내가 쓴 리뷰</a></div>
+            <div class="menuLink"><a  href="ReviewList">내가 쓴 리뷰</a></div>
             <div class="menuLink"><a  href="QnaList.cu">내 문의글</a></div>
             <div class="menuLink"><a  href="Wishlist.ws">내 찜목록</a></div>
 		</c:otherwise>

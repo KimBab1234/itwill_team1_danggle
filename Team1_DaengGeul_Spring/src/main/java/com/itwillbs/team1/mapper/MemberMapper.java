@@ -52,5 +52,6 @@ public interface MemberMapper {
 	int selectMemberListCount(
 			@Param("searchType") String searchType,
 			@Param("keyword") String keyword);
+	
 
 }

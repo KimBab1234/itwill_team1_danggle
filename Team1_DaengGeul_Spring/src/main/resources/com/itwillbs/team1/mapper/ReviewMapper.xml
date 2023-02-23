@@ -25,7 +25,14 @@
 	<select id="selectReviewList" resultType="com.itwillbs.team1.vo.ReviewBean">
 		SELECT * 
 			FROM review 
-				WHERE member_id = #{member_id}
+					<choose>
+						<when test="!product_idx.equals('')">
+							WHERE product_idx = #{product_idx}
+						</when>
+						<otherwise>
+							WHERE member_id = #{member_id}
+						</otherwise>
+					</choose>
 					<if test="!keyword.equals('')">
 						AND review_subject LIKE '%${keyword}%' 
 					</if>
@@ -39,8 +46,15 @@
 	<!-- 리뷰 리스트 수 -->
 	<select id="selectReviewListCount" resultType="int">
 		SELECT COUNT(*)
-			FROM review -- 이후 작업 분기 일어남
-				WHERE member_id = #{member_id}
+			FROM review
+					<choose>
+						<when test="!product_idx.equals('')">
+							WHERE product_idx = #{product_idx}
+						</when>
+						<otherwise>
+							WHERE member_id = #{member_id}
+						</otherwise>
+					</choose>
 					<if test="!keyword.equals('')">
 						AND review_subject LIKE '%${keyword}%' 
 					</if>
