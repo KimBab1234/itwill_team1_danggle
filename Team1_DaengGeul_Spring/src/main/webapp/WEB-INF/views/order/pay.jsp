@@ -75,7 +75,7 @@ Map.prototype.toJSON = function toJSON() {
 	}
 	
 	function pointApply() {
-		var member_point = Number('${member.member_point}');
+		var member_point = Number('${sessionScope.point}');
 		var usingPoint = Number($("#point").val());
 
 		//만약 적립금보다 큰 금액이 들어오면 max값만 입력되게하기
@@ -107,17 +107,6 @@ Map.prototype.toJSON = function toJSON() {
             buyer_tel : '010-1234-5678',
             buyer_addr : '${member.member_roadAddress}',
             buyer_postcode : '123-456'
-
-            //////////////////실험용//////////////////
-//             merchant_uid: "ORD20180131-0000013",   // 주문번호
-//             name: "노르웨이 회전 의자",
-//             amount: 100,                         // 숫자 타입
-//             buyer_email: "gildong@gmail.com",
-//             buyer_name: "홍길동",
-//             buyer_tel: "010-4242-4242",
-//             buyer_addr: "서울특별시 강남구 신사동",
-//             buyer_postcode: "01181"
-
 
         }, function (rsp) { // callback
 		$("#imp_uid").val(rsp.imp_uid);
@@ -195,7 +184,7 @@ Map.prototype.toJSON = function toJSON() {
 			<hr>			
 			<section style="font-size: 20px;">
 				<h3 style="text-align: left; color: #513e30; font-weight: bold;">| 적립금, 쿠폰</h3>
-				적립금 : ${member.member_point}원
+				적립금 : ${sessionScope.point}원
 				사용할 적립금 : <input type="text" name="order_point" style="background: #513e30; color:#F0D264" id="point" value="0" oninput="this.value=this.value.replace(/[^0-9]/g, '');">원
 				<button class="cartB" type="button" onclick="pointApply()">사용</button><br>
 			</section>

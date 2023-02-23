@@ -127,7 +127,6 @@
 	</c:choose>
 	</div>
 </div>
-</div>
 <!------------------------------------ 바닥글 --------------------------------------->
 	<footer>
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>

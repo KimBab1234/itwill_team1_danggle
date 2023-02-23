@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itwillbs.team1.svc.MemberService;
 import com.itwillbs.team1.svc.OrderService;
+import com.itwillbs.team1.vo.MemberVO;
 import com.itwillbs.team1.vo.OrderBean;
 import com.itwillbs.team1.vo.OrderProdBean;
 
@@ -27,6 +29,9 @@ public class OrderFrontController {
 	////연결된 클래스의 객체를 필요할때마다 자동으로 객체 생성해서 주입해줌
 	@Autowired
 	private OrderService service;
+
+	@Autowired
+	private MemberService service2;
 
 	@GetMapping(value = "/CartListForm")
 	public String ProductDetail() {
@@ -41,11 +46,11 @@ public class OrderFrontController {
 
 		model.addAttribute("totalPay",totalPay);
 
-		//		//멤버 테이블에서 적립금, 쿠폰 정보 가져오기
-		//		String id = (String)session.getAttribute("sId");
-		//		MemberInfoService moService = new MemberInfoService();
-		//		MemberBean member = moService.getMemberInfo(id);
-		//		request.setAttribute("member", member);
+		//멤버 테이블에서 적립금, 쿠폰 정보 가져오기
+		String id = (String)session.getAttribute("sId");
+		MemberVO member = service2.getMemberInfo(id);
+		
+		model.addAttribute("member",member);
 
 		return "order/pay";
 	}
@@ -62,7 +67,6 @@ public class OrderFrontController {
 
 			////orderInfo에 들어갈 데이터 (1회만 저장하면됨)
 			order.setMember_id((String)session.getAttribute("sId"));
-			order.setOrder_idx(order.getMember_id()+order.getOrder_idx());
 			order.setOrder_address(order.getPostcode()+" "+order.getRoadAddress()+" "+order.getAddressDetail());
 			order.setOrder_phone(order.getOrder_phone1()+"-"+order.getOrder_phone2()+"-"+order.getOrder_phone3());
 			System.out.println("order 정보 : "+order.toString());
@@ -88,7 +92,6 @@ public class OrderFrontController {
 
 				orderProd.setName(prodname.get(i));
 				orderProd.setOrder_idx(order.getOrder_idx());
-				System.out.println(orderProd);
 
 				orderProdList.add(orderProd);
 			}
@@ -99,6 +102,7 @@ public class OrderFrontController {
 			Boolean isSuccessInsert = service.setProductList(order);
 
 			if(isSuccessInsert) {
+				session.setAttribute("point", (int)session.getAttribute("point")-order.getOrder_point());
 				return "redirect:/OrderPayEnd";
 			} else {
 				model.addAttribute("msg","주문 실패!");
