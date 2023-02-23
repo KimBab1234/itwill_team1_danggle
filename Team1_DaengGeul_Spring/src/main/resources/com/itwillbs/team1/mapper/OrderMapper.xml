@@ -17,7 +17,7 @@
 	
 	<!--  주문 내역 저장 -->
 	<insert id="insertOrder" parameterType="order">
-		INSERT INTO orderInfo
+		INSERT INTO orderinfo
 			VALUES(
 				#{order_idx}
 				,#{order_imp_uid}

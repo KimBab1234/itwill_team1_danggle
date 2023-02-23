@@ -70,11 +70,14 @@
 	                <div class="row pb-3">
 	                    <div class="col-12 pb-1">
 	                        <div class="d-flex justify-content-between mb-4">
-	                            	<c:if test="${param.type ne 'B_recomm' && param.type ne 'B_disc' }">
+	                        	<c:choose>
+	                        		<c:when test="${param.type eq 'B_best' }">
 				                       <span>&nbsp;&nbsp;■ 베스트 순위는 최근 한 달간 판매량 기준입니다.</span>
-				                       <c:if test="${param.type ne 'B_best' }">
+	                        		</c:when>
+	                        		<c:when test="${param.type ne 'B_recomm' && param.type ne 'B_disc' }">
+				                        <span>&nbsp;&nbsp;</span>
 			                            <div class="dropdown ml-4" style="">
-			                                <button class="btn border dropdown-toggle" type="button" id="triggerId2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                                <button class="btn border dropdown-toggle" type="button" id="triggerId2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100px; font-weight: bold; font-size: 20px;">
 			                                     정렬
 			                                </button>
 			                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId2">
@@ -85,8 +88,8 @@
 			                                    <li><a class="dropdown-item" href='ProductList?type=${param.type.substring(0,1)}_star${param.keyword==null? "": "_".concat(param.type.substring(param.type.lastIndexOf("_")+1).concat("&keyword=".concat(param.keyword)))}'>리뷰 좋은 순</a></li>
 			                                </ul>
 		                           		</div>
-		                            </c:if>
-	                            	</c:if>
+	                        		</c:when>
+	                        	</c:choose>
 	                        </div>
 	                    </div>
 	                    
@@ -109,7 +112,7 @@
 	                              	<img class="img-fluid" src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${item.img}" style="width: 300px; height: 320px; object-fit: cover;"></a>
 	                            </div>
 	                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-	                            	<c:if test="${item.rank<5 && param.type eq 'B_best'}">
+	                            	<c:if test="${item.rank<5 && param.type eq 'B_best' && item.sel_count>0}">
 		                            	<div class="d-flex justify-content-center">
 		                                    <h6 class="text-truncate mb-3" style="font-weight: bold;">월간베스트&nbsp;</h6><h5 style="color: red; font-weight: bold;">${item.rank}</h5><h6 class="text-truncate mb-3" style="font-weight: bold;">위</h6>
 		                                </div>

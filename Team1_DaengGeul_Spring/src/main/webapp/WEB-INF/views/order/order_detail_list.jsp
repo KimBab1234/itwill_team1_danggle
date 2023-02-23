@@ -43,8 +43,9 @@
 	</div>
 	<div style="width: 1300px; min-height: 500px; margin-left:100px;">
 	<div>
-	<h3 style="text-align: left; color:#736643; font-weight: bold;"><b style="border-left: 10px solid #795548">&nbsp;&nbsp;상세 주문 내역</b></h3>
-	<h3 style="text-align: left; color:#736643; font-weight: bold;">■ 주문 날짜 - ${order.order_date}</h3>
+	<h3 style="text-align: left; color:#736643; font-weight: bold;"><b style="border-left: 10px solid #795548">&nbsp;&nbsp;상세 주문 내역 (주문 날짜 - ${order.order_date})</b></h3>
+	<br>
+	<h5 style="text-align: left; color:#736643; font-weight: bold;">- 상품명을 클릭하시면 해당 상품 페이지로 이동합니다.</h5>
 	<table border="1" class="regi_table" style="width: 1300px; text-align: center; margin-top: 20px">
 		<tr>
 			<th width="300px">상품명</th>
@@ -99,6 +100,10 @@
 			<td>${order.order_total_pay}원</td>
 		</tr>
 	</table>
+	
+	</div>
+	<div class="orderTable" style="width: 1300px; margin-top: 50px;" align="center">
+		<button type="button" style="width: 300px; height: 50px; font-size: 20px;" onclick="history.back()">돌아가기</button>
 	</div>
 	</div>
 </div>
