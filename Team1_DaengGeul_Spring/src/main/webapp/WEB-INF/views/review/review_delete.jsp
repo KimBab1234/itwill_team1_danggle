@@ -65,7 +65,7 @@
 	<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="border-left: 10px solid #795548">&nbsp;&nbsp;리뷰 삭제</b></h2>
 	<section id="passForm">
-		<form action="ReviewDeletePro.re" name="deleteForm" method="post" align="center">
+		<form action="ReviewDeletePro" name="deleteForm" method="post" align="center">
 			<!-- 입력받지 않은 글번호는 hidden으로 넘겨야함 -->
 			
 			<input type="hidden" name="review_idx" value="${param.review_idx }">

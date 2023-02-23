@@ -152,12 +152,12 @@ if(name=='') {
 			</tr>
 		</table>
 		<br>
-		<form action="ReviewWritePro.re" name="reviewForm" id="myform" method="post" action="./save">
+		<form action="ReviewWritePro" name="reviewForm" id="myform" method="post" action="./save">
 			<input type="hidden" name="member_id" value="${sessionScope.sId}">
 			<input type="hidden" name="product_idx" value="${param.product_idx}">
 			<input type="hidden" name="order_idx" value="${param.order_idx}">
 			
-			<table border="2" class="b1">
+			<table border="1" class="b1">
 				<tr>
 					<td class="td_left"><label for="review_subject"><b>제목</b></label></td>
 					<td class="td_right"><input type="text" name="review_subject" required="required" class="r1"/></td>

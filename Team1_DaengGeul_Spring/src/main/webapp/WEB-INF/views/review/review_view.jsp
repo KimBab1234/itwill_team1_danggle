@@ -31,7 +31,7 @@ $(function() {
 		var review_like_done = $(this).val();
 		$.ajax({
 			type: "post",
-			url: "ReviewLikeUpdate.re",
+			url: "ReviewLikeUpdate",
 			data: {
 				review_idx: '${param.review_idx}',
 				review_like_done: review_like_done
@@ -194,14 +194,14 @@ $(function() {
 		<div align="center" style="width: 1100px">
 		<table>
 			<tr>
-				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${review1.product_img }" width="170"></td>
-				<td><b style="font-size: 25px">${review1.product_name }</b></td>
+				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${product.img }" width="170"></td>
+				<td><b style="font-size: 25px">${product.name }</b></td>
 			</tr>
 		</table>
 		</div>
 		<section id="basicInfoArea">
-			<form action="ReviewWritePro.re" name="reviewForm" id="myform">
-			<table border="2" style="margin-left:auto;margin-right:auto;">
+			<form action="ReviewWritePro" name="reviewForm" id="myform">
+			<table border="1" style="margin-left:auto;margin-right:auto;">
 			<tr>
 				<td width="150" height="50" align="center" style="font-weight: bold;">제목</td><td width="800" colspan="1" align="center">${review.review_subject}</td>
 				<td width="150" height="50" align="center" style="font-weight: bold;">조회수</td><td align="center">${review.review_readcount}</td>
@@ -236,9 +236,9 @@ $(function() {
 	
 	<br>
 	<section id="commandList" style="width: 1800px; margin-left: 750px;">
-		<input type="button" value="수정" id="s1" onclick="location.href='ReviewModifyForm.re?review_idx=${param.review_idx}&pageNum=${param.pageNum}&product_idx=${review.product_idx }'">
-		<input type="button" value="삭제" id="s2" onclick="location.href='ReviewDeleteForm.re?review_idx=${param.review_idx}&pageNum=${param.pageNum}'">
-		<input type="button" value="목록" id="s3" onclick="location.href='ReviewList.re?pageNum=${param.pageNum}'">
+		<input type="button" value="수정" id="s1" onclick="location.href='ReviewModifyForm?review_idx=${param.review_idx}&pageNum=${param.pageNum}&product_idx=${review.product_idx }'">
+		<input type="button" value="삭제" id="s2" onclick="location.href='ReviewDeleteForm?review_idx=${param.review_idx}&pageNum=${param.pageNum}'">
+		<input type="button" value="목록" id="s3" onclick="location.href='ReviewList?pageNum=${param.pageNum}'">
 	</section>
 	
 <!------------------------------------ 바닥글 --------------------------------------->

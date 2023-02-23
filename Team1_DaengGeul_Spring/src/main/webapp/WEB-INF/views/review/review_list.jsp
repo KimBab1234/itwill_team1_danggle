@@ -115,7 +115,7 @@
 					</c:otherwise>
 				</c:choose>
 				<td width="400">
-					<a href="ReviewDetail.re?review_idx=${review.review_idx }&pageNum=${pageNum}&product_idx=${review.product_idx}">
+					<a href="ReviewDetail?review_idx=${review.review_idx }&pageNum=${pageNum}&product_idx=${review.product_idx}">
 					${review.review_subject }
 					</a>
 				</td>
@@ -143,7 +143,7 @@
 	<br>
 	<div align="right">
 	<section id="buttonArea">
-		<form action="ReviewList.re">
+		<form action="ReviewList">
 		<input type="text" name="keyword">
 		<input type="submit" value="검색" id="s1">
 		</form>
@@ -158,7 +158,7 @@
 		-->
 		<c:choose>
 			<c:when test="${pageNum > 1}">
-				<input type="button" value="이전" onclick="location.href='ReviewList.re?pageNum=${pageNum - 1}'" id="s2">
+				<input type="button" value="이전" onclick="location.href='ReviewList?pageNum=${pageNum - 1}'" id="s2">
 			</c:when>
 			<c:otherwise>
 				<input type="button" value="이전" id="s2">
@@ -173,7 +173,7 @@
 					<b style="font-size: 25px">${i }</b>
 				</c:when>
 				<c:otherwise>
-					<a href="ReviewList.re?pageNum=${i }">${i }</a>
+					<a href="ReviewList?pageNum=${i }">${i }</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -181,7 +181,7 @@
 		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 		<c:choose>
 			<c:when test="${pageNum < pageInfo.maxPage}">
-				<input type="button" value="다음" onclick="location.href='ReviewList.re?pageNum=${pageNum + 1}'" id="s2">
+				<input type="button" value="다음" onclick="location.href='ReviewList?pageNum=${pageNum + 1}'" id="s2">
 			</c:when>
 			<c:otherwise>
 				<input type="button" value="다음" id="s2">
