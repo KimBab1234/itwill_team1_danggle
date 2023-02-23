@@ -32,7 +32,6 @@ public class OrderService {
 		insertCount = mapper.insertOrder(order);
 
 		if(insertCount==0) {
-			System.out.println("롤백");
 			throw new RuntimeException("RuntimeException for rollback");
 		}
 		insertCount=0;
@@ -41,8 +40,6 @@ public class OrderService {
 		}
 		if(insertCount != order.getOrder_prod_list().size()) {
 			success = false;
-			System.out.println("롤백");
-			throw new RuntimeException("RuntimeException for rollback");
 		}
 
 		///멤버 포인트 업데이트
@@ -70,7 +67,6 @@ public class OrderService {
 				}
 			}
 		}
-		System.out.println("커밋");
 		success=true;
 		return success;
 
@@ -94,5 +90,10 @@ public class OrderService {
 	//=====================주문 상세 내역 가져오기=====================
 	public ArrayList<ProductBean> getOrderProductList(String order_product_list) {
 		return mapper2.selectOrderProductList(order_product_list);
+	}
+
+	//====================멤버 포인트 가져오기=====================
+	public int getMemberPoint(String id) {
+		return mapper.selectMemberPoint(id);
 	}
 }

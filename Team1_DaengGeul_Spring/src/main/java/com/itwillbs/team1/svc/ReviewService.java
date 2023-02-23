@@ -28,9 +28,6 @@ public class ReviewService {
 		if(insertCount > 0) { // 성공시
 			updateCount = mapper2.updateMemberPoint(review.getMember_id(), 500);
 		}
-		if(updateCount>0) {
-			
-		} 
 		return updateCount;
 	}
 

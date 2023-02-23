@@ -48,11 +48,6 @@
 			});
 			
 			 $('.dropdown-toggle', this).trigger('click').blur();
-// 			 $('.dropdown').on('mouseover', function () {
-//                  $('.dropdown-toggle', this).trigger('click');
-//              }).on('mouseout', function () {
-//                  $('.dropdown-toggle', this).trigger('click').blur();
-//              });
 			
 		});
 	</script>
@@ -131,7 +126,7 @@
 				                                <div class="dropdown-menu rounded-0 m-0">
 				                                   <a class="dropdown-item" href='MemberInfo?id=${sessionScope.sId}'>회원정보</a>
 				                                   <a class="dropdown-item" href='OrderList'>주문내역</a>
-				                                   <a class="dropdown-item" href="ReviewList.re">내가 쓴 리뷰</a>
+				                                   <a class="dropdown-item" href="ReviewList">내가 쓴 리뷰</a>
 				                                   <a class="dropdown-item" href="QnaList.cu">내 문의글</a>
 				                                   <a class="dropdown-item" href="Wishlist.ws">내 찜목록</a>
 				                                </div>

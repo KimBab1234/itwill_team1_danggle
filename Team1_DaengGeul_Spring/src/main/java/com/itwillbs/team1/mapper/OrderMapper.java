@@ -25,6 +25,10 @@ public interface OrderMapper {
 	public OrderBean selectOrderDetail(@Param("id") String id, @Param("order_idx") String order_idx); 
 
 	//=======================(지선)멤버 포인트 업데이트=======================
-	public int updateMemberPoint(@Param("id") String id, @Param("point") int point); 
+	public int updateMemberPoint(@Param("id") String id, @Param("point") int point);
+	
+	//지선 - 멤버포인트 가져오기
+	public int selectMemberPoint(String id);
+	
 	
 }

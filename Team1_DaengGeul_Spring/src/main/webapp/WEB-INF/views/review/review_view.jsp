@@ -194,7 +194,7 @@ $(function() {
 		<div align="center" style="width: 1100px">
 		<table>
 			<tr>
-				<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${product.img }" width="170"></td>
+				<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${product.img }" width="170"></td>
 				<td><b style="font-size: 25px">${product.name }</b></td>
 			</tr>
 		</table>

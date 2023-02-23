@@ -17,6 +17,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
+		$('.dropdown-toggle', this).trigger('click').blur();
+		
 		// ------------------------ 찜전체 선택 ----------------------------
 		$("table").css("text-align", "center");
 		
@@ -123,15 +126,17 @@
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
 	
-	<div class="clear"></div>
-	
-	<div id="wishBody">
+	<div style="display: flex; width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
+	<div id="wishBody" style="width: 1300px;" align="center">
 	<article>
-		<div id="listName">
-			<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="50" height="75">
+		<div id="listName" align="left" style="width: 1000px;">
+			<img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/daram.png" width="50" height="75">
 			찜목록
 		</div>
-			<table border="1">
+			<table border="1" style="width: 1000px;">
 				<tr>
 					<th width="80"><input type="checkbox" id="selectedWishAll">&nbsp;전체</th>
 					<th width="150">상품이미지</th>
@@ -153,15 +158,15 @@
 					</tr>
 				</c:forEach>
 			</table>
-			
+			<br>
 			<!-------------------------- 찜전체 취소버튼 --------------------------->
-			<section id="buttonArea">
+			<section id="buttonArea" style="width: 1000px;">
 				<input type="button" id="deleteSelectedWish" value="선택취소">			
 				<input type="button" id="deleteWishAll" value="전체취소">			
 			</section>
-			
+			<br>
 			<!-------------------------- 상품명 검색버튼 --------------------------->
-			<section id="buttonArea">
+			<section id="buttonArea" style="width: 1000px;">
 				<form action="Wishlist.ws">
 					<%-- 로그인 시에만 검색 --%>
 					<c:if test="${!empty sessionScope.sId }">
@@ -212,6 +217,7 @@
 			</section>
 		</article>
 		</div>
+		</div>
 		
 		<div class="clear"></div>
 		
@@ -229,15 +235,15 @@
 	    <!-- JavaScript Libraries -->
 	    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-	    <script src="lib/easing/easing.min.js"></script>
-	    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	    <script src="${pageContext.request.contextPath }/resources/lib/easing/easing.min.js"></script>
+	    <script src="${pageContext.request.contextPath }/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 	
 	    <!-- Contact Javascript File -->
-	    <script src="mail/jqBootstrapValidation.min.js"></script>
-	    <script src="mail/contact.js"></script>
+	    <script src="${pageContext.request.contextPath }/resources/mail/jqBootstrapValidation.min.js"></script>
+	    <script src="${pageContext.request.contextPath }/resources/mail/contact.js"></script>
 	
 	    <!-- Template Javascript -->
-	    <script src="js/main.js"></script>
+	    <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
 		<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
 </body>
 </html>

@@ -115,7 +115,7 @@
 					</c:otherwise>
 				</c:choose>
 				<td width="400">
-					<a href="ReviewDetail?review_idx=${review.review_idx }&pageNum=${pageNum}&product_idx=${review.product_idx}">
+					<a href="ReviewDetail?review_idx=${review.review_idx }&pageNum=${pageNum}&product_idx=${review.product_idx}&mine=Y">
 					${review.review_subject }
 					</a>
 				</td>

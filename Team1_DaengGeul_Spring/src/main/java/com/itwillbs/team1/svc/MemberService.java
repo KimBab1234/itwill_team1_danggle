@@ -82,7 +82,7 @@ public class MemberService {
 	public int getMemberListCount(String searchType, String keyword) {
 		return mapper.selectMemberListCount(searchType, keyword);
 	}
-
 	
+
 }
 

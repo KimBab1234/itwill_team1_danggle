@@ -65,6 +65,13 @@ var id = '${sessionScope.sId}';
 // localStorage.clear();
 var cart = new Map(JSON.parse(localStorage.getItem(id)));
 
+var pageList = {};
+var pageNum;
+var pageListLimit = 5;
+var startPage;
+var endPage;
+var maxPage;
+
 $(function() {
 	$('.recent-three').fadeIn(300);
 	
@@ -146,31 +153,34 @@ $(function() {
 	
 	// --------------------- 리뷰 게시판 ---------------------
 	$(".review_page").on("click", function() {
-		var pageNum = 1;
-		if($(this).val()!='') {
-			pageNum = $(this).val();
-		}
-		$.ajax({
-			type: "post",
-			url: "ReviewList.re",
-			dataType: "text", 
-			data: {
-				product_idx: '${product.product_idx}',
-				pageNum: pageNum
-			},
-			success: function(response) {
-				$("#product-review-area").html(response);
-			},
-			error: function(xhr, textStatus, errorThrown) { 
-				alert("리뷰 목록 불러오기 실패!");
-			}
-		});
-
+		loadReviewList($(this).val());
 	});
 
 
 	
 });
+
+function loadReviewList(thisPage) {
+	pageNum = 1;
+	if(thisPage!='') {
+		pageNum = thisPage;
+	}
+	$.ajax({
+		type: "post",
+		url: "ReviewList",
+		dataType: "text", 
+		data: {
+			product_idx: '${product.product_idx}',
+			pageNum: pageNum
+		},
+		success: function(response) {
+			$("#product-review-area").html(response);
+		},
+		error: function(xhr, textStatus, errorThrown) { 
+			alert("리뷰 목록 불러오기 실패!");
+		}
+	});
+}
 
 function countModify(sign) {
 	var num = document.getElementById('count');

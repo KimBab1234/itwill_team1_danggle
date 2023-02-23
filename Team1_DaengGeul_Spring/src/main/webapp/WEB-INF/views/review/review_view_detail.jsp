@@ -22,7 +22,7 @@ $(function() {
 		} else {
 			$.ajax({
 				type: "post",
-				url: "ReviewLikeUpdate.re",
+				url: "ReviewLikeUpdate",
 				data: {
 					review_idx: likeRow,
 					review_like_done: nowLike.val()

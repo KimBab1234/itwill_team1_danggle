@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="${pageContext.request.contextPath}/resources/img/daram.png" rel="shortcut icon" type="image/x-icon">
+<link href="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 회원정보</title>
 <%-------------------- 임시 홈페이지 CSS -------------------%>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
@@ -15,9 +15,11 @@
 
 
 <%------------------------------ 회원상세정보 --------------------------------%>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.3.js"></script>
+<script src ="https://code.jquery.com/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$('.dropdown-toggle', this).trigger('click').blur();
+		
 		<%
 		String email1 = (String)request.getAttribute("member_email1");
 		String email2 = (String)request.getAttribute("member_email2");
@@ -426,7 +428,11 @@ function execDaumPostcode() {
 		<jsp:include page="../inc/main.jsp"></jsp:include>
 	</header>
 	
-	<div class="clear"></div>
+	<div style="display: flex; width: 1800px; margin-left: 50px;">
+	<div align="left" style="width: 300px; margin-top: 100px;">
+		<jsp:include page="../inc/memberInfo_left.jsp"></jsp:include> <!-- 본문1 -->
+	</div>
+	<!-- 게시판 리스트 -->
 	
 	<article>
 	
@@ -439,7 +445,7 @@ function execDaumPostcode() {
 	
 				<div class="row header">
 					마이페이지
-					<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="40" height="50">
+					<img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/daram.png" width="40" height="50">
 				</div>
 
 				<div class="row">
@@ -494,7 +500,7 @@ function execDaumPostcode() {
 				<!-- 배송정보 영역 -->
 				<div class="row header">
 					배송정보
-					<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="40" height="50">
+					<img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/daram.png" width="40" height="50">
 				</div>
 				
 				<div class="row">
@@ -647,7 +653,7 @@ function execDaumPostcode() {
 	</div>
 
 	</article>
-	
+	</div>
 	<div class="clear"></div>
 	<div class="clear"></div>
 	
@@ -664,15 +670,15 @@ function execDaumPostcode() {
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/mail/jqBootstrapValidation.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<!------------------------------ top, left, bottom 동작 관련 작업 빼지말것! ------------------------------>
 </body>
 </html>

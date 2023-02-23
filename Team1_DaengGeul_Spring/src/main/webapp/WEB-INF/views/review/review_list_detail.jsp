@@ -21,6 +21,7 @@
 </style>
 <script>
 
+
 $(function() {
 
 	Map.prototype.toJSON = function toJSON() {
@@ -42,11 +43,11 @@ $(function() {
 				$("#"+reviewIdxNum).val(viewNum+1);
 				$.ajax({
 					type: "post",
-					url: "ReviewDetail.re",
+					url: "ReviewDetail",
 					dataType: "text", 
 					data: {
 						review_idx: reviewIdxNum,
-						product_idx: '${product.product_idx}'
+						product_idx: '${param.product_idx}'
 					},
 					success: function(response) {
 						row.parent('tr').after("<tr style='display: table-row;'><td colspan='6' style='vertical-align: middle;'>"+response+"</td></tr>");
@@ -65,6 +66,8 @@ $(function() {
 	}
 	
 });
+
+
 </script>
 
 </head>
@@ -112,5 +115,45 @@ $(function() {
 			
 	</table>
 	</div>
+		<c:if test="${reviewList.size() > 0}">
+		<section id="pageList">
+		<!-- 
+		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
+		=> 클릭 시 BoardList.bo 서블릿 주소 요청하면서 
+		   현재 페이지 번호(pageNum) - 1 값을 page 파라미터로 전달
+		-->
+		<c:choose>
+			<c:when test="${pageNum > 1}">
+				&nbsp;<input type="button" value="이전" onclick="javascript:loadReviewList(${pageNum - 1})" id="s2">&nbsp;
+			</c:when>
+			<c:otherwise>
+				&nbsp;<input type="button" value="이전" id="s2">&nbsp;
+			</c:otherwise>
+		</c:choose>
+			
+		<!-- 페이지 번호 목록은 시작 페이지(startPage)부터 끝 페이지(endPage) 까지 표시 -->
+		<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
+			<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
+			<c:choose>
+				<c:when test="${pageNum eq i}">
+					&nbsp;<b style="font-size: 25px">${i }</b>&nbsp;
+				</c:when>
+				<c:otherwise>
+					&nbsp;<a href="javascript:loadReviewList(${i})">${i }</a>&nbsp;
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+
+		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
+		<c:choose>
+			<c:when test="${pageNum < pageInfo.maxPage}">
+				&nbsp;<input type="button" value="다음" onclick="javascript:loadReviewList(${pageNum + 1})" id="s2">&nbsp;
+			</c:when>
+			<c:otherwise>
+				&nbsp;<input type="button" value="다음" id="s2">&nbsp;
+			</c:otherwise>
+		</c:choose>
+	</section>
+	</c:if>
 </body>
 </html>
