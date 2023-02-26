@@ -66,7 +66,7 @@ Map.prototype.toJSON = function toJSON() {
 				productList[i]= key;
 				$("#cartAddRow"+i+" input[type=checkbox]").val(key);
 				$("#cartAddRow"+i+" input[type=text]").val(prod.get('count'));
-				$("#cartAddRow"+i+" img").prop("src", "http://itwillbs3.cdn1.cafe24.com/img/product/"+prod.get('img'))
+				$("#cartAddRow"+i+" img").prop("src", "https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/"+prod.get('img'))
 				if(prod.get('opt')!=null) {
 					$("#cartAddRow"+i+" td").eq(2).text(prod.get('name')+" (선택 옵션 :"+prod.get('opt')+")");
 				} else {

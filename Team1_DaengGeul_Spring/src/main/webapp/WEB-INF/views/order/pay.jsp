@@ -110,11 +110,10 @@ Map.prototype.toJSON = function toJSON() {
 
         }, function (rsp) { // callback
 		$("#imp_uid").val(rsp.imp_uid);
+            if (rsp.success) {
         		$("#merchant_uid").val(rsp.merchant_uid);
         		$("#cartJson").val(JSON.stringify(new Map(JSON.parse(localStorage.getItem(id)))));
             	document.dangglePayForm.submit();
-            if (rsp.success) {
-        		
             } else {
 				alert("결제에 실패했습니다! " +  rsp.error_msg);
             }

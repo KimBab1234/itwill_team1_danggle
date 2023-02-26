@@ -32,6 +32,11 @@ public class ProductFrontController {
 
 		ProductBean product = service.getProduct(product_idx); //상품 정보 가져오기
 		
+		if(product==null) {
+			model.addAttribute("msg","죄송합니다. 현재 판매하지 않는 상품입니다.");
+			return "fail_back";
+		}
+		
 		String recentImg = product.getImg();
 		product.setDetail_img(product.getDetail_img());
 		

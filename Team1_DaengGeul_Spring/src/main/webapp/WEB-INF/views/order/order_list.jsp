@@ -67,7 +67,7 @@
 			<table border="1" style="width: 1300px; text-align: center; margin-top: 20px" class="regi_table">
 				<tr>
 					<th width="120px">주문 날짜</th>
-<!-- 					<th width="100px" >이미지</th> -->
+					<th width="100px" >이미지</th>
 					<th width="300px" >상품</th>
 					<th width="120px">결제한 금액</th>
 					<th width="100px">주문 상태</th>
@@ -77,12 +77,16 @@
 							<tr>
 								<td rowspan="${order.order_prod_list.size() }"><a href="OrderDetailList?order_idx=${order.order_idx}">${order.order_date}</a></td>
 								<c:choose>
+									<c:when test="${order.order_prod_list.get(0).name eq '-' }">
+										<td>-</td>
+										<td>현재 판매하지 않는 상품입니다. 상품 코드 : ${order.order_prod_list.get(0).idx}</td>
+									</c:when>
 									<c:when test="${order.order_prod_list.get(0).opt eq '-' }">
-<%-- 										<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+										<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td>
 										<td>${order.order_prod_list.get(0).name}</td>
 									</c:when>
 									<c:otherwise>
-<%-- 										<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+										<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td>
 										<td>${order.order_prod_list.get(0).name}(옵션:${order.order_prod_list.get(0).opt})</td>
 									</c:otherwise>
 								</c:choose>
@@ -100,12 +104,16 @@
 						<c:forEach begin="1" end="${order.order_prod_list.size()-1}" var="i">
 							<tr>
 								<c:choose>
+									<c:when test="${order.order_prod_list.get(i).name eq '-' }">
+										<td>-</td>
+										<td>현재 판매하지 않는 상품입니다. 상품 코드 : ${order.order_prod_list.get(i).idx}</td>
+									</c:when>
 									<c:when test="${order.order_prod_list.get(i).opt eq '-' }">
-<%-- 										<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+										<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(i).img}" width="100px;"></td>
 										<td>${order.order_prod_list.get(i).name}</td>
 									</c:when>
 									<c:otherwise>
-<%-- 										<td><img src="http://itwillbs3.cdn1.cafe24.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td> --%>
+										<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(i).img}" width="100px;"></td>
 										<td>${order.order_prod_list.get(i).name}(옵션:${order.order_prod_list.get(i).opt})</td>
 									</c:otherwise>
 								</c:choose>

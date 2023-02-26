@@ -56,7 +56,14 @@
 		</tr>
 		<c:forEach begin="0" end="${order.order_prod_list.size()-1}" var="i" varStatus="status">
 			<tr class="proDe">
-				<td><a href="ProductDetail?product_idx=${order.order_prod_list.get(i).idx}">${order.order_prod_list.get(i).name}</a></td>
+				<c:choose>
+					<c:when test="${order.order_prod_list.get(i).name eq '-'}">
+						<td>현재 판매하지 않는 상품입니다. 상품 코드 : ${order.order_prod_list.get(i).idx}</td>
+					</c:when>
+					<c:otherwise>
+						<td><a href="ProductDetail?product_idx=${order.order_prod_list.get(i).idx}">${order.order_prod_list.get(i).name}</a></td>
+					</c:otherwise>
+				</c:choose>
 				<td>${order.order_prod_list.get(i).price}</td>
 				<td>${order.order_prod_list.get(i).opt}</td>
 				<td>${order.order_prod_list.get(i).cnt}</td>
