@@ -8,7 +8,7 @@
 	</select>
 	
 	<select id="selectOrderProdList" resultType="orderProd">
-		SELECT order_status 'status', order_prod_idx 'idx', order_prod_name 'name', order_prod_opt 'opt', order_prod_cnt 'cnt', order_prod_price 'price', case when review_idx is null then 'N' else 'Y' end 'review_write' FROM orderprod left join review r on orderprod.order_idx = r.order_idx and orderprod.order_prod_idx = r.product_idx WHERE orderprod.order_idx=#{order_idx};
+		SELECT status, idx, name, opt, cnt, price,review_write,img FROM order_detail_view WHERE order_idx=#{order_idx};
 	</select>
 	
 	<select id="selectOrderDetail" resultType="order">
