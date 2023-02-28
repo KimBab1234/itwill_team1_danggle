@@ -108,12 +108,12 @@
 			<div align="center">
 				<c:choose>
 					<c:when test="${productType eq 'goods'}">
-						<input type="submit" id="okBtn" value="다시 수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}'">
-						<input type="button" id="okBtn" value="목록" onclick="location.href='ProductList.ad?product=G'">
+						<input type="submit" id="okBtn" value="다시 수정" onclick="location.href='ProductEditForm?product_idx=${product.product_idx}'">
+						<input type="button" id="okBtn" value="목록" onclick="location.href='ProductRegistrationList?product=G'">
 					</c:when>
 					<c:when test="${productType eq 'book'}">
-						<input type="submit" id="okBtn" value="다시 수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}&pageNum=${param.pageNum }'">
-						<input type="button" id="okBtn" value="목록" onclick="location.href='ProductList.ad?pageNum=${param.pageNum }'">
+						<input type="submit" id="okBtn" value="다시 수정" onclick="location.href='ProductEditForm?product_idx=${product.product_idx}&pageNum=${param.pageNum }'">
+						<input type="button" id="okBtn" value="목록" onclick="location.href='ProductRegistrationList?pageNum=${param.pageNum }'">
 					</c:when>
 				</c:choose>
 			</div>

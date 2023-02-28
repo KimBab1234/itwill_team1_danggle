@@ -111,7 +111,7 @@
 				</choose>
 		</if>
 		ORDER BY 
-			product_idx
+			LENGTH(product_idx) DESC, product_idx DESC
 		LIMIT #{startRow}, #{listLimit}
 	</select>
 	
@@ -136,6 +136,8 @@
 	<select id="selectGoodsList" resultType="com.itwillbs.team1.vo.ProductBean">
 		SELECT *
 			FROM goods
+			ORDER BY 
+				LENGTH(product_idx) DESC, product_idx DESC
 	</select>
 	
 	<select id="selectGoodsListCount" resultType="int">

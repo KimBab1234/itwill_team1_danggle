@@ -40,7 +40,7 @@ public class BookFrontController {
 	private S3Service s3Service;
 
 
-	@GetMapping(value = "/ProductRegiForm.ad")
+	@GetMapping(value = "/ProductRegiForm")
 	public String ProductRegistration(Model model, HttpSession session) {
 		System.out.println("상품 등록 폼 페이지");
 
@@ -53,7 +53,7 @@ public class BookFrontController {
 		return "product/product_registration_form";
 	}
 
-	@PostMapping(value = "/ProductRegiPro.ad")
+	@PostMapping(value = "/ProductRegiPro")
 	public String registrationPro(Model model, HttpSession session, @ModelAttribute ProductBean product) {
 		System.out.println("상품 등록 처리");
 
@@ -111,7 +111,7 @@ public class BookFrontController {
 				e.printStackTrace();
 			}
 
-			return "redirect:/ProductList.ad";
+			return "redirect:/ProductRegistrationList";
 		}else {
 			model.addAttribute("msg", "상품 등록 실패!");
 			return "fail_back";
@@ -120,7 +120,7 @@ public class BookFrontController {
 	}
 
 
-	@GetMapping(value = "/ProductList.ad")
+	@GetMapping(value = "/ProductRegistrationList")
 	public String ProductList(@RequestParam(defaultValue = "") String searchType,
 			@RequestParam(defaultValue = "") String keyword,
 			@RequestParam(defaultValue = "1") int pageNum,
@@ -191,7 +191,7 @@ public class BookFrontController {
 
 	}
 
-	@GetMapping(value = "/ProductEditForm.ad")
+	@GetMapping(value = "/ProductEditForm")
 	public String productEdit(HttpSession session, Model model, @RequestParam String product_idx) {
 		System.out.println("상품 수정 폼 페이지");
 
@@ -213,7 +213,7 @@ public class BookFrontController {
 		return"product/product_edit_form";
 	}
 
-	@GetMapping(value = "//ProductDelete.ad")
+	@GetMapping(value = "/ProductDelete")
 	public String deleteProduct(HttpSession session, Model model, @RequestParam String product_idx, @RequestParam(defaultValue = "1") int pageNum,
 			@ModelAttribute ProductBean product) throws IOException {
 		System.out.println("상품 삭제");
@@ -236,9 +236,9 @@ public class BookFrontController {
 			}
 
 			if(product_idx.substring(0, 1).equals("B")) {
-				return "redirect:/ProductList.ad?pageNum"+pageNum;	
+				return "redirect:/ProductRegistrationList?pageNum"+pageNum;	
 			}else {
-				return "redirect:/ProductList.ad?product=G";
+				return "redirect:/ProductRegistrationList?product=G";
 			}
 
 
@@ -250,7 +250,7 @@ public class BookFrontController {
 	}
 
 
-	@GetMapping(value = "/RecommendBookList.ad")
+	@GetMapping(value = "/RecommendBookList")
 	public String recommendBookList(Model model, HttpSession session) {
 		System.out.println("추천 도서 목록");
 
@@ -284,7 +284,7 @@ public class BookFrontController {
 
 	}
 
-	@PostMapping(value = "/RecommendBook.ad")
+	@PostMapping(value = "/RecommendBook")
 	public String recoBookRegi(Model model, HttpSession session, @ModelAttribute ProductBean product, HttpServletRequest request) {
 		System.out.println("추천 도서 등록");
 
@@ -306,7 +306,7 @@ public class BookFrontController {
 
 	}
 
-	@GetMapping(value = "/RecommendBookDelete.ad")
+	@GetMapping(value = "/RecommendBookDelete")
 	public String recoBookDelete(@RequestParam String product_idx, Model model, HttpSession session) {
 		System.out.println("추천 도서 삭제");
 
@@ -319,7 +319,7 @@ public class BookFrontController {
 		int deleteCount = service.deleteRocoBook(product_idx);
 
 		if(deleteCount > 0) {
-			return "redirect:/RecommendBookList.ad";
+			return "redirect:/RecommendBookList";
 		}else {
 			model.addAttribute("msg", "상품 등록 실패!");
 			return "fail_back";
@@ -328,7 +328,7 @@ public class BookFrontController {
 
 	}
 
-	@PostMapping(value = "/ProductEditPro.ad")
+	@PostMapping(value = "/ProductEditPro")
 	public String editPro(Model model, HttpServletRequest request, @RequestParam(defaultValue = "1") int pageNum, @ModelAttribute ProductBean product) throws IOException {
 		System.out.println("상품 수정 처리");
 
@@ -354,12 +354,18 @@ public class BookFrontController {
 
 		String[] arrFile = originalFileNames.split("/");
 
-		if(arrFile.length == 1) { 
+		if(arrFile.length == 0 ) { // 둘 다 수정하지 않을 경우 기존 파일 저장
+			product.setImg(fileName.getImg());
+			product.setDetail_img(fileName.getDetail_img());
+			
+		}else if(arrFile.length == 1) { // 대표이미지만 수정
 			product.setImg(arrFile[0]);
 			product.setDetail_img("");
-		}else {
+			
+		}else { // 대표이미지 + 상세이미지 수정
 			product.setImg(arrFile[0]);
 			product.setDetail_img(arrFile[1]);
+			
 		}
 
 		
@@ -397,9 +403,9 @@ public class BookFrontController {
 			}
 
 			if(product_idx.substring(0, 1).equals("B")) {
-				return "redirect:/ProductList.ad?pageNum="+pageNum;
+				return "redirect:/ProductRegistrationList?pageNum="+pageNum;
 			}else {
-				return "redirect:/ProductList.ad?product=G";
+				return "redirect:/ProductRegistrationList?product=G";
 			}
 
 

@@ -45,7 +45,7 @@
 				let product = $(this).next().val()
 		 		var deleteBook = confirm("추천 도서 목록에서 삭제하시겠습니까?");
 		 		if(deleteBook){
-		 			location.href = "RecommendBookDelete.ad?product_idx=" + product;
+		 			location.href = "RecommendBookDelete?product_idx=" + product;
 		 		}
 			});
 			

@@ -119,7 +119,7 @@
 	</div>
 	<div style="width : 1200px;" >
 	<h4 id="h4">상품 등록</h4><br>
-	<form action="ProductRegiPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
+	<form action="ProductRegiPro" method="post" enctype="multipart/form-data" name="proRegi">
 		<table class="regi_table">
 			<tr>
 				<th>분류</th>

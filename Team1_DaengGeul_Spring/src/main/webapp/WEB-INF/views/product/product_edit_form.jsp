@@ -118,7 +118,7 @@
 	</div>
 	<div style="width : 1200px;">
 	<h4 id="h4">상품 수정</h4><br>
-	<form action="ProductEditPro.ad" method="post" id="editForm" enctype="multipart/form-data" name="proRegi">
+	<form action="ProductEditPro" method="post" id="editForm" enctype="multipart/form-data" name="proRegi">
 	
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
  		<input type="hidden" name="product_idx" value="${product.product_idx }">
@@ -225,14 +225,13 @@
 		</table> 
 		<br>
 		<div align="center">
-			<button id="test" type="button">확인용</button>
 			<input type="submit" id="okBtn" value="수정">
 			<c:choose>
 				<c:when test="${productType eq 'book'}">
-					<input type="button" id="okBtn" value="취소" onclick="location.href='ProductList.ad?pageNum=${param.pageNum }'">
+					<input type="button" id="okBtn" value="취소" onclick="location.href='ProductRegistrationList?pageNum=${param.pageNum }'">
 				</c:when>
 				<c:when test="${productType eq 'goods'}">
-					<input type="button" id="okBtn" value="취소" onclick="location.href='ProductList.ad?product=G'">
+					<input type="button" id="okBtn" value="취소" onclick="location.href='ProductRegistrationList?product=G'">
 				</c:when>
 			</c:choose>
 		</div>
