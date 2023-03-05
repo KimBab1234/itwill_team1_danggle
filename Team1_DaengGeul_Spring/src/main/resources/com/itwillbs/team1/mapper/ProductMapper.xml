@@ -173,6 +173,13 @@
 				product_idx = #{product_idx}
 	</delete>
 	
+	<delete id="deleteProductIdx">
+		DELETE
+			FROM product
+			WHERE 
+				product_idx = #{product_idx}	
+	</delete>
+	
 	<!-- 추천 도서 목록 조회 -->
 	<select id="selectRecoBook" resultType="com.itwillbs.team1.vo.ProductBean">
 		SELECT *

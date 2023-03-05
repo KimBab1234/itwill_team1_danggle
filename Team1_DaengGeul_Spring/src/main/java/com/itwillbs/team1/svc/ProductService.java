@@ -19,36 +19,47 @@ public class ProductService {
 	
 	///////////////// 경민 	/////////////////	
 	public int productRegistration(ProductBean product) { // 상품 등록
+		
 		int idx = mapper.selectIdx();
 		idx += 1;
 		product.setIdx(idx);
+		
 		boolean isBook = false;
 
 		if(product.getGroup().equals("book")) {
 			product.setProduct_idx("B" + idx);
 			isBook = true;
+			
 			return mapper.insertProduct(product, isBook);
-		}else {
+			
+		} else {
+			
 			product.setProduct_idx("G" + idx);
 			
 			if(product.getOption_name() != null) {
-				int count = 0;
+				int count = 0; 
 
 				mapper.insertProduct(product, isBook);
+				
 				List<String> OptNameArr = product.getOption_name();
 				List<Integer> OptQauArr = product.getOption_qauntity();
 				
 				for(int i = 0; i < product.getOption_name().size(); i++) {
 					ProductOptBean optBean = new ProductOptBean();
+					
 					optBean.setOption_name(OptNameArr.get(i));
 					optBean.setOption_quantity(OptQauArr.get(i).toString());
 					optBean.setGoodsOpt_idx(product.getProduct_idx());
-					optBean.setOptNum(1);
+					optBean.setOptNum(1); // 굿즈 수정 시 사용, 등록은 1 저장
 					
 					count+= mapper.insertGoodsOpt(optBean);
 				}
+				
+				
 				return count;
-			}else {
+				
+			} else {
+				
 				return mapper.insertProduct(product, isBook);
 			}
 		}
@@ -103,11 +114,12 @@ public class ProductService {
 		System.out.println("removeProduct - 상품 삭제");
 		
 		if(product_idx.substring(0, 1).equals("B")) {
-			return mapper.deleteBook(product_idx);
+			mapper.deleteBook(product_idx);
 		}else {
-			return mapper.deleteGoods(product_idx);
+			mapper.deleteGoods(product_idx);
 		}
-
+		
+		return mapper.deleteProductIdx(product_idx);
 	}
 	
 	public int updateBook(ProductBean product) {

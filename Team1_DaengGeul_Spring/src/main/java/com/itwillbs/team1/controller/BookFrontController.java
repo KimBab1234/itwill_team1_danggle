@@ -58,27 +58,23 @@ public class BookFrontController {
 		System.out.println("상품 등록 처리");
 
 		MultipartFile[] mFiles = product.getFiles();
-
 		String originalFileNames = "";
 
 		for(MultipartFile mFile : mFiles) {
 			String originalFileName = mFile.getOriginalFilename();
-			//			System.out.println("파일명 확인 : " + originalFileName);
 			if(!originalFileName.equals("")) {
-				String uuid = UUID.randomUUID().toString();
+				String uuid = UUID.randomUUID().toString(); // uuid 생성
 				originalFileNames += uuid + "_" + originalFileName + "/";
-
 			}else {
 				originalFileNames += "/";
 			}
 		}
 
 		String[] arrFile = originalFileNames.split("/");
-
-		if(arrFile.length == 1) { 
+		if(arrFile.length == 1) { // 대표 이미지만 등록
 			product.setImg(arrFile[0]);
 			product.setDetail_img("");
-		}else {
+		}else { // 대표 이미지 + 상세 이미지 등록
 			product.setImg(arrFile[0]);
 			product.setDetail_img(arrFile[1]);
 		}
@@ -89,19 +85,17 @@ public class BookFrontController {
 			try {
 				if(arrFile.length == 1) { // 대표 이미지만 등록할 경우 사진 저장
 					MultipartFile mFile1 = product.getFiles()[0];
-
 					if(!mFile1.getOriginalFilename().equals("")) {
-						s3Service.upload(mFile1, product.getImg(), "product"); ///썸네일 이미지 저장
+						s3Service.upload(mFile1, product.getImg(), "product"); // 대표 이미지 저장
 					}
+					
 				}else { // 대표 이미지 + 상세이미지 등록할 경우 사진 저장
 					MultipartFile mFile1 = product.getFiles()[0];
 					MultipartFile mFile2 = product.getFiles()[1];
 
 					if(!mFile1.getOriginalFilename().equals("") && !mFile2.getOriginalFilename().equals("")) {
-
-						s3Service.upload(mFile1, product.getImg(), "product"); ///썸네일 이미지 저장
-						s3Service.upload(mFile2, product.getDetail_img(), "product_detail"); ///상세 이미지 저장
-
+						s3Service.upload(mFile1, product.getImg(), "product"); // 대표 이미지 저장
+						s3Service.upload(mFile2, product.getDetail_img(), "product_detail"); // 상세 이미지 저장
 					}
 				}
 
@@ -110,8 +104,14 @@ public class BookFrontController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-			return "redirect:/ProductRegistrationList";
+			
+			if(product.getProduct_idx().substring(0, 1).equals("B")) {
+				return "redirect:/ProductRegistrationList";
+			}else {
+				return "redirect:/ProductRegistrationList?product=G";
+			}
+			
+			
 		}else {
 			model.addAttribute("msg", "상품 등록 실패!");
 			return "fail_back";
@@ -383,7 +383,7 @@ public class BookFrontController {
 				MultipartFile mFile1 = product.getFiles()[0];
 
 				if(!mFile1.getOriginalFilename().equals("")) {
-					s3Service.upload(mFile1, product.getImg(), "product"); ///썸네일 이미지 저장
+					s3Service.upload(mFile1, product.getImg(), "product"); // 대표 이미지 저장
 					s3Service.delete(fileName.getImg(), "product");
 				}
 			}else { // 대표 이미지 + 상세이미지 등록할 경우 사진 저장
@@ -392,8 +392,8 @@ public class BookFrontController {
 
 				if(!mFile1.getOriginalFilename().equals("") && !mFile2.getOriginalFilename().equals("")) {
 
-					s3Service.upload(mFile1, product.getImg(), "product"); ///썸네일 이미지 저장
-					s3Service.upload(mFile2, product.getDetail_img(), "product_detail"); ///상세 이미지 저장
+					s3Service.upload(mFile1, product.getImg(), "product"); // 대표 이미지 저장
+					s3Service.upload(mFile2, product.getDetail_img(), "product_detail"); // 상세 이미지 저장
 					
 					///썸네일 + 상세이미지 삭제
 					s3Service.delete(fileName.getImg(), "product");

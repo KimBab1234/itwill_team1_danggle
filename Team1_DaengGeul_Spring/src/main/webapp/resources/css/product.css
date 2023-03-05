@@ -193,6 +193,7 @@ select {
 	margin: 50px 50px 40px 50px;
 	font-weight: bold;
 }
+
 /* 파일 버튼 */
 label {
     display: inline-block;
@@ -206,7 +207,7 @@ label {
     border-radius: 4px;
 }
 
-/* 파일 이름 뜨는 텍스트 박스 */
+/* 파일 이름 출력되는 텍스트 박스 */
 .filebox .upload-name {
     border: 1px solid #b09f76;
 	border-radius: 5px;
