@@ -15,7 +15,7 @@
 	function Gdele(product_idx) {
 		var ment = confirm(product_idx + " 상품을 삭제하시겠습니까?");
 		if(ment){
-			location.href="ProductDelete.ad?product_idx="+product_idx;
+			location.href="ProductDelete?product_idx="+product_idx;
 		}
 		
 	}
@@ -23,7 +23,7 @@
 	function Bdele(product_idx, pageNum) {
 		var ment = confirm(product_idx + " 상품을 삭제하시겠습니까?");
 		if(ment){
-			location.href="ProductDelete.ad?product_idx="+product_idx+"&pageNum="+pageNum;
+			location.href="ProductDelete?product_idx="+product_idx+"&pageNum="+pageNum;
 		}
 		
 	}
@@ -89,7 +89,7 @@
 		<h4 id="listH4">상품 관리</h4><br>
 		<div class="choice" id="choice_book">책</div><div class="choice" id="choice_goods">굿즈</div>
 		<div id="buttonArea">
-			<form action="ProductList.ad">
+			<form action="ProductRegistrationList">
 				<!-- 검색 타입 추가 -->
 				<select name="searchType" id="searchType">
 					<option value="name" <c:if test="${param.searchType eq 'name'}">selected</c:if>>상품명</option>
@@ -100,7 +100,7 @@
 			</form>
 		</div>
 		<div id="bookList">
-		<form action="RecommendBook.ad" method="post" >
+		<form action="RecommendBook" method="post" >
 			<table class="bookTable">
 				<tr>
 					<th width="90">추천 도서</th>
@@ -144,7 +144,7 @@
 									(${product.discount }% 할인)</td>
 								</c:otherwise>
 							</c:choose>
-							<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}&pageNum=${pageNum }'"></td>
+							<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm?product_idx=${product.product_idx}&pageNum=${pageNum }'"></td>
 							<td><input type="button" id="Listbtn" value="삭제" class="BdeleBtn" onclick="Bdele('${product.product_idx}', '${pageNum }')"></td>
 						</tr>
 					</c:if>
@@ -157,7 +157,7 @@
 			<section id="pageList">
 				<c:choose>
 					<c:when test="${pageNum > 1}">
-						<a href="ProductList.ad?pageNum=${pageNum - 1}"><i class="fas fa-solid fa-angles-left"></i></a>
+						<a href="ProductRegistrationList?pageNum=${pageNum - 1}"><i class="fas fa-solid fa-angles-left"></i></a>
 					</c:when>
 					<c:otherwise>
 						<a><i class="fas fa-solid fa-angles-left"></i></a>
@@ -169,13 +169,13 @@
 							<div class="here">${i }</div>
 						</c:when>
 						<c:otherwise>
-							<a href="ProductList.ad?pageNum=${i }"><div class="notHere">${i }</div></a>
+							<a href="ProductRegistrationList?pageNum=${i }"><div class="notHere">${i }</div></a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:choose>
 					<c:when test="${pageNum < pageInfo.maxPage}">
-					<a href="ProductList.ad?pageNum=${pageNum + 1}"><i class="fas fa-solid fa-angles-right"></i></a>
+					<a href="ProductRegistrationList?pageNum=${pageNum + 1}"><i class="fas fa-solid fa-angles-right"></i></a>
 					</c:when>
 					<c:otherwise>
 						<a><i class="fas fa-solid fa-angles-right"></i></a>
@@ -219,7 +219,7 @@
 									 (${product.discount }% 할인)</td>
 								</c:otherwise>
 							</c:choose>
-							<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm.ad?product_idx=${product.product_idx}'"></td>
+							<td><input type="button" id="Listbtn" value="수정" onclick="location.href='ProductEditForm?product_idx=${product.product_idx}'"></td>
 							<td><input type="button" id="Listbtn" value="삭제" class="GdeleBtn" onclick="Gdele('${product.product_idx}')"></td>
 						</tr>
 					</c:if>

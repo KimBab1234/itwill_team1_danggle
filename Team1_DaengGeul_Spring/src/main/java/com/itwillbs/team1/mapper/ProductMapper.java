@@ -57,9 +57,11 @@ public interface ProductMapper {
 
 	public ProductBean selectGoodsFileName(String product_idx); // 굿즈 이미지 파일 조회
 
-	public int deleteBook(String product_idx);
+	public void deleteBook(String product_idx); // 책 삭제
 
-	public int deleteGoods(String product_idx);
+	public void deleteGoods(String product_idx); // 굿즈 삭제
+	
+	public int deleteProductIdx(String product_idx); // product 테이블에 있는 product_idx 삭제
 	
 	//============== 굿즈 옵션 수정 =====================
 	public void insertUpdateGoodsOpt(ProductOptBean optBean); 
@@ -100,6 +102,8 @@ public interface ProductMapper {
 	
 	//=====================주문한 상품 정보 가져오기=====================
 	public ArrayList<ProductBean> selectOrderProductList(String order_list);
+
+
 
 	
 

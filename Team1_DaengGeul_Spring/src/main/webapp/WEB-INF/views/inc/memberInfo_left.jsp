@@ -40,9 +40,9 @@ a:active {
 		<%-- 관리자 --%>
 		<c:when test="${sessionScope.sId eq 'admin'}">
 			<br>
-            <div class="menuLink" style="margin-bottom:6px;"><a href='ProductRegiForm.ad' style="color: #736643;">신규 상품 등록</a></div>
-            <div class="menuLink" style="margin-bottom:6px;"><a href='ProductList.ad'>상품 정보 관리</a></div>
-            <div class="menuLink" style="margin-bottom:6px;"><a href='RecommendBookList.ad'>추천 도서 관리</a></div>
+            <div class="menuLink" style="margin-bottom:6px;"><a href='ProductRegiForm' style="color: #736643;">신규 상품 등록</a></div>
+            <div class="menuLink" style="margin-bottom:6px;"><a href='ProductRegistrationList'>상품 정보 관리</a></div>
+            <div class="menuLink" style="margin-bottom:6px;"><a href='RecommendBookList'>추천 도서 관리</a></div>
             <div class="menuLink" style="margin-bottom:6px;"><a href='MemberList'>회원 정보 관리</a></div>
 		</c:when>
 		<%-- 일반사용자 --%>

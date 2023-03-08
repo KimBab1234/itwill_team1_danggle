@@ -109,9 +109,9 @@
 			                                	<span class="name2">관리자</span>
 			                               		</button>
 			                             	   <div class="dropdown-menu rounded-0 m-0">
-			                                    <a class="dropdown-item" href='ProductRegiForm.ad'>신규 상품 등록</a>
-			                                    <a class="dropdown-item" href='ProductList.ad'>상품 정보 관리</a>
-			                                    <a class="dropdown-item" href='RecommendBookList.ad'>추천 도서 관리</a>
+			                                    <a class="dropdown-item" href='ProductRegiForm'>신규 상품 등록</a>
+			                                    <a class="dropdown-item" href='ProductRegistrationList'>상품 정보 관리</a>
+			                                    <a class="dropdown-item" href='RecommendBookList'>추천 도서 관리</a>
 			                                    <a class="dropdown-item" href='AdminMain'>회원 정보 관리</a>
 			                                    </div>
 			                                </div>

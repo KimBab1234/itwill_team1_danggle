@@ -26,6 +26,15 @@
 	
 	function disKeyup(discount) {
 	// 할인 설정 버튼 선택 시 할인율 입력 값 discount(hidden) value에 적용
+		if(discount > 100) {
+			alert("할인율은 100보다 클 수 없습니다");
+			document.getElementById("disNum").value = "";
+			
+		}else if(discount < 1) {
+			alert("할인율은 0보다 커야합니다");
+			document.getElementById("disNum").value = "";
+		}
+	
 		document.getElementById("discount").value = discount;
 	}
 
@@ -54,21 +63,22 @@
 				$("#writer").attr("required", false);
 				$("#publisher").attr("required", false);
 				document.getElementById("date").valueAsDate = new Date();
-// 				alert($("#date").val())
+				// 날짜의 경우 날짜 선택 없이 넘기면 오류가 나기 때문에 임시로 오늘 날짜 저장!
 				$("#date").attr("required", false);
 				$(".book_genre").attr("required", false);
 			}
  			
 		});
-		// 이미지 파일 선택 시 input 박스에 파일 이름 출력
-		$("#detail_img").on('change',function(){
-			  var fileName = $("#detail_img").val().split('/').pop().split('\\').pop();;
-			  $("#detail_img_name").val(fileName);
-		});
 		
+		// 이미지 파일 선택 시 input 박스에 파일 이름만 출력
 		$("#img").on('change',function(){
 			  var fileName = $("#img").val().split('/').pop().split('\\').pop();;
 			  $("#img_name").val(fileName);
+		});
+		
+		$("#detail_img").on('change',function(){
+			  var fileName = $("#detail_img").val().split('/').pop().split('\\').pop();;
+			  $("#detail_img_name").val(fileName);
 		});
 		
 		// 굿즈 총 재고 계산하는 함수
@@ -89,12 +99,12 @@
 			optionIndex++;
 			var NumLength = $("input[type=number]").length;
 			
-			// 옵션별 재고량 입력 시 총 재고에 더해짐
+			// 옵션별 재고량 입력 시 총 재고 계산
 			$("input[type=number][name=option_qauntity]").on("change", function() {
 				$.total();
 			});
 			
-			// 옵션 삭제 시 재고량 빼기
+			// 옵션 삭제 시 재고량 다시 계산
 			$(".removeOpt").on("click", function() {
 				$(this).parent().remove();
 				var NumLength = $("input[type=number]").length;
@@ -119,7 +129,7 @@
 	</div>
 	<div style="width : 1200px;" >
 	<h4 id="h4">상품 등록</h4><br>
-	<form action="ProductRegiPro.ad" method="post" enctype="multipart/form-data" name="proRegi">
+	<form action="ProductRegiPro" method="post" enctype="multipart/form-data" name="proRegi">
 		<table class="regi_table">
 			<tr>
 				<th>분류</th>
