@@ -11,7 +11,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://itwill-team1-220823.cdzxfbml4ntl.ap-northeast-2.rds.amazonaws.com:3306/team1_final?allowMultiQueries=true"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://itwill-team1-220823.csrcwnifdsl8.ap-northeast-2.rds.amazonaws.com:3306/team1_final?allowMultiQueries=true"></property>
 		<property name="username" value="team1"></property>
 		<property name="password" value="220823team1"></property>
 		<property name="connectionTimeout" value="60000"></property>
