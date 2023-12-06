@@ -66,7 +66,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">댕글추천도서</p>
                     <a href="ProductList?type=B_recomm" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/b1.PNG" alt="">
+                        <img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/b1.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">도서명</h5>
                 </div>
@@ -75,7 +75,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">베스트셀러</p>
                     <a href="ProductList?type=B_best" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/b2.PNG" alt="">
+                        <img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/b2.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">도서명</h5>
                 </div>
@@ -84,7 +84,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">최신도서</p>
                     <a href="ProductList?type=B_new" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/b3.PNG" alt="">
+                        <img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/b3.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">도서명</h5>
                 </div>
@@ -93,7 +93,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">굿즈</p>
                     <a href="ProductList?type=G" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/g1.PNG" alt="">
+                        <img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/g1.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">문구세트</h5>
                 </div>
@@ -102,7 +102,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">굿즈</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/g2.PNG" alt="">
+                        <img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/g2.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">노트</h5>
                 </div>
@@ -111,7 +111,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">굿즈</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/g3.PNG" alt="">
+                        <img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/g3.PNG" alt="">
                     </a>
                     <h5 class="font-weight-semi-bold m-0">책홀더</h5>
                 </div>
@@ -126,7 +126,7 @@
         <div class="row px-xl-5">
             <div class="col-md-6 pb-4">
                 <div class="position-relative bg-secondary2 text-center text-md-right text-white mb-2 py-5 px-5">
-                    <img src="http://itwillbs3.cdn1.cafe24.com/img/ha.jpg" alt="">
+                    <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/ha.jpg" alt="">
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">할인도서</h5>
                         <h1 class="mb-4 font-weight-semi-bold">책과 겨울나기</h1>
@@ -136,7 +136,7 @@
             </div>
             <div class="col-md-6 pb-4">
                 <div class="position-relative bg-secondary2 text-center text-md-left text-white mb-2 py-5 px-5">
-                    <img src="http://itwillbs3.cdn1.cafe24.com/img/doc.jpg" alt="">
+                    <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/doc.jpg" alt="">
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">할인굿즈</h5>
                         <h1 class="mb-4 font-weight-semi-bold">다양한 제품</h1>
@@ -158,22 +158,22 @@
             <div class="col">
                 <div class="owl-carousel vendor-carousel">
                     <div class="vendor-item border p-4">
-                        <img src="http://itwillbs3.cdn1.cafe24.com/img/kyobo.png" width="120px" height="120px" alt="">
+                        <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/kyobo.png" width="120px" height="120px" alt="">
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="http://itwillbs3.cdn1.cafe24.com/img/yp.png" width="120px" height="120px" alt="">
+                        <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/yp.png" width="120px" height="120px" alt="">
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="http://itwillbs3.cdn1.cafe24.com/img/yes24.png" width="120px" height="120px" alt="">
+                        <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/yes24.png" width="120px" height="120px" alt="">
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="http://itwillbs3.cdn1.cafe24.com/img/aladin.png" width="120px" height="120px" alt="">
+                        <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/aladin.png" width="120px" height="120px" alt="">
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="http://itwillbs3.cdn1.cafe24.com/img/interpark.png" width="120px" height="120px" alt="">
+                        <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/interpark.png" width="120px" height="120px" alt="">
                     </div>
                     <div class="vendor-item border p-4">
-                        <img src="http://itwillbs3.cdn1.cafe24.com/img/amazon.png" width="120px" height="60px" alt="">
+                        <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/amazon.png" width="120px" height="60px" alt="">
                     </div>
                 </div>
             </div>
