@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="${pageContext.request.contextPath}/resources/img/daram.png" rel="shortcut icon" type="image/x-icon">
+<link href="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/daram.png" rel="shortcut icon" type="image/x-icon">
 <title>댕글댕글 : 가입완료</title>
 <%------------------- 임시 홈페이지 CSS -------------------%>
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
@@ -45,15 +45,15 @@
 	
 	<div align="center">
 		<h1>
-			<img src="${pageContext.request.contextPath}/resources/img/green_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath}/resources/img/brown_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath}/resources/img/gold_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="30" height="45">
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/green_Acon.png" width="20" height="25">
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/brown_Acon.png" width="20" height="25">
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/gold_Acon.png" width="20" height="25">
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/daram.png" width="30" height="45">
 			회원가입 완료!
-			<img src="${pageContext.request.contextPath}/resources/img/daram.png" width="30" height="45">
-			<img src="${pageContext.request.contextPath}/resources/img/gold_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath}/resources/img/brown_Acon.png" width="20" height="25">
-			<img src="${pageContext.request.contextPath}/resources/img/green_Acon.png" width="20" height="25">
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/daram.png" width="30" height="45">
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/gold_Acon.png" width="20" height="25">
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/brown_Acon.png" width="20" height="25">
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/green_Acon.png" width="20" height="25">
 		</h1>
 			<br>
 		<h3>
