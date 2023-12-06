@@ -22,7 +22,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="http://itwillbs3.cdn1.cafe24.com/img/favicon.ico" rel="icon">
+    <link href="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -73,7 +73,7 @@
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="./" class="text-decoration-none">
-                    <img alt="" src="http://itwillbs3.cdn1.cafe24.com/img/logo2.jpg" width="200" height="50">
+                    <img alt="" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/logo2.jpg" width="200" height="50">
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
