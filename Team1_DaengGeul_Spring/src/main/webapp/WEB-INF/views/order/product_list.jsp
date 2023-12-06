@@ -109,7 +109,7 @@
 	                    <div class="col-lg-3 col-md-6 col-sm-12 pb-1" style="width: 1005px;" class="prodList"> <!-- border: solid black 1px;  -->
 	                            <div class="card-header product-img bg-transparent border p-0" style=" display:flex;align-items: center; justify-content: center;">
 	                              <a href="ProductDetail?product_idx=${item.product_idx}&rank=${item.rank}">
-	                              	<img class="img-fluid" src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${item.img}" style="width: 300px; height: 320px; object-fit: cover;"></a>
+	                              	<img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/product/${item.img}" style="width: 300px; height: 320px; object-fit: cover;"></a>
 	                            </div>
 	                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
 	                            	<c:if test="${item.rank<5 && param.type eq 'B_best' && item.sel_count>0}">
