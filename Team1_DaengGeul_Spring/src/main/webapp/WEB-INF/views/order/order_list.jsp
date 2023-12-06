@@ -82,11 +82,11 @@
 										<td>현재 판매하지 않는 상품입니다. 상품 코드 : ${order.order_prod_list.get(0).idx}</td>
 									</c:when>
 									<c:when test="${order.order_prod_list.get(0).opt eq '-' }">
-										<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td>
+										<td><img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td>
 										<td>${order.order_prod_list.get(0).name}</td>
 									</c:when>
 									<c:otherwise>
-										<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td>
+										<td><img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(0).img}" width="100px;"></td>
 										<td>${order.order_prod_list.get(0).name}(옵션:${order.order_prod_list.get(0).opt})</td>
 									</c:otherwise>
 								</c:choose>
@@ -109,11 +109,11 @@
 										<td>현재 판매하지 않는 상품입니다. 상품 코드 : ${order.order_prod_list.get(i).idx}</td>
 									</c:when>
 									<c:when test="${order.order_prod_list.get(i).opt eq '-' }">
-										<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(i).img}" width="100px;"></td>
+										<td><img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(i).img}" width="100px;"></td>
 										<td>${order.order_prod_list.get(i).name}</td>
 									</c:when>
 									<c:otherwise>
-										<td><img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(i).img}" width="100px;"></td>
+										<td><img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/product/${order.order_prod_list.get(i).img}" width="100px;"></td>
 										<td>${order.order_prod_list.get(i).name}(옵션:${order.order_prod_list.get(i).opt})</td>
 									</c:otherwise>
 								</c:choose>
