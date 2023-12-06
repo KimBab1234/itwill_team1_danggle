@@ -37,7 +37,7 @@ $(function() {
 	<div style="height:auto; max-height:360px;  overflow: scroll;" class="recentList">
 	<c:forEach begin="1" end="${sessionScope.recentImgList.size()}" var="i">
 		<a href="ProductDetail?product_idx=${sessionScope.recentIdxList.toArray()[sessionScope.recentIdxList.size()-i]}">
-			<img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${sessionScope.recentImgList.toArray()[sessionScope.recentImgList.size()-i]}" style="width: 120px; height: 120px; object-fit: cover;" >
+			<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/product/${sessionScope.recentImgList.toArray()[sessionScope.recentImgList.size()-i]}" style="width: 120px; height: 120px; object-fit: cover;" >
 		</a>
 		<br>
 	</c:forEach>
