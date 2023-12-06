@@ -210,7 +210,7 @@ function countModify(sign) {
 	<!-- 상단 이미지, 큰 정보 감싸는 곳 -->
 		<div style="width: 1500px; margin-left: 50px;">
 			<form action="CartAdd.or" method= "post" style="display: flex; align-items: center;">
-				<img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product/${img}" style="width: 400px; margin-left: 200px">
+				<img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/product/${img}" style="width: 400px; margin-left: 200px">
 				<div class="mb-4 pt-2" style="text-align: left; width: 500px; align-content: center;  margin-left: 50px">
 					<input type="hidden" id="product_idx" value="${product.product_idx}">
 					<input type="hidden" id="price" value="${product.dis_price}">
@@ -299,7 +299,7 @@ function countModify(sign) {
 	                       </p>
 	                       <div align="center">
 	                       		<c:if test="${not empty product.detail_img}">
-			                       <img src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/img/product_detail/${product.detail_img}" style="width: 800px;">
+			                       <img src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/product_detail/${product.detail_img}" style="width: 800px;">
 	                       		</c:if>
 	                       </div>
 	                    </div>
