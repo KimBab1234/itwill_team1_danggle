@@ -84,7 +84,9 @@ public class JdbcUtil {
 	}
 	public static void close(ResultSet rs) {
 		try {
-			rs.close();
+			if(rs!=null){
+				rs.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
