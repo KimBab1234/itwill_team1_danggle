@@ -20,7 +20,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="http://itwillbs3.cdn1.cafe24.com/img/favicon.ico" rel="icon">
+    <link href="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -147,10 +147,10 @@
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" style="height: 410px;">
-                            <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/m1.PNG" alt="Image">
+                            <img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/m1.PNG" alt="Image">
                         </div>
                         <div class="carousel-item" style="height: 410px;">
-                            <img class="img-fluid" src="http://itwillbs3.cdn1.cafe24.com/img/m2.PNG" alt="Image">
+                            <img class="img-fluid" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/img/m2.PNG" alt="Image">
                         </div>
                     </div>
                     <div class="carousel-control-prev" >
