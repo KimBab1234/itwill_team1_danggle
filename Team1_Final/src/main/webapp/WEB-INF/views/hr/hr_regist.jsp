@@ -591,7 +591,7 @@ function execDaumPostcode() {
 						<c:if test="${param.empNo!=null}">
 							<span><c:choose>
 								<c:when test="${emp.PHOTO.length() >0}">
-									<img class="hrImg" src="https://itwill220823team1.s3.ap-northeast-2.amazonaws.com/profileImg/${emp.PHOTO}" width="150">
+									<img class="hrImg" src="https://itwill220823team12.s3.ap-northeast-2.amazonaws.com/profileImg/${emp.PHOTO}" width="150">
 								</c:when>
 								<c:otherwise>
 									사진 없음
